@@ -8,14 +8,17 @@ body {
   height: 10000000px;
 }
 
+
 nav {
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 10px 100px 0px 20px;
   align-items: center;
   min-height: 8vh;
   background-color: transparent;
-  position: sticky;
+  position: fixed;
+  width: 100vw;
+  z-index: 99999;
   top: 0;
   border-bottom: rgba(128, 128, 128, 0.312) 1px solid;
 }
@@ -66,6 +69,7 @@ nav .links li a::after {
   bottom: -5px;
   right: 50%;
 }
+
 nav .links li a:hover::after {
   width: 100%;
   right: 0;
@@ -75,4 +79,3 @@ nav .actions ul li:nth-child(2) {
   border-right: 2px solid #000;
   padding-right: 15px;
 }
-
