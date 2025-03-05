@@ -6,8 +6,8 @@
 
 body {
   height: 10000000px;
+  overflow-x: hidden;
 }
-
 
 nav {
   display: flex;
@@ -78,4 +78,100 @@ nav .links li a:hover::after {
 nav .actions ul li:nth-child(2) {
   border-right: 2px solid #000;
   padding-right: 15px;
+}
+
+.gender {
+  display: flex;
+  width: 100vw;
+  height: 100vh; /* Full screen height */
+  overflow: hidden; /* Prevents overflow */
+  position: relative;
+}
+
+.female,
+.male {
+  flex: 1;
+  position: relative;
+  transition: flex 0.5s ease-in-out; /* Smooth transition */
+  overflow: hidden;
+}
+
+.female img,
+.male img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out; /* Smooth image scaling */
+}
+
+.text-overlay {
+  text-transform: uppercase;
+  position: absolute;
+
+  top: -50px;
+  left: 35px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  color: white;
+  font-size: 42px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+}
+
+.title {
+  width: 470px;
+  height: 300px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  position: absolute;
+  z-index: 3;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  top: 300px;
+  left: 200px;
+}
+
+.title h1 {
+  font-size: 100px;
+}
+
+/* Hover effect - Fade and Slide Up */
+.female:hover .title,
+.male:hover .title {
+  transform: translateY(-20px); /* Moves title up slightly */
+}
+
+.female:hover,
+.male:hover {
+  flex: 3; /* Expand the hovered section*/
+}
+
+.female:hover img,
+.male:hover img {
+  transform: scale(1.1); /* Slightly enlarge the image */
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+}
+
+.quality{
+  display: flex;
+  position: relative;  /* Ensures child elements are positioned inside this */
+  width: 100%; /* Adjust as needed */
+  height: 500px; /* Set a height to see the effect */
+  background-color: lightgray; /* Just for visibility */
+}
+
+.quality-pic {
+  flex: 1;
+  width: 25%; /* Adjust as needed */
+  height: 25%;
+  top: 0;
+  right: 0;
 }
