@@ -80,45 +80,69 @@ nav .actions ul li:nth-child(2) {
   padding-right: 15px;
 }
 
+
+/*~~FOR HIM & FOR HER~~*/
+
 .gender {
-  display: flex;
-  width: 100vw;
-  height: 100vh; /* Full screen height */
-  overflow: hidden; /* Prevents overflow */
-  position: relative;
+  display: flex;  /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
+  width: 100vw;  /* Full screen Width (100% of the *viewport* width) */
+  height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
+  overflow: hidden;    /* Makes content disappear/hidden if they spill outside the container */
+  position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
 }
 
 .female,
 .male {
-  flex: 1;
-  position: relative;
-  transition: flex 0.5s ease-in-out; /* Smooth transition */
-  overflow: hidden;
+  flex: 1;  /* Each child takes 50% of the container (1:1 ratio) */
+  position: relative; /* Allows child elements (.text-overlay) to position themselves inside this container */
+  transition: all 0.5s ease-in-out; /* transition Speed + transition type -> Image Expanding*/
+  overflow: hidden; /* Hides anything that goes outside the section */
 }
 
 .female img,
 .male img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease-in-out; /* Smooth image scaling */
+  width: 100%;   /* Image takes the full width of its container */
+  height: 100%; /* Image takes the full height of its container */
+  object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
+ /* transition: transform 0.5s ease-in-out; /* Image Zoom in When Hovered. !?Remove?!  */ 
 }
 
-.text-overlay {
-  text-transform: uppercase;
-  position: absolute;
+.text-overlay button {
+  position: absolute; /* Positions button on top of the image */
+  background: transparent; /* Fully transparent background */
+  color: white; /* White text */ 
+  border: none; /* no borders */
+  padding: 13x 30px; /* Button Size */
+  font-size: 43px; /* Text Size */
+  cursor: pointer; /* Turns the mouse into a pointer */
+  text-transform: uppercase; /* Makes text all uppercase */
+  font-weight: bold;
+  font-weight: 400; /* Makes it extra bold */
+  font-family: "Bebas Neue";
+  letter-spacing: 2px; /* Spaced between the letters */
+  transition: 0.3s ease-in-out;
+  line-height: 39px; /* Height of the text */
+}
 
-  top: -50px;
-  left: 35px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  color: white;
-  font-size: 42px;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
+
+.female .text-overlay button {
+  /* Button sticks to the left bottom corner */
+  left: 10px; 
+  bottom: 10px;
+}
+.male .text-overlay button {
+  /* Button sticks to the left bottom corner */
+  right: 10px;
+  bottom: 10px;
+}
+
+
+.full-width {
+  width: 100%; /*Expands selected image to full width */
+}
+
+.hidden {
+  display: none; /* Hides the image completely */
 }
 
 .title {

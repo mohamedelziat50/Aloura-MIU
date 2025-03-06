@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aloura</title>
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome (Linking FootAwesome Website to our Code) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -14,15 +14,21 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS (Linking it to our Code) -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <!-- CSS Links -->
+
+    <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/style.css" />
+
+
+    <!-- JS Links (Connecting the JS file to this file) -->
+    <script src="./public/js/script.js"></script>
+  
   </head>
 
   <body>
@@ -48,8 +54,30 @@
       </div>
     </nav>
 
+
+    <!-- For Him & For Her Segment -->>
+    <div class="gender"> <!--Intialize Container (taking gender CSS container)-->
+      <div class="female"> <!--Intialize Container (taking female CSS container)-->
+        <img id="female-img" src="./public/img/360_F_195181339_ePYuyPfikdei1tQ6qg6ZJhcKMDlGkvLF.jpg" alt="For Her Fragrances"/>
+        <div class="text-overlay">
+          <button onclick="changeImages('female')">For Her</button> <!-- Creating Button with CSS text-overlay properties-->>
+        </div>
+      </div>
+    
+      <div class="male">
+        <img id="male-img" src="./public/img/images.jpeg" alt="For Him Fragrances" />
+        <div class="text-overlay">
+          <button onclick="changeImages('male')">For Him</button>
+        </div>
+        </div>
+      </div>
+
+
+<!--What is this?-->
     <div style="height: 100vh; display: flex; flex-direction: column">
-      <!-- Carousel -->
+      </div>
+
+      <!-- Carousel = BootStrap -->
       <div id="carouselExampleDark" class="carousel carousel-dark slide h-100">
         <div class="carousel-indicators">
           <button
@@ -116,7 +144,7 @@
           </div>
         </div>
 
-        <!-- Carousel Controls -->
+        <!-- Carousel Controls = BootStrap -->
         <button
           class="carousel-control-prev"
           type="button"
@@ -138,7 +166,8 @@
       </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap Carousel JS -->
+     <!-- PUT THIS IN script.js AND CALL IT HERE-->>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -149,21 +178,6 @@
         document.querySelector(".carousel-control-next").click();
       }, 4000);
     </script>
-
-    <div class="gender">
-      <div class="female">
-        <img
-          src="./public/img/360_F_195181339_ePYuyPfikdei1tQ6qg6ZJhcKMDlGkvLF.jpg"
-          alt="not found"
-        />
-        <div class="text-overlay"><a href="">For her</a></div>
-      </div>
-
-      <div class="male">
-        <img src="./public/img/images.jpeg" alt="not found" />
-        <div class="text-overlay"><a href="#">For him</a></div>
-      </div>
-    </div>
 
     <div class="quality">
       <div class="quality-pic">
