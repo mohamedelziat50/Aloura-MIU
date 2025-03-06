@@ -35,6 +35,8 @@
 
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/style.css" />
+    <!-- Navbar css in a seperate file to be called -->
+    <link rel="stylesheet" href="./public/css/nav-bar.css" /> 
 
 
     <!-- JS Links (Connecting the JS file to this file) -->
@@ -46,11 +48,12 @@
     <!-- Navbar -->
     <nav>
       <div class="logo">
-        <img src="public/img/logo.png" alt="Logo" />
+        <!-- Logo is a link to index.html -->
+        <a href="index.html"> <img src="public/img/logo.png" alt="Logo"/></a>
       </div>
       <div class="links">
         <ul>
-          <li><a href="#">Fragrances</a></li>
+          <li><a href="all-fragrances.html">Fragrances</a></li>
           <li><a href="#">Collections</a></li>
           <li><a href="#">Gifting</a></li>
           <li><a href="#">Our Story</a></li>
@@ -66,7 +69,7 @@
     </nav>
 
 
-    <!-- For Him & For Her Segment -->>
+    <!-- For Him & For Her Segment -->
     <div class="gender"> <!--Intialize Container (taking gender CSS container)-->
       <div class="female"> <!--Intialize Container (taking female CSS container)-->
         <img id="female-img" src="./public/img/360_F_195181339_ePYuyPfikdei1tQ6qg6ZJhcKMDlGkvLF.jpg" alt="For Her Fragrances"/>
@@ -178,7 +181,7 @@
     </div>
 
     <!-- Bootstrap Carousel JS -->
-     <!-- PUT THIS IN script.js AND CALL IT HERE-->>
+     <!-- PUT THIS IN script.js AND CALL IT HERE-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
