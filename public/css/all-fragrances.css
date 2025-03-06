@@ -1,0 +1,43 @@
+/* ALL FRAGRANCES Header */
+#header {
+    color: black;
+    font-weight: 100;
+    font-size: 64px; /* Added this line for 64px font size */
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Monotype Baskerville", serif;
+}
+
+/* Downloaded Font - Hosting it our self */
+@font-face {
+    font-family: "Monotype Baskerville";
+    src: url("./public/fonts/MT Baskerville ET W08 Roman.woff2") format("woff2"),
+         url("./public/fonts/MT Baskerville ET W08 Roman.woff") format("woff"),
+         url("./public/fonts/MT Baskerville ET W08 Roman.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+div.card {
+    width: 30%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+  }
+  
+  div.container {
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+#spicebomb-extreme:hover { 
+animation: spicebomb-extreme-animation infinite 2s ease-in-out
+}
+
+@keyframes spicebomb-extreme-animation {
+    50% { transform: translateY(30px) }
+}
+  
