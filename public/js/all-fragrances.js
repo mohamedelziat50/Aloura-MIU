@@ -6,12 +6,19 @@ mlElements.forEach(ml => {
     // Find the Closest .card-price Container to be used as reference later
     const cardPrice = ml.closest('.card-price');
 
+    const dropdownMenu = cardPrice.querySelector('.dropdown-menu');
+
     // Add a click event listener for every ml
     ml.addEventListener('click', (e) => {
         // Prevent the click from bubbling up to the document
         e.stopPropagation(); 
         // toggles the active class on the .card-price container. This class is used to show/hide the dropdown menu.
         cardPrice.classList.toggle('active');
+
+        // Reset display to block before fade-in animation
+        if (cardPrice.classList.contains('active')) {
+            dropdownMenu.style.display = 'block';
+        }
     });
 
     // Selects all elements with the class .dropdown-option inside the current .card-price container.
@@ -34,6 +41,13 @@ mlElements.forEach(ml => {
             // removes the active class from the .card-price container, hiding the dropdown menu.
             cardPrice.classList.remove('active'); // Hide dropdown after selection
         });
+    });
+
+     // Hide dropdown after fade-out animation completes
+    dropdownMenu.addEventListener('animationend', (e) => {
+        if (e.animationName === 'fadeOutTop') {
+            dropdownMenu.style.display = 'none'; // Hide the dropdown after animation
+        }
     });
 });
 

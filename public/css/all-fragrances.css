@@ -214,12 +214,38 @@
 /* END OF CARD RELATED */
 
 /* Animation related */
+/* Most of them from cssanimation.io */
+
 .card-image:hover { 
 animation: card-image-animation infinite 2s ease-in-out;
 }
 
 @keyframes card-image-animation {
     50% { transform: translateY(30px) }
+}
+
+/* Fade in animation used for drop down menu */
+@keyframes fadeInTop {
+  from {
+      opacity: 0;
+      transform: translateY(-10px); /* Adjust for a subtle fade-in */
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Fade out animation - drop down menu*/
+@keyframes fadeOutTop {
+  from {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  to {
+      opacity: 0;
+      transform: translateY(-10px); /* Adjust for a subtle fade-out */
+  }
 }
 
 /* WOBBLING EFFECT!!
@@ -237,7 +263,7 @@ animation: card-image-animation infinite 2s ease-in-out;
 
 /* Dropdown Menu */
 .dropdown-menu {
-  display: none; /* Hidden by default */
+  display: none; /* Always visible for animation purposes */
   position: absolute;
   background-color: white;
   border: 1px solid black;
@@ -248,6 +274,12 @@ animation: card-image-animation infinite 2s ease-in-out;
   box-sizing: border-box; /* Include padding and border in the width calculation */
   left: 20px; /* Align with the left padding of the parent */
   right: 20px; /* Align with the right padding of the parent */
+
+  /* For animation */
+  opacity: 0; /* Start hidden */
+  transform: translateY(-10px); /* Start slightly above */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  pointer-events: none; /* Disable interaction when hidden */
 }
 
 /* Dropdown Options */
@@ -277,7 +309,15 @@ background-color: #f1f1f1;
 
 /* Show dropdown menu when active */
 .card-price.active .dropdown-menu {
-display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Enable interaction when visible */
+    animation: fadeInTop 0.3s ease forwards;
+}
+
+/* Hide dropdown menu with fade-out animation */
+.card-price:not(.active) .dropdown-menu {
+  animation: fadeOutTop 0.3s ease forwards;
 }
 
 /* END OF DROP DOWN MENU RELATED */
