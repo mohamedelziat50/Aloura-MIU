@@ -8,9 +8,13 @@ nav {
     width: 100vw;
     z-index: 99999;
     /* min-height: 8vh; */
-    /* top: 0; */
-    /* border-bottom: rgba(128, 128, 128, 0.312) 1px solid; */
-    transition: background-color 0.4s ease-in-out; /* Smooth transition */
+    top: 0;
+    left: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    /* Initially hide the navbar with transparency */
+    opacity: 0;
+    /* Use transform to move it slightly up for a nicer animation */
+    transform: translateY(-20px);
   }
 
   nav:hover {
@@ -88,4 +92,10 @@ nav {
   nav .actions ul li:nth-child(2) {
     border-right: 2px solid #000;
     padding-right: 15px;
+  }
+
+  /* Class to show the navbar */
+  nav.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
