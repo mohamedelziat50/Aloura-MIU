@@ -19,20 +19,19 @@ function changeImages(gender) {
 
 document.addEventListener('DOMContentLoaded', function () {
   const nav = document.querySelector('nav');
-  let lastScrollY = window.scrollY; // Track the last scroll position
+  let lastScrollY = window.scrollY;
 
   window.addEventListener('scroll', function () {
     const currentScrollY = window.scrollY;
 
-    // Scrolling down
     if (currentScrollY > lastScrollY) {
-      nav.style.transform = 'translateY(-100%)'; // Hide the nav bar
-    }
-    // Scrolling up
-    else {
-      nav.style.transform = 'translateY(0)'; // Show the nav bar
+      nav.classList.add('hidden'); // Hide navbar when scrolling down
+      nav.classList.remove('nav-visible'); // Remove visibility class
+    } else {
+      nav.classList.remove('hidden'); // Reset hidden state
+      nav.classList.add('nav-visible'); // Show the whole navbar
     }
 
-    lastScrollY = currentScrollY; // Update the last scroll position
+    lastScrollY = currentScrollY;
   });
 });

@@ -11,10 +11,29 @@ nav {
   transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out; /* Add transform transition */
 }
 
-  nav:hover {
-    background-color: white;
+/* Hide navbar on scroll down */
+nav.hidden {
+  transform: translateY(-100%);
 }
 
+/* Show navbar when scrolling up */
+nav.nav-visible {
+  transform: translateY(0);
+  background-color: white; /* Ensure background appears */
+}
+
+  /* Show links and background when hovering */
+nav:hover,
+nav.nav-visible {
+  background-color: white;
+}
+
+/* Make links appear when hovering OR when scrolling up */
+nav:hover .links ul,
+nav.nav-visible .links ul {
+  opacity: 1;
+  visibility: visible;
+}
   
   nav .logo {
     width: 40px;
@@ -32,21 +51,22 @@ nav {
     margin-left: 100px; /* Move links to the right */
 
   }
+  
 
   /* hide links by default unless hovering up there */
-nav .links ul {
-  display: flex;
-  justify-content: space-around;
-  width: 40%;
-  list-style: none;
-  opacity: 0; /* Hide links */
-  visibility: hidden; /* Hide links */
-  gap: 40px;
-  text-transform: uppercase;
-  font-weight: normal;
-  font-size: 16px;
-  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out; /* Smooth transition */
-}
+  nav .links ul {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    gap: 40px;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 16px;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  }
 
 /* Show links on hover */
 nav:hover .links ul {
