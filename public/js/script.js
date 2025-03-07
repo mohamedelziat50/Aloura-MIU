@@ -16,3 +16,23 @@ function changeImages(gender) {
     femaleDiv.classList.add("hidden");
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const nav = document.querySelector('nav');
+  let lastScrollY = window.scrollY; // Track the last scroll position
+
+  window.addEventListener('scroll', function () {
+    const currentScrollY = window.scrollY;
+
+    // Scrolling down
+    if (currentScrollY > lastScrollY) {
+      nav.style.transform = 'translateY(-100%)'; // Hide the nav bar
+    }
+    // Scrolling up
+    else {
+      nav.style.transform = 'translateY(0)'; // Show the nav bar
+    }
+
+    lastScrollY = currentScrollY; // Update the last scroll position
+  });
+});
