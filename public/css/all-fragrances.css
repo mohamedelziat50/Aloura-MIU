@@ -1,3 +1,55 @@
+/* MIDDLE BAR RELATED For filtering*/
+
+.middle-links {
+  display: flex;
+  justify-content: center; /* Center the links horizontally */
+  padding: 10px 0; /* Smaller padding for a good look */
+  background-color: transparent;
+  width: 100%;
+  margin: auto; /* Center the block element */
+  transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
+}
+
+.middle-links:hover {
+  background-color: white; /* Change background on hover */
+}
+
+.middle-links ul {
+  display: flex;
+  justify-content: center; /* Center the links */
+  list-style: none; /*Without bullets*/
+  gap: 30px; /* Smaller gap between links */
+  text-transform: uppercase; 
+  font-weight: normal;
+  font-size: 14px; /* Smaller font size */
+  margin: 0;
+  padding: 0;
+}
+
+.middle-links li a {
+  text-decoration: none;
+  color: #000;
+  position: relative;
+}
+
+.middle-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px; /* Thinner underline */
+  background-color: rgb(0, 0, 0);
+  margin: 0 auto;
+  transition: 0.3s; /* Faster transition */
+  bottom: -3px; /* Adjust underline position */
+  right: 50%;
+}
+
+.middle-links li a:hover::after {
+  width: 100%;
+  right: 0;
+}
+/* END OF MIDDLE LINKS RELATED */
+
 /* ALL FRAGRANCES Header */
 #header {
     color: black;
@@ -29,7 +81,15 @@
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* 3 columns with equal width */
+  /* EXPLAINATION WITHOUT MEDIA QUERIES
+      repeat(): Repeats a pattern for columns or rows.
+      Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
+      auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there’s not enough space
+      Minimum width: 250px (columns won’t shrink below this).
+      Maximum width: 1fr (columns expand to fill extra space).
+ */
+
   gap: 10px; /* Space between cards */
 }
 
@@ -159,6 +219,18 @@ animation: card-image-animation infinite 2s ease-in-out;
     50% { transform: translateY(30px) }
 }
 
+/* WOBBLING EFFECT!!
+@keyframes card-image-animation {
+  0%, 100% { transform: translate(0, 0) rotate(0); } 
+  25% { transform: translate(-5px, -5px) rotate(-5deg); } 
+  50% { transform: translate(5px, 5px) rotate(5deg); } 
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+}
+*/
+
+/* DROP DOWN MENU RELATED coming soon*/
+
+/* Image scaling */
 #stronger-with-you img {
   scale: 0.9;
 }
@@ -167,7 +239,22 @@ animation: card-image-animation infinite 2s ease-in-out;
   scale: 1.1;
 }
 
-#spicebomb-extreme img
-{
+#spicebomb-extreme img {
   scale: 1.15;
+}
+
+#bleu-de-chanel img {
+  scale: 0.8;
+}
+
+#versace-eros-flame img {
+  scale: 1.1;
+}
+
+#valentino-born-in-roma img {
+  scale: 0.75;
+}
+
+#xerjoff-alexandria-2 img {
+  scale: 0.9;
 }

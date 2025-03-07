@@ -18,24 +18,30 @@
 
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/all-fragrances.css" />
-    <link rel="stylesheet" href="./public/css/navBar.css" />
-
-    <!-- JS Links (Connecting the JS file to this file) -->
-    <script src="./public/js/script.js"></script>
-  
   </head>
 
   <body>
+    <!-- Middle Links as Div-->
+    <div class="middle-links">
+      <ul>
+          <li><a href="all-fragrances.html">All Fragrances</a></li>
+          <li><a href="fragrances-for-women.html">For Women</a></li>
+          <li><a href="fragrances-for-men.html">For Men</a></li>
+          <li><a href="unisex-fragrances.html">Unisex</a></li>
+      </ul>
+    </div>
+
     <h1 id="header">All Fragrances</h1>
+    
 
     <!-- TESTING -->
 
     <!-- BIG CARDS CONTAINER -->
      <div class="cards-container">
-      <!-- Spice bomb container -->
+      <!-- 1. Spice bomb container -->
       <div class="card" id="spicebomb-extreme">
         <!-- Image -->
-        <img class="card-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" alt="Spicebomb Extreme" class="card-image">
+        <img class="card-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" alt="spicebomb-extreme picture" class="card-image">
       
         <!-- Title -->
         <h2 class="card-title">Spicebomb Extreme</h2>
@@ -46,9 +52,11 @@
         <!-- Mood -->
         <p class="card-mood">Floral, Musky, Woody</p>
       
-        <!-- Price + ml -->
+        <!-- Price + ml container -->
         <div class="card-price">
+          <!-- Price on the left -->
           <span class="price">270 €</span>
+          <!-- ML on the right -->
           <span class="ml">75ml</span>
         </div>
       
@@ -60,10 +68,10 @@
       </div>
       <!-- End of Spice bomb container -->
 
-      <!-- Versace eros container -->
+      <!-- 2. Versace eros container -->
       <div class="card" id="versace-eros">
         <!-- Image -->
-        <img class="card-image" src="./public/img/perfumes-transparent/versace-eros.png" alt="Spicebomb Extreme" class="card-image">
+        <img class="card-image" src="./public/img/perfumes-transparent/versace-eros.png" alt="versace-eros picture" class="card-image">
       
         <!-- Title -->
         <h2 class="card-title">Versace Eros</h2>
@@ -88,10 +96,10 @@
       </div>
       <!-- End Versace eros container -->
 
-      <!-- Ultra male container -->
+      <!-- 3. Ultra male container -->
       <div class="card" id="ultra-male">
         <!-- Image -->
-        <img class="card-image" src="./public/img/perfumes-transparent/ultra-male.png" alt="Spicebomb Extreme" class="card-image">
+        <img class="card-image" src="./public/img/perfumes-transparent/ultra-male.png" alt="ultra-male picture" class="card-image">
       
         <!-- Title -->
         <h2 class="card-title">Ultra Male</h2>
@@ -116,13 +124,13 @@
       </div>
       <!-- End of Ultra male container -->
 
-      <!-- Stronger with you container -->
+      <!-- 4. Stronger with you container -->
       <div class="card" id="stronger-with-you">
         <!-- Image -->
-        <img class="card-image" src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Spicebomb Extreme" class="card-image">
+        <img class="card-image" src="./public/img/perfumes-transparent/stronger-with-you.png" alt="stronger-with-you picture" class="card-image">
       
         <!-- Title -->
-        <h2 class="card-title">Versace Eros</h2>
+        <h2 class="card-title">Stronger with you</h2>
       
         <!-- Type -->
         <p class="card-type">Eau de Parfum</p>
@@ -142,7 +150,127 @@
         <!-- Add to Cart Button -->
         <button class="card-button">Add to Cart</button>
       </div>
-       <!-- End of Strong with you container -->
+       <!-- End of Stronger with you container -->
+
+       <!-- 5. Bleu de chanel container -->
+      <div class="card" id="bleu-de-chanel">
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/bleu-de-chanel.png" alt="bleu-de-chanel picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Bleu de chanel</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <!-- Price on the left -->
+          <span class="price">270 €</span>
+          <!-- ML on the right -->
+          <span class="ml">75ml</span>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of bleu de chanel container -->
+
+      <!-- 6. versace eros flame container -->
+      <div class="card" id="versace-eros-flame">
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/versace-eros-flame.png" alt="versace-eros-flame picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Versace eros flame</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <!-- Price on the left -->
+          <span class="price">270 €</span>
+          <!-- ML on the right -->
+          <span class="ml">75ml</span>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of versace eros flame container -->
+
+      <!-- 7. Valentino born in roma container -->
+      <div class="card" id="valentino-born-in-roma">
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/valentino-born-in-roma.png" alt="valentino-born-in-roma picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Valentino born in roma</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <!-- Price on the left -->
+          <span class="price">270 €</span>
+          <!-- ML on the right -->
+          <span class="ml">75ml</span>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of valentino born in roma container -->
+
+      <!-- 8. xerjoff alexandria 2 container -->
+      <div class="card" id="xerjoff-alexandria-2">
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/xerjoff-alexandria-2.png" alt="xerjoff-alexandria-2 picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Xerjoff alexandria II</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <!-- Price on the left -->
+          <span class="price">270 €</span>
+          <!-- ML on the right -->
+          <span class="ml">75ml</span>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of xerjoff alexandria 2 container -->
 
      </div>
      <!-- END OF BIG CARDS CONTAINER -->
