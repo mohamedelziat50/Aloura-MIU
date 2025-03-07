@@ -17,21 +17,29 @@ function changeImages(gender) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const nav = document.querySelector('nav');
+document.addEventListener("DOMContentLoaded", function () {
+  const nav = document.querySelector("nav");
   let lastScrollY = window.scrollY;
+  let isScrollingUp = false;
 
-  window.addEventListener('scroll', function () {
+  window.addEventListener("scroll", function () {
     const currentScrollY = window.scrollY;
 
     if (currentScrollY > lastScrollY) {
-      nav.classList.add('hidden'); // Hide navbar when scrolling down
-      nav.classList.remove('nav-visible'); // Remove visibility class
+      // Scrolling Down → Hide Navbar (Smoothly Moves Up)
+      if (!nav.classList.contains("hidden")) {
+        nav.classList.add("hidden");
+        nav.classList.remove("visible");
+      }
     } else {
-      nav.classList.remove('hidden'); // Reset hidden state
-      nav.classList.add('nav-visible'); // Show the whole navbar
+      // Scrolling Up → Show Navbar (Smoothly Moves Down)
+      if (!nav.classList.contains("visible")) {
+        nav.classList.add("visible");
+        nav.classList.remove("hidden");
+      }
     }
 
     lastScrollY = currentScrollY;
   });
 });
+
