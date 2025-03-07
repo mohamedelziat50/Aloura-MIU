@@ -230,7 +230,58 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: none; /* Removes any shadow */
 }
 
+ul{
+    list-style-type: none;
+}
 
+#description-title{
+    color: black;
+
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+
+}
+#description{
+     font-weight: 400; 
+    font-size: 17px;
+    font-family: "Monotype Baskerville", serif;
+
+}
+
+@media (max-width: 768px) {
+    /* Make the main container stack items vertically */
+    div {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    /* Ensure images fit the screen */
+    .card-image {
+        max-width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Center the price on smaller screens */
+    #price {
+        text-align: center;
+        float: none;
+        width: 100%;
+    }
+
+    /* Ensure radio buttons fit well */
+    .radio-label {
+        width: 90%;
+    }
+}
 
 
 /* h4 {
