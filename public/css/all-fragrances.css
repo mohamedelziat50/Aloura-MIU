@@ -108,7 +108,7 @@
 /* Card Image */
 .card-image {
   width: 100%; /* Image fills out the entire card */
-  height: auto; /* Auto determine the card's height */
+  height: 65%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
 }
 

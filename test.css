@@ -1,0 +1,185 @@
+/* Cards Container */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
+    /* EXPLAINATION WITHOUT MEDIA QUERIES
+        repeat(): Repeats a pattern for columns or rows.
+        Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
+        auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there’s not enough space
+        Minimum width: 250px (columns won’t shrink below this).
+        Maximum width: 1fr (columns expand to fill extra space).
+   */
+  
+    gap: 10px; /* Space between cards */
+  }
+  
+  /* Card Container */
+  .card {
+    width: auto; /* How much space the card takes up from a block, automatic and let the card-container grid handle it */
+    border: 1px solid #e0e0e0;
+    border-radius: 10px; /* Used for rounded corners */
+    overflow: hidden; /*Don't know yet*/
+    text-align: center; /* To allign all text in the center, has to be included */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
+    background-color: #fff;
+    margin: 25px; /* Space around the card*/
+    position: relative; /* Ensure dropdown is positioned relative to the card */
+  }
+
+  
+  /* Card Image */
+  .card-image {
+    width: 100%; /* Image fills out the entire card */
+    height: 65%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
+    background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
+  }
+  
+  /* Card Title */
+  .card-title {
+    color: black;
+  
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+  }
+  
+  /* Card Type */
+  .card-type {
+    color: #121212;
+  
+    font-weight: normal; /* Add this to make the font look think and clean */
+    opacity: 0.93;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: .5rem 0;
+    text-transform: uppercase;
+  }
+  
+  /* Card Mood */
+  .card-mood {
+    font-size: 14px;
+    color: #646464;
+    margin: 1rem 0; /* Space between mood & top/bottom */
+  }
+  
+  /* Price + ml */
+  .card-price {
+    display: flex;
+    justify-content: space-between; /* Justify with space between the elements on each end */
+    align-items: center;
+    padding: 0 20px; /* space between inner edges and the text */
+    margin: 10px 0; 
+    position: relative; /* Needed for absolute positioning of dropdown */
+  }
+  
+  /* Prices inside the card-price class */
+  .card-price .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* milliters inside the card-price class */
+  .card-price .ml {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Card Separator between add to cart*/
+  .card-separator {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 10px 20px;
+  }
+  
+  /* Add to Cart Button */
+  .card-button {
+    width: 80%;
+    padding: 10px;
+    margin: 20px;
+    margin-top: 10px; /* Bring the button closer to the line seperator*/
+  
+    font-weight: normal; /* Add this to make the font look think and clean */
+    font-size: 16px; /* Added this line for 64px font size */
+    font-family: "Monotype Baskerville", serif;
+    letter-spacing: .1em; /* Distance between letters for design */
+    line-height: 100%;
+    text-transform: uppercase;
+  
+    background-color: #fff;
+    color: #000;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    /* Animation */
+    transition: background-color 0.1s linear;
+  }
+  
+  /* Card hovering animation: change background and text color */
+  .card-button:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  /* END OF CARD RELATED */
+  
+  /* Animation related */
+  .card-image:hover { 
+  animation: card-image-animation infinite 2s ease-in-out;
+  }
+  
+  @keyframes card-image-animation {
+      50% { transform: translateY(30px) }
+  }
+  
+  /* WOBBLING EFFECT!!
+  @keyframes card-image-animation {
+    0%, 100% { transform: translate(0, 0) rotate(0); } 
+    25% { transform: translate(-5px, -5px) rotate(-5deg); } 
+    50% { transform: translate(5px, 5px) rotate(5deg); } 
+    75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  }
+  */
+
+  /* Dropdown Menu */
+  .dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    width: calc(100% - 40px); /* Account for padding in parent */
+    margin-top: 10px;
+    z-index: 1; /* Ensure it appears above other elements */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    left: 20px; /* Align with the left padding of the parent */
+    right: 20px; /* Align with the right padding of the parent */
+    }
+
+  /* Dropdown Options */
+  .dropdown-option {
+    padding: 10px;
+    font-size: 14px;
+    color: black;
+    cursor: pointer;
+    text-align: left;
+  }
+
+/* Hover effect for dropdown options */
+.dropdown-option:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown menu when active */
+.card-price.active .dropdown-menu {
+  display: block;
+}

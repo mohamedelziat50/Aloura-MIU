@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances">
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
+    <title>Fragrances - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
+
+    <!-- CSS Links (Connecting the CSS file to this file) -->
+    <link rel="stylesheet" href="test.css" />
+  </head>
+
+  <body>
+    <!-- TESTING -->
+
+    <!-- BIG CARDS CONTAINER -->
+     <div class="cards-container">
+      <!-- 1. Spice bomb container -->
+      <div class="card" id="spicebomb-extreme">
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" alt="spicebomb-extreme picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Spicebomb Extreme</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <!-- Price on the left -->
+          <span class="price">270 €</span>
+          <!-- ML on the right -->
+          <span class="ml">75ml</span>
+
+          <!-- Dropdown Menu -->
+            <div class="dropdown-menu">
+                <div class="dropdown-option" data-price="270 €" data-ml="75ml">270 € - 75ml</div>
+                <div class="dropdown-option" data-price="200 €" data-ml="50ml">200 € - 50ml</div>
+                <div class="dropdown-option" data-price="150 €" data-ml="30ml">150 € - 30ml</div>
+            </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of Spice bomb container -->
+
+     </div>
+     <!-- END OF BIG CARDS CONTAINER -->
+
+
+     <script>
+        // JavaScript for dropdown functionality
+        const cardPrices = document.querySelectorAll('.card-price');
+
+        cardPrices.forEach(cardPrice => {
+        // Toggle dropdown when clicking on the card-price div
+        cardPrice.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent the click from bubbling up to the document
+            cardPrice.classList.toggle('active');
+        });
+
+        // Handle dropdown option selection
+        const dropdownOptions = cardPrice.querySelectorAll('.dropdown-option');
+        dropdownOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent the click from bubbling up to the card-price div
+            const price = option.getAttribute('data-price');
+            const ml = option.getAttribute('data-ml');
+            cardPrice.querySelector('.price').textContent = price;
+            cardPrice.querySelector('.ml').textContent = ml;
+            cardPrice.classList.remove('active'); // Hide dropdown after selection
+            });
+        });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+        cardPrices.forEach(cardPrice => {
+            if (cardPrice.classList.contains('active')) {
+            cardPrice.classList.remove('active'); // Hide the dropdown
+            }
+        });
+        });
+      </script>
+     
+  </body>
+</html>
