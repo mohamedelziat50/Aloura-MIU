@@ -18,6 +18,8 @@
 
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/all-fragrances.css" />
+
+    <!-- JS Links (Connecting the JS file to this file) AT THE END OF BODY FOR ELEMENTS TO LOAD-->
   </head>
 
   <body>
@@ -54,10 +56,24 @@
       
         <!-- Price + ml container -->
         <div class="card-price">
-          <!-- Price on the left -->
           <span class="price">270 €</span>
-          <!-- ML on the right -->
-          <span class="ml">75ml</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
         </div>
       
         <!-- Separator -->
@@ -109,7 +125,7 @@
       
         <!-- Mood -->
         <p class="card-mood">Floral, Musky, Woody</p>
-      
+
         <!-- Price + ml -->
         <div class="card-price">
           <span class="price">300 €</span>
@@ -274,5 +290,8 @@
 
      </div>
      <!-- END OF BIG CARDS CONTAINER -->
+
+     <!-- Linking js at end of body to wait for everything to load! -->
+     <script src="public/js/all-fragrances.js"></script>
   </body>
 </html>

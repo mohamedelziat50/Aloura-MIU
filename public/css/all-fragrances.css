@@ -81,7 +81,7 @@
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* 3 columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* columns with equal width */
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
@@ -98,11 +98,12 @@
   width: auto; /* How much space the card takes up from a block, automatic and let the card-container grid handle it */
   border: 1px solid #e0e0e0;
   border-radius: 10px; /* Used for rounded corners */
-  overflow: hidden; /*Don't know yet*/
+  overflow: visible; /* Allow dropdown to extend outside the card */
   text-align: center; /* To allign all text in the center, has to be included */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
   background-color: #fff;
   margin: 25px; /* Space around the card*/
+  position: relative; /* Ensure dropdown is positioned relative to the card */
 }
 
 /* Card Image */
@@ -155,6 +156,7 @@
   align-items: center;
   padding: 0 20px; /* space between inner edges and the text */
   margin: 10px 0; 
+  position: relative; /* Needed for absolute positioning of dropdown */
 }
 
 /* Prices inside the card-price class */
@@ -168,6 +170,7 @@
 .card-price .ml {
   font-size: 14px;
   color: #666;
+  cursor: pointer;
 }
 
 /* Card Separator between add to cart*/
@@ -228,7 +231,56 @@ animation: card-image-animation infinite 2s ease-in-out;
 }
 */
 
-/* DROP DOWN MENU RELATED coming soon*/
+/* End of Animation related */
+
+/* DROP DOWN MENU RELATED */
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  width: calc(100% - 40px); /* Account for padding in parent */
+  top: 100%; /* Position at the bottom of the parent */
+  margin-top: 10px; /* Adjust spacing to align with the line separator */
+  z-index: 1; /* Ensure it appears above other elements */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  left: 20px; /* Align with the left padding of the parent */
+  right: 20px; /* Align with the right padding of the parent */
+}
+
+/* Dropdown Options */
+.dropdown-option {
+  display: flex;
+  justify-content: space-between; /* Align price and ml on opposite ends */
+  padding: 10px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Style for Dropdown Price and ML: */
+.dropdown-price {
+  font-weight: bold;
+  color: #333;
+}
+.dropdown-ml {
+  color: #666;
+}
+
+/* Hover effect for dropdown options */
+.dropdown-option:hover {
+background-color: #f1f1f1;
+}
+
+/* Show dropdown menu when active */
+.card-price.active .dropdown-menu {
+display: block;
+}
+
+/* END OF DROP DOWN MENU RELATED */
 
 /* Image scaling */
 #stronger-with-you img {
@@ -258,3 +310,5 @@ animation: card-image-animation infinite 2s ease-in-out;
 #xerjoff-alexandria-2 img {
   scale: 0.9;
 }
+
+/* End of Image scaling */
