@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances">
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
+    <title>Fragrances - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <link rel="stylesheet" href="./public/css/fragrances-page.css" />
+    
+</head>
+<body>
+        <h1 id="heading">Aloura</h1>
+
+        <div>
+            <img class="card-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" alt="Spicebomb Extreme" class="card-image">
+
+            <div>
+                <h2 id="perfumeName">Spicebomb Extreme</h2>
+                <br>
+                <h4 id="perfumeType">EAU DE PARFUM </h4>
+                <br>
+                <!-- Hidden radio button -->
+                <input type="radio" name="size" id="radio100ml" value="100ml" class="sizechart">
+                <label for="radio100ml" class="radio-label">100ml</label>
+
+                <!-- Hidden radio button -->
+                <input type="radio" name="size" id="radio50ml" value="50ml" class="sizechart">
+                <label for="radio50ml" class="radio-label">50ml</label>
+
+                <!-- Hidden radio button -->
+                <input type="radio" name="size" id="radio30ml" value="30ml" class="sizechart">
+                <label for="radio30ml" class="radio-label">30ml</label>
+
+
+
+                <h3 id="price">275 €</h3>
+                <br>
+                <br>
+                <button id="add-to-cart-button">Add to Cart</button>
+
+                <br>
+                <br>
+                <h3 id="notes">Notes:</h3>
+                <ul>
+                    <li><strong>Top:</strong> Lavender, enhanced with spices like cumin, cinnamon, and saffron.</li>
+                    <li><strong>Heart:</strong> Black pepper and saffron, adding warmth and depth.</li>
+                    <li><strong>Base:</strong> Tobacco, Bourbon vanilla, and subtle hints of amber, creating a rich and lasting finish.</li>
+                </ul>
+                
+                
+                <div class="gender-slider">
+                    <img src="./public/img/perfumes-transparent/female.png" alt="Female" class="gender-icon">
+                    <input type="range" min="0" max="100" value="70" id="genderRange" disabled>
+                    <img src="./public/img/perfumes-transparent/male.png" alt="Male" class="gender-icon">
+                </div>
+                <p id="genderLabel">For Men</p>
+                
+                
+                
+    
+            </div>
+
+        </div>
+      
+
+</body>
+</html>
