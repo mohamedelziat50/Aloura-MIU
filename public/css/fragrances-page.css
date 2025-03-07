@@ -104,7 +104,7 @@ h1 {
   transition: background-color 0.1s linear;
 }
 
-.buttons:hover, #add-to-cart-button:hover {
+ #add-to-cart-button:hover {
     background-color: rgb(250, 245, 245);
     color: rgb(0, 0, 0);
 }
@@ -124,7 +124,6 @@ input[type="radio"] {
     border-radius: 5px;
     transition: border-width 0.2s, transform 0.2s;
     display: inline-block;
-    text-align: center;
     margin: 5px;
     width: 28%; /* Adjust size as needed */
     text-align: center;
@@ -148,17 +147,6 @@ input[type="radio"]:checked + .radio-label {
     
     border-color: #000000;
 }
-/* 
-//add tikk when selected
-input[type="radio"]:checked + .radio-label::after {
-    content: "✔"; // Unicode checkmark 
-    font-size: 16px;
-    position: absolute;
-    right: 10px; //Adjust position
-    top: 50%;
-    transform: translateY(-50%);
- 
-} */
 
 #notes{
    color: black;
