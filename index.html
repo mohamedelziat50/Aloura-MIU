@@ -37,7 +37,7 @@
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/style.css" />
     <link rel="stylesheet" href="./public/css/navBar.css" />
-
+    <link rel="stylesheet" href="./public/css/fluid.css"/>
 
 
     <!-- JS Links (Connecting the JS file to this file) -->
@@ -46,6 +46,11 @@
   </head>
 
   <body>
+    <script src="./public/js/fluid/jquery.min.js"></script>
+    <script src="./public/js/fluid/fluid.min.js"></script>
+    <script src="./public/js/fluid/app.js"></script>
+
+    <canvas id="renderSurface"></canvas>
     <!-- Navbar -->
     <nav>
 
@@ -74,25 +79,32 @@
 
 
     <!-- For Him & For Her Segment -->
-    <div class="gender"> <!--Intialize Container (taking gender CSS container)-->
+<div class="gender">
+  <div class="text-overlay-indulge">INDULGE</div>
+  <div class="text-overlay-your">YOUR SENSES</div>
 
-      <div class="text-overlay-indulge">INDULGE</div>
-      <div class="text-overlay-your">YOUR SENSES</div>
+  <!-- For Her Section -->
+  <div class="female">
+    <div class="fluid-container">
+      <img id="female-img" src="./public/img/Perfumes.jpeg" alt="For Her Fragrances" />
+      <canvas id="female-canvas" class="fluid-canvas"></canvas> <!-- Canvas for fluid effect -->
+    </div>
+    <div class="text-overlay">
+      <button onclick="changeImages('female')">For Her</button>
+    </div>
+  </div>
 
-      <div class="female"> <!--Intialize Container (taking female CSS container)-->
-        <img id="female-img" src="./public/img/Perfumes.jpeg" alt="For Her Fragrances"/>
-        <div class="text-overlay">
-          <button onclick="changeImages('female')">For Her</button> <!-- Creating Button with CSS text-overlay properties-->>
-        </div>
-      </div>
-    
-      <div class="male">
-        <img id="male-img" src="./public/img/download.jpeg" alt="For Him Fragrances" />
-        <div class="text-overlay">
-          <button onclick="changeImages('male')">For Him</button>
-        </div>
-        </div>
-      </div>
+  <!-- For Him Section -->
+  <div class="male">
+    <div class="fluid-container">
+      <img id="male-img" src="./public/img/download.jpeg" alt="For Him Fragrances" />
+      <canvas id="male-canvas" class="fluid-canvas"></canvas> <!-- Canvas for fluid effect -->
+    </div>
+    <div class="text-overlay">
+      <button onclick="changeImages('male')">For Him</button>
+    </div>
+  </div>
+</div>
 
 
 <!--What is this?-->

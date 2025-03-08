@@ -1,0 +1,29 @@
+/* Fluid container (positioned relative to contain the image and canvas) */
+.fluid-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  /* Fluid canvas (positioned absolutely over the image) */
+  .fluid-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensure it's above the image */
+    pointer-events:all; /* Allow clicks to pass through to the image */
+    background: transparent;
+  }
+  
+  /* Image styling */
+  #female-img,
+  #male-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 0; /* Ensure it's below the fluid effect */
+  }
