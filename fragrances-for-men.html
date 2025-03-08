@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances">
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
+    <title>Men Fragrances - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
+
+    <!-- Same css as all-fragrances -->
+    <link rel="stylesheet" href="./public/css/all-fragrances.css" />
+
+    <!-- Over-riding specfic css here -->
+    <style>
+        .cards-container {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* 3 columns for non-all fragrances page */
+        }
+
+        .card-label {
+            background: #d4d4d4; /* Subtle steel gray */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+            color: #2b2b2b; /* Deep charcoal */
+        }
+
+        #valentino-born-in-roma img {
+            scale: 0.7;
+        }
+        #sauvage-dior img {
+            scale: 1.1;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Middle Links as Div-->
+    <div class="middle-links">
+      <ul>
+          <li><a href="all-fragrances.html">All Fragrances</a></li>
+          <li><a href="fragrances-for-women.html">For Women</a></li>
+          <li><a href="fragrances-for-men.html">For Men</a></li>
+          <li><a href="unisex-fragrances.html">Unisex</a></li>
+      </ul>
+    </div>
+
+    <h1 id="header">For Men</h1>
+    
+
+    <!-- TESTING -->
+
+    <!-- BIG CARDS CONTAINER -->
+     <div class="cards-container">
+      <!-- 1. khamrah container -->
+      <div class="card" id="khamrah">
+        <!-- Label -->
+        <div class="card-label">Classic</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/khamrah.png" alt="flower-bomb picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">khamrah</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of khamrah container -->
+
+      <!-- 2. savauge dior container -->
+      <div class="card" id="sauvage-dior">
+        <!-- Label -->
+        <div class="card-label">Suave</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/sauvauge-dior.png" alt="tom-ford-vanilla-sex picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Sauvage Dior</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End savauge container -->
+
+      <!-- 3. Valentino born in roma container -->
+      <div class="card" id="valentino-born-in-roma">
+         <!-- Label -->
+         <div class="card-label">Prestige</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/valentino-born-in-roma.png" alt="valentino-born-in-roma picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Valentino born in roma</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of valentino born in roma container -->
+
+     <!-- END OF BIG CARDS CONTAINER -->
+
+     <!-- Linking js at end of body to wait for everything to load! -->
+     <script src="public/js/all-fragrances.js"></script>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances">
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
+    <title>Unisex Fragrances - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
+
+    <!-- Same css as all-fragrances -->
+    <link rel="stylesheet" href="./public/css/all-fragrances.css" />
+
+    <!-- Over-riding specfic css here -->
+    <style>
+        .cards-container {
+          grid-template-columns: repeat(3, 1fr); /* Default: 3 columns */
+        }
+
+        .card-label {
+            background: #d4d4d4; /* Subtle steel gray */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+            color: #2b2b2b; /* Deep charcoal */
+        }
+
+        /* MEDIA QUERIES BEC. THERE ARE NOT ALOT OF UNISEX PERFUMES */
+        /* Medium screens (e.g., tablets) */
+        @media (max-width: 1024px) {
+          .cards-container {
+            grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns */
+          }
+        }
+
+        /* Small screens (e.g., mobile) */
+        @media (max-width: 600px) {
+          .cards-container {
+            grid-template-columns: repeat(1, 1fr); /* Switch to 1 column */
+          }
+        }
+
+        #xerjoff-erba-pura img {
+            scale: 0.85;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Middle Links as Div-->
+    <div class="middle-links">
+      <ul>
+          <li><a href="all-fragrances.html">All Fragrances</a></li>
+          <li><a href="fragrances-for-women.html">For Women</a></li>
+          <li><a href="fragrances-for-men.html">For Men</a></li>
+          <li><a href="unisex-fragrances.html">Unisex</a></li>
+      </ul>
+    </div>
+
+    <h1 id="header">Unisex</h1>
+    
+    <!-- TESTING -->
+
+    <!-- BIG CARDS CONTAINER -->
+     <div class="cards-container">
+      <!-- 1. xerjoff erba pura container -->
+      <div class="card" id="xerjoff-erba-pura">
+        <!-- Label -->
+        <!-- <div class="card-label">Classic</div> -->
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/xerjoff-erba-pura.png" alt="flower-bomb picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">xerjoff erba pura</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of xerjoff container -->
+
+
+     <!-- END OF BIG CARDS CONTAINER -->
+
+     <!-- Linking js at end of body to wait for everything to load! -->
+     <script src="public/js/all-fragrances.js"></script>
+  </body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances">
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
+    <title>Women Fragrances - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
+
+    <!-- Same css as all-fragrances -->
+    <link rel="stylesheet" href="./public/css/all-fragrances.css" />
+
+    <!-- Over-riding specfic css here -->
+    <style>
+        .cards-container {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* 3 columns for non-all fragrances page */
+        }
+
+        .card-label {
+            background: #f3e7e2; /* Soft pastel pink */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+            color: #5a3e36; /* Elegant deep brown */
+        }
+
+        #flower-bomb img {
+            scale: 0.8;
+        }
+        #scandal img {
+            scale: 0.9;
+        }
+        #burberry-her img {
+            scale: 0.8;
+        }
+        #tom-ford-vanilla-sex img {
+            scale: 0.8;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Middle Links as Div-->
+    <div class="middle-links">
+      <ul>
+          <li><a href="all-fragrances.html">All Fragrances</a></li>
+          <li><a href="fragrances-for-women.html">For Women</a></li>
+          <li><a href="fragrances-for-men.html">For Men</a></li>
+          <li><a href="unisex-fragrances.html">Unisex</a></li>
+      </ul>
+    </div>
+
+    <h1 id="header">For Women</h1>
+    
+
+    <!-- TESTING -->
+
+    <!-- BIG CARDS CONTAINER -->
+     <div class="cards-container">
+      <!-- 1. Spice bomb container -->
+      <div class="card" id="flower-bomb">
+        <!-- Label -->
+        <div class="card-label">Blossom</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/flower-bomb.png" alt="flower-bomb picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">flowerbomb</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of flower bomb container -->
+
+      <!-- 2. Tom container -->
+      <div class="card" id="tom-ford-vanilla-sex">
+        <!-- Label -->
+        <div class="card-label">Luxe</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/tom-ford-vanilla-sex.png" alt="tom-ford-vanilla-sex picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">Tom ford vanilla sex</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End tom container -->
+
+      <!-- 3. Scandal container -->
+      <div class="card" id="scandal">
+        <!-- Label -->
+        <div class="card-label">Grace</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/scandal.png" alt="scandal picture" class="card-image">
+      
+        <!-- Title -->
+        <h2 class="card-title">scandal</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+      
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">270 €</span>
+          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">270 €</span>
+              <span class="dropdown-ml">75ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End scandal container -->
+
+      <!-- 4. burberry her container -->
+      <div class="card" id="burberry-her">
+        <!-- Label -->
+        <div class="card-label">Enchant</div>
+        <!-- Image -->
+        <img class="card-image" src="./public/img/perfumes-transparent/burberry-her.png" alt="burberry-her picture" class="card-image">
+        <!-- Title -->
+        <h2 class="card-title">Burberry her</h2>
+      
+        <!-- Type -->
+        <p class="card-type">Eau de Parfum</p>
+      
+        <!-- Mood -->
+        <p class="card-mood">Floral, Musky, Woody</p>
+
+        <!-- Price + ml container -->
+        <div class="card-price">
+          <span class="price">300 €</span>
+          <span class="ml">100ml ▼</span> <!-- Added arrow here -->
+          
+          <!-- Dropdown Menu -->
+          <div class="dropdown-menu">
+            <div class="dropdown-option" data-price="270 €" data-ml="75ml">
+              <span class="dropdown-price">300 €</span>
+              <span class="dropdown-ml">100ml</span>
+            </div>
+            <div class="dropdown-option" data-price="200 €" data-ml="50ml">
+              <span class="dropdown-price">200 €</span>
+              <span class="dropdown-ml">50ml</span>
+            </div>
+            <div class="dropdown-option" data-price="150 €" data-ml="30ml">
+              <span class="dropdown-price">150 €</span>
+              <span class="dropdown-ml">30ml</span>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator -->
+        <hr class="card-separator">
+      
+        <!-- Add to Cart Button -->
+        <button class="card-button">Add to Cart</button>
+      </div>
+      <!-- End of burberry her  container -->
+
+     <!-- END OF BIG CARDS CONTAINER -->
+
+     <!-- Linking js at end of body to wait for everything to load! -->
+     <script src="public/js/all-fragrances.js"></script>
+  </body>
+</html>
