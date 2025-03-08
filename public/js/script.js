@@ -24,12 +24,17 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', function () {
     const currentScrollY = window.scrollY;
 
-    if (currentScrollY > lastScrollY) {
-      nav.classList.add('hidden'); // Hide navbar when scrolling down
-      nav.classList.remove('nav-visible'); // Remove visibility class
+    if (currentScrollY === 0) {
+      // If at the very top of the page, reset to the initial state
+      nav.classList.remove('nav-visible', 'hidden'); 
+    } else if (currentScrollY > lastScrollY) {
+      // Hide navbar when scrolling down
+      nav.classList.add('hidden');
+      nav.classList.remove('nav-visible');
     } else {
-      nav.classList.remove('hidden'); // Reset hidden state
-      nav.classList.add('nav-visible'); // Show the whole navbar
+      // Show navbar when scrolling up
+      nav.classList.remove('hidden');
+      nav.classList.add('nav-visible');
     }
 
     lastScrollY = currentScrollY;
