@@ -176,3 +176,12 @@ animation: card-image-animation infinite 2s ease-in-out;
 .custom-offcanvas {
   min-width: 600px !important; /* Adjust as needed */
 }
+
+
+.offcanvas-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
