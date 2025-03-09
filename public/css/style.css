@@ -9,7 +9,6 @@ body {
   overflow-x: hidden;
 }
 
-
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
@@ -20,47 +19,74 @@ body {
   position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
 }
 
-.female,
-.male {
-  flex: 1;  /* Each child takes 50% of the container (1:1 ratio) */
+.female , .male{
+  flex: 1; /* Each child takes 50% of the container (1:1 ratio) */
   position: relative; /* Allows child elements (.text-overlay) to position themselves inside this container */
   transition: all 0.5s ease-in-out; /* transition Speed + transition type -> Image Expanding*/
-  overflow: hidden; /* Hides anything that goes outside the section */
+  overflow: hidden; /* Hides anything that goes outside the section */  
 }
-
-.female img,
-.male img {
-  width: 100%;   /* Image takes the full width of its container */
+  
+.female img , .male img{  
+  width: 100%; /* Image takes the full width of its container */
   height: 100%; /* Image takes the full height of its container */
   object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
- /* transition: transform 0.5s ease-in-out; /* Image Zoom in When Hovered. !?Remove?!  */ 
+}
+
+  /* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
+.gender:hover .female , .gender:hover .male{ 
+  flex: 0.5;
+  filter: brightness(0.5);
+}
+  
+  /* override the above effect, making the hovered section expand and stay bright. */
+.gender .female:hover,  
+.gender .male:hover {
+  flex: 1.5;
+  filter: brightness(1); /* Restore brightness when hovered */
+}
+  
+  /* Hide "For Her" button when hovering over the male side and Vice Versa */
+.female:hover ~ .male .text-overlay button {
+  display: none;
+}
+  
+  /* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */  
+.gender:hover .female:not(:hover) .text-overlay button {  
+  display: none;
 }
 
 .text-overlay button {
-  position: absolute; /* Positions button on top of the image */
-  background: transparent; /* Fully transparent background */
-  color: white; /* White text */ 
-  border: none; /* no borders */
-  padding: 13x 30px; /* Button Size */
-  font-size: 43px; /* Text Size */
-  cursor: pointer; /* Turns the mouse into a pointer */
-  text-transform: uppercase; /* Makes text all uppercase */
-  font-weight: bold;
-  font-weight: 400; /* Makes it extra bold */
+  position: absolute;
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 13px 30px;
+  font-size: 43px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 400;
   font-family: "Bebas Neue";
-  letter-spacing: 2px; /* Spaced between the letters */
-  transition: 0.3s ease-in-out;
-  line-height: 39px; /* Height of the text */
+  letter-spacing: 2px;
+  line-height: 39px;
+  opacity: 0; /* Start invisible */
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none; /* Initially unclickable */
 }
 
+/* Show class that will be added by JavaScript */
+.text-overlay button.show {
+  opacity: 1;
+  transform: translateY(0);
+  /* JavaScript will enable pointer-events when ready */
+}
 
 .female .text-overlay button {
-  /* Button sticks to the left bottom corner */
-  left: 10px; 
+  left: 10px;
   bottom: 10px;
 }
+
 .male .text-overlay button {
-  /* Button sticks to the left bottom corner */
   right: 10px;
   bottom: 10px;
 }
@@ -71,7 +97,132 @@ body {
 }
 
 .hidden {
-  display: none; /* Hides the image completely */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Text Overlay Styles with consistent animation timing */
+.text-overlay-indulge, .text-overlay-your {
+  position: absolute;
+  color: rgb(238, 236, 236);
+  z-index: 10; 
+  pointer-events: none; 
+  font-weight: 650; 
+  transform: scale(1, 1.2) translateY(40px); /* Start position */
+  opacity: 0; /* Start invisible */
+  transition: opacity 0.8s ease, transform 0.8s ease; /* Match button transition */
+}
+
+.text-overlay-indulge {
+  top: 20%; 
+  left: 10%; 
+  font-size: 150px;
+}
+
+.text-overlay-your {
+  top: 45%; 
+  left: 23%; 
+  font-size: 150px;
+  white-space: nowrap; 
+}
+
+/* Show animations */
+.text-overlay-indulge.show,
+.text-overlay-your.show {
+  opacity: 1;
+  transform: scale(1, 1.2) translateY(0); /* End position */
+}
+
+/* Hover effect for text overlays */
+.gender:hover .text-overlay-indulge,
+.gender:hover .text-overlay-your {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Shrink text from bottom to top */
+  transform: translateY(-80px) scale(1, 1.2); /* Move text up */
+}
+
+
+.transition-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  z-index: 5;
+}
+
+.transition-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.transition-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.female, .male {
+  flex: 1; /* Start with equal width */
+  position: relative;
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother easing */
+  overflow: hidden;
+}
+
+/* Image styling - prevent zooming */
+.female img, .male img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintains aspect ratio without zooming */
+  object-position: center; /* Keeps image centered */
+  transition: transform 1.2s ease-out, opacity 1.2s ease-out;
+  transform: scale(1); /* Ensure no scaling by default */
+}
+
+/* Initial load state for images */
+.female img, .male img {
+  opacity: 0;
+}
+
+.female img {
+  transform: translateY(100%);
+}
+
+.male img {
+  transform: translateY(-100%);
+}
+
+.female img.loaded, .male img.loaded {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* When hovering the gender container, apply default state to both sides */
+.gender:hover .female,
+.gender:hover .male {
+  flex: 0.5; /* Shrink both sides by default on hover */
+  filter: brightness(0.6); /* Darken both sides */
+}
+
+/* Override for the hovered side */
+.gender .female:hover {
+  flex: 1.7; /* Grow significantly when hovered */
+  filter: brightness(1.05); /* Brighten slightly */
+}
+
+.gender .male:hover {
+  flex: 1.7; /* Grow significantly when hovered */
+  filter: brightness(1.05); /* Brighten slightly */
+}
+
+/* Important: Ensure images don't change scale when container resizes */
+.gender:hover .female img,
+.gender:hover .male img,
+.gender .female:hover img,
+.gender .male:hover img {
+  transform: scale(1); /* Prevent any scaling during hover */
 }
 
 .title {
@@ -114,20 +265,22 @@ a {
   right: 0;
 }
 
-/* Hover effect - Fade and Slide Up */
-.female:hover .title,
-.male:hover .title {
-  transform: translateY(-20px); /* Moves title up slightly */
+/* Initial states for text overlays */
+.text-overlay button,
+.text-overlay-indulge,
+.text-overlay-your {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition-delay: 1s; /* Delay until after images are loaded */
 }
 
-.female:hover,
-.male:hover {
-  flex: 3; /* Expand the hovered section */
-}
-
-.female:hover img,
-.male:hover img {
-  transform: scale(1.1); /* Slightly enlarge the image */
+/* Classes for when text is ready to show */
+.text-overlay button.show,
+.text-overlay-indulge.show,
+.text-overlay-your.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Text Overlay Styles */
@@ -141,7 +294,7 @@ a {
   font-size: 150px;
   font-weight: 650; 
   transform: scale(1, 1.2); /* Stretch vertically */
-  transition: clip-path 0.7s, transform 1s ; /* Add clip-path transition */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
@@ -156,7 +309,7 @@ a {
   font-weight: 650; 
   white-space: nowrap; 
   transform: scale(1, 1.2); /* Stretch vertically */
-  transition: clip-path 0.7s, transform 1s ; /* Add clip-path transition */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
@@ -173,5 +326,121 @@ a {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
   transform: translateY(0) scale(1, 1.2); /* Return text to original position */
 }
+
+/* Quality and 3D Model Section */
+.quality-model-section {
+  display: flex;
+  padding: 80px 5%;
+  background: linear-gradient(to right, #f8f8f8, #ffffff);
+}
+
+/* Quality Assurance Text */
+.quality-assurance {
+  flex: 1;
+  padding-right: 60px;
+}
+
+.quality-assurance h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.quality-assurance h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #000;
+}
+
+.quality-assurance p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.learn-more-btn:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+/* 3D Model Container */
+.model-container {
+  flex: 1;
+  max-width: 500px;
+  text-align: center;
+}
+
+.model-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+#model-viewer {
+  width: 100%;
+  height: 400px;
+  background: #f1f1f1;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.interaction-hint {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #777;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .quality-model-section {
+    flex-direction: column;
+    padding: 60px 5%;
+  }
+  
+  .quality-assurance {
+    padding-right: 0;
+    margin-bottom: 50px;
+  }
+  
+  .model-container {
+    max-width: 100%;
+  }
+}
+
+/* Text overlay visibility changes on hover */
+.gender:hover .female:not(:hover) .text-overlay button,
+.gender:hover .male:not(:hover) .text-overlay button {
+  opacity: 0.3; /* Still slightly visible on non-hovered side */
+  transform: translateY(10px);
+}
+
+.gender .female:hover .text-overlay button,
+.gender .male:hover .text-overlay button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 

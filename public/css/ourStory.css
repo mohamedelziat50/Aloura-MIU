@@ -1,0 +1,85 @@
+/* Grey Background Section */
+.grey-section {
+    background-color: #141313; /* Dark grey background */
+    padding: 140px 20px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height */
+  }
+  
+  /* Center text and video properly */
+  .grey-content {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Space between text and video */
+  }
+  
+/* Make canvas cover the full grey section */
+#grey-fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  opacity: 0.4;
+  z-index: 1; /* Behind the text & video */
+  pointer-events: all; /* Allow interactions with other elements */
+}
+
+  /* Heading and Paragraph */
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px; /* Adjust as needed */
+  }
+  
+  .grey-content h2 {
+    font-size: 550%;
+    color: white;
+    position: relative;
+    top: -150px;
+    left:-230px;
+    transform: scale(0.5);
+    transition: transform 3s ease-out;
+  }
+  
+  .grey-content h2.visible {
+    transform: scale(1);
+  }
+  
+  .grey-content p {
+    font-size: 120%;
+    color: rgb(255, 255, 255);
+    text-align: left;
+    position: relative;
+    top: 40px;
+    left: -200px;
+    color: rgb(168, 164, 164);
+  }
+  
+  /* Video Styling */
+  .grey-video {
+    width: 25vw; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    top: -70px;
+    left: 200px;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  }
+  
+  
+  /* Glow Effect for "Eternity" */
+  .glow {
+    opacity: 0; /* Start invisible */
+    transition: opacity 3s ease-out, text-shadow 3s ease-out; /* Smooth effect */
+  }
+  
+  .glow.visible {
+    opacity: 1; /* Fully visible when scrolled into view */
+    text-shadow: 0 0 5px #fdb36e, 0 0 10px #f39e27, 0 0 1px #e2955e, 0 0 1px #f78a4f, 0 0 1px #f29430, 0 0 1px #cdd55e, 0 0 40px #eba728, 0 0 50px #efe888; /* Glow effect */
+  }

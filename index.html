@@ -50,7 +50,6 @@
     <nav>
 
       <div class="logo">
-        <!-- Logo is a link to index.html -->
         <a href="index.html"> <img src="public/img/logo.png" alt="Logo"/></a>
       </div>
 
@@ -59,7 +58,7 @@
           <li><a href="all-fragrances.html">Fragrances</a></li>
           <li><a href="#">Collections</a></li>
           <li><a href="#">Gifting</a></li>
-          <li><a href="#">Our Story</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
         </ul>
       </div>
 
@@ -75,27 +74,47 @@
 
     <!-- For Him & For Her Segment -->
     <div class="gender"> <!--Intialize Container (taking gender CSS container)-->
-
       <div class="text-overlay-indulge">INDULGE</div>
       <div class="text-overlay-your">YOUR SENSES</div>
 
       <div class="female"> <!--Intialize Container (taking female CSS container)-->
         <img id="female-img" src="./public/img/Perfumes.jpeg" alt="For Her Fragrances"/>
         <div class="text-overlay">
-          <button onclick="changeImages('female')">For Her</button> <!-- Creating Button with CSS text-overlay properties-->>
+          <button onclick="changeImages('female')">For Her</button> <!-- Creating Button with CSS text-overlay properties-->
         </div>
       </div>
     
       <div class="male">
-        <img id="male-img" src="./public/img/474b20670228dadb245238bd3c5c51a7.jpg" alt="For Him Fragrances" />
+        <img id="male-img" src="./public/img/download.jpeg" alt="For Him Fragrances" />
         <div class="text-overlay">
           <button onclick="changeImages('male')">For Him</button>
         </div>
-        </div>
       </div>
 
+      <div class="transition-container">
+        <img id="transition-img" src="" alt="Transition Image" />
+      </div>
+    </div>
 
-<!--What is this?-->
+    <!-- After the gender container -->
+    <div class="quality-model-section">
+      <div class="quality-assurance">
+        <h2>Quality Assurance</h2>
+        <p>At Aloura, we are committed to excellence in every fragrance we create. Each bottle represents our dedication to quality and craftsmanship.</p>
+        <p>Our perfumes undergo rigorous testing to ensure they meet the highest standards. From ingredient selection to final packaging, every step in our process is carefully monitored by our team of expert perfumers.</p>
+        <p>We source only the finest natural and synthetic ingredients from trusted suppliers around the world. Our commitment to sustainability means we prioritize environmentally responsible practices throughout our production process.</p>
+        <p>When you choose Aloura, you're not just buying a fragrance – you're experiencing the culmination of artistry, science, and passion.</p>
+        <a href="#" class="learn-more-btn">Learn More</a>
+      </div>
+      
+      <div class="model-container">
+        <h3>Experience Our Craft</h3>
+        <div id="model-viewer"></div>
+        <p class="interaction-hint">Click and drag to rotate</p>
+      </div>
+    </div>
+
+    <!--What is this?-->
     <div style="height: 100vh; display: flex; flex-direction: column">
       </div>
 
@@ -206,5 +225,11 @@
         <img src="./public/img/DSC01509.png" alt="" />
       </div>
     </div>
+
+    <!-- Before the closing body tag -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="./public/js/3dmodel.js"></script>
   </body>
 </html>
