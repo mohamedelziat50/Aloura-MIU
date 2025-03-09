@@ -172,7 +172,7 @@
 .card-mood {
   font-size: 14px;
   color: #646464;
-  margin: 1rem 0; /* Space between mood & top/bottom */
+  margin: 0.7rem 0; /* Space between mood & top/bottom */
 }
 
 /* Price + ml */
@@ -181,7 +181,7 @@
   justify-content: space-between; /* Justify with space between the elements on each end */
   align-items: center;
   padding: 0 20px; /* space between inner edges and the text */
-  margin: 10px 0; 
+  margin: 1px 0; 
   position: relative; /* Needed for absolute positioning of dropdown */
 }
 
