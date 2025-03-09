@@ -149,7 +149,19 @@ a {
   letter-spacing: 0.1em;
 }
 
-/* uncomment for the login and sign up desing and add these*/
+.forgot-password {
+  font-size: 0.9rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  text-decoration: none;
+  border-bottom: black solid 1px;
+}
+.forgot-password:hover {
+  color: blue;
+  border-bottom: blue solid 1px;
+}
+
+/* uncomment for the login and sign up desing*/
 
 /* .loginButton {
   font-weight: normal;
