@@ -132,11 +132,22 @@
   cursor: default; /* Ensures no cursor change */
 } 
 
+/* Card Image Container */
+.card-image-container {
+  width: 100%; /* Container Matches the card width */
+  height: 100%; /* Container Matches the card height untill it reaches the card title */
+  top: 0; /* Aligns it with the card */
+  left: 0;
+  z-index: 2; /* Ensures it remains interactive */
+  cursor: pointer; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
+}
+
 /* Card Image */
 .card-image {
   width: 100%; /* Image fills out the entire card */
-  height: 65%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
+  height: 100%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
+  pointer-events: none; /* Make sure that only the card image container is the only one clickable since image goes out of the card and will mess the click up */
 }
 
 /* Card Title */
@@ -242,8 +253,14 @@
 /* Animation related */
 /* Most of them from cssanimation.io */
 
+/* REMOVED HOVERING IMAGE WITH HOVERING CONTAINER IMAGE
 .card-image:hover { 
 animation: card-image-animation infinite 2s ease-in-out;
+}
+*/
+/* Now hovering over the image inside the container is what causes the hover! */
+.card-image-container:hover .card-image {
+  animation: card-image-animation infinite 2s ease-in-out;
 }
 
 @keyframes card-image-animation {
