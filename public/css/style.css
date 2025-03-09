@@ -9,7 +9,6 @@ body {
   overflow-x: hidden;
 }
 
-
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
@@ -173,5 +172,6 @@ a {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
   transform: translateY(0) scale(1, 1.2); /* Return text to original position */
 }
+
 
 
