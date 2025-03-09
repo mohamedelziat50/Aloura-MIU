@@ -72,3 +72,52 @@ document.addEventListener('click', () => {
         }
     });
 });
+
+// ==================== New Filter Button Code ====================
+// LITERALLY SAME CODE AS ABOVE, BUT WE CHANGE ONLY A SINGLE BUTTON'S TEXT, NOT PRICE + ML
+// Select the filter button and its container
+const filterButton = document.querySelector('.filter-button');
+const filterContainer = document.querySelector('.filter-container');
+const dropdownMenuFilter = filterContainer.querySelector('.dropdown-menu-filter');
+
+// Toggle dropdown menu on filter button click
+filterButton.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent the click from bubbling up to the document
+  filterContainer.classList.toggle('active');
+
+  // Reset display to block before fade-in animation
+  if (filterContainer.classList.contains('active')) {
+    dropdownMenuFilter.style.display = 'block';
+  }
+});
+
+// Add click event listeners to each dropdown option
+const dropdownOptionsFilter = filterContainer.querySelectorAll('.dropdown-option-filter');
+dropdownOptionsFilter.forEach(option => {
+  option.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up to the filter container
+
+    // Get the selected value
+    const value = option.getAttribute('data-value');
+
+    // Update the filter button text with the selected value
+    filterButton.textContent = `${value} ▼`;
+
+    // Hide the dropdown after selection
+    filterContainer.classList.remove('active');
+  });
+});
+
+// Hide dropdown after fade-out animation completes
+dropdownMenuFilter.addEventListener('animationend', (e) => {
+  if (e.animationName === 'fadeOutTop') {
+    dropdownMenuFilter.style.display = 'none'; // Hide the dropdown after animation
+  }
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', () => {
+  if (filterContainer.classList.contains('active')) {
+    filterContainer.classList.remove('active'); // Hide the dropdown
+  }
+});
