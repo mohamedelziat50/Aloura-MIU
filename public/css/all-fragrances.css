@@ -405,7 +405,7 @@ background-color: #f1f1f1;
   width: 200px;
   top: 100%;
   margin-top: 10px;
-  z-index: 1;
+  z-index: 3; /* Z INDEX 3 MEANS THAT IT WILL BE SUPERIOR AS TO BRING TO FRONT LIKE IN PPT/IMAGESS: HIGHER IS BETTER: Greater z index than the image container*/
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
