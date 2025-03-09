@@ -1,3 +1,4 @@
+// REFERENCE: https://www.youtube.com/watch?v=1TeMXIWRrqE
 // 3D Model Viewer
 document.addEventListener('DOMContentLoaded', function() {
   // Wait for everything to load before initializing 3D
@@ -62,7 +63,7 @@ function initModel() {
   // Load a 3D model
   const loader = new THREE.GLTFLoader();
   loader.load(
-    './public/models/bleu_de_chanel_perfume..glb',
+    './public/models/bleu_de_chanel_perfume.glb',
     function(gltf) {
       const model = gltf.scene;
       

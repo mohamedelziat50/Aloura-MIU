@@ -35,13 +35,15 @@
     />
 
     <!-- CSS Links (Connecting the CSS file to this file) -->
-    <link rel="stylesheet" href="./public/css/style.css" />
     <link rel="stylesheet" href="./public/css/navBar.css" />
     <link rel="stylesheet" href="./public/css/ourStory.css" />
 
 
 
     <!-- JS Links (Connecting the JS file to this file) -->
+    <script src="./public/js/fluidEffect/jquery.min.js"></script>
+    <script src="./public/js/fluidEffect/fluid.min.js"></script>
+    <script src="./public/js/fluidEffect/app.js"></script>
     <script src="./public/js/script.js"></script>
   
   </head>
@@ -74,27 +76,23 @@
 
 
     <!-- Grey Background Section -->
-<div class="grey-section">
-    <div class="grey-content">
-      
-      <!-- Text Container -->
-      <div class="text-container">
-        <h2>Scent. Elegance. <br><span class="glow">Eternity.</span></h2>
-        <p>Crafted with the finest essences, our fragrances embody the perfect balance of strength and elegance. 
-        Each scent is meticulously blended to evoke timeless sophistication, <b>leaving a lasting impression.</b> With exquisite 
-        notes that unfold beautifully over time,<b> our collection redefines luxury</b>, offering a fragrance experience that is as bold as it is unforgettable.</p>
-        
+    <div class="grey-section">
+      <!-- Canvas for Fluid Effect -->
+      <canvas id="grey-fluid-canvas"></canvas>
+  
+      <div class="grey-content">
+          <div class="text-container">
+              <h2>Scent. Elegance. <br><span class="glow">Eternity.</span></h2>
+              <p>Crafted with the finest essences, our fragrances embody the perfect balance of strength and elegance.</p>
+          </div>
+  
+          <!-- Video Element -->
+          <video class="grey-video" autoplay muted loop>
+              <source src="./public/img/f98b57e9520b0edf8c33063230c63fc6.mp4" type="video/mp4">
+          </video>
       </div>
-  
-      <!-- Video Element -->
-      <video class="grey-video" autoplay muted loop>
-        <source src="./public/img/f98b57e9520b0edf8c33063230c63fc6.mp4" type="video/mp4">
-      </video>
-  
-      
-
-
-    </div>
   </div>
+  
+
 </body>
 </html>
