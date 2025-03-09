@@ -1,3 +1,55 @@
+/* MIDDLE BAR RELATED For filtering*/
+
+.middle-links {
+  display: flex;
+  justify-content: center; /* Center the links horizontally */
+  padding: 10px 0; /* Smaller padding for a good look */
+  background-color: transparent;
+  width: 100%;
+  margin: auto; /* Center the block element */
+  transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
+}
+
+.middle-links:hover {
+  background-color: white; /* Change background on hover */
+}
+
+.middle-links ul {
+  display: flex;
+  justify-content: center; /* Center the links */
+  list-style: none; /*Without bullets*/
+  gap: 30px; /* Smaller gap between links */
+  text-transform: uppercase; 
+  font-weight: normal;
+  font-size: 14px; /* Smaller font size */
+  margin: 0;
+  padding: 0;
+}
+
+.middle-links li a {
+  text-decoration: none;
+  color: #000;
+  position: relative;
+}
+
+.middle-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px; /* Thinner underline */
+  background-color: rgb(0, 0, 0);
+  margin: 0 auto;
+  transition: 0.3s; /* Faster transition */
+  bottom: -3px; /* Adjust underline position */
+  right: 50%;
+}
+
+.middle-links li a:hover::after {
+  width: 100%;
+  right: 0;
+}
+/* END OF MIDDLE LINKS RELATED */
+
 /* ALL FRAGRANCES Header */
 #header {
     color: black;
@@ -29,7 +81,15 @@
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* columns with equal width */
+  /* EXPLAINATION WITHOUT MEDIA QUERIES
+      repeat(): Repeats a pattern for columns or rows.
+      Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
+      auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there’s not enough space
+      Minimum width: 250px (columns won’t shrink below this).
+      Maximum width: 1fr (columns expand to fill extra space).
+ */
+
   gap: 10px; /* Space between cards */
 }
 
@@ -38,17 +98,44 @@
   width: auto; /* How much space the card takes up from a block, automatic and let the card-container grid handle it */
   border: 1px solid #e0e0e0;
   border-radius: 10px; /* Used for rounded corners */
-  overflow: hidden; /*Don't know yet*/
+  overflow: visible; /* Allow dropdown to extend outside the card */
   text-align: center; /* To allign all text in the center, has to be included */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
   background-color: #fff;
   margin: 25px; /* Space around the card*/
+  position: relative; /* Ensure dropdown is positioned relative to the card */
 }
+
+/* Card Label */
+.card-label {
+  position: absolute; /* Position the label absolutely (top left so it can have other stuff on it) within the card */
+  height: auto;
+
+  top: 1%; /* Align to the top of the card */
+  left: 1.5%; /* Align to the left of the card */
+  padding: 7.5px; /* Padding for spacing */
+  border-radius: 5px;
+  font-size: 12px;
+
+  background: black;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
+
+  color: #f5f5f5;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif; /* More modern font */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  text-transform: uppercase; /* Uppercase text */
+
+  pointer-events: none; /* Completely disables interaction */
+  cursor: default; /* Ensures no cursor change */
+} 
 
 /* Card Image */
 .card-image {
   width: 100%; /* Image fills out the entire card */
-  height: auto; /* Auto determine the card's height */
+  height: 65%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
 }
 
@@ -95,6 +182,7 @@
   align-items: center;
   padding: 0 20px; /* space between inner edges and the text */
   margin: 10px 0; 
+  position: relative; /* Needed for absolute positioning of dropdown */
 }
 
 /* Prices inside the card-price class */
@@ -108,6 +196,7 @@
 .card-price .ml {
   font-size: 14px;
   color: #666;
+  cursor: pointer;
 }
 
 /* Card Separator between add to cart*/
@@ -151,6 +240,8 @@
 /* END OF CARD RELATED */
 
 /* Animation related */
+/* Most of them from cssanimation.io */
+
 .card-image:hover { 
 animation: card-image-animation infinite 2s ease-in-out;
 }
@@ -159,6 +250,181 @@ animation: card-image-animation infinite 2s ease-in-out;
     50% { transform: translateY(30px) }
 }
 
+/* Fade in animation used for drop down menu */
+@keyframes fadeInTop {
+  from {
+      opacity: 0;
+      transform: translateY(-10px); /* Adjust for a subtle fade-in */
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Fade out animation - drop down menu*/
+@keyframes fadeOutTop {
+  from {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  to {
+      opacity: 0;
+      transform: translateY(-10px); /* Adjust for a subtle fade-out */
+  }
+}
+
+/* WOBBLING EFFECT!!
+@keyframes card-image-animation {
+  0%, 100% { transform: translate(0, 0) rotate(0); } 
+  25% { transform: translate(-5px, -5px) rotate(-5deg); } 
+  50% { transform: translate(5px, 5px) rotate(5deg); } 
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+}
+*/
+
+/* End of Animation related */
+
+/* DROP DOWN MENU RELATED */
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none; /* Always visible for animation purposes */
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  width: calc(100% - 40px); /* Account for padding in parent */
+  top: 100%; /* Position at the bottom of the parent */
+  margin-top: 10px; /* Adjust spacing to align with the line separator */
+  z-index: 1; /* Ensure it appears above other elements */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  left: 20px; /* Align with the left padding of the parent */
+  right: 20px; /* Align with the right padding of the parent */
+
+  /* For animation */
+  opacity: 0; /* Start hidden */
+  transform: translateY(-10px); /* Start slightly above */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  pointer-events: none; /* Disable interaction when hidden */
+}
+
+/* Dropdown Options */
+.dropdown-option {
+  display: flex;
+  justify-content: space-between; /* Align price and ml on opposite ends */
+  padding: 10px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Style for Dropdown Price and ML: */
+.dropdown-price {
+  font-weight: bold;
+  color: #333;
+}
+.dropdown-ml {
+  color: #666;
+}
+
+/* Hover effect for dropdown options */
+.dropdown-option:hover {
+background-color: #f1f1f1;
+}
+
+/* Show dropdown menu when active */
+.card-price.active .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Enable interaction when visible */
+    animation: fadeInTop 0.3s ease forwards;
+}
+
+/* Hide dropdown menu with fade-out animation */
+.card-price:not(.active) .dropdown-menu {
+  animation: fadeOutTop 0.3s ease forwards;
+}
+
+/* END OF DROP DOWN MENU RELATED */
+
+/* DROP DOWN MENU OF FILTERS RELATED */
+
+/* Filter Container */
+.filter-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 1.5rem; /* Add relative margin to the left to work on different devices*/
+}
+
+/* Filter Button */
+.filter-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 7px 17px; /* Space around the text itself */
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Speed at which transitions happen for the background-color for example hovering*/
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* To match rest of page's font style! */
+  font-weight: 400;
+  line-height: 1.8rem;
+  font-size: 0.8rem;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
+
+.filter-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown Menu of filters*/
+.dropdown-menu-filter {
+  display: none;
+  position: absolute; /* Removing this will cause the drop-down menu to push all cards/entire page down! Absolute meaning it can have other elements on it */
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 200px;
+  top: 100%;
+  margin-top: 10px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Dropdown Options */
+.dropdown-option-filter {
+  padding: 10px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-option-filter:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown menu when active */
+.filter-container.active .dropdown-menu-filter {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: fadeInTop 0.3s ease forwards;
+}
+
+/* Hide dropdown menu with fade-out animation */
+.filter-container:not(.active) .dropdown-menu-filter {
+  animation: fadeOutTop 0.3s ease forwards;
+}
+
+/* END OF DROP DOWN MENU OF FILTERS RELATED */
+
+/* Image scaling */
 #stronger-with-you img {
   scale: 0.9;
 }
@@ -167,10 +433,27 @@ animation: card-image-animation infinite 2s ease-in-out;
   scale: 1.1;
 }
 
-#spicebomb-extreme img
-{
+#spicebomb-extreme img {
   scale: 1.15;
 }
+
+#bleu-de-chanel img {
+  scale: 0.8;
+}
+
+#versace-eros-flame img {
+  scale: 1.1;
+}
+
+#valentino-born-in-roma img {
+  scale: 0.75;
+}
+
+#xerjoff-alexandria-2 img {
+  scale: 0.9;
+}
+
+/* End of Image scaling */
 
 
 .custom-offcanvas {

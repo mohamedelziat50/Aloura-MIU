@@ -1,0 +1,311 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    height: auto;
+}
+
+/* Container Styling */
+div {
+    display: flex;
+    max-width: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
+/* Image Styling */
+.card-image {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-right: 40px;
+}
+
+/* Product Details */
+div > div {
+    display: block;
+ 
+}
+
+/* Headings */
+h1 {
+    color: black;
+
+    /* Letter display related */
+    font-weight: 100; /* Add this to make the font look think and clean */
+    font-size: 64px; /* Added this line for 64px font size */
+    font-family: "Monotype Baskerville", serif;
+    letter-spacing: .1em; /* Distance between letters for design */
+    line-height: 100%;
+
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+
+#perfumeName{
+    color: black;
+
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+#perfumeType{
+    font-weight: 400; 
+    font-size: 17px;
+    font-family: "Monotype Baskerville", serif;
+}
+
+#price {
+    font-size: 22px;
+    color: #444;
+    margin: 15px 0;
+    float: right; /* Moves price to the right */
+}
+
+#add-to-cart-button {
+    width: 100%;
+  padding: 10px;
+  /* Bring the button closer to the line seperator*/
+
+  font-weight: normal; /* Add this to make the font look think and clean */
+  font-size: 16px; /* Added this line for 64px font size */
+  font-family: "Monotype Baskerville", serif;
+  letter-spacing: .1em; /* Distance between letters for design */
+  line-height: 100%;
+  text-transform: uppercase;
+
+  background-color: #000000;
+  color: #ffffff;
+  border: 0.5px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+
+  /* Animation */
+  transition: background-color 0.1s linear;
+}
+
+ #add-to-cart-button:hover {
+    background-color: rgb(250, 245, 245);
+    color: rgb(0, 0, 0);
+}
+
+/* Hide the default radio button */
+input[type="radio"] {
+    display: none;
+}
+
+/* Style label to look like a button but colorless */
+.radio-label {
+    background-color: transparent; /* No background color */
+    color: black; /* Text color */
+    border: 2px solid black; /* Normal border thickness */
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: border-width 0.2s, transform 0.2s;
+    display: inline-block;
+    margin: 5px;
+    width: 28%; /* Adjust size as needed */
+    text-align: center;
+    position: relative;
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 17px;
+    font-family: "Monotype Baskerville", serif;
+    border-width: 0.7px;
+    border-color: #a9a1a1;
+}
+
+/* Hover effect */
+.radio-label:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Slightly visible on hover */
+    transform: scale(1.05);
+}
+
+/* When the radio button is checked */
+input[type="radio"]:checked + .radio-label {
+    border-width: 1.9px; /* Thicker border when selected */
+    
+    border-color: #000000;
+}
+
+#notes{
+   color: black;
+
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+
+
+
+.gender-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    box-shadow: none;
+    width: 100%;
+}
+
+/* Style for gender icons */
+.gender-icon {
+    width: 20px; /* Adjust icon size */
+    height: 20px;
+    object-fit: contain; /* Keep aspect ratio */
+}
+
+/* Background track behind the slider */
+.gender-slider::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 6px;
+    background: linear-gradient(to right, #FF69B4, #000, #1E90FF);
+    border-radius: 5px;
+}
+
+/* Static Slider (Disabled) */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: not-allowed;
+    position: relative;
+    z-index: 2;
+    pointer-events: none; /* Completely disables interaction */
+}
+
+/* Remove shadow and move the slider slightly to the right */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative;
+    left: 10px; /* Moves the slider knob slightly to the right */
+    box-shadow: none; /* Removes any shadow */
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative;
+    left: 10px; /* Moves the slider knob slightly to the right */
+    box-shadow: none; /* Removes any shadow */
+}
+
+ul{
+    list-style-type: none;
+}
+
+#description-title{
+    color: black;
+
+    font-weight: 400; /* Add this to make the font look think and clean */
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+
+}
+#description{
+     font-weight: 400; 
+    font-size: 17px;
+    font-family: "Monotype Baskerville", serif;
+
+}
+
+@media (max-width: 768px) {
+    /* Make the main container stack items vertically */
+    div {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    /* Ensure images fit the screen */
+    .card-image {
+        max-width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Center the price on smaller screens */
+    #price {
+        text-align: center;
+        float: none;
+        width: 100%;
+    }
+
+    /* Ensure radio buttons fit well */
+    .radio-label {
+        width: 90%;
+    }
+}
+
+
+/* h4 {
+    font-weight: 400; 
+    font-size: 17px;
+    font-family: "Monotype Baskerville", serif;
+}
+
+h3 {
+        font-size: 22px;
+        color: #444;
+        margin: 15px 0;
+        display: inline;
+}
+
+h2 {
+    color: black;
+
+    font-weight: 400; 
+    font-size: 24px;
+    font-family: "Monotype Baskerville", serif;
+  
+    letter-spacing: .1em;
+    line-height: 100%;
+    margin: 10px 0;
+    text-transform: uppercase;
+} */
