@@ -12,10 +12,10 @@ body {
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
-  display: flex;  /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
-  width: 100vw;  /* Full screen Width (100% of the *viewport* width) */
+  display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
+  width: 100vw; /* Full screen Width (100% of the *viewport* width) */
   height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
-  overflow: hidden;    /* Makes content disappear/hidden if they spill outside the container */
+  overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
   position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
 }
 
@@ -82,6 +82,7 @@ body {
 }
 
 .female .text-overlay button {
+  /* Button sticks to the left bottom corner */
   left: 10px;
   bottom: 10px;
 }
@@ -90,7 +91,6 @@ body {
   right: 10px;
   bottom: 10px;
 }
-
 
 .full-width {
   width: 100%; /*Expands selected image to full width */
@@ -249,9 +249,9 @@ a {
   text-decoration: underline;
 }
 
-.quality{
+.quality {
   display: flex;
-  position: relative;  /* Ensures child elements are positioned inside this */
+  position: relative; /* Ensures child elements are positioned inside this */
   width: 100%; /* Adjust as needed */
   height: 500px; /* Set a height to see the effect */
   background-color: lightgray; /* Just for visibility */
@@ -444,3 +444,85 @@ a {
 
 
 
+
+
+.modal-title {
+  text-align: center;
+  width: 100%;
+}
+.modal-content {
+  background-color: #f8f9fa; /* Light gray background here if you want to change the modal color*/
+  color: #333; /* Dark text color here to change the color of the text*/
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 300;
+}
+.modal-title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 36px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.forgot-password {
+  font-size: 0.9rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  text-decoration: none;
+  border-bottom: black solid 1px;
+}
+.forgot-password:hover {
+  color: blue;
+  border-bottom: blue solid 1px;
+}
+
+/* uncomment for the login and sign up desing*/
+
+/* .loginButton {
+  font-weight: normal;
+  font-size: 16px;
+  font-family: "Monotype Baskerville", serif;
+  letter-spacing: .1em;
+  line-height: 100%;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10.5px 0px 10.5px 0px;
+  transition: background-color 0.1s linear;
+}
+
+.loginButton:hover {
+  background-color: black;
+  color: white;
+}
+
+.signupButton {
+  font-weight: normal;
+  font-size: 16px;
+  font-family: "Monotype Baskerville", serif;
+  letter-spacing: .1em;
+  line-height: 100%;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10.5px 0px 10.5px 0px;
+  transition: background-color 0.1s linear;
+}
+
+.signButton:hover {
+  background-color: black;
+  color: white;
+} */

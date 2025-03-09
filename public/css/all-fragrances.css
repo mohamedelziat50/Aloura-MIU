@@ -454,3 +454,17 @@ background-color: #f1f1f1;
 }
 
 /* End of Image scaling */
+
+
+.custom-offcanvas {
+  min-width: 600px !important; /* Adjust as needed */
+}
+
+
+.offcanvas-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
