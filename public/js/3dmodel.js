@@ -63,7 +63,7 @@ function initModel() {
   // Load a 3D model
   const loader = new THREE.GLTFLoader();
   loader.load(
-    './public/models/bleu_de_chanel_perfume..glb',
+    './public/models/bleu_de_chanel_perfume.glb',
     function(gltf) {
       const model = gltf.scene;
       
