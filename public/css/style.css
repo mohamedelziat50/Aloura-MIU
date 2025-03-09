@@ -9,7 +9,6 @@ body {
   overflow-x: hidden;
 }
 
-
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
@@ -284,6 +283,50 @@ a {
   transform: translateY(0);
 }
 
+/* Text Overlay Styles */
+.text-overlay-indulge {
+  position: absolute;
+  top: 20%; 
+  left: 10%; 
+  color: rgb(238, 236, 236);
+  z-index: 10; 
+  pointer-events: none; 
+  font-size: 150px;
+  font-weight: 650; 
+  transform: scale(1, 1.2); /* Stretch vertically */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
+}
+
+.text-overlay-your {
+  position: absolute;
+  top: 45%; 
+  left: 23%; 
+  color: rgb(238, 236, 236); 
+  z-index: 10; 
+  pointer-events: none; 
+  font-size: 150px;
+  font-weight: 650; 
+  white-space: nowrap; 
+  transform: scale(1, 1.2); /* Stretch vertically */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
+}
+
+/* Hover effect for text overlays */
+.gender:hover .text-overlay-indulge,
+.gender:hover .text-overlay-your {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Shrink text from bottom to top */
+  transform: translateY(-80px) scale(1, 1.2); /* Move text up */
+}
+
+/* Reset text overlays when not hovering */
+.gender:not(:hover) .text-overlay-indulge,
+.gender:not(:hover) .text-overlay-your {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
+  transform: translateY(0) scale(1, 1.2); /* Return text to original position */
+}
+
 /* Quality and 3D Model Section */
 .quality-model-section {
   display: flex;
@@ -398,3 +441,6 @@ a {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+
