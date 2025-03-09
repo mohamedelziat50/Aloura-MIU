@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize Fluid
     greyFluid.mapBehaviors({
-      paused: false
+      paused: false,
     });
     greyFluid.activate();
 
