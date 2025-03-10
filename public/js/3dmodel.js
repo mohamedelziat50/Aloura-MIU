@@ -1,71 +1,66 @@
 // REFERENCE: https://www.youtube.com/watch?v=1TeMXIWRrqE
+
 // 3D Model Viewer
 document.addEventListener('DOMContentLoaded', function() {
-  // Wait for everything to load before initializing 3D
+  //  Delays the execution of the initModel function by 1.5 seconds to ensure everything is ready before initializing the 3D model.
   setTimeout(initModel, 1500);
 });
 
 function initModel() {
-  const modelViewer = document.getElementById('model-viewer');
-  if (!modelViewer) return;
+  const modelViewer = document.getElementById('model-viewer'); 
   
   // Set up scene
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf1f1f1);
+  const scene = new THREE.Scene(); //creates a new 3D scene.
+  scene.background = new THREE.Color(0xf1f1f1); //sets the background color of the scene to light gray.
   
   // Set up camera
   const camera = new THREE.PerspectiveCamera(
-    45, 
-    modelViewer.clientWidth / modelViewer.clientHeight, 
-    0.1, 
-    1000
+    45, // Field of view (in degrees).
+    modelViewer.clientWidth / modelViewer.clientHeight, //Aspect ratio (width/height of the container).
+    0.1, //Near clipping plane (objects closer than this won’t be rendered).
+    1000 //Far clipping plane (objects further than this won’t be rendered).
   );
-  camera.position.z = 5;
+  camera.position.z = 11; //Intial camera position.
   
   // Set up renderer
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(modelViewer.clientWidth, modelViewer.clientHeight);
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.shadowMap.enabled = true;
-  modelViewer.appendChild(renderer.domElement);
+  const renderer = new THREE.WebGLRenderer({ antialias: true }); //creates a WebGL renderer, which uses the GPU to render the scene. antialias: true smooths out jagged/rough edges
+  renderer.setSize(modelViewer.clientWidth, modelViewer.clientHeight); //sets the size of the renderer to match the model viewer container.
+  renderer.outputEncoding = THREE.sRGBEncoding; //ensures colors are displayed correctly.
+  renderer.shadowMap.enabled = true; //enables shadows.
+  modelViewer.appendChild(renderer.domElement); //adds the renderer's DOM element (the actual canvas element) to the model viewer container.
   
   // Add ambient light
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); //ambient light: illuminates all objects evenly.
   scene.add(ambientLight);
   
   // Add directional light
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1); //directional light: illuminates objects from a specific direction.
   directionalLight.position.set(0, 1, 1);
   scene.add(directionalLight);
   
   // Add spotlight for dramatic effect
-  const spotLight = new THREE.SpotLight(0xffffff, 1);
+  const spotLight = new THREE.SpotLight(0xffffff, 1); //spotlight: creates a cone of light and casts shadows.
   spotLight.position.set(0, 5, 5);
   spotLight.castShadow = true;
   scene.add(spotLight);
   
   // Controls for mouse rotation
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
+  const controls = new THREE.OrbitControls(camera, renderer.domElement); // enables mouse/touch controls for rotating and zooming.
+  controls.enableDamping = true; //makes the model rotate automatically.
+  controls.dampingFactor = 0.05; //controls the speed of the rotation.
   controls.screenSpacePanning = false;
-  controls.minDistance = 3;
-  controls.maxDistance = 8;
+  controls.minDistance = 4;
+  controls.maxDistance = 14;
   controls.enableZoom = true;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 1.0;
   
-  // Stop auto-rotation when user interacts
-  modelViewer.addEventListener('mousedown', function() {
-    controls.autoRotate = false;
-  });
-  
   // Load a 3D model
-  const loader = new THREE.GLTFLoader();
-  loader.load(
+  const loader = new THREE.GLTFLoader(); //GLTFLoader:Loads a GLTF/GLB 3D model file.
+  loader.load( //loads the model and adds it to the scene
     './public/models/bleu_de_chanel_perfume..glb',
-    function(gltf) {
-      const model = gltf.scene;
+    function(gltf) { //function(gltf) is a callback function that is called when the model is loaded.
+      const model = gltf.scene; //gltf.scene: the root object of the model.
       
       // Adjust model position and scale as needed
       model.position.y = -1;
@@ -74,9 +69,9 @@ function initModel() {
       // Add model to scene
       scene.add(model);
       
-      // Optional: Adjust materials
-      model.traverse((child) => {
-        if (child.isMesh) {
+      // Adjust materials
+      model.traverse((child) => { //loops through all parts of the model to adjust materials (e.g., glass parts).
+        if (child.isMesh) { //checks if the child is a mesh (i.e., a 3D object with a material).
           child.castShadow = true;
           child.receiveShadow = true;
           
@@ -97,7 +92,7 @@ function initModel() {
     
     // Progress callback
     function(xhr) {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); //displays the progress of the model loading. 
     },
     
     // Error callback
@@ -106,22 +101,9 @@ function initModel() {
     }
   );
   
-  // Create a simple platform
-  const platformGeometry = new THREE.CylinderGeometry(1.5, 1.5, 0.1, 32);
-  const platformMaterial = new THREE.MeshStandardMaterial({
-    color: 0x222222,
-    metalness: 0.5,
-    roughness: 0.8
-  });
-  
-  const platform = new THREE.Mesh(platformGeometry, platformMaterial);
-  platform.position.y = -1.9;
-  platform.receiveShadow = true;
-  scene.add(platform);
-  
   // Render loop
-  function animate() {
-    requestAnimationFrame(animate);
+  function animate() { //continously updates/renders the scene and camera.
+    requestAnimationFrame(animate); //requests the next frame of the animation.
     controls.update();
     renderer.render(scene, camera);
   }
