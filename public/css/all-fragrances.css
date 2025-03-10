@@ -3,7 +3,7 @@
 .middle-links {
   display: flex;
   justify-content: center; /* Center the links horizontally */
-  padding: 10px 0; /* Smaller padding for a good look */
+  padding: 15px 0; /* Smaller padding for a good look */
   background-color: transparent;
   width: 100%;
   margin: auto; /* Center the block element */
@@ -61,7 +61,7 @@
     letter-spacing: .1em; /* Distance between letters for design */
     line-height: 100%;
 
-    margin: 0;
+    margin: 5px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -81,7 +81,7 @@
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* columns with equal width */
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
@@ -90,7 +90,14 @@
       Maximum width: 1fr (columns expand to fill extra space).
  */
 
-  gap: 10px; /* Space between cards */
+  gap: 25px; /* Space between cards */
+
+  margin: 20px; /* Space around cards contiainer*/
+  margin-top: 0px;
+  padding: 20px; /* Space between card container edge and the content inside (cards) */
+
+  /* Make it so that user can't shrink window beyond a certain point */
+  min-width: 500px;
 }
 
 /* Card Container */
@@ -102,7 +109,7 @@
   text-align: center; /* To allign all text in the center, has to be included */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
   background-color: #fff;
-  margin: 25px; /* Space around the card*/
+  margin: 10px; /* Space around the card*/
   position: relative; /* Ensure dropdown is positioned relative to the card */
 }
 
@@ -373,7 +380,8 @@ background-color: #f1f1f1;
 .filter-container {
   position: relative;
   display: inline-block;
-  margin-left: 1.5rem; /* Add relative margin to the left to work on different devices*/
+  margin-top: 10px;
+  margin-left: 3.1rem; /* Add relative margin to the left to work on different devices*/
 }
 
 /* Filter Button */
