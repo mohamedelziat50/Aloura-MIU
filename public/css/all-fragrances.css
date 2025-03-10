@@ -198,7 +198,7 @@
 
 /* Prices inside the card-price class */
 .card-price .price {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   color: #333;
 }
@@ -213,17 +213,19 @@
 /* Card Separator between add to cart*/
 .card-separator {
   border: 0;
-  height: 1px;
+  height: 2.5px;
   background-color: #e0e0e0;
   margin: 10px 20px;
+  margin-top: 5px;
 }
 
 /* Add to Cart Button */
 .card-button {
   width: 80%;
   padding: 10px;
-  margin: 20px;
+  margin: auto;
   margin-top: 10px; /* Bring the button closer to the line seperator*/
+  margin-bottom: 15px; /* Bring the button closer to the line seperator*/
 
   font-weight: normal; /* Add this to make the font look think and clean */
   font-size: 16px; /* Added this line for 64px font size */
