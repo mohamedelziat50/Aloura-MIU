@@ -90,11 +90,11 @@
       Maximum width: 1fr (columns expand to fill extra space).
  */
 
-  gap: 25px; /* Space between cards */
+  gap: 0px; /* Space between cards */
 
   margin: 20px; /* Space around cards contiainer*/
   margin-top: 0px;
-  padding: 20px; /* Space between card container edge and the content inside (cards) */
+  padding: 100px; /* Space between card container edge and the content inside (cards) */
 
   /* Make it so that user can't shrink window beyond a certain point */
   min-width: 500px;
@@ -107,10 +107,12 @@
   border-radius: 10px; /* Used for rounded corners */
   overflow: visible; /* Allow dropdown to extend outside the card */
   text-align: center; /* To allign all text in the center, has to be included */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1); /* Shadows for design */
   background-color: #fff;
-  margin: 10px; /* Space around the card*/
+  margin: -5px; /* Space around the card*/
   position: relative; /* Ensure dropdown is positioned relative to the card */
+
+  scale: 0.9;
 }
 
 /* Card Label */
@@ -380,8 +382,8 @@ background-color: #f1f1f1;
 .filter-container {
   position: relative;
   display: inline-block;
-  margin-top: 10px;
-  margin-left: 3.1rem; /* Add relative margin to the left to work on different devices*/
+  top: 6.5rem;
+  margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
 }
 
 /* Filter Button */
