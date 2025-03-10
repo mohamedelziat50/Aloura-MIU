@@ -8,6 +8,9 @@
   width: 100%;
   margin: auto; /* Center the block element */
   transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
+
+  position: relative;
+  top: 75px;
 }
 
 .middle-links:hover {
@@ -39,7 +42,7 @@
   height: 1px; /* Thinner underline */
   background-color: rgb(0, 0, 0);
   margin: 0 auto;
-  transition: 0.3s; /* Faster transition */
+  transition: 0.3s; /* THIS CONTROLS THE SPEED OF THE UNDERLINE ANIMATION */
   bottom: -3px; /* Adjust underline position */
   right: 50%;
 }
@@ -64,6 +67,9 @@
     margin: 5px;
     text-align: center;
     text-transform: uppercase;
+
+    position: relative;
+    top: 80px;
 }
 
 /* Downloaded Font - Hosting it our self */
@@ -91,7 +97,6 @@
  */
 
   gap: 0px; /* Space between cards */
-
   margin: 20px; /* Space around cards contiainer*/
   margin-top: 0px;
   padding: 100px; /* Space between card container edge and the content inside (cards) */
