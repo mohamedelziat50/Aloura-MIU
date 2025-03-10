@@ -97,12 +97,13 @@
  */
 
   gap: 0px; /* Space between cards */
+  row-gap: 55px; /* 55 exactly to make the scroll animation work on reload of page*/
   margin: 20px; /* Space around cards contiainer*/
   margin-top: 0px;
   padding: 100px; /* Space between card container edge and the content inside (cards) */
 
   /* Make it so that user can't shrink window beyond a certain point */
-  min-width: 500px;
+  min-width: 545px;
 }
 
 /* Card Container */
