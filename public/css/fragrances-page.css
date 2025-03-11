@@ -396,6 +396,8 @@ ul{
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: none !important;
+
 }
 
 
@@ -403,6 +405,8 @@ ul{
     overflow: hidden; /* Ensure nothing spills out */
     position: relative;
     width: 100%;
+    box-shadow: none !important;
+
 }
 /* Ensure three items are visible */
 #suggested-products {
@@ -412,6 +416,8 @@ ul{
     width: max-content; /* Prevent shrinking */
     transform: translateX(0); /* Start from the first item */
     justify-content: flex-start; /* Prevents unwanted centering */
+    box-shadow: none !important;
+
 
 }
 
@@ -436,6 +442,9 @@ ul{
     height: auto;
     border-radius: 0;
     background: none;
+    border: none;
+    box-shadow: none;
+    
 }
 
 /* Remove borders from individual suggested items */
@@ -444,10 +453,41 @@ ul{
 }
 
 .suggested-name {
-    margin-top: 5px;
     font-size: 14px;
     text-align: center;
     width: 100%;
+
+    color: black;
+
+    /* Letter display related */
+    font-weight: 100; /* Add this to make the font look think and clean */
+    font-size: 14px; /* Added this line for 64px font size */
+    font-family: "Monotype Baskerville", serif;
+    letter-spacing: .1em; /* Distance between letters for design */
+    line-height: 40%;
+
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.suggested-price{
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+
+    color: black;
+
+    /* Letter display related */
+    font-weight: 100; /* Add this to make the font look think and clean */
+    font-size: 14px; /* Added this line for 64px font size */
+    font-family: "Monotype Baskerville", serif;
+    letter-spacing: .1em; /* Distance between letters for design */
+    line-height: 40%;
+
+    margin-top:10px ;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 
