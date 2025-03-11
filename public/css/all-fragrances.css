@@ -228,7 +228,7 @@
 /* Card Separator between add to cart*/
 .card-separator {
   border: 0;
-  height: 2.5px;
+  height: 3.5px;
   background-color: #e0e0e0;
   margin: 10px 20px;
   margin-top: 5px;
@@ -280,6 +280,10 @@ animation: card-image-animation infinite 2s ease-in-out;
   animation: card-image-animation infinite 2s ease-in-out;
 }
 
+.card-image-container:not(:hover) .card-image {
+  animation: fadeIn  1.5s ease-in-out;
+}
+
 @keyframes card-image-animation {
     50% { transform: translateY(30px) }
 }
@@ -306,6 +310,11 @@ animation: card-image-animation infinite 2s ease-in-out;
       opacity: 0;
       transform: translateY(-10px); /* Adjust for a subtle fade-out */
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }
 
 /* WOBBLING EFFECT!!
