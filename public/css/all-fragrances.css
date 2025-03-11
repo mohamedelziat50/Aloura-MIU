@@ -1,18 +1,22 @@
-/* MIDDLE BAR RELATED For filtering*/
+body {
+  background-color: #f1f1f1 !important; /*CHANGING THE BODY'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+}
 
+/* MIDDLE BAR RELATED For filtering*/
 .middle-links {
   display: flex;
   justify-content: center; /* Center the links horizontally */
-  padding: 10px 0; /* Smaller padding for a good look */
+  padding: 15px 0; /* Smaller padding for a good look */
   background-color: transparent;
   width: 100%;
   margin: auto; /* Center the block element */
   transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
+
+  position: relative;
+  top: 75px;
 }
 
-.middle-links:hover {
-  background-color: white; /* Change background on hover */
-}
+/* Removed Middle Links Hovering All Backgrounds */
 
 .middle-links ul {
   display: flex;
@@ -39,7 +43,7 @@
   height: 1px; /* Thinner underline */
   background-color: rgb(0, 0, 0);
   margin: 0 auto;
-  transition: 0.3s; /* Faster transition */
+  transition: 0.3s; /* THIS CONTROLS THE SPEED OF THE UNDERLINE ANIMATION */
   bottom: -3px; /* Adjust underline position */
   right: 50%;
 }
@@ -61,9 +65,14 @@
     letter-spacing: .1em; /* Distance between letters for design */
     line-height: 100%;
 
-    margin: 0;
+    margin: auto;
     text-align: center;
     text-transform: uppercase;
+
+    position: relative;
+    top: 80px;
+
+    min-width: 615px;
 }
 
 /* Downloaded Font - Hosting it our self */
@@ -81,7 +90,7 @@
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* columns with equal width */
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
@@ -90,7 +99,14 @@
       Maximum width: 1fr (columns expand to fill extra space).
  */
 
-  gap: 10px; /* Space between cards */
+  gap: 0px; /* Space between cards */
+  row-gap: 55px; /* 55 exactly to make the scroll animation work on reload of page*/
+  margin: 20px; /* Space around cards contiainer*/
+  margin-top: 0px;
+  padding: 100px; /* Space between card container edge and the content inside (cards) */
+
+  /* Make it so that user can't shrink window beyond a certain point */
+  min-width: 545px;
 }
 
 /* Card Container */
@@ -100,10 +116,13 @@
   border-radius: 10px; /* Used for rounded corners */
   overflow: visible; /* Allow dropdown to extend outside the card */
   text-align: center; /* To allign all text in the center, has to be included */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* Shadows for design */
-  background-color: #fff;
-  margin: 25px; /* Space around the card*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1); /* Shadows for design */
+  margin: -5px; /* Space around the card*/
   position: relative; /* Ensure dropdown is positioned relative to the card */
+
+  scale: 0.9;
+
+  background-color: white !important; /*CHANGING THE CARD'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* Card Label */
@@ -132,11 +151,22 @@
   cursor: default; /* Ensures no cursor change */
 } 
 
+/* Card Image Container */
+.card-image-container {
+  width: 100%; /* Container Matches the card width */
+  height: 100%; /* Container Matches the card height untill it reaches the card title */
+  top: 0; /* Aligns it with the card */
+  left: 0;
+  z-index: 2; /* Ensures it remains interactive */
+  cursor: pointer; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
+}
+
 /* Card Image */
 .card-image {
   width: 100%; /* Image fills out the entire card */
-  height: 65%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
+  height: 100%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
+  pointer-events: none; /* Make sure that only the card image container is the only one clickable since image goes out of the card and will mess the click up */
 }
 
 /* Card Title */
@@ -172,7 +202,7 @@
 .card-mood {
   font-size: 14px;
   color: #646464;
-  margin: 1rem 0; /* Space between mood & top/bottom */
+  margin: 0.7rem 0; /* Space between mood & top/bottom */
 }
 
 /* Price + ml */
@@ -181,13 +211,13 @@
   justify-content: space-between; /* Justify with space between the elements on each end */
   align-items: center;
   padding: 0 20px; /* space between inner edges and the text */
-  margin: 10px 0; 
+  margin: 1px 0; 
   position: relative; /* Needed for absolute positioning of dropdown */
 }
 
 /* Prices inside the card-price class */
 .card-price .price {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   color: #333;
 }
@@ -202,17 +232,19 @@
 /* Card Separator between add to cart*/
 .card-separator {
   border: 0;
-  height: 1px;
+  height: 3.5px;
   background-color: #e0e0e0;
   margin: 10px 20px;
+  margin-top: 5px;
 }
 
 /* Add to Cart Button */
 .card-button {
   width: 80%;
   padding: 10px;
-  margin: 20px;
+  margin: auto;
   margin-top: 10px; /* Bring the button closer to the line seperator*/
+  margin-bottom: 15px; /* Bring the button closer to the line seperator*/
 
   font-weight: normal; /* Add this to make the font look think and clean */
   font-size: 16px; /* Added this line for 64px font size */
@@ -242,8 +274,18 @@
 /* Animation related */
 /* Most of them from cssanimation.io */
 
+/* REMOVED HOVERING IMAGE WITH HOVERING CONTAINER IMAGE
 .card-image:hover { 
 animation: card-image-animation infinite 2s ease-in-out;
+}
+*/
+/* Now hovering over the image inside the container is what causes the hover! */
+.card-image-container:hover .card-image {
+  animation: card-image-animation infinite 2s ease-in-out;
+}
+
+.card-image-container:not(:hover) .card-image {
+  animation: fadeIn  0.6s ease-in-out;
 }
 
 @keyframes card-image-animation {
@@ -272,6 +314,11 @@ animation: card-image-animation infinite 2s ease-in-out;
       opacity: 0;
       transform: translateY(-10px); /* Adjust for a subtle fade-out */
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }
 
 /* WOBBLING EFFECT!!
@@ -354,12 +401,14 @@ background-color: #f1f1f1;
 .filter-container {
   position: relative;
   display: inline-block;
-  margin-left: 1.5rem; /* Add relative margin to the left to work on different devices*/
+  top: 6.5rem;
+  margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
+  z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
 }
 
 /* Filter Button */
 .filter-button {
-  background-color: #fff;
+  background-color: white !important; /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
   border: 1px solid #ccc;
   padding: 7px 17px; /* Space around the text itself */
   cursor: pointer;
@@ -376,7 +425,7 @@ background-color: #f1f1f1;
 }
 
 .filter-button:hover {
-  background-color: #f1f1f1;
+  background-color: #f1f1f1 !important;  /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* Dropdown Menu of filters*/
@@ -388,7 +437,6 @@ background-color: #f1f1f1;
   width: 200px;
   top: 100%;
   margin-top: 10px;
-  z-index: 1;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;

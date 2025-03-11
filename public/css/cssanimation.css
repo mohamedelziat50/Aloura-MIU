@@ -1,0 +1,8 @@
+
+@keyframes moveFromTop {
+    from { transform: translateY(-800px) }
+}
+
+@keyframes moveFromBottom {
+    from { transform: translateY(800px) }
+}
