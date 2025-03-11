@@ -16,9 +16,7 @@ body {
   top: 75px;
 }
 
-.middle-links:hover {
-  background-color: white; /* Change background on hover */
-}
+/* Removed Middle Links Hovering All Backgrounds */
 
 .middle-links ul {
   display: flex;
@@ -67,12 +65,14 @@ body {
     letter-spacing: .1em; /* Distance between letters for design */
     line-height: 100%;
 
-    margin: 5px;
+    margin: auto;
     text-align: center;
     text-transform: uppercase;
 
     position: relative;
     top: 80px;
+
+    min-width: 615px;
 }
 
 /* Downloaded Font - Hosting it our self */
