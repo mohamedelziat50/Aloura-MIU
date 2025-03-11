@@ -1,5 +1,8 @@
-/* MIDDLE BAR RELATED For filtering*/
+body {
+  background-color: #f1f1f1 !important; /*CHANGING THE BODY'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+}
 
+/* MIDDLE BAR RELATED For filtering*/
 .middle-links {
   display: flex;
   justify-content: center; /* Center the links horizontally */
@@ -114,11 +117,12 @@
   overflow: visible; /* Allow dropdown to extend outside the card */
   text-align: center; /* To allign all text in the center, has to be included */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1); /* Shadows for design */
-  background-color: #fff;
   margin: -5px; /* Space around the card*/
   position: relative; /* Ensure dropdown is positioned relative to the card */
 
   scale: 0.9;
+
+  background-color: white !important; /*CHANGING THE CARD'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* Card Label */
@@ -281,7 +285,7 @@ animation: card-image-animation infinite 2s ease-in-out;
 }
 
 .card-image-container:not(:hover) .card-image {
-  animation: fadeIn  1.5s ease-in-out;
+  animation: fadeIn  0.6s ease-in-out;
 }
 
 @keyframes card-image-animation {
@@ -404,7 +408,7 @@ background-color: #f1f1f1;
 
 /* Filter Button */
 .filter-button {
-  background-color: #fff;
+  background-color: white !important; /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
   border: 1px solid #ccc;
   padding: 7px 17px; /* Space around the text itself */
   cursor: pointer;
@@ -421,7 +425,7 @@ background-color: #f1f1f1;
 }
 
 .filter-button:hover {
-  background-color: #f1f1f1;
+  background-color: #f1f1f1 !important;  /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* Dropdown Menu of filters*/
