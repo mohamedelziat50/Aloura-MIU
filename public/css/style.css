@@ -19,39 +19,42 @@ body {
   position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
 }
 
-.female , .male{
+.female,
+.male {
   flex: 1; /* Each child takes 50% of the container (1:1 ratio) */
   position: relative; /* Allows child elements (.text-overlay) to position themselves inside this container */
   transition: all 0.5s ease-in-out; /* transition Speed + transition type -> Image Expanding*/
-  overflow: hidden; /* Hides anything that goes outside the section */  
+  overflow: hidden; /* Hides anything that goes outside the section */
 }
-  
-.female img , .male img{  
+
+.female img,
+.male img {
   width: 100%; /* Image takes the full width of its container */
   height: 100%; /* Image takes the full height of its container */
   object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
 }
 
-  /* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
-.gender:hover .female , .gender:hover .male{ 
+/* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
+.gender:hover .female,
+.gender:hover .male {
   flex: 0.5;
   filter: brightness(0.5);
 }
-  
-  /* override the above effect, making the hovered section expand and stay bright. */
-.gender .female:hover,  
+
+/* override the above effect, making the hovered section expand and stay bright. */
+.gender .female:hover,
 .gender .male:hover {
   flex: 1.5;
   filter: brightness(1); /* Restore brightness when hovered */
 }
-  
-  /* Hide "For Her" button when hovering over the male side and Vice Versa */
+
+/* Hide "For Her" button when hovering over the male side and Vice Versa */
 .female:hover ~ .male .text-overlay button {
   display: none;
 }
-  
-  /* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */  
-.gender:hover .female:not(:hover) .text-overlay button {  
+
+/* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */
+.gender:hover .female:not(:hover) .text-overlay button {
   display: none;
 }
 
@@ -102,28 +105,29 @@ body {
 }
 
 /* Text Overlay Styles with consistent animation timing */
-.text-overlay-indulge, .text-overlay-your {
+.text-overlay-indulge,
+.text-overlay-your {
   position: absolute;
   color: rgb(238, 236, 236);
-  z-index: 10; 
-  pointer-events: none; 
-  font-weight: 650; 
+  z-index: 10;
+  pointer-events: none;
+  font-weight: 650;
   transform: scale(1, 1.2) translateY(40px); /* Start position */
   opacity: 0; /* Start invisible */
   transition: opacity 0.8s ease, transform 0.8s ease; /* Match button transition */
 }
 
 .text-overlay-indulge {
-  top: 20%; 
-  left: 10%; 
+  top: 20%;
+  left: 10%;
   font-size: 150px;
 }
 
 .text-overlay-your {
-  top: 45%; 
-  left: 23%; 
+  top: 45%;
+  left: 23%;
   font-size: 150px;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 /* Show animations */
@@ -136,10 +140,14 @@ body {
 /* Hover effect for text overlays */
 .gender:hover .text-overlay-indulge,
 .gender:hover .text-overlay-your {
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Shrink text from bottom to top */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 0,
+    0 0
+  ); /* Shrink text from bottom to top */
   transform: translateY(-80px) scale(1, 1.2); /* Move text up */
 }
-
 
 .transition-container {
   position: absolute;
@@ -164,7 +172,8 @@ body {
   visibility: visible;
 }
 
-.female, .male {
+.female,
+.male {
   flex: 1; /* Start with equal width */
   position: relative;
   transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother easing */
@@ -172,7 +181,8 @@ body {
 }
 
 /* Image styling - prevent zooming */
-.female img, .male img {
+.female img,
+.male img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Maintains aspect ratio without zooming */
@@ -182,7 +192,8 @@ body {
 }
 
 /* Initial load state for images */
-.female img, .male img {
+.female img,
+.male img {
   opacity: 0;
 }
 
@@ -194,7 +205,8 @@ body {
   transform: translateY(-100%);
 }
 
-.female img.loaded, .male img.loaded {
+.female img.loaded,
+.male img.loaded {
   transform: translateY(0);
   opacity: 1;
 }
@@ -244,27 +256,6 @@ body {
 }
 
 
-a {
-  color: white;
-  text-decoration: underline;
-}
-
-.quality {
-  display: flex;
-  position: relative; /* Ensures child elements are positioned inside this */
-  width: 100%; /* Adjust as needed */
-  height: 500px; /* Set a height to see the effect */
-  background-color: lightgray; /* Just for visibility */
-}
-
-.quality-pic {
-  flex: 1;
-  width: 25%; /* Adjust as needed */
-  height: 25%;
-  top: 0;
-  right: 0;
-}
-
 /* Initial states for text overlays */
 .text-overlay button,
 .text-overlay-indulge,
@@ -286,37 +277,42 @@ a {
 /* Text Overlay Styles */
 .text-overlay-indulge {
   position: absolute;
-  top: 20%; 
-  left: 10%; 
+  top: 20%;
+  left: 10%;
   color: rgb(238, 236, 236);
-  z-index: 10; 
-  pointer-events: none; 
+  z-index: 10;
+  pointer-events: none;
   font-size: 150px;
-  font-weight: 650; 
+  font-weight: 650;
   transform: scale(1, 1.2); /* Stretch vertically */
-  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
 .text-overlay-your {
   position: absolute;
-  top: 45%; 
-  left: 23%; 
-  color: rgb(238, 236, 236); 
-  z-index: 10; 
-  pointer-events: none; 
+  top: 45%;
+  left: 23%;
+  color: rgb(238, 236, 236);
+  z-index: 10;
+  pointer-events: none;
   font-size: 150px;
-  font-weight: 650; 
-  white-space: nowrap; 
+  font-weight: 650;
+  white-space: nowrap;
   transform: scale(1, 1.2); /* Stretch vertically */
-  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
 /* Hover effect for text overlays */
 .gender:hover .text-overlay-indulge,
 .gender:hover .text-overlay-your {
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Shrink text from bottom to top */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 0,
+    0 0
+  ); /* Shrink text from bottom to top */
   transform: translateY(-80px) scale(1, 1.2); /* Move text up */
 }
 
@@ -349,7 +345,7 @@ a {
 }
 
 .quality-assurance h2:after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 0;
@@ -418,12 +414,12 @@ a {
     flex-direction: column;
     padding: 60px 5%;
   }
-  
+
   .quality-assurance {
     padding-right: 0;
     margin-bottom: 50px;
   }
-  
+
   .model-container {
     max-width: 100%;
   }
@@ -440,6 +436,183 @@ a {
 .gender .male:hover .text-overlay button {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* --------------------
+   Product Slider Section 
+   -------------------- */
+.product-slider-section {
+  padding: 60px 0;
+  background-color: #EFCFA0;
+  text-align: center;
+}
+
+.slider-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Slider container with navigation buttons */
+.product-slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* The slider itself - horizontal scrolling area */
+.product-slider {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth; /* Smooth scrolling animation */
+  width: 100%;
+  max-width: 1000px;
+  padding: 30px 0;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Hide scrollbar for Chrome/Safari */
+.product-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual product cards */
+.product-card {
+  flex: 0 0 calc(33.333% - 20px);
+  margin: 0 10px;
+  background-color: #EFCFA0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px none;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  transform: scale(0.85);
+}
+
+/* Active (focused) product card */
+.product-card.active {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px none;
+  z-index: 5;
+}
+
+/* Product image container */
+.product-img {
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Product image */
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Hover effect on product image  */                                    /*!?!??!?!?!?!?!?REMOVEEE!?!?!??!?!?!?!*/
+.product-card:hover .product-img img {
+  transform: scale(1.1);
+}
+
+/* Product title */
+.product-card h4 {
+  padding: 15px 15px 5px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Product price */
+.product-card p {
+  padding: 0 15px 15px;
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Navigation buttons */
+.slider-nav-btn {
+  background-color: #EFCFA0;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px none;
+  position: absolute;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.slider-nav-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Position of navigation buttons */
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+/* Icons in navigation buttons */
+.slider-nav-btn i {
+  font-size: 16px;
+  color: #444;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 0 calc(50% - 20px); /* Show 2 items on medium screens */
+  }
+  
+  .product-card.active {
+    transform: scale(1.05); /* Smaller scale change on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 0 0 calc(100% - 20px); /* Show 1 item on small screens */
+  }
+  
+  .slider-nav-btn {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.add-to-cart-btn {
+  background-color: #000; /* Black background */
+  color: white;
+  border: none;
+  padding: 15px 40px; /* Increased padding for larger size */
+  font-size: 16px; /* Larger font size */
+  font-weight: 700; /* Bold text */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  letter-spacing: 1px;
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 20px; /* Space above the button */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #333; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
 }
 
 
@@ -480,7 +653,6 @@ a {
   color: blue;
   border-bottom: blue solid 1px;
 }
-
 /* uncomment for the login and sign up desing*/
 
 /* .loginButton {
@@ -526,3 +698,185 @@ a {
   background-color: black;
   color: white;
 } */
+
+footer .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 100px;
+  margin-inline: 100px;
+}
+
+footer .top .ccard {
+  text-align: center;
+}
+
+footer .top .ccard .img {
+  width: 100px;
+  margin: 0 auto 10px;
+}
+
+footer .top .ccard .text p:first-child {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  
+}
+
+footer .top .ccard .text p:last-child {
+  font-size: 10px;
+
+  color: #777;
+}
+
+footer .top .ccard .img img {
+  width: 100%;
+}
+
+footer .middle {
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../img/474b20670228dadb245238bd3c5c51a7.jpg");
+  position: relative;
+}
+
+footer .middle .cccard {
+  background-color: white;
+  text-align: center;
+  padding: 50px;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+
+
+footer .wrapper > * {
+  flex: 0 0 auto;
+}
+
+footer a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+footer .py-8 {
+  padding-top: 3.5rem !important;
+  padding-bottom: 3.5rem !important;
+  background-color: #000;
+}
+
+footer .footer-link-01 li + li {
+  padding-top: 0.8rem;
+}
+
+footer .footer-title-01 {
+  font-size: 16px;
+  margin: 0 0 20px;
+  font-weight: 600;
+}
+
+footer .footer-title-01 {
+  font-size: 16px;
+  margin: 0 0 20px;
+  font-weight: 600;
+}
+
+footer .footer-link-01 li + li {
+  padding-top: 0.8rem;
+}
+
+@media (max-width: 991.98px) {
+  footer .footer-link-01 li + li {
+    padding-top: 0.6rem;
+  }
+}
+
+footer.footer-link-01 a {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+footer .footer-link-01 a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  width: 0;
+  height: 1px;
+  transition: ease all 0.35s;
+  background: currentColor;
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  background: url('your-background-image.jp') center/cover no-repeat;
+}
+
+.cccard {
+  background: white;
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #666;
+  font-weight: bold;
+}
+
+.c-title {
+  font-size: 24px;
+  font-family: "Georgia", serif;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.c-title em {
+  font-style: italic;
+}
+
+footer input {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: none; /* Remove all borders */
+  border-bottom: 1px solid #000; /* Add only bottom border */
+  outline: none; /* Remove focus outline */
+  border-radius: 4px;
+  text-align: center;
+}
+
+.card-buuton {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+button:hover {
+  background: white;
+  color: black;
+  border: 1px solid black;
+}

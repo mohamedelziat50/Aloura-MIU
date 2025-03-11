@@ -17,15 +17,35 @@
 
     <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
 
+    <script src="./public/js/fragrances-page.js"></script>
+
     
 </head>
 <body>
         <h1 id="heading">Aloura</h1>
 
-        <div>
-            <img class="card-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" alt="Spicebomb Extreme" class="card-image">
+        <div >
+            <div id="image-container"> 
+                <img id="main-image" src="./public/img/perfumes-transparent/spicebomb-extreme.png" 
+                alt="Spicebomb Extreme" class="card-image" onclick="openLightbox(this)">
+                           <div id="subImages">
+                    <img src="./public/img/spicebomb1.jpg" class="subimage" onclick="openLightbox(this)">
+                    <img src="./public/img/spicebomb2.jpg" class="subimage" onclick="openLightbox(this)">
+                </div>
+                
+                <div id="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center;">
+                    <span id="prev-arrow" style="position: absolute; left: 5%; font-size: 30px; cursor: pointer; color: white;">&#9664;</span>
+                    <img id="lightbox-img" style="max-width: 90%; max-height: 90%; transition: transform 0.2s;" />
+                    <span id="next-arrow" style="position: absolute; right: 5%; font-size: 30px; cursor: pointer; color: white;">&#9654;</span>
+                </div>
+                
+                
+                
 
-            <div>
+            </div>
+           
+
+            <div id="product-details">
                 <h2 id="perfumeName">Spicebomb Extreme</h2>
                 <br>
                 <h4 id="perfumeType">EAU DE PARFUM </h4>
@@ -51,12 +71,16 @@
 
                 <br>
                 <br>
+                <br>
+                <br>
 
                 
                 
                 <h2 id="description-title">Description: </h3>
                 <h3 id="description">Spicebomb Extreme is known for its explosive spicy opening and its smooth, sweet tobacco-vanilla dry down. It's perfect for colder weather, evening wear, and special occasions.</h2>                
                 
+                    <br>
+                    <br>
                     <br>
                 <!--an unordered list that contains the notes of the perfumes-->
                 <h3 id="notes">Notes:</h3>
@@ -65,7 +89,9 @@
                     <li><strong>Heart:</strong> Black pepper and saffron, adding warmth and depth.</li>
                     <li><strong>Base:</strong> Tobacco, Bourbon vanilla, and subtle hints of amber, creating a rich and lasting finish.</li>
                 </ul>
-                
+                <br>
+                <br>
+                <br>
                 <!--gender slider with the images of the genders symbols-->
                 <div class="gender-slider">
                     <img src="./public/img/perfumes-transparent/female.png" alt="Female" class="gender-icon">
@@ -77,9 +103,85 @@
                 
     
             </div>
-
+            
         </div>
-      
+
+        
+       
+        <div id="suggestions">
+            <h2 id="might-like">You May Also Like</h2>
+            <div class="suggestion-wrapper">
+                <button id="prev-suggestion" class="suggestion-arrow">&lt;</button>
+                <div id="suggested-products-container">
+                    <div id="suggested-products">
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/khamrah.png" alt="Khamrah" class="suggested-image">
+                            <p class="suggested-name">Khamrah</p>
+                            <p class="suggested-price">900EGP</p>
+                        </div>
+        
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/bleu-de-chanel.png" alt="Bleu de Chanel" class="suggested-image">
+                            <p class="suggested-name">Bleu de Chanel</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+        
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+        
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+        
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+                        <div class="suggested-item">
+                            <img src="./public/img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
+                            <p class="suggested-name">Stronger with you intensely</p>
+                            <p class="suggested-price">900EGP</p>
+
+                        </div>
+
+                    </div>
+                </div>
+                <button id="next-suggestion" class="suggestion-arrow">&gt;</button>
+            </div>
+        </div>
+        
+        
+       
+     
+
 
 </body>
 </html>
