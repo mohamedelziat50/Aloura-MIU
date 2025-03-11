@@ -390,6 +390,7 @@ background-color: #f1f1f1;
   display: inline-block;
   top: 6.5rem;
   margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
+  z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
 }
 
 /* Filter Button */
@@ -423,7 +424,6 @@ background-color: #f1f1f1;
   width: 200px;
   top: 100%;
   margin-top: 10px;
-  z-index: 3; /* Z INDEX 3 MEANS THAT IT WILL BE SUPERIOR AS TO BRING TO FRONT LIKE IN PPT/IMAGESS: HIGHER IS BETTER: Greater z index than the image container*/
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
