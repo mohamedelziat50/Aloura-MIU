@@ -98,18 +98,35 @@ h1 {
 }
 
 /* Ensure lightbox is on top */
-.lightbox {
-    display: none;
+/* Prevent scrolling while fullscreen is active */
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Ensure the lightbox covers the screen but doesn't mess up the image */
+#lightbox {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.8);
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Higher than other elements */
+    z-index: 1000;
 }
+
+/* Lightbox image styling */
+#lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    transition: transform 0.2s ease;
+}
+
+
 
 .lightbox-content {
     max-width: 80%;
@@ -361,39 +378,95 @@ ul{
     margin-bottom: 20px; /* Space between heading and items */
 }
 
+/* Container for arrows and items */
+.suggestion-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin: auto;
+}
+
+/* Container that shows only a few items */
+/* Adjust the container to show three perfumes at a time */
+#suggested-products-container {
+    overflow: hidden;
+    width: 100%; /* Adjust width for better visibility */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.suggested-container {
+    overflow: hidden; /* Ensure nothing spills out */
+    position: relative;
+    width: 100%;
+}
+/* Ensure three items are visible */
 #suggested-products {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+    gap: 20px; /* Space between items */
+    transition: transform 0.5s ease-in-out;
+    width: max-content; /* Prevent shrinking */
+    transform: translateX(0); /* Start from the first item */
+    justify-content: flex-start; /* Prevents unwanted centering */
+
 }
 
+/* Each item takes up one-third of the visible container */
 .suggested-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
+    flex: 0 0 calc(100% / 3);
+    text-align: left;
+    background: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none !important;
+    align-items: left;
+    justify-content: center;
+     display: inline-block; /* Keeps items inline while allowing structure */
+     text-align: center; /* Centers content */
+    
 }
 
+/* Ensure images scale properly */
 .suggested-image {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+    border-radius: 0;
+    background: none;
 }
 
-.suggested-image:hover {
-    transform: scale(1.1);
+/* Remove borders from individual suggested items */
+.suggested-item {
+    border: none;
 }
 
 .suggested-name {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    font-weight: bold;
-    width: 100%;
+    margin-top: 5px;
+    font-size: 14px;
     text-align: center;
+    width: 100%;
 }
+
+
+/* Arrows */
+.suggestion-arrow {
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.suggestion-arrow:hover {
+    background-color: grey;
+}
+
 
 
 
