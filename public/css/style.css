@@ -492,7 +492,6 @@ a {
   color: blue;
   border-bottom: blue solid 1px;
 }
-
 /* uncomment for the login and sign up desing*/
 
 /* .loginButton {
@@ -594,8 +593,7 @@ footer .middle .cccard {
   transform: translate(50%, -50%);
 }
 
-.c-title {
-}
+
 
 footer .wrapper > * {
   flex: 0 0 auto;
@@ -692,7 +690,7 @@ footer .footer-link-01 a:after {
   font-style: italic;
 }
 
-input {
+footer input {
   width: 100%;
   padding: 10px;
   margin: 15px 0;
