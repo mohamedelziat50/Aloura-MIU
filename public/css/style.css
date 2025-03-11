@@ -9,14 +9,13 @@ body {
   overflow-x: hidden;
 }
 
-
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
-  display: flex;  /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
-  width: 100vw;  /* Full screen Width (100% of the *viewport* width) */
+  display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
+  width: 100vw; /* Full screen Width (100% of the *viewport* width) */
   height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
-  overflow: hidden;    /* Makes content disappear/hidden if they spill outside the container */
+  overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
   position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
 }
 
@@ -83,6 +82,7 @@ body {
 }
 
 .female .text-overlay button {
+  /* Button sticks to the left bottom corner */
   left: 10px;
   bottom: 10px;
 }
@@ -91,7 +91,6 @@ body {
   right: 10px;
   bottom: 10px;
 }
-
 
 .full-width {
   width: 100%; /*Expands selected image to full width */
@@ -261,6 +260,50 @@ body {
 .text-overlay-your.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Text Overlay Styles */
+.text-overlay-indulge {
+  position: absolute;
+  top: 20%; 
+  left: 10%; 
+  color: rgb(238, 236, 236);
+  z-index: 10; 
+  pointer-events: none; 
+  font-size: 150px;
+  font-weight: 650; 
+  transform: scale(1, 1.2); /* Stretch vertically */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
+}
+
+.text-overlay-your {
+  position: absolute;
+  top: 45%; 
+  left: 23%; 
+  color: rgb(238, 236, 236); 
+  z-index: 10; 
+  pointer-events: none; 
+  font-size: 150px;
+  font-weight: 650; 
+  white-space: nowrap; 
+  transform: scale(1, 1.2); /* Stretch vertically */
+  transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s ; /* Add clip-path transition */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
+}
+
+/* Hover effect for text overlays */
+.gender:hover .text-overlay-indulge,
+.gender:hover .text-overlay-your {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Shrink text from bottom to top */
+  transform: translateY(-80px) scale(1, 1.2); /* Move text up */
+}
+
+/* Reset text overlays when not hovering */
+.gender:not(:hover) .text-overlay-indulge,
+.gender:not(:hover) .text-overlay-your {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
+  transform: translateY(0) scale(1, 1.2); /* Return text to original position */
 }
 
 /* Quality and 3D Model Section */
@@ -554,3 +597,88 @@ body {
   background-color: #333; /* Darker shade on hover */
   transform: translateY(-2px); /* Slight lift on hover */
 }
+
+
+
+
+
+.modal-title {
+  text-align: center;
+  width: 100%;
+}
+.modal-content {
+  background-color: #f8f9fa; /* Light gray background here if you want to change the modal color*/
+  color: #333; /* Dark text color here to change the color of the text*/
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 300;
+}
+.modal-title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 36px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.forgot-password {
+  font-size: 0.9rem;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  text-decoration: none;
+  border-bottom: black solid 1px;
+}
+.forgot-password:hover {
+  color: blue;
+  border-bottom: blue solid 1px;
+}
+
+/* uncomment for the login and sign up desing*/
+
+/* .loginButton {
+  font-weight: normal;
+  font-size: 16px;
+  font-family: "Monotype Baskerville", serif;
+  letter-spacing: .1em;
+  line-height: 100%;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10.5px 0px 10.5px 0px;
+  transition: background-color 0.1s linear;
+}
+
+.loginButton:hover {
+  background-color: black;
+  color: white;
+}
+
+.signupButton {
+  font-weight: normal;
+  font-size: 16px;
+  font-family: "Monotype Baskerville", serif;
+  letter-spacing: .1em;
+  line-height: 100%;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10.5px 0px 10.5px 0px;
+  transition: background-color 0.1s linear;
+}
+
+.signButton:hover {
+  background-color: black;
+  color: white;
+} */

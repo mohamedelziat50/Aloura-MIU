@@ -161,3 +161,41 @@ function changeImages(gender) {
     // Show transition container
     transitionContainer.classList.add("active");
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const nav = document.querySelector('nav');
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener('scroll', function () {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY === 0) {
+      // If at the very top of the page, reset to the initial state
+      nav.classList.remove('nav-visible', 'hidden'); 
+    } else if (currentScrollY > lastScrollY) {
+      // Hide navbar when scrolling down
+      nav.classList.add('hidden');
+      nav.classList.remove('nav-visible');
+    } else {
+      // Show navbar when scrolling up
+      nav.classList.remove('hidden');
+      nav.classList.add('nav-visible');
+    }
+
+    lastScrollY = currentScrollY;
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const heading = document.querySelector(".grey-content h2");
+  const glow = document.querySelector(".glow");
+
+  // Trigger animations after a short delay (e.g., 500ms)
+  setTimeout(() => {
+    heading.classList.add("visible"); // Zoom in the heading
+    glow.classList.add("visible"); // Add glow effect
+  }, 100); // Adjust the delay as needed
+});
+
+

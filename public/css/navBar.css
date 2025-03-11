@@ -1,29 +1,42 @@
 nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 100px 0px 20px;
-    align-items: center;
-    background-color: transparent;
-    position: fixed;
-    width: 100vw;
-    z-index: 99999;
-    /* min-height: 8vh; */
-    top: 0;
-    left: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    /* Initially hide the navbar with transparency */
-    opacity: 0;
-    /* Use transform to move it slightly up for a nicer animation */
-    transform: translateY(-20px);
-  }
-
-  nav:hover {
-    background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 100px 0px 20px;
+  align-items: center;
+  background-color: transparent;
+  position: fixed;
+  width: 100vw;
+  height: 60px; /* Add a fixed height */
+  z-index: 99999;
+  transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out; /* Add transform transition */
 }
 
+/* Hide navbar on scroll down */
+nav.hidden {
+  transform: translateY(-100%);
+}
+
+/* Show navbar when scrolling up */
+nav.nav-visible {
+  transform: translateY(0);
+  background-color: white; /* Ensure background appears */
+}
+
+  /* Show links and background when hovering */
+nav:hover,
+nav.nav-visible {
+  background-color: white;
+}
+
+/* Make links appear when hovering OR when scrolling up */
+nav:hover .links ul,
+nav.nav-visible .links ul {
+  opacity: 1;
+  visibility: visible;
+}
   
   nav .logo {
-    width: 80px;
+    width: 40px;
   }
   
   nav .logo img {
@@ -35,9 +48,31 @@ nav {
     flex-grow: 1;  
     display: flex;
     justify-content: center; /*horizontally centers the fucking buttons*/
-    margin-left: 40px; /* Move links to the right */
+    margin-left: 100px; /* Move links to the right */
 
   }
+  
+
+  /* hide links by default unless hovering up there */
+  nav .links ul {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    gap: 40px;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 16px;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  }
+
+/* Show links on hover */
+nav:hover .links ul {
+  opacity: 1; /* Show links */
+  visibility: visible; /* Show links */
+}
   
   nav .links ul,
   nav .actions ul {

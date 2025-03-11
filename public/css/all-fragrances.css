@@ -348,6 +348,82 @@ background-color: #f1f1f1;
 
 /* END OF DROP DOWN MENU RELATED */
 
+/* DROP DOWN MENU OF FILTERS RELATED */
+
+/* Filter Container */
+.filter-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 1.5rem; /* Add relative margin to the left to work on different devices*/
+}
+
+/* Filter Button */
+.filter-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 7px 17px; /* Space around the text itself */
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Speed at which transitions happen for the background-color for example hovering*/
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* To match rest of page's font style! */
+  font-weight: 400;
+  line-height: 1.8rem;
+  font-size: 0.8rem;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
+
+.filter-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown Menu of filters*/
+.dropdown-menu-filter {
+  display: none;
+  position: absolute; /* Removing this will cause the drop-down menu to push all cards/entire page down! Absolute meaning it can have other elements on it */
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 200px;
+  top: 100%;
+  margin-top: 10px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Dropdown Options */
+.dropdown-option-filter {
+  padding: 10px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdown-option-filter:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown menu when active */
+.filter-container.active .dropdown-menu-filter {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: fadeInTop 0.3s ease forwards;
+}
+
+/* Hide dropdown menu with fade-out animation */
+.filter-container:not(.active) .dropdown-menu-filter {
+  animation: fadeOutTop 0.3s ease forwards;
+}
+
+/* END OF DROP DOWN MENU OF FILTERS RELATED */
+
 /* Image scaling */
 #stronger-with-you img {
   scale: 0.9;
@@ -378,3 +454,17 @@ background-color: #f1f1f1;
 }
 
 /* End of Image scaling */
+
+
+.custom-offcanvas {
+  min-width: 600px !important; /* Adjust as needed */
+}
+
+
+.offcanvas-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
