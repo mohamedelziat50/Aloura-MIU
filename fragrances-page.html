@@ -13,15 +13,57 @@
     <title>Fragrances - Aloura</title>
     <!-- END OF META DATA -->
 
+    <!-- CSS -->
     <link rel="stylesheet" href="./public/css/fragrances-page.css" />
-
+    <link rel="stylesheet" href="./public/css/navBar.css" />
     <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico">
+    <!-- font Awesome -->
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+   
+    <!-- JS Links (Connecting the JS file to this file) -->
+    <script src="./public/js/script.js"></script>
     <script src="./public/js/fragrances-page.js"></script>
+    
 
     
 </head>
 <body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+          <a href="index.html"> <img src="public/img/logo.png" alt="Logo"/></a>
+        </div>
+  
+        <div class="links">
+          <ul>
+            <li><a href="all-fragrances.html">Fragrances</a></li>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">Gifting</a></li>
+            <li><a href="our-story.html">Our Story</a></li>
+          </ul>
+        </div>
+  
+        <div class="actions">
+          <ul>
+            <li><i class="fa-solid fa-magnifying-glass"></i></li>
+            <li><button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="fa-regular fa-circle-user"></i>
+          </button></li>
+            <li><i class="fa-solid fa-cart-shopping"></i></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End of navbar -->
+
         <h1 id="heading">Aloura</h1>
 
         <div id="product-container" >
