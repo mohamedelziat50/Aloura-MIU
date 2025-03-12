@@ -14,7 +14,7 @@ body {
 }
 
 /* Container Styling */
-div {
+#product-container {
     display: flex;
     max-width: auto;
     background-color: white;
@@ -55,6 +55,10 @@ h1 {
     display: block;
     height: auto;
     margin: 0%;
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: center;
+
    
 }
 
@@ -65,6 +69,9 @@ h1 {
     text-align: center;
     width: 100%;
     background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: center;
 }
 
 #main-image {
@@ -444,12 +451,12 @@ ul{
     background: none;
     border: none;
     box-shadow: none;
-    
 }
 
 /* Remove borders from individual suggested items */
 .suggested-item {
     border: none;
+    padding: 20px;
 }
 
 .suggested-name {
@@ -514,7 +521,7 @@ ul{
 
 
 @media (max-width: 768px) {
-    /* Make the main container stack items vertically */
+    /* Stack items vertically */
     div {
         flex-direction: column;
         text-align: center;
@@ -522,34 +529,32 @@ ul{
         width: 100%;
     }
 
-    /* Adjust image container for better scaling */
+    /* Adjust image container */
     #image-container {
-        flex-direction: column;
-        align-items: center;
         width: 100%;
+        align-items: center;
     }
 
     #main-image {
-        width: 90%;
+        width: 100%;
         height: auto;
         margin-bottom: 20px;
         margin-top: 0;
     }
 
-    /* Ensure sub-images stay side by side */
+    /* Sub-images display fix */
     #subImages {
-        display: block;
+        display: flex;
         justify-content: center;
         gap: 5px;
+        flex-wrap: wrap; /* Allows wrapping */
         margin-top: 10px;
-        width: 90%;
-
+        width: 100%;
     }
 
     .subimage {
-        width: 49%; /* Keeps them side by side */
+        width: 48%; /* Ensures they stay side by side */
         height: auto;
-        object-fit: s;
     }
 
     /* Center text elements */
@@ -559,33 +564,34 @@ ul{
     }
 
     #price {
-        text-align: center;
         float: none;
-        width: 100%;
-        font-size: 18px;
+        text-align: center;
+        display: block;
+        margin: 10px auto;
     }
 
-    /* Adjust button sizes */
     #add-to-cart-button {
         width: 100%;
         padding: 12px;
-        font-size: 16px;
+        font-size: 14px;
     }
 
-    /* Ensure radio buttons fit well */
-    .radio-label {
-        width: 100%;
+    /* Adjust suggested products */
+    .suggested-item {
+        flex: 0 0 calc(50% - 10px); /* Two items per row */
     }
 
-    /* Adjust gender slider for small screens */
-    .gender-slider::before {
-        width: 100%;
+    .suggestion-wrapper {
+        flex-direction: column;
     }
 
-    input[type="range"] {
-        width: 100%;
+    /* Adjust suggestion arrows */
+    .suggestion-arrow {
+        font-size: 18px;
+        padding: 8px;
     }
 }
+
 
 
 
@@ -613,4 +619,16 @@ h2 {
     line-height: 100%;
     margin: 10px 0;
     text-transform: uppercase;
+
+
+div {
+    display: flex;
+    max-width: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
 } */
