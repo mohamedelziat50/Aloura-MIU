@@ -6,6 +6,12 @@
     from { transform: translateY(800px) }
 }
 
+/* Used with search bar's label - work around for text not smooth with loading of page */
+@keyframes fadeIn {
+    from { opacity: 0.15 } 
+    to { opacity: 1 }
+  }
+
 @keyframes fadeInTop {
     from {
         opacity: 0;
