@@ -566,7 +566,7 @@ background-color: #f1f1f1;
 
   transform: translateY(-50%); /*This moves the search button a little bit down so we can transition to it's original position (used for animation)*/
   transition: all 0.3s ease; /*This controls the speed at which the animation "search" moves at the top - all meaning all things inside the element*/
-
+  opacity: 0;
   color: #999;
   pointer-events: none;
 }

@@ -471,7 +471,8 @@ body {
   overflow: hidden;
   scroll-behavior: smooth; /* Smooth scrolling animation */
   width: 100%;
-  max-width: 1000px;
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 30px 0;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
@@ -483,26 +484,34 @@ body {
 
 /* Individual product cards */
 .product-card {
-  flex: 0 0 calc(33.333% - 20px);
-  margin: 0 10px;
+  flex: 0 0 calc(33.333% - 320px);
+  margin: 0 160px;
   background-color: #EFCFA0;
   border-radius: 8px;
   box-shadow: 0 4px 8px none;
   overflow: hidden;
-  transition: transform 0.3s ease;
-  transform: scale(0.85);
+  transition: transform 0.3s ease, z-index 0.5s ease;
+  transform: scale(0.7);
+  z-index: 0;
 }
 
 /* Active (focused) product card */
 .product-card.active {
-  transform: scale(1.1);
+  transform: scale(1.2);
   box-shadow: 0 12px 24px none;
   z-index: 5;
+}
+
+/* Adjacent cards (left and right) */
+.product-card.adjacent {
+  transform: scale(0.5); /* Slightly smaller scale for adjacent cards */
+  z-index: 1; /* Bring adjacent cards slightly forward */
 }
 
 /* Product image container */
 .product-img {
   height: 450px;
+  width: auto;
   overflow: hidden;
   position: relative;
 }
@@ -515,7 +524,7 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* Hover effect on product image  */                                    /*!?!??!?!?!?!?!?REMOVEEE!?!?!??!?!?!?!*/
+/* Hover effect on product image  */
 .product-card:hover .product-img img {
   transform: scale(1.1);
 }
@@ -538,9 +547,10 @@ body {
   font-weight: 500;
 }
 
+
 /* Navigation buttons */
 .slider-nav-btn {
-  background-color: #EFCFA0;
+  background-color: transparent;
   border: none;
   width: 40px;
   height: 40px;
@@ -561,11 +571,13 @@ body {
 
 /* Position of navigation buttons */
 .prev-btn {
-  left: 10px;
+  left: -180px;
+  bottom: 120px;
 }
 
 .next-btn {
-  right: 10px;
+  right: -180px;
+  bottom: 120px;
 }
 
 /* Icons in navigation buttons */
@@ -581,7 +593,9 @@ body {
   }
   
   .product-card.active {
-    transform: scale(1.05); /* Smaller scale change on medium screens */
+    transform: scale(1.1);
+    box-shadow: 0 12px 24px none;
+    z-index: 5;
   }
 }
 
@@ -875,8 +889,10 @@ footer input {
   padding-top: 10px;
 }
 
+/*
 button:hover {
   background: white;
   color: black;
   border: 1px solid black;
 }
+*/
