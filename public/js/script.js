@@ -43,94 +43,117 @@ function initPageAnimations() {
 
 /**
  * Initializes the product slider with circular looping
- */
-function initProductSlider() {
+ */function initProductSlider() {
   const slider = document.querySelector('.product-slider');
   const prevBtn = document.querySelector('.prev-btn');
   const nextBtn = document.querySelector('.next-btn');
-  let cards = Array.from(document.querySelectorAll('.product-card')); //Array.from converts the NodeList of cards into an array
+  const productDetails = document.getElementById('product-details');
+  let cards = Array.from(document.querySelectorAll('.product-card'));
 
-  if (!slider || !prevBtn || !nextBtn || cards.length === 0) return;
+  if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails) return;
 
-  const visibleCards = 3; // Number of cards visible at once
-  const cardWidth = slider.offsetWidth / visibleCards;
-  const cardCount = cards.length; // Total Number of cards in the slider
+  const visibleCards = 3;
+  const cardMargin = 160;
+  const cardWidth = (slider.offsetWidth / visibleCards) - (cardMargin * 2);
+  const cardCount = cards.length;
 
   // Duplicate first and last few cards for seamless looping
-  const firstClones = cards.slice(0, visibleCards).map(card => card.cloneNode(true)); //slice(0, visibleCards) gets the first 3 cards. cloneNode(true) creates a deep copy of each card.
-  const lastClones = cards.slice(-visibleCards).map(card => card.cloneNode(true));//slice(-visibleCards) gets the first 3 cards. cloneNode(true) creates a deep copy of each card.
+  const firstClones = cards.slice(0, visibleCards).map(card => card.cloneNode(true));
+  const lastClones = cards.slice(-visibleCards).map(card => card.cloneNode(true));
 
-  
   // Append clones at the start and end
-  firstClones.forEach(clone => slider.appendChild(clone)); //appendChild adds the first clones to the end of the slider.
-  lastClones.reverse().forEach(clone => slider.prepend(clone)); //prepend adds the last clones to the start of the slider. (reverse() Reverses the elements in an array).
+  firstClones.forEach(clone => slider.appendChild(clone));
+  lastClones.reverse().forEach(clone => slider.prepend(clone));
 
   // Update card list after adding clones
-  cards = Array.from(slider.children); //Add the NodeList contents of the slider (slider.children including original cards & the clones) to the cards array(Array.from)).
-  
-  let cardIndex = visibleCards; // Starting card of the slider.
-  slider.scrollLeft = cardIndex * cardWidth; // Sets the slider's scroll position to the starting card
+  cards = Array.from(slider.children);
+
+  let cardIndex = visibleCards;
+  slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+
+  /**
+   * Update product details based on the active card
+   */
+  function updateProductDetails() {
+    const activeCard = cards[cardIndex + 1]; // Active card is always cardIndex + 1 due to clones
+    if (!activeCard) return;
+
+    const name = activeCard.dataset.name;
+    const description = activeCard.dataset.description;
+    const rating = activeCard.dataset.rating;
+    const size = activeCard.dataset.size;
+    const price = activeCard.dataset.price;
+
+    productDetails.querySelector('.product-name').textContent = name;
+    productDetails.querySelector('.product-description').textContent = description;
+    productDetails.querySelector('.rating-score').textContent = rating;
+    productDetails.querySelector('.product-size').textContent = size;
+    productDetails.querySelector('.product-price').textContent = price;
+  }
 
   /**
    * Moves the slider and handles looping
    */
   function updateSlider() {
-      slider.style.scrollBehavior = 'smooth'; //transition.
-      slider.scrollLeft = cardIndex * cardWidth; //Updates the slider's scroll position to the next card.
+    slider.style.scrollBehavior = 'smooth';
+    slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
 
-      // Update active class
-      cards.forEach((card, index) => {
-//card.classList.toggle('active', condition). If the condition is true, the class 'active' is added to the card. If the condition is false, the class 'active' is removed from the card.
-          card.classList.toggle('active', index === cardIndex + 1);
-      });
+    // Update active class
+    cards.forEach((card, index) => {
+      const isActive = index === cardIndex + 1;
+      card.classList.toggle('active', isActive);
+    });
+
+    // Update product details
+    updateProductDetails();
   }
 
   function resetPosition() {
-      slider.style.scrollBehavior = 'auto'; // Disable smooth scrolling for instant reset
-      if (cardIndex >= cardCount + visibleCards) {
-          // If beyond last clone, reset to first real card
-          cardIndex = visibleCards;
-          slider.scrollLeft = cardIndex * cardWidth;
-      } else if (cardIndex < visibleCards) {
-          // If before first clone, reset to last real card
-          cardIndex = cardCount + visibleCards - 1; //idk it just works
-          slider.scrollLeft = cardIndex * cardWidth;
-      }
+    slider.style.scrollBehavior = 'auto';
+    if (cardIndex >= cardCount + visibleCards) {
+      cardIndex = visibleCards;
+      slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+    } else if (cardIndex < visibleCards) {
+      cardIndex = cardCount + visibleCards - 1;
+      slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+    }
   }
 
   // Navigation Buttons
   nextBtn.addEventListener('click', function() {
-      if (!slider.classList.contains('moving')) {
-          slider.classList.add('moving');
-          cardIndex++;
-          updateSlider();
-          setTimeout(() => { //ensures the slider runs after the transition is complete.
-              resetPosition();
-              slider.classList.remove('moving');
-          }, 300); // Delay matches transition time
-      }
+    if (!slider.classList.contains('moving')) {
+      slider.classList.add('moving');
+      cardIndex++;
+      updateSlider();
+      setTimeout(() => {
+        resetPosition();
+        slider.classList.remove('moving');
+      }, 300);
+    }
   });
 
   prevBtn.addEventListener('click', function() {
-      if (!slider.classList.contains('moving')) {
-          slider.classList.add('moving');
-          cardIndex--;
-          updateSlider();
-          setTimeout(() => {
-              resetPosition();
-              slider.classList.remove('moving');
-          }, 300);
-      }
+    if (!slider.classList.contains('moving')) {
+      slider.classList.add('moving');
+      cardIndex--;
+      updateSlider();
+      setTimeout(() => {
+        resetPosition();
+        slider.classList.remove('moving');
+      }, 300);
+    }
   });
 
   // Handle window resize
-  window.addEventListener('resize', function() { //resize event ensures the slider adjusts to the new window size.
-      updateSlider();
+  window.addEventListener('resize', function() {
+    updateSlider();
   });
 
   updateSlider(); // Initial update
 }
 
+// Initialize the slider
+initProductSlider();
 
 /**
  * Handles gender selection animation and transition

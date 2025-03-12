@@ -1,8 +1,15 @@
-
-@keyframes moveFromTop {
+ @keyframes moveFromTop {
     from { transform: translateY(-800px) }
-}
+} 
 
 @keyframes moveFromBottom {
     from { transform: translateY(800px) }
+}
+
+@keyframes fadeInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to { opacity: 1 }
 }
