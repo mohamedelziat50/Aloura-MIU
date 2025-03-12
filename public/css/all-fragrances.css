@@ -183,6 +183,12 @@ body {
   text-transform: uppercase;
 }
 
+/* Link wrapping the card's title */
+.card-title-link {
+  text-decoration: none;
+  color: black;
+}
+
 /* Card Type */
 .card-type {
   color: #121212;
@@ -285,7 +291,7 @@ animation: card-image-animation infinite 2s ease-in-out;
 }
 
 .card-image-container:not(:hover) .card-image {
-  animation: fadeIn  0.6s ease-in-out;
+  animation: fadeIn  0.8s ease-in-out; /* ease-out start faster and end slower */
 }
 
 @keyframes card-image-animation {
@@ -317,7 +323,7 @@ animation: card-image-animation infinite 2s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0 }
+  from { opacity: 0.15 } /* Adjusted starting opacity to look smoother when hovering out of card's image */
   to { opacity: 1 }
 }
 
