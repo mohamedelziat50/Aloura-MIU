@@ -410,9 +410,9 @@ background-color: #f1f1f1;
 .filter-container {
   position: relative;
   display: inline-block;
-  top: 6.5rem;
   margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
   z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
+  min-width: 99px;
 }
 
 /* Filter Button */
@@ -512,6 +512,7 @@ background-color: #f1f1f1;
 
 /* End of Image scaling */
 
+/* SHOPPING CART RELATED */
 
 .custom-offcanvas {
   min-width: 600px !important; /* Adjust as needed */
@@ -524,4 +525,92 @@ background-color: #f1f1f1;
   left: 0;
   width: 100%;
   padding: 15px;
+}
+
+/* END OF SHOPPING CART RELATED */
+
+/* SEARCH BAR RELATED */
+
+/* Container having the entire search bar stuff */
+.search-container {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+
+  /* Inline block because it'll contain searchbox & icons! */
+  display: inline-block;
+  
+  margin-right: 8.6rem;
+  margin-left: auto; /* Ensures it stays on the right */
+  width: 11.5rem;
+  min-width: 184px;
+}
+
+/* Search box: text box in which we write in */
+.search-input {
+  width: 80%; /* Ensure it stops right before the icons*/
+  padding: 10px 40px 10px 10px;
+  font-size: 16px;
+  
+  /* When you click on the text box a border and outline will appear, so hide them */
+  border: none;
+  outline: none;
+
+  /* Remove default white background */
+  background: transparent;
+}
+
+.search-label {
+  position: absolute;
+  left: 10px;
+  top: 55%;
+
+  transform: translateY(-50%); /*This moves the search button a little bit down so we can transition to it's original position (used for animation)*/
+  transition: all 0.3s ease; /*This controls the speed at which the animation "search" moves at the top - all meaning all things inside the element*/
+
+  color: #999;
+  pointer-events: none;
+}
+
+.search-input:focus + .search-label,
+.search-input:not(:placeholder-shown) + .search-label {
+    top: -2px; /*This controls by how much does the label of "search" go to the top as animation*/
+    font-size: 12px;
+    color: #646464;
+}
+
+.search-icon {
+  transform: translateY(-50%); /*Same concepts pushes the icon down the more it is down (used for animation)*/
+  cursor: pointer;
+
+  /* Positioniong */
+  right: 40px;
+  top: 50%;
+  position: absolute;
+}
+
+.close-icon {
+  transform: translateY(-50%);
+  cursor: pointer;
+  
+  /* Make sure it's not displayed at first for interactivity*/
+  display: none;
+  
+  /* Positioning */
+  right: 7px;
+  top: 50%;
+  position: absolute;
+}
+
+/* END OF SEARCH BAR RELATED */
+
+/* CONTROLS CONTAINER: Wraps Search bar + filter button */
+.controls-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keeps spacing consistent between both end containers*/
+  position: relative;
+  top: 6.5rem;
+  width: 100%;
+
+  min-width: 635;
 }

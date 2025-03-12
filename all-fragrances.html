@@ -109,17 +109,30 @@
       </ul>
     </div>
 
-    <!-- Filter Button and Dropdown Menu -->
-    <div class="filter-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
-      <button class="filter-button">Filter ▼</button>
-      <div class="dropdown-menu-filter">
-        <div class="dropdown-option-filter" data-value="None">None</div>
-        <div class="dropdown-option-filter" data-value="Eau de Parfum">Eau de Parfum</div>
-        <div class="dropdown-option-filter" data-value="Eau de Toilette">Eau de Toilette</div>
-        <div class="dropdown-option-filter" data-value="Eau de Cologne">Eau de Cologne</div>
-        <div class="dropdown-option-filter" data-value="Parfum">Parfum</div>
+    <!-- Controls Container -->
+    <div class="controls-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+      <!-- Filter Button and Dropdown Menu -->
+      <div class="filter-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+        <button class="filter-button">Filter ▼</button>
+        <div class="dropdown-menu-filter">
+          <div class="dropdown-option-filter" data-value="None">None</div>
+          <div class="dropdown-option-filter" data-value="Eau de Parfum">Eau de Parfum</div>
+          <div class="dropdown-option-filter" data-value="Eau de Toilette">Eau de Toilette</div>
+          <div class="dropdown-option-filter" data-value="Eau de Cologne">Eau de Cologne</div>
+          <div class="dropdown-option-filter" data-value="Parfum">Parfum</div>
+        </div>
+      </div>
+
+      <!-- Search bar -->
+      <div class="search-container">
+        <!-- Empty place holder as the search container's label will do the job with animation! -->
+        <input type="text" class="search-input" id="searchBox" placeholder=" " required>
+        <label class="search-label" for="searchBox" data-scrolly-top="fadeIn, duration 1.5s, delay:0.55s" data-scrolly-down="fadeIn, duration 1.5s, delay:0.55s">Search</label>
+        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <span class="close-icon" id="clearSearch"><i class="fa-solid fa-xmark"></i></span>
       </div>
     </div>
+    <!-- End of controls container -->
         
     <!-- Shopping cart menu related -->
     <div

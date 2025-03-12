@@ -121,3 +121,21 @@ document.addEventListener('click', () => {
     filterContainer.classList.remove('active'); // Hide the dropdown
   }
 });
+
+// =====================SEARCH BAR RELATED===================================
+const searchBox = document.getElementById('searchBox');
+const clearSearch = document.getElementById('clearSearch');
+
+// Add an event listener for the search box to listen for input (text)
+searchBox.addEventListener('input', () => {
+  // If searchBox has a value, then we'll display the clear icon!
+  clearSearch.style.display = searchBox.value ? 'block' : 'none';
+});
+
+// Close icon event listener
+clearSearch.addEventListener('click', () => {
+  // Reset searchBox's value to empty
+  searchBox.value = '';
+  // Then hide the icon once again
+  clearSearch.style.display = 'none';
+});
