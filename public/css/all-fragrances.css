@@ -613,4 +613,5 @@ background-color: #f1f1f1;
   width: 100%;
 
   min-width: 635;
+  z-index: 1001;
 }
