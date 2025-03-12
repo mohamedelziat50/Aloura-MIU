@@ -34,16 +34,11 @@
 
         /* MEDIA QUERIES BEC. THERE ARE NOT ALOT OF UNISEX PERFUMES */
         /* Medium screens (e.g., tablets) */
+
+        /* THIS IS TEMPORARY UNTILL WE ACTUALLY ADD PERFUMES FOR UNISEX */
         @media (max-width: 1024px) {
           .cards-container {
-            grid-template-columns: repeat(3, 1fr); /* Switch to 2 columns */
-          }
-        }
-
-        /* Small screens (e.g., mobile) */
-        @media (max-width: 600px) {
-          .cards-container {
-            grid-template-columns: repeat(2, 1fr); /* Switch to 1 column */
+            grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
           }
         }
 

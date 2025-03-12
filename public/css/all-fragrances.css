@@ -10,7 +10,7 @@ body {
   background-color: transparent;
   width: 100%;
   margin: auto; /* Center the block element */
-  margin-bottom: 35px; /* Played around with this to ensure scrolling animation on second row of cards
+  margin-bottom: 10px; /* Played around with this to ensure scrolling animation on second row of cards
   transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
 
   position: relative;
@@ -93,7 +93,7 @@ body {
 /* Cards Container */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* columns with equal width */
+  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr)); /* columns with equal width - ADJUSTED TO BECOME BETTER ON MOBILE */
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
@@ -103,7 +103,7 @@ body {
  */
 
   gap: 0px; /* Space between cards */
-  row-gap: 25px;
+  row-gap: 20px;
   margin: 20px; /* Space around cards contiainer*/
   margin-top: 0px;
   padding: 100px; /* Space between card container edge and the content inside (cards) */
