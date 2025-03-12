@@ -10,10 +10,13 @@ body {
   background-color: transparent;
   width: 100%;
   margin: auto; /* Center the block element */
+  margin-bottom: 35px; /* Played around with this to ensure scrolling animation on second row of cards
   transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
 
   position: relative;
-  top: 75px;
+  top: 100px;
+
+  min-width: 615px; /* Makes the links div responsive for mobile*/
 }
 
 /* Removed Middle Links Hovering All Backgrounds */
@@ -70,7 +73,7 @@ body {
     text-transform: uppercase;
 
     position: relative;
-    top: 80px;
+    top: 105px;
 
     min-width: 615px;
 }
@@ -100,13 +103,13 @@ body {
  */
 
   gap: 0px; /* Space between cards */
-  row-gap: 55px; /* 55 exactly to make the scroll animation work on reload of page*/
+  row-gap: 25px;
   margin: 20px; /* Space around cards contiainer*/
   margin-top: 0px;
   padding: 100px; /* Space between card container edge and the content inside (cards) */
 
   /* Make it so that user can't shrink window beyond a certain point */
-  min-width: 545px;
+  min-width: 615px; /* Makes the links div responsive for mobile*/
 }
 
 /* Card Container */
