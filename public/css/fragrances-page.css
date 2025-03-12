@@ -38,16 +38,22 @@ body {
 h1 {
     color: black;
 
-    /* Letter display related */
-    font-weight: 100; /* Add this to make the font look think and clean */
-    font-size: 64px; /* Added this line for 64px font size */
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em; /* Distance between letters for design */
-    line-height: 100%;
-
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
+     /* Letter display related */
+     font-weight: 100; /* Add this to make the font look think and clean */
+     font-size: 64px; /* Added this line for 64px font size */
+     font-family: "Monotype Baskerville", serif;
+     letter-spacing: .1em; /* Distance between letters for design */
+     line-height: 100%;
+ 
+     margin: auto;
+     margin-bottom: 6%;
+     text-align: center;
+     text-transform: uppercase;
+ 
+     position: relative;
+     top: 60px;
+ 
+     min-width: 615px;
 }
 
 #product-details{
