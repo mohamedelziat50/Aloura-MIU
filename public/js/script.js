@@ -232,10 +232,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // List of all countries with their codes and flags
     const countryCodes = [
-        { name: "United States", code: "+1", flag: "🇺🇸" },
-        { name: "United Kingdom", code: "+44", flag: "🇬🇧" },
-        { name: "Canada", code: "+1", flag: "🇨🇦" },
-        { name: "India", code: "+91", flag: "🇮🇳" },
+        {code: "+1", flag: "🇺🇸" },
+        { code: "+44", flag: "🇬🇧" },
+        { code: "+1", flag: "🇨🇦" },
+        { code: "+91", flag: "🇮🇳" },
         { name: "Germany", code: "+49", flag: "🇩🇪" },
         { name: "France", code: "+33", flag: "🇫🇷" },
         { name: "Australia", code: "+61", flag: "🇦🇺" },
