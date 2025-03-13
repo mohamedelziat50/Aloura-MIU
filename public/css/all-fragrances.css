@@ -330,6 +330,10 @@ animation: card-image-animation infinite 2s ease-in-out;
   to { opacity: 1 }
 }
 
+@keyframes moveFromBottom {
+  from { transform: translateY(800px) }
+}
+
 /* WOBBLING EFFECT!!
 @keyframes card-image-animation {
   0%, 100% { transform: translate(0, 0) rotate(0); } 
@@ -615,3 +619,76 @@ background-color: #f1f1f1;
   min-width: 635;
   z-index: 1001;
 }
+
+
+
+/* BACK TO TOP BUTTON RELATED */
+
+html {
+  /* Smooth scroll when pressing on the back-to-top button - not scrolling animation of anything else related */
+  scroll-behavior: smooth;
+}
+
+#back-to-top-div {
+  /*This is so the div can be put on other elements - overrides the display:block i think*/
+  position: absolute; 
+
+  /* Positioning at the bottom right */
+  top: 93%; 
+  margin-left: 94%;
+
+  animation: moveFromBottom 1.35s ease-in-out; /* Animation to move in manually when loading screen because scrolly wouldn't work!*/
+}
+
+#back-to-top-button {
+  width: auto;
+  height: auto;
+  padding: 10px;
+  text-align: center;
+  
+  /* This is so that the button scroll down along side the user regardless of it's parent div being absolute */
+  position: fixed;
+  
+  font-size: 12px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  transition: background-color 0.3s ease; /* Speed at which transitions happen for the background-color for example hovering*/
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* So that it appears above other elements */
+  z-index: 1001;
+  cursor: pointer; /* Make it look clickable */
+
+  /* For resizing */
+  margin-right: 0.5rem;
+  min-width: 76px;
+  min-height: 40px;
+}
+
+#back-to-top-button:hover {
+  background-color: #f1f1f1 !important;  /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+}
+
+/* To Top Responsive Styles for Mobile Devices */
+@media (max-width: 1400px)
+{
+  #back-to-top-div {
+    /* Adjust positioning for smaller screens */
+    top: 90%; /* Move it slightly higher */
+    margin-left: 80%; /* Move it closer to the left */
+  }
+
+  #back-to-top-button {
+    /* Make the button smaller on mobile */
+    padding: 8px;
+    font-size: 10px;
+
+    /* IF THESE ARE REMOVED, the button doesn't find any space and jumps at a random location on the screen! */
+    /* Adjust positioning for smaller screens */
+    bottom: 10px; /* Distance from the bottom */
+    right: 10px; /* Distance from the right */
+  }
+}
+
+/* END OF BACK TO TOP BUTTON RELATED */
