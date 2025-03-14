@@ -60,7 +60,7 @@ class ThemeInterface {
       text-indent: -100em;
     }
     #${this.defaultId} #darkmode-toggle + label:after {
-      content: "";
+      content: "☀️";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       display: inline-block;
@@ -70,7 +70,7 @@ class ThemeInterface {
       -moz-osx-font-smoothing: grayscale;
       color: var(--color-text);
       text-indent: 0;
-      padding: 0.25rem;
+      padding: 0rem;
       text-align: left;
       position: absolute;
       top: 0.25rem;
@@ -86,7 +86,7 @@ class ThemeInterface {
       width: 2rem;
     }
     #${this.defaultId} #darkmode-toggle:checked + label:after {
-      content: "";
+      content: "🌑";
       left: calc(100% - 0.25rem);
       transform: translateX(-100%);
       text-align: right;
