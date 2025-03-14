@@ -243,3 +243,38 @@ class ThemeInterface {
   
   
   if (typeof exports != "undefined") module.exports = AutoDarkMode;
+
+//   Now code to actually put the dark mode button is inside the js file itself to make html file smaller
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AutoDarkMode
+    new AutoDarkMode();
+
+    // Wait for the toggle button to be rendered
+    setTimeout(() => {
+        // Select the toggle button by its ID - adm-toggle is said by the documentation
+        const toggleButton = document.getElementById('adm-toggle');
+
+        // Styling of button is from here in the js, not css
+        if (toggleButton)
+        {
+        // Select the label inside the toggle button
+        const label = toggleButton.querySelector('label');
+
+        if (label) {
+            // Remove the text node (e.g., "Dark Mode") from the label
+            const textNode = Array.from(label.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+            if (textNode) {
+            label.removeChild(textNode);
+            }
+        }
+
+        // Change the position of the toggle button
+        toggleButton.style.position = 'fixed';
+        toggleButton.style.bottom = '5rem'; // Adjust the position from the bottom
+        toggleButton.style.right = '2.9rem'; // Adjust the position from the right
+        toggleButton.style.zIndex = '9999'; // Ensure it's on top of other elements
+        toggleButton.style.animation = 'moveFromBottom 1.35s ease-in-out'; // Animation when loading page like to top button
+        toggleButton.style.scale = 0.9;
+        }
+    }); // Small delay to ensure the element is rendered
+});
