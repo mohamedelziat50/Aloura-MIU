@@ -1,0 +1,103 @@
+#both-container {
+    display: grid;
+    position: relative;
+    /* Used for responsiveness */
+    grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+    
+    top: 75px;
+    margin-left: 17rem;
+    margin-right: 17rem;
+    padding-top: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px; /* Used for rounded corners */
+    text-align: center; /* To allign all text in the center, has to be included */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05); /* Shadows for design */
+    background-color: white !important; /*CHANGING THE CARD'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+    height: 800px; 
+}
+
+#left-section {
+    position: relative;
+    width: 50%;
+
+    /* Acts as the seperator between both sections */
+    border-right: 1px solid #e0e0e0;
+
+    align-items: center;
+    overflow: hidden;
+}
+
+#payment-header-icons-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center everything horizontally */
+    gap: 5px; /* Space between header and icons */
+    width: 75%; /* Ensure the container spans the full width */
+    margin: 0 auto; /* Center the container */
+}
+
+#payment-header {
+    margin: auto;
+    text-align: center;
+
+    color: #707070;
+    text-transform: uppercase; 
+    font-weight: normal;
+    font-size: 16px; /* Smaller font size */
+    margin-bottom: 2%;
+}
+
+#payment-icons-div {
+    display: grid;
+    position: relative;
+
+    width: 65%; /* Limit the maximum width of the icons container */
+    /* Used for responsiveness */
+    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+
+    margin: auto; /* Center the container */
+    justify-content: center; /* Center the grid horizontally */
+    gap: 10px
+}
+
+.payment-icons {
+    height: auto; /* Maintain aspect ratio */
+    width: 100%; /* Make icons fill the grid cell */
+    max-width: 110px; /* Limit maximum size of icons */
+    scale: 1.2;
+}
+
+.divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 85%;
+    /*
+        0 → top and bottom margin to 0 
+        auto → left and right margins adjust automatically to center element
+    */
+    margin: 10px auto; /* Centers the divider */     
+}
+
+.styled-hr {
+    flex: 1;
+    border: none;
+    border-top: 2px solid #ccc;
+}
+
+.or-text {
+    font-size: 14px;
+    color: #707070;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif; /* More modern font */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    text-transform: uppercase; /* Uppercase text */
+
+    pointer-events: none; /* Completely disables interaction */
+    cursor: default; /* Ensures no cursor change */
+}
+
