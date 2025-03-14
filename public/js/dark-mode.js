@@ -271,10 +271,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change the position of the toggle button
         toggleButton.style.position = 'fixed';
         toggleButton.style.bottom = '5rem'; // Adjust the position from the bottom
-        toggleButton.style.right = '2.9rem'; // Adjust the position from the right
+        toggleButton.style.right = '0rem'; // Adjust the position from the right
         toggleButton.style.zIndex = '9999'; // Ensure it's on top of other elements
         toggleButton.style.animation = 'moveFromBottom 1.35s ease-in-out'; // Animation when loading page like to top button
         toggleButton.style.scale = 0.9;
+        toggleButton.style.marginRight = '1.95rem';
         }
     }); // Small delay to ensure the element is rendered
 });
