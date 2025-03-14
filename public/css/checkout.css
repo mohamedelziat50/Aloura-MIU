@@ -132,16 +132,18 @@
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
 }
 
 .container {
   position: relative;
-  height: 225px;
-  width: 375px;
+  height: 210px !important;
+  width: 350px !important;
   z-index: 100;
   transition: 0.8s;
   transform-style: preserve-3d;
   background: linear-gradient(90deg, #cfd2d4, #f3f5f5) !important; /*Wouldn't change color without important*/
+  border-radius: 25px;
 }
 .container:hover {
   transform: rotateY(180deg);
@@ -175,9 +177,13 @@
   margin-right: 10px;
 }
 h5 {
-  font-size: 16px;
+  font-size: 14px !important;
   font-weight: 400;
   text-align: left;
+}
+
+#lorem-text-card {
+  font-size: 10px !important;
 }
 .front-face .chip {
   width: 50px;
@@ -194,8 +200,9 @@ h6 {
   font-size: 10px;
   font-weight: 400;
 }
+
 h5.number {
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 1px;
 }
 h5.name {
@@ -246,3 +253,48 @@ h5.name {
 }
 
 /* End of FLIPPING CARD RELATED */
+
+/* Every time screen size lowers, lower the margin of the both container to fit more */
+/* And also adjust the card's container height/width + The left section's taking up space */
+@media (max-width: 1270px) {
+  #both-container {
+      margin-left: 5rem;
+      margin-right: 5rem;
+      height: auto; /* Adjust height dynamically */
+  }
+  
+  .container {
+      width: 300px !important;
+      height: 180px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #both-container {
+      margin-left: 2rem;
+      margin-right: 2rem;
+      grid-template-columns: 1fr; /* Stack both left-right section vertically - for smaller screen sizes is important */
+  }
+  
+  #left-section {
+      width: 100%;
+      border-right: none; /* Remove separator in small screens */
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 20px;
+  }
+
+  .container {
+      width: 280px !important;
+      height: 170px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container { 
+    display: none !important;  /* Hides the card container - because showing card is really hard */
+  } 
+
+  #payment-icons-div {
+    margin-top: 5px;
+  }
+}
