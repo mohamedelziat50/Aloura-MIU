@@ -70,7 +70,7 @@
   <body>
 
     <!-- Navbar -->
-    <nav>
+    <nav id="landmark">
 
       <div class="logo">
         <a href="index.html"> <img src="public/img/logo.png" alt="Logo"/></a>
@@ -188,9 +188,18 @@
         </div>
         <hr />
         <div class="offcanvas-footer p-3">
-          <button id="Checkout" class="btn btn-success w-10">Checkout</button>
+          <button id="Checkout" class="btn btn-success w-10" onclick="window.location.href='checkout.html'">Checkout</button>
         </div>
       </div>
+    </div>
+
+    <!-- CANT ADD SCROLLING ANIMATION USING SCROLLY, SO ADD MANUALLY ADD LOADING OF PAGE -->
+    <!-- Back-to-top button related -->
+    <div id="back-to-top-div">
+      <!-- # means go back to the top of the page -->
+      <button id="back-to-top-button" onclick="window.location.href='#'">
+          <i class="fa-solid fa-arrow-up" style="margin-right: 7px;"></i> To Top
+      </button>
     </div>
 
     <!-- BIG CARDS CONTAINER -->

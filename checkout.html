@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances" />
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta
+      name="description"
+      content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
+    />
+    <title>Checkout - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico" />
+
+    <!-- CSS Links (Connecting the CSS file to this file) -->
+    <link rel="stylesheet" href="./public/css/checkout.css" />
+    <link rel="stylesheet" href="./public/css/navBar.css" />
+
+    <!-- JS Links (Connecting the JS file to this file) -->
+    <script src="./public/js/script.js"></script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">
+        <a href="index.html"> <img src="public/img/logo.png" alt="Logo"/></a>
+      </div>
+
+      <div class="links">
+        <ul>
+          <li><a href="all-fragrances.html">Fragrances</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gifting</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <ul>
+          <li><i class="fa-solid fa-magnifying-glass"></i></li>
+          <li><button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="fa-regular fa-circle-user"></i>
+        </button></li>
+          <li><i class="fa-solid fa-cart-shopping"></i></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End of navbar -->
+
+    <h1 id="header">Checkout</h1>
+
+    <div id="both-container">
+        <!-- LEFT SECTION -->
+        <div id="left-section">
+            <div id="payment-header-icons-div">
+                <!-- Header -->
+                <h2 id="payment-header">Express Checkout</h2>
+                <!-- FLIPPING CREDIT CARD -->
+                <div class="container">
+                  <div class="card front-face">
+                    <header>
+                      <span class="logo">
+                        <img src="./public/img/checkout-related/card-logo.png" alt="" />
+                        <h5>Master Card</h5>
+                      </span>
+                      <img src="./public/img/checkout-related/chip.png" alt="" class="chip" />
+                    </header>
+                    <div class="card-details">
+                      <div class="name-number">
+                        <h6>Card Number</h6>
+                        <h5 class="number">8050 2030 3020 5040</h5>
+                        <h5 class="name">Prem Kumar Shahi</h5>
+                      </div>
+                      <div class="valid-date">
+                        <h6>Valid Thru</h6>
+                        <h5>05/28</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card back-face">
+                    <h6>
+                      For customer service call +977 4343 3433 or email at
+                      mastercard@gmail.com
+                    </h6>
+                    <span class="magnetic-strip"></span>
+                    <div class="signature"><i>005</i></div>
+                    <h5 id="lorem-text-card">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                      maiores sed doloremque.
+                    </h5>
+                  </div>
+                </div>
+                <!-- END OF FLIPPING CREDIT CARD -->
+
+                <!-- Icons -->
+                <div id="payment-icons-div">
+                    <img src="./public/img/checkout-related/ApplePay.png" alt="ApplePay" class="payment-icons">
+                    <img src="./public/img/checkout-related/Visa.png" alt="Visa" class="payment-icons">
+                    <img src="./public/img/checkout-related/PayPal.png" alt="PayPal" class="payment-icons">
+                </div>
+                <!-- End of Icons -->
+            </div>
+
+            <!-- Divider -->
+            <div class="divider-container">
+                <hr class="styled-hr">
+                <span class="or-text">OR</span>
+                <hr class="styled-hr">
+            </div>
+        </div>
+        <!-- END OF LEFT SECTION -->
+
+    </div>
+    <!-- END OF BOTH CONTAINER -->
+
+     <!-- Linking js at end of body to wait for everything to load! -->
+     <script src="public/js/checkout.js"></script>
+  </body>
+</html>
