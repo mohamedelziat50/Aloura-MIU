@@ -664,6 +664,11 @@ html {
   margin-right: 0.5rem;
   min-width: 76px;
   min-height: 40px;
+
+  /* Intially hidden to only appear at a certain point */
+  opacity: 0;
+  /* This controls how fast the animation for opacity/fading in/out happens! Used with appearing at certain scroll position */
+  transition: opacity 0.5s ease;
 }
 
 #back-to-top-button:hover {

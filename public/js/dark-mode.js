@@ -237,6 +237,7 @@ class ThemeInterface {
       button.render();
       button.setChangeEvent(onChangeEvent);
   
+      // This line saves the last state whether it was dark/light mode! Comment it out if you don't want to save
       history.setPreviousState(dispatchChangeEvent);
     }
   }
@@ -246,7 +247,10 @@ class ThemeInterface {
 
 //   Now code to actually put the dark mode button is inside the js file itself to make html file smaller
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize AutoDarkMode
+    // const theme = null; // will apply the default one
+    // // Double rotate elements -> To skips elements why you don't want to apply effect to! 
+    // const doubleRotatedElements = ['']; 
+    // new AutoDarkMode(theme, doubleRotatedElements);
     new AutoDarkMode();
 
     // Wait for the toggle button to be rendered
@@ -272,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleButton.style.position = 'fixed';
         toggleButton.style.bottom = '5rem'; // Adjust the position from the bottom
         toggleButton.style.right = '0rem'; // Adjust the position from the right
-        toggleButton.style.zIndex = '9999'; // Ensure it's on top of other elements
+        toggleButton.style.zIndex = '1'; // Ensure it's on top of other elements EXCEPT Shopping cart for better viewing of it
         toggleButton.style.animation = 'moveFromBottom 1.35s ease-in-out'; // Animation when loading page like to top button
         toggleButton.style.scale = 0.9;
         toggleButton.style.marginRight = '1.95rem';
