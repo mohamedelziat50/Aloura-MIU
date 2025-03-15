@@ -311,3 +311,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Toggles nav bar links
+function toggleLinks() {
+    document.querySelector("nav .links ul").classList.toggle("active");
+  }
+  

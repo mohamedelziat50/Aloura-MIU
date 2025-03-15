@@ -134,3 +134,58 @@ nav:hover .links ul {
     opacity: 1;
     transform: translateY(0);
   }
+
+  .nav-toggle-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    left: 40%;
+  }
+  
+  .nav-toggle-btn span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: rgb(0, 0, 0);
+    transition: 0.3s;
+  }
+
+  /* moves links to the left so it doesn't overlap with icons on the right */
+  @media (max-width: 998px) {
+    nav .links ul{
+      margin-left: -300px;
+    }
+  }
+
+  /* Show nav dropdown button and hides links on smaller screens */
+  @media (max-width: 770px) {
+    nav .links ul{
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background: #ffffff;
+      padding: 10px 10px;
+      margin-left: 0px;
+      opacity: 1;
+      visibility: visible;
+    }
+    .nav-toggle-btn {
+      display: flex;
+    }
+    nav {
+      background-color: white;/* Show background on smaller screens */
+    }
+  }
+
+  /* display links when toggled */
+  nav .links ul.active {
+    display: flex;
+  }
