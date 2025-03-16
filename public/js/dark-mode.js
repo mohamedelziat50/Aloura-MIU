@@ -15,7 +15,7 @@ class ToggleFancyShapeTheme extends ThemeInterface {
   defaultPosition = `
     position:fixed;
     bottom:1rem;
-    z-index: 9999999999;
+    z-index: 1;
     transition: transform 3s cubic-bezier(0.68, -0.3, 0.27, 1.55);
   `;
 
@@ -46,6 +46,21 @@ class ToggleFancyShapeTheme extends ThemeInterface {
     --color-text: #333;
     width: 2.6rem;
     transform: translateX(calc(100vw - 4.5rem)); /* Start on right side */
+
+    /* Lines for fade-in animation When loading*/
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 0.9s; /* Delay before animation starts */
+  }
+
+  /* Animation for fading in of button */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
   #${this.defaultId}.darkmode {
