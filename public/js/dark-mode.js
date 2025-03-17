@@ -15,7 +15,8 @@ class ToggleFancyShapeTheme extends ThemeInterface {
   defaultPosition = `
     position:fixed;
     bottom:1rem;
-    z-index: 9999999999;
+    /*Readded a higher z-index, because the back to top button would push the dark mode button around for some reason*/
+    z-index: 999; 
     transition: transform 3s cubic-bezier(0.68, -0.3, 0.27, 1.55);
   `;
 
@@ -46,6 +47,21 @@ class ToggleFancyShapeTheme extends ThemeInterface {
     --color-text: #333;
     width: 2.6rem;
     transform: translateX(calc(100vw - 4.5rem)); /* Start on right side */
+
+    /* Lines for fade-in animation When loading*/
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 0.9s; /* Delay before animation starts */
+  }
+
+  /* Animation for fading in of button */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
   #${this.defaultId}.darkmode {
@@ -59,6 +75,51 @@ class ToggleFancyShapeTheme extends ThemeInterface {
   
   #${this.defaultId}.dark-mode-right {
     transform: translateX(calc(100vw - 4.5rem)); /* Right side position */
+  }
+
+  @media screen and (min-width: 300px) and (max-width: 399px) {
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - -11.7rem));
+    }
+  }
+
+   @media screen and (min-width: 400px) and (max-width: 439px) {
+      #${this.defaultId}.dark-mode-right {
+        transform: translateX(calc(100vw - -9.1rem));
+      }
+    }
+
+  @media screen and (min-width: 440px) and (max-width: 474px) {
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - -7.1rem));
+    }
+  }
+
+  @media screen and (min-width: 475px) and (max-width: 515px) {
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - -4.5rem));
+    }
+  }
+
+  @media screen and (min-width: 516px) and (max-width: 559px) {
+    
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - -2rem));
+    }
+  }
+
+  @media screen and (min-width: 560px) and (max-width: 599px) {
+  
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - 0.5rem));
+    }
+  }
+
+  @media screen and (min-width: 600px) and (max-width: 615px) {
+
+    #${this.defaultId}.dark-mode-right {
+      transform: translateX(calc(100vw - 3rem));
+    }
   }
   
   #${this.defaultId} #darkmode-toggle {
