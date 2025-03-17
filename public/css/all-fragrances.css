@@ -694,7 +694,7 @@ html {
 
     /* IF THESE ARE REMOVED, the button doesn't find any space and jumps at a random location on the screen! */
     /* Adjust positioning for smaller screens */
-    bottom: 10px; /* Distance from the bottom */
+    bottom: 60px; /* Distance from the bottom */
     right: 10px; /* Distance from the right */
   }
 }
