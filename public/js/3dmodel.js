@@ -58,7 +58,7 @@ function initModel() {
   // Load a 3D model
   const loader = new THREE.GLTFLoader(); //GLTFLoader:Loads a GLTF/GLB 3D model file.
   loader.load( //loads the model and adds it to the scene
-    './public/models/bleu_de_chanel_perfume.glb',
+    '../models/bleu_de_chanel_perfume.glb',
     function(gltf) { //function(gltf) is a callback function that is called when the model is loaded.
       const model = gltf.scene; //gltf.scene: the root object of the model.
       

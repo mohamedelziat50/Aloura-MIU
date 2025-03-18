@@ -81,9 +81,9 @@ body {
 /* Downloaded Font - Hosting it our self */
 @font-face {
     font-family: "Monotype Baskerville";
-    src: url("./public/fonts/MT Baskerville ET W08 Roman.woff2") format("woff2"),
-         url("./public/fonts/MT Baskerville ET W08 Roman.woff") format("woff"),
-         url("./public/fonts/MT Baskerville ET W08 Roman.ttf") format("truetype");
+    src: url("../fonts/MT Baskerville ET W08 Roman.woff2") format("woff2"),
+         url("../fonts/MT Baskerville ET W08 Roman.woff") format("woff"),
+         url("../fonts/MT Baskerville ET W08 Roman.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
