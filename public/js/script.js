@@ -16,7 +16,7 @@ function initPageAnimations() {
     // Fetch all elements that need transitions
     const femaleImg = document.querySelector('.female img');
     const maleImg = document.querySelector('.male img');
-    const buttons = document.querySelectorAll('.text-overlay button');
+    const buttons = document.querySelectorAll('.left-container button, .right-container button');
     const indulgeText = document.querySelector('.text-overlay-indulge');
     const yourText = document.querySelector('.text-overlay-your');
 
@@ -29,7 +29,9 @@ function initPageAnimations() {
     // Start text transitions after images finish loading
     setTimeout(() => {
         if (indulgeText) indulgeText.classList.add('show');
-        if (yourText) yourText.classList.add('show');
+        setTimeout(() => {
+          if (yourText) yourText.classList.add('show');
+      }, 300); // Delay 'Your' by 300ms after 'Indulge'
         
         // Add slight delay for buttons to appear after the text
         setTimeout(() => {
