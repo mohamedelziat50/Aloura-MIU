@@ -1,38 +1,24 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- META DATA -->
-    <!-- Define type of characters used in our website -->
-    <meta charset="UTF-8" />
-    <!-- Keywords for search engine: will be useful when publishing -->
-    <meta name="keywords" content="Perfumes, Fragrances" />
-    <!--  Different devices with different resolutions-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Description displayed in search engine -->
-    <meta
-      name="description"
-      content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
-    />
-    <title>Checkout - Aloura</title>
-    <!-- END OF META DATA -->
-
-    <!-- Tab Logo -->
-    <link rel="icon" type="image/x-icon" href="../img/favicon-logo.ico" />
-
-    <!-- CSS Links (Connecting the CSS file to this file) -->
-    <link rel="stylesheet" href="../css/checkout.css" />
-    <link rel="stylesheet" href="../css/navBar.css" />
-
-    <!-- JS Links (Connecting the JS file to this file) -->
-    <script src="../js/script.js"></script>
-    
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Checkout - eStore Bootstrap Template</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+    <meta content="noindex, nofollow" name="robots" />
+    <!-- Favicons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+      integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
       crossorigin="anonymous"
-    ></script>
-
-    <!-- Font Awesome -->
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://bootstrapmade.com/content/demo/eStore/assets/img/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
+    <link rel="stylesheet" href="../css/navBar.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -40,104 +26,617 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    <link
+      href="https://bootstrapmade.com/content/vendors/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://bootstrapmade.com/content/vendors/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://bootstrapmade.com/content/vendors/swiper/swiper-bundle.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://bootstrapmade.com/content/vendors/aos/aos.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://bootstrapmade.com/content/vendors/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://bootstrapmade.com/content/vendors/drift-zoom/drift-basic.css"
+      rel="stylesheet"
+    />
+    <!-- Main CSS File -->
+    <link
+      href="https://bootstrapmade.com/content/demo/eStore/assets/css/main.css"
+      rel="stylesheet"
+    />
+    <!-- =======================================================
+    * Template Name: eStore
+    * Template URL: https://bootstrapmade.com/estore-bootstrap-ecommerce-template/
+    * Updated: Mar 01 2025 with Bootstrap v5.3.3
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+    <style type="text/css">
+      * {
+        animation-duration: 0.001s !important;
+        transition-duration: 0.001s !important;
+      }
+    </style>
   </head>
+  <body
+    class="checkout-page"
+    data-aos-delay="0"
+    data-aos-duration="600"
+    data-aos-easing="ease-in-out"
+  >
+  <nav>
+    <div class="logo">
+      <a href="../../index.html"> <img src="../../public/img/logo.png" alt="Logo" /></a>
+    </div>
 
-  <body>
+    <div class="links">
+      <ul>
+        <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Gifting</a></li>
+        <li><a href="public/pages/our-story.html">Our Story</a></li>
+      </ul>
+    </div>
 
-    <!-- Navbar -->
-    <nav>
-      <div class="logo">
-        <a href="../../index.html"> <img src="../img/logo.png" alt="Logo"/></a>
-      </div>
-
-      <div class="links">
-        <ul>
-          <li><a href="all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-
-      <div class="actions">
-        <ul>
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li><button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#loginModal">
+    <div class="actions">
+      <ul>
+        <li><i class="fa-solid fa-magnifying-glass"></i></li>
+        <li>
+          <button
+            style="border: none; background-color: transparent"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+          >
             <i class="fa-regular fa-circle-user"></i>
-        </button></li>
-          <li><i class="fa-solid fa-cart-shopping"></i></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- End of navbar -->
-
-    <h1 id="header">Checkout</h1>
-
-    <div id="both-container">
-        <!-- LEFT SECTION -->
-        <div id="left-section">
-            <div id="payment-header-icons-div">
-                <!-- Header -->
-                <h2 id="payment-header">Express Checkout</h2>
-                <!-- FLIPPING CREDIT CARD -->
-                <div class="container">
-                  <div class="card front-face">
-                    <header>
-                      <span class="logo">
-                        <img src="../img/checkout-related/card-logo.png" alt="" />
-                        <h5>Master Card</h5>
-                      </span>
-                      <img src="../img/checkout-related/chip.png" alt="" class="chip" />
-                    </header>
-                    <div class="card-details">
-                      <div class="name-number">
-                        <h6>Card Number</h6>
-                        <h5 class="number">8050 2030 3020 5040</h5>
-                        <h5 class="name">Prem Kumar Shahi</h5>
+          </button>
+        </li>
+        <li>
+          <button
+            style="border: none; background-color: transparent"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <main class="main">
+      <!-- Checkout Section -->
+      <section class="checkout section" id="checkout">
+        <div
+          class="container aos-init aos-animate"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="row">
+            <div class="col-lg-7">
+              <!-- Checkout Form -->
+              <div
+                class="checkout-container aos-init aos-animate"
+                data-aos="fade-up"
+              >
+                <form class="checkout-form">
+                  <!-- Customer Information -->
+                  <div class="checkout-section" id="customer-info">
+                    <div class="section-header">
+                      <div class="section-number">1</div>
+                      <h3>Customer Information</h3>
+                    </div>
+                    <div class="section-content">
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label for="first-name">First Name</label>
+                          <input
+                            class="form-control"
+                            id="first-name"
+                            name="first-name"
+                            placeholder="Your First Name"
+                            required=""
+                            type="text"
+                          />
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="last-name">Last Name</label>
+                          <input
+                            class="form-control"
+                            id="last-name"
+                            name="last-name"
+                            placeholder="Your Last Name"
+                            required=""
+                            type="text"
+                          />
+                        </div>
                       </div>
-                      <div class="valid-date">
-                        <h6>Valid Thru</h6>
-                        <h5>05/28</h5>
+                      <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                          class="form-control"
+                          id="email"
+                          name="email"
+                          placeholder="Your Email"
+                          required=""
+                          type="email"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                          class="form-control"
+                          id="phone"
+                          name="phone"
+                          placeholder="Your Phone Number"
+                          required=""
+                          type="tel"
+                        />
                       </div>
                     </div>
                   </div>
-                  <div class="card back-face">
-                    <h6>
-                      For customer service call +977 4343 3433 or email at
-                      mastercard@gmail.com
-                    </h6>
-                    <span class="magnetic-strip"></span>
-                    <div class="signature"><i>005</i></div>
-                    <h5 id="lorem-text-card">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-                      maiores sed doloremque.
-                    </h5>
+                  <!-- Shipping Address -->
+                  <div class="checkout-section" id="shipping-address">
+                    <div class="section-header">
+                      <div class="section-number">2</div>
+                      <h3>Shipping Address</h3>
+                    </div>
+                    <div class="section-content">
+                      <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input
+                          class="form-control"
+                          id="address"
+                          name="address"
+                          placeholder="Street Address"
+                          required=""
+                          type="text"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="apartment"
+                          >Apartment, Suite, etc. (optional)</label
+                        >
+                        <input
+                          class="form-control"
+                          id="apartment"
+                          name="apartment"
+                          placeholder="Apartment, Suite, Unit, etc."
+                          type="text"
+                        />
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4 form-group">
+                          <label for="city">City</label>
+                          <input
+                            class="form-control"
+                            id="city"
+                            name="city"
+                            placeholder="City"
+                            required=""
+                            type="text"
+                          />
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label for="state">State</label>
+                          <input
+                            class="form-control"
+                            id="state"
+                            name="state"
+                            placeholder="State"
+                            required=""
+                            type="text"
+                          />
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label for="zip">ZIP Code</label>
+                          <input
+                            class="form-control"
+                            id="zip"
+                            name="zip"
+                            placeholder="ZIP Code"
+                            required=""
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="country">Country</label>
+                        <select
+                          class="form-select"
+                          id="country"
+                          name="country"
+                          required=""
+                        >
+                          <option value="">Select Country</option>
+                          <option value="US">United States</option>
+                          <option value="CA">Canada</option>
+                          <option value="UK">United Kingdom</option>
+                          <option value="AU">Australia</option>
+                          <option value="DE">Germany</option>
+                          <option value="FR">France</option>
+                        </select>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="save-address"
+                          name="save-address"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="save-address">
+                          Save this address for future orders
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          checked=""
+                          class="form-check-input"
+                          id="billing-same"
+                          name="billing-same"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="billing-same">
+                          Billing address same as shipping
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Payment Method -->
+                  <div class="checkout-section" id="payment-method">
+                    <div class="section-header">
+                      <div class="section-number">3</div>
+                      <h3>Payment Method</h3>
+                    </div>
+                    <div class="section-content">
+                      <div class="payment-details" id="credit-card-details">
+                        <div class="form-group">
+                          <label for="card-number">Card Number</label>
+                          <div class="card-number-wrapper">
+                            <input
+                              class="form-control"
+                              id="card-number"
+                              name="card-number"
+                              placeholder="1234 5678 9012 3456"
+                              required=""
+                              type="text"
+                            />
+                            <div class="card-icons">
+                              <i class="bi bi-credit-card-2-front"></i>
+                              <i class="bi bi-credit-card"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label for="expiry">Expiration Date</label>
+                            <input
+                              class="form-control"
+                              id="expiry"
+                              name="expiry"
+                              placeholder="MM/YY"
+                              required=""
+                              type="text"
+                            />
+                          </div>
+                          <div class="col-md-6 form-group">
+                            <label for="cvv">Security Code (CVV)</label>
+                            <div class="cvv-wrapper">
+                              <input
+                                class="form-control"
+                                id="cvv"
+                                name="cvv"
+                                placeholder="123"
+                                required=""
+                                type="text"
+                              />
+                              <span
+                                aria-label="3-digit code on the back of your card"
+                                class="cvv-hint"
+                                data-bs-original-title="3-digit code on the back of your card"
+                                data-bs-placement="top"
+                                data-bs-toggle="tooltip"
+                              >
+                                <i class="bi bi-question-circle"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="card-name">Name on Card</label>
+                          <input
+                            class="form-control"
+                            id="card-name"
+                            name="card-name"
+                            placeholder="John Doe"
+                            required=""
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="payment-details d-none" id="paypal-details">
+                        <p class="payment-info">
+                          You will be redirected to PayPal to complete your
+                          purchase securely.
+                        </p>
+                      </div>
+                      <div
+                        class="payment-details d-none"
+                        id="apple-pay-details"
+                      >
+                        <p class="payment-info">
+                          You will be prompted to authorize payment with Apple
+                          Pay.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <!-- Order Summary -->
+              <div
+                class="order-summary aos-init aos-animate"
+                data-aos="fade-left"
+                data-aos-delay="200"
+              >
+                <div class="order-summary-header">
+                  <h3>Order Summary</h3>
+                  <span class="item-count">2 Items</span>
+                </div>
+                <div class="order-summary-content">
+                  <div class="order-items">
+                    <div class="order-item">
+                      <div class="order-item-image">
+                        <img
+                          alt="Product"
+                          class="img-fluid"
+                          src="../img/perfumes-transparent/spicebomb-extreme.png"
+                        />
+                      </div>
+                      <div class="order-item-details">
+                        <h4>Lorem Ipsum Dolor</h4>
+                        <p class="order-item-variant">Color: Black | Size: M</p>
+                        <div class="order-item-price">
+                          <span class="quantity">1 ×</span>
+                          <span class="price">$89.99</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-item-image">
+                        <img
+                          alt="Product"
+                          class="img-fluid"
+                          src="../img/perfumes-transparent/flower-bomb.png"
+                        />
+                      </div>
+                      <div class="order-item-details">
+                        <h4>Sit Amet Consectetur</h4>
+                        <p class="order-item-variant">Color: White | Size: L</p>
+                        <div class="order-item-price">
+                          <span class="quantity">2 ×</span>
+                          <span class="price">$59.99</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-item-image">
+                        <img
+                          alt="Product"
+                          class="img-fluid"
+                          src="../img/perfumes-transparent/tom ford tobacco vanilla.png"
+                        />
+                      </div>
+                      <div class="order-item-details">
+                        <h4>Sit Amet Consectetur</h4>
+                        <p class="order-item-variant">Color: White | Size: L</p>
+                        <div class="order-item-price">
+                          <span class="quantity">2 ×</span>
+                          <span class="price">$59.99</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-item-image">
+                        <img
+                          alt="Product"
+                          class="img-fluid"
+                          src="../img/perfumes-transparent/stronger with you oud.png"
+                        />
+                      </div>
+                      <div class="order-item-details">
+                        <h4>Sit Amet Consectetur</h4>
+                        <p class="order-item-variant">Color: White | Size: L</p>
+                        <div class="order-item-price">
+                          <span class="quantity">2 ×</span>
+                          <span class="price">$59.99</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="order-totals">
+                    <div class="order-subtotal d-flex justify-content-between">
+                      <span>Subtotal</span>
+                      <span>$209.97</span>
+                    </div>
+                    <div class="order-shipping d-flex justify-content-between">
+                      <span>Shipping</span>
+                      <span>$9.99</span>
+                    </div>
+                    <div class="order-tax d-flex justify-content-between">
+                      <span>Tax</span>
+                      <span>$21.00</span>
+                    </div>
+                    <div class="order-total d-flex justify-content-between">
+                      <span>Total</span>
+                      <span>$240.96</span>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <div>
+                        <button class="btn btn-outline-primary mt-4">
+                          Check out
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <!-- END OF FLIPPING CREDIT CARD -->
-
-                <!-- Icons -->
-                <div id="payment-icons-div">
-                    <img src="../img/checkout-related/ApplePay.png" alt="ApplePay" class="payment-icons">
-                    <img src="../img/checkout-related/Visa.png" alt="Visa" class="payment-icons">
-                    <img src="../img/checkout-related/PayPal.png" alt="PayPal" class="payment-icons">
+              </div>
+            </div>
+          </div>
+          <!-- Terms and Privacy Modals -->
+          <div
+            aria-hidden="true"
+            aria-labelledby="termsModalLabel"
+            class="modal fade"
+            id="termsModal"
+            tabindex="-1"
+          >
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="termsModalLabel">
+                    Terms and Conditions
+                  </h5>
+                  <button
+                    aria-label="Close"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  ></button>
                 </div>
-                <!-- End of Icons -->
+                <div class="modal-body">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam in dui mauris. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim. Phasellus
+                    molestie magna non est bibendum non venenatis nisl tempor.
+                  </p>
+                  <p>
+                    Suspendisse in orci enim. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim. Phasellus
+                    molestie magna non est bibendum non venenatis nisl tempor.
+                  </p>
+                  <p>
+                    Suspendisse in orci enim. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim. Phasellus
+                    molestie magna non est bibendum non venenatis nisl tempor.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  >
+                    I Understand
+                  </button>
+                </div>
+              </div>
             </div>
-
-            <!-- Divider -->
-            <div class="divider-container">
-                <hr class="styled-hr">
-                <span class="or-text">OR</span>
-                <hr class="styled-hr">
+          </div>
+          <div
+            aria-hidden="true"
+            aria-labelledby="privacyModalLabel"
+            class="modal fade"
+            id="privacyModal"
+            tabindex="-1"
+          >
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="privacyModalLabel">
+                    Privacy Policy
+                  </h5>
+                  <button
+                    aria-label="Close"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam in dui mauris. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim.
+                  </p>
+                  <p>
+                    Suspendisse in orci enim. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim. Phasellus
+                    molestie magna non est bibendum non venenatis nisl tempor.
+                  </p>
+                  <p>
+                    Suspendisse in orci enim. Vivamus hendrerit arcu sed erat
+                    molestie vehicula. Sed auctor neque eu tellus rhoncus ut
+                    eleifend nibh porttitor. Ut in nulla enim. Phasellus
+                    molestie magna non est bibendum non venenatis nisl tempor.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  >
+                    I Understand
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <!-- END OF LEFT SECTION -->
+      </section>
+      <!-- /Checkout Section -->
+    </main>
 
-    </div>
-    <!-- END OF BOTH CONTAINER -->
-
-     <!-- Linking js at end of body to wait for everything to load! -->
-     <!-- <script src="../js/checkout.js"></script> -->
+    <!-- Scroll Top -->
+    <a
+      class="scroll-top d-flex align-items-center justify-content-center"
+      href="#"
+      id="scroll-top"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <!-- Preloader -->
+    <!-- Vendor JS Files -->
+    <script src="https://bootstrapmade.com/content/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/php-email-form/validate.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/aos/aos.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/glightbox/js/glightbox.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/drift-zoom/Drift.min.js"></script>
+    <script src="https://bootstrapmade.com/content/vendors/purecounter/purecounter_vanilla.js"></script>
+    <!-- Main JS File -->
+    <script src="https://bootstrapmade.com/content/demo/eStore/assets/js/main.js"></script>
+    <script
+      crossorigin="anonymous"
+      data-cf-beacon='{"rayId":"926a0d952a6ee27c","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.1.0","token":"68c5ca450bae485a842ff76066d69420"}'
+      defer=""
+      integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+    ></script>
   </body>
 </html>
