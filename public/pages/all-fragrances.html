@@ -18,13 +18,14 @@
 
     <!-- LINKS -->
 
-    <!-- Tab Logo -->
+    <!-- Tab Logo / 'Favicon' -->
     <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+
     <!-- CSS Links (Connecting the CSS file to this file) -->
-    <link rel="stylesheet" href="../css/all-fragrances.css" />
-    <link rel="stylesheet" href="../css/navBar.css" />
-    <!-- Scrolly's animations in a css file -->
-    <link rel="stylesheet" href="../css/cssanimation.css">
+    <link rel="stylesheet" href="../css/all-fragrances.css" /> <!-- For the actual page's layout-->
+    <link rel="stylesheet" href="../css/navBar.css" /> <!-- For the navbar -->
+    <link rel="stylesheet" href="../css/cssanimation.css"> <!-- Scrolly's animations-related -->
+
     <!-- Boot strap related -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -32,7 +33,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <!-- font Awesome -->
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -43,28 +45,21 @@
 
     <!-- END OF LINKS -->
 
-    <!-- SCRIPTS (There are more at bottom of body) -->
+    <!-- SCRIPTS (More at the bottom of body) -->
 
-    <!-- Dark Mode related - Built in (element is placed through js file) -->
-    <script src="../js/dark-mode.js"></script>
-    <!-- Back to top button related -->
-    <script src="../js/back-to-top.js"></script>
-    <!-- Removed script.js, i dont use it -->
-    <!-- <script src="../js/script.js"></script> -->
-    <!-- This script ensures that reloading the page makes the view point at the top
-    Without this, scrolly would scroll a little bit down for some reason automatically and mess things up
-    -->
+    <script src="../js/dark-mode.js"></script> <!-- Dark Mode related - Built in (element is placed through js file) -->
+    <script src="../js/back-to-top.js"></script> <!-- Back to top button related -->
+
+    <!-- Intial Scroll When Reloading-->
     <script>
       // Prevent the browser from restoring the scroll position
-      if (history.scrollRestoration) {
-          history.scrollRestoration = 'manual';
-      }
-
+      if (history.scrollRestoration) { history.scrollRestoration = 'manual';}
       // Scroll to the top of the page on load
       window.onload = function() {
           window.scrollTo(0, 0);
       };
     </script>
+
     <!-- Bootstrap related -->
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -73,18 +68,17 @@
     ></script>
   
     <!-- END OF SCRIPTS-->
-
   </head>
 
   <body>
-
     <!-- Navbar -->
     <nav>
-
+      <!-- Logo on left side -->
       <div class="logo">
         <a href="../../index.html"> <img src="../img/logo.png" alt="Logo"/></a>
       </div>
 
+      <!-- Middle Links -->
       <div class="links">
         <ul>
           <li><a href="all-fragrances.html">Fragrances</a></li>
@@ -94,6 +88,7 @@
         </ul>
       </div>
 
+      <!-- Icons on right side -->
       <div class="actions">
         <ul>
           <li><i class="fa-solid fa-magnifying-glass"></i></li>
@@ -106,9 +101,10 @@
     </nav>
     <!-- End of navbar -->
   
+    <!-- Beggining Title -->
     <h1 id="header" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">All Fragrances</h1>
 
-    <!-- Middle Links as Div-->
+    <!-- Middle Links 'Filtering Navbar' -->
     <div class="middle-links" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
       <ul>
           <li><a href="all-fragrances.html">All Fragrances</a></li>
@@ -118,11 +114,15 @@
       </ul>
     </div>
 
-    <!-- Controls Container -->
+    <!-- Controls Container: Filter Button + Search Bar -->
     <div class="controls-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
-      <!-- Filter Button and Dropdown Menu -->
+      <!-- Filter Button and Dropdown Menu Container-->
       <div class="filter-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+
+        <!-- Filter button -->
         <button class="filter-button">Filter ▼</button>
+
+        <!-- Drop Down Menu Of Filter Button -->
         <div class="dropdown-menu-filter">
           <div class="dropdown-option-filter" data-value="None">None</div>
           <div class="dropdown-option-filter" data-value="Eau de Parfum">Eau de Parfum</div>
@@ -131,8 +131,9 @@
           <div class="dropdown-option-filter" data-value="Parfum">Parfum</div>
         </div>
       </div>
+      <!-- END OF Filter Button and Dropdown Menu Container-->
 
-      <!-- Search bar -->
+      <!-- Search Bar Container-->
       <div class="search-container">
         <!-- Empty place holder as the search container's label will do the job with animation! -->
         <input type="text" class="search-input" id="searchBox" placeholder=" " required>
@@ -140,6 +141,7 @@
         <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
         <span class="close-icon" id="clearSearch"><i class="fa-solid fa-xmark"></i></span>
       </div>
+      <!-- END OF Search Bar Container-->
     </div>
     <!-- End of controls container -->
         
@@ -202,8 +204,7 @@
       </div>
     </div>
 
-    <!-- CANT ADD SCROLLING ANIMATION USING SCROLLY, SO ADD MANUALLY ADD LOADING OF PAGE -->
-    <!-- Back-to-top button related -->
+    <!-- Back-to-top button related: Animation Handled in the CSS, not Scrolly -->
     <div id="back-to-top-div">
       <!-- # means go back to the top of the page -->
       <button id="back-to-top-button" onclick="window.location.href='#'">
@@ -215,9 +216,11 @@
      <div class="cards-container">
       <!-- 1. Spice bomb container -->
       <div class="card" id="spicebomb-extreme" data-scrolly-top="moveFromTop, duration:0.5s, delay:0.1s" data-scrolly-down="moveFromBottom, duration:1.0s, delay:0.12s">
+
         <!-- Label -->
         <div class="card-label">Men</div>
-        <!-- Image Container -->
+
+        <!-- Image Container: Works as a link-->
         <a href="fragrances-page.html" target="_blank" class="card-image-container">
           <img
           class="card-image"
@@ -226,7 +229,7 @@
         />
         </a>
 
-        <!-- Title (NOW ACTS AS A LINK ASWELL) -->
+        <!-- Title (Also Acts as a link) -->
         <a href="fragrances-page.html" target=" _blank" class="card-title-link">
            <h2 class="card-title">Spicebomb Extreme</h2> 
         </a>
@@ -239,25 +242,35 @@
       
         <!-- Price + ml container -->
         <div class="card-price">
+
+          <!-- Intial price & ml displayed -->
           <span class="price">270 €</span>
-          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
+          <span class="ml">75ml ▼</span>
           
           <!-- Dropdown Menu -->
           <div class="dropdown-menu">
+            <!-- Option Container: Price + Ml -->
             <div class="dropdown-option" data-price="270 €" data-ml="75ml">
               <span class="dropdown-price">270 €</span>
               <span class="dropdown-ml">75ml</span>
             </div>
+
+            <!-- Option Container: Price + Ml -->
             <div class="dropdown-option" data-price="200 €" data-ml="50ml">
               <span class="dropdown-price">200 €</span>
               <span class="dropdown-ml">50ml</span>
             </div>
+
+            <!-- Option Container: Price + Ml -->
             <div class="dropdown-option" data-price="150 €" data-ml="30ml">
               <span class="dropdown-price">150 €</span>
               <span class="dropdown-ml">30ml</span>
             </div>
           </div>
+          <!-- END OF Dropdown Menu -->
+
         </div>
+        <!-- END OF Price + ml container -->
 
         <!-- Separator -->
         <hr class="card-separator" />
@@ -272,6 +285,8 @@
         >
           Add To Cart
         </button>
+        <!-- END OF Add to Cart Button -->
+
       </div>
       <!-- End of Spice bomb container -->
 
@@ -695,8 +710,8 @@
       </div>
       <!-- End of xerjoff alexandria 2 container -->
 
-      <!-- HABAL -->
-       <!-- 1. Spice bomb container -->
+      <!-- REPEATED THE CONTAINER TO SHOW SCROLLING EFFECT 1-->
+      <!-- 1. Spice bomb container -->
       <div class="card" id="spicebomb-extreme" data-scrolly-top="moveFromTop, duration:0.5s, delay:0.1s" data-scrolly-down="moveFromBottom, duration:1.0s, delay:0.12s">
         <!-- Label -->
         <div class="card-label">Men</div>
@@ -1173,6 +1188,9 @@
         </button>
       </div>
       <!-- End of xerjoff alexandria 2 container -->
+      <!-- END OF REPEATED THE CONTAINER TO SHOW SCROLLING EFFECT 1-->
+
+      <!-- REPEATED THE CONTAINER TO SHOW SCROLLING EFFECT 2-->
        <!-- 1. Spice bomb container -->
       <div class="card" id="spicebomb-extreme" data-scrolly-top="moveFromTop" data-scrolly-down="moveFromBottom">
         <!-- Label -->
@@ -1651,13 +1669,15 @@
       </div>
       <!-- End of xerjoff alexandria 2 container -->
 
-      <!-- end of habal -->
+      <!-- END OF REPEATED THE CONTAINER TO SHOW SCROLLING EFFECT 2-->
 
      </div>
      <!-- END OF BIG CARDS CONTAINER -->
 
-     <!-- Linking js at end of body to wait for everything to load! -->
-     <script src="../js/all-fragrances.js"></script>
+     <!-- BODY SCRIPTS -> Wait for everything to load related -->
+
+     <!-- This page's main js file -->
+     <script src="../js/all-fragrances.js"></script> 
 
      <!-- Scrolly activation code for it to work -->
      <script type="text/javascript" src="../js/scrolly.js"></script>
@@ -1665,6 +1685,8 @@
       window.onload = function() {
          scrolly();
       }; 
-   </script>
+     </script>
+
+     <!-- END OF BODY SCRIPTS -->
   </body>
 </html>
