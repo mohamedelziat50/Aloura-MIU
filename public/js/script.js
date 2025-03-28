@@ -225,6 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
     const signUpForm = document.getElementById("signUpForm");
+    const forgetpasswordForm = document.getElementById("forgetpasswordform");
+    
     const loginModalLabel = document.getElementById("loginModalLabel");
     const modalDescription = document.querySelector(".modal-description");
     const phoneInput = document.getElementById("phone");
@@ -284,6 +286,12 @@ document.addEventListener("DOMContentLoaded", function () {
         loginModalLabel.textContent = "Sign Up";
         modalDescription.style.display = "none"; // Hide the description
     });
+    document.getElementById("showforgetpassword").addEventListener("click", function () {
+      loginForm.style.display = "none";
+      forgetpasswordForm.style.display = "";
+      loginModalLabel.textContent = "Forget password";
+      modalDescription.style.display = "none"; // Hide the description
+  });
 
     // Switch back to Login Form
     document.getElementById("showLoginForm").addEventListener("click", function () {
@@ -293,6 +301,14 @@ document.addEventListener("DOMContentLoaded", function () {
         modalDescription.style.display = "block"; // Show the description again
         modalDescription.textContent = "Please enter your e-mail and password:";
     });
+//switch back to login form from forget password form
+    document.getElementById("showLoginForm1").addEventListener("click", function () {
+      loginForm.style.display = "block";
+      forgetpasswordForm.style.display = "none";
+      loginModalLabel.textContent = "Login";
+      modalDescription.style.display = "block"; // Show the description again
+      modalDescription.textContent = "Please enter your e-mail and password:";
+  });
 
     // Restrict Phone Number Input to Only Numbers
     if (phoneInput) {
