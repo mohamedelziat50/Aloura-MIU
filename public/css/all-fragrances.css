@@ -348,7 +348,7 @@ body { background-color: #f1f1f1 !important; }
   width: 100%; /* Container Matches the card width */
   height: 100%; /* Container Matches the card height untill it reaches the card title */
 
-  cursor: pointer; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
+  cursor: default; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
 }
 
 /* Hovering over the image inside the container is what causes the hover! */
@@ -393,6 +393,7 @@ body { background-color: #f1f1f1 !important; }
 {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* Card Type */
@@ -686,7 +687,7 @@ background-color: #f1f1f1;
 /* KEYFRAMES RELATED */
 
 @keyframes card-image-animation {
-  50% { transform: translateY(30px) }
+  50% { transform: translateY(15px) } /* Controls how much it goes up and down!*/
 }
 
 /* Fade in animation used for drop down menu */
@@ -722,7 +723,7 @@ to { opacity: 1 }
 @keyframes zoomIn {
 from {
   /* This animation tricks the eye by slightly enlarging the image as if its returning back to place! */
-  transform: scale(1.15);
+  transform: scale(1.025);
 }
 }
 
