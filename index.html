@@ -355,6 +355,12 @@
               <button type="submit" class="loginButton btn btn-primary w-100">
                 Login
               </button>
+              <!-- 2fa button -->
+              <button id="show2fa"type="button" class="btn btn-link w-100 mt-2">
+                Two-Factor Verification
+              </button>
+
+              
               <button
                 class="btn btn-outline-danger w-100 mt-2"
                 id="googleSignInBtn"
@@ -471,6 +477,27 @@
               >
                 Back to Login
               </button>
+            </form>
+            <!-- 2fa modal -->
+            <form id="twofactor"class="form" style="display: none" style="margin:auto">
+              <div class="info">
+                <span class="title">Two-Factor Verification</span>
+                <p class="description">
+                  Enter the two-factor authentication code provided by the
+                  authenticator app
+                </p>
+              </div>
+              <div class="input-fields">
+                <input placeholder="" type="tel" maxlength="1" />
+                <input placeholder="" type="tel" maxlength="1" />
+                <input placeholder="" type="tel" maxlength="1" />
+                <input placeholder="" type="tel" maxlength="1" />
+              </div>
+
+              <div class="action-btns">
+                <a class="verify">Verify</a>
+                <a class="clear" id="clearfield">Clear</a>
+              </div>
             </form>
           </div>
         </div>
