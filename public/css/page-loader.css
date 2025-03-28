@@ -1,0 +1,45 @@
+.fullpage-loader {
+    position: fixed;  /* Locks loader to viewport */
+    top: 0; left: 0;  /* Covers full screen */
+    width: 100%; height: 100%;
+    background: #f1f1f1;  /* White background */
+    display: flex;  /* Enables centering */
+    justify-content: center; align-items: center;  /* Centers content */
+    z-index: 9999;  /* Ensures loader stays on top */
+    opacity: 1;  /* Starts fully visible */
+    transition: opacity 0.3s ease-out;  /* Fade-out animation */
+  }
+  
+  .loader-content {
+    text-align: center;  /* Centers inline elements*/
+  }
+  
+  .logo-reveal img {
+    width: 120px;  /* Logo size */
+    opacity: 0;  /* Starts invisible */
+    transform: scale(0.1);  /* Starts tiny */
+    animation: logoReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;  /* Pop-in effect */
+  }
+  
+  .loading-bar-container {
+    width: 175px;  /* Bar width */
+    height: 2px;  /* Bar thickness */
+    background: rgba(0,0,0,0.1);  /* Light gray track -> The track bar which it's loaded on (the bg color)*/
+    margin: 25px auto 0;  /* Spacing below logo */
+    overflow: hidden;  /* Clips loading bar */
+  }
+  
+  .loading-bar {
+    height: 100%;  /* Fills container */
+    width: 0;  /* Starts empty */
+    background: #000;  /* Black progress bar */
+    transition: width 0.4s linear;  /* Smooth fill animation */
+  }
+  
+  /* Animations */
+  @keyframes logoReveal {
+    to { 
+      opacity: 1;  /* Fades in */
+      transform: scale(0.7);  /* Grows to 70% size */
+    }
+  }
