@@ -1,92 +1,282 @@
-body {
-  background-color: #f1f1f1 !important; /*CHANGING THE BODY'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+/* !important: override ALL previous styling rules; anything applied with this property, wouldn't change without it. */
+/* Elements of the page are ordered by the page's sequence*/
+
+/* Body's background color specified */
+body { background-color: #f1f1f1 !important; }
+
+/* Header */
+#header {
+  /* POSITION RELATED */
+  position: relative; /* Position relative to the document's current flow*/
+  top: 105px; /* Spacing to appear below the navbar */
+  min-width: 615px;
+  margin: auto; /* Doesn't do much, simply an automatic margin (Doesn't center the element)*/
+  
+  /* TEXT DISPLAY RELATED */
+  font-size: 64px;
+  font-family: "Monotype Baskerville", serif;
+  font-weight: 100; /* Add this to make the font look think and clean */
+  line-height: 100%;
+  color: black;
+  text-align: center; /* Centers the text*/
+  text-transform: uppercase;
+  letter-spacing: .1em; /* Distance between letters for design */
 }
 
-/* MIDDLE BAR RELATED For filtering*/
-.middle-links {
-  display: flex;
-  justify-content: center; /* Center the links horizontally */
-  padding: 15px 0; /* Smaller padding for a good look */
-  background-color: transparent;
+/* START OF MIDDLE LINKS NAVBAR RELATED */
+
+.middle-links
+{
+  /* Simply positioning & size in the container holdings the links */
+  position: relative; /* Relative to the view port*/
+  top: 110px; /* To appear below the header*/
   width: 100%;
+  min-width: 615px;
   margin: auto; /* Center the block element */
-  margin-bottom: 10px; /* Played around with this to ensure scrolling animation on second row of cards
-  transition: background-color 0.4s ease-in-out; /* Smooth transition for color changing */
-
-  position: relative;
-  top: 100px;
-
-  min-width: 615px; /* Makes the links div responsive for mobile*/
+  margin-bottom: 10px;
 }
 
-/* Removed Middle Links Hovering All Backgrounds */
-
-.middle-links ul {
-  display: flex;
-  justify-content: center; /* Center the links */
-  list-style: none; /*Without bullets*/
+/* Unordered list for middle links */
+.middle-links ul
+{
+  /* POSITION RELATED */
+  display: flex; /* To horzinatally allign the elements */
+  justify-content: center; /* Center the links on the main axis (x-axis) / horiziontal*/
   gap: 30px; /* Smaller gap between links */
-  text-transform: uppercase; 
-  font-weight: normal;
-  font-size: 14px; /* Smaller font size */
   margin: 0;
   padding: 0;
+
+  /* TEXT DISPLAY RELATED - Applies it for ALL list items*/
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase; 
+  list-style: none; /* Without bullets */
 }
 
-.middle-links li a {
-  text-decoration: none;
-  color: #000;
+.middle-links li a
+{
   position: relative;
+  color: #000;
+  text-decoration: none; /* Without an underline */
 }
 
-.middle-links li a::after {
+.middle-links li a::after
+{
+  /* Acts as an empty placeholder for the underlining animation when hovering!
+   You could write any type of text & it will appear*/
   content: "";
+  
+  /* POSITION RELATED */
   position: absolute;
-  width: 0;
-  height: 1px; /* Thinner underline */
-  background-color: rgb(0, 0, 0);
-  margin: 0 auto;
-  transition: 0.3s; /* THIS CONTROLS THE SPEED OF THE UNDERLINE ANIMATION */
   bottom: -3px; /* Adjust underline position */
   right: 50%;
+  width: 0;
+  height: 1px; /* Thinner underline */
+  margin: 0 auto;
+
+  /* DISPLAY RELATED */
+  background-color: rgb(0, 0, 0); /* The color of the underline that appears*/
+
+  /* ANIMATION RELATED */
+  transition: 0.3s; /* CONTROLS THE SPEED OF THE UNDERLINE ANIMATION */
 }
 
-.middle-links li a:hover::after {
-  width: 100%;
+.middle-links li a:hover::after 
+{
+  /* Positions the hovering correctly, play with the numbers to understand */
   right: 0;
-}
-/* END OF MIDDLE LINKS RELATED */
-
-/* ALL FRAGRANCES Header */
-#header {
-    color: black;
-
-    /* Letter display related */
-    font-weight: 100; /* Add this to make the font look think and clean */
-    font-size: 64px; /* Added this line for 64px font size */
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em; /* Distance between letters for design */
-    line-height: 100%;
-
-    margin: auto;
-    text-align: center;
-    text-transform: uppercase;
-
-    position: relative;
-    top: 105px;
-
-    min-width: 615px;
+  width: 100%;
 }
 
-/* Downloaded Font - Hosting it our self */
-@font-face {
-    font-family: "Monotype Baskerville";
-    src: url("./public/fonts/MT Baskerville ET W08 Roman.woff2") format("woff2"),
-         url("./public/fonts/MT Baskerville ET W08 Roman.woff") format("woff"),
-         url("./public/fonts/MT Baskerville ET W08 Roman.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+/* END OF MIDDLE LINKS NAVBAR RELATED */
+
+/* START OF CONTROLS: FILTER + SEARCH BAR RELATED */
+
+/* CONTROLS CONTAINER: Wraps Search bar + filter button */
+.controls-container 
+{
+  /* Simply controls positioning */
+  z-index: 1001; /* Higher priority to be above other elements */ 
+  position: relative; /* Position relative to the flow*/
+  top: 6.5rem;
+  display: flex;
+  justify-content: space-between; /* Keeps spacing consistent between both end containers*/
+  align-items: center; /* Centers the items vertically (not main-axis)*/
+  width: 100%;
+  min-width: 635px;
 }
+
+/* DROP DOWN MENU OF FILTERS RELATED */
+
+/* Filter Container */
+.filter-container 
+{
+  /* SIMPLE POSITIONING */
+  z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
+  position: relative;
+  display: inline-block;
+  min-width: 99px;
+  margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
+}
+
+/* Filter Button */
+.filter-button
+{
+  /* POSITION RELATED */
+  padding: 7px 17px; /* Space around the text itself */
+
+  /* DISPLAY RELATED */
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  background-color: white !important;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* ANIMATION RELATED */
+  transition: background-color 0.3s ease; /* Speed at which transitions happen for the background-color: hovering*/
+  cursor: pointer;
+}
+
+/* Filter button hover animation*/
+.filter-button:hover { background-color: #f1f1f1 !important;}
+
+/* START OF FILTERS DROP DOWN MENU */ 
+.dropdown-menu-filter 
+{
+  /* POSITION RELATED */
+  position: absolute; /* Removing this will cause the drop-down menu to push all cards/entire page down! Absolute meaning it can have other elements on it */
+  top: 100%;
+  display: none;
+  width: 200px;
+  margin-top: 10px;
+
+  /* DISPLAY RELATED */
+  background-color: white;
+  border: 1px solid #ccc;
+
+  /* ANIMATION RELATED */
+  /* transition: opacity 0.3s ease; /* Commented out till we notice an error-> transform 0.3s ease
+  opacity: 0; Intially start */
+  pointer-events: none;
+}
+
+/* Dropdown Options */
+.dropdown-option-filter
+{
+  padding: 10px;
+
+  /* DISPLAY RELATED */
+  font-size: 14px;
+  color: black;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-option-filter:hover {background-color: #f1f1f1;}
+
+/* Show dropdown menu when active(class we added in JAVASCRIPT) */
+/* SIMPLE EXPLAINATION -> Once user clicks we add an active class to show the drop down menu */
+.filter-container.active .dropdown-menu-filter
+{
+  display: block;
+
+  /* Animation Related -> Show Drop Down Menu */
+  animation: fadeIn 0.3s ease forwards;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hide dropdown menu with fade-out animation */
+/* SIMPLE EXPLAINATION -> Once user clicks away we remove the active class to hide the drop down menu */
+.filter-container:not(.active) .dropdown-menu-filter { animation: fadeOutTop 0.3s ease forwards;}
+
+/*END OF FILTERS DROP DOWN MENU*/
+
+/* START OF SEARCH BAR RELATED */
+
+/* Container having the entire search bar stuff */
+.search-container
+{
+  /* SIMPLE POSITIONING */
+  position: relative;
+  width: 11.5rem;
+  min-width: 184px;
+  margin-right: 8.6rem;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Search box: text box in which we write in */
+.search-input 
+{
+  /* POSITION RELATED */
+  width: 80%; /* Ensure it stops right before the icons*/
+  padding: 10px 40px 10px 10px;
+
+  /* DISPLAY RELATED */
+  outline: none; /* When you click on the text box a border and outline will appear, so hide them -> outline + border*/  
+  border: none;
+  font-size: 16px;
+  background: transparent; /* Remove default white background */
+}
+
+.search-label
+{
+  /* Position Related */
+  position: absolute;
+  top: 55%;
+  left: 10px;
+
+  /* DISPLAY RELATED */
+  color: #999;
+
+  /* ANIMATION RELATED */
+  transition: all 0.3s ease; /*This controls the speed at which the animation "search" moves at the top - all meaning all things inside the element*/
+  opacity: 0;
+  transform: translateY(-50%); /*Shifts the element down from it's original position: use animation to return to original position*/
+  pointer-events: none;
+}
+
+.search-input:focus + .search-label,
+.search-input:not(:placeholder-shown) + .search-label {
+    top: -2px; /*This controls by how much does the label of "search" go to the top as animation*/
+    font-size: 12px;
+    color: #646464;
+}
+
+.search-icon 
+{
+  /* Positioniong */
+  position: absolute;
+  top: 25%;
+  right: 40px;
+  cursor: pointer;
+}
+
+.close-icon
+{
+  /* Positioning */
+  position: absolute;
+  top: 25%;
+  right: 7px;
+  display: none; /* Make sure it's not displayed at first for interactivity */
+  cursor: pointer;
+}
+/* END OF SEARCH BAR RELATED */
+/* END OF CONTROLS: FILTER + SEARCH BAR RELATED */
+
+
+
+
+
+
+
+
+
+
 
 /* CARD RELATED */
 
@@ -408,83 +598,6 @@ background-color: #f1f1f1;
 
 /* END OF DROP DOWN MENU RELATED */
 
-/* DROP DOWN MENU OF FILTERS RELATED */
-
-/* Filter Container */
-.filter-container {
-  position: relative;
-  display: inline-block;
-  margin-left: 8.5rem; /* Add relative margin to the left to work on different devices*/
-  z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
-  min-width: 99px;
-}
-
-/* Filter Button */
-.filter-button {
-  background-color: white !important; /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
-  border: 1px solid #ccc;
-  padding: 7px 17px; /* Space around the text itself */
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease; /* Speed at which transitions happen for the background-color for example hovering*/
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-
-  /* To match rest of page's font style! */
-  font-weight: 400;
-  line-height: 1.8rem;
-  font-size: 0.8rem;
-  letter-spacing: .1rem;
-  text-transform: uppercase;
-}
-
-.filter-button:hover {
-  background-color: #f1f1f1 !important;  /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
-}
-
-/* Dropdown Menu of filters*/
-.dropdown-menu-filter {
-  display: none;
-  position: absolute; /* Removing this will cause the drop-down menu to push all cards/entire page down! Absolute meaning it can have other elements on it */
-  background-color: white;
-  border: 1px solid #ccc;
-  width: 200px;
-  top: 100%;
-  margin-top: 10px;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-/* Dropdown Options */
-.dropdown-option-filter {
-  padding: 10px;
-  font-size: 14px;
-  color: black;
-  cursor: pointer;
-  text-align: left;
-}
-
-.dropdown-option-filter:hover {
-  background-color: #f1f1f1;
-}
-
-/* Show dropdown menu when active */
-.filter-container.active .dropdown-menu-filter {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  animation: fadeInTop 0.3s ease forwards;
-}
-
-/* Hide dropdown menu with fade-out animation */
-.filter-container:not(.active) .dropdown-menu-filter {
-  animation: fadeOutTop 0.3s ease forwards;
-}
-
-/* END OF DROP DOWN MENU OF FILTERS RELATED */
-
 /* Image scaling */
 #stronger-with-you img {
   scale: 0.9;
@@ -515,110 +628,6 @@ background-color: #f1f1f1;
 }
 
 /* End of Image scaling */
-
-/* SHOPPING CART RELATED */
-
-.custom-offcanvas {
-  min-width: 600px !important; /* Adjust as needed */
-}
-
-
-.offcanvas-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px;
-}
-
-/* END OF SHOPPING CART RELATED */
-
-/* SEARCH BAR RELATED */
-
-/* Container having the entire search bar stuff */
-.search-container {
-  position: relative;
-  border-bottom: 1px solid #ccc;
-
-  /* Inline block because it'll contain searchbox & icons! */
-  display: inline-block;
-  
-  margin-right: 8.6rem;
-  margin-left: auto; /* Ensures it stays on the right */
-  width: 11.5rem;
-  min-width: 184px;
-}
-
-/* Search box: text box in which we write in */
-.search-input {
-  width: 80%; /* Ensure it stops right before the icons*/
-  padding: 10px 40px 10px 10px;
-  font-size: 16px;
-  
-  /* When you click on the text box a border and outline will appear, so hide them */
-  border: none;
-  outline: none;
-
-  /* Remove default white background */
-  background: transparent;
-}
-
-.search-label {
-  position: absolute;
-  left: 10px;
-  top: 55%;
-
-  transform: translateY(-50%); /*This moves the search button a little bit down so we can transition to it's original position (used for animation)*/
-  transition: all 0.3s ease; /*This controls the speed at which the animation "search" moves at the top - all meaning all things inside the element*/
-  opacity: 0;
-  color: #999;
-  pointer-events: none;
-}
-
-.search-input:focus + .search-label,
-.search-input:not(:placeholder-shown) + .search-label {
-    top: -2px; /*This controls by how much does the label of "search" go to the top as animation*/
-    font-size: 12px;
-    color: #646464;
-}
-
-.search-icon {
-  transform: translateY(-50%); /*Same concepts pushes the icon down the more it is down (used for animation)*/
-  cursor: pointer;
-
-  /* Positioniong */
-  right: 40px;
-  top: 50%;
-  position: absolute;
-}
-
-.close-icon {
-  transform: translateY(-50%);
-  cursor: pointer;
-  
-  /* Make sure it's not displayed at first for interactivity*/
-  display: none;
-  
-  /* Positioning */
-  right: 7px;
-  top: 50%;
-  position: absolute;
-}
-
-/* END OF SEARCH BAR RELATED */
-
-/* CONTROLS CONTAINER: Wraps Search bar + filter button */
-.controls-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Keeps spacing consistent between both end containers*/
-  position: relative;
-  top: 6.5rem;
-  width: 100%;
-
-  min-width: 635;
-  z-index: 1001;
-}
 
 
 
@@ -700,3 +709,16 @@ html {
 }
 
 /* END OF BACK TO TOP BUTTON RELATED */
+
+/* START OF SHOPPING CART RELATED */
+.custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
+
+.offcanvas-footer
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
+/* END OF SHOPPING CART RELATED */
