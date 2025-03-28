@@ -1,6 +1,11 @@
 /* !important: override ALL previous styling rules; anything applied with this property, wouldn't change without it. */
 /* Elements of the page are ordered by the page's sequence*/
 
+html {
+  /* Smooth scroll when pressing on the back-to-top button - isnt related to anything else */
+  scroll-behavior: smooth;
+}
+
 /* Body's background color specified */
 body { background-color: #f1f1f1 !important; }
 
@@ -185,7 +190,7 @@ body { background-color: #f1f1f1 !important; }
   display: block;
 
   /* Animation Related -> Show Drop Down Menu */
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.2s ease forwards;
   opacity: 1;
   pointer-events: auto;
 }
@@ -268,133 +273,142 @@ body { background-color: #f1f1f1 !important; }
 /* END OF SEARCH BAR RELATED */
 /* END OF CONTROLS: FILTER + SEARCH BAR RELATED */
 
-
-
-
-
-
-
-
-
-
-
-/* CARD RELATED */
+/* START OF CARD RELATED */
 
 /* Cards Container */
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr)); /* columns with equal width - ADJUSTED TO BECOME BETTER ON MOBILE */
+.cards-container 
+{
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
       auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there’s not enough space
-      Minimum width: 250px (columns won’t shrink below this).
+      Minimum width: 335px (columns won’t shrink below this).
       Maximum width: 1fr (columns expand to fill extra space).
  */
-
-  gap: 0px; /* Space between cards */
+ /* POSITIONING */
   row-gap: 20px;
-  margin: 20px; /* Space around cards contiainer*/
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr)); /* columns with equal width - ADJUSTED TO BECOME BETTER ON MOBILE */
+  gap: 0px; /* Space between cards */
+  min-width: 615px; /* Make it so that user can't shrink window beyond a certain point */
+  margin: 20px; /* Space around cards container*/
   margin-top: 0px;
-  padding: 100px; /* Space between card container edge and the content inside (cards) */
-
-  /* Make it so that user can't shrink window beyond a certain point */
-  min-width: 615px; /* Makes the links div responsive for mobile*/
+  padding: 100px; /* Space between card container edge and the content inside (cards) */ /* Makes the links div responsive for mobile*/
 }
 
 /* Card Container */
-.card {
+.card
+{
+  /* POSITIONING */
+  position: relative; /* Ensure dropdown is positioned relative to the card */
+  overflow: visible; /* Allow dropdown to extend outside the card */
   width: auto; /* How much space the card takes up from a block, automatic and let the card-container grid handle it */
+  margin: -5px; /* Space around the card*/
+  text-align: center; /* To allign all text in the center, has to be included */
+
+  /* DISPLAY */
+  scale: 0.9;
+  background-color: white !important;
   border: 1px solid #e0e0e0;
   border-radius: 10px; /* Used for rounded corners */
-  overflow: visible; /* Allow dropdown to extend outside the card */
-  text-align: center; /* To allign all text in the center, has to be included */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1); /* Shadows for design */
-  margin: -5px; /* Space around the card*/
-  position: relative; /* Ensure dropdown is positioned relative to the card */
-
-  scale: 0.9;
-
-  background-color: white !important; /*CHANGING THE CARD'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* Card Label */
-.card-label {
+.card-label 
+{
+  /* POSITIONING */
   position: absolute; /* Position the label absolutely (top left so it can have other stuff on it) within the card */
-  height: auto;
-
   top: 1%; /* Align to the top of the card */
   left: 1.5%; /* Align to the left of the card */
+  height: auto;
   padding: 7.5px; /* Padding for spacing */
-  border-radius: 5px;
+
+  /* DISPLAY */
   font-size: 12px;
-
-  background: black;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
-
-  color: #f5f5f5;
-  font-weight: bold;
   font-family: "Poppins", sans-serif; /* More modern font */
+  font-weight: bold;
+  color: #f5f5f5;
   text-transform: uppercase;
   letter-spacing: 1px;
-
-  text-transform: uppercase; /* Uppercase text */
-
-  pointer-events: none; /* Completely disables interaction */
+  background: black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
   cursor: default; /* Ensures no cursor change */
+  pointer-events: none; /* Completely disables interaction */
 } 
 
 /* Card Image Container */
-.card-image-container {
-  width: 100%; /* Container Matches the card width */
-  height: 100%; /* Container Matches the card height untill it reaches the card title */
+.card-image-container 
+{
+  /* POSITIONING */
+  z-index: 2; /* Ensures it remains interactive */
   top: 0; /* Aligns it with the card */
   left: 0;
-  z-index: 2; /* Ensures it remains interactive */
+  width: 100%; /* Container Matches the card width */
+  height: 100%; /* Container Matches the card height untill it reaches the card title */
+
   cursor: pointer; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
 }
 
+/* Hovering over the image inside the container is what causes the hover! */
+.card-image-container:hover .card-image {
+  animation: card-image-animation infinite 2s ease-in-out;
+}
+
+/* On the return, when user hovers out of card */
+.card-image-container:not(:hover) .card-image {
+  animation: zoomIn  0.5s ease-out; /* ease-out start faster and end slower */
+}
+
 /* Card Image */
-.card-image {
+.card-image
+{
+  /* POSITIONING */
   width: 100%; /* Image fills out the entire card */
   height: 100%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
+
+  /* DISPLAY */
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
   pointer-events: none; /* Make sure that only the card image container is the only one clickable since image goes out of the card and will mess the click up */
 }
 
 /* Card Title */
-.card-title {
-  color: black;
+.card-title 
+{
+  margin: 10px 0;
 
-  font-weight: 400; /* Add this to make the font look think and clean */
+  /* DISPLAY */
   font-size: 24px;
   font-family: "Monotype Baskerville", serif;
-
-  letter-spacing: .1em;
+  font-weight: 400; /* Add this to make the font look think and clean */
   line-height: 100%;
-  margin: 10px 0;
+  color: black;
   text-transform: uppercase;
+  letter-spacing: .1em;
 }
 
 /* Link wrapping the card's title */
-.card-title-link {
-  text-decoration: none;
+.card-title-link
+{
   color: black;
+  text-decoration: none;
 }
 
 /* Card Type */
-.card-type {
-  color: #121212;
+.card-type 
+{
+  margin: .5rem 0;
 
-  font-weight: normal; /* Add this to make the font look think and clean */
-  opacity: 0.93;
+  /* DISPLAY */
   font-size: 16px;
   font-family: "Inter", sans-serif;
-
-  letter-spacing: .1em;
+  font-weight: normal; /* Add this to make the font look think and clean */
   line-height: 100%;
-  margin: .5rem 0;
+  color: #121212;
   text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: 0.93;
 }
 
 /* Card Mood */
@@ -404,169 +418,120 @@ body { background-color: #f1f1f1 !important; }
   margin: 0.7rem 0; /* Space between mood & top/bottom */
 }
 
-/* Price + ml */
-.card-price {
+/* Price + ml CONTAINER*/
+.card-price 
+{
+  /* POSITIONING */
+  position: relative; /* Needed for absolute positioning of dropdown */
   display: flex;
   justify-content: space-between; /* Justify with space between the elements on each end */
   align-items: center;
-  padding: 0 20px; /* space between inner edges and the text */
   margin: 1px 0; 
-  position: relative; /* Needed for absolute positioning of dropdown */
+  padding: 0 20px; /* space between inner edges and the text */
 }
 
 /* Prices inside the card-price class */
-.card-price .price {
+.card-price .price
+{
   font-size: 15px;
   font-weight: bold;
   color: #333;
 }
 
 /* milliters inside the card-price class */
-.card-price .ml {
+.card-price .ml 
+{
   font-size: 14px;
   color: #666;
   cursor: pointer;
 }
 
 /* Card Separator between add to cart*/
-.card-separator {
-  border: 0;
+.card-separator
+{
   height: 3.5px;
-  background-color: #e0e0e0;
   margin: 10px 20px;
   margin-top: 5px;
+  background-color: #e0e0e0;
+  border: 0;
 }
 
 /* Add to Cart Button */
-.card-button {
+.card-button 
+{
+  /* POSITIONING */
   width: 80%;
-  padding: 10px;
   margin: auto;
   margin-top: 10px; /* Bring the button closer to the line seperator*/
   margin-bottom: 15px; /* Bring the button closer to the line seperator*/
+  padding: 10px;
 
-  font-weight: normal; /* Add this to make the font look think and clean */
+  /* DISPLAY */
   font-size: 16px; /* Added this line for 64px font size */
   font-family: "Monotype Baskerville", serif;
-  letter-spacing: .1em; /* Distance between letters for design */
+  font-weight: normal; /* Add this to make the font look think and clean */
   line-height: 100%;
-  text-transform: uppercase;
-
-  background-color: #fff;
   color: #000;
+  text-transform: uppercase;
+  letter-spacing: .1em; /* Distance between letters for design */
+  background-color: #fff;
   border: 0.5px solid black;
   border-radius: 5px;
-  cursor: pointer;
 
-  /* Animation */
+  /* ANIMATION */
   transition: background-color 0.1s linear;
+  cursor: pointer;
 }
 
 /* Card hovering animation: change background and text color */
-.card-button:hover {
-  background-color: black;
+.card-button:hover
+{
   color: white;
+  background-color: black;
 }
 
 /* END OF CARD RELATED */
 
-/* Animation related */
-/* Most of them from cssanimation.io */
-
-/* REMOVED HOVERING IMAGE WITH HOVERING CONTAINER IMAGE
-.card-image:hover { 
-animation: card-image-animation infinite 2s ease-in-out;
-}
-*/
-/* Now hovering over the image inside the container is what causes the hover! */
-.card-image-container:hover .card-image {
-  animation: card-image-animation infinite 2s ease-in-out;
-}
-
-.card-image-container:not(:hover) .card-image {
-  animation: fadeIn  0.8s ease-in-out; /* ease-out start faster and end slower */
-}
-
-@keyframes card-image-animation {
-    50% { transform: translateY(30px) }
-}
-
-/* Fade in animation used for drop down menu */
-@keyframes fadeInTop {
-  from {
-      opacity: 0;
-      transform: translateY(-10px); /* Adjust for a subtle fade-in */
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
-
-/* Fade out animation - drop down menu*/
-@keyframes fadeOutTop {
-  from {
-      opacity: 1;
-      transform: translateY(0);
-  }
-  to {
-      opacity: 0;
-      transform: translateY(-10px); /* Adjust for a subtle fade-out */
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0.15 } /* Adjusted starting opacity to look smoother when hovering out of card's image */
-  to { opacity: 1 }
-}
-
-@keyframes moveFromBottom {
-  from { transform: translateY(800px) }
-}
-
-/* WOBBLING EFFECT!!
-@keyframes card-image-animation {
-  0%, 100% { transform: translate(0, 0) rotate(0); } 
-  25% { transform: translate(-5px, -5px) rotate(-5deg); } 
-  50% { transform: translate(5px, 5px) rotate(5deg); } 
-  75% { transform: translate(-5px, 5px) rotate(-5deg); }
-}
-*/
-
-/* End of Animation related */
-
 /* DROP DOWN MENU RELATED */
 
 /* Dropdown Menu */
-.dropdown-menu {
-  display: none; /* Always visible for animation purposes */
-  position: absolute;
-  background-color: white;
-  border: 1px solid black;
-  width: calc(100% - 40px); /* Account for padding in parent */
-  top: 100%; /* Position at the bottom of the parent */
-  margin-top: 10px; /* Adjust spacing to align with the line separator */
+.dropdown-menu
+{
+  /* POSITIONING */
   z-index: 1; /* Ensure it appears above other elements */
-  box-sizing: border-box; /* Include padding and border in the width calculation */
+  position: absolute;
+  top: 100%; /* Position at the bottom of the parent */
   left: 20px; /* Align with the left padding of the parent */
   right: 20px; /* Align with the right padding of the parent */
+  display: none; /* Always visible for animation purposes */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  width: calc(100% - 40px); /* Account for padding in parent */
+  margin-top: 10px; /* Adjust spacing to align with the line separator */
 
-  /* For animation */
+  /* DISPLAY */
+  background-color: white;
+  border: 1px solid black;
+
+  /* ANIMATION */
+  /* transition: opacity 0.3s ease, transform 0.3s ease; Smooth transition */
   opacity: 0; /* Start hidden */
   transform: translateY(-10px); /* Start slightly above */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
   pointer-events: none; /* Disable interaction when hidden */
 }
 
 /* Dropdown Options */
-.dropdown-option {
+.dropdown-option 
+{
+  /* POSITIONING */
   display: flex;
   justify-content: space-between; /* Align price and ml on opposite ends */
   padding: 10px;
+
+  /* DISPLAY */
   font-size: 14px;
   color: black;
-  cursor: pointer;
   text-align: left;
+  cursor: pointer;
 }
 
 /* Style for Dropdown Price and ML: */
@@ -584,11 +549,13 @@ background-color: #f1f1f1;
 }
 
 /* Show dropdown menu when active */
-.card-price.active .dropdown-menu {
+.card-price.active .dropdown-menu 
+{
+    /* ANIMATION */
+    animation: fadeIn 0.2s ease forwards;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto; /* Enable interaction when visible */
-    animation: fadeInTop 0.3s ease forwards;
 }
 
 /* Hide dropdown menu with fade-out animation */
@@ -598,47 +565,9 @@ background-color: #f1f1f1;
 
 /* END OF DROP DOWN MENU RELATED */
 
-/* Image scaling */
-#stronger-with-you img {
-  scale: 0.9;
-}
-
-#ultra-male img {
-  scale: 1.1;
-}
-
-#spicebomb-extreme img {
-  scale: 1.15;
-}
-
-#bleu-de-chanel img {
-  scale: 0.8;
-}
-
-#versace-eros-flame img {
-  scale: 1.1;
-}
-
-#valentino-born-in-roma img {
-  scale: 0.75;
-}
-
-#xerjoff-alexandria-2 img {
-  scale: 0.9;
-}
-
-/* End of Image scaling */
-
-
-
 /* BACK TO TOP BUTTON RELATED */
-
-html {
-  /* Smooth scroll when pressing on the back-to-top button - not scrolling animation of anything else related */
-  scroll-behavior: smooth;
-}
-
-#back-to-top-div {
+#back-to-top-div 
+{
   /*This is so the div can be put on other elements - overrides the display:block i think*/
   position: absolute; 
 
@@ -649,7 +578,8 @@ html {
   animation: moveFromBottom 1.35s ease-in-out; /* Animation to move in manually when loading screen because scrolly wouldn't work!*/
 }
 
-#back-to-top-button {
+#back-to-top-button 
+{
   width: auto;
   height: auto;
   padding: 10px;
@@ -710,6 +640,36 @@ html {
 
 /* END OF BACK TO TOP BUTTON RELATED */
 
+/* Image scaling RELATED */
+#stronger-with-you img {
+  scale: 0.9;
+}
+
+#ultra-male img {
+  scale: 1.1;
+}
+
+#spicebomb-extreme img {
+  scale: 1.15;
+}
+
+#bleu-de-chanel img {
+  scale: 0.8;
+}
+
+#versace-eros-flame img {
+  scale: 1.1;
+}
+
+#valentino-born-in-roma img {
+  scale: 0.75;
+}
+
+#xerjoff-alexandria-2 img {
+  scale: 0.9;
+}
+/* End of Image scaling Related */
+
 /* START OF SHOPPING CART RELATED */
 .custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
 
@@ -722,3 +682,52 @@ html {
   padding: 15px;
 }
 /* END OF SHOPPING CART RELATED */
+
+/* KEYFRAMES RELATED */
+
+@keyframes card-image-animation {
+  50% { transform: translateY(30px) }
+}
+
+/* Fade in animation used for drop down menu */
+@keyframes fadeInTop {
+from {
+    opacity: 0;
+    transform: translateY(-10px); /* Adjust for a subtle fade-in */
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+/* Fade out animation - drop down menu*/
+@keyframes fadeOutTop {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(-10px); /* Adjust for a subtle fade-out */
+}
+}
+
+@keyframes fadeIn {
+from { opacity: 0.15 } /* Adjusted starting opacity to look smoother when hovering out of card's image */
+to { opacity: 1 }
+}
+
+/* New for leaving image container animation! */
+@keyframes zoomIn {
+from {
+  /* This animation tricks the eye by slightly enlarging the image as if its returning back to place! */
+  transform: scale(1.15);
+}
+}
+
+@keyframes moveFromBottom {
+from { transform: translateY(800px) }
+}
+
+/* End of KEYFRAMES related */
