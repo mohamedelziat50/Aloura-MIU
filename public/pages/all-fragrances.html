@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../css/all-fragrances.css" /> <!-- For the actual page's layout-->
     <link rel="stylesheet" href="../css/navBar.css" /> <!-- For the navbar -->
     <link rel="stylesheet" href="../css/cssanimation.css"> <!-- Scrolly's animations-related -->
+    <link rel="stylesheet" href="../css/page-loader.css"> <!-- Scrolly's animations-related -->
 
     <!-- Boot strap related -->
     <link
@@ -49,6 +50,7 @@
 
     <script src="../js/dark-mode.js"></script> <!-- Dark Mode related - Built in (element is placed through js file) -->
     <script src="../js/back-to-top.js"></script> <!-- Back to top button related -->
+    <script src="../js/page-loader.js"></script> <!-- Page Loader related -->
 
     <!-- Intial Scroll When Reloading-->
     <script>
@@ -70,7 +72,21 @@
     <!-- END OF SCRIPTS-->
   </head>
 
-  <body>
+  <body class="app-default" data-kt-app-page-loading-enabled="true" data-kt-app-page-loading="on">
+
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">  <!-- Full-screen overlay container -->
+      <div class="loader-content">  <!-- Centers content vertically/horizontally -->
+        <div class="logo-reveal">  <!-- Container for logo animation -->
+          <img src="../img/logo.png" alt="Logo">  <!-- Logo -->
+        </div>
+        <!-- Loading bar is trapped into a container so it can fill it entirely! -->
+        <div class="loading-bar-container">  <!-- Background track for progress bar -->
+          <div class="loading-bar"></div>  <!-- Animated progress bar -->
+        </div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav>
       <!-- Logo on left side -->
