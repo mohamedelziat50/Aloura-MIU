@@ -30,6 +30,10 @@
   padding: 20px;
   position: relative;
   top: -5em;
+  animation: moveFromTop 1.7s ease-in-out;
+}
+@keyframes moveFromTop {
+  from { transform: translateY(-800px) }
 }
 
 /* Video container */
@@ -40,6 +44,11 @@
   max-width: 500px; /* Prevent video from getting too large */
   margin: 0 auto; /* Center the video container */
   margin-top: -4.5em;  /* Slight upward adjustment to match */
+  animation: moveFromBottom 1.7s ease-in-out; 
+}
+
+@keyframes moveFromBottom {
+from { transform: translateY(800px) }
 }
 
 /* Video styling */
@@ -95,10 +104,10 @@
   color: white;
   margin-bottom: 4rem;
   transform: scale(0.5);
-  transition: transform 3s ease-out;
+  transition: transform 1.5s 0.1s ease-out; /* 1.5s transform, 0.1s delay */
   text-align: left;
   position: relative;
-  left: 0.7em
+  left: 0.7em;
 }
 
 .grey-content h2.visible {

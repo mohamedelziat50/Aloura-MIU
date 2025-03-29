@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Description displayed in search engine -->
     <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
-    <title>Aloura</title>
+    <title>Aloura - Our Story</title>
     <!-- END OF META DATA -->
 
     
@@ -34,21 +34,44 @@
       crossorigin="anonymous"
     />
 
+    <!-- Tab Logo / 'Favicon' -->
+    <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="../css/navBar.css" />
     <link rel="stylesheet" href="../css/ourStory.css" />
-
-
+    <link rel="stylesheet" href="../css/page-loader.css"> <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="../js/fluidEffect/jquery.min.js"></script>
     <script src="../js/fluidEffect/fluid.min.js"></script>
     <script src="../js/fluidEffect/app.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/page-loader.js"></script> <!-- Page Loader related -->
+
+    <!-- OVERRIDE THE BACKGROUND COLOR FOR LOADER TO MATCH -> SEE IF CHANGE LATER WITH DARK MODE BUTTON -->
+     <style>
+      .fullpage-loader {
+        background: #141313;  /* White background */
+      }
+     </style>
 
   </head>
 
   <body>
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">  <!-- Full-screen overlay container -->
+      <div class="loader-content">  <!-- Centers content vertically/horizontally -->
+        <div class="logo-reveal">  <!-- Container for logo animation -->
+          <img src="../img/logo.png" alt="Logo">  <!-- Logo -->
+        </div>
+        <!-- Loading bar is trapped into a container so it can fill it entirely! -->
+        <div class="loading-bar-container">  <!-- Background track for progress bar -->
+          <div class="loading-bar"></div>  <!-- Animated progress bar -->
+        </div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav>
 
