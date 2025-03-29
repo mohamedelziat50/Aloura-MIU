@@ -40,9 +40,11 @@
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="./public/css/style.css" />
     <link rel="stylesheet" href="./public/css/navBar.css" />
+    <link rel="stylesheet" href="./public/css/modal.css" />
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="./public/js/script.js"></script>
+    <script src="./public/js/modal.js"></script>
   </head>
 
   <body>
@@ -356,11 +358,14 @@
                 Login
               </button>
               <!-- 2fa button -->
-              <button id="show2fa"type="button" class="btn btn-link w-100 mt-2">
+              <button
+                id="show2fa"
+                type="button"
+                class="btn btn-link w-100 mt-2"
+              >
                 Two-Factor Verification
               </button>
 
-              
               <button
                 class="btn btn-outline-danger w-100 mt-2"
                 id="googleSignInBtn"
@@ -479,7 +484,12 @@
               </button>
             </form>
             <!-- 2fa modal -->
-            <form id="twofactor"class="form" style="display: none" style="margin:auto">
+            <form
+              id="twofactor"
+              class="form"
+              style="display: none"
+              style="margin: auto"
+            >
               <div class="info">
                 <span class="title">Two-Factor Verification</span>
                 <p class="description">
