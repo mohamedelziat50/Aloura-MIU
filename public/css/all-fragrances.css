@@ -732,3 +732,176 @@ from { transform: translateY(800px) }
 }
 
 /* End of KEYFRAMES related */
+
+/* Media queries for responsive design */
+
+/* Large devices (less than 992px) */
+@media (max-width: 992px) {
+  #header {
+    font-size: 48px;
+    top: 80px;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .middle-links {
+    top: 85px;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .controls-container {
+    top: 5rem;
+    min-width: 0;
+    width: calc(100% - 40px);
+  }
+  
+  .filter-container {
+    margin-left: 4rem;
+  }
+  
+  .search-container {
+    margin-right: 2rem;
+  }
+  
+  .cards-container {
+    min-width: 0;
+    width: 100%;
+    padding: 80px 40px 40px 40px;
+    margin: 0;
+  }
+}
+
+/* Medium devices (less than 768px) */
+@media (max-width: 768px) {
+  #header {
+    font-size: 36px;
+    top: 60px;
+  }
+  
+  .middle-links {
+    top: 65px;
+  }
+  
+  .middle-links ul {
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 0 15px;
+  }
+  
+  .controls-container {
+    top: 7rem;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .filter-container {
+    margin-left: 2.1em;
+  }
+  
+  .search-container {
+    margin-right: 0;
+  }
+  
+  .cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    padding: 120px 20px 40px 20px;
+  }
+
+  .dropdown-menu {
+    max-height: 150px; /* Limit height on small screens */
+  }
+  
+  .custom-offcanvas {
+    min-width: 50% !important;
+  }
+}
+
+/* Small devices (less than 620px) */
+@media (max-width: 620px) {
+  #header {
+    font-size: 28px;
+    top: 65px;
+  }
+  
+  .middle-links {
+    top: 70px;
+  }
+  
+  .middle-links ul {
+    gap: 20px;
+    font-size: 12px;
+  }
+  
+  .filter-button {
+    padding: 5px 12px;
+    font-size: 0.7rem;
+  }
+  
+  .search-container {
+    width: 70%;
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+    padding: 120px 10px 40px 10px;
+  }
+  
+  .card-title {
+    font-size: 20px;
+  }
+  
+  .card-type {
+    font-size: 14px;
+  }
+  
+  .card-mood {
+    font-size: 12px;
+  }
+  
+  .card-price .price,
+  .card-price .ml {
+    font-size: 13px;
+  }
+  
+  .card-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+/* Extra Small devices (less than 400px) */
+@media (max-width: 400px) {
+  #header {
+    font-size: 24px;
+  }
+  
+  .middle-links ul {
+    font-size: 11px;
+  }
+  
+  .dropdown-menu-filter {
+    width: 180px;
+  }
+
+  .filter-container {
+    margin-left: 12px;
+  }
+
+  .cards-container {
+    row-gap: 25px;
+  }
+  
+  .card {
+    scale: 1;
+    margin: 0;
+  }
+  
+  .card-image-container:hover .card-image {
+    animation: none; /* Disable animation on very small screens */
+  }
+  
+  #back-to-top-div {
+    margin-left: 70%;
+  }
+}
