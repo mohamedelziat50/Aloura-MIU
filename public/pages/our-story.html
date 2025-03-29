@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Description displayed in search engine -->
     <meta name="description" content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here.">
-    <title>Aloura</title>
+    <title>Aloura - Our Story</title>
     <!-- END OF META DATA -->
 
     
@@ -34,21 +34,44 @@
       crossorigin="anonymous"
     />
 
+    <!-- Tab Logo / 'Favicon' -->
+    <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+
     <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="../css/navBar.css" />
     <link rel="stylesheet" href="../css/ourStory.css" />
-
-
+    <link rel="stylesheet" href="../css/page-loader.css"> <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="../js/fluidEffect/jquery.min.js"></script>
     <script src="../js/fluidEffect/fluid.min.js"></script>
     <script src="../js/fluidEffect/app.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/page-loader.js"></script> <!-- Page Loader related -->
+
+    <!-- OVERRIDE THE BACKGROUND COLOR FOR LOADER TO MATCH -> SEE IF CHANGE LATER WITH DARK MODE BUTTON -->
+     <style>
+      .fullpage-loader {
+        background: #141313;  /* White background */
+      }
+     </style>
 
   </head>
 
   <body>
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">  <!-- Full-screen overlay container -->
+      <div class="loader-content">  <!-- Centers content vertically/horizontally -->
+        <div class="logo-reveal">  <!-- Container for logo animation -->
+          <img src="../img/logo.png" alt="Logo">  <!-- Logo -->
+        </div>
+        <!-- Loading bar is trapped into a container so it can fill it entirely! -->
+        <div class="loading-bar-container">  <!-- Background track for progress bar -->
+          <div class="loading-bar"></div>  <!-- Animated progress bar -->
+        </div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav>
 
@@ -128,6 +151,99 @@
         // // Initialize
         // video.addEventListener('loadedmetadata', attemptAutoplay);
         // window.addEventListener('load', attemptAutoplay);
+</script>
+
+<script>
+  // Add this as a new script file or at the end of your HTML
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Allow time for other scripts to initialize
+  setTimeout(function() {
+    const canvas = document.getElementById('grey-fluid-canvas');
+    if (!canvas) return;
+    
+    // Function to simulate mouse down event (pressing the mouse button)
+    function simulateMouseDown(x, y) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseDownEvent = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: rect.left + x,
+        clientY: rect.top + y,
+        button: 0, // Left mouse button
+        buttons: 1 // Left mouse button pressed
+      });
+      canvas.dispatchEvent(mouseDownEvent);
+    }
+    
+    // Function to simulate mouse move event while button is pressed
+    function simulateMouseMove(x, y) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseMoveEvent = new MouseEvent('mousemove', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: rect.left + x,
+        clientY: rect.top + y,
+        button: 0, // Left mouse button
+        buttons: 1 // Left mouse button pressed
+      });
+      canvas.dispatchEvent(mouseMoveEvent);
+    }
+    
+    // Function to simulate mouse up event (releasing the mouse button)
+    function simulateMouseUp(x, y) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseUpEvent = new MouseEvent('mouseup', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: rect.left + x,
+        clientY: rect.top + y,
+        button: 0, // Left mouse button
+        buttons: 0 // No buttons pressed
+      });
+      canvas.dispatchEvent(mouseUpEvent);
+    }
+    
+    // Simulate a complete mouse interaction (down, move, up)
+    function simulateFullMouseInteraction() {
+      const canvasWidth = canvas.offsetWidth;
+      const canvasHeight = canvas.offsetHeight;
+      
+      // Random position
+      const startX = Math.random() * canvasWidth;
+      const startY = Math.random() * canvasHeight;
+      
+      // Simulate mouse down
+      simulateMouseDown(startX, startY);
+      
+      /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
+      // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
+      // Simulate mouse movements
+      setTimeout(function() {
+        // Add some slight movement
+        simulateMouseMove(startX + 5, startY + 5);
+      }, 99999999999999);
+      
+      setTimeout(function() {
+        simulateMouseMove(startX + 10, startY + 10);
+      }, 99999999999999);
+      
+      // Simulate mouse up
+      setTimeout(function() {
+        simulateMouseUp(startX + 10, startY + 10);
+      }, 99999999999999);
+    }
+    
+    // Set initial trigger
+    simulateFullMouseInteraction();
+    
+    // Continuously simulate mouse interactions
+    setInterval(simulateFullMouseInteraction, 1);
+  }, 100); // Wait 0.1 second for page to be fully loaded
+});
 </script>
 
 </body>
