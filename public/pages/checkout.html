@@ -6,9 +6,9 @@
     <meta content="" name="description" />
     <meta content="" name="keywords" />
     <meta content="noindex, nofollow" name="robots" />
-    
+
     <link rel="stylesheet" href="../css/checkout.css" />
-    
+
     <!-- Favicons -->
     <link
       rel="stylesheet"
@@ -21,7 +21,7 @@
       href="https://bootstrapmade.com/content/demo/eStore/assets/img/apple-touch-icon.png"
       rel="apple-touch-icon"
     />
-    <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/navBar.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -86,42 +86,42 @@
     data-aos-duration="600"
     data-aos-easing="ease-in-out"
   >
-  <nav>
-    <div class="logo">
-      <a href="../../index.html"> <img src="../../public/img/logo.png" alt="Logo" /></a>
-    </div>
+    <nav>
+      <div class="logo">
+        <a href="../../index.html">
+          <img src="../../public/img/logo.png" alt="Logo"
+        /></a>
+      </div>
 
-    <div class="links">
-      <ul>
-        <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
-        <li><a href="#">Collections</a></li>
-        <li><a href="#">Gifting</a></li>
-        <li><a href="public/pages/our-story.html">Our Story</a></li>
-      </ul>
-    </div>
+      <div class="links">
+        <ul>
+          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gifting</a></li>
+          <li><a href="public/pages/our-story.html">Our Story</a></li>
+        </ul>
+      </div>
 
-    <div class="actions">
-      <ul>
-        <li><i class="fa-solid fa-magnifying-glass"></i></li>
-        <li>
-          <button
-            style="border: none; background-color: transparent"
-            data-bs-toggle="modal"
-            data-bs-target="#loginModal"
-          >
-            <i class="fa-regular fa-circle-user"></i>
-          </button>
-        </li>
-        <li>
-          <button
-            style="border: none; background-color: transparent"
-          >
-            <i class="fa-solid fa-cart-shopping"></i>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+      <div class="actions">
+        <ul>
+          <li><i class="fa-solid fa-magnifying-glass"></i></li>
+          <li>
+            <button
+              style="border: none; background-color: transparent"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              <i class="fa-regular fa-circle-user"></i>
+            </button>
+          </li>
+          <li>
+            <button style="border: none; background-color: transparent">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <main class="main">
       <!-- Checkout Section -->
       <section class="checkout section" id="checkout">
@@ -210,7 +210,6 @@
                           required=""
                           type="text"
                         />
-                        
                       </div>
                       <div class="form-group">
                         <label for="apartment"
@@ -289,7 +288,6 @@
                       </div>
                       <div class="form-check">
                         <input
-                          checked=""
                           class="form-check-input"
                           id="billing-same"
                           name="billing-same"
@@ -297,6 +295,18 @@
                         />
                         <label class="form-check-label" for="billing-same">
                           Billing address same as shipping
+                        </label>
+                      </div>
+                      <!-- check box for cash on delivery -->
+                      <div class="payment-type form-check">
+                        <input
+                          class="form-check-input"
+                          id="cash"
+                          name="billing-same"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="cash">
+                          Cash on delivery
                         </label>
                       </div>
                     </div>
@@ -307,44 +317,51 @@
                       <div class="section-number">3</div>
                       <h3>Payment Method</h3>
                     </div>
-<!-- FLIPPING CREDIT CARD -->
-<div class="card-flip-container">
-  <div class="card-flip-inner">
-    <div class="card-flip-front">
-      <div class="card-header-custom">
-        <div class="card-logo">
-          <img src="../img/checkout-related/card-logo.png" alt="Card Logo" />
-          <h5 class="card-text-normal">Master Card</h5>
-        </div>
-        <img src="../img/checkout-related/chip.png" alt="Chip" class="card-chip" />
-      </div>
-      <div class="card-details">
-        <div class="name-number">
-          <h6 class="card-text-small">Card Number</h6>
-          <h5 class="card-number">8050 2030 3020 5040</h5>
-          <h5 class="card-name">Prem Kumar Shahi</h5>
-        </div>
-        <div class="valid-date">
-          <h6 class="card-text-small">Valid Thru</h6>
-          <h5 class="card-text-normal">05/28</h5>
-        </div>
-      </div>
-    </div>
-    <div class="card-flip-back">
-      <h6 class="card-text-small">
-        For customer service call +977 4343 3433 or email at
-        mastercard@gmail.com
-      </h6>
-      <span class="magnetic-strip"></span>
-      <div class="signature"><i>005</i></div>
-      <h5 class="card-text-small">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-        maiores sed doloremque.
-      </h5>
-    </div>
-  </div>
-</div>
-<!-- END OF FLIPPING CREDIT CARD -->
+                    <!-- FLIPPING CREDIT CARD -->
+                    <div class="card-flip-container">
+                      <div class="card-flip-inner">
+                        <div class="card-flip-front">
+                          <div class="card-header-custom">
+                            <div class="card-logo">
+                              <img
+                                src="../img/checkout-related/card-logo.png"
+                                alt="Card Logo"
+                              />
+                              <h5 class="card-text-normal">Master Card</h5>
+                            </div>
+                            <img
+                              src="../img/checkout-related/chip.png"
+                              alt="Chip"
+                              class="card-chip"
+                            />
+                          </div>
+                          <div class="card-details">
+                            <div class="name-number">
+                              <h6 class="card-text-small">Card Number</h6>
+                              <h5 class="card-number">8050 2030 3020 5040</h5>
+                              <h5 class="card-name">Prem Kumar Shahi</h5>
+                            </div>
+                            <div class="valid-date">
+                              <h6 class="card-text-small">Valid Thru</h6>
+                              <h5 class="card-text-normal">05/28</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-flip-back">
+                          <h6 class="card-text-small">
+                            For customer service call +977 4343 3433 or email at
+                            mastercard@gmail.com
+                          </h6>
+                          <span class="magnetic-strip"></span>
+                          <div class="signature"><i>005</i></div>
+                          <h5 class="card-text-small">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Officia maiores sed doloremque.
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END OF FLIPPING CREDIT CARD -->
                     <div class="section-content">
                       <div class="payment-details" id="credit-card-details">
                         <div class="form-group">
@@ -680,5 +697,68 @@
       integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
       src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
     ></script>
+
+    <!-- script to remove the cerdit card payemt when chencked -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("cash").addEventListener("change", function () {
+          const checkoutSection = document.getElementById("payment-method");
+          checkoutSection.style.display = this.checked ? "none" : "block";
+        });
+      });
+    </script>
+    <!--this script is to write on the card  -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get input fields
+        const cardNumberInput = document.getElementById("card-number");
+        const cardNameInput = document.getElementById("card-name");
+        const cardExpiryInput = document.getElementById("expiry");
+        const cardCVVInput = document.getElementById("cvv");
+
+        // Get display elements on the card
+        const cardNumberDisplay = document.querySelector(
+          ".card-flip-front .card-number"
+        );
+        const cardNameDisplay = document.querySelector(
+          ".card-flip-front .card-name"
+        );
+        const cardExpiryDisplay = document.querySelector(
+          ".card-flip-front .valid-date h5"
+        );
+        const cardCVVDisplay = document.querySelector(
+          ".card-flip-back .signature i"
+        );
+
+        // Update functions
+        function updateCardNumber() {
+          let formattedNumber = cardNumberInput.value.replace(
+            /(\d{4})(?=\d)/g,
+            "$1 "
+          );
+          cardNumberDisplay.textContent =
+            formattedNumber || "8050 2030 3020 5040";
+        }
+
+        function updateCardName() {
+          cardNameDisplay.textContent =
+            cardNameInput.value.toUpperCase() || "PREM KUMAR SHAHI";
+        }
+
+        function updateCardExpiry() {
+          cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
+        }
+
+        function updateCardCVV() {
+          cardCVVDisplay.textContent = cardCVVInput.value || "005";
+        }
+
+        // Event listeners for real-time updates
+        cardNumberInput.addEventListener("input", updateCardNumber);
+        cardNameInput.addEventListener("input", updateCardName);
+        cardExpiryInput.addEventListener("input", updateCardExpiry);
+        cardCVVInput.addEventListener("input", updateCardCVV);
+      });
+    </script>
   </body>
 </html>
