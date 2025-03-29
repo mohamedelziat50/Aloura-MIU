@@ -79,6 +79,7 @@
         transition-duration: 0.001s !important;
       }
     </style>
+    <script src="../js/checkout.js"></script>
   </head>
   <body
     class="checkout-page"
@@ -697,68 +698,5 @@
       integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
       src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
     ></script>
-
-    <!-- script to remove the cerdit card payemt when chencked -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("cash").addEventListener("change", function () {
-          const checkoutSection = document.getElementById("payment-method");
-          checkoutSection.style.display = this.checked ? "none" : "block";
-        });
-      });
-    </script>
-    <!--this script is to write on the card  -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Get input fields
-        const cardNumberInput = document.getElementById("card-number");
-        const cardNameInput = document.getElementById("card-name");
-        const cardExpiryInput = document.getElementById("expiry");
-        const cardCVVInput = document.getElementById("cvv");
-
-        // Get display elements on the card
-        const cardNumberDisplay = document.querySelector(
-          ".card-flip-front .card-number"
-        );
-        const cardNameDisplay = document.querySelector(
-          ".card-flip-front .card-name"
-        );
-        const cardExpiryDisplay = document.querySelector(
-          ".card-flip-front .valid-date h5"
-        );
-        const cardCVVDisplay = document.querySelector(
-          ".card-flip-back .signature i"
-        );
-
-        // Update functions
-        function updateCardNumber() {
-          let formattedNumber = cardNumberInput.value.replace(
-            /(\d{4})(?=\d)/g,
-            "$1 "
-          );
-          cardNumberDisplay.textContent =
-            formattedNumber || "8050 2030 3020 5040";
-        }
-
-        function updateCardName() {
-          cardNameDisplay.textContent =
-            cardNameInput.value.toUpperCase() || "PREM KUMAR SHAHI";
-        }
-
-        function updateCardExpiry() {
-          cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
-        }
-
-        function updateCardCVV() {
-          cardCVVDisplay.textContent = cardCVVInput.value || "005";
-        }
-
-        // Event listeners for real-time updates
-        cardNumberInput.addEventListener("input", updateCardNumber);
-        cardNameInput.addEventListener("input", updateCardName);
-        cardExpiryInput.addEventListener("input", updateCardExpiry);
-        cardCVVInput.addEventListener("input", updateCardCVV);
-      });
-    </script>
   </body>
 </html>
