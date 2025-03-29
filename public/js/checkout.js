@@ -84,3 +84,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ============ CASH ON DELIEVERY BUTTON POP UP (COD) ===============
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the Cash On Delivery checkbox and confirmation message
+  const codCheckbox = document.getElementById('cash');
+  const confirmationMessage = document.querySelector('.cod-confirmation-message');
+  
+  // Make sure we have both elements
+  if (codCheckbox && confirmationMessage) {
+    // Add event listener to the checkbox
+    codCheckbox.addEventListener('change', function() {
+      confirmationMessage.style.display = codCheckbox.checked ? 'block' : 'none';
+    });
+  }
+});

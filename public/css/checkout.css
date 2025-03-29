@@ -343,3 +343,24 @@
   animation-duration: 0.8s !important;
   transition-duration: 0.8s !important;
 }
+
+/* Styling for the COD Pop up */
+.cod-message {
+  font-family: "Poppins", sans-serif;
+  border-left: 3px solid #0056b3;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  background-color: rgba(248, 249, 250, 0.9) !important;
+}
+
+/* Intially hidden */
+.cod-confirmation-message { display: none; }
+
+.cod-confirmation-message i {
+  font-size: 1.3rem;
+  color: #0056b3;
+}
+
+.cod-confirmation-message span {
+  font-size: 14px;
+  font-weight: 400;
+}
