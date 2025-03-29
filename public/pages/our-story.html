@@ -45,7 +45,7 @@
     <script src="../js/fluidEffect/fluid.min.js"></script>
     <script src="../js/fluidEffect/app.js"></script>
     <script src="../js/script.js"></script>
-  
+
   </head>
 
   <body>
@@ -82,19 +82,53 @@
   
       <div class="grey-content">
           <div class="text-container">
-              <h2>Scent. Elegance. <br><span class="glow">Eternity.</span></h2>
+              <h2>Scent. <br> Elegance. <br><span class="glow">Eternity.</span></h2>
               <p>Crafted with the finest essences, our fragrances embody the perfect balance of strength and elegance. 
                 Each scent is meticulously blended to evoke timeless sophistication, <b>leaving a lasting impression.</b> With exquisite 
                 notes that unfold beautifully over time,<b> our collection redefines luxury</b>, offering a fragrance experience that is as bold as it is unforgettable.</p>
           </div>
   
-          <!-- Video Element -->
-          <video class="grey-video" autoplay muted loop>
-              <source src="../img/f98b57e9520b0edf8c33063230c63fc6.mp4" type="video/mp4">
-          </video>
+          <!-- New container wrapping video and button -->
+          <div class="video-control-container">
+            <!-- Original video element -->
+            <video class="grey-video" autoplay muted loop playsinline>
+                <source src="../videos/photoshoot.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Mute Button -->
+            <button class="video-mute-btn" id="muteToggle">
+                <i class="fas fa-volume-mute"></i>
+            </button>
+          </div>
       </div>
   </div>
-  
+  <script>
+        const video = document.querySelector('.grey-video');
+        const muteBtn = document.getElementById('muteToggle');
+        const muteIcon = muteBtn.querySelector('i');
+        
+        // Set initial volume (1%)
+        video.volume = 1;
+        
+        // Mute toggle functionality
+        muteBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            video.muted = !video.muted;
+            muteIcon.className = video.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+        });
+        
+        // COMMENTED -> USE IF AUTOPLAY IN ATTRIBUTES DOESNT WORK
+        // // Handle autoplay
+        // function attemptAutoplay() {
+        //     if(video.muted) {
+        //         video.play().catch(e => console.log('Autoplay prevented'));
+        //     }
+        // }
+        
+        // // Initialize
+        // video.addEventListener('loadedmetadata', attemptAutoplay);
+        // window.addEventListener('load', attemptAutoplay);
+</script>
 
 </body>
 </html>
