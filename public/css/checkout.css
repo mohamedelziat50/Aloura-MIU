@@ -21,6 +21,11 @@
   transform: rotateY(180deg);
 }
 
+/* Added a new class for focus-based flipping on cvv (see JS) */
+.card-flip-container.flip .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
 .card-flip-front, .card-flip-back {
   position: absolute;
   width: 100%;
@@ -98,6 +103,7 @@
   margin-top: 20px;
   font-family: "Poppins", sans-serif;
   text-align: left;
+  font-size: 16px;
 }
 
 .magnetic-strip {

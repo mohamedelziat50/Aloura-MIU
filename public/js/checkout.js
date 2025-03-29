@@ -59,3 +59,28 @@
         cardExpiryInput.addEventListener("input", updateCardExpiry);
         cardCVVInput.addEventListener("input", updateCardCVV);
       });
+
+// ========= CVV Flip card when focus & blurred =================
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the CVV input element - update the selector to match your input
+  const cvvInput = document.getElementById('cvv'); // or input#cvv
+  
+  // Get the card flip container
+  const cardFlipContainer = document.querySelector('.card-flip-container'); //Returns a single element, byclassname returned a large list
+  
+  // If both are not null
+  if (cvvInput && cardFlipContainer) 
+  {
+    // Add focus event listener
+    cvvInput.addEventListener('focus', function() {
+      // Add the flip class to rotate the card (check css file)
+      cardFlipContainer.classList.add('flip');
+    });
+    
+    // Add blur (loss of focus) event listener
+    cvvInput.addEventListener('blur', function() {
+      // Remove the flip class to revert the card
+      cardFlipContainer.classList.remove('flip');
+    });
+  }
+});
