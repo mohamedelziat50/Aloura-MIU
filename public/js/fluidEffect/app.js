@@ -7,9 +7,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize Fluid
     greyFluid.mapBehaviors({
+      // OLD
+      // paused: false,
+      // curl: 5,
+      // dissipation: 0.98,  // Slower fade for longer trails
+      // emitter_size: 0.1,       // Smaller splats (like fine mist)
+
+      // NEW
       paused: false,
-      // If color options are available in the Fluid implementation
-      // Try adding a color parameter here if supported
+      curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
+      dissipation: 0.985,      // Even slower fade (preserves trails longer)
+      emitter_size: 0.08,      // Finer mist (0.05–0.1 for delicate sprays)
+      velocity: 0.97,          // Smoother, slower movement
+      pressure: 0.75,          // Less "explosive" splats (softer dispersion)
     });
     greyFluid.activate();
 
