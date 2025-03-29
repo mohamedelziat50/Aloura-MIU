@@ -1,85 +1,135 @@
 /* Grey Background Section */
 .grey-section {
-    background-color: #141313; /* Dark grey background */
-    padding: 140px 20px; /* Adjust padding as needed */
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    min-height: 100vh; /* Full viewport height */
-  }
-  
-  /* Center text and video properly */
-  .grey-content {
-    display: flex;
-    align-items: center;
-    gap: 50px; /* Space between text and video */
-  }
-  
-/* Make canvas cover the full grey section */
+  background-color: #141313;
+  padding: 140px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative; /* Needed for fluid canvas positioning */
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Center content properly */
+.grey-content {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 10em;
+  max-width: 1200px; /* Prevent content from getting too wide */
+  width: 100%;
+  margin: 0 auto; /* Center the container */
+}
+
+/* Text container */
+.text-container {
+  flex: 1;
+  min-width: 300px; /* Prevent text from getting too narrow */
+  max-width: 500px;
+  padding: 20px;
+  position: relative;
+  top: -5em;
+}
+
+/* Video container */
+.video-control-container {
+  position: relative;
+  width: 25vw; /* Same as video width */
+  min-width: 300px; /* Prevent video from getting too small */
+  max-width: 500px; /* Prevent video from getting too large */
+  margin: 0 auto; /* Center the video container */
+  margin-top: -4.5em;  /* Slight upward adjustment to match */
+}
+
+/* Video styling */
+.grey-video {
+  width: 100%; /* Fill container */
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: block; /* Remove inline spacing */
+}
+
+/* Fluid canvas */
 #grey-fluid-canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  color: transparent;
   opacity: 0.4;
-  z-index: 1; /* Behind the text & video */
-  pointer-events: all; /* Allow interactions with other elements */
+  z-index: 1;
 }
 
-  /* Heading and Paragraph */
-  .text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 500px; /* Adjust as needed */
-  }
-  
-  .grey-content h2 {
-    font-size: 550%;
-    color: white;
-    position: relative;
-    top: -150px;
-    left:-230px;
-    transform: scale(0.5);
-    transition: transform 3s ease-out;
-  }
-  
-  .grey-content h2.visible {
-    transform: scale(1);
-  }
-  
-  .grey-content p {
-    font-size: 120%;
-    color: rgb(255, 255, 255);
-    text-align: left;
-    position: relative;
-    top: 40px;
-    left: -200px;
-    color: rgb(168, 164, 164);
-  }
-  
-  /* Video Styling */
-  .grey-video {
-    width: 25vw; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    position: relative;
-    top: -70px;
-    left: 200px;
-    border-radius: 20px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
-  }
-  
-  
-  /* Glow Effect for "Eternity" */
-  .glow {
-    opacity: 0; /* Start invisible */
-    transition: opacity 3s ease-out, text-shadow 3s ease-out; /* Smooth effect */
-  }
-  
-  .glow.visible {
-    opacity: 1; /* Fully visible when scrolled into view */
-    text-shadow: 0 0 5px #fdb36e, 0 0 10px #f39e27, 0 0 1px #e2955e, 0 0 1px #f78a4f, 0 0 1px #f29430, 0 0 1px #cdd55e, 0 0 40px #eba728, 0 0 50px #efe888; /* Glow effect */
-  }
+/* Mute button */
+.video-mute-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  border: none;
+  transition: background 0.3s;
+}
+
+.video-mute-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.video-mute-btn i {
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* Text positioning adjustments */
+.grey-content h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+  color: white;
+  margin-bottom: 4rem;
+  transform: scale(0.5);
+  transition: transform 3s ease-out;
+  text-align: left;
+  position: relative;
+  left: 0.7em
+}
+
+.grey-content h2.visible {
+  transform: scale(1.2);
+}
+
+.grey-content p {
+  font-size: 1.2rem;
+  color: rgb(168, 164, 164);
+  line-height: 1.6;
+}
+
+/* Glow effect */
+.glow {
+  opacity: 0;
+  transition: opacity 3s ease-out, text-shadow 3s ease-out;
+}
+
+.glow.visible {
+  opacity: 1;
+  text-shadow: 0 0 5px #fdb36e, 0 0 10px #f39e27, 0 0 1px #e2955e, 
+               0 0 1px #f78a4f, 0 0 1px #f29430, 0 0 1px #cdd55e, 
+               0 0 40px #eba728, 0 0 50px #efe888;
+}
+
+/* Unmuted state animations */
+.video-mute-btn:not(.muted) i {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
