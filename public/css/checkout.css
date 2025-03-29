@@ -1,223 +1,106 @@
-/* Import Google Font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
-#header {
-    color: black;
-
-    /* Letter display related */
-    font-weight: 100; /* Add this to make the font look think and clean */
-    font-size: 25px; /* Added this line for 64px font size */
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .075em; /* Distance between letters for design */
-    line-height: 100%;
-
-    margin: auto;
-    text-align: center;
-    text-transform: uppercase;
-
-    position: relative;
-    top: 80px;
-
-    min-width: 615px;
-    margin-bottom: 40px;
-}
-
-#both-container {
-    display: grid;
-    position: relative;
-    /* Used for responsiveness */
-    grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
-    
-    top: 55px;
-    margin-left: 17rem;
-    margin-right: 17rem;
-    padding-top: 1.5rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px; /* Used for rounded corners */
-    text-align: center; /* To allign all text in the center, has to be included */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05); /* Shadows for design */
-    background-color: white !important; /*CHANGING THE CARD'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
-    height: 700px; 
-}
-
-#left-section {
-    position: relative;
-    width: 50%;
-
-    /* Acts as the seperator between both sections */
-    border-right: 1px solid #e0e0e0;
-
-    align-items: center;
-    overflow: hidden;
-}
-
-#payment-header-icons-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center everything horizontally */
-    gap: 5px; /* Space between header and icons */
-    width: 75%; /* Ensure the container spans the full width */
-    margin: 0 auto; /* Center the container */
-}
-
-#payment-header {
-    margin: auto;
-    text-align: center;
-
-    color: #707070;
-    text-transform: uppercase; 
-    font-weight: normal;
-    font-size: 16px; /* Smaller font size */
-    margin-bottom: 2%;
-}
-
-#payment-icons-div {
-    display: grid;
-    position: relative;
-
-    width: 50%; /* Limit the maximum width of the icons container */
-    /* Used for responsiveness */
-    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
-
-    margin: auto; /* Center the container */
-    justify-content: center; /* Center the grid horizontally */
-    gap: 10px;
-    margin-top: 25px
-}
-
-.payment-icons {
-    height: auto; /* Maintain aspect ratio */
-    width: 100%; /* Make icons fill the grid cell */
-    max-width: 110px; /* Limit maximum size of icons */
-    scale: 1.2;
-}
-
-.divider-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    width: 85%;
-    /*
-        0 → top and bottom margin to 0 
-        auto → left and right margins adjust automatically to center element
-    */
-    margin: 10px auto; /* Centers the divider */     
-}
-
-.styled-hr {
-    flex: 1;
-    border: none;
-    border-top: 2px solid #ccc;
-}
-
-.or-text {
-    font-size: 14px;
-    color: #707070;
-    font-weight: bold;
-    font-family: "Poppins", sans-serif; /* More modern font */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    text-transform: uppercase; /* Uppercase text */
-
-    pointer-events: none; /* Completely disables interaction */
-    cursor: default; /* Ensures no cursor change */
-}
-
 /* FLIPPING CARD RELATED */
-
-.container *{
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-}
-
-.container {
-  position: relative;
-  height: 210px !important;
-  width: 350px !important;
+.card-flip-container {
+  perspective: 1000px;
+  width: 350px;
+  height: 210px;
+  margin: 20px auto;
   z-index: 100;
-  transition: 0.8s;
-  transform-style: preserve-3d;
-  background: linear-gradient(90deg, #cfd2d4, #f3f5f5) !important; /*Wouldn't change color without important*/
-  border-radius: 25px;
+  margin-top: 40px;
 }
-.container:hover {
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-flip-container:hover .card-flip-inner {
   transform: rotateY(180deg);
 }
-.container .card {
+
+.card-flip-front, .card-flip-back {
   position: absolute;
-  height: 100%;
   width: 100%;
-  padding: 25px;
-  border-radius: 25px;
-  backdrop-filter: blur(25px);
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 45px rgba(0, 0, 0, 0.15) !important; /*Wouldnt change without the card's shadow without important*/ 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backface-visibility: hidden; /* Ensure backface-visibility is set */
-  transform-style: preserve-3d;
-}
-.front-face {
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
+  border-radius: 25px;
+  padding: 25px;
 }
-.front-face header,
-.front-face .logo {
+
+.card-flip-front {
+  background: url('../img/checkout-related/card-pattern2.png') no-repeat center center;
+  color: black;
+  box-shadow: 0 8px 45px rgba(0, 0, 0, 0.15);
+}
+
+.card-flip-back {
+  /* background: linear-gradient(90deg, #cfd2d4, #f3f5f5); */
+  background: url('../img/checkout-related/card-pattern2.png') no-repeat center center;
+  color: black;
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 45px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Contents */
+.card-header-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-logo {
   display: flex;
   align-items: center;
 }
-.front-face header {
-  justify-content: space-between;
-}
-.front-face .logo img {
+
+.card-logo img {
   width: 48px;
   margin-right: 10px;
 }
-h5 {
-  font-size: 14px !important;
-  font-weight: 400;
-  text-align: left;
-}
 
-#lorem-text-card {
-  font-size: 10px !important;
-}
-.front-face .chip {
+.card-chip {
   width: 50px;
 }
-.front-face .card-details {
+
+.card-details {
   display: flex;
   margin-top: 40px;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-h6 {
-  text-align: left;
+.card-text-small {
   font-size: 10px;
   font-weight: 400;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
 }
 
-h5.number {
+.card-text-normal {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+}
+
+.card-number {
   font-size: 16px;
   letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
 }
-h5.name {
+
+.card-name {
   margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
 }
-.card.back-face {
-  border: none;
-  padding: 15px 25px 25px 25px;
-  transform: rotateY(180deg);
-  backface-visibility: hidden; /* Ensure backface-visibility is set */
-}
-.card.back-face h6 {
-  font-size: 8px;
-}
-.card.back-face .magnetic-strip {
+
+.magnetic-strip {
   position: absolute;
   top: 40px;
   left: 0;
@@ -225,7 +108,8 @@ h5.name {
   width: 100%;
   background: #000;
 }
-.card.back-face .signature {
+
+.signature {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -233,11 +117,14 @@ h5.name {
   height: 40px;
   width: 85%;
   border-radius: 6px;
-  background: repeating-linear-gradient(#fff,
-      #fff 3px,
-      #efefef 0px,
-      #efefef 9px);
+  background: repeating-linear-gradient(
+    #fff,
+    #fff 3px,
+    #efefef 0px,
+    #efefef 9px
+  );
 }
+
 .signature i {
   color: #000;
   font-size: 12px;
@@ -245,56 +132,208 @@ h5.name {
   border-radius: 4px;
   background-color: #fff;
   margin-right: -30px;
-  z-index: -1;
-}
-.card.back-face h5 {
-  font-size: 8px;
-  margin-top: 15px;
+  z-index: 1;
 }
 
-/* End of FLIPPING CARD RELATED */
-
-/* Every time screen size lowers, lower the margin of the both container to fit more */
-/* And also adjust the card's container height/width + The left section's taking up space */
-@media (max-width: 1270px) {
-  #both-container {
-      margin-left: 5rem;
-      margin-right: 5rem;
-      height: auto; /* Adjust height dynamically */
+/* Media queries for the flip card */
+@media (max-width: 1200px) {
+  .card-flip-container {
+    width: 330px;
+    height: 200px;
   }
   
-  .container {
-      width: 300px !important;
-      height: 180px !important;
+  .card-number {
+    font-size: 15px;
+  }
+  
+  .card-chip {
+    width: 45px;
+  }
+}
+
+@media (max-width: 992px) {
+  .card-flip-container {
+    width: 310px;
+    height: 190px;
+  }
+  
+  .card-logo img {
+    width: 42px;
+  }
+  
+  .card-flip-front, .card-flip-back {
+    padding: 22px;
+  }
+  
+  .card-details {
+    margin-top: 35px;
+  }
+  
+  .magnetic-strip {
+    height: 40px;
+    top: 35px;
+  }
+  
+  .signature {
+    margin-top: 70px;
+    height: 35px;
   }
 }
 
 @media (max-width: 768px) {
-  #both-container {
-      margin-left: 2rem;
-      margin-right: 2rem;
-      grid-template-columns: 1fr; /* Stack both left-right section vertically - for smaller screen sizes is important */
+  .card-flip-container {
+    width: 290px;
+    height: 175px;
   }
   
-  #left-section {
-      width: 100%;
-      border-right: none; /* Remove separator in small screens */
-      border-bottom: 1px solid #e0e0e0;
-      padding-bottom: 20px;
+  .card-logo img {
+    width: 38px;
+    margin-right: 8px;
   }
-
-  .container {
-      width: 280px !important;
-      height: 170px !important;
+  
+  .card-text-normal {
+    font-size: 13px;
+  }
+  
+  .card-text-small {
+    font-size: 9px;
+  }
+  
+  .card-number {
+    font-size: 14px;
+  }
+  
+  .card-chip {
+    width: 40px;
+  }
+  
+  .card-flip-front, .card-flip-back {
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .card-details {
+    margin-top: 30px;
+  }
+  
+  .magnetic-strip {
+    height: 38px;
+    top: 30px;
+  }
+  
+  .signature {
+    margin-top: 65px;
+    height: 32px;
+    width: 80%;
   }
 }
 
-@media (max-width: 480px) {
-  .container { 
-    display: none !important;  /* Hides the card container - because showing card is really hard */
-  } 
-
-  #payment-icons-div {
-    margin-top: 5px;
+@media (max-width: 576px) {
+  .card-flip-container {
+    width: 270px;
+    height: 160px;
   }
+  
+  .card-logo img {
+    width: 35px;
+    margin-right: 6px;
+  }
+  
+  .card-text-normal {
+    font-size: 12px;
+  }
+  
+  .card-text-small {
+    font-size: 8px;
+  }
+  
+  .card-number {
+    font-size: 13px;
+    letter-spacing: 0.8px;
+  }
+  
+  .card-chip {
+    width: 35px;
+  }
+  
+  .card-flip-front, .card-flip-back {
+    padding: 18px;
+    border-radius: 18px;
+  }
+  
+  .card-details {
+    margin-top: 25px;
+  }
+  
+  .card-name {
+    margin-top: 18px;
+  }
+  
+  .magnetic-strip {
+    height: 35px;
+    top: 25px;
+  }
+  
+  .signature {
+    margin-top: 55px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-flip-container {
+    width: 250px;
+    height: 150px;
+  }
+  
+  .card-logo img {
+    width: 32px;
+    margin-right: 5px;
+  }
+  
+  .card-number {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  
+  .card-chip {
+    width: 32px;
+  }
+  
+  .card-flip-front, .card-flip-back {
+    padding: 15px;
+    border-radius: 15px;
+  }
+  
+  .card-details {
+    margin-top: 22px;
+  }
+  
+  .card-name {
+    margin-top: 15px;
+  }
+  
+  .magnetic-strip {
+    height: 32px;
+    top: 22px;
+  }
+  
+  .signature {
+    margin-top: 50px;
+    height: 25px;
+  }
+  
+  .signature i {
+    font-size: 10px;
+    padding: 3px 5px;
+  }
+}
+
+/* Override the global animation settings for the card components */
+.card-flip-container *,
+.card-flip-inner,
+.card-flip-front,
+.card-flip-back {
+  animation-duration: 0.8s !important;
+  transition-duration: 0.8s !important;
 }
