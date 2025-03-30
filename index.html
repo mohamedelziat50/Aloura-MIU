@@ -51,6 +51,18 @@
     <script src="public/js/fluidEffect/fluid.min.js"></script>
     <script src="public/js/fluidEffect/female-app.js"></script>
 
+    <!-- Intial Scroll When Reloading-->
+    <script>
+      // Prevent the browser from restoring the scroll position
+      if (history.scrollRestoration) {
+        history.scrollRestoration = "manual";
+      }
+      // Scroll to the top of the page on load
+      window.onload = function () {
+        window.scrollTo(0, 0);
+      };
+    </script>
+
   </head>
 
   <body>
