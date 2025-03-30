@@ -115,7 +115,7 @@
           <div class="video-control-container">
             <!-- Original video element -->
             <video id="cyclingVideo" class="grey-video" autoplay muted playsinline>
-                <source id="videoSource" src="../videos/photoshoot.mp4" type="video/mp4">
+                <source id="videoSource" src="../videos/photoshoot-2.mp4" type="video/mp4">
             </video>
 
             <!-- Hidden audio element that will play the same audio -->
@@ -161,22 +161,28 @@
 
           // Array of video sources to cycle through
           const videos = [
-              "../videos/photoshoot.mp4",
               "../videos/photoshoot-2.mp4",
+              "../videos/photoshoot.mp4",
               "../videos/marly-perfumes.mp4"
           ];
 
           let currentIndex = 0;
 
           video.onended = function () {
-              // Move to the next video, looping back if at the end
-              currentIndex = (currentIndex + 1) % videos.length;
-              source.src = videos[currentIndex];
+                video.style.transition = "opacity 0.7s"; 
+                video.style.opacity = 0; // Fade out
 
-              // Load and play the new video
-              video.load();
-              video.play();
-              };
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % videos.length;
+                    source.src = videos[currentIndex];
+
+                    video.load();
+                    video.oncanplay = function () {
+                        video.style.opacity = 1; // Fade in
+                        video.play();
+                    };
+                }, 700); // Wait 1s before switching video
+            };
           });
         
 </script>
