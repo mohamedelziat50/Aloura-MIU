@@ -49,7 +49,7 @@
     <!-- FLUID EFFECT RELATED -->
     <script src="public/js/fluidEffect/jquery.min.js"></script>
     <script src="public/js/fluidEffect/fluid.min.js"></script>
-    <script src="public/js/fluidEffect/app.js"></script>
+    <script src="public/js/fluidEffect/female-app.js"></script>
 
   </head>
 
@@ -94,7 +94,7 @@
 
       <div class="female">
          <!-- Canvas for Fluid Effect -->
-        <canvas id="grey-fluid-canvas"></canvas>
+        <canvas id="female-fluid-canvas"></canvas>
         <!--Intialize Container (taking female CSS container)-->
         <img
           id="female-img"
@@ -748,14 +748,14 @@
       </div>
     </div>
 
-    <!-- FLUID -->
+    <!-- FLUID - Female -->
     <script>
       // Add this as a new script file or at the end of your HTML
   
       document.addEventListener('DOMContentLoaded', function() {
       // Allow time for other scripts to initialize
       setTimeout(function() {
-          const canvas = document.getElementById('grey-fluid-canvas');
+          const canvas = document.getElementById('female-fluid-canvas');
           if (!canvas) return;
           
           // Function to simulate mouse down event (pressing the mouse button)
