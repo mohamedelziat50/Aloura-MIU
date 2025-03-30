@@ -84,6 +84,37 @@ body {
   /* JavaScript will enable pointer-events when ready */
 }
 
+/* Journey text styling */
+.journey-text-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  width: 100%;
+}
+
+.journey-text {
+  font-family: "Proxima Nova", sans-serif;
+  color: grey;
+  font-size: 16px;
+  height: 24px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  opacity: 0; /* Start invisible */
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* Initially unclickable */
+}
+
+/* Show class that will be added by JavaScript */
+.journey-text.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .female .text-overlay button {
   /* Button sticks to the left bottom corner */
   left: 10px;
@@ -399,6 +430,16 @@ body {
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  transition: all 0.3s ease;
+  cursor: grab;
+}
+
+#model-viewer:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#model-viewer:active {
+  cursor: grabbing;
 }
 
 .interaction-hint {
@@ -844,6 +885,114 @@ footer input {
 
 .news-text h6 a:hover {
   color: #f84e77;
+}
+
+/* Popup Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-container {
+  position: relative;
+  max-width: 500px;
+  width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.popup-overlay.active .popup-container {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.popup-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.popup-close:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.popup-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s ease;
+  border-radius: 4px;
+}
+
+.popup-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* When popup is active, disable interactions with background content */
+body.popup-active {
+  overflow: hidden;
+  /* Preserve scroll position visually */
+  width: 100%;
+  height: 100%;
+}
+
+body.popup-active > *:not(.popup-overlay) {
+  filter: brightness(0.3);
+  transition: filter 0.3s ease;
+  pointer-events: none; /* Disable interactions with background elements */
+}
+
+/* Basic smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 
