@@ -117,6 +117,11 @@
             <video class="grey-video" autoplay muted loop playsinline>
                 <source src="../videos/photoshoot.mp4" type="video/mp4">
             </video>
+
+            <!-- Hidden audio element that will play the same audio -->
+            <audio id="videoAudio" loop>
+              <source src="../audio/Doomsday (Instrumental).mp3" type="video/mp4">
+            </audio>
             
             <!-- Mute Button -->
             <button class="video-mute-btn" id="muteToggle">
@@ -129,28 +134,26 @@
         const video = document.querySelector('.grey-video');
         const muteBtn = document.getElementById('muteToggle');
         const muteIcon = muteBtn.querySelector('i');
+        const audioElement = document.getElementById('videoAudio');
         
-        // Set initial volume (1%)
-        video.volume = 1;
+        // Set initial volume
+        audioElement.volume = 0.01;
         
         // Mute toggle functionality
         muteBtn.addEventListener('click', function(e) {
             e.stopPropagation(); // Prevent event bubbling
-            video.muted = !video.muted;
-            muteIcon.className = video.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+
+            if (audioElement.paused) {
+            // Start audio playback
+            audioElement.play();
+            muteIcon.className = 'fas fa-volume-up';
+            } else {
+              // Pause audio playback
+              audioElement.pause();
+              muteIcon.className = 'fas fa-volume-mute';
+            }
         });
         
-        // COMMENTED -> USE IF AUTOPLAY IN ATTRIBUTES DOESNT WORK
-        // // Handle autoplay
-        // function attemptAutoplay() {
-        //     if(video.muted) {
-        //         video.play().catch(e => console.log('Autoplay prevented'));
-        //     }
-        // }
-        
-        // // Initialize
-        // video.addEventListener('loadedmetadata', attemptAutoplay);
-        // window.addEventListener('load', attemptAutoplay);
 </script>
 
 <script>
