@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
       setInterval(createAutomaticEffect, 150);
   
       // Keep the original mousemove handler if present
-      document.querySelector('.grey-section').addEventListener('mousemove', function (event) {
+      document.querySelector('.male').addEventListener('mousemove', function (event) {
         const rect = greyCanvas.getBoundingClientRect();
         const mouseX = event.clientX - rect.left;
         const mouseY = event.clientY - rect.top;
