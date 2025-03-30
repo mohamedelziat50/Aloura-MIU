@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize product slider
   initProductSlider();
+  
+  // Initialize popup with 5 second delay
+  initPopup();
+  
+  // Initialize smooth section scrolling
+  initSmoothSectionScrolling();
 });
 
 /**
@@ -19,6 +25,7 @@ function initPageAnimations() {
   const buttons = document.querySelectorAll(".text-overlay button");
   const indulgeText = document.querySelector(".text-overlay-indulge");
   const yourText = document.querySelector(".text-overlay-your");
+  const journeyText = document.querySelector(".journey-text");
 
   // Start image transitions
   setTimeout(() => {
@@ -38,6 +45,11 @@ function initPageAnimations() {
         button.classList.add("show");
         button.style.pointerEvents = "auto"; // Make buttons clickable after they are visible.
       });
+      
+      // Show journey text at the same time as buttons
+      if (journeyText) {
+        journeyText.classList.add("show");
+      }
     }, 130);
   }, 200);
 }
@@ -178,6 +190,12 @@ function changeImages(gender) {
     ".text-overlay-indulge, .text-overlay-your"
   );
   textOverlays.forEach((overlay) => overlay.classList.add("hidden"));
+  
+  // Also hide journey text
+  const journeyText = document.querySelector(".journey-text");
+  if (journeyText) {
+    journeyText.classList.add("hidden");
+  }
 
   // Set the transition image based on gender
   if (gender === "female") {
@@ -230,5 +248,355 @@ document.addEventListener("DOMContentLoaded", function () {
     glow.classList.add("visible"); // Add glow effect
   }, 100); // Adjust the delay as needed
 });
+
+/**
+ * Initialize popup functionality
+ */
+function initPopup() {
+  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupClose = document.querySelector('.popup-close');
+  const popupBtn = document.querySelector('.popup-btn');
+  
+  if (!popupOverlay || !popupClose || !popupBtn) return;
+  
+  // Show popup after 5 seconds (5000ms)
+  setTimeout(() => {
+    // Store current scroll position
+    const scrollY = window.scrollY;
+    
+    // Add active class to show the popup
+    popupOverlay.classList.add('active');
+    document.body.classList.add('popup-active');
+    
+    // Disable scrolling while keeping the same visual position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+  }, 5000);
+  
+  // Function to close popup and restore page functionality
+  function closePopup() {
+    // Remove active classes
+    popupOverlay.classList.remove('active');
+    document.body.classList.remove('popup-active');
+    
+    // Re-enable scrolling and restore position
+    const scrollY = parseInt(document.body.style.top || '0') * -1;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Scroll back to the original position
+    window.scrollTo(0, scrollY);
+  }
+  
+  // Close popup when X is clicked
+  popupClose.addEventListener('click', closePopup);
+  
+  // Close popup when button is clicked and open login modal
+  popupBtn.addEventListener('click', () => {
+    closePopup();
+    
+    // Open the login modal using Bootstrap's modal API
+    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    loginModal.show();
+  });
+  
+  // Close popup when clicking outside the popup container
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      closePopup();
+    }
+  });
+}
+
+/**
+ * Initialize smooth section scrolling between main page sections
+ */
+function initSmoothSectionScrolling() {
+  // Identify all main sections to include in scroll snapping in correct order
+  const sections = [
+    document.querySelector('.gender'),
+    document.querySelector('.quality-model-section'),
+    document.querySelector('.product-slider-section'),
+    document.querySelector('footer')
+  ];
+  
+  // Filter out any null sections (in case they don't exist)
+  const validSections = sections.filter(section => section !== null);
+  
+  if (validSections.length < 2) return; // Need at least 2 sections for this to work
+  
+  // Current section index
+  let currentSectionIndex = 0;
+  let isScrolling = false;
+  let scrollTimeout;
+  let smoothScrollingEnabled = true;
+  let isOverModelViewer = false;
+  let lastScrollTime = 0;
+  let scrollThrottleTime = 800; // Reduced from 1200ms for more responsive feeling
+  let scrollAnimationDuration = 600; // Duration of the smooth scroll animation
+  
+  // Get the 3D model viewer container
+  const modelViewer = document.getElementById('model-viewer');
+  
+  // Set initial section heights to viewport height for proper scrolling
+  validSections.forEach(section => {
+    section.style.minHeight = '100vh';
+    section.style.scrollMarginTop = '0';
+  });
+  
+  // Add event listeners for mouse over/out of model viewer
+  if (modelViewer) {
+    // Disable smooth scrolling when mouse is over the model viewer
+    modelViewer.addEventListener('mouseenter', () => {
+      isOverModelViewer = true;
+    });
+    
+    // Re-enable smooth scrolling when mouse leaves the model viewer
+    modelViewer.addEventListener('mouseleave', () => {
+      isOverModelViewer = false;
+    });
+    
+    // Also track touch events for mobile
+    modelViewer.addEventListener('touchstart', () => {
+      isOverModelViewer = true;
+    });
+    
+    modelViewer.addEventListener('touchend', () => {
+      // Add a slight delay before disabling to allow for interaction
+      setTimeout(() => {
+        isOverModelViewer = false;
+      }, 500);
+    });
+  }
+  
+  // Find the current section based on scroll position
+  function getCurrentSection() {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // Check if we're near the top of the page
+    if (scrollPosition < windowHeight / 2) {
+      return 0; // First section
+    }
+    
+    // Check if we're near the bottom of the page
+    if (scrollPosition + windowHeight >= document.body.scrollHeight - 100) {
+      return validSections.length - 1; // Last section
+    }
+    
+    // Find which section's center point we're closest to
+    let closestSection = 0;
+    let closestDistance = Infinity;
+    
+    for (let i = 0; i < validSections.length; i++) {
+      const section = validSections[i];
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionCenter = sectionTop + (sectionHeight / 2);
+      const distanceToCenter = Math.abs(scrollPosition + (windowHeight / 2) - sectionCenter);
+      
+      if (distanceToCenter < closestDistance) {
+        closestDistance = distanceToCenter;
+        closestSection = i;
+      }
+    }
+    
+    return closestSection;
+  }
+  
+  // Scroll to a specific section
+  function scrollToSection(index) {
+    if (index < 0) index = 0;
+    if (index >= validSections.length) index = validSections.length - 1;
+    
+    // Don't scroll if we're already at this section
+    if (index === currentSectionIndex && !isScrolling) return;
+    
+    // Set scrolling state immediately for better responsiveness
+    isScrolling = true;
+    
+    // Update currentSectionIndex immediately
+    currentSectionIndex = index;
+    
+    // Immediately apply a visual cue to indicate scroll is happening (optional)
+    // This could be a small indicator dot that appears instantly while scrolling starts
+    
+    // Scroll to the target section - this is the actual scroll action
+    validSections[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    
+    // Reset isScrolling after animation completes
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, scrollAnimationDuration); // Use animation duration instead of throttle time
+  }
+  
+  // Handle wheel events for smooth scrolling with minimal delay
+  window.addEventListener('wheel', function(e) {
+    // Skip if scrolling animation is in progress, smooth scrolling is disabled,
+    // popup is active, or mouse is over the 3D model viewer
+    if (isScrolling || !smoothScrollingEnabled || 
+        document.body.classList.contains('popup-active') || 
+        isOverModelViewer) {
+      e.preventDefault(); // Still prevent default to avoid jumpy behavior
+      return;
+    }
+    
+    // Apply throttling, but with reduced time for better responsiveness
+    const now = Date.now();
+    if (now - lastScrollTime < scrollThrottleTime) {
+      e.preventDefault();
+      return;
+    }
+    
+    // Update last scroll time immediately
+    lastScrollTime = now;
+    
+    // Prevent default to take control of scrolling
+    e.preventDefault();
+    
+    // Get direction and respond immediately
+    const direction = e.deltaY > 0 ? 1 : -1;
+    currentSectionIndex = getCurrentSection();
+    
+    // Start scrolling to next section immediately
+    requestAnimationFrame(() => {
+      scrollToSection(currentSectionIndex + direction);
+    });
+    
+  }, { passive: false });
+  
+  // Completely prevent normal scrolling to avoid interference
+  window.addEventListener('scroll', function(e) {
+    if (isScrolling) return; // Allow programmatic scrolling
+    
+    // If not currently in a programmatic scroll, snap to nearest section
+    if (smoothScrollingEnabled && 
+        !document.body.classList.contains('popup-active') && 
+        !isOverModelViewer) {
+      
+      const currentSection = getCurrentSection();
+      
+      // Only update if we've changed sections and not currently scrolling
+      if (currentSection !== currentSectionIndex && !isScrolling) {
+        // Use requestAnimationFrame for better performance
+        requestAnimationFrame(() => {
+          scrollToSection(currentSection);
+        });
+      }
+    }
+  });
+  
+  // Handle key navigation (arrow keys)
+  window.addEventListener('keydown', function(e) {
+    // Skip if scrolling animation is in progress, smooth scrolling is disabled,
+    // popup is active, or focus is on the 3D model viewer
+    if (isScrolling || !smoothScrollingEnabled || 
+        document.body.classList.contains('popup-active') || 
+        isOverModelViewer) {
+      return;
+    }
+    
+    // Throttle key events, but less aggressively
+    const now = Date.now();
+    if (now - lastScrollTime < scrollThrottleTime) {
+      e.preventDefault();
+      return;
+    }
+    
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      lastScrollTime = now;
+      requestAnimationFrame(() => {
+        scrollToSection(currentSectionIndex + 1);
+      });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      lastScrollTime = now;
+      requestAnimationFrame(() => {
+        scrollToSection(currentSectionIndex - 1);
+      });
+    }
+  });
+  
+  // Handle touch events for mobile
+  let touchStartY = 0;
+  let touchEndY = 0;
+  const minSwipeDistance = 50; // Minimum distance to consider a swipe
+  
+  window.addEventListener('touchstart', function(e) {
+    if (isOverModelViewer || isScrolling || !smoothScrollingEnabled || 
+        document.body.classList.contains('popup-active')) {
+      return;
+    }
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  
+  window.addEventListener('touchend', function(e) {
+    if (isOverModelViewer || isScrolling || !smoothScrollingEnabled || 
+        document.body.classList.contains('popup-active')) {
+      return;
+    }
+    
+    // Apply throttling, but with reduced time
+    const now = Date.now();
+    if (now - lastScrollTime < scrollThrottleTime) {
+      return;
+    }
+    
+    touchEndY = e.changedTouches[0].screenY;
+    const touchDistance = touchEndY - touchStartY;
+    
+    // If the touch moved far enough, consider it a swipe
+    if (Math.abs(touchDistance) >= minSwipeDistance) {
+      e.preventDefault();
+      lastScrollTime = now;
+      
+      // Get current section
+      currentSectionIndex = getCurrentSection();
+      
+      // Determine direction (negative = swipe up = next section)
+      const direction = touchDistance < 0 ? 1 : -1;
+      
+      // Use requestAnimationFrame for better performance
+      requestAnimationFrame(() => {
+        scrollToSection(currentSectionIndex + direction);
+      });
+    }
+  }, { passive: false });
+  
+  // Toggle smooth scrolling when popup is shown/hidden
+  const popupOverlay = document.querySelector('.popup-overlay');
+  if (popupOverlay) {
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.attributeName === 'class') {
+          const isActive = popupOverlay.classList.contains('active');
+          smoothScrollingEnabled = !isActive;
+        }
+      });
+    });
+    
+    observer.observe(popupOverlay, { attributes: true });
+  }
+  
+  // Add section identifiers for easier debugging
+  validSections.forEach((section, index) => {
+    section.dataset.sectionIndex = index;
+  });
+  
+  // Set initial section based on page load position
+  window.addEventListener('load', function() {
+    setTimeout(() => {
+      currentSectionIndex = getCurrentSection();
+      scrollToSection(currentSectionIndex);
+    }, 100);
+  });
+}
 
 
