@@ -114,8 +114,8 @@
           <!-- New container wrapping video and button -->
           <div class="video-control-container">
             <!-- Original video element -->
-            <video class="grey-video" autoplay muted loop playsinline>
-                <source src="../videos/photoshoot.mp4" type="video/mp4">
+            <video id="cyclingVideo" class="grey-video" autoplay muted playsinline>
+                <source id="videoSource" src="../videos/photoshoot.mp4" type="video/mp4">
             </video>
 
             <!-- Hidden audio element that will play the same audio -->
@@ -131,7 +131,7 @@
       </div>
   </div>
   <script>
-        const video = document.querySelector('.grey-video');
+        // AUDIO RELATED
         const muteBtn = document.getElementById('muteToggle');
         const muteIcon = muteBtn.querySelector('i');
         const audioElement = document.getElementById('videoAudio');
@@ -153,6 +153,31 @@
               muteIcon.className = 'fas fa-volume-mute';
             }
         });
+
+        // VIDEO CYCLE RELATED
+        document.addEventListener('DOMContentLoaded', function () {
+          const video = document.getElementById('cyclingVideo');
+          const source = document.getElementById('videoSource');
+
+          // Array of video sources to cycle through
+          const videos = [
+              "../videos/photoshoot.mp4",
+              "../videos/photoshoot-2.mp4",
+              "../videos/marly-perfumes.mp4"
+          ];
+
+          let currentIndex = 0;
+
+          video.onended = function () {
+              // Move to the next video, looping back if at the end
+              currentIndex = (currentIndex + 1) % videos.length;
+              source.src = videos[currentIndex];
+
+              // Load and play the new video
+              video.load();
+              video.play();
+              };
+          });
         
 </script>
 
