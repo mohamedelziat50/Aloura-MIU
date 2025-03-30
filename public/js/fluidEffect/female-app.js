@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Target the grey section
     const greyCanvas = document.getElementById('female-fluid-canvas');
+    if (!greyCanvas) return;
+
+    // Detect if screen is smaller than 1024px (phones + small tablets)
+    const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches || 
+    /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+
+    if(isSmallScreen)
+    {
+        // Fallback for smaller screens (hide canvas or show static content)
+      greyCanvas.style.display = 'none';
+      return; // Exit early (no Fluid-JS initialization)
+    }
   
+    // Only runs on desktop/large screens (>1024px)
     if (typeof Fluid !== 'undefined' && greyCanvas) {
       let greyFluid = new Fluid(greyCanvas);
   
@@ -20,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
         emitter_size: 0.08,      // Finer mist (0.05–0.1 for delicate sprays)
         velocity: 0.97,          // Smoother, slower movement
         pressure: 0.75,          // Less "explosive" splats (softer dispersion)
+
+        // Both of these also effect the fluid
+        sim_resolution: 48,  // Lower resolution = less GPU strain (default: 128)
+        dye_resolution: 192 // Lower for performance (default: 512)
       });
       greyFluid.activate();
   
