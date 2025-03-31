@@ -89,7 +89,6 @@ nav .actions {
   margin-left: auto;
   order: 3;
   padding-right: 20px;
-  color: #000;
 }
 
 nav .actions ul {
@@ -153,11 +152,6 @@ nav.visible {
     top: 50%;
     transform: translateY(-50%);
     z-index: 100000;
-    color: #000;
-  }
-
-  .mobile-menu-btn:visited {
-    color: #000;
   }
 
   /* Hide the main logo in mobile view */
@@ -328,4 +322,12 @@ nav .actions ul li a {
 
 nav .actions ul li a:visited {
   color: #000;
+}
+
+ul .mobile-logo {
+  width: 40px;
+}
+nav .mobile-logo img {
+  width: 100%;
+  height: auto;
 }
