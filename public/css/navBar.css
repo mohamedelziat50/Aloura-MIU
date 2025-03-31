@@ -153,6 +153,11 @@ nav.visible {
     top: 50%;
     transform: translateY(-50%);
     z-index: 100000;
+    color: #000;
+  }
+
+  .mobile-menu-btn:visited {
+    color: #000;
   }
 
   /* Hide the main logo in mobile view */
@@ -206,9 +211,9 @@ nav.visible {
     margin: 0;
     padding: 20px;
     padding-top: 80px;
-    position:absolute;
+    position: absolute;
     top: 1%;
-    gap: 25px; 
+    gap: 25px;
   }
 
   /* Adjust actions position in mobile */
@@ -300,4 +305,27 @@ nav.visible {
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
+  color: #000;
+}
+
+.mobile-menu-btn:visited {
+  color: #000;
+}
+
+/* Actions (icons) */
+nav .actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  order: 3;
+  padding-right: 20px;
+  color: #000;
+}
+
+nav .actions ul li a {
+  color: #000;
+}
+
+nav .actions ul li a:visited {
+  color: #000;
 }
