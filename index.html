@@ -45,12 +45,14 @@
     <link rel="stylesheet" href="./public/css/style.css" />
     <link rel="stylesheet" href="./public/css/navBar.css" />
     <link rel="stylesheet" href="./public/css/modal.css" />
-    <link rel="stylesheet" href="./public/css/page-loader.css" /> <!-- Page loader related -->
+    <link rel="stylesheet" href="./public/css/page-loader.css" />
+    <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="./public/js/script.js"></script>
     <script src="./public/js/modal.js"></script>
-    <script src="./public/js/page-loader.js"></script> <!-- Page Loader related -->
+    <script src="./public/js/page-loader.js"></script>
+    <!-- Page Loader related -->
 
     <!-- FLUID EFFECT RELATED -->
     <script src="public/js/fluidEffect/jquery.min.js"></script>
@@ -69,7 +71,6 @@
         window.scrollTo(0, 0);
       };
     </script>
-
   </head>
 
   <body>
@@ -95,16 +96,9 @@
     <!-- Navbar -->
     <nav>
       <div class="logo">
-        <a href="index.html"> <img src="public/img/logo.png" alt="Logo" /></a>
-      </div>
-
-      <div class="links">
-        <ul>
-          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="public/pages/our-story.html">Our Story</a></li>
-        </ul>
+        <a href="index.html">
+          <img src="public/img/logo.png" alt="Logo" />
+        </a>
       </div>
 
       <div class="actions">
@@ -122,7 +116,23 @@
           <li><i class="fa-solid fa-cart-shopping"></i></li>
         </ul>
       </div>
+
+      <button class="mobile-menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="links">
+        <ul>
+          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gifting</a></li>
+          <li><a href="public/pages/our-story.html">Our Story</a></li>
+        </ul>
+      </div>
     </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
 
     <!-- For Him & For Her Segment -->
     <div class="gender">
@@ -131,7 +141,7 @@
       <div class="text-overlay-your">YOUR SENSES</div>
 
       <div class="female">
-         <!-- Canvas for Fluid Effect -->
+        <!-- Canvas for Fluid Effect -->
         <canvas id="female-fluid-canvas"></canvas>
         <!--Intialize Container (taking female CSS container)-->
         <img
@@ -195,11 +205,11 @@
         <a href="public/pages/our-story.html" class="learn-more-btn"
           >Learn More</a
         >
-        
+
         <!-- New Reviews Section -->
         <div class="reviews-section">
           <h3 class="reviews-title">Customer Reviews</h3>
-          
+
           <div class="reviews-container" id="reviews-container">
             <!-- Review Card 1 -->
             <div class="review-card fading-in" data-index="0">
@@ -211,11 +221,16 @@
                 <i class="fa-solid fa-star"></i>
               </div>
               <div class="review-card-text">
-                "Absolutely stunning fragrance that lasted all day. The quality is evident from the first spray - complex, sophisticated, and truly unique."
+                "Absolutely stunning fragrance that lasted all day. The quality
+                is evident from the first spray - complex, sophisticated, and
+                truly unique."
               </div>
               <div class="review-card-footer">
                 <div class="review-card-avatar">
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="Sarah Johnson"
+                  />
                 </div>
                 <div class="review-card-info">
                   <p class="review-card-name">Sarah Johnson</p>
@@ -223,7 +238,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Review Card 2 -->
             <div class="review-card fading-in" data-index="1">
               <div class="review-card-stars">
@@ -234,11 +249,16 @@
                 <i class="fa-solid fa-star"></i>
               </div>
               <div class="review-card-text">
-                "I've tried many luxury fragrances over the years, but Aloura stands out for its exceptional longevity and silage. Worth every penny!"
+                "I've tried many luxury fragrances over the years, but Aloura
+                stands out for its exceptional longevity and silage. Worth every
+                penny!"
               </div>
               <div class="review-card-footer">
                 <div class="review-card-avatar">
-                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Reynolds">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    alt="Michael Reynolds"
+                  />
                 </div>
                 <div class="review-card-info">
                   <p class="review-card-name">Michael Reynolds</p>
@@ -246,7 +266,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Review Card 3 -->
             <div class="review-card fading-in" data-index="2">
               <div class="review-card-stars">
@@ -257,11 +277,16 @@
                 <i class="fa-regular fa-star"></i>
               </div>
               <div class="review-card-text">
-                "The attention to detail in these fragrances is remarkable. Each note unfolds beautifully throughout the day, receiving compliments wherever I go."
+                "The attention to detail in these fragrances is remarkable. Each
+                note unfolds beautifully throughout the day, receiving
+                compliments wherever I go."
               </div>
               <div class="review-card-footer">
                 <div class="review-card-avatar">
-                  <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Emma Chen">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/63.jpg"
+                    alt="Emma Chen"
+                  />
                 </div>
                 <div class="review-card-info">
                   <p class="review-card-name">Emma Chen</p>
@@ -270,7 +295,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="reviews-navigation">
             <span class="reviews-nav-dot active" data-index="0"></span>
             <span class="reviews-nav-dot" data-index="1"></span>
@@ -866,7 +891,11 @@
         <div class="popup-close">
           <i class="fa-solid fa-times"></i>
         </div>
-        <img src="./public/img/ALOURA.jpg" alt="Special Offer" class="popup-image">
+        <img
+          src="./public/img/ALOURA.jpg"
+          alt="Special Offer"
+          class="popup-image"
+        />
         <button class="popup-btn">REDEEM NOW</button>
       </div>
     </div>
@@ -874,189 +903,189 @@
     <!-- FLUID - Female -->
     <script>
       // Add this as a new script file or at the end of your HTML
-  
-      document.addEventListener('DOMContentLoaded', function() {
-      // Allow time for other scripts to initialize
-      setTimeout(function() {
-          const canvas = document.getElementById('female-fluid-canvas');
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Allow time for other scripts to initialize
+        setTimeout(function () {
+          const canvas = document.getElementById("female-fluid-canvas");
           if (!canvas) return;
-          
+
           // Function to simulate mouse down event (pressing the mouse button)
           function simulateMouseDown(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseDownEvent = new MouseEvent('mousedown', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseDownEvent = new MouseEvent("mousedown", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 1 // Left mouse button pressed
-          });
-          canvas.dispatchEvent(mouseDownEvent);
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseDownEvent);
           }
-          
+
           // Function to simulate mouse move event while button is pressed
           function simulateMouseMove(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseMoveEvent = new MouseEvent('mousemove', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseMoveEvent = new MouseEvent("mousemove", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 1 // Left mouse button pressed
-          });
-          canvas.dispatchEvent(mouseMoveEvent);
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseMoveEvent);
           }
-          
+
           // Function to simulate mouse up event (releasing the mouse button)
           function simulateMouseUp(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseUpEvent = new MouseEvent('mouseup', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseUpEvent = new MouseEvent("mouseup", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 0 // No buttons pressed
-          });
-          canvas.dispatchEvent(mouseUpEvent);
+              buttons: 0, // No buttons pressed
+            });
+            canvas.dispatchEvent(mouseUpEvent);
           }
-          
+
           // Simulate a complete mouse interaction (down, move, up)
           function simulateFullMouseInteraction() {
-          const canvasWidth = canvas.offsetWidth;
-          const canvasHeight = canvas.offsetHeight;
-          
-          // Random position
-          const startX = Math.random() * canvasWidth;
-          const startY = Math.random() * canvasHeight;
-          
-          // Simulate mouse down
-          simulateMouseDown(startX, startY);
-          
-          /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
-          // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
-          // Simulate mouse movements
-          setTimeout(function() {
+            const canvasWidth = canvas.offsetWidth;
+            const canvasHeight = canvas.offsetHeight;
+
+            // Random position
+            const startX = Math.random() * canvasWidth;
+            const startY = Math.random() * canvasHeight;
+
+            // Simulate mouse down
+            simulateMouseDown(startX, startY);
+
+            /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
+            // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
+            // Simulate mouse movements
+            setTimeout(function () {
               // Add some slight movement
               simulateMouseMove(startX + 5, startY + 5);
-          }, 99999999999999);
-          
-          setTimeout(function() {
+            }, 99999999999999);
+
+            setTimeout(function () {
               simulateMouseMove(startX + 10, startY + 10);
-          }, 99999999999999);
-          
-          // Simulate mouse up
-          setTimeout(function() {
+            }, 99999999999999);
+
+            // Simulate mouse up
+            setTimeout(function () {
               simulateMouseUp(startX + 10, startY + 10);
-          }, 99999999999999);
+            }, 99999999999999);
           }
-          
+
           // Set initial trigger
           simulateFullMouseInteraction();
-          
+
           // Continuously simulate mouse interactions
           setInterval(simulateFullMouseInteraction, 1);
-      }, 100); // Wait 0.1 second for page to be fully loaded
+        }, 100); // Wait 0.1 second for page to be fully loaded
       });
-      </script>
+    </script>
 
-      <!-- FLUID - Male -->
+    <!-- FLUID - Male -->
     <script>
       // Add this as a new script file or at the end of your HTML
-  
-      document.addEventListener('DOMContentLoaded', function() {
-      // Allow time for other scripts to initialize
-      setTimeout(function() {
-          const canvas = document.getElementById('male-fluid-canvas');
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Allow time for other scripts to initialize
+        setTimeout(function () {
+          const canvas = document.getElementById("male-fluid-canvas");
           if (!canvas) return;
-          
+
           // Function to simulate mouse down event (pressing the mouse button)
           function simulateMouseDown(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseDownEvent = new MouseEvent('mousedown', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseDownEvent = new MouseEvent("mousedown", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 1 // Left mouse button pressed
-          });
-          canvas.dispatchEvent(mouseDownEvent);
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseDownEvent);
           }
-          
+
           // Function to simulate mouse move event while button is pressed
           function simulateMouseMove(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseMoveEvent = new MouseEvent('mousemove', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseMoveEvent = new MouseEvent("mousemove", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 1 // Left mouse button pressed
-          });
-          canvas.dispatchEvent(mouseMoveEvent);
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseMoveEvent);
           }
-          
+
           // Function to simulate mouse up event (releasing the mouse button)
           function simulateMouseUp(x, y) {
-          const rect = canvas.getBoundingClientRect();
-          const mouseUpEvent = new MouseEvent('mouseup', {
+            const rect = canvas.getBoundingClientRect();
+            const mouseUpEvent = new MouseEvent("mouseup", {
               bubbles: true,
               cancelable: true,
               view: window,
               clientX: rect.left + x,
               clientY: rect.top + y,
               button: 0, // Left mouse button
-              buttons: 0 // No buttons pressed
-          });
-          canvas.dispatchEvent(mouseUpEvent);
+              buttons: 0, // No buttons pressed
+            });
+            canvas.dispatchEvent(mouseUpEvent);
           }
-          
+
           // Simulate a complete mouse interaction (down, move, up)
           function simulateFullMouseInteraction() {
-          const canvasWidth = canvas.offsetWidth;
-          const canvasHeight = canvas.offsetHeight;
-          
-          // Random position
-          const startX = Math.random() * canvasWidth;
-          const startY = Math.random() * canvasHeight;
-          
-          // Simulate mouse down
-          simulateMouseDown(startX, startY);
-          
-          /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
-          // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
-          // Simulate mouse movements
-          setTimeout(function() {
+            const canvasWidth = canvas.offsetWidth;
+            const canvasHeight = canvas.offsetHeight;
+
+            // Random position
+            const startX = Math.random() * canvasWidth;
+            const startY = Math.random() * canvasHeight;
+
+            // Simulate mouse down
+            simulateMouseDown(startX, startY);
+
+            /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
+            // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
+            // Simulate mouse movements
+            setTimeout(function () {
               // Add some slight movement
               simulateMouseMove(startX + 5, startY + 5);
-          }, 99999999999999);
-          
-          setTimeout(function() {
+            }, 99999999999999);
+
+            setTimeout(function () {
               simulateMouseMove(startX + 10, startY + 10);
-          }, 99999999999999);
-          
-          // Simulate mouse up
-          setTimeout(function() {
+            }, 99999999999999);
+
+            // Simulate mouse up
+            setTimeout(function () {
               simulateMouseUp(startX + 10, startY + 10);
-          }, 99999999999999);
+            }, 99999999999999);
           }
-          
+
           // Set initial trigger
           simulateFullMouseInteraction();
-          
+
           // Continuously simulate mouse interactions
           setInterval(simulateFullMouseInteraction, 1);
-      }, 100); // Wait 0.1 second for page to be fully loaded
+        }, 100); // Wait 0.1 second for page to be fully loaded
       });
-      </script>
+    </script>
   </body>
 </html>
