@@ -89,6 +89,7 @@ nav .actions {
   margin-left: auto;
   order: 3;
   padding-right: 20px;
+  color: #000;
 }
 
 nav .actions ul {
@@ -191,6 +192,7 @@ nav.visible {
     position: absolute;
     top: 0;
     left: 0;
+    color: #000;
   }
 
   nav .links ul {
