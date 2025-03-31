@@ -89,7 +89,6 @@ nav .actions {
   margin-left: auto;
   order: 3;
   padding-right: 20px;
-  color: #000;
 }
 
 nav .actions ul {
@@ -137,6 +136,15 @@ nav.visible {
   transform: translateY(0);
 }
 
+ul .mobile-logo {
+  width: 40px;
+  display: none;
+}
+nav .mobile-logo img {
+  width: 100%;
+  height: auto;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 1024px) {
   nav .links ul {
@@ -153,16 +161,15 @@ nav.visible {
     top: 50%;
     transform: translateY(-50%);
     z-index: 100000;
-    color: #000;
-  }
-
-  .mobile-menu-btn:visited {
-    color: #000;
   }
 
   /* Hide the main logo in mobile view */
   nav > .logo {
     display: none;
+  }
+
+  ul > .mobile-logo {
+    display: block;
   }
 
   nav .links {
