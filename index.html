@@ -16,8 +16,12 @@
     <title>Aloura</title>
     <!-- END OF META DATA -->
 
-    <!-- Tab Logo -->
-    <link rel="icon" type="image/x-icon" href="./public/img/favicon-logo.ico" />
+    <!-- Tab Logo / 'Favicon' -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./public/img/favicons/rounded-background-favicon.ico"
+    />
 
     <!-- Font Awesome (Linking FootAwesome Website to our Code) -->
     <link
@@ -41,10 +45,12 @@
     <link rel="stylesheet" href="./public/css/style.css" />
     <link rel="stylesheet" href="./public/css/navBar.css" />
     <link rel="stylesheet" href="./public/css/modal.css" />
+    <link rel="stylesheet" href="./public/css/page-loader.css" /> <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="./public/js/script.js"></script>
     <script src="./public/js/modal.js"></script>
+    <script src="./public/js/page-loader.js"></script> <!-- Page Loader related -->
 
     <!-- FLUID EFFECT RELATED -->
     <script src="public/js/fluidEffect/jquery.min.js"></script>
@@ -67,6 +73,25 @@
   </head>
 
   <body>
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">
+      <!-- Full-screen overlay container -->
+      <div class="loader-content">
+        <!-- Centers content vertically/horizontally -->
+        <div class="logo-reveal">
+          <!-- Container for logo animation -->
+          <img src="./public/img/logo.png" alt="Logo" />
+          <!-- Logo -->
+        </div>
+        <!-- Loading bar is trapped into a container so it can fill it entirely! -->
+        <div class="loading-bar-container">
+          <!-- Background track for progress bar -->
+          <div class="loading-bar"></div>
+          <!-- Animated progress bar -->
+        </div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav>
       <div class="logo">
