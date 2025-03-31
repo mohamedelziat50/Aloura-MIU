@@ -147,3 +147,33 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 });
+
+// Mobile Menu Toggle
+document.addEventListener("DOMContentLoaded", function () {
+  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+  const links = document.querySelector(".links");
+  const overlay = document.querySelector(".menu-overlay");
+  const body = document.body;
+
+  function toggleMenu() {
+    links.classList.toggle("active");
+    overlay.classList.toggle("active");
+    body.style.overflow = links.classList.contains("active") ? "hidden" : "";
+  }
+
+  mobileMenuBtn.addEventListener("click", toggleMenu);
+  overlay.addEventListener("click", toggleMenu);
+
+  // Close menu when clicking a link
+  const menuLinks = document.querySelectorAll(".links a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", toggleMenu);
+  });
+
+  // Close menu on window resize if open
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 768 && links.classList.contains("active")) {
+      toggleMenu();
+    }
+  });
+});
