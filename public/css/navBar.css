@@ -136,6 +136,15 @@ nav.visible {
   transform: translateY(0);
 }
 
+ul .mobile-logo {
+  width: 40px;
+  display: none;
+}
+nav .mobile-logo img {
+  width: 100%;
+  height: auto;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 1024px) {
   nav .links ul {
@@ -157,6 +166,10 @@ nav.visible {
   /* Hide the main logo in mobile view */
   nav > .logo {
     display: none;
+  }
+
+  ul > .mobile-logo {
+    display: block;
   }
 
   nav .links {
@@ -322,12 +335,4 @@ nav .actions ul li a {
 
 nav .actions ul li a:visited {
   color: #000;
-}
-
-ul .mobile-logo {
-  width: 40px;
-}
-nav .mobile-logo img {
-  width: 100%;
-  height: auto;
 }
