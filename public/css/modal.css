@@ -222,3 +222,19 @@
 .back-arrow:hover {
   transform: translateX(-3px);
 }
+
+@media screen and (max-width: 768px) {
+  .modal-header {
+    height: 100px;
+  }
+#show2fa{
+  display:none;
+}
+
+.btn-close{
+  margin-top: 5px;
+}
+  .modal-dialog{
+    margin-top: 20px;
+  }
+}
