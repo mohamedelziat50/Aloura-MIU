@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const signUpForm = document.getElementById("signUpForm");
   const forgetpasswordForm = document.getElementById("forgetpasswordform");
   const twofactorForm = document.getElementById("twofactor");
-
+  const backArrow = document.getElementById("backToLogin");
   const loginModalLabel = document.getElementById("loginModalLabel");
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     twofactorForm.style.display = "block";
     loginModalLabel.textContent = "verification";
     modalDescription.style.display = "none"; // Hide the description
+    backArrow.style.display = "block";
   });
 
   // funtion to clear the fields in the verification form
@@ -127,6 +128,16 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Full Phone Number:", fullPhoneNumber);
     alert("Phone Number Submitted: " + fullPhoneNumber);
     // You can now send fullPhoneNumber to your backend
+  });
+
+  // Add back button functionality for 2FA form
+  document.getElementById("backToLogin").addEventListener("click", function () {
+    twofactorForm.style.display = "none";
+    loginForm.style.display = "block";
+    loginModalLabel.textContent = "Login";
+    modalDescription.style.display = "block";
+    modalDescription.textContent = "Please enter your e-mail and password:";
+    backArrow.style.display = "none";
   });
 });
 
