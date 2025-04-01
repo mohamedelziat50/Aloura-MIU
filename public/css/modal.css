@@ -203,3 +203,22 @@
   background-color: var(--white);
   border: 1px solid var(--tomato);
 }
+
+/* Back arrow styles */
+.back-arrow {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s ease;
+  display: none;
+}
+
+.back-arrow:hover {
+  transform: translateX(-3px);
+}
