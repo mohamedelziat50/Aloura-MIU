@@ -39,39 +39,42 @@ document.addEventListener('DOMContentLoaded', function () {
         dye_resolution: 192 // Lower for performance (default: 512)
       });
       greyFluid.activate();
-  
-      // Function to simulate mouse interaction
-      function createAutomaticEffect() {
-        const rect = greyCanvas.getBoundingClientRect();
-        const canvasWidth = rect.width;
-        const canvasHeight = rect.height;
-        
-        // Generate random position
-        const randomX = Math.random() * canvasWidth;
-        const randomY = Math.random() * canvasHeight;
-        
-        // Add fluid splat at random position
-        // Simulate the mouse being held down
-        if (greyFluid && greyFluid.addSplat) {
-          greyFluid.addSplat(randomX, randomY, 1); // The third parameter might represent mouse button state
-        }
-      }
-  
-      // Create automatic animation at regular intervals
-      setInterval(createAutomaticEffect, 150);
-  
-      // Keep the original mousemove handler if present
-      document.querySelector('.female').addEventListener('mousemove', function (event) {
-        const rect = greyCanvas.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-  
-        // Pass mouse button state (1 = pressed)
-        if (greyFluid && greyFluid.addSplat) {
-          greyFluid.addSplat(mouseX, mouseY, 1);
-        }
-      });
     }
   });
 
+  // FLUID SIMULATION
+  document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("female-fluid-canvas");
+    if (!canvas) return;
 
+    // Function to simulate mouse down event (pressing the mouse button)
+    function simulateMouseDown(x, y) {
+      const rect = canvas.getBoundingClientRect();
+      const mouseDownEvent = new MouseEvent("mousedown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: rect.left + x,
+        clientY: rect.top + y,
+        button: 0, // Left mouse button
+        buttons: 1, // Left mouse button pressed
+      });
+      canvas.dispatchEvent(mouseDownEvent);
+    }
+
+    // Simulate a complete mouse interaction (down, move, up)
+    function simulateFullMouseInteraction() {
+      const canvasWidth = canvas.offsetWidth;
+      const canvasHeight = canvas.offsetHeight;
+
+      // Random position
+      const startX = Math.random() * canvasWidth;
+      const startY = Math.random() * canvasHeight;
+
+      // Simulate mouse down
+      simulateMouseDown(startX, startY);
+    }
+
+    // Continuously simulate mouse interactions EVERY 1 SECOND
+    setInterval(simulateFullMouseInteraction, 1000);
+});
