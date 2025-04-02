@@ -23,21 +23,53 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function initPageAnimations() {
   // Fetch all elements that need transitions
-  const femaleImg = document.querySelector(".female img");
-  const maleImg = document.querySelector(".male img");
+  const femaleCanvas = document.querySelector("#female-fluid-canvas");
+  const maleCanvas = document.querySelector("#male-fluid-canvas");
   const buttons = document.querySelectorAll(".text-overlay button");
   const indulgeText = document.querySelector(".text-overlay-indulge");
   const yourText = document.querySelector(".text-overlay-your");
   const journeyText = document.querySelector(".journey-text");
 
-  // Start image transitions
+  // Initialize fluid effect on both canvases
+  if (femaleCanvas) {
+    const femaleFluid = new Fluid(femaleCanvas, {
+      // Female-specific fluid effect settings
+      color: '#ff69b4', // Pink shade for female section
+      density: 0.8,
+      velocity: 0.5,
+      viscosity: 0.5,
+      particleSize: 3,
+      particleCount: 100
+    });
+  }
+
+  if (maleCanvas) {
+    const maleFluid = new Fluid(maleCanvas, {
+      // Male-specific fluid effect settings
+      color: '#4169e1', // Royal blue shade for male section
+      density: 0.8,
+      velocity: 0.5,
+      viscosity: 0.5,
+      particleSize: 3,
+      particleCount: 100
+    });
+  }
+
+  // Start canvas transitions with a slight delay
   setTimeout(() => {
-    // setTimeout delays the execution of the code inside it by 100 milliseconds.
-    if (femaleImg) femaleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the female image.
-    if (maleImg) maleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the male image.
+    if (femaleCanvas) {
+      femaleCanvas.classList.add("loaded");
+      // Start fluid animation
+      femaleCanvas.style.opacity = "0.7";
+    }
+    if (maleCanvas) {
+      maleCanvas.classList.add("loaded");
+      // Start fluid animation
+      maleCanvas.style.opacity = "0.7";
+    }
   }, 100);
 
-  // Start text transitions after images finish loading
+  // Start text transitions after canvas elements are ready
   setTimeout(() => {
     if (indulgeText) indulgeText.classList.add("show");
     if (yourText) yourText.classList.add("show");
@@ -46,7 +78,7 @@ function initPageAnimations() {
     setTimeout(() => {
       buttons.forEach((button) => {
         button.classList.add("show");
-        button.style.pointerEvents = "auto"; // Make buttons clickable after they are visible.
+        button.style.pointerEvents = "auto";
       });
       
       // Show journey text at the same time as buttons

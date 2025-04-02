@@ -21,17 +21,42 @@ body {
 
 .female,
 .male {
-  flex: 1; /* Each child takes 50% of the container (1:1 ratio) */
-  position: relative; /* Allows child elements (.text-overlay) to position themselves inside this container */
-  transition: all 0.5s ease-in-out; /* transition Speed + transition type -> Image Expanding*/
-  overflow: hidden; /* Hides anything that goes outside the section */
+  flex: 1;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
 }
 
-.female img,
-.male img {
-  width: 100%; /* Image takes the full width of its container */
-  height: 100%; /* Image takes the full height of its container */
-  object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
+#female-fluid-canvas,
+#male-fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+  z-index: 2;
+}
+
+#female-fluid-canvas.loaded,
+#male-fluid-canvas.loaded {
+  opacity: 0.7;
+}
+
+/* Background Images for Canvas */
+.female {
+  background-image: url('../img/blue.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.male {
+  background-image: url('../img/download.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
@@ -45,7 +70,7 @@ body {
 .gender .female:hover,
 .gender .male:hover {
   flex: 1.5;
-  filter: brightness(1); /* Restore brightness when hovered */
+  filter: brightness(1);
 }
 
 /* Hide "For Her" button when hovering over the male side and Vice Versa */
@@ -55,6 +80,12 @@ body {
 
 /* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */
 .gender:hover .female:not(:hover) .text-overlay button {
+  display: none;
+}
+
+/* Remove old image styles */
+.female img,
+.male img {
   display: none;
 }
 
