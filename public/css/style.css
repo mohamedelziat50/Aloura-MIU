@@ -942,11 +942,12 @@ footer .top .ccard .img img {
 }
 
 footer .middle {
-  height: 500px;
+  background-position: 0rem -17rem;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("../img/474b20670228dadb245238bd3c5c51a7.jpg");
+  background-image: url("../img/41f43bb390554a7edb646c55123a7630.jpg");
   position: relative;
+  height: 500px;
 }
 
 footer .middle .cccard {

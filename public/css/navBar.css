@@ -266,6 +266,8 @@ nav .mobile-logo img {
   nav .actions ul {
     font-size: 16px;
     gap: 8px;
+    margin-right: -25px;
+
   }
 
   nav .actions ul li:nth-child(2) {
