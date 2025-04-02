@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Target the grey section
   const greyCanvas = document.getElementById('grey-fluid-canvas');
+  if (!greyCanvas) return;
 
+    // Detect if screen is smaller than 1024px (phones + small tablets)
+    const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches || 
+    /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+
+    if(isSmallScreen)
+    {
+        // Fallback for smaller screens (hide canvas or show static content)
+      greyCanvas.style.display = 'none';
+      return; // Exit early (no Fluid-JS initialization)
+    }
+  
+  // Only runs on desktop/large screens (>1024px)
   if (typeof Fluid !== 'undefined' && greyCanvas) {
     let greyFluid = new Fluid(greyCanvas);
 
@@ -22,37 +35,42 @@ document.addEventListener('DOMContentLoaded', function () {
       pressure: 0.75,          // Less "explosive" splats (softer dispersion)
     });
     greyFluid.activate();
-
-    // Function to simulate mouse interaction
-    function createAutomaticEffect() {
-      const rect = greyCanvas.getBoundingClientRect();
-      const canvasWidth = rect.width;
-      const canvasHeight = rect.height;
-      
-      // Generate random position
-      const randomX = Math.random() * canvasWidth;
-      const randomY = Math.random() * canvasHeight;
-      
-      // Add fluid splat at random position
-      // Simulate the mouse being held down
-      if (greyFluid && greyFluid.addSplat) {
-        greyFluid.addSplat(randomX, randomY, 1); // The third parameter might represent mouse button state
-      }
-    }
-
-    // Create automatic animation at regular intervals
-    setInterval(createAutomaticEffect, 150);
-
-    // Keep the original mousemove handler if present
-    document.querySelector('.grey-section').addEventListener('mousemove', function (event) {
-      const rect = greyCanvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
-
-      // Pass mouse button state (1 = pressed)
-      if (greyFluid && greyFluid.addSplat) {
-        greyFluid.addSplat(mouseX, mouseY, 1);
-      }
-    });
   }
+});
+
+// FLUID SIMULATION
+document.addEventListener("DOMContentLoaded", function () {
+  const canvas = document.getElementById("grey-fluid-canvas");
+  if (!canvas) return;
+
+  // Function to simulate mouse down event (pressing the mouse button)
+  function simulateMouseDown(x, y) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseDownEvent = new MouseEvent("mousedown", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+      clientX: rect.left + x,
+      clientY: rect.top + y,
+      button: 0, // Left mouse button
+      buttons: 1, // Left mouse button pressed
+    });
+    canvas.dispatchEvent(mouseDownEvent);
+  }
+
+  // Simulate a complete mouse interaction (down, move, up)
+  function simulateFullMouseInteraction() {
+    const canvasWidth = canvas.offsetWidth;
+    const canvasHeight = canvas.offsetHeight;
+
+    // Random position
+    const startX = Math.random() * canvasWidth;
+    const startY = Math.random() * canvasHeight;
+
+    // Simulate mouse down
+    simulateMouseDown(startX, startY);
+  }
+
+  // Continuously simulate mouse interactions EVERY 1 SECONDS
+  setInterval(simulateFullMouseInteraction, 1000);
 });

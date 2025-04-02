@@ -57,8 +57,6 @@
     <!-- FLUID EFFECT RELATED -->
     <script src="public/js/fluidEffect/jquery.min.js"></script>
     <script src="public/js/fluidEffect/fluid.min.js"></script>
-    <script src="public/js/fluidEffect/female-app.js"></script>
-    <script src="public/js/fluidEffect/male-app.js"></script>
 
     <!-- Intial Scroll When Reloading-->
     <script>
@@ -932,81 +930,8 @@
     </div>
   
     <!-- FLUID - Female -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          const canvas = document.getElementById("female-fluid-canvas");
-          if (!canvas) return;
-
-          // Function to simulate mouse down event (pressing the mouse button)
-          function simulateMouseDown(x, y) {
-            const rect = canvas.getBoundingClientRect();
-            const mouseDownEvent = new MouseEvent("mousedown", {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-              clientX: rect.left + x,
-              clientY: rect.top + y,
-              button: 0, // Left mouse button
-              buttons: 1, // Left mouse button pressed
-            });
-            canvas.dispatchEvent(mouseDownEvent);
-          }
-
-          // Simulate a complete mouse interaction (down, move, up)
-          function simulateFullMouseInteraction() {
-            const canvasWidth = canvas.offsetWidth;
-            const canvasHeight = canvas.offsetHeight;
-
-            // Random position
-            const startX = Math.random() * canvasWidth;
-            const startY = Math.random() * canvasHeight;
-
-            // Simulate mouse down
-            simulateMouseDown(startX, startY);
-          }
-
-          // Continuously simulate mouse interactions EVERY 3 SECONDS
-          setInterval(simulateFullMouseInteraction, 1000);
-      });
-    </script>
-
+    <script src="./public/js/fluidEffect/female-app.js"></script>
     <!-- FLUID - Male -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          const canvas = document.getElementById("male-fluid-canvas");
-          if (!canvas) return;
-
-          // Function to simulate mouse down event (pressing the mouse button)
-          function simulateMouseDown(x, y) {
-            const rect = canvas.getBoundingClientRect();
-            const mouseDownEvent = new MouseEvent("mousedown", {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-              clientX: rect.left + x,
-              clientY: rect.top + y,
-              button: 0, // Left mouse button
-              buttons: 1, // Left mouse button pressed
-            });
-            canvas.dispatchEvent(mouseDownEvent);
-          }
-
-          // Simulate a complete mouse interaction (down, move, up)
-          function simulateFullMouseInteraction() {
-            const canvasWidth = canvas.offsetWidth;
-            const canvasHeight = canvas.offsetHeight;
-
-            // Random position
-            const startX = Math.random() * canvasWidth;
-            const startY = Math.random() * canvasHeight;
-
-            // Simulate mouse down
-            simulateMouseDown(startX, startY);
-          }
-
-          // Continuously simulate mouse interactions EVERY 3 SECONDS
-          setInterval(simulateFullMouseInteraction, 1000);
-      });
-    </script>
+    <script src="./public/js/fluidEffect/male-app.js"></script>
   </body>
 </html>
