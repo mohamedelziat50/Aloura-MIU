@@ -32,7 +32,7 @@ nav.nav-visible {
 nav .left-container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 35px;
   order: 1;
   position: absolute;
   left: 20px;
@@ -82,16 +82,16 @@ nav .gtranslate_wrapper select,
 nav .gtranslate_wrapper .gt_selector {
   font-family: inherit;
   font-size: 14px;
-  text-transform: none;
+  text-transform: uppercase;
   font-weight: normal;
   color: #000;
   background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
-  max-width: 90%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 5ch;
+  text-overflow: clip;
+  letter-spacing: 1px;
 }
 
 nav .gtranslate_wrapper select option {
@@ -108,6 +108,11 @@ nav .links {
   display: flex;
   justify-content: center;
   margin-left: 20px;
+}
+
+/* Hide translate in mobile links by default */
+nav .links .gtranslate_wrapper {
+  display: none;
 }
 
 /* Navigation links */
@@ -219,9 +224,9 @@ nav .mobile-logo img {
   }
 
   nav .links .gtranslate_wrapper {
+    display: block; /* Show translate in mobile links */
     opacity: 1;
     visibility: visible;
-    
   }
 
   ul > .mobile-logo {
