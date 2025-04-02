@@ -1,7 +1,0 @@
-/* !important to over-ride is important because it's a plugin */
-.gt_switcher_wrapper {
-    position: fixed;
-    top: 4rem !important;
-    right: 10px !important;
-    z-index: 999999;
-}

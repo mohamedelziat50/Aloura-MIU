@@ -46,7 +46,7 @@ class ToggleFancyShapeTheme extends ThemeInterface {
     --color-bg: #fff;
     --color-text: #333;
     width: 2.6rem;
-    transform: translateX(calc(100vw - 4.5rem)); /* Start on right side */
+    transform: translateX(calc(100vw - 4rem)); /* Start on right side */
 
     /* Lines for fade-in animation When loading*/
     opacity: 0;
@@ -70,56 +70,11 @@ class ToggleFancyShapeTheme extends ThemeInterface {
   }
   
   #${this.defaultId}.dark-mode-left {
-    transform: translateX(0.25rem); /* Left side position */
+    transform: translateX(0.5rem); /* Left side position */
   }
   
   #${this.defaultId}.dark-mode-right {
-    transform: translateX(calc(100vw - 4.5rem)); /* Right side position */
-  }
-
-  @media screen and (min-width: 300px) and (max-width: 399px) {
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - -11.7rem));
-    }
-  }
-
-   @media screen and (min-width: 400px) and (max-width: 439px) {
-      #${this.defaultId}.dark-mode-right {
-        transform: translateX(calc(100vw - -9.1rem));
-      }
-    }
-
-  @media screen and (min-width: 440px) and (max-width: 474px) {
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - -7.1rem));
-    }
-  }
-
-  @media screen and (min-width: 475px) and (max-width: 515px) {
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - -4.5rem));
-    }
-  }
-
-  @media screen and (min-width: 516px) and (max-width: 559px) {
-    
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - -2rem));
-    }
-  }
-
-  @media screen and (min-width: 560px) and (max-width: 599px) {
-  
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - 0.5rem));
-    }
-  }
-
-  @media screen and (min-width: 600px) and (max-width: 615px) {
-
-    #${this.defaultId}.dark-mode-right {
-      transform: translateX(calc(100vw - 3rem));
-    }
+    transform: translateX(calc(100vw - 4rem)); /* Right side position */
   }
   
   #${this.defaultId} #darkmode-toggle {
