@@ -85,9 +85,23 @@
     ></script>
 
     <!-- Translate related -->
-   
-    <script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","ar","es","fr","de"],"wrapper_selector":".gtranslate_wrapper","flag_size":24,"horizontal_position":"right","vertical_position":"top","alt_flags":{"en":"usa"}}</script>
-    <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        native_language_names: true,
+        languages: ["en", "ar", "es", "fr", "de"],
+        wrapper_selector: ".gtranslate_wrapper",
+        flag_size: 24,
+        horizontal_position: "right",
+        vertical_position: "top",
+        alt_flags: { en: "usa" },
+      };
+    </script>
+    <script
+      src="https://cdn.gtranslate.net/widgets/latest/popup.js"
+      defer
+    ></script>
 
     <!-- END OF SCRIPTS-->
   </head>
@@ -113,26 +127,16 @@
     </div>
 
     <!-- Translator -->
-    <div class="gtranslate_wrapper" style="position: absolute; top: 80px;"></div>
+    <div class="gtranslate_wrapper" style="position: absolute; top: 80px"></div>
 
     <!-- Navbar -->
     <nav>
-      <!-- Logo on left side -->
       <div class="logo">
-        <a href="../../index.html"> <img src="../img/logo.png" alt="Logo" /></a>
+        <a href="/index.html">
+          <img src="../img/logo.png" alt="Logo" />
+        </a>
       </div>
 
-      <!-- Middle Links -->
-      <div class="links">
-        <ul>
-          <li><a href="all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-
-      <!-- Icons on right side -->
       <div class="actions">
         <ul>
           <li><i class="fa-solid fa-magnifying-glass"></i></li>
@@ -155,6 +159,25 @@
               <i class="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
+        </ul>
+      </div>
+
+      <button class="mobile-menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="links">
+        <ul>
+          <div class="mobile-logo">
+            <a href="index.html">
+              <img src="public/img/logo.png" alt="Logo" />
+            </a>
+          </div>
+
+          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gifting</a></li>
+          <li><a href="public/pages/our-story.html">Our Story</a></li>
         </ul>
       </div>
     </nav>
