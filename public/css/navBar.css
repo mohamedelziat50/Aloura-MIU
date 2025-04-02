@@ -28,15 +28,22 @@ nav.nav-visible {
   background-color: white;
 }
 
-/* Logo styles */
-nav .logo {
-  width: 40px;
-  margin-right: 20px;
+/* Left container styles */
+nav .left-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   order: 1;
   position: absolute;
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Logo styles */
+nav .logo {
+  width: 40px;
+  margin-right: 0;
 }
 
 nav .logo img {
@@ -50,6 +57,38 @@ nav .logo a {
 
 nav .logo a:hover::after {
   display: none;
+}
+
+/* Translate button styles */
+nav .gtranslate_wrapper {
+  position: static;
+  transform: none;
+  max-width: 5rem;
+  overflow: hidden;
+}
+
+nav .gtranslate_wrapper select,
+nav .gtranslate_wrapper .gt_selector {
+  font-family: inherit;
+  font-size: 14px;
+  text-transform: none;
+  font-weight: normal;
+  color: #000;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+nav .gtranslate_wrapper select option {
+  font-family: inherit;
+  font-size: 14px;
+  text-transform: none;
+  font-weight: normal;
+  color: #000;
 }
 
 /* Links container */
