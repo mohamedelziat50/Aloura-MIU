@@ -65,8 +65,8 @@ nav .gtranslate_wrapper {
   transform: none;
   max-width: 5rem;
   overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
+  visibility: visible;
   transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
 }
 
@@ -328,7 +328,6 @@ nav .mobile-logo img {
     font-size: 16px;
     gap: 8px;
     margin-right: -25px;
-
   }
 
   nav .actions ul li:nth-child(2) {
