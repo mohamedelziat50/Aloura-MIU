@@ -59,8 +59,19 @@
     <script src="public/js/fluidEffect/fluid.min.js"></script>
 
     <!-- Translate related -->
-    <script>window.gtranslateSettings = {"default_language":"en","native_language_names":false,"detect_browser_language":true,"languages":["en","ar","es","fr","de"],"wrapper_selector":".gtranslate_wrapper"}</script>
-    <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        native_language_names: false,
+        detect_browser_language: true,
+        languages: ["en", "ar", "es", "fr", "de"],
+        wrapper_selector: ".gtranslate_wrapper",
+      };
+    </script>
+    <script
+      src="https://cdn.gtranslate.net/widgets/latest/dropdown.js"
+      defer
+    ></script>
 
     <!-- Intial Scroll When Reloading -->
     <script>
@@ -73,7 +84,6 @@
         window.scrollTo(0, 0);
       };
     </script>
-
   </head>
 
   <body>
@@ -98,7 +108,7 @@
 
     <!-- Navbar -->
     <nav>
-       <!-- Left side container with logo and translate -->
+      <!-- Left side container with logo and translate -->
       <div class="left-container">
         <!-- Logo on left side -->
         <div class="logo">
@@ -106,11 +116,11 @@
         </div>
 
         <!-- Translate next to logo -->
-        <div class="gtranslate_wrapper"></div>
       </div>
 
       <div class="actions">
         <ul>
+          <li><div class="gtranslate_wrapper"></div></li>
           <li><i class="fa-solid fa-magnifying-glass"></i></li>
           <li>
             <button
@@ -141,9 +151,6 @@
           <li><a href="#">Collections</a></li>
           <li><a href="#">Gifting</a></li>
           <li><a href="public/pages/our-story.html">Our Story</a></li>
-
-        <!-- Translate -->
-        <div class="gtranslate_wrapper"></div>
         </ul>
       </div>
     </nav>
@@ -942,7 +949,7 @@
       </div>
     </div>
   -->
-  
+
     <!-- FLUID - Female -->
     <script src="./public/js/fluidEffect/female-app.js"></script>
     <!-- FLUID - Male -->
