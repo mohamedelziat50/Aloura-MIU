@@ -46,12 +46,14 @@
     <link rel="stylesheet" href="./public/css/navBar.css" />
     <link rel="stylesheet" href="./public/css/modal.css" />
     <link rel="stylesheet" href="./public/css/page-loader.css" />
+    <link rel="stylesheet" href="./public/css/chatbot.css" />
     <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="./public/js/script.js"></script>
     <script src="./public/js/modal.js"></script>
     <script src="./public/js/page-loader.js"></script>
+    <script src="./public/js/chatbot.js"></script>
     <!-- Page Loader related -->
 
     <!-- FLUID EFFECT RELATED -->
@@ -954,5 +956,34 @@
     <script src="./public/js/fluidEffect/female-app.js"></script>
     <!-- FLUID - Male -->
     <script src="./public/js/fluidEffect/male-app.js"></script>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+      <div class="chat-button">
+        <i class="fa-solid fa-comment-dots"></i>
+      </div>
+      <div class="chat-interface">
+        <div class="chat-header">
+          <div class="header-content">
+            <img
+              src="./public/img/logo.png"
+              alt="Aloura Logo"
+              class="chat-logo"
+            />
+            <h3>Aloura Assistant</h3>
+          </div>
+          <button class="close-chat">
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+        <div class="chat-messages"></div>
+        <div class="chat-input">
+          <input type="text" placeholder="Type your message..." />
+          <button class="send-button">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
