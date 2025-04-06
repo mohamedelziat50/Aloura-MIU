@@ -66,7 +66,7 @@ function initModel() {
       model.position.y = -1;
       model.scale.set(0.8, 0.8, 0.8);
       
-      // Add model to scene
+      // Add model to scenes
       scene.add(model);
       
       // Adjust materials

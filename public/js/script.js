@@ -20,43 +20,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /**
  * Initializes all page entrance animations
- */
-function initPageAnimations() {
-  // Fetch all elements that need transitions
-  const femaleImg = document.querySelector(".female img");
-  const maleImg = document.querySelector(".male img");
-  const buttons = document.querySelectorAll(".text-overlay button");
-  const indulgeText = document.querySelector(".text-overlay-indulge");
-  const yourText = document.querySelector(".text-overlay-your");
-  const journeyText = document.querySelector(".journey-text");
+ */function initPageAnimations() {
+    // Fetch all elements that need transitions
+    const femaleImg = document.querySelector('.female img');
+    const maleImg = document.querySelector('.male img');
+    const genderButtons = document.querySelectorAll('.gender-button');
+    const indulgeText = document.querySelector('.text-overlay-indulge');
+    const yourText = document.querySelector('.text-overlay-your');
 
-  // Start image transitions
-  setTimeout(() => {
-    // setTimeout delays the execution of the code inside it by 100 milliseconds.
-    if (femaleImg) femaleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the female image.
-    if (maleImg) maleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the male image.
-  }, 100);
-
-  // Start text transitions after images finish loading
-  setTimeout(() => {
-    if (indulgeText) indulgeText.classList.add("show");
-    if (yourText) yourText.classList.add("show");
-
-    // Add slight delay for buttons to appear after the text
+    // Start image transitions
     setTimeout(() => {
-      buttons.forEach((button) => {
-        button.classList.add("show");
-        button.style.pointerEvents = "auto"; // Make buttons clickable after they are visible.
-      });
-      
-      // Show journey text at the same time as buttons
-      if (journeyText) {
-        journeyText.classList.add("show");
-      }
-    }, 130);
-  }, 200);
-}
+        if (femaleImg) femaleImg.classList.add('loaded');
+        if (maleImg) maleImg.classList.add('loaded');
+    }, 100);
 
+    // Start text transitions after images finish loading
+    setTimeout(() => {
+        if (indulgeText) indulgeText.classList.add('show');
+        setTimeout(() => {
+          if (yourText) yourText.classList.add('show');
+      }, 300);
+        
+        // Add slight delay for buttons to appear after the text
+        setTimeout(() => {
+            genderButtons.forEach(button => {
+                button.classList.add('show');
+            });
+        }, 130);
+    }, 200);
+}
 /**
  * Initializes the product slider with circular looping
  */ function initProductSlider() {

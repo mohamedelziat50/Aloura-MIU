@@ -12,11 +12,98 @@ body {
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
-  display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
-  width: 100vw; /* Full screen Width (100% of the *viewport* width) */
-  height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
-  overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
-  position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.left-container ,
+.right-container {
+  position: absolute;
+  width: 450px; 
+  height: 400px; 
+  background: transparent; 
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.right-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    right: -10px;
+    top: 74.5%;
+    transform: translateY(-50%); /* Center vertically */
+  }
+
+.left-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  left: -10px;
+  top: 74.5%;
+  transform: translateY(-50%); /* Center vertically */
+}
+
+.right-container p,
+.left-container p {
+  opacity: 0; /* Hide text by default */
+  transform: translateY(20px); /* Move text slightly down */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* When right-container is hovered, hide the button in left-container */
+.right-container:hover ~ .left-container button {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* When left-container is hovered, hide the button in right-container */
+.left-container:hover ~ .right-container button {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Hover effect for text inside the containers */
+.right-container:hover p,
+.left-container:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.right-container:hover p,
+.left-container:hover p {
+  opacity: 1; /* Show text when hovered */
+  transform: translateY(0); /* Move text back to normal position */
+}
+
+.right-container p {
+  font-family: 'Proxima Nova'', sans-serif'; /* Apply Proxima Nova */
+  text-align: center; /* Center text inside container */
+  font-size: 19.7px; /* Increase font size */
+  color: white; /* Ensure readability */
+  line-height: 2.1; /* Increase line height */
+  padding: 30px; /* Add spacing inside the container */
+}
+
+.left-container p {
+  font-family: 'Proxima Nova'', sans-serif'; /* Apply Proxima Nova */
+  text-align: center; /* Center text inside container */
+  font-size: 19.7px; /* Increase font size */
+  color: white; /* Ensure readability */
+  line-height: 2.1; /* Increase line height */
+  padding: 30px; /* Add spacing inside the container */
 }
 
 .female,
@@ -34,32 +121,10 @@ body {
   object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
 }
 
-/* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
-.gender:hover .female,
-.gender:hover .male {
-  flex: 0.5;
-  filter: brightness(0.5);
-}
 
-/* override the above effect, making the hovered section expand and stay bright. */
-.gender .female:hover,
-.gender .male:hover {
-  flex: 1.5;
-  filter: brightness(1); /* Restore brightness when hovered */
-}
-
-/* Hide "For Her" button when hovering over the male side and Vice Versa */
-.female:hover ~ .male .text-overlay button {
-  display: none;
-}
-
-/* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */
-.gender:hover .female:not(:hover) .text-overlay button {
-  display: none;
-}
-
-.text-overlay button {
-  position: absolute;
+.left-container button,
+.right-container button {
+  position: relative;
   background: transparent;
   color: white;
   border: none;
@@ -71,18 +136,30 @@ body {
   font-family: "Bebas Neue";
   letter-spacing: 2px;
   line-height: 39px;
-  opacity: 0; /* Start invisible */
+  opacity: 1; /* Start invisible */
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   pointer-events: none; /* Initially unclickable */
 }
 
 /* Show class that will be added by JavaScript */
-.text-overlay button.show {
+.left-container button.show,
+.right-container button.show {
   opacity: 1;
   transform: translateY(0);
-  /* JavaScript will enable pointer-events when ready */
 }
+
+.left-container button {
+  /* Button sticks to the left bottom corner */
+  left: 35px;
+  bottom: -100px;
+}
+
+.right-container button {
+  right: -110px;
+  bottom: -100px;
+}
+
 
 /* Journey text styling */
 .journey-text-container {
@@ -115,17 +192,6 @@ body {
   transform: translateY(0);
 }
 
-.female .text-overlay button {
-  /* Button sticks to the left bottom corner */
-  left: 10px;
-  bottom: 10px;
-}
-
-.male .text-overlay button {
-  right: 10px;
-  bottom: 10px;
-}
-
 .full-width {
   width: 100%; /*Expands selected image to full width */
 }
@@ -145,7 +211,7 @@ body {
   font-weight: 650;
   transform: scale(1, 1.2) translateY(40px); /* Start position */
   opacity: 0; /* Start invisible */
-  transition: opacity 0.8s ease, transform 0.8s ease; /* Match button transition */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Faster transition */
 }
 
 .text-overlay-indulge {
@@ -169,8 +235,8 @@ body {
 }
 
 /* Hover effect for text overlays */
-.gender:hover .text-overlay-indulge,
-.gender:hover .text-overlay-your {
+.right-container:hover .text-overlay-indulge,
+.left-container:hover .text-overlay-your {
   clip-path: polygon(
     0 0,
     100% 0,
@@ -242,31 +308,26 @@ body {
   opacity: 1;
 }
 
-/* When hovering the gender container, apply default state to both sides */
-.gender:hover .female,
-.gender:hover .male {
-  flex: 0.5; /* Shrink both sides by default on hover */
-  filter: brightness(0.6); /* Darken both sides */
+
+/* Adjust sizing when left-container is hovered */
+.left-container:hover ~ .gender .female {
+  flex: 1.5;
 }
 
-/* Override for the hovered side */
-.gender .female:hover {
-  flex: 1.7; /* Grow significantly when hovered */
-  filter: brightness(1.05); /* Brighten slightly */
+.left-container:hover ~ .gender .male {
+  flex: 0.5;
+  filter: brightness(0.5);
 }
 
-.gender .male:hover {
-  flex: 1.7; /* Grow significantly when hovered */
-  filter: brightness(1.05); /* Brighten slightly */
+.right-container:hover ~ .gender .male {
+  flex: 1.5;
 }
 
-/* Important: Ensure images don't change scale when container resizes */
-.gender:hover .female img,
-.gender:hover .male img,
-.gender .female:hover img,
-.gender .male:hover img {
-  transform: scale(1); /* Prevent any scaling during hover */
+.right-container:hover ~ .gender .female {
+  flex: 0.5;
+  filter: brightness(0.5);
 }
+
 
 .title {
   width: 470px;
@@ -287,19 +348,31 @@ body {
 }
 
 /* Initial states for text overlays */
-.text-overlay button,
+.left-container button,
+.right-container button,
 .text-overlay-indulge,
 .text-overlay-your {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  transition-delay: 1s; /* Delay until after images are loaded */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Faster transition */
+  transition-delay: 0.5s; /* Reduced delay */
 }
 
 /* Classes for when text is ready to show */
-.text-overlay button.show,
-.text-overlay-indulge.show,
-.text-overlay-your.show {
+.text-overlay-indulge.show{
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s; /* Reduced delay */
+}
+
+.text-overlay-your.show{
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s; /* Reduced delay */
+}
+
+.left-container button.show,
+.right-container button.show{
   opacity: 1;
   transform: translateY(0);
 }
@@ -334,23 +407,13 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
-/* Hover effect for text overlays */
-.gender:hover .text-overlay-indulge,
-.gender:hover .text-overlay-your {
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 0,
-    0 0
-  ); /* Shrink text from bottom to top */
-  transform: translateY(-80px) scale(1, 1.2); /* Move text up */
-}
-
-/* Reset text overlays when not hovering */
-.gender:not(:hover) .text-overlay-indulge,
-.gender:not(:hover) .text-overlay-your {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
-  transform: translateY(0) scale(1, 1.2); /* Return text to original position */
+/* Apply text overlay animation */
+.right-container:hover ~ .gender .text-overlay-your,
+.right-container:hover ~ .gender .text-overlay-indulge,
+.left-container:hover ~ .gender .text-overlay-your,
+.left-container:hover ~ .gender .text-overlay-indulge {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transform: translateY(-80px) scale(1, 1.2);
 }
 
 /* Quality and 3D Model Section */
@@ -1335,5 +1398,119 @@ html {
   .card-buuton {
     padding: 10px;
     font-size: 12px;
+  }
+}
+
+/* Gender button styling */
+.gender-button {
+  position: relative;
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 13px 30px;
+  font-size: 43px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: "Bebas Neue";
+  letter-spacing: 2px;
+  line-height: 39px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  text-decoration: none;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.gender-button.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.left-container .gender-button {
+  left: 35px;
+  bottom: -100px;
+}
+
+.right-container .gender-button {
+  right: -110px;
+  bottom: -100px;
+}
+
+/* Responsive styles for gender container */
+@media (max-width: 768px) {
+  .gender {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .female, .male {
+    width: 100% !important;
+    height: 50vh !important;
+    position: relative;
+  }
+
+  .female img, .male img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .text-overlay-indulge, .text-overlay-your {
+    font-size: 2.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+  }
+
+  .text-overlay-indulge {
+    top: 25%;
+  }
+
+  .text-overlay-your {
+    top: 35%;
+  }
+
+  .left-container, .right-container {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+  }
+
+  .left-container {
+    top: 0;
+    padding-top: 40px;
+  }
+
+  .right-container {
+    bottom: 0;
+    padding-bottom: 40px;
+  }
+
+  .left-container p, .right-container p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .gender-button {
+    font-size: 2rem;
+    padding: 10px 20px;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  .left-container .gender-button {
+    margin-top: 20px;
+  }
+
+  .right-container .gender-button {
+    margin-bottom: 20px;
   }
 }
