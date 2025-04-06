@@ -160,15 +160,34 @@
     <!-- Menu Overlay -->
     <div class="menu-overlay"></div>
 
-    <!-- For Him & For Her Segment -->
+     <!-- For Him & For Her Segment -->
+     <div class="left-container"> <p>
+      DISCOVER CAPTIVATIN SCENTS THAT <br>
+      EMBODY GRACE, STRENGTH, <br>
+      AND ALLURE —CRAFTED FOR <br>
+      THE MODERN WOMAN.
+    </p> 
+    <a href="public/pages/fragrances-for-women.html" class="gender-button">For Her</a>
+  </div>
+
+    <div class="right-container"> 
+      <p>
+        UNVEIL FRAGRANCES THAT DEFINE <br>
+      CONIDENCE, CHARISMA, AND <br>
+      REFEMENT—CRAFTED FOR THE <br>
+      DISTINGUISHED MAN. 
+    </p>
+    <a href="public/pages/fragrances-for-men.html" class="gender-button">For Him</a>
+    </div>
     <div class="gender">
       <!--Intialize Container (taking gender CSS container)-->
       <div class="text-overlay-indulge">INDULGE</div>
       <div class="text-overlay-your">YOUR SENSES</div>
 
       <div class="female">
-        <!-- Canvas for Fluid Effect -->
-        <canvas id="female-fluid-canvas"></canvas>
+               <!-- Canvas for Fluid Effect -->
+               <!--  <canvas id="female-fluid-canvas"></canvas> -->
+
         <!--Intialize Container (taking female CSS container)-->
         <img
           id="female-img"
@@ -176,23 +195,26 @@
           alt="For Her Fragrances"
         />
         <div class="text-overlay">
-          <button onclick="changeImages('female')">For Her</button>
           <!-- Creating Button with CSS text-overlay properties-->
         </div>
       </div>
 
       <div class="male">
-        <!-- Canvas for Fluid Effect -->
-        <canvas id="male-fluid-canvas"></canvas>
+                <!-- Canvas for Fluid Effect -->
+                <!-- <canvas id="male-fluid-canvas"></canvas> -->
         <img
           id="male-img"
           src="./public/img/download.jpeg"
           alt="For Him Fragrances"
         />
         <div class="text-overlay">
-          <button onclick="changeImages('male')">For Him</button>
         </div>
       </div>
+
+      <div class="transition-container">
+        <img id="transition-img" src="" alt="Transition Image" />
+      </div>
+    </div>
 
       <!-- Add center journey text -->
       <div class="journey-text-container">
@@ -230,7 +252,7 @@
         </p>
         <a href="public/pages/our-story.html" class="learn-more-btn"
           >Learn More</a
-        >
+>
 
         <!-- New Reviews Section -->
         <div class="reviews-section">
