@@ -143,6 +143,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const suggestedProducts = document.getElementById("suggested-products");
+    const items = document.querySelectorAll(".suggested-item");
+    const prevBtn = document.getElementById("prev-suggestion");
+    const nextBtn = document.getElementById("next-suggestion");
+    
+    let currentIndex = 0;
+    const itemWidth = items[0].offsetWidth + 20; // Width + margin
+    const visibleItems = 3; // Number of items shown at once
+    let autoSlideInterval;
+
+    // Function to move carousel to specific index
+    function moveToIndex(index) {
+        currentIndex = index;
+        suggestedProducts.style.transition = "transform 0.8s ease-in-out";
+        suggestedProducts.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+
+    // Auto-advance to next item
+    function autoAdvance() {
+        if (currentIndex < items.length - visibleItems) {
+            moveToIndex(currentIndex + 1);
+        } else {
+            // If at end, loop back to start
+            moveToIndex(0);
+        }
+    }
+
+    // Manual navigation
+    nextBtn.addEventListener("click", function() {
+        clearInterval(autoSlideInterval); // Pause auto-slide on manual interaction
+        if (currentIndex < items.length - visibleItems) {
+            moveToIndex(currentIndex + 1);
+        } else {
+            moveToIndex(0);
+        }
+        startAutoSlide(); // Restart auto-slide after delay
+    });
+
+    prevBtn.addEventListener("click", function() {
+        clearInterval(autoSlideInterval);
+        if (currentIndex > 0) {
+            moveToIndex(currentIndex - 1);
+        } else {
+            moveToIndex(items.length - visibleItems);
+        }
+        startAutoSlide();
+    });
+
+    // Start auto-sliding
+    function startAutoSlide() {
+        // Clear existing interval if any
+        clearInterval(autoSlideInterval);
+        // Start new interval
+        autoSlideInterval = setInterval(autoAdvance, 3000);
+    }
+
+    // Initialize
+    moveToIndex(0);
+    startAutoSlide();
+
+    // Pause on hover.
+    const carouselContainer = document.querySelector("#suggested-products-container");
+    carouselContainer.addEventListener("mouseenter", () => {
+        clearInterval(autoSlideInterval);
+    });
+    carouselContainer.addEventListener("mouseleave", startAutoSlide);
+
+    // Handle window resize
+    window.addEventListener("resize", function() {
+        itemWidth = items[0].offsetWidth + 20;
+        moveToIndex(currentIndex);
+    });
+});
 
 
-
+5

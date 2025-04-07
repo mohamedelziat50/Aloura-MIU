@@ -6,6 +6,10 @@
     font-family: 'Arial', sans-serif;
 }
 
+#heading{
+    margin-bottom: 65px;
+}
+
 /* Body Styling */
 body {
     background-color: #f8f8f8;
@@ -14,15 +18,19 @@ body {
 }
 
 /* Container Styling */
+/* ===== PRODUCT CONTAINER ADJUSTMENTS ===== */
 #product-container {
     display: flex;
-    max-width: auto;
+    max-width: 90%;  /* Reduced from auto to make container smaller */
+    margin: 0 auto;     /* This centers the container horizontally */
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     justify-content: center;
 }
+
+/* Keep all your original CSS below this point exactly as it was */
 
 /* Image Styling */
 .card-image {
@@ -449,6 +457,7 @@ ul{
     
 }
 
+
 /* Ensure images scale properly */
 .suggested-image {
     width: 100%;
@@ -483,6 +492,45 @@ ul{
     text-align: center;
     text-transform: uppercase;
 }
+
+/* ===== SAFE HOVER EFFECTS (NO SIZE/PADDING/MARGIN CHANGES) ===== */
+
+/* 1. Subtle "float" animation */
+.suggested-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .suggested-item:hover {
+    transform: translateY(-3px); /* Tiny lift */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Barely visible shadow */
+  }
+  
+  /* 2. Gentle image highlight */
+  .suggested-image {
+    transition: opacity 0.3s ease;
+  }
+  
+  .suggested-item:hover .suggested-image {
+    opacity: 0.9; /* Slight fade for focus */
+  }
+  
+  /* 3. Text color shift (keeps original font/boldness) */
+  .suggested-item:hover .suggested-name {
+    color: #444; /* Darker by just 10% */
+  }
+
+  /* Center-align carousel arrows vertically */
+.suggestion-wrapper {
+    align-items: center; /* No margin/padding changes */
+  }
+  
+  /* Smooth arrow hover */
+  .suggestion-arrow {
+    transition: background-color 0.2s ease;
+  }
+  .suggestion-arrow:hover {
+    background-color: #333; /* Darker than original */
+  }
 
 .suggested-price{
     font-size: 14px;
@@ -520,7 +568,16 @@ ul{
     background-color: grey;
 }
 
+.custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
 
+.offcanvas-footer
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
 
 
 

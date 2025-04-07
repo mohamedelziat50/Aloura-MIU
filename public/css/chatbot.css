@@ -1,8 +1,9 @@
 /* Chatbot Container */
 .chatbot-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 5px;
+  right: -5px;
+  scale: 0.7;
   z-index: 1000;
 }
 
