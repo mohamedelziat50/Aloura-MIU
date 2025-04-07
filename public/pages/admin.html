@@ -2,10 +2,401 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfume Store Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <script src="../js/admin.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>this is admin page</h1>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li id="btn-dashboard">Dashboard</li>
+            <li id="btn-products">Products</li>
+            <li id="btn-orders">Orders</li>
+            <li id="btn-users">Users</li>
+            <li id="btn-reviews">Reviews</li>
+            <li id="btn-settings">Settings</li>
+            <li id="btn-logout">Logout</li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <header>
+            <h1>Welcome, Admin</h1>
+            <div class="admin-info">Aloura Dashboard</div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="section">
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Sales</h3>
+                    <p>$14,200</p>
+                </div>
+                <div class="card">
+                    <h3>New Orders</h3>
+                    <p>23</p>
+                </div>
+                <div class="card">
+                    <h3>Low Stock</h3>
+                    <p>5 items</p>
+                </div>
+                <div class="card">
+                    <h3>Users</h3>
+                    <p>1,239</p>
+                </div>
+            </div>
+
+            <section class="recent-orders">
+                <h2>Recent Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1001</td>
+                            <td>Aya</td>
+                            <td>Dior Sauvage</td>
+                            <td><span class="status delivered">Delivered</span></td>
+                            <td>$120</td>
+                        </tr>
+                        <tr>
+                            <td>#1002</td>
+                            <td>Ali</td>
+                            <td>Versace Eros</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>$95</td>
+                        </tr>
+                        <tr>
+                            <td>#1003</td>
+                            <td>Fatima</td>
+                            <td>Chanel No. 5</td>
+                            <td><span class="status shipped">Shipped</span></td>
+                            <td>$130</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <!-- Products Section -->
+        <section id="section-products" class="section">
+            <h2>Manage Products</h2>
+            
+            <div class="product-buttons">
+                <button class="product-btn add">Add Product</button>
+                <button class="product-btn edit">Edit Product</button>
+                <button class="product-btn delete">Delete Product</button>
+            </div>
+        </section>
+        
+
+        <!-- Orders Section -->
+        <section id="section-orders" class="section">
+            <h2>Manage Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1001</td>
+                        <td>Aya</td>
+                        <td>Dior Sauvage</td>
+                        <td><span class="status delivered">Delivered</span></td>
+                        <td>$120</td>
+                    </tr>
+                    <tr>
+                        <td>#1002</td>
+                        <td>Ali</td>
+                        <td>Versace Eros</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>$95</td>
+                    </tr>
+                    <tr>
+                        <td>#1003</td>
+                        <td>Fatima</td>
+                        <td>Chanel No. 5</td>
+                        <td><span class="status shipped">Shipped</span></td>
+                        <td>$130</td>
+                    </tr>
+                </tbody>
+            </table>        </section>
+
+        <!-- Users Section -->
+        <section id="section-users" class="section">
+            <h2>Manage Users</h2>
+            
+            <div class="user-controls">
+                <div class="search-box">
+                    <input type="text" placeholder="Search users..." class="search-input">
+                    <button class="search-btn">Search</button>
+                </div>
+                <button class="user-btn add-user">+ Add New User</button>
+            </div>
+        
+            <div class="users-grid">
+                <!-- User Card 1 -->
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/80" alt="User Avatar">
+                    </div>
+                    <div class="user-info">
+                        <h3 class="user-name">John Doe</h3>
+                        <p class="user-email">john.doe@example.com</p>
+                        <p class="user-role">Customer</p>
+                        <p class="user-joined">Joined: 15 Jan 2023</p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="user-btn edit">Edit</button>
+                        <button class="user-btn delete">Delete</button>
+                    </div>
+                </div>
+        
+                <!-- User Card 2 -->
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/80" alt="User Avatar">
+                    </div>
+                    <div class="user-info">
+                        <h3 class="user-name">Sarah Smith</h3>
+                        <p class="user-email">sarah.smith@example.com</p>
+                        <p class="user-role">Admin</p>
+                        <p class="user-joined">Joined: 22 Mar 2022</p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="user-btn edit">Edit</button>
+                        <button class="user-btn delete">Delete</button>
+                    </div>
+                </div>
+        
+                <!-- User Card 3 -->
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/80" alt="User Avatar">
+                    </div>
+                    <div class="user-info">
+                        <h3 class="user-name">Alex Johnson</h3>
+                        <p class="user-email">alex.j@example.com</p>
+                        <p class="user-role">Moderator</p>
+                        <p class="user-joined">Joined: 05 Nov 2023</p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="user-btn edit">Edit</button>
+                        <button class="user-btn delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      <!-- Reviews Section -->
+<section id="section-reviews" class="section">
+    <h2>Moderate Reviews</h2>
+    <div class="reviews-container">
+        <!-- Review 1 -->
+        <div class="review-card">
+            <div class="review-header">
+                <span class="review-author">John D.</span>
+                <span class="review-rating">★★★★☆</span>
+                <span class="review-date">2023-10-15</span>
+            </div>
+            <div class="review-content">
+                <p>Great product! Works exactly as described. The delivery was a bit slow but worth the wait.</p>
+            </div>
+            <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
+            </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+            <div class="review-header">
+                <span class="review-author">Sarah M.</span>
+                <span class="review-rating">★☆☆☆☆</span>
+                <span class="review-date">2023-10-18</span>
+            </div>
+            <div class="review-content">
+                <p>Very disappointed with my purchase. The item arrived damaged and customer service hasn't responded.</p>
+            </div>
+            <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
+            </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+            <div class="review-header">
+                <span class="review-author">Alex T.</span>
+                <span class="review-rating">★★★★★</span>
+                <span class="review-date">2023-10-20</span>
+            </div>
+            <div class="review-content">
+                <p>Absolutely love it! Better than I expected. Will definitely buy from this store again.</p>
+            </div>
+            <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="section-settings" class="section">
+    <h2>Site Settings</h2>
+    
+    <div class="settings-tabs">
+        <button class="tab-btn active" data-tab="general">General</button>
+        <button class="tab-btn" data-tab="appearance">Appearance</button>
+        <button class="tab-btn" data-tab="seo">SEO</button>
+        <button class="tab-btn" data-tab="social">Social Media</button>
+    </div>
+
+    <div class="settings-content">
+        <!-- General Settings Tab -->
+        <div class="tab-pane active" id="general-tab">
+            <form class="settings-form">
+                <div class="form-group">
+                    <label for="site-name">Site Name</label>
+                    <input type="text" id="site-name" value="My Awesome Store" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="site-email">Contact Email</label>
+                    <input type="email" id="site-email" value="contact@example.com" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="site-phone">Phone Number</label>
+                    <input type="tel" id="site-phone" value="+1 (555) 123-4567" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="site-address">Business Address</label>
+                    <textarea id="site-address" class="form-input">123 Main St, Cityville, ST 12345</textarea>
+                </div>
+                
+                <button type="submit" class="save-btn">Save General Settings</button>
+            </form>
+        </div>
+
+        <!-- Appearance Settings Tab -->
+        <div class="tab-pane" id="appearance-tab">
+            <form class="settings-form">
+                <div class="form-group">
+                    <label>Site Logo</label>
+                    <div class="upload-area">
+                        <img src="https://via.placeholder.com/150x50" alt="Current Logo" class="current-logo">
+                        <div class="upload-controls">
+                            <input type="file" id="logo-upload" accept="image/*" hidden>
+                            <button type="button" class="upload-btn" onclick="document.getElementById('logo-upload').click()">
+                                Upload New Logo
+                            </button>
+                            <span class="file-info">PNG, JPG (Max 2MB)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="primary-color">Primary Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="primary-color" value="#f3c5c5">
+                        <span class="color-value">#f3c5c5</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="font-family">Font Family</label>
+                    <select id="font-family" class="form-input">
+                        <option value="Montserrat" selected>Montserrat</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Poppins">Poppins</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="save-btn">Save Appearance Settings</button>
+            </form>
+        </div>
+
+        <!-- SEO Settings Tab -->
+        <div class="tab-pane" id="seo-tab">
+            <form class="settings-form">
+                <div class="form-group">
+                    <label for="meta-title">Meta Title</label>
+                    <input type="text" id="meta-title" value="My Store - Premium Products" class="form-input">
+                    <div class="char-count"><span id="title-count">0</span>/60 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="meta-description">Meta Description</label>
+                    <textarea id="meta-description" class="form-input">Welcome to our online store featuring the best products at competitive prices.</textarea>
+                    <div class="char-count"><span id="desc-count">0</span>/160 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="site-keywords">Keywords (comma separated)</label>
+                    <input type="text" id="site-keywords" value="shop, ecommerce, products, buy" class="form-input">
+                </div>
+                
+                <button type="submit" class="save-btn">Save SEO Settings</button>
+            </form>
+        </div>
+
+        <!-- Social Media Tab -->
+        <div class="tab-pane" id="social-tab">
+            <form class="settings-form">
+                <div class="form-group">
+                    <label for="facebook-url">Facebook URL</label>
+                    <input type="url" id="facebook-url" placeholder="https://facebook.com/yourpage" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="instagram-url">Instagram URL</label>
+                    <input type="url" id="instagram-url" placeholder="https://instagram.com/yourpage" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="twitter-url">Twitter URL</label>
+                    <input type="url" id="twitter-url" placeholder="https://twitter.com/yourpage" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label>Social Sharing Image</label>
+                    <div class="upload-area">
+                        <div class="image-preview"></div>
+                        <div class="upload-controls">
+                            <input type="file" id="social-image" accept="image/*" hidden>
+                            <button type="button" class="upload-btn" onclick="document.getElementById('social-image').click()">
+                                Upload Image
+                            </button>
+                            <span class="file-info">Recommended: 1200×630px</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="save-btn">Save Social Settings</button>
+            </form>
+        </div>
+    </div>
+</section>
+    </div>
+
+  
 </body>
 </html>
