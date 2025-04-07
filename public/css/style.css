@@ -63,7 +63,7 @@ body {
   background: transparent;
   color: white;
   border: none;
-  padding: 13px 30px;
+  padding: 40px;
   font-size: 43px;
   cursor: pointer;
   text-transform: uppercase;
@@ -75,6 +75,16 @@ body {
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   pointer-events: none; /* Initially unclickable */
+}
+
+.text-overlay a{
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease-in-out; /* Animation duration and smoothness */
+}
+
+.text-overlay a:hover {
+  transform: scale(1.2); /* Grows 20% */
 }
 
 /* Show class that will be added by JavaScript */
