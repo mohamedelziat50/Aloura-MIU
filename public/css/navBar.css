@@ -107,7 +107,7 @@ nav .links {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  margin-left: 110px;
+  margin-left: 120px;
 }
 
 /* Hide translate in mobile links by default */

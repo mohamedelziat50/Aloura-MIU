@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
     moveToIndex(0);
     startAutoSlide();
 
-    // Pause on hover
+    // Pause on hover.
     const carouselContainer = document.querySelector("#suggested-products-container");
     carouselContainer.addEventListener("mouseenter", () => {
         clearInterval(autoSlideInterval);
@@ -219,4 +219,4 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-
+5
