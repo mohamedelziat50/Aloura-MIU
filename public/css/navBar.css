@@ -29,7 +29,7 @@ nav.nav-visible {
 }
 
 /* Left container styles */
-nav .left-container {
+nav .left-container-nav {
   display: flex;
   align-items: center;
   gap: 35px;
@@ -219,7 +219,7 @@ nav .mobile-logo img {
   }
 
   /* Hide the left container in mobile view */
-  nav > .left-container {
+  nav > .left-container-nav {
     display: none;
   }
 
