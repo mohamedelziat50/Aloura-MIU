@@ -1,6 +1,6 @@
 /* Grey Background Section */
 .grey-section {
-  background-color: #141313;
+  background-color: #000000;
   padding: 140px 20px;
   display: flex;
   justify-content: center;
@@ -30,7 +30,11 @@
   padding: 20px;
   position: relative;
   top: -5em;
-  animation: moveFromTop 1.7s ease-in-out;
+}
+
+.text-container p{
+  animation: moveFromBottom 1.7s ease-in-out; 
+
 }
 @keyframes moveFromTop {
   from { transform: translateY(-800px) }
@@ -110,7 +114,7 @@ from { transform: translateY(800px) }
   color: white;
   margin-bottom: 4rem;
   transform: scale(0.5);
-  transition: transform 1.5s 0.1s ease-out; /* 1.5s transform, 0.1s delay */
+  transition: 3s ease-out; /* 1.5s transform, 0.1s delay */
   text-align: left;
   position: relative;
   left: 0.7em;
@@ -157,6 +161,53 @@ from { transform: translateY(800px) }
   min-height: 51vw;
 }
 
+}
 
+/* Brand Message Section */
+.brand-message {
+  background-color: #f8f5f2; /* Light neutral background */
+  padding: 80px 20px;
+  color: #131313;
+}
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.message-content {
+  max-width: 800px;
+  margin-left: 0; /* Align to the left of the container */
+  text-align: left; /* Align text to the left */
+  padding-left: 0px; /* Optional: Add some left padding if you need spacing */
+}
+
+.message-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #141313;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.message-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+/* Optional animation for the text */
+.message-content {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeUp 4s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
