@@ -1352,3 +1352,8 @@ html {
   font-weight: 700; /* Bold */
   font-style: normal;
 }
+
+/* Hide the scroll bar, to now allow the user to immediatly go somewhere on the page */
+body::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
