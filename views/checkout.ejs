@@ -87,42 +87,7 @@
     data-aos-duration="600"
     data-aos-easing="ease-in-out"
   >
-    <nav>
-      <div class="logo">
-        <a href="../../index.html">
-          <img src="../../public/img/logo.png" alt="Logo"
-        /></a>
-      </div>
-
-      <div class="links">
-        <ul>
-          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="public/pages/our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-
-      <div class="actions">
-        <ul>
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li>
-            <button
-              style="border: none; background-color: transparent"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-            >
-              <i class="fa-regular fa-circle-user"></i>
-            </button>
-          </li>
-          <li>
-            <button style="border: none; background-color: transparent">
-              <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('partials/navbar.ejs') %>
     <main class="main">
       <!-- Checkout Section -->
       <section class="checkout section" id="checkout">
@@ -311,12 +276,15 @@
                         </label>
                       </div>
                       <!-- Cash On Delivery confirmation message (initially hidden) -->
-                      <div class="cod-confirmation-message" >
+                      <div class="cod-confirmation-message">
                         <!-- USES BOOTSTRAP CSS HERE-->
                         <div class="mt-2 p-3 bg-light rounded cod-message">
                           <div class="d-flex align-items-center">
                             <i class="fas fa-wallet text-primary me-3"></i>
-                            <span>Payment will be collected upon delivery. No advance payment required.</span>
+                            <span
+                              >Payment will be collected upon delivery. No
+                              advance payment required.</span
+                            >
                           </div>
                         </div>
                       </div>
@@ -360,13 +328,13 @@
                         </div>
                         <div class="card-flip-back">
                           <h6 class="card-text-small">
-                            For customer service email at
-                            aloura@gmail.com
+                            For customer service email at aloura@gmail.com
                           </h6>
                           <span class="magnetic-strip"></span>
                           <div class="signature"><i>005</i></div>
                           <h5 class="card-text-small">
-                            By using this card, you accept the terms and conditions of the cardholder agreement
+                            By using this card, you accept the terms and
+                            conditions of the cardholder agreement
                           </h5>
                         </div>
                       </div>

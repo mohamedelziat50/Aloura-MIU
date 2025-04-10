@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances" />
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta
+      name="description"
+      content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
+    />
+    <title>Aloura - Our Story</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="../img/favicon-logo.ico" />
+
+    <!-- Font Awesome (Linking FootAwesome Website to our Code) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS (Linking it to our Code) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tab Logo / 'Favicon' -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../img/favicons/rounded-background-favicon.ico"
+    />
+
+    <!-- CSS Links (Connecting the CSS file to this file) -->
+    <link rel="stylesheet" href="../css/navBar.css" />
+    <link rel="stylesheet" href="../css/ourStory.css" />
+    <link rel="stylesheet" href="../css/page-loader.css" />
+    <!-- Page loader related -->
+
+    <!-- JS Links (Connecting the JS file to this file) -->
+    <script src="../js/fluidEffect/jquery.min.js"></script>
+    <script src="../js/fluidEffect/fluid.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/page-loader.js"></script>
+    <!-- Page Loader related -->
+
+    <!-- OVERRIDE THE BACKGROUND COLOR FOR LOADER TO MATCH -> SEE IF CHANGE LATER WITH DARK MODE BUTTON -->
+    <style>
+      .fullpage-loader {
+        background: #141313; /* White background */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">
+      <!-- Full-screen overlay container -->
+      <div class="loader-content">
+        <!-- Centers content vertically/horizontally -->
+        <div class="logo-reveal">
+          <!-- Container for logo animation -->
+          <img src="../img/logo.png" alt="Logo" />
+          <!-- Logo -->
+        </div>
+        <!-- Loading bar is trapped into a container so it can fill it entirely! -->
+        <div class="loading-bar-container">
+          <!-- Background track for progress bar -->
+          <div class="loading-bar"></div>
+          <!-- Animated progress bar -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <%- include('partials/navbar.ejs') %>
+
+    <!-- Grey Background Section -->
+    <div class="grey-section">
+      <!-- Canvas for Fluid Effect -->
+      <canvas id="grey-fluid-canvas"></canvas>
+
+      <div class="grey-content">
+        <div class="text-container">
+          <h2>
+            Scent. <br />
+            Elegance. <br /><span class="glow">Eternity.</span>
+          </h2>
+          <p>
+            Crafted with the finest essences, our fragrances embody the perfect
+            balance of strength and elegance. Each scent is meticulously blended
+            to evoke timeless sophistication,
+            <b>leaving a lasting impression.</b> With exquisite notes that
+            unfold beautifully over time,<b> our collection redefines luxury</b
+            >, offering a fragrance experience that is as bold as it is
+            unforgettable.
+          </p>
+        </div>
+
+        <!-- New container wrapping video and button -->
+        <div class="video-control-container">
+          <!-- Original video element -->
+          <video
+            id="cyclingVideo"
+            class="grey-video"
+            autoplay
+            muted
+            playsinline
+          >
+            <source
+              id="videoSource"
+              src="../videos/photoshoot-2.mp4"
+              type="video/mp4"
+            />
+          </video>
+
+          <!-- Hidden audio element that will play the same audio -->
+          <audio id="videoAudio" loop>
+            <source
+              src="../audio/Doomsday (Instrumental).mp3"
+              type="video/mp4"
+            />
+          </audio>
+
+          <!-- Mute Button -->
+          <button class="video-mute-btn" id="muteToggle">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add this right after your closing </div> for the grey-section -->
+    <section class="brand-message">
+      <div class="container">
+        <div class="message-content">
+          <h2>Elevate Your Scent Experience</h2>
+          <p>
+            Aloura isn't just perfume - it's an olfactory journey crafted to
+            transform your presence. Our fragrances are meticulously blended by
+            master perfumers using rare essences and sustainable ingredients,
+            creating scents that evolve beautifully throughout your day. Each
+            bottle contains more than fragrance; it carries the confidence to
+            make unforgettable impressions, the sophistication to complement
+            your style, and the artistry to become your signature.
+          </p>
+          <p>
+            We believe scent is your invisible accessory - the final touch that
+            completes your look before you even speak. At Aloura, we don't just
+            create perfumes; we craft liquid confidence that lingers in memory
+            long after you've left the room.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // AUDIO RELATED
+      const muteBtn = document.getElementById("muteToggle");
+      const muteIcon = muteBtn.querySelector("i");
+      const audioElement = document.getElementById("videoAudio");
+
+      // Set initial volume
+      audioElement.volume = 0.01;
+
+      // Mute toggle functionality
+      muteBtn.addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevent event bubbling
+
+        if (audioElement.paused) {
+          // Start audio playback
+          audioElement.play();
+          muteIcon.className = "fas fa-volume-up";
+        } else {
+          // Pause audio playback
+          audioElement.pause();
+          muteIcon.className = "fas fa-volume-mute";
+        }
+      });
+
+      // VIDEO CYCLE RELATED
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("cyclingVideo");
+        const source = document.getElementById("videoSource");
+
+        // Array of video sources to cycle through
+        const videos = [
+          "../videos/photoshoot-2.mp4",
+          "../videos/photoshoot.mp4",
+          "../videos/photoshoot-romeo.mp4",
+          "../videos/photoshoot-3.mp4",
+          "../videos/photoshoot-nasser.mp4",
+        ];
+
+        let currentIndex = 0;
+
+        video.onended = function () {
+          video.style.transition = "opacity 0.7s";
+          video.style.opacity = 0; // Fade out
+
+          setTimeout(() => {
+            currentIndex = (currentIndex + 1) % videos.length;
+            source.src = videos[currentIndex];
+
+            video.load();
+            video.oncanplay = function () {
+              video.style.opacity = 1; // Fade in
+              video.play();
+            };
+          }, 700); // Wait 1s before switching video
+        };
+      });
+    </script>
+
+    <!-- FLUID -->
+    <script src="../js/fluidEffect/app.js"></script>
+  </body>
+</html>

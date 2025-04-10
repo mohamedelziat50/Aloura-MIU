@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- FLUID EFFECT RELATED -->
+    <link rel="stylesheet" href="../css/test.css" />
+    <script src="../js/fluidEffect/jquery.min.js"></script>
+    <script src="../js/fluidEffect/fluid.min.js"></script>
+    <script src="../js/fluidEffect/app.js"></script>
+  </head>
+
+  <body>
+    <!-- Canvas for Fluid Effect -->
+    <canvas id="grey-fluid-canvas"></canvas>
+
+    <%- include('partials/navbar.ejs') %>
+
+    <script>
+      // Add this as a new script file or at the end of your HTML
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Allow time for other scripts to initialize
+        setTimeout(function () {
+          const canvas = document.getElementById("grey-fluid-canvas");
+          if (!canvas) return;
+
+          // Function to simulate mouse down event (pressing the mouse button)
+          function simulateMouseDown(x, y) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseDownEvent = new MouseEvent("mousedown", {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: rect.left + x,
+              clientY: rect.top + y,
+              button: 0, // Left mouse button
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseDownEvent);
+          }
+
+          // Function to simulate mouse move event while button is pressed
+          function simulateMouseMove(x, y) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseMoveEvent = new MouseEvent("mousemove", {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: rect.left + x,
+              clientY: rect.top + y,
+              button: 0, // Left mouse button
+              buttons: 1, // Left mouse button pressed
+            });
+            canvas.dispatchEvent(mouseMoveEvent);
+          }
+
+          // Function to simulate mouse up event (releasing the mouse button)
+          function simulateMouseUp(x, y) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseUpEvent = new MouseEvent("mouseup", {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: rect.left + x,
+              clientY: rect.top + y,
+              button: 0, // Left mouse button
+              buttons: 0, // No buttons pressed
+            });
+            canvas.dispatchEvent(mouseUpEvent);
+          }
+
+          // Simulate a complete mouse interaction (down, move, up)
+          function simulateFullMouseInteraction() {
+            const canvasWidth = canvas.offsetWidth;
+            const canvasHeight = canvas.offsetHeight;
+
+            // Random position
+            const startX = Math.random() * canvasWidth;
+            const startY = Math.random() * canvasHeight;
+
+            // Simulate mouse down
+            simulateMouseDown(startX, startY);
+
+            /* This means the animation lasts for 10sec atleast i think lmao, but dont you dare change these 3*/
+            // THE FOLLOWING 3 CONTROLS HOW AFTER HOW LONG WILL THE ANIMATION HYBOOZ, SO MAKE IT A VERY LARGE NUMBER
+            // Simulate mouse movements
+            setTimeout(function () {
+              // Add some slight movement
+              simulateMouseMove(startX + 5, startY + 5);
+            }, 99999999999999);
+
+            setTimeout(function () {
+              simulateMouseMove(startX + 10, startY + 10);
+            }, 99999999999999);
+
+            // Simulate mouse up
+            setTimeout(function () {
+              simulateMouseUp(startX + 10, startY + 10);
+            }, 99999999999999);
+          }
+
+          // Set initial trigger
+          simulateFullMouseInteraction();
+
+          // Continuously simulate mouse interactions
+          setInterval(simulateFullMouseInteraction, 1);
+        }, 100); // Wait 0.1 second for page to be fully loaded
+      });
+    </script>
+  </body>
+</html>

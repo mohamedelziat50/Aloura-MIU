@@ -20,7 +20,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="./public/img/favicons/rounded-background-favicon.ico"
+      href="./img/favicons/rounded-background-favicon.ico"
     />
 
     <!-- Font Awesome (Linking FootAwesome Website to our Code) -->
@@ -42,23 +42,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- CSS Links (Connecting the CSS file to this file) -->
-    <link rel="stylesheet" href="./public/css/style.css" />
-    <link rel="stylesheet" href="./public/css/navBar.css" />
-    <link rel="stylesheet" href="./public/css/modal.css" />
-    <link rel="stylesheet" href="./public/css/page-loader.css" />
-    <link rel="stylesheet" href="./public/css/chatbot.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/navBar.css" />
+    <link rel="stylesheet" href="./css/modal.css" />
+    <link rel="stylesheet" href="./css/page-loader.css" />
+    <link rel="stylesheet" href="./css/chatbot.css" />
     <!-- Page loader related -->
 
     <!-- JS Links (Connecting the JS file to this file) -->
-    <script src="./public/js/script.js"></script>
-    <script src="./public/js/modal.js"></script>
-    <script src="./public/js/page-loader.js"></script>
-    <script src="./public/js/chatbot.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/modal.js"></script>
+    <script src="./js/page-loader.js"></script>
+    <script src="./js/chatbot.js"></script>
     <!-- Page Loader related -->
 
     <!-- FLUID EFFECT RELATED -->
-    <script src="public/js/fluidEffect/jquery.min.js"></script>
-    <script src="public/js/fluidEffect/fluid.min.js"></script>
+    <script src="/js/fluidEffect/jquery.min.js"></script>
+    <script src="/js/fluidEffect/fluid.min.js"></script>
 
     <!-- Translate related -->
     <script>
@@ -96,7 +96,7 @@
         <!-- Centers content vertically/horizontally -->
         <div class="logo-reveal">
           <!-- Container for logo animation -->
-          <img src="./public/img/logo.png" alt="Logo" />
+          <img src="./img/logo.png" alt="Logo" />
           <!-- Logo -->
         </div>
         <!-- Loading bar is trapped into a container so it can fill it entirely! -->
@@ -109,53 +109,8 @@
     </div>
 
     <!-- Navbar -->
-    <nav>
-      <!-- Left side container with logo and translate -->
-      <div class="left-container-nav">
-        <!-- Logo on left side -->
-        <div class="logo">
-          <a href="index.html"> <img src="public/img/logo.png" alt="Logo" /></a>
-        </div>
 
-        <!-- Translate next to logo -->
-      </div>
-
-      <div class="actions">
-        <ul>
-          <li><div class="gtranslate_wrapper"></div></li>
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li>
-            <button
-              style="border: none; background-color: transparent"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-            >
-              <i class="fa-regular fa-circle-user"></i>
-            </button>
-          </li>
-          <li><i class="fa-solid fa-cart-shopping"></i></li>
-        </ul>
-      </div>
-
-      <button class="mobile-menu-btn">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <div class="links">
-        <ul>
-          <div class="mobile-logo">
-            <a href="index.html">
-              <img src="public/img/logo.png" alt="Logo" />
-            </a>
-          </div>
-
-          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="public/pages/our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('partials/navbar.ejs') %>
 
     <!-- Menu Overlay -->
     <div class="menu-overlay"></div>
@@ -172,14 +127,14 @@
         <!--Intialize Container (taking female CSS container)-->
         <img
           id="female-img"
-          src="./public/img/girlTestCopy.jpg"
+          src="./img/girlTestCopy.jpg"
           alt="For Her Fragrances"
         />
         <div class="text-overlay">
           <!-- Increases z-index -->
           <button
             style="z-index: 9999999"
-            onclick="window.location.href='public/pages/fragrances-for-women.html'"
+            onclick="window.location.href='fragrances-for-women'"
           >
             For Her
           </button>
@@ -192,13 +147,13 @@
         <canvas id="male-fluid-canvas"></canvas>
         <img
           id="male-img"
-          src="./public/img/guyTestCopy.png"
+          src="./img/guyTestCopy.png"
           alt="For Him Fragrances"
         />
         <div class="text-overlay">
           <button
             style="z-index: 9999999"
-            onclick="window.location.href='public/pages/fragrances-for-men.html'"
+            onclick="window.location.href='fragrances-for-men'"
           >
             For Him
           </button>
@@ -239,7 +194,7 @@
           When you choose Aloura, you're not just buying a fragrance – you're
           experiencing the culmination of artistry, science, and passion.
         </p>
-        <a href="public/pages/our-story.html" class="learn-more-btn"
+        <a href="/our-story" class="learn-more-btn"
           >Learn More</a
         >
 
@@ -373,7 +328,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/tom ford tobacco vanilla.png"
+                  src="./img/perfumes-transparent/tom ford tobacco vanilla.png"
                   alt="Tom Ford Tobacco Vanilla"
                 />
               </div>
@@ -390,7 +345,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/spicebomb-extreme.png"
+                  src="./img/perfumes-transparent/spicebomb-extreme.png"
                   alt="SpiceBomb Extreme Eau de Parfum"
                 />
               </div>
@@ -407,7 +362,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/stronger with you oud.png"
+                  src="./img/perfumes-transparent/stronger with you oud.png"
                   alt="Stronger With You Oud"
                 />
               </div>
@@ -424,7 +379,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/versace-eros.png"
+                  src="./img/perfumes-transparent/versace-eros.png"
                   alt="Versace Eros"
                 />
               </div>
@@ -441,7 +396,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/valentino-born-in-roma.png"
+                  src="./img/perfumes-transparent/valentino-born-in-roma.png"
                   alt="Valentino Born in Roma"
                 />
               </div>
@@ -458,7 +413,7 @@
             >
               <div class="product-img">
                 <img
-                  src="./public/img/perfumes-transparent/bleu-de-chanel.png"
+                  src="./img/perfumes-transparent/bleu-de-chanel.png"
                   alt="Bleu de Chanel"
                 />
               </div>
@@ -500,7 +455,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
-    <script src="./public/js/3dmodel.js"></script>
+    <script src="./js/3dmodel.js"></script>
 
     <!-- Modal Structure -->
     <div
@@ -719,7 +674,7 @@
       <div class="top">
         <div class="ccard">
           <div class="img">
-            <img src="./public/img/crown.png" alt="" />
+            <img src="./img/crown.png" alt="" />
           </div>
           <div class="text">
             <p>Customer Service</p>
@@ -728,7 +683,7 @@
         </div>
         <div class="ccard">
           <div class="img">
-            <img src="./public/img/hourse.png" alt="" />
+            <img src="./img/hourse.png" alt="" />
           </div>
           <div class="text">
             <p>Complimentary delivivery</p>
@@ -737,7 +692,7 @@
         </div>
         <div class="ccard">
           <div class="img">
-            <img src="./public/img/Gift.png" alt="" />
+            <img src="./img/Gift.png" alt="" />
           </div>
           <div class="text">
             <p>complimentary samples</p>
@@ -746,7 +701,7 @@
         </div>
         <div class="ccard">
           <div class="img">
-            <img src="./public/img/key.png" alt="" />
+            <img src="./img/key.png" alt="" />
           </div>
           <div class="text">
             <p>secure payment</p>
@@ -813,7 +768,7 @@
                       <li>
                         <a
                           class="text-white text-opacity-75"
-                          href="public/pages/our-story.html"
+                          href="/our-story"
                           >About Us</a
                         >
                       </li>
@@ -954,7 +909,7 @@
           <i class="fa-solid fa-times"></i>
         </div>
         <img
-          src="./public/img/ALOURA.jpg"
+          src="./img/ALOURA.jpg"
           alt="Special Offer"
           class="popup-image"
         />
@@ -964,9 +919,9 @@
   -->
 
     <!-- FLUID - Female -->
-    <!-- <script src="./public/js/fluidEffect/female-app.js"></script> -->
+    <!-- <script src="./js/fluidEffect/female-app.js"></script> -->
     <!-- FLUID - Male -->
-    <!-- <script src="./public/js/fluidEffect/male-app.js"></script> -->
+    <!-- <script src="./js/fluidEffect/male-app.js"></script> -->
 
     <!-- Chatbot -->
     <div class="chatbot-container">
@@ -976,11 +931,7 @@
       <div class="chat-interface">
         <div class="chat-header">
           <div class="header-content">
-            <img
-              src="./public/img/logo.png"
-              alt="Aloura Logo"
-              class="chat-logo"
-            />
+            <img src="./img/logo.png" alt="Aloura Logo" class="chat-logo" />
             <h3>Aloura Assistant</h3>
           </div>
           <button class="close-chat">

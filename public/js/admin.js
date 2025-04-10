@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.settings.onclick = () => showSection('settings');
 
     buttons.logout.onclick = () => {
-       window.location.href="../../index.html";
+       window.location.href="/";
     };
 });
 

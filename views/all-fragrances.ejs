@@ -85,8 +85,19 @@
     ></script>
 
     <!-- Translate related -->
-    <script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"detect_browser_language":true,"languages":["en","ar","es","fr","de"],"wrapper_selector":".gtranslate_wrapper"}</script>
-    <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        native_language_names: true,
+        detect_browser_language: true,
+        languages: ["en", "ar", "es", "fr", "de"],
+        wrapper_selector: ".gtranslate_wrapper",
+      };
+    </script>
+    <script
+      src="https://cdn.gtranslate.net/widgets/latest/dropdown.js"
+      defer
+    ></script>
 
     <!-- END OF SCRIPTS-->
   </head>
@@ -111,64 +122,8 @@
       </div>
     </div>
 
-    <!-- Navbar -->
-    <nav>
-      <!-- Left side container with logo and translate -->
-      <div class="left-container">
-        <!-- Logo on left side -->
-        <div class="logo">
-          <a href="../../index.html"> <img src="../img/logo.png" alt="Logo" /></a>
-        </div>
-
-        <!-- Translate next to logo -->
-        <div class="gtranslate_wrapper"></div>
-      </div>
-
-      <div class="actions">
-        <ul>
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li>
-            <button
-              style="border: none; background-color: transparent"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-            >
-              <i class="fa-regular fa-circle-user"></i>
-            </button>
-          </li>
-          <li>
-            <button
-              style="border: none; background-color: transparent"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-            >
-              <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-
-      <button class="mobile-menu-btn">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <div class="links">
-        <ul>
-          <div class="mobile-logo">
-            <a href="index.html">
-              <img src="public/img/logo.png" alt="Logo" />
-            </a>
-          </div>
-
-          <li><a href="public/pages/all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="public/pages/our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- End of navbar -->
+    <%- include('partials/navbar.ejs') %>
+    <%- include('partials/cart.ejs') %>
 
     <!-- Beggining Title -->
     <h1
@@ -186,10 +141,10 @@
       data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
     >
       <ul>
-        <li><a href="all-fragrances.html">All Fragrances</a></li>
-        <li><a href="fragrances-for-women.html">For Women</a></li>
-        <li><a href="fragrances-for-men.html">For Men</a></li>
-        <li><a href="unisex-fragrances.html">Unisex</a></li>
+        <li><a href="/all-fragrances">All Fragrances</a></li>
+        <li><a href="/fragrances-for-women">For Women</a></li>
+        <li><a href="/fragrances-for-men">For Men</a></li>
+        <li><a href="/unisex-fragrances">Unisex</a></li>
       </ul>
     </div>
 
@@ -253,71 +208,7 @@
     </div>
     <!-- End of controls container -->
 
-    <!-- Shopping cart menu related -->
-    <div
-      class="offcanvas offcanvas-end custom-offcanvas"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-      style="z-index: 999999"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Cart</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="row cart-item mb-3">
-          <div class="col-md-3">
-            <img
-              src="../img/perfumes-transparent/spicebomb-extreme.png"
-              alt="Spicebomb Extreme"
-              class="img-fluid rounded"
-            />
-          </div>
-          <div class="col-md-5">
-            <h5 class="card-title">Product 1</h5>
-            <p class="text-muted">Category: Electronics</p>
-          </div>
-          <div class="col-md-2">
-            <div class="input-group">
-              <button class="btn btn-outline-secondary btn-sm" type="button">
-                -
-              </button>
-              <input
-                style="max-width: 100px"
-                type="text"
-                class="form-control form-control-sm text-center quantity-input"
-                value="1"
-              />
-              <button class="btn btn-outline-secondary btn-sm" type="button">
-                +
-              </button>
-            </div>
-          </div>
-          <div class="col-md-2 text-end">
-            <p class="fw-bold">$99.99</p>
-            <button class="btn btn-sm btn-outline-danger">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-          </div>
-        </div>
-        <hr />
-        <div class="offcanvas-footer p-3">
-          <button
-            id="Checkout"
-            class="btn btn-success w-10"
-            onclick="window.location.href='checkout.html'"
-          >
-            Checkout
-          </button>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Back-to-top button related: Animation Handled in the CSS, not Scrolly -->
     <div id="back-to-top-div">
@@ -341,7 +232,7 @@
 
         <!-- Image Container: Works as a link-->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -353,7 +244,7 @@
         </a>
 
         <!-- Title (Also Acts as a link) -->
-        <a href="fragrances-page.html" target=" _blank" class="card-title-link">
+        <a href="fragrances-page" target=" _blank" class="card-title-link">
           <h2 class="card-title">Spicebomb Extreme</h2>
         </a>
 
@@ -421,7 +312,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -433,7 +324,7 @@
         </a>
 
         <!-- Title -->
-        <a href="fragrances-page.html" target=" _blank" class="card-title-link">
+        <a href="fragrances-page" target=" _blank" class="card-title-link">
           <h2 class="card-title">Versace Eros</h2>
         </a>
 
@@ -494,7 +385,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -563,7 +454,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -633,7 +524,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -702,7 +593,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -772,7 +663,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -841,7 +732,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -912,7 +803,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -982,7 +873,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1053,7 +944,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1122,7 +1013,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1192,7 +1083,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1261,7 +1152,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1331,7 +1222,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1400,7 +1291,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1473,7 +1364,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1543,7 +1434,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1614,7 +1505,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1683,7 +1574,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1753,7 +1644,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1822,7 +1713,7 @@
         <div class="card-label">Men</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1892,7 +1783,7 @@
         <div class="card-label">Women</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
@@ -1961,7 +1852,7 @@
         <div class="card-label">Unisex</div>
         <!-- Image Container -->
         <a
-          href="fragrances-page.html"
+          href="fragrances-page"
           target="_blank"
           class="card-image-container"
         >
