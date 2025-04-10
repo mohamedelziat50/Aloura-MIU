@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check credentials
       if (email === "admin@gmail.com" && password === "admin") {
-        window.location.href = "/public/pages/admin.html"; // Redirect to admin page
+        window.location.href = "/admin"; // Redirect to admin page
       } else {
         alert("Invalid email or password");
       }
