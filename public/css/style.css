@@ -48,14 +48,22 @@ body {
   filter: brightness(1); /* Restore brightness when hovered */
 }
 
-/* Hide "For Her" button when hovering over the male side and Vice Versa */
-.female:hover ~ .male .text-overlay button {
-  display: none;
+/* Female hover → Male button slides down */
+.female:hover ~ .male .text-overlay button,
+.gender:hover .male:not(:hover) .text-overlay button {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transform: translateY(60px) scale(1, 0.5);
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* When you hover over .gender (the entire container), select the .female section only if it is NOT being hovered, and target the button */
+/* Male hover → Female button slides down */
+.male:hover ~ .female .text-overlay button,
 .gender:hover .female:not(:hover) .text-overlay button {
-  display: none;
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transform: translateY(60px) scale(1, 0.5);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .text-overlay button {
@@ -63,18 +71,18 @@ body {
   background: transparent;
   color: white;
   border: none;
-  padding: 13px 30px;
+  padding: 20px;
   font-size: 43px;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 400;
   font-family: "Bebas Neue";
   letter-spacing: 2px;
-  line-height: 39px;
-  opacity: 0; /* Start invisible */
-  transform: translateY(40px);
   
-  pointer-events: none; /* Initially unclickable */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Fully visible */
+  opacity: 1;
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth return */
+
 }
 
 /* Show class that will be added by JavaScript */
@@ -287,13 +295,12 @@ body {
 }
 
 /* Initial states for text overlays */
-.text-overlay button,
 .text-overlay-indulge,
 .text-overlay-your {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  transition-delay: 1s; /* Delay until after images are loaded */
+  transition-delay: 0.2s; /* Delay until after images are loaded */
 }
 
 /* Classes for when text is ready to show */
@@ -703,18 +710,8 @@ body {
   }
 }
 
-/* Text overlay visibility changes on hover */
-.gender:hover .female:not(:hover) .text-overlay button,
-.gender:hover .male:not(:hover) .text-overlay button {
-  opacity: 0.3; /* Still slightly visible on non-hovered side */
-  transform: translateY(10px);
-}
 
-.gender .female:hover .text-overlay button,
-.gender .male:hover .text-overlay button {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 
 /* --------------------
    Product Slider Section 
