@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/mohamedelziat50/Aloura-MIU#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

@@ -1,7 +1,10 @@
 import express from "express";
+dotenv.config();
 
 const app = express();
 const port = 3000;
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -19,6 +22,13 @@ app.get("/fragrances-page", (req, res) => res.render("fragrances-page"));
 app.get("/our-story", (req, res) => res.render("our-story"));
 app.get("/unisex-fragrances", (req, res) => res.render("unisex-fragrances"));
 
-app.listen(port, () => {
-  console.log(`http://localhost:${port}/`);
-});
+mongoose
+  .connect(process.env.monogoDb_URI)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`http://localhost:${port}/`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
