@@ -78,8 +78,6 @@
 
     <!-- Quiz Container -->
     <div class="quiz-container">
-      <h1>Find Your Perfect Fragrance</h1>
-      
       <!-- Progress Bar -->
       <div class="progress-bar">
         <div class="progress"></div>
@@ -87,106 +85,210 @@
 
       <!-- Question Slides -->
       <div class="question-slides">
-        <!-- Question 1 -->
-        <div class="question-slide" data-question="1">
-          <h2>Who are you shopping for?</h2>
+        <!-- Introduction Section -->
+        <section class="quiz-section active" id="introduction">
+          <h2>First, we'll need an introduction from you.</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Age Section -->
+        <section class="quiz-section" id="age">
+          <h2>How old are you?</h2>
+          <div class="age-slider">
+            <input type="range" min="18" max="80" value="20" class="slider" id="ageSlider">
+            <div class="age-value">20</div>
+          </div>
+          <button class="next-btn">Next</button>
+        </section>
+
+        <!-- Gender Section -->
+        <section class="quiz-section" id="gender">
+          <h2>What is your gender?</h2>
           <div class="options">
-            <div class="option" data-value="myself">
-              <img src="../img/perfumes-transparent/male.png" alt="Myself">
-              <span>Myself</span>
+            <div class="option" data-value="male">
+              <img src="../img/perfumes-transparent/male.png" alt="Male">
+              <span>Male</span>
             </div>
-            <div class="option" data-value="someone">
-              <img src="../img/perfumes-transparent/female.png" alt="Someone else">
-              <span>Someone else</span>
+            <div class="option" data-value="female">
+              <img src="../img/perfumes-transparent/female.png" alt="Female">
+              <span>Female</span>
+            </div>
+            <div class="option" data-value="neutral">
+              <span>Neutral</span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- Question 2 -->
-        <div class="question-slide" data-question="2">
-          <h2>What's your preferred fragrance intensity?</h2>
-          <div class="options">
-            <div class="option" data-value="light">
-              <span>Light & Fresh</span>
-              <p>Perfect for day wear</p>
+        <!-- Skin Tone Section -->
+        <section class="quiz-section" id="skinTone">
+          <h2>What is your skin tone?</h2>
+          <div class="options skin-tones">
+            <div class="option" data-value="fair">
+              <div class="tone-circle" style="background-color: #FFE5D6"></div>
+              <span>Fair</span>
             </div>
-            <div class="option" data-value="moderate">
-              <span>Moderate</span>
-              <p>Balanced for any occasion</p>
+            <div class="option" data-value="light">
+              <div class="tone-circle" style="background-color: #FFD5B3"></div>
+              <span>Light</span>
+            </div>
+            <div class="option" data-value="medium">
+              <div class="tone-circle" style="background-color: #E8B88A"></div>
+              <span>Medium</span>
+            </div>
+            <div class="option" data-value="olive">
+              <div class="tone-circle" style="background-color: #C99C67"></div>
+              <span>Olive</span>
+            </div>
+            <div class="option" data-value="tan">
+              <div class="tone-circle" style="background-color: #8E6338"></div>
+              <span>Tan</span>
+            </div>
+            <div class="option" data-value="deep">
+              <div class="tone-circle" style="background-color: #593222"></div>
+              <span>Deep</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Personality Intro Section -->
+        <section class="quiz-section" id="personalityIntro">
+          <h2>Let's dive deeper into your personality</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Personality Questions -->
+        <section class="quiz-section" id="securityVsAdventure">
+          <h2>Which matters the most to you?</h2>
+          <div class="options">
+            <div class="option" data-value="security">
+              <span>Feeling safe and secure</span>
+            </div>
+            <div class="option" data-value="adventure">
+              <span>Searching for adventure</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="careVsLead">
+          <h2>Which would you rather do?</h2>
+          <div class="options">
+            <div class="option" data-value="care">
+              <span>Take care of people</span>
+            </div>
+            <div class="option" data-value="lead">
+              <span>Lead and be in charge</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="traditionVsNew">
+          <h2>Which comes most naturally to you?</h2>
+          <div class="options">
+            <div class="option" data-value="tradition">
+              <span>Building on tradition</span>
+            </div>
+            <div class="option" data-value="new">
+              <span>Inventing new ways</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="funVsSuccess">
+          <h2>Which are you naturally inclined to?</h2>
+          <div class="options">
+            <div class="option" data-value="fun">
+              <span>Having a good time</span>
+            </div>
+            <div class="option" data-value="success">
+              <span>Searching for success</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="organizeVsSurprise">
+          <h2>What is most important for you?</h2>
+          <div class="options">
+            <div class="option" data-value="organize">
+              <span>Organize the feature</span>
+            </div>
+            <div class="option" data-value="surprise">
+              <span>Enjoy surprises</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Olfactive Intro Section -->
+        <section class="quiz-section" id="olfactiveIntro">
+          <h2>Splendid! Let's move on to your olfactive preferences!</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Fragrance Strength -->
+        <section class="quiz-section" id="fragranceStrength">
+          <h2>How strong do you like your perfume?</h2>
+          <div class="options">
+            <div class="option" data-value="subtle">
+              <span>Subtle</span>
+            </div>
+            <div class="option" data-value="balanced">
+              <span>Balanced</span>
             </div>
             <div class="option" data-value="strong">
-              <span>Strong & Bold</span>
-              <p>Makes a statement</p>
+              <span>Strong</span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- Question 3 -->
-        <div class="question-slide" data-question="3">
-          <h2>What scent family attracts you most?</h2>
+        <!-- Feeling -->
+        <section class="quiz-section" id="desiredFeeling">
+          <h2>How would you like to feel with your perfume?</h2>
           <div class="options">
+            <div class="option" data-value="fresh">
+              <span>Fresh and elegant</span>
+            </div>
+            <div class="option" data-value="seductive">
+              <span>Seductive & bold</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scent Family -->
+        <section class="quiz-section" id="scentFamily">
+          <h2>Any favorite perfume family? (Select up to 2)</h2>
+          <div class="options">
+            <div class="option" data-value="citrus">
+              <span>Citrusy</span>
+              <p>Bergamot, Lemon, Orange</p>
+            </div>
+            <div class="option" data-value="fruity">
+              <span>Fruity</span>
+              <p>Apple, Peach, Berry</p>
+            </div>
             <div class="option" data-value="floral">
               <span>Floral</span>
               <p>Rose, Jasmine, Lily</p>
-            </div>
-            <div class="option" data-value="woody">
-              <span>Woody</span>
-              <p>Sandalwood, Cedar, Oud</p>
             </div>
             <div class="option" data-value="oriental">
               <span>Oriental</span>
               <p>Vanilla, Amber, Musk</p>
             </div>
+            <div class="option" data-value="woody">
+              <span>Woody</span>
+              <p>Sandalwood, Cedar, Oud</p>
+            </div>
             <div class="option" data-value="fresh">
               <span>Fresh</span>
-              <p>Citrus, Marine, Green</p>
+              <p>Marine, Green, Aquatic</p>
             </div>
           </div>
-        </div>
-
-        <!-- Question 4 -->
-        <div class="question-slide" data-question="4">
-          <h2>When do you plan to wear this fragrance?</h2>
-          <div class="options">
-            <div class="option" data-value="day">
-              <span>Daytime</span>
-              <p>Office, Casual outings</p>
-            </div>
-            <div class="option" data-value="night">
-              <span>Evening</span>
-              <p>Dinner, Special occasions</p>
-            </div>
-            <div class="option" data-value="all">
-              <span>Versatile</span>
-              <p>Any time of day</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Question 5 -->
-        <div class="question-slide" data-question="5">
-          <h2>What's your budget range?</h2>
-          <div class="options">
-            <div class="option" data-value="150">
-              <span>€150 - €200</span>
-              <p>30ml</p>
-            </div>
-            <div class="option" data-value="200">
-              <span>€200 - €250</span>
-              <p>50ml</p>
-            </div>
-            <div class="option" data-value="270">
-              <span>€270+</span>
-              <p>75ml</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="quiz-navigation">
-        <button class="prev-btn" style="display: none;">Previous</button>
-        <button class="next-btn">Next</button>
+          <button class="next-btn">Find My Perfect Fragrance</button>
+        </section>
       </div>
     </div>
 

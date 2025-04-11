@@ -1,94 +1,129 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Quiz elements
-    const slides = document.querySelectorAll('.question-slide');
+    const sections = document.querySelectorAll('.quiz-section');
     const progressBar = document.querySelector('.progress');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const options = document.querySelectorAll('.option');
+    const ageSlider = document.getElementById('ageSlider');
+    const ageValue = document.querySelector('.age-value');
     
-    let currentSlide = 0;
-    const totalSlides = slides.length;
+    let currentSection = 0;
+    const totalSections = sections.length;
     const userAnswers = {};
+    let selectedScentCount = 0;
 
-    // Initialize first slide
-    showSlide(currentSlide);
+    // Initialize first section and progress
+    updateSection(currentSection);
     updateProgress();
 
-    // Event listeners for navigation buttons
-    prevBtn.addEventListener('click', () => {
-        if (currentSlide > 0) {
-            currentSlide--;
-            showSlide(currentSlide);
-            updateProgress();
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentSlide < totalSlides - 1 && isOptionSelected(currentSlide)) {
-            currentSlide++;
-            showSlide(currentSlide);
-            updateProgress();
-        } else if (currentSlide === totalSlides - 1 && isOptionSelected(currentSlide)) {
-            showResults();
-        }
-    });
-
-    // Option selection handling
-    options.forEach(option => {
-        option.addEventListener('click', () => {
-            const slide = option.closest('.question-slide');
-            const questionNumber = slide.dataset.question;
-            
-            // Remove selection from other options in the same question
-            slide.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Select clicked option
-            option.classList.add('selected');
-            userAnswers[questionNumber] = option.dataset.value;
-            
-            // Enable next button if an option is selected
-            nextBtn.style.opacity = '1';
-            nextBtn.style.pointerEvents = 'auto';
+    // Handle age slider
+    if (ageSlider) {
+        ageSlider.addEventListener('input', () => {
+            ageValue.textContent = ageSlider.value;
+            userAnswers['age'] = ageSlider.value;
+            enableNextButton(sections[currentSection]);
         });
-    });
-
-    // Show specific slide
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active');
-            if (i === index) {
-                slide.classList.add('active');
-            }
-        });
-
-        // Update button visibility
-        prevBtn.style.display = index === 0 ? 'none' : 'block';
-        nextBtn.textContent = index === totalSlides - 1 ? 'Show Results' : 'Next';
     }
 
-    // Update progress bar
+    // Handle section transitions
+    document.addEventListener('click', (e) => {
+        // Arrow down button handling
+        if (e.target.closest('.arrow-down')) {
+            moveToNextSection();
+        }
+
+        // Option selection handling
+        if (e.target.closest('.option')) {
+            const option = e.target.closest('.option');
+            const section = option.closest('.quiz-section');
+            
+            // Handle scent family special case (max 2 selections)
+            if (section.id === 'scentFamily') {
+                handleScentFamilySelection(option);
+            } else {
+                // Single selection for other sections
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                
+                // Store answer
+                userAnswers[section.id] = option.dataset.value;
+                
+                // Enable next button or auto-advance
+                if (section.querySelector('.next-btn')) {
+                    enableNextButton(section);
+                } else {
+                    setTimeout(moveToNextSection, 500);
+                }
+            }
+        }
+
+        // Next button handling
+        if (e.target.classList.contains('next-btn')) {
+            moveToNextSection();
+        }
+    });
+
+    function handleScentFamilySelection(option) {
+        if (option.classList.contains('selected')) {
+            option.classList.remove('selected');
+            selectedScentCount--;
+        } else if (selectedScentCount < 2) {
+            option.classList.add('selected');
+            selectedScentCount++;
+        }
+
+        // Store selected scents
+        const selectedScents = Array.from(option.closest('.options').querySelectorAll('.selected'))
+            .map(opt => opt.dataset.value);
+        userAnswers.scentFamily = selectedScents;
+
+        // Enable next button if at least one scent is selected
+        if (selectedScentCount > 0) {
+            enableNextButton(option.closest('.quiz-section'));
+        }
+    }
+
+    function moveToNextSection() {
+        if (currentSection < totalSections - 1) {
+            currentSection++;
+            updateSection(currentSection);
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            showResults();
+        }
+    }
+
+    function updateSection(index) {
+        sections.forEach((section, i) => {
+            section.classList.remove('active');
+            if (i === index) {
+                section.classList.add('active');
+            }
+        });
+    }
+
     function updateProgress() {
-        const progress = ((currentSlide + 1) / totalSlides) * 100;
+        const progress = ((currentSection + 1) / totalSections) * 100;
         progressBar.style.width = `${progress}%`;
     }
 
-    // Check if an option is selected for the current slide
-    function isOptionSelected(slideIndex) {
-        const questionNumber = slides[slideIndex].dataset.question;
-        return userAnswers[questionNumber] !== undefined;
+    function enableNextButton(section) {
+        const nextBtn = section.querySelector('.next-btn');
+        if (nextBtn) {
+            nextBtn.classList.add('active');
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+        }
     }
 
-    // Show quiz results
     function showResults() {
-        // Convert answers to recommendation
+        // Analyze answers and generate recommendation
         const recommendation = generateRecommendation(userAnswers);
         
-        // Clear quiz container
+        // Update UI with recommendation
         const quizContainer = document.querySelector('.quiz-container');
         quizContainer.innerHTML = `
-            <h1>Your Perfect Match</h1>
             <div class="results-container">
                 <div class="recommendation-card">
                     <img src="${recommendation.image}" alt="${recommendation.name}">
@@ -101,43 +136,71 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // Generate fragrance recommendation based on answers
     function generateRecommendation(answers) {
-        // Simple recommendation logic based on user answers
-        let recommendation = {
-            image: '',
-            name: '',
-            description: '',
-            price: '',
-            link: ''
+        // Map user preferences to fragrance recommendations
+        const recommendations = {
+            freshElegant: {
+                male: {
+                    woody: {
+                        image: '../img/perfumes-transparent/bleu-de-chanel.png',
+                        name: 'Bleu de Chanel',
+                        description: 'A fresh and elegant woody fragrance with citrus notes.',
+                        price: '€270',
+                        link: 'all-fragrances.html'
+                    }
+                },
+                female: {
+                    floral: {
+                        image: '../img/perfumes-transparent/burberry-her.png',
+                        name: 'Burberry Her',
+                        description: 'A fresh and vibrant floral fragrance.',
+                        price: '€200',
+                        link: 'all-fragrances.html'
+                    }
+                }
+            },
+            seductiveBold: {
+                male: {
+                    oriental: {
+                        image: '../img/perfumes-transparent/spicebomb-extreme.png',
+                        name: 'Spicebomb Extreme',
+                        description: 'An intense and seductive oriental fragrance.',
+                        price: '€270',
+                        link: 'all-fragrances.html'
+                    }
+                },
+                female: {
+                    floral: {
+                        image: '../img/perfumes-transparent/flower-bomb.png',
+                        name: 'Flower Bomb',
+                        description: 'A seductive and bold floral fragrance.',
+                        price: '€200',
+                        link: 'all-fragrances.html'
+                    }
+                }
+            }
         };
 
-        // Example recommendation logic (you can customize this based on your fragrance inventory)
-        if (answers['3'] === 'woody' && answers['2'] === 'strong') {
-            recommendation = {
-                image: '../img/perfumes-transparent/spicebomb-extreme.png',
-                name: 'Spicebomb Extreme',
-                description: 'A powerful and intense fragrance with woody and spicy notes.',
-                price: '€270',
-                link: 'fragrances-page.html'
-            };
-        } else if (answers['3'] === 'floral' && answers['2'] === 'light') {
-            recommendation = {
-                image: '../img/perfumes-transparent/flower-bomb.png',
-                name: 'Flower Bomb',
-                description: 'A fresh and floral fragrance perfect for daily wear.',
-                price: '€200',
-                link: 'fragrances-page.html'
-            };
-        } else {
-            // Default recommendation
-            recommendation = {
-                image: '../img/perfumes-transparent/bleu-de-chanel.png',
-                name: 'Bleu de Chanel',
-                description: 'A versatile and sophisticated fragrance suitable for any occasion.',
-                price: '€270',
-                link: 'fragrances-page.html'
-            };
+        // Default recommendation
+        let recommendation = {
+            image: '../img/perfumes-transparent/bleu-de-chanel.png',
+            name: 'Bleu de Chanel',
+            description: 'A versatile and sophisticated fragrance suitable for any occasion.',
+            price: '€270',
+            link: 'all-fragrances.html'
+        };
+
+        // Logic to choose recommendation based on answers
+        const style = answers.desiredFeeling === 'fresh' ? 'freshElegant' : 'seductiveBold';
+        const gender = answers.gender || 'neutral';
+        const scent = answers.scentFamily ? answers.scentFamily[0] : 'woody';
+
+        try {
+            if (recommendations[style][gender][scent]) {
+                recommendation = recommendations[style][gender][scent];
+            }
+        } catch (e) {
+            // Use default recommendation if specific combination not found
         }
 
         return recommendation;
