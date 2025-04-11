@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="Perfumes, Fragrances, Quiz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find your perfect fragrance match with our personalized quiz at Aloura."
+    />
+    <title>Fragrance Quiz - Aloura</title>
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../css/fragrance-quiz.css" />
+    <link rel="stylesheet" href="../css/navBar.css" />
+    <link rel="stylesheet" href="../css/page-loader.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+      <div class="loader-content">
+        <div class="logo-reveal">
+          <img src="../img/logo.png" alt="Logo" />
+        </div>
+        <div class="loading-bar-container">
+          <div class="loading-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">
+        <a href="../../index.html"> <img src="../img/logo.png" alt="Logo"/></a>
+      </div>
+
+      <div class="links">
+        <ul>
+          <li><a href="all-fragrances.html">Fragrances</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gifting</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <ul>
+          <li><i class="fa-solid fa-magnifying-glass"></i></li>
+          <li><button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="fa-regular fa-circle-user"></i>
+          </button></li>
+          <li><i class="fa-solid fa-cart-shopping"></i></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container">
+      <h1>Find Your Perfect Fragrance</h1>
+      
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+
+      <!-- Question Slides -->
+      <div class="question-slides">
+        <!-- Question 1 -->
+        <div class="question-slide" data-question="1">
+          <h2>Who are you shopping for?</h2>
+          <div class="options">
+            <div class="option" data-value="myself">
+              <img src="../img/perfumes-transparent/male.png" alt="Myself">
+              <span>Myself</span>
+            </div>
+            <div class="option" data-value="someone">
+              <img src="../img/perfumes-transparent/female.png" alt="Someone else">
+              <span>Someone else</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-slide" data-question="2">
+          <h2>What's your preferred fragrance intensity?</h2>
+          <div class="options">
+            <div class="option" data-value="light">
+              <span>Light & Fresh</span>
+              <p>Perfect for day wear</p>
+            </div>
+            <div class="option" data-value="moderate">
+              <span>Moderate</span>
+              <p>Balanced for any occasion</p>
+            </div>
+            <div class="option" data-value="strong">
+              <span>Strong & Bold</span>
+              <p>Makes a statement</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-slide" data-question="3">
+          <h2>What scent family attracts you most?</h2>
+          <div class="options">
+            <div class="option" data-value="floral">
+              <span>Floral</span>
+              <p>Rose, Jasmine, Lily</p>
+            </div>
+            <div class="option" data-value="woody">
+              <span>Woody</span>
+              <p>Sandalwood, Cedar, Oud</p>
+            </div>
+            <div class="option" data-value="oriental">
+              <span>Oriental</span>
+              <p>Vanilla, Amber, Musk</p>
+            </div>
+            <div class="option" data-value="fresh">
+              <span>Fresh</span>
+              <p>Citrus, Marine, Green</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-slide" data-question="4">
+          <h2>When do you plan to wear this fragrance?</h2>
+          <div class="options">
+            <div class="option" data-value="day">
+              <span>Daytime</span>
+              <p>Office, Casual outings</p>
+            </div>
+            <div class="option" data-value="night">
+              <span>Evening</span>
+              <p>Dinner, Special occasions</p>
+            </div>
+            <div class="option" data-value="all">
+              <span>Versatile</span>
+              <p>Any time of day</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-slide" data-question="5">
+          <h2>What's your budget range?</h2>
+          <div class="options">
+            <div class="option" data-value="150">
+              <span>€150 - €200</span>
+              <p>30ml</p>
+            </div>
+            <div class="option" data-value="200">
+              <span>€200 - €250</span>
+              <p>50ml</p>
+            </div>
+            <div class="option" data-value="270">
+              <span>€270+</span>
+              <p>75ml</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="quiz-navigation">
+        <button class="prev-btn" style="display: none;">Previous</button>
+        <button class="next-btn">Next</button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/page-loader.js"></script>
+    <script src="../js/quiz.js"></script>
+  </body>
+</html>
