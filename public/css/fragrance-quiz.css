@@ -1,0 +1,475 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f1f1;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Loader and Logo Section */
+.fullpage-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.logo-reveal {
+    margin-bottom: 20px;
+}
+
+.logo-reveal img {
+    width: 120px;
+    opacity: 0;
+    transform: scale(0.1);
+    animation: logoReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Fix Navbar Positioning */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(241, 241, 241, 0.95);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Bar Animation */
+.loading-bar-container {
+    width: 175px;
+    height: 2px;
+    background: rgba(0,0,0,0.1);
+    margin: 25px auto 0;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0;
+    background: #000;
+    transition: width 0.4s linear;
+}
+
+/* Quiz Container */
+.quiz-container {
+    max-width: 900px;
+    margin: 140px auto 50px; /* Increased top margin to account for fixed navbar */
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 0.5s;
+    position: relative;
+    z-index: 1;
+}
+
+/* Additional space for fixed navbar */
+@media (max-width: 768px) {
+    .quiz-container {
+        margin-top: 100px;
+    }
+}
+
+.quiz-container h1 {
+    font-family: "Monotype Baskerville", serif;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #333;
+    letter-spacing: 0.1em;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.quiz-container h1::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: #333;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: #eee;
+    margin: 30px 0;
+    border-radius: 2px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #333;
+    width: 20%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+}
+
+/* Question Slides */
+.question-slides {
+    position: relative;
+    min-height: 400px;
+}
+
+.question-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(50px);
+    transition: opacity 0.5s ease, visibility 0.5s, transform 0.5s ease;
+    overflow-y: auto;
+    max-height: 80vh;
+    padding: 20px;
+}
+
+.question-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.question-slide.prev {
+    transform: translateX(-50px);
+}
+
+.question-slide h2 {
+    font-family: "Proxima Nova", sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+/* Options Styling */
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.option {
+    flex: 0 1 calc(33.333% - 20px);
+    min-width: 200px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.option::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.05);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.option:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    border-color: #333;
+    background-color: #f8f8f8;
+}
+
+.option.selected::before {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #333;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.option img {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.option span {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.option p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Dropdown override */
+.dropdown-menu {
+    position: absolute;
+    z-index: 1001;
+    background: white;  
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Navigation Buttons */
+.quiz-navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.prev-btn,
+.next-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.prev-btn::after,
+.next-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 0;
+    padding-bottom: 120%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.3s;
+}
+
+.prev-btn:active::after,
+.next-btn:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: 0s;
+}
+
+.prev-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.next-btn {
+    background-color: #333;
+    color: white;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .quiz-container {
+        padding: 15px;
+        margin: 30px auto;
+    }
+
+    .quiz-container h1 {
+        font-size: 2rem;
+    }
+
+    .question-slide h2 {
+        font-size: 1.5rem;
+    }
+
+    .option {
+        flex: 0 1 calc(50% - 20px);
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .option {
+        flex: 0 1 100%;
+    }
+}
+
+/* Results Page Styling */
+.results-container {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommendation-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.recommendation-card img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.recommendation-card img:hover {
+    transform: scale(1.05);
+}
+
+.recommendation-card h2 {
+    font-family: "Monotype Baskerville", serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.recommendation-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.recommendation-card .price {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.shop-now-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-now-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 0;
+    padding-bottom: 120%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.3s;
+}
+
+.shop-now-btn:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: 0s;
+}
+
+.shop-now-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes logoReveal {
+    to {
+        opacity: 1;
+        transform: scale(0.7);
+    }
+}
+
+/* Responsive adjustments for results page */
+@media (max-width: 480px) {
+    .recommendation-card {
+        padding: 20px;
+    }
+
+    .recommendation-card img {
+        max-width: 150px;
+    }
+
+    .recommendation-card h2 {
+        font-size: 1.5rem;
+    }
+}

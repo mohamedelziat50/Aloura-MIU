@@ -93,7 +93,7 @@ body {
 }
 
 /* Journey text styling */
-.journey-text-container {
+.fragrance-quiz-container {
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -103,9 +103,15 @@ body {
   width: 100%;
 }
 
-.journey-text {
+.fragrance-quiz a{
+  text-decoration: none;
+  color: grey;
+}
+
+.fragrance-quiz {
   font-family: "Proxima Nova", sans-serif;
   color: grey;
+  text-decoration: none;
   font-size: 16px;
   height: 24px;
   line-height: 24px;
@@ -114,11 +120,10 @@ body {
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  pointer-events: none; /* Initially unclickable */
 }
 
 /* Show class that will be added by JavaScript */
-.journey-text.show {
+.fragrance-quiz.show {
   opacity: 1;
   transform: translateY(0);
 }
