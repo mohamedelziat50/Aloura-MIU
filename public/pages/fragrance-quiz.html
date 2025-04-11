@@ -14,8 +14,8 @@
     <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
 
     <!-- CSS Links -->
-    <link rel="stylesheet" href="../css/fragrance-quiz.css" />
     <link rel="stylesheet" href="../css/navBar.css" />
+    <link rel="stylesheet" href="../css/fragrance-quiz.css" />
     <link rel="stylesheet" href="../css/page-loader.css" />
 
     <!-- Font Awesome -->
@@ -23,10 +23,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
+    <!-- Initial Scroll When Reloading -->
+    <script>
+      if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+      }
+      window.onload = function() {
+        window.scrollTo(0, 0);
+      };
+    </script>
+
+    <!-- JS Links -->
+    <script src="../js/page-loader.js"></script>
   </head>
   <body>
-    <!-- Page Loader -->
-    <div id="loader-wrapper">
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">
       <div class="loader-content">
         <div class="logo-reveal">
           <img src="../img/logo.png" alt="Logo" />
