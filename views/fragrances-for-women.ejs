@@ -24,47 +24,47 @@
     <link rel="stylesheet" href="../css/navBar.css" />
 
     <!-- Scrolly's animations in a css file -->
-    <link rel="stylesheet" href="../css/cssanimation.css"> 
+    <link rel="stylesheet" href="../css/cssanimation.css" />
 
     <!-- Over-riding specfic css here -->
     <style>
       .card-label {
-          background: #f3e7e2; /* Soft pastel pink */
-          box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
-          color: #5a3e36; /* Elegant deep brown */
+        background: #f3e7e2; /* Soft pastel pink */
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+        color: #5a3e36; /* Elegant deep brown */
       }
 
       #flower-bomb img {
-          scale: 0.8;
+        scale: 0.8;
       }
       #scandal img {
-          scale: 0.9;
+        scale: 0.9;
       }
       #burberry-her img {
-          scale: 0.8;
+        scale: 0.8;
       }
       #tom-ford-vanilla-sex img {
-          scale: 0.7;
+        scale: 0.7;
       }
-  </style>
+    </style>
 
     <!-- This script ensures that reloading the page makes the view point at the top -->
-     <!-- Without this, scrolly would scroll a little bit down for some reason automatically and mess things up -->
+    <!-- Without this, scrolly would scroll a little bit down for some reason automatically and mess things up -->
     <script>
       // Prevent the browser from restoring the scroll position
       if (history.scrollRestoration) {
-          history.scrollRestoration = 'manual';
+        history.scrollRestoration = "manual";
       }
 
       // Scroll to the top of the page on load
-      window.onload = function() {
-          window.scrollTo(0, 0);
+      window.onload = function () {
+        window.scrollTo(0, 0);
       };
-  </script>
+    </script>
 
     <!-- JS Links (Connecting the JS file to this file) -->
     <script src="../js/script.js"></script>
-    
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -89,57 +89,56 @@
   </head>
 
   <body>
-
     <!-- Navbar -->
-    <nav>
-
-      <div class="logo">
-        <a href="../../index.html"> <img src="../img/logo.png" alt="Logo"/></a>
-      </div>
-
-      <div class="links">
-        <ul>
-          <li><a href="all-fragrances.html">Fragrances</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="#">Gifting</a></li>
-          <li><a href="our-story.html">Our Story</a></li>
-        </ul>
-      </div>
-
-      <div class="actions">
-        <ul>
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li><button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#loginModal">
-            <i class="fa-regular fa-circle-user"></i>
-        </button></li>
-          <li><i class="fa-solid fa-cart-shopping"></i></li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('partials/navbar.ejs') %>
     <!-- End of navbar -->
-  
-    <h1 id="header" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">For Women</h1>
+
+    <h1
+      id="header"
+      data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s"
+      data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
+    >
+      For Women
+    </h1>
 
     <!-- Middle Links as Div-->
-    <div class="middle-links" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+    <div
+      class="middle-links"
+      data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s"
+      data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
+    >
       <ul>
-          <li><a href="all-fragrances.html">All Fragrances</a></li>
-          <li><a href="fragrances-for-women.html">For Women</a></li>
-          <li><a href="fragrances-for-men.html">For Men</a></li>
-          <li><a href="unisex-fragrances.html">Unisex</a></li>
+        <li><a href="/all-fragrances">All Fragrances</a></li>
+        <li><a href="/fragrances-for-women">For Women</a></li>
+        <li><a href="/fragrances-for-men">For Men</a></li>
+        <li><a href="/unisex-fragrances">Unisex</a></li>
       </ul>
     </div>
 
     <!-- Controls Container -->
-    <div class="controls-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+    <div
+      class="controls-container"
+      data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s"
+      data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
+    >
       <!-- Filter Button and Dropdown Menu -->
-      <div class="filter-container" data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s" data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s">
+      <div
+        class="filter-container"
+        data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s"
+        data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
+      >
         <button class="filter-button">Filter ▼</button>
         <div class="dropdown-menu-filter">
           <div class="dropdown-option-filter" data-value="None">None</div>
-          <div class="dropdown-option-filter" data-value="Eau de Parfum">Eau de Parfum</div>
-          <div class="dropdown-option-filter" data-value="Eau de Toilette">Eau de Toilette</div>
-          <div class="dropdown-option-filter" data-value="Eau de Cologne">Eau de Cologne</div>
+          <div class="dropdown-option-filter" data-value="Eau de Parfum">
+            Eau de Parfum
+          </div>
+          <div class="dropdown-option-filter" data-value="Eau de Toilette">
+            Eau de Toilette
+          </div>
+          <div class="dropdown-option-filter" data-value="Eau de Cologne">
+            Eau de Cologne
+          </div>
           <div class="dropdown-option-filter" data-value="Parfum">Parfum</div>
         </div>
       </div>
@@ -147,85 +146,50 @@
       <!-- Search bar -->
       <div class="search-container">
         <!-- Empty place holder as the search container's label will do the job with animation! -->
-        <input type="text" class="search-input" id="searchBox" placeholder=" " required>
-        <label class="search-label" for="searchBox" data-scrolly-top="fadeIn, duration 1.5s, delay:0.55s" data-scrolly-down="fadeIn, duration 1.5s, delay:0.55s">Search</label>
-        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-        <span class="close-icon" id="clearSearch"><i class="fa-solid fa-xmark"></i></span>
+        <input
+          type="text"
+          class="search-input"
+          id="searchBox"
+          placeholder=" "
+          required
+        />
+        <label
+          class="search-label"
+          for="searchBox"
+          data-scrolly-top="fadeIn, duration 1.5s, delay:0.55s"
+          data-scrolly-down="fadeIn, duration 1.5s, delay:0.55s"
+          >Search</label
+        >
+        <span class="search-icon"
+          ><i class="fa-solid fa-magnifying-glass"></i
+        ></span>
+        <span class="close-icon" id="clearSearch"
+          ><i class="fa-solid fa-xmark"></i
+        ></span>
       </div>
     </div>
     <!-- End of controls container -->
-        
-    <div
-      class="offcanvas offcanvas-end custom-offcanvas"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Cart</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="row cart-item mb-3">
-          <div class="col-md-3">
-            <img
-              src="../img/perfumes-transparent/spicebomb-extreme.png"
-              alt="Spicebomb Extreme"
-              class="img-fluid rounded"
-            />
-          </div>
-          <div class="col-md-5">
-            <h5 class="card-title">Product 1</h5>
-            <p class="text-muted">Category: Electronics</p>
-          </div>
-          <div class="col-md-2">
-            <div class="input-group">
-              <button class="btn btn-outline-secondary btn-sm" type="button">
-                -
-              </button>
-              <input
-                style="max-width: 100px"
-                type="text"
-                class="form-control form-control-sm text-center quantity-input"
-                value="1"
-              />
-              <button class="btn btn-outline-secondary btn-sm" type="button">
-                +
-              </button>
-            </div>
-          </div>
-          <div class="col-md-2 text-end">
-            <p class="fw-bold">$99.99</p>
-            <button class="btn btn-sm btn-outline-danger">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-          </div>
-        </div>
-        <hr />
-        <div class="offcanvas-footer p-3">
-          <button id="Checkout" class="btn btn-success w-10" onclick="window.location.href='checkout.html'">Checkout</button>
-        </div>
-      </div>
-    </div>
+
+    <%- include('partials/cart.ejs') %>
 
     <!-- BIG CARDS CONTAINER -->
-     <div class="cards-container">
+    <div class="cards-container">
       <!-- 1. Flower bomb container -->
-      <div class="card" id="flower-bomb" data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s" data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s">
+      <div
+        class="card"
+        id="flower-bomb"
+        data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s"
+        data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s"
+      >
         <!-- Label -->
         <div class="card-label">Blossom</div>
         <!-- Image Container -->
-        <a href="fragrances-page.html" target="_blank" class="card-image-container">
+        <a href="/fragrances-page" target="_blank" class="card-image-container">
           <img
-          class="card-image"
-          src="../img/perfumes-transparent/flower-bomb.png"
-          alt="Flowerbomb Picture"
-        />
+            class="card-image"
+            src="../img/perfumes-transparent/flower-bomb.png"
+            alt="Flowerbomb Picture"
+          />
         </a>
 
         <!-- Title -->
@@ -236,12 +200,13 @@
 
         <!-- Mood -->
         <p class="card-mood">Floral, Musky, Woody</p>
-      
+
         <!-- Price + ml container -->
         <div class="card-price">
           <span class="price">270 €</span>
-          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
-          
+          <span class="ml">75ml ▼</span>
+          <!-- Added arrow here -->
+
           <!-- Dropdown Menu -->
           <div class="dropdown-menu">
             <div class="dropdown-option" data-price="270 €" data-ml="75ml">
@@ -276,16 +241,21 @@
       <!-- End of Flower bomb container -->
 
       <!-- 2. tom container -->
-      <div class="card" id="tom-ford-vanilla-sex" data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s" data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s">
+      <div
+        class="card"
+        id="tom-ford-vanilla-sex"
+        data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s"
+        data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s"
+      >
         <!-- Label -->
         <div class="card-label">Luxe</div>
         <!-- Image Container -->
-        <a href="fragrances-page.html" target="_blank" class="card-image-container">
+        <a href="/fragrances-page" target="_blank" class="card-image-container">
           <img
-          class="card-image"
-          src="../img/perfumes-transparent/tom-ford-vanilla-sex.png"
-          alt="Versace Eros Picture"
-        />
+            class="card-image"
+            src="../img/perfumes-transparent/tom-ford-vanilla-sex.png"
+            alt="Versace Eros Picture"
+          />
         </a>
 
         <!-- Title -->
@@ -296,12 +266,13 @@
 
         <!-- Mood -->
         <p class="card-mood">Floral, Musky, Woody</p>
-      
+
         <!-- Price + ml container -->
         <div class="card-price">
           <span class="price">270 €</span>
-          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
-          
+          <span class="ml">75ml ▼</span>
+          <!-- Added arrow here -->
+
           <!-- Dropdown Menu -->
           <div class="dropdown-menu">
             <div class="dropdown-option" data-price="270 €" data-ml="75ml">
@@ -337,16 +308,21 @@
       <!-- End of tom container -->
 
       <!-- 3. scandal container -->
-      <div class="card" id="scandal" data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s" data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s">
+      <div
+        class="card"
+        id="scandal"
+        data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s"
+        data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s"
+      >
         <!-- Label -->
         <div class="card-label">Grace</div>
         <!-- Image Container -->
-        <a href="fragrances-page.html" target="_blank" class="card-image-container">
+        <a href="/fragrances-page" target="_blank" class="card-image-container">
           <img
-          class="card-image"
-          src="../img/perfumes-transparent/scandal.png"
-          alt="Ultra Male Picture"
-        />
+            class="card-image"
+            src="../img/perfumes-transparent/scandal.png"
+            alt="Ultra Male Picture"
+          />
         </a>
 
         <!-- Title -->
@@ -361,8 +337,9 @@
         <!-- Price + ml container -->
         <div class="card-price">
           <span class="price">300 €</span>
-          <span class="ml">100ml ▼</span> <!-- Added arrow here -->
-          
+          <span class="ml">100ml ▼</span>
+          <!-- Added arrow here -->
+
           <!-- Dropdown Menu -->
           <div class="dropdown-menu">
             <div class="dropdown-option" data-price="270 €" data-ml="75ml">
@@ -396,32 +373,38 @@
       <!-- End of scandal container -->
 
       <!-- 4. burbery her container -->
-      <div class="card" id="burberry-her" data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s" data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s">
+      <div
+        class="card"
+        id="burberry-her"
+        data-scrolly-top="moveFromTop, duration:1.3s, delay:0.15s"
+        data-scrolly-down="moveFromBottom, duration:1.3s, delay:0.15s"
+      >
         <!-- Label -->
         <div class="card-label">Enchant</div>
         <!-- Image Container -->
-        <a href="fragrances-page.html" target="_blank" class="card-image-container">
+        <a href="/fragrances-page" target="_blank" class="card-image-container">
           <img
-          class="card-image"
-          src="../img/perfumes-transparent/burberry-her.png"
-          alt="stronger-with-you Picture"
-        />
+            class="card-image"
+            src="../img/perfumes-transparent/burberry-her.png"
+            alt="stronger-with-you Picture"
+          />
         </a>
-      
+
         <!-- Title -->
         <h2 class="card-title">Burberry her</h2>
-      
+
         <!-- Type -->
         <p class="card-type">Eau de Parfum</p>
-      
+
         <!-- Mood -->
         <p class="card-mood">Floral, Musky, Woody</p>
-      
+
         <!-- Price + ml container -->
         <div class="card-price">
           <span class="price">270 €</span>
-          <span class="ml">75ml ▼</span> <!-- Added arrow here -->
-          
+          <span class="ml">75ml ▼</span>
+          <!-- Added arrow here -->
+
           <!-- Dropdown Menu -->
           <div class="dropdown-menu">
             <div class="dropdown-option" data-price="270 €" data-ml="75ml">
@@ -438,10 +421,10 @@
             </div>
           </div>
         </div>
-      
+
         <!-- Separator -->
-        <hr class="card-separator">
-      
+        <hr class="card-separator" />
+
         <!-- Add to Cart Button -->
         <button
           class="card-button"
@@ -453,20 +436,19 @@
           Add To Cart
         </button>
       </div>
-       <!-- End of Stronger with you container -->
+      <!-- End of Stronger with you container -->
+    </div>
+    <!-- END OF BIG CARDS CONTAINER -->
 
-     </div>
-     <!-- END OF BIG CARDS CONTAINER -->
+    <!-- Linking js at end of body to wait for everything to load! -->
+    <script src="../js/all-fragrances.js"></script>
 
-     <!-- Linking js at end of body to wait for everything to load! -->
-     <script src="../js/all-fragrances.js"></script>
-
-     <!-- Scrolly activation code for it to work -->
-     <script type="text/javascript" src="../js/scrolly.js"></script>
-     <script>
-      window.onload = function() {
-         scrolly();
-      }; 
-   </script>
+    <!-- Scrolly activation code for it to work -->
+    <script type="text/javascript" src="../js/scrolly.js"></script>
+    <script>
+      window.onload = function () {
+        scrolly();
+      };
+    </script>
   </body>
 </html>

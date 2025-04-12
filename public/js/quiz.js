@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Bleu de Chanel',
             description: 'A versatile and sophisticated fragrance suitable for any occasion.',
             price: '€270',
-            link: 'all-fragrances.html'
+            link: 'fragrances-page'
         };
 
         // Logic to choose recommendation based on answers
