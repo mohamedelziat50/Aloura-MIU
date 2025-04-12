@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="Perfumes, Fragrances, Quiz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find your perfect fragrance match with our personalized quiz at Aloura."
+    />
+    <title>Fragrance Quiz - Aloura</title>
+
+    <!-- Tab Logo -->
+    <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../css/navBar.css" />
+    <link rel="stylesheet" href="../css/fragrance-quiz.css" />
+    <link rel="stylesheet" href="../css/page-loader.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Initial Scroll When Reloading -->
+    <script>
+      if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+      }
+      window.onload = function() {
+        window.scrollTo(0, 0);
+      };
+    </script>
+
+    <!-- JS Links -->
+    <script src="../js/page-loader.js"></script>
+  </head>
+  <body>
+    <!-- Pre-loader at the top of body -->
+    <div class="fullpage-loader">
+      <div class="loader-content">
+        <div class="logo-reveal">
+          <img src="../img/logo.png" alt="Logo" />
+        </div>
+        <div class="loading-bar-container">
+          <div class="loading-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <%- include('partials/navbar.ejs') %>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+
+      <!-- Question Slides -->
+      <div class="question-slides">
+        <!-- Introduction Section -->
+        <section class="quiz-section active" id="introduction">
+          <h2>First, we'll need an introduction from you.</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Age Section -->
+        <section class="quiz-section" id="age">
+          <h2>How old are you?</h2>
+          <div class="age-slider">
+            <input type="range" min="18" max="80" value="20" class="slider" id="ageSlider">
+            <div class="age-value">20</div>
+          </div>
+          <button class="next-btn">Next</button>
+        </section>
+
+        <!-- Gender Section -->
+        <section class="quiz-section" id="gender">
+          <h2>What is your gender?</h2>
+          <div class="options">
+            <div class="option" data-value="male">
+              <img src="../img/perfumes-transparent/male.png" alt="Male">
+              <span>Male</span>
+            </div>
+            <div class="option" data-value="female">
+              <img src="../img/perfumes-transparent/female.png" alt="Female">
+              <span>Female</span>
+            </div>
+            <div class="option" data-value="neutral">
+              <span>Neutral</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skin Tone Section -->
+        <section class="quiz-section" id="skinTone">
+          <h2>What is your skin tone?</h2>
+          <div class="options skin-tones">
+            <div class="option" data-value="fair">
+              <div class="tone-circle" style="background-color: #FFE5D6"></div>
+              <span>Fair</span>
+            </div>
+            <div class="option" data-value="light">
+              <div class="tone-circle" style="background-color: #FFD5B3"></div>
+              <span>Light</span>
+            </div>
+            <div class="option" data-value="medium">
+              <div class="tone-circle" style="background-color: #E8B88A"></div>
+              <span>Medium</span>
+            </div>
+            <div class="option" data-value="olive">
+              <div class="tone-circle" style="background-color: #C99C67"></div>
+              <span>Olive</span>
+            </div>
+            <div class="option" data-value="tan">
+              <div class="tone-circle" style="background-color: #8E6338"></div>
+              <span>Tan</span>
+            </div>
+            <div class="option" data-value="deep">
+              <div class="tone-circle" style="background-color: #593222"></div>
+              <span>Deep</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Personality Intro Section -->
+        <section class="quiz-section" id="personalityIntro">
+          <h2>Let's dive deeper into your personality</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Personality Questions -->
+        <section class="quiz-section" id="securityVsAdventure">
+          <h2>Which matters the most to you?</h2>
+          <div class="options">
+            <div class="option" data-value="security">
+              <span>Feeling safe and secure</span>
+            </div>
+            <div class="option" data-value="adventure">
+              <span>Searching for adventure</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="careVsLead">
+          <h2>Which would you rather do?</h2>
+          <div class="options">
+            <div class="option" data-value="care">
+              <span>Take care of people</span>
+            </div>
+            <div class="option" data-value="lead">
+              <span>Lead and be in charge</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="traditionVsNew">
+          <h2>Which comes most naturally to you?</h2>
+          <div class="options">
+            <div class="option" data-value="tradition">
+              <span>Building on tradition</span>
+            </div>
+            <div class="option" data-value="new">
+              <span>Inventing new ways</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="funVsSuccess">
+          <h2>Which are you naturally inclined to?</h2>
+          <div class="options">
+            <div class="option" data-value="fun">
+              <span>Having a good time</span>
+            </div>
+            <div class="option" data-value="success">
+              <span>Searching for success</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section" id="organizeVsSurprise">
+          <h2>What is most important for you?</h2>
+          <div class="options">
+            <div class="option" data-value="organize">
+              <span>Organize the feature</span>
+            </div>
+            <div class="option" data-value="surprise">
+              <span>Enjoy surprises</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Olfactive Intro Section -->
+        <section class="quiz-section" id="olfactiveIntro">
+          <h2>Splendid! Let's move on to your olfactive preferences!</h2>
+          <div class="arrow-down">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </section>
+
+        <!-- Fragrance Strength -->
+        <section class="quiz-section" id="fragranceStrength">
+          <h2>How strong do you like your perfume?</h2>
+          <div class="options">
+            <div class="option" data-value="subtle">
+              <span>Subtle</span>
+            </div>
+            <div class="option" data-value="balanced">
+              <span>Balanced</span>
+            </div>
+            <div class="option" data-value="strong">
+              <span>Strong</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feeling -->
+        <section class="quiz-section" id="desiredFeeling">
+          <h2>How would you like to feel with your perfume?</h2>
+          <div class="options">
+            <div class="option" data-value="fresh">
+              <span>Fresh and elegant</span>
+            </div>
+            <div class="option" data-value="seductive">
+              <span>Seductive & bold</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scent Family -->
+        <section class="quiz-section" id="scentFamily">
+          <h2>Any favorite perfume family? (Select up to 2)</h2>
+          <div class="options">
+            <div class="option" data-value="citrus">
+              <span>Citrusy</span>
+              <p>Bergamot, Lemon, Orange</p>
+            </div>
+            <div class="option" data-value="fruity">
+              <span>Fruity</span>
+              <p>Apple, Peach, Berry</p>
+            </div>
+            <div class="option" data-value="floral">
+              <span>Floral</span>
+              <p>Rose, Jasmine, Lily</p>
+            </div>
+            <div class="option" data-value="oriental">
+              <span>Oriental</span>
+              <p>Vanilla, Amber, Musk</p>
+            </div>
+            <div class="option" data-value="woody">
+              <span>Woody</span>
+              <p>Sandalwood, Cedar, Oud</p>
+            </div>
+            <div class="option" data-value="fresh">
+              <span>Fresh</span>
+              <p>Marine, Green, Aquatic</p>
+            </div>
+          </div>
+          <button class="next-btn">Find My Perfect Fragrance</button>
+        </section>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/page-loader.js"></script>
+    <script src="../js/quiz.js"></script>
+  </body>
+</html>

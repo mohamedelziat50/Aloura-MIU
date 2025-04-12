@@ -28,7 +28,7 @@ function initPageAnimations() {
   const buttons = document.querySelectorAll(".text-overlay button");
   const indulgeText = document.querySelector(".text-overlay-indulge");
   const yourText = document.querySelector(".text-overlay-your");
-  const journeyText = document.querySelector(".journey-text");
+  const journeyText = document.querySelector(".fragrance-quiz");
 
   // Start image transitions
   setTimeout(() => {
