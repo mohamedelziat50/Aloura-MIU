@@ -110,7 +110,6 @@
 
     <!-- Navbar -->
     <%- include('partials/navbar.ejs') %>
- 
 
     <!-- Menu Overlay -->
     <div class="menu-overlay"></div>
@@ -162,7 +161,9 @@
 
       <!-- Add center journey text -->
       <div class="fragrance-quiz-container">
-        <div class="fragrance-quiz"><a href="fragrance-quiz">Fragrance Quiz</a></div>
+        <div class="fragrance-quiz">
+          <a href="fragrance-quiz">Fragrance Quiz</a>
+        </div>
       </div>
 
       <div class="transition-container">
@@ -194,9 +195,7 @@
           When you choose Aloura, you're not just buying a fragrance – you're
           experiencing the culmination of artistry, science, and passion.
         </p>
-        <a href="/our-story" class="learn-more-btn"
-          >Learn More</a
-        >
+        <a href="/our-story" class="learn-more-btn">Learn More</a>
 
         <!-- New Reviews Section -->
         <div class="reviews-section">
@@ -542,7 +541,7 @@
             </form>
 
             <!-- Sign-up Form (Initially Hidden) -->
-            <form id="signUpForm" style="display: none">
+            <form id="signUpForm" method="post" action="/signUp" style="display: none">
               <div class="mb-2">
                 <label for="signup-name" class="form-label">Full Name</label>
                 <input
@@ -551,6 +550,7 @@
                   id="signup-name"
                   placeholder="Enter your name"
                   required
+                  name="name"
                 />
               </div>
               <div class="mb-2">
@@ -563,28 +563,33 @@
                   id="signup-email"
                   placeholder="Enter your email"
                   required
+                  name="email"
                 />
               </div>
               <div class="mb-2">
                 <label for="phone" class="form-label">Phone Number</label>
                 <div class="input-group">
-                  <select
-                    id="countryCode"
-                    class="form-select"
-                    style="max-width: 150px"
-                  ></select>
+                  <span class="input-group-text" id="phone">+20</span>
                   <input
-                    type="text"
+                    type="tel"
+                    name="tel"
                     class="form-control"
-                    id="phone"
-                    placeholder="Enter your phone number"
+                    placeholder="Phone number"
+                    aria-label="Phone"
+                    aria-describedby="phone"
+                    maxlength="10"
+                    pattern="\d{10}"
+                    inputmode="numeric"
+                    oninput="this.value = this.value.replace(/\D/g, '')"
                     required
                   />
                 </div>
               </div>
+
               <div class="mb-2">
                 <label for="signup-password" class="form-label">Password</label>
                 <input
+                  name="password"
                   type="password"
                   class="form-control"
                   id="signup-password"
@@ -597,6 +602,7 @@
                   >Confirm Password</label
                 >
                 <input
+                  name="Confirm Password"
                   type="password"
                   class="form-control"
                   id="signup-confirm-password"
@@ -615,6 +621,9 @@
                 Already have an account? Login
               </button>
             </form>
+
+
+
             <form id="forgetpasswordform" style="display: none">
               <div class="mb-2">
                 <label for="forget-email" class="form-label"
@@ -628,7 +637,7 @@
                   required
                 />
               </div>
-              <button type="submit" class="btn btn-primary w-100">
+              <button type="button" class="btn btn-primary w-100">
                 Send Reset Link
               </button>
               <button

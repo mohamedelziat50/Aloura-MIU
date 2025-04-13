@@ -7,54 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginModalLabel = document.getElementById("loginModalLabel");
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
-  const countryCodeSelect = document.getElementById("countryCode");
 
-  // List of all countries with their codes and flags
-  const countryCodes = [
-    { code: "+1", flag: "🇺🇸" },
-    { code: "+44", flag: "🇬🇧" },
-    { code: "+1", flag: "🇨🇦" },
-    { code: "+91", flag: "🇮🇳" },
-    { name: "Germany", code: "+49", flag: "🇩🇪" },
-    { name: "France", code: "+33", flag: "🇫🇷" },
-    { name: "Australia", code: "+61", flag: "🇦🇺" },
-    { name: "China", code: "+86", flag: "🇨🇳" },
-    { name: "Japan", code: "+81", flag: "🇯🇵" },
-    { name: "Brazil", code: "+55", flag: "🇧🇷" },
-    { name: "South Africa", code: "+27", flag: "🇿🇦" },
-    { name: "Russia", code: "+7", flag: "🇷🇺" },
-    { name: "Mexico", code: "+52", flag: "🇲🇽" },
-    { name: "Italy", code: "+39", flag: "🇮🇹" },
-    { name: "United Arab Emirates", code: "+971", flag: "🇦🇪" },
-    { name: "Saudi Arabia", code: "+966", flag: "🇸🇦" },
-    { name: "South Korea", code: "+82", flag: "🇰🇷" },
-    { name: "Indonesia", code: "+62", flag: "🇮🇩" },
-    { name: "Turkey", code: "+90", flag: "🇹🇷" },
-    { name: "Netherlands", code: "+31", flag: "🇳🇱" },
-    { name: "Spain", code: "+34", flag: "🇪🇸" },
-    { name: "Sweden", code: "+46", flag: "🇸🇪" },
-    { name: "Switzerland", code: "+41", flag: "🇨🇭" },
-    { name: "Argentina", code: "+54", flag: "🇦🇷" },
-    { name: "Nigeria", code: "+234", flag: "🇳🇬" },
-    { name: "Egypt", code: "+20", flag: "🇪🇬" },
-    { name: "Pakistan", code: "+92", flag: "🇵🇰" },
-    { name: "Bangladesh", code: "+880", flag: "🇧🇩" },
-    { name: "Philippines", code: "+63", flag: "🇵🇭" },
-    { name: "Malaysia", code: "+60", flag: "🇲🇾" },
-    { name: "Thailand", code: "+66", flag: "🇹🇭" },
-    { name: "Vietnam", code: "+84", flag: "🇻🇳" },
-    { name: "Colombia", code: "+57", flag: "🇨🇴" },
-    { name: "Poland", code: "+48", flag: "🇵🇱" },
-    { name: "Ukraine", code: "+380", flag: "🇺🇦" },
-  ];
-
-  // Populate the country code dropdown
-  countryCodes.forEach((country) => {
-    const option = document.createElement("option");
-    option.value = country.code;
-    option.textContent = `${country.flag} ${country.name} (${country.code})`;
-    countryCodeSelect.appendChild(option);
-  });
 
   // Switch to Sign-up Form
   document
@@ -121,14 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Combine Country Code with Phone Number before Submission
-  signUpForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
-    const fullPhoneNumber = countryCodeSelect.value + phoneInput.value;
-    console.log("Full Phone Number:", fullPhoneNumber);
-    alert("Phone Number Submitted: " + fullPhoneNumber);
-    // You can now send fullPhoneNumber to your backend
-  });
 
   // Add back button functionality for 2FA form
   document.getElementById("backToLogin").addEventListener("click", function () {

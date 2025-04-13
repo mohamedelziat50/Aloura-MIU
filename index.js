@@ -1,13 +1,17 @@
 import express from "express";
-dotenv.config();
-
-const app = express();
-const port = 3000;
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import UserModel from "./models/mydataSchema.js";
+dotenv.config();
+const app = express();
+const port = 3000;
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => res.render("index"));
 app.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
@@ -33,3 +37,17 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.post("/signUp", (req, res) => {
+  const User = new UserModel(req.body);
+
+  User.save()
+    .then(() => {
+      console.log("User Created");
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+});
