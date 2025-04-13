@@ -1,0 +1,157 @@
+body {
+    /*to cancel the x-axis scroll*/
+    overflow-x: hidden; 
+    background:transparent;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body {
+    background:#141414;
+    font-family:"Neue Montreal";
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container {
+    width:100%;
+    height:800vh; /*Controls how long the Dimension is*/
+    overflow-x: hidden;
+}
+
+.active-slide {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background: #000;
+    opacity: 0.35;
+    z-index:-1;
+}
+
+.active-slide img {
+    position:absolute;
+    filter:blur(50px);
+    transform: scale(1.125);
+}
+
+.slider {
+    position: fixed;
+    top:0;
+    width:100vw;
+    height:100vh;
+    transform-style: preserve-3d; /*bet5aly el element 3d 3ndy x,y,z axis*/
+    perspective: 750px; /*2zay el appearance bta3 el 3d element hayb2a metshaf*/
+    overflow:hidden;
+}
+
+.slide {
+    position:absolute;
+    width:400px;
+    height:600px;
+    overflow:hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: auto; 
+}
+
+.slide-copy {
+    position: absolute;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; 
+    padding: 20px; 
+    box-sizing: border-box;
+    text-align: center; 
+}
+
+.slide-copy p {
+    font-family: cursive;
+    font-size: 20px;
+    font-weight: bolder;
+    line-height: 150%;
+    color: var(--color-accent);  /*hena nadena 3la el global variable el color 3la tool without writing the color number again */
+}
+
+#slide-4 {
+    position: absolute;
+    top:50%;
+    left:70%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-7500px);
+    opacity:0;
+}
+
+#slide-3 {
+    position: absolute;
+    top:50%;
+    left:30%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-5000px);
+    opacity:0;
+}
+
+#slide-2 {
+    position: absolute;
+    top:50%;
+    left:70%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-2500px);
+    opacity:0.5;
+} 
+
+#slide-1 {
+    position: absolute;
+    top:50%;
+    left:30%;
+    transform: translateX(-50%) translateY(-50%) translateZ(0px);
+    opacity:1;
+}
+
+.social-icons {
+    display: flex;
+    margin-left: 70px; 
+    margin-top: 50px;
+}
+
+.social-icons i {
+    margin-right: 30px;
+    color: white; 
+    background-color: transparent; 
+    border: 2px solid white; 
+    border-radius: 50%; 
+    padding: 20px;
+    font-size: 30px; 
+    width: 60px; 
+    height: 60px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.social-icons i:not(:first-child) { /*kolo ma 3ada 2wel element*/
+    margin-left: 10px; 
+}
+
+.social-icons i:hover {
+    transform: scale(1.1); 
+}
+
+.social-icons a {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+:root { /*targets the html elements el root elements zy el html*/
+    --color-accent:rgb(190, 185, 181);  /*a new way for adding a color ka2enaha global variable lel colors momken nesta5demha 3la tool badal ma n23od nekteb el color nafso kol mara*/
+}

@@ -26,6 +26,7 @@ app.get("/fragrances-page", (req, res) => res.render("fragrances-page"));
 app.get("/our-story", (req, res) => res.render("our-story"));
 app.get("/unisex-fragrances", (req, res) => res.render("unisex-fragrances"));
 app.get("/fragrance-quiz", (req, res) => res.render("fragrance-quiz"));
+app.get("/collections", (req, res) => res.render("collections"));
 
 mongoose
   .connect(process.env.monogoDb_URI)
