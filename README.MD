@@ -14,6 +14,7 @@ This is the repository for Aloura - a real-world startup fragrance e-commerce we
 - Before run you need to run the `npm i` command to get the node_modules file
 
 - You need to run this command before you run to install nodemon (Node Monitor): `npm install -g nodemon`
+- `npm i bcrypt` for password encyrption
 - `nodemon index.js` use this command to run from the terminal
 
 
