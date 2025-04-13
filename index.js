@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+
 import UserModel from "./models/mydataSchema.js";
 dotenv.config();
 const app = express();
