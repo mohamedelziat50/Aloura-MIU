@@ -1,14 +1,13 @@
 import express from "express";
-dotenv.config();
-
-const app = express();
-const port = 3000;
-
-import UserModel  from "./models/mydataSchema.js";
-
-
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
+
+import UserModel from "./models/mydataSchema.js";
+dotenv.config();
+const app = express();
+const port = 3000;
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
@@ -29,12 +28,6 @@ app.get("/our-story", (req, res) => res.render("our-story"));
 app.get("/unisex-fragrances", (req, res) => res.render("unisex-fragrances"));
 app.get("/fragrance-quiz", (req, res) => res.render("fragrance-quiz"));
 
-
-app.post("/", (req, res) => {
-  console.log(req.body);
-});
-
-
 mongoose
   .connect(process.env.monogoDb_URI)
   .then(() => {
@@ -46,3 +39,16 @@ mongoose
     console.log(err);
   });
 
+app.post("/signUp", (req, res) => {
+  const User = new UserModel(req.body);
+
+  User.save()
+    .then(() => {
+      console.log("User Created");
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+});
