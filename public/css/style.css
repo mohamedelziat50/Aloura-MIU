@@ -368,22 +368,32 @@ body {
 
 /* Quality and 3D Model Section */
 .quality-model-section {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(auto, 650px) minmax(auto, 650px);
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "quality model"
+    "reviews reviews";
+  column-gap: 50px;
   padding: 80px 5%;
   background: linear-gradient(to right, #f8f8f8, #ffffff);
+  justify-content: center;
 }
 
 /* Quality Assurance Text */
 .quality-assurance {
-  flex: 1;
-  padding-right: 60px;
+  grid-area: quality;
+  padding-right: 40px;
+  max-width: 600px;
 }
 
 .quality-assurance h2 {
   font-size: 42px;
   margin-bottom: 30px;
-  font-family: "Bebas Neue", sans-serif;
-  letter-spacing: 2px;
+  font-family: "Monotype Baskerville", serif;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   position: relative;
 }
 
@@ -402,11 +412,13 @@ body {
   font-size: 16px;
   line-height: 1.8;
   color: #333;
+  font-family: "Arial", sans-serif;
 }
 
 .learn-more-btn {
   display: inline-block;
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 12px 25px;
   background-color: #000;
   color: #fff;
@@ -414,6 +426,8 @@ body {
   font-weight: 500;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .learn-more-btn:hover {
@@ -423,9 +437,11 @@ body {
 
 /* 3D Model Container */
 .model-container {
-  flex: 1;
-  max-width: 500px;
+  grid-area: model;
+  width: 500px;
+  max-height: 500px;
   text-align: center;
+  justify-self: center;
 }
 
 .model-container h3 {
@@ -558,9 +574,16 @@ body {
 
 /* NEW REVIEW CARDS SECTION */
 .reviews-section {
-  margin-top: 60px;
+  grid-area: reviews;
+  margin-top: 5px;
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 40px;
 }
 
 .reviews-title {

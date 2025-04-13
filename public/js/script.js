@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initPopup();
   
   // Initialize smooth section scrolling
-  initSmoothSectionScrolling();
+  // COMMENTED OUT BECAUSE ITS NOT CONSISTENT, UNCOMMENT FOR SMOOTH SCROLLING
+  // initSmoothSectionScrolling(); 
   
   // Initialize the review cards
   initReviewCards();
