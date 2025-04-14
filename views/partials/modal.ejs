@@ -1,0 +1,252 @@
+<!-- Modal Structure -->
+<div
+class="modal fade"
+id="loginModal"
+tabindex="-1"
+aria-labelledby="loginModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+      <h5 class="modal-title" id="loginModalLabel">Login</h5>
+      <h6 class="modal-description">
+        Please enter your e-mail and password:
+      </h6>
+    </div>
+    <div class="modal-body">
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+            <span class="input-group-text password-toggle" id="passwordToggle">
+              <i class="fa-solid fa-lock" id="passwordIcon"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mb-3 text-end">
+          <button id="showforgetpassword" class="btn btn-link">
+            Forgot password ?
+          </button>
+        </div>
+        <!-- Login Button -->
+        <button type="submit" class="loginButton btn btn-primary w-100">
+          Login
+        </button>
+        <!-- Sign up Button -->
+        <button
+          type="button"
+          id="showSignUpForm"
+          class="signupButton btn btn-primary w-100"
+        >
+          Create One
+        </button>
+    
+        <hr/>
+        <!-- 2fa button -->
+        <button
+          id="show2fa"
+          type="button"
+          class="btn btn-link w-100 mt-2"
+        >
+          Two-Factor Verification
+        </button>
+        <div class="social-signin-container">
+        <!-- Google Sign In Button -->
+        <button
+          class="btn btn-outline-danger w-100 mt-2"
+          id="googleSignInBtn"
+        >
+          <i class="fa-brands fa-google"></i> Sign in with Google
+        </button>
+        <!-- Apple Sign In Button -->
+        <button class="btn btn-dark w-100 mt-2" id="appleSignInBtn">
+          <i class="fa-brands fa-apple"></i> Sign in with Apple
+        </button>
+        </div>
+      </form>
+
+      <!-- Sign-up Form (Initially Hidden) -->
+      <form id="signUpForm" method="post" action="/signUp" style="display: none">
+        <div class="mb-3">
+          <label for="signup-name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="signup-name"
+            placeholder="Full Name*"
+            required
+            name="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="signup-email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="signup-email"
+            placeholder="Your Email*"
+            required
+            name="email"
+          />
+        </div>
+        <div class="mb-2">
+          <label for="phone" class="form-label">Phone Number</label>
+          <div class="input-group">
+            <span class="input-group-text" id="phone">+20</span>
+            <input
+              type="tel"
+              name="tel"
+              class="form-control"
+              placeholder="Phone number*"
+              aria-label="Phone"
+              aria-describedby="phone"
+              maxlength="10"
+              pattern="\d{10}"
+              inputmode="numeric"
+              oninput="this.value = this.value.replace(/\D/g, '')"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="signup-password" class="form-label">Password</label>
+          <div class="input-group">
+            <input
+              name="password"
+              type="password"
+              class="form-control"
+              id="signup-password"
+              placeholder="Create a password*"
+              required
+            />
+            <span class="input-group-text password-toggle" id="signupPasswordToggle">
+              <i class="fa-solid fa-lock" id="signupPasswordIcon"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <input
+              name="Confirm Password"
+              type="password"
+              class="form-control"
+              id="signup-confirm-password"
+              placeholder="Confirm password*"
+              required
+            />
+            <span class="input-group-text password-toggle" id="confirmPasswordToggle">
+              <i class="fa-solid fa-lock" id="confirmPasswordIcon"></i>
+            </span>
+          </div>
+        </div>
+        <p class="signup-confirm-password"></p>
+        <button type="submit" id="signup-button-diffcolor" class="signupButton btn btn-primary w-100">
+          Sign Up
+        </button>
+        <div class="login-text-center">
+          <button type="button" id="showLoginForm" class="btn btn-link">
+            Already have an account? Login
+          </button>
+        </div>
+
+        <hr/>
+        <div class="social-signin-container">
+          <button
+            class="btn btn-outline-danger w-100"
+            id="googleSignUpBtn"
+          >
+            <i class="fa-brands fa-google"></i> Sign up with Google
+          </button>
+          <button class="btn btn-dark w-100" id="appleSignUpBtn">
+            <i class="fa-brands fa-apple"></i> Sign up with Apple
+          </button>
+        </div>
+      </form>
+
+
+
+      <form id="forgetpasswordform" style="display: none">
+        <div class="mb-2">
+          <label for="forget-email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="forget-email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <button type="button" class="signupButton btn btn-primary w-100">
+          Send Reset Link
+        </button>
+        <button
+          type="button"
+          id="showLoginForm1"
+          class="loginButton btn btn-primary w-100 mt-4"
+        >
+          Back to Login
+        </button>
+      </form>
+      <!-- 2fa modal -->
+      <form
+        id="twofactor"
+        class="form"
+        style="display: none"
+        style="margin: auto"
+      >
+        <div class="info">
+          <!-- <span class="title">Two-Factor Verification</span> -->
+          <p class="description">
+            Enter the two-factor authentication code provided by the
+            authenticator app
+          </p>
+        </div>
+        <div class="input-fields">
+          <input placeholder="" type="tel" maxlength="1" />
+          <input placeholder="" type="tel" maxlength="1" />
+          <input placeholder="" type="tel" maxlength="1" />
+          <input placeholder="" type="tel" maxlength="1" />
+        </div>
+
+        <div class="action-btns">
+          <a class="verify">Verify</a>
+          <a class="clear" id="clearfield">Clear</a>
+        </div>
+        <button type="button" id="backToLogin" class="loginButton btn btn-primary w-100 mt-4">
+          Back to Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Scripts and Links -->
+<link rel="stylesheet" href="./css/modal.css" />
+<script src="./js/modal.js"></script>

@@ -1,7 +1,136 @@
 .modal-title {
   text-align: center;
   width: 100%;
+  font-size: 64px !important;
 }
+
+.modal-description {
+  font-size: 14px !important;
+  font-family: sans-serif !important;
+  margin-bottom: 0 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.form-label {
+  display: none;
+}
+
+.form-control {
+  border-radius: 0 !important;
+  padding: 0.7rem .75rem !important;
+  border: 1px solid #d9d9d9 !important;
+  color: #757575 !important;
+  letter-spacing: .05rem !important;
+}
+
+.password-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px; /* Ensure consistent width */
+}
+
+.password-toggle i {
+  font-size: 16px; /* Consistent icon size */
+  width: 16px; /* Fixed width for the icon */
+  text-align: center; /* Center the icon */
+}
+
+.modal-body {
+  padding-top: 0px !important;
+}
+
+.loginButton {
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+  color: white !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  background-color: #121212 !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+.loginButton:hover {
+  color: #121212 !important;
+  background-color: white !important;
+}
+
+.signupButton {
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+  color: #121212 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  background-color: white !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  margin-top: 0.8rem !important;
+}
+
+.signupButton:hover {
+  color: white !important;
+  background-color: #121212 !important;
+}
+
+#signup-button-diffcolor {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+#signup-button-diffcolor:hover {
+  background-color: white !important;
+  color: #121212 !important;
+}
+
+#googleSignInBtn {
+  border-radius: 0 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  border: 1px solid #dc3545 !important;
+  margin: 0 !important;
+}
+
+#appleSignInBtn {
+  border-radius: 0 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  font-size: 17px !important;
+  font-family: "Poppins", sans-serif !important;
+  color: #121212 !important;
+  background: white !important;
+  border: 1px solid #121212 !important;
+  margin: 0 !important;
+}
+
+#appleSignInBtn:hover {
+  color: white !important;
+  background-color: #121212 !important;
+}
+
+.mb-2 {
+  margin: 1.5rem 0 !important;
+}
+
+#signup-name {
+  margin-top: 0 !important;
+}
+
 .modal-content {
   background-color: #f8f9fa; /* Light gray background here if you want to change the modal color*/
   color: #333; /* Dark text color here to change the color of the text*/
@@ -12,6 +141,7 @@
   flex-direction: column;
   align-items: center;
   font-weight: 300;
+  border-bottom: none !important;
 }
 .modal-title {
   font-family: "Times New Roman", Times, serif;
@@ -32,51 +162,6 @@
   color: blue;
   border-bottom: blue solid 1px;
 }
-/* uncomment for the login and sign up desing*/
-
-/* .loginButton {
-    font-weight: normal;
-    font-size: 16px;
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em;
-    line-height: 100%;
-    text-transform: uppercase;
-    background-color: #fff;
-    color: #000;
-    border: 0.5px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    padding: 10.5px 0px 10.5px 0px;
-    transition: background-color 0.1s linear;
-  }
-  
-  .loginButton:hover {
-    background-color: black;
-    color: white;
-  }
-  
-  .signupButton {
-    font-weight: normal;
-    font-size: 16px;
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em;
-    line-height: 100%;
-    text-transform: uppercase;
-    background-color: #fff;
-    color: #000;
-    border: 0.5px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    padding: 10.5px 0px 10.5px 0px;
-    transition: background-color 0.1s linear;
-  }
-  
-  .signButton:hover {
-    background-color: black;
-    color: white;
-  } */
 
 .form {
   --black: #000000;
@@ -90,16 +175,15 @@
   font-family: Helvetica, sans-serif;
   border: 2px solid var(--glow-color);
   padding: 25px;
+  padding-top: 0;
   display: flex;
   max-width: 420px;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   color: var(--night-rider);
-  background-color: var(--white);
   border-radius: 8px;
   position: relative;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 /*----heading and description-----*/
@@ -109,7 +193,7 @@
   margin: auto;
 }
 .info {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,7 +213,7 @@
 
 .form .input-fields {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 10px;
 }
 
@@ -159,22 +243,25 @@
 .action-btns {
   display: flex;
   margin-top: 20px;
+  margin-bottom: 20px;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .verify {
+  flex: 1;
   padding: 10px 20px;
   text-decoration: none;
-  border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--white);
+  color: var(--night-rider);
   text-shadow: none;
-  background: var(--ch-black);
-  box-shadow: transparent;
+  background: transparent;
   border: 1px solid var(--night-rider);
   transition: 0.5s ease;
   user-select: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 .verify:hover,
@@ -184,9 +271,9 @@
 }
 
 .clear {
+  flex: 1;
   padding: 10px 20px;
   text-decoration: none;
-  border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
   color: var(--night-rider);
@@ -195,6 +282,8 @@
   border: 1px solid var(--night-rider);
   transition: 0.5s ease;
   user-select: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 .clear:hover,
@@ -237,4 +326,146 @@
   .modal-dialog{
     margin-top: 20px;
   }
+}
+
+/* Forgot password button styling */
+#showforgetpassword {
+  position: relative;
+  text-decoration: none;
+  color: #121212;
+  padding: 0;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 25px;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+#showforgetpassword::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
+}
+
+#showforgetpassword:hover::after {
+  width: 20%;
+}
+
+.social-signin-container {
+  display: flex !important;
+  gap: 10px !important;
+  margin: 0.2rem 0 !important;
+}
+
+.social-signin-btn {
+  flex: 1 !important;
+  border-radius: 0 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+
+/* Sign Up Form Specific Styles To match login form */
+#signUpForm .form-control {
+  border-radius: 0 !important;
+  padding: 0.7rem .75rem !important;
+  border: 1px solid #d9d9d9 !important;
+  color: #757575 !important;
+  letter-spacing: .05rem !important;
+}
+
+#signUpForm .input-group-text {
+  border-radius: 0 !important;
+  background-color: white !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+#signUpForm .mb-3 {
+  margin: 1.2rem 0 !important;
+}
+
+#signUpForm .mb-3:first-child {
+  margin-top: 0 !important;
+}
+
+#googleSignUpBtn, #appleSignUpBtn {
+  border-radius: 0 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+  margin: 0 !important;
+}
+
+#googleSignUpBtn {
+  border: 1px solid #dc3545 !important;
+}
+
+#googleSignUpBtn:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+#appleSignUpBtn {
+  color: #121212 !important;
+  background: white !important;
+  border: 1px solid #121212 !important;
+}
+
+#appleSignUpBtn:hover {
+  color: white !important;
+  background-color: #121212 !important;
+}
+
+#showLoginForm {
+  position: relative !important;
+  color: #121212 !important;
+  text-decoration: none !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  display: inline-block !important;
+}
+
+#showLoginForm::after {
+  content: '' !important;
+  position: absolute !important;
+  width: 100% !important;
+  height: 1px !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  background-color: #121212 !important;
+  transition: width 0.5s ease !important;
+}
+
+#showLoginForm:hover::after {
+  width: 20% !important;
+}
+
+.login-link-container {
+  text-align: center !important;
+  margin: 1rem 0 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px !important;
+  color: #121212 !important;
+}
+
+.login-text-center {
+  text-align: center !important;
+  margin: 1rem 0 !important;
+}
+
+.verification-title {
+  font-size: 48px !important;
 }

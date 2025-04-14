@@ -31,7 +31,7 @@ window.addEventListener("load", function () { //el page to be fully load 3lshan 
             scrub: true, //bet5aly el animation yb2a smooth tool ma 27na mashyeen
             onUpdate: (self) => { //kol mara b3mel scroll el function beteshta8al
                 const progress = self.progress; // progress el animation tool ma 27na mashyeen bel scroll l7d ma nwsal lel  nehaya
-                const zIncrement = progress * 7500;  //bta5od el w2ef feen - adjusted for 4 cards - ADJUST THIS TO CONTROL HOW MUCH OF A PROGRESS THERE IS!
+                const zIncrement = progress * 8500;  //bta5od el w2ef feen - adjusted for 4 cards - ADJUST THIS TO CONTROL HOW MUCH OF A PROGRESS THERE IS!
                 const currentZ = initialZ + zIncrement;  //bn7seb el z-axis w2ef feen  + makan el z el adeem 3lshan netala3 el current z
                 let opacity;
                 if (currentZ > -2500) {
