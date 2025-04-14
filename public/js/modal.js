@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       loginForm.style.display = "none";
       signUpForm.style.display = "block";
       loginModalLabel.textContent = "Sign Up";
-      modalDescription.style.display = "none"; // Hide the description
+      modalDescription.textContent = "Please fill in your information to create an account:";
     });
   // show the 2fa form
   document.getElementById("show2fa").addEventListener("click", function () {
@@ -134,4 +134,64 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// ============ Password toggle functionality ============
+document.addEventListener('DOMContentLoaded', function() {
+  // Login form password toggle
+  const passwordToggle = document.getElementById('passwordToggle');
+  const passwordInput = document.getElementById('password');
+  const passwordIcon = document.getElementById('passwordIcon');
+  
+  if (passwordToggle && passwordInput && passwordIcon) {
+    passwordToggle.addEventListener('click', function() {
+      // Toggle password visibility
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        passwordIcon.classList.remove('fa-lock');
+        passwordIcon.classList.add('fa-lock-open');
+      } else {
+        passwordInput.type = 'password';
+        passwordIcon.classList.remove('fa-lock-open');
+        passwordIcon.classList.add('fa-lock');
+      }
+    });
+  }
+  
+  // Signup form password toggle
+  const signupPasswordToggle = document.getElementById('signupPasswordToggle');
+  const signupPasswordInput = document.getElementById('signup-password');
+  const signupPasswordIcon = document.getElementById('signupPasswordIcon');
+  
+  if (signupPasswordToggle && signupPasswordInput && signupPasswordIcon) {
+    signupPasswordToggle.addEventListener('click', function() {
+      if (signupPasswordInput.type === 'password') {
+        signupPasswordInput.type = 'text';
+        signupPasswordIcon.classList.remove('fa-lock');
+        signupPasswordIcon.classList.add('fa-lock-open');
+      } else {
+        signupPasswordInput.type = 'password';
+        signupPasswordIcon.classList.remove('fa-lock-open');
+        signupPasswordIcon.classList.add('fa-lock');
+      }
+    });
+  }
+  
+  // Confirm password toggle
+  const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+  const confirmPasswordInput = document.getElementById('signup-confirm-password');
+  const confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
+  
+  if (confirmPasswordToggle && confirmPasswordInput && confirmPasswordIcon) {
+    confirmPasswordToggle.addEventListener('click', function() {
+      if (confirmPasswordInput.type === 'password') {
+        confirmPasswordInput.type = 'text';
+        confirmPasswordIcon.classList.remove('fa-lock');
+        confirmPasswordIcon.classList.add('fa-lock-open');
+      } else {
+        confirmPasswordInput.type = 'password';
+        confirmPasswordIcon.classList.remove('fa-lock-open');
+        confirmPasswordIcon.classList.add('fa-lock');
+      }
+    });
+  }
+});
 
