@@ -84,6 +84,16 @@
   background-color: #121212 !important;
 }
 
+#signup-button-diffcolor {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+#signup-button-diffcolor:hover {
+  background-color: white !important;
+  color: #121212 !important;
+}
+
 #googleSignInBtn {
   border-radius: 0 !important;
   transition: all 0.2s linear !important;
