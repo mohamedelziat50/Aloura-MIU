@@ -671,19 +671,6 @@ background-color: #f1f1f1;
 }
 /* End of Image scaling Related */
 
-/* START OF SHOPPING CART RELATED */
-.custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
-
-.offcanvas-footer
-{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px;
-}
-/* END OF SHOPPING CART RELATED */
-
 /* KEYFRAMES RELATED */
 
 @keyframes card-image-animation {
