@@ -14,15 +14,25 @@
     <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
 
     <!-- CSS Links -->
-    <link rel="stylesheet" href="../css/navBar.css" />
     <link rel="stylesheet" href="../css/fragrance-quiz.css" />
-    <link rel="stylesheet" href="../css/page-loader.css" />
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+
+    <!-- Bootstrap CSS & JS(navbar, footer, modal, cart all use it's functionality SO MAKE SURE TO LINK IT) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Initial Scroll When Reloading -->
     <script>
@@ -33,25 +43,25 @@
         window.scrollTo(0, 0);
       };
     </script>
-
-    <!-- JS Links -->
-    <script src="../js/page-loader.js"></script>
   </head>
   <body>
-    <!-- Pre-loader at the top of body -->
-    <div class="fullpage-loader">
-      <div class="loader-content">
-        <div class="logo-reveal">
-          <img src="../img/logo.png" alt="Logo" />
-        </div>
-        <div class="loading-bar-container">
-          <div class="loading-bar"></div>
-        </div>
-      </div>
-    </div>
+    <!-- Loader -->
+    <%- include('partials/loader.ejs') %>
 
     <!-- Navbar -->
     <%- include('partials/navbar.ejs') %>
+
+    <!-- Modal -->
+    <%- include('partials/modal.ejs') %>
+
+    <!-- Cart -->
+    <%- include('partials/cart.ejs') %>
+
+    <!-- Chatbot -->
+    <%- include('partials/chatbot.ejs') %>
+    
+    <!-- Dark Mode -->
+    <%- include('partials/dark-mode.ejs') %>
 
     <!-- Quiz Container -->
     <div class="quiz-container">
@@ -270,7 +280,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="../js/page-loader.js"></script>
     <script src="../js/quiz.js"></script>
   </body>
 </html>
