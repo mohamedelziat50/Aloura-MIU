@@ -10,62 +10,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // Switch to Sign-up Form
-  document
-    .getElementById("showSignUpForm")
-    .addEventListener("click", function () {
+  const showSignUpFormBtn = document.getElementById("showSignUpForm");
+  if (showSignUpFormBtn) {
+    showSignUpFormBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
       signUpForm.style.display = "block";
       loginModalLabel.textContent = "Sign Up";
       modalDescription.textContent = "Please fill in your information to create an account:";
     });
+  }
+  
   // show the 2fa form
-  document.getElementById("show2fa").addEventListener("click", function () {
-    loginForm.style.display = "none";
-    twofactorForm.style.display = "block";
-    loginModalLabel.textContent = "verification";
-    modalDescription.style.display = "none"; // Hide the description
-    backArrow.style.display = "block";
-  });
+  const show2faBtn = document.getElementById("show2fa");
+  if (show2faBtn) {
+    show2faBtn.addEventListener("click", function () {
+      loginForm.style.display = "none";
+      twofactorForm.style.display = "block";
+      loginModalLabel.textContent = "verification";
+      modalDescription.style.display = "none"; // Hide the description
+      backArrow.style.display = "block";
+    });
+  }
 
   // funtion to clear the fields in the verification form
-  document.getElementById("clearfield").addEventListener("click", function () {
-    const verificationInputs = document.querySelectorAll(
-      "#twofactor input[type='tel']"
-    );
-    verificationInputs.forEach((input) => {
-      input.value = ""; // Clear the input field
+  const clearfieldBtn = document.getElementById("clearfield");
+  if (clearfieldBtn) {
+    clearfieldBtn.addEventListener("click", function () {
+      const verificationInputs = document.querySelectorAll(
+        "#twofactor input[type='tel']"
+      );
+      verificationInputs.forEach((input) => {
+        input.value = ""; // Clear the input field
+      });
     });
-  });
+  }
 
-  document
-    .getElementById("showforgetpassword")
-    .addEventListener("click", function () {
+  // Switch to Forget Password Form
+  const showforgetpasswordBtn = document.getElementById("showforgetpassword");
+  if (showforgetpasswordBtn) {
+    showforgetpasswordBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
-      forgetpasswordForm.style.display = "";
+      forgetpasswordForm.style.display = "block";
       loginModalLabel.textContent = "Forget password";
       modalDescription.style.display = "none"; // Hide the description
     });
+  }
 
-  // Switch back to Login Form
-  document
-    .getElementById("showLoginForm")
-    .addEventListener("click", function () {
+  // Switch back to Login Form from Sign-up Form
+  const showLoginFormBtn = document.getElementById("showLoginForm");
+  if (showLoginFormBtn) {
+    showLoginFormBtn.addEventListener("click", function () {
+      console.log("Switching back to login form from sign-up");
       loginForm.style.display = "block";
       signUpForm.style.display = "none";
       loginModalLabel.textContent = "Login";
       modalDescription.style.display = "block"; // Show the description again
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
-  //switch back to login form from forget password form
-  document
-    .getElementById("showLoginForm1")
-    .addEventListener("click", function () {
+  }
+  
+  // Switch back to Login Form from Forget Password Form
+  const showLoginForm1Btn = document.getElementById("showLoginForm1");
+  if (showLoginForm1Btn) {
+    showLoginForm1Btn.addEventListener("click", function () {
       loginForm.style.display = "block";
       forgetpasswordForm.style.display = "none";
       loginModalLabel.textContent = "Login";
       modalDescription.style.display = "block"; // Show the description again
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
+  }
 
   // Restrict Phone Number Input to Only Numbers
   if (phoneInput) {
@@ -74,16 +88,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-
   // Add back button functionality for 2FA form
-  document.getElementById("backToLogin").addEventListener("click", function () {
-    twofactorForm.style.display = "none";
-    loginForm.style.display = "block";
-    loginModalLabel.textContent = "Login";
-    modalDescription.style.display = "block";
-    modalDescription.textContent = "Please enter your e-mail and password:";
-    backArrow.style.display = "none";
-  });
+  if (backArrow) {
+    backArrow.addEventListener("click", function () {
+      twofactorForm.style.display = "none";
+      loginForm.style.display = "block";
+      loginModalLabel.textContent = "Login";
+      modalDescription.style.display = "block";
+      modalDescription.textContent = "Please enter your e-mail and password:";
+      backArrow.style.display = "none";
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
