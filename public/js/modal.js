@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       loginForm.style.display = "none";
       twofactorForm.style.display = "block";
       loginModalLabel.textContent = "verification";
+      loginModalLabel.classList.add("verification-title");
       modalDescription.style.display = "none"; // Hide the description
       backArrow.style.display = "block";
     });
@@ -51,8 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
     showforgetpasswordBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
       forgetpasswordForm.style.display = "block";
-      loginModalLabel.textContent = "Forget password";
-      modalDescription.style.display = "none"; // Hide the description
+      loginModalLabel.textContent = "Reset Password";
+      loginModalLabel.classList.add("verification-title");
+      modalDescription.style.display = "block";
+      modalDescription.textContent = "Enter your email address and we'll send you a link to reset your password";
     });
   }
 
@@ -76,7 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
       loginForm.style.display = "block";
       forgetpasswordForm.style.display = "none";
       loginModalLabel.textContent = "Login";
-      modalDescription.style.display = "block"; // Show the description again
+      loginModalLabel.classList.remove("verification-title");
+      modalDescription.style.display = "block";
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
   }
@@ -94,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
       twofactorForm.style.display = "none";
       loginForm.style.display = "block";
       loginModalLabel.textContent = "Login";
+      loginModalLabel.classList.remove("verification-title");
       modalDescription.style.display = "block";
       modalDescription.textContent = "Please enter your e-mail and password:";
       backArrow.style.display = "none";

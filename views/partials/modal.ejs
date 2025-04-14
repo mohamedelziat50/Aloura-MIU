@@ -9,9 +9,6 @@ aria-hidden="true"
 <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="back-arrow" id="backToLogin">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
       <button
         type="button"
         class="btn-close"
@@ -71,13 +68,13 @@ aria-hidden="true"
     
         <hr/>
         <!-- 2fa button -->
-        <!-- <button
+        <button
           id="show2fa"
           type="button"
           class="btn btn-link w-100 mt-2"
         >
           Two-Factor Verification
-        </button> -->
+        </button>
         <div class="social-signin-container">
         <!-- Google Sign In Button -->
         <button
@@ -196,9 +193,7 @@ aria-hidden="true"
 
       <form id="forgetpasswordform" style="display: none">
         <div class="mb-2">
-          <label for="forget-email" class="form-label"
-            >Email address</label
-          >
+          <label for="forget-email" class="form-label">Email address</label>
           <input
             type="email"
             class="form-control"
@@ -207,13 +202,13 @@ aria-hidden="true"
             required
           />
         </div>
-        <button type="button" class="btn btn-primary w-100">
+        <button type="button" class="signupButton btn btn-primary w-100">
           Send Reset Link
         </button>
         <button
           type="button"
           id="showLoginForm1"
-          class="btn btn-link w-100 mt-2"
+          class="loginButton btn btn-primary w-100 mt-4"
         >
           Back to Login
         </button>
@@ -226,7 +221,7 @@ aria-hidden="true"
         style="margin: auto"
       >
         <div class="info">
-          <span class="title">Two-Factor Verification</span>
+          <!-- <span class="title">Two-Factor Verification</span> -->
           <p class="description">
             Enter the two-factor authentication code provided by the
             authenticator app
@@ -243,6 +238,9 @@ aria-hidden="true"
           <a class="verify">Verify</a>
           <a class="clear" id="clearfield">Clear</a>
         </div>
+        <button type="button" id="backToLogin" class="loginButton btn btn-primary w-100 mt-4">
+          Back to Login
+        </button>
       </form>
     </div>
   </div>

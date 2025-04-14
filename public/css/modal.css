@@ -175,16 +175,15 @@
   font-family: Helvetica, sans-serif;
   border: 2px solid var(--glow-color);
   padding: 25px;
+  padding-top: 0;
   display: flex;
   max-width: 420px;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   color: var(--night-rider);
-  background-color: var(--white);
   border-radius: 8px;
   position: relative;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 /*----heading and description-----*/
@@ -194,7 +193,7 @@
   margin: auto;
 }
 .info {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -214,7 +213,7 @@
 
 .form .input-fields {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 10px;
 }
 
@@ -244,22 +243,25 @@
 .action-btns {
   display: flex;
   margin-top: 20px;
+  margin-bottom: 20px;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .verify {
+  flex: 1;
   padding: 10px 20px;
   text-decoration: none;
-  border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--white);
+  color: var(--night-rider);
   text-shadow: none;
-  background: var(--ch-black);
-  box-shadow: transparent;
+  background: transparent;
   border: 1px solid var(--night-rider);
   transition: 0.5s ease;
   user-select: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 .verify:hover,
@@ -269,9 +271,9 @@
 }
 
 .clear {
+  flex: 1;
   padding: 10px 20px;
   text-decoration: none;
-  border-radius: 5px;
   font-size: 1rem;
   font-weight: 500;
   color: var(--night-rider);
@@ -280,6 +282,8 @@
   border: 1px solid var(--night-rider);
   transition: 0.5s ease;
   user-select: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 .clear:hover,
@@ -460,4 +464,8 @@
 .login-text-center {
   text-align: center !important;
   margin: 1rem 0 !important;
+}
+
+.verification-title {
+  font-size: 48px !important;
 }
