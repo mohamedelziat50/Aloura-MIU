@@ -1,9 +1,28 @@
 // script to remove the cerdit card payemt when chencked
     
       document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("cash").addEventListener("change", function () {
-          const checkoutSection = document.getElementById("payment-method");
-          checkoutSection.style.display = this.checked ? "none" : "block";
+        const codCheckbox = document.getElementById("cash");
+        const paymentMethodSection = document.getElementById("payment-method");
+        const confirmationMessage = document.querySelector('.cod-confirmation-message');
+        
+        // Set initial state based on checkbox
+        if (codCheckbox.checked) {
+          paymentMethodSection.classList.add('hidden');
+          confirmationMessage.style.display = 'block';
+        } else {
+          paymentMethodSection.classList.remove('hidden');
+          confirmationMessage.style.display = 'none';
+        }
+        
+        // Add event listener for changes
+        codCheckbox.addEventListener("change", function () {
+          if (this.checked) {
+            paymentMethodSection.classList.add('hidden');
+            confirmationMessage.style.display = 'block';
+          } else {
+            paymentMethodSection.classList.remove('hidden');
+            confirmationMessage.style.display = 'none';
+          }
         });
       });
 
