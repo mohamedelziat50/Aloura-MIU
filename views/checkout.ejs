@@ -334,131 +334,140 @@
                       <h3>Payment Method</h3>
                     </div>
                     <div class="section-content">
-                      <div class="payment-details" id="credit-card-details">
-                        <div class="form-group">
-                          <label for="card-number">Card Number</label>
-                          <div class="card-number-wrapper">
-                            <input
-                              class="form-control"
-                              id="card-number"
-                              name="card-number"
-                              placeholder="1234 5678 9012 3456*"
-                              required=""
-                              type="text"
-                            />
-                            <div class="card-icons">
-                              <i class="bi bi-credit-card-2-front"></i>
-                              <i class="bi bi-credit-card"></i>
+                      <div class="payment-method-container">
+                        <!-- Left column with payment fields -->
+                        <div class="payment-fields-column">
+                          <div class="payment-details" id="credit-card-details">
+                            <div class="form-group">
+                              <label for="card-number">Card Number</label>
+                              <div class="card-number-wrapper">
+                                <input
+                                  class="form-control"
+                                  id="card-number"
+                                  name="card-number"
+                                  placeholder="1234 5678 9012 3456*"
+                                  required=""
+                                  type="text"
+                                />
+                                <div class="card-icons">
+                                  <i class="bi bi-credit-card-2-front"></i>
+                                  <i class="bi bi-credit-card"></i>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 form-group">
-                            <label for="expiry">Expiration Date</label>
-                            <input
-                              class="form-control"
-                              id="expiry"
-                              name="expiry"
-                              placeholder="MM/YY*"
-                              required=""
-                              type="text"
-                            />
-                          </div>
-                          <div class="col-md-6 form-group">
-                            <label for="cvv">Security Code (CVV)</label>
-                            <div class="cvv-wrapper">
+                            <div class="row">
+                              <div class="col-md-6 form-group">
+                                <label for="expiry">Expiration Date</label>
+                                <input
+                                  class="form-control"
+                                  id="expiry"
+                                  name="expiry"
+                                  placeholder="MM/YY*"
+                                  required=""
+                                  type="text"
+                                />
+                              </div>
+                              <div class="col-md-6 form-group">
+                                <label for="cvv">Security Code (CVV)</label>
+                                <div class="cvv-wrapper">
+                                  <input
+                                    class="form-control"
+                                    id="cvv"
+                                    name="cvv"
+                                    placeholder="CVV*"
+                                    required=""
+                                    type="text"
+                                  />
+                                  <span
+                                    aria-label="3-digit code on the back of your card"
+                                    class="cvv-hint"
+                                    data-bs-original-title="3-digit code on the back of your card"
+                                    data-bs-placement="right"
+                                    data-bs-toggle="tooltip"
+                                  >
+                                    <i class="bi bi-question-circle"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="card-name">Name on Card</label>
                               <input
                                 class="form-control"
-                                id="cvv"
-                                name="cvv"
-                                placeholder="CVV*"
+                                id="card-name"
+                                name="card-name"
+                                placeholder="Card Holder Name*"
                                 required=""
                                 type="text"
                               />
-                              <span
-                                aria-label="3-digit code on the back of your card"
-                                class="cvv-hint"
-                                data-bs-original-title="3-digit code on the back of your card"
-                                data-bs-placement="right"
-                                data-bs-toggle="tooltip"
-                              >
-                                <i class="bi bi-question-circle"></i>
-                              </span>
                             </div>
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="card-name">Name on Card</label>
-                          <input
-                            class="form-control"
-                            id="card-name"
-                            name="card-name"
-                            placeholder="Card Holder Name*"
-                            required=""
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div class="payment-details d-none" id="paypal-details">
-                        <p class="payment-info">
-                          You will be redirected to PayPal to complete your
-                          purchase securely.
-                        </p>
-                      </div>
-                      <div
-                        class="payment-details d-none"
-                        id="apple-pay-details"
-                      >
-                        <p class="payment-info">
-                          You will be prompted to authorize payment with Apple
-                          Pay.
-                        </p>
-                      </div>
-                    </div>
-                    <!-- FLIPPING CREDIT CARD -->
-                    <div class="card-flip-container">
-                      <div class="card-flip-inner">
-                        <div class="card-flip-front">
-                          <div class="card-header-custom">
-                            <div class="card-logo">
-                              <img
-                                src="../img/checkout-related/card-logo.png"
-                                alt="Card Logo"
-                              />
-                              <h5 class="card-text-normal">Master Card</h5>
-                            </div>
-                            <img
-                              src="../img/checkout-related/chip.png"
-                              alt="Chip"
-                              class="card-chip"
-                            />
+                          <div class="payment-details d-none" id="paypal-details">
+                            <p class="payment-info">
+                              You will be redirected to PayPal to complete your
+                              purchase securely.
+                            </p>
                           </div>
-                          <div class="card-details">
-                            <div class="name-number">
-                              <h6 class="card-text-small">Card Number</h6>
-                              <h5 class="card-number">8050 2030 3020 5040</h5>
-                              <h5 class="card-name">Prem Kumar Shahi</h5>
-                            </div>
-                            <div class="valid-date">
-                              <h6 class="card-text-small">Valid Thru</h6>
-                              <h5 class="card-text-normal">05/28</h5>
-                            </div>
+                          <div
+                            class="payment-details d-none"
+                            id="apple-pay-details"
+                          >
+                            <p class="payment-info">
+                              You will be prompted to authorize payment with Apple
+                              Pay.
+                            </p>
                           </div>
                         </div>
-                        <div class="card-flip-back">
-                          <h6 class="card-text-small">
-                            For customer service email at aloura@gmail.com
-                          </h6>
-                          <span class="magnetic-strip"></span>
-                          <div class="signature"><i>005</i></div>
-                          <h5 class="card-text-small">
-                            By using this card, you accept the terms and
-                            conditions of the cardholder agreement
-                          </h5>
+                        
+                        <!-- Right column with card display -->
+                        <div class="card-display-column">
+                          <!-- FLIPPING CREDIT CARD -->
+                          <div class="card-flip-container">
+                            <div class="card-flip-inner">
+                              <div class="card-flip-front">
+                                <div class="card-header-custom">
+                                  <div class="card-logo">
+                                    <img
+                                      src="../img/checkout-related/card-logo.png"
+                                      alt="Card Logo"
+                                    />
+                                    <h5 class="card-text-normal">Master Card</h5>
+                                  </div>
+                                  <img
+                                    src="../img/checkout-related/chip.png"
+                                    alt="Chip"
+                                    class="card-chip"
+                                  />
+                                </div>
+                                <div class="card-details">
+                                  <div class="name-number">
+                                    <h6 class="card-text-small">Card Number</h6>
+                                    <h5 class="card-number">8050 2030 3020 5040</h5>
+                                    <h5 class="card-name">Prem Kumar Shahi</h5>
+                                  </div>
+                                  <div class="valid-date">
+                                    <h6 class="card-text-small">Valid Thru</h6>
+                                    <h5 class="card-text-normal">05/28</h5>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-flip-back">
+                                <h6 class="card-text-small">
+                                  For customer service email at aloura@gmail.com
+                                </h6>
+                                <span class="magnetic-strip"></span>
+                                <div class="signature"><i>005</i></div>
+                                <h5 class="card-text-small">
+                                  By using this card, you accept the terms and
+                                  conditions of the cardholder agreement
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END OF FLIPPING CREDIT CARD -->
                         </div>
                       </div>
                     </div>
-                    <!-- END OF FLIPPING CREDIT CARD -->
                   </div>
                 </form>
               </div>

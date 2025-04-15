@@ -600,3 +600,136 @@ color-mix(in srgb, var(--default-color), transparent 80%);
 {
   color: #acacac !important; 
 }
+
+/* Payment Method Layout */
+.payment-method-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.payment-fields-column {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+  transition: all 0.3s ease-in-out;
+}
+
+.card-display-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0; /* Prevents flex items from overflowing */
+  padding: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animation for payment method section */
+:root {
+  --payment-animation-duration: 0.5s;
+  --payment-animation-timing: ease-in-out;
+}
+
+#payment-method {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+  max-height: 1000px;
+  overflow: hidden;
+  opacity: 1;
+}
+
+#payment-method.hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ensure the section header also animates */
+#payment-method .section-header {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+#payment-method.hidden .section-header {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Ensure the section content animates */
+#payment-method .section-content {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+#payment-method.hidden .section-content {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Ensure the payment method container animates */
+.payment-method-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Ensure the payment fields column animates */
+.payment-fields-column {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Ensure the card display column animates */
+.card-display-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0; /* Prevents flex items from overflowing */
+  padding: 30px;
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Responsive adjustments for payment method */
+@media (max-width: 1399px) {
+  .payment-method-container {
+    flex-direction: column;
+  }
+  
+  .card-display-column {
+    margin-top: 20px;
+  }
+}
+/* Compact the payment fields */
+.payment-fields-column .form-group {
+  margin-bottom: 15px;
+}
+
+.payment-fields-column .row {
+  margin-bottom: 15px;
+}
+
+.payment-fields-column .card-number-wrapper {
+  margin-bottom: 0;
+}
+
+.payment-fields-column .cvv-wrapper {
+  margin-bottom: 0;
+}
+
+/* Adjust card size for better fit */
+.card-flip-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 350px;
+}
+
+.payment-fields-column {
+  padding-top: 1.5rem;
+}
