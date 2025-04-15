@@ -28,6 +28,10 @@ const User = new mongoose.Schema({
     required: [true, "Password is required"],
     minlength: [6, "Password must be at least 6 characters long"],
   },
+  Image: {
+    type: String,
+    default: "img/defultprofile.png",
+  },
   verified: { type: Boolean, default: false },
 });
 
