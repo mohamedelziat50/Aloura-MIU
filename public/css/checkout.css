@@ -373,7 +373,6 @@
   position: relative;
   top: 4rem;
   /* background-color: #f1f1f1; */
-  border-top: 2px solid #DEDEDE !important;
 }
 
 .section-number {
@@ -473,7 +472,7 @@
   background-color: #F5F5F5 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  border-left: 2px solid #DEDEDE !important;
+  border: 1px solid #DEDEDE !important;
 }
 
 .col-lg-5 {
@@ -577,3 +576,27 @@ color-mix(in srgb, var(--default-color), transparent 80%);
   background-color: white !important;
 }
 
+.checkout .checkout-section .section-content .form-check .form-check-label {
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif !important;
+  /* font-size: 14px !important; */
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.cod-confirmation-message span {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Times New Roman", Times, serif !important;
+  /* font-size: 20px !important; */
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  color: #121212 !important;
+}
+
+.checkout .checkout-section .section-content .form-group .form-control, .checkout .checkout-section .section-content .form-group .form-select 
+{
+  color: #acacac !important; 
+}
