@@ -2,7 +2,7 @@
 
 .offcanvas-footer
 {
-    position: absolute;
+    position: static;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -158,4 +158,75 @@
 
 .col-md-3 {
     padding-left: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .offcanvas-footer {
+    padding: 10px !important;
+  }
+  .cart-info-section {
+    padding: 0 0.5rem;
+  }
+  .cart-info-subtotal {
+    font-size: 1rem;
+  }
+  .cart-info-list {
+    font-size: 0.95rem;
+    padding-left: 0.1rem;
+  }
+  #last-checkout-button, #continue-shopping-button {
+    font-size: 13px !important;
+    padding: 8px !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .offcanvas-footer {
+    padding: 6px !important;
+  }
+  .cart-info-section {
+    padding: 0 0.2rem;
+  }
+  .cart-info-subtotal {
+    font-size: 0.95rem;
+  }
+  .cart-info-list {
+    font-size: 0.9rem;
+  }
+  #last-checkout-button, #continue-shopping-button {
+    font-size: 12px !important;
+    padding: 6px !important;
+    width: 100% !important;
+  }
+}
+
+.row>* {
+    padding-right: 0px !important; 
+    padding-left: 0px !important; 
+}
+
+.input-group {
+    padding-top: 1rem !important;
+}
+
+.fw-bold {
+    padding-right: 0.5rem !important;
+}
+
+.trash-can-button {
+  transition: all 0.2s linear !important;
+  margin-right: 0.5rem !important;
+}
+
+.input-group .btn.btn-outline-secondary:hover {
+  background-color: #121212 !important;
+  border-color: #121212 !important;
+  color: #fff !important;
+}
+
+.quantity-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da !important; /* fallback to default border */
 }
