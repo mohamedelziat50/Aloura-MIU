@@ -733,3 +733,51 @@ color-mix(in srgb, var(--default-color), transparent 80%);
 .payment-fields-column {
   padding-top: 1.5rem;
 }
+
+/* Discount Code Styling */
+.order-totals .order-discount {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--default-color), transparent 80%);
+  padding-bottom: 20px;
+}
+
+.order-discount .input-group {
+  width: 100%;
+}
+
+.order-discount .form-control {
+  border-radius: 0;
+  border: 1px solid #DEDEDE;
+  height: 40px;
+  color: #121212;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+}
+
+.order-discount .form-control::placeholder {
+  color: #acacac;
+}
+
+.order-discount .btn {
+  border-radius: 0;
+  border: 1px solid #DEDEDE;
+  background-color: white;
+  color: #121212;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  padding: 0 20px;
+  transition: all 0.2s linear;
+}
+
+.order-discount .btn:hover {
+  background-color: #121212;
+  color: white;
+  border-color: #121212;
+}
+
+.checkout .order-summary .order-summary-content {
+  padding: 0px 24px !important;
+  padding-top: 5px !important;
+}
