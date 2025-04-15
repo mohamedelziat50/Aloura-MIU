@@ -1,16 +1,5 @@
 <!-- Styling related to cart -->
- <style>
-  .custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
-
-  .offcanvas-footer
-  {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px;
-  }
- </style>
+<link rel="stylesheet" href="/css/cart.css">
  
 <!-- Shopping cart menu related -->
 <div
@@ -18,10 +7,13 @@
   tabindex="-1"
   id="offcanvasRight"
   aria-labelledby="offcanvasRightLabel"
-  style="z-index: 999999"
+  style="z-index: 999999999"
 >
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Cart</h5>
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">
+      <i class="bi bi-bag"></i>
+      Your Cart
+    </h5>
     <button
       type="button"
       class="btn-close"
@@ -40,7 +32,42 @@
       </div>
       <div class="col-md-5">
         <h5 class="card-title">Product 1</h5>
-        <p class="text-muted">Category: Electronics</p>
+        <p class="text-muted">Color: Black | Size: M</p>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <button class="btn btn-outline-secondary btn-sm" type="button">
+            -
+          </button>
+          <input
+            style="max-width: 100px"
+            type="text"
+            class="form-control form-control-sm text-center quantity-input"
+            value="1"
+          />
+          <button class="btn btn-outline-secondary btn-sm" type="button">
+            +
+          </button>
+        </div>
+      </div>
+      <div class="col-md-2 text-end">
+        <p class="fw-bold">$99.99</p>
+        <button class="btn btn-sm btn-outline-danger">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row cart-item mb-3">
+      <div class="col-md-3">
+        <img
+          src="../img/perfumes-transparent/stronger-with-you.png"
+          alt="Spicebomb Extreme"
+          class="img-fluid rounded"
+        />
+      </div>
+      <div class="col-md-5">
+        <h5 class="card-title">Product 2</h5>
+        <p class="text-muted">Color: Black | Size: M</p>
       </div>
       <div class="col-md-2">
         <div class="input-group">
@@ -67,12 +94,40 @@
     </div>
     <hr />
     <div class="offcanvas-footer p-3">
+      <!-- Payment and Info Section (now at the bottom) -->
+      <div class="cart-info-section mb-3">
+        <div class="cart-info-subtotal">Sub-Total: <span style="font-weight: 600;">810 €</span></div>
+        <hr class="cart-info-section-hr" id="cart-info-section-hr-first" />
+        <ul class="cart-info-list">
+          <li>
+            <span class="cart-info-icon"><i class="bi bi-truck"></i></span>
+            Complimentary delivery with any orders
+          </li>
+          <li>
+            <span class="cart-info-icon"><i class="bi bi-shield-lock"></i></span>
+            Secure payment by credit and debit card
+          </li>
+          <li>
+            <span class="cart-info-icon"><i class="bi bi-headset"></i></span>
+            Contact our customer service for any inquiries
+          </li>
+        </ul>
+        <hr class="cart-info-section-hr" />
+      </div>
+      <!-- End Payment and Info Section -->
       <button
-        id="Checkout"
+        id="last-checkout-button"
         class="btn btn-success w-10"
         onclick="window.location.href='checkout'"
       >
-        Checkout
+        Check Out
+      </button>
+      <button
+        id="continue-shopping-button"
+        class="btn w-100"
+        data-bs-dismiss="offcanvas"
+      >
+        Continue Shopping
       </button>
     </div>
   </div>
