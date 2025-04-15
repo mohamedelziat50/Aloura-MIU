@@ -364,3 +364,216 @@
   font-size: 14px;
   font-weight: 400;
 }
+
+/* Checkout Page Styling To overide bootstrap*/
+
+.checkout {
+  padding: 0 !important;
+  /* padding-top: 2rem;  */
+  position: relative;
+  top: 4rem;
+  /* background-color: #f1f1f1; */
+  border-top: 2px solid #DEDEDE !important;
+}
+
+.section-number {
+  display: none !important;
+}
+
+.checkout .checkout-section .section-header h3 {
+  /* font-size: 19px !important; */
+  /* font-family: sans-serif; */
+  /* font-weight: 400; */
+  /* line-height: 23px; */
+  /* font-family: sans-serif; */
+  /* font-family: "Times New Roman", Times, serif; */
+  /* font-size: 36px; */
+  /* font-weight: 500; */
+  /* text-transform: uppercase; */
+  /* letter-spacing: 0.1em; */
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .checkout-section .section-header {
+  border-bottom: none !important;
+  padding: 0px 24px !important;
+  background-color: color-mix(in srgb, var(--surface-color), var(--background-color) 30%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.checkout .checkout-section .section-content .form-group label {
+  display: none !important;
+}
+
+.checkout .checkout-section {
+  background-color: var(--surface-color) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  margin-bottom: 5px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  padding-top: 2rem !important;
+}
+
+.checkout .checkout-section .section-content {
+  padding: 15px 24px !important;
+  padding-bottom: 5px !important;
+}
+
+.checkout .checkout-section .section-content .form-group {
+  flex: 1 !important;
+}
+
+.checkout .checkout-section .section-content .form-group .form-select {
+  background-position: right 16px center !important;
+  padding-right: 40px !important;
+  border-radius: 0px !important;
+  border: 1px solid #DEDEDE !important;
+}
+
+.checkout .checkout-section .section-content .form-check .form-check-input:checked {
+  border-color: #121212 !important;
+  background-color: #121212 !important;
+  border: 1px solid #DEDEDE !important;
+  border-radius: 0px !important;
+}
+
+.form-check-input[type=checkbox] {
+  border-radius: 0 !important;
+  border: 1px solid #DEDEDE !important;
+}
+
+.rounded {
+  border-radius: 5px !important;
+}
+
+.cod-message {
+  font-family: "Poppins", sans-serif;
+  border-left: 3px solid #121212;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  background-color: rgba(248, 249, 250, 0.9) !important;
+}
+
+.fa-wallet:before {
+  color: lightslategrey !important;
+}
+
+#scroll-top {
+  display: none !important;
+}
+
+.checkout .order-summary {
+  background-color: #F5F5F5 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border-left: 2px solid #DEDEDE !important;
+}
+
+.col-lg-5 {
+  padding-left: 0px !important;
+}
+
+.col-lg-7 {
+  padding-right: 0px !important;
+}
+
+.checkout .order-summary .order-summary-header h3 {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-header .item-count {
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  background-color: #F5F5F5 !important;
+}
+
+.checkout .order-summary .order-summary-header {
+  border-bottom: none !important;
+  padding-bottom: 0px !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details .order-item-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+  font-size: 15px !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details .order-item-price .price {
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-totals {
+  background-color: #F5F5F5 !important;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-totals>div:last-child {
+  margin-bottom: 0;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed 
+color-mix(in srgb, var(--default-color), transparent 80%);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  display: inline-block !important;
+  width: 100%;
+}
+
+#checkout-button {
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+  color: white !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  background-color: #121212 !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: 100% !important;
+}
+
+#checkout-button:hover {
+  color: #121212 !important;
+  background-color: white !important;
+}
+
