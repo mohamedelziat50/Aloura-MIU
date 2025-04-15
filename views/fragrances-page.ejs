@@ -27,7 +27,7 @@
 <body>
     <!-- Navigation (unchanged from your original) -->
     <%- include('partials/navbar.ejs') %>
-    <%- include('partials/cart.ejs') %>
+    <%-  include('partials/cart.ejs')  %>
 
     <!-- Main Content -->
     <main>
@@ -99,7 +99,8 @@
 
         <!-- Recommendations (structure unchanged) -->
         <div id="suggestions">
-            <h2 id="might-like">You May Also Like</h2>
+            <div id="might-like-box"> <h2 id="might-like">You May Also Like</h2></div>
+           
             <div class="suggestion-wrapper">
                 <button id="prev-suggestion" class="suggestion-arrow">&lt;</button>
                 <div id="suggested-products-container">

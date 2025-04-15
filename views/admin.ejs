@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="admin-layout"></div>
     <div class="sidebar">
         <h2>Admin Panel</h2>
         <ul>
@@ -20,6 +21,7 @@
             <li id="btn-logout">Logout</li>
         </ul>
     </div>
+</div>
 
     <div class="main">
         <header>
@@ -46,45 +48,90 @@
                     <h3>Users</h3>
                     <p>1,239</p>
                 </div>
+                <!-- Add to your dashboard section (after the cards div) -->
+<div class="dashboard-highlights">
+    <!-- 1. Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <h3>Today's Sales</h3>
+        <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>New Customers</h3>
+        <p>24 <span class="metric-change down">▼ 3%</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>Avg. Order</h3>
+        <p>$87 <span class="metric-change up">▲ 5%</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>Conversion</h3>
+        <p>3.2% <span class="metric-change">→</span></p>
+      </div>
+    </div>
+  
+    <!-- Add this where you want the charts in your admin.ejs file -->
+<div class="dashboard-charts">
+    <!-- Monthly Sales Card -->
+    <div class="chart-card">
+      <h3>Monthly Sales</h3>
+      <div class="chart-data">
+        <div class="data-row">
+          <span>January</span>
+          <span>$1,250</span>
+        </div>
+        <div class="data-row">
+          <span>February</span>
+          <span>$1,900</span>
+        </div>
+        <div class="data-row">
+          <span>March</span>
+          <span>$2,100</span>
+        </div>
+        <div class="data-row highlight">
+          <span>Current Month</span>
+          <span>$2,400</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Top Fragrances Card -->
+    <div class="chart-card">
+      <h3>Top Fragrances</h3>
+      <div class="chart-data">
+        <div class="data-row">
+          <span>1. Chanel No.5</span>
+          <span>85 sold</span>
+        </div>
+        <div class="data-row">
+          <span>2. Dior Sauvage</span>
+          <span>72 sold</span>
+        </div>
+        <div class="data-row">
+          <span>3. Khamrah</span>
+          <span>58 sold</span>
+        </div>
+        <div class="data-row highlight">
+          <span>Bestseller</span>
+          <span>Chanel No.5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+  
+    <!-- 6. Seasonal Highlights -->
+    <div class="seasonal-alert">
+      <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
+      <p>Floral scents trending! Create a "Spring Blossom" collection.</p>
+      <button class="promo-btn">Launch Campaign</button>
+    </div>
+  </div>
+
+
             </div>
 
-            <section class="recent-orders">
-                <h2>Recent Orders</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Product</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#1001</td>
-                            <td>Aya</td>
-                            <td>Dior Sauvage</td>
-                            <td><span class="status delivered">Delivered</span></td>
-                            <td>$120</td>
-                        </tr>
-                        <tr>
-                            <td>#1002</td>
-                            <td>Ali</td>
-                            <td>Versace Eros</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>$95</td>
-                        </tr>
-                        <tr>
-                            <td>#1003</td>
-                            <td>Fatima</td>
-                            <td>Chanel No. 5</td>
-                            <td><span class="status shipped">Shipped</span></td>
-                            <td>$130</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
         </section>
 
         <!-- Products Section -->
@@ -100,8 +147,67 @@
         
 
         <!-- Orders Section -->
-        <section id="section-orders" class="section">
+         <!-- Add this to your Orders section -->
+         <section id="section-orders" class="section">
             <h2>Manage Orders</h2>
+            
+            <!-- Order Analytics Dashboard -->
+            <div class="order-analytics">
+                <div class="analytics-card">
+                    <h3>Order Conversion Rate</h3>
+                    <div class="conversion-meter">
+                        <div class="meter-fill" style="width: 68%;"></div>
+                        <span>68%</span>
+                    </div>
+                    <p>From cart to completed purchase</p>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Avg. Fulfillment Time</h3>
+                    <div class="time-metric">1.8 days</div>
+                    <p>From payment to shipment</p>
+                </div>
+        
+                <div class="analytics-card">
+                    <h3>Gift Orders</h3>
+                    <div class="time-metric">24%</div>
+                    <p>Of total orders</p>
+                </div>
+            </div>
+        
+            <!-- Gift Service Hub -->
+            <div class="gift-service-hub">
+                <h3><i class="icon-gift"></i> Gift Orders</h3>
+                <div class="gift-orders-grid">
+                    <div class="gift-order-card">
+                        <div class="order-header">
+                            <span class="order-id">#1005</span>
+                            <span class="gift-badge">GIFT</span>
+                        </div>
+                        <div class="gift-details">
+                            <p><strong>To:</strong> Sarah Johnson</p>
+                            <p><strong>Message:</strong> "Happy Anniversary!"</p>
+                            <p><strong>Wrap:</strong> Premium Gold (+$5.99)</p>
+                        </div>
+                        <button class="btn-view">View Order</button>
+                    </div>
+        
+                    <div class="gift-order-card">
+                        <div class="order-header">
+                            <span class="order-id">#1008</span>
+                            <span class="gift-badge">GIFT</span>
+                        </div>
+                        <div class="gift-details">
+                            <p><strong>To:</strong> Michael Brown</p>
+                            <p><strong>Message:</strong> "Happy Birthday!"</p>
+                            <p><strong>Wrap:</strong> Classic Red (+$3.99)</p>
+                        </div>
+                        <button class="btn-view">View Order</button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Orders Table -->
             <table>
                 <thead>
                     <tr>
@@ -110,6 +216,7 @@
                         <th>Product</th>
                         <th>Status</th>
                         <th>Total</th>
+                        <th>Gift</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,36 +226,85 @@
                         <td>Dior Sauvage</td>
                         <td><span class="status delivered">Delivered</span></td>
                         <td>$120</td>
+                        <td>No</td>
                     </tr>
                     <tr>
-                        <td>#1002</td>
+                        <td>#1005</td>
                         <td>Ali</td>
-                        <td>Versace Eros</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>$95</td>
-                    </tr>
-                    <tr>
-                        <td>#1003</td>
-                        <td>Fatima</td>
                         <td>Chanel No. 5</td>
                         <td><span class="status shipped">Shipped</span></td>
-                        <td>$130</td>
+                        <td>$150</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>#1008</td>
+                        <td>Fatima</td>
+                        <td>Spice Bomb </td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>$95</td>
+                        <td>Yes</td>
                     </tr>
                 </tbody>
-            </table>        </section>
+            </table>
+        </section>
 
-        <!-- Users Section -->
         <section id="section-users" class="section">
             <h2>Manage Users</h2>
             
-            <div class="user-controls">
-                <div class="search-box">
-                    <input type="text" placeholder="Search users..." class="search-input">
-                    <button class="search-btn">Search</button>
+            <!-- User Analytics Dashboard -->
+            <div class="user-analytics">
+                <div class="analytics-card">
+                    <h3>New Users (30d)</h3>
+                    <div class="metric-value">142</div>
+                    <div class="metric-change up">▲ 12% from last month</div>
                 </div>
-                <button class="user-btn add-user">+ Add New User</button>
+                
+                <div class="analytics-card">
+                    <h3>Active Users</h3>
+                    <div class="metric-value">864</div>
+                    <div class="metric-change">Logged in past 30d</div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Avg. Spend</h3>
+                    <div class="metric-value">$87</div>
+                    <div class="metric-change down">▼ 5% from last quarter</div>
+                </div>
             </div>
         
+            <!-- Segmentation Tools -->
+            <div class="segmentation-tools">
+                <div class="tool-header">
+                    <h3><i class="icon-filter"></i> User Segments</h3>
+                    <button class="btn-create-segment">+ New Segment</button>
+                </div>
+                
+                <div class="segment-filters">
+                    <div class="filter-group">
+                        <label>Loyalty Tier</label>
+                        <select class="form-input">
+                            <option>All tiers</option>
+                            <option>Gold ($500+)</option>
+                            <option>Silver ($200-$499)</option>
+                            <option>Bronze (<$200)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Last Active</label>
+                        <select class="form-input">
+                            <option>Any time</option>
+                            <option>Past 7 days</option>
+                            <option>Past 30 days</option>
+                            <option>90+ days inactive</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-apply">Apply Filters</button>
+                </div>
+            </div>
+        
+            <!-- Users Grid with Notes -->
             <div class="users-grid">
                 <!-- User Card 1 -->
                 <div class="user-card">
@@ -158,104 +314,184 @@
                     <div class="user-info">
                         <h3 class="user-name">John Doe</h3>
                         <p class="user-email">john.doe@example.com</p>
-                        <p class="user-role">Customer</p>
-                        <p class="user-joined">Joined: 15 Jan 2023</p>
+                        <p class="user-role">Gold Member</p>
+                        <p class="user-joined">Last active: 2 days ago</p>
+                        
+                        <!-- Notes Section -->
+                        <div class="user-notes">
+                            <div class="notes-header">
+                                <h4>Customer Notes</h4>
+                                <button class="btn-add-note">+ Add</button>
+                            </div>
+                            <div class="notes-list">
+                                <div class="note">
+                                    <p>"Prefers floral scents - recommended new Chanel launch"</p>
+                                    <span class="note-date">Added May 15, 2023</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="user-actions">
                         <button class="user-btn edit">Edit</button>
                         <button class="user-btn delete">Delete</button>
                     </div>
                 </div>
+                
+               <!-- User Card 2 -->
+<div class="user-card">
+    <div class="user-avatar">
+        <img src="https://via.placeholder.com/80" alt="User Avatar">
+    </div>
+    <div class="user-info">
+        <h3 class="user-name">Sarah Smith</h3>
+        <p class="user-email">sarah.smith@example.com</p>
+        <p class="user-role">Silver Member</p>
+        <p class="user-joined">Last active: 5 days ago</p>
         
-                <!-- User Card 2 -->
-                <div class="user-card">
-                    <div class="user-avatar">
-                        <img src="https://via.placeholder.com/80" alt="User Avatar">
-                    </div>
-                    <div class="user-info">
-                        <h3 class="user-name">Sarah Smith</h3>
-                        <p class="user-email">sarah.smith@example.com</p>
-                        <p class="user-role">Admin</p>
-                        <p class="user-joined">Joined: 22 Mar 2022</p>
-                    </div>
-                    <div class="user-actions">
-                        <button class="user-btn edit">Edit</button>
-                        <button class="user-btn delete">Delete</button>
-                    </div>
+        <!-- Notes Section -->
+        <div class="user-notes">
+            <div class="notes-header">
+                <h4>Customer Notes</h4>
+                <button class="btn-add-note">+ Add</button>
+            </div>
+            <div class="notes-list">
+                <div class="note">
+                    <p>"Allergic to floral scents - prefers woody fragrances"</p>
+                    <span class="note-date">Added Jun 2, 2023</span>
                 </div>
-        
-                <!-- User Card 3 -->
-                <div class="user-card">
-                    <div class="user-avatar">
-                        <img src="https://via.placeholder.com/80" alt="User Avatar">
-                    </div>
-                    <div class="user-info">
-                        <h3 class="user-name">Alex Johnson</h3>
-                        <p class="user-email">alex.j@example.com</p>
-                        <p class="user-role">Moderator</p>
-                        <p class="user-joined">Joined: 05 Nov 2023</p>
-                    </div>
-                    <div class="user-actions">
-                        <button class="user-btn edit">Edit</button>
-                        <button class="user-btn delete">Delete</button>
-                    </div>
+                <div class="note">
+                    <p>"Complained about slow shipping last order - offer discount"</p>
+                    <span class="note-date">Added Apr 15, 2023</span>
                 </div>
-            </div>
-        </section>
-
-      <!-- Reviews Section -->
-<section id="section-reviews" class="section">
-    <h2>Moderate Reviews</h2>
-    <div class="reviews-container">
-        <!-- Review 1 -->
-        <div class="review-card">
-            <div class="review-header">
-                <span class="review-author">John D.</span>
-                <span class="review-rating">★★★★☆</span>
-                <span class="review-date">2023-10-15</span>
-            </div>
-            <div class="review-content">
-                <p>Great product! Works exactly as described. The delivery was a bit slow but worth the wait.</p>
-            </div>
-            <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
-            </div>
-        </div>
-
-        <!-- Review 2 -->
-        <div class="review-card">
-            <div class="review-header">
-                <span class="review-author">Sarah M.</span>
-                <span class="review-rating">★☆☆☆☆</span>
-                <span class="review-date">2023-10-18</span>
-            </div>
-            <div class="review-content">
-                <p>Very disappointed with my purchase. The item arrived damaged and customer service hasn't responded.</p>
-            </div>
-            <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
-            </div>
-        </div>
-
-        <!-- Review 3 -->
-        <div class="review-card">
-            <div class="review-header">
-                <span class="review-author">Alex T.</span>
-                <span class="review-rating">★★★★★</span>
-                <span class="review-date">2023-10-20</span>
-            </div>
-            <div class="review-content">
-                <p>Absolutely love it! Better than I expected. Will definitely buy from this store again.</p>
-            </div>
-            <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
             </div>
         </div>
     </div>
-</section>
+    <div class="user-actions">
+        <button class="user-btn edit">Edit</button>
+        <button class="user-btn delete">Delete</button>
+    </div>
+</div>
+        </section>
+      <!-- Reviews Section -->
+      <section id="section-reviews" class="section">
+        <h2>Product Reviews</h2>
+        
+        <!-- Reviews Analytics -->
+        <div class="reviews-analytics">
+            <div class="analytics-card">
+                <h3>Average Rating</h3>
+                <div class="rating-display">4.2 ★</div>
+                <div class="rating-distribution">
+                    <div class="rating-bar" data-rating="5">★★★★★ <span>65%</span></div>
+                    <div class="rating-bar" data-rating="4">★★★★☆ <span>22%</span></div>
+                    <div class="rating-bar" data-rating="3">★★★☆☆ <span>8%</span></div>
+                    <div class="rating-bar" data-rating="2">★★☆☆☆ <span>3%</span></div>
+                    <div class="rating-bar" data-rating="1">★☆☆☆☆ <span>2%</span></div>
+                </div>
+            </div>
+            
+            <div class="analytics-card">
+                <h3>Recent Sentiment</h3>
+                <div class="sentiment-meter">
+                    <div class="meter-fill positive" style="width: 78%"></div>
+                    <span>78% Positive</span>
+                </div>
+                <div class="sentiment-keywords">
+                    <span class="keyword">"long-lasting" (42x)</span>
+                    <span class="keyword">"great scent" (38x)</span>
+                    <span class="keyword">"poor packaging" (12x)</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Reviews Moderation Tools -->
+        <div class="moderation-controls">
+            <div class="filter-options">
+                <select class="form-input">
+                    <option>All Reviews</option>
+                    <option>Unapproved (3)</option>
+                    <option>Flagged (1)</option>
+                    <option>5 Star</option>
+                    <option>1-2 Star</option>
+                </select>
+                <button class="btn-export">Export CSV</button>
+            </div>
+            
+            <div class="bulk-actions">
+                <button class="btn-bulk-approve">Approve Selected</button>
+                <button class="btn-bulk-delete">Delete Selected</button>
+            </div>
+        </div>
+    
+        <!-- Reviews List (Existing) -->
+        <div class="reviews-container">
+           
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-author">John D.</span>
+                        <span class="review-rating">★★★★☆</span>
+                        <span class="review-date">2023-10-15</span>
+                    </div>
+                    <div class="review-content">
+                        <p>Great product! Works exactly as described. The delivery was a bit slow but worth the wait.</p>
+                    </div>
+                    <div class="review-actions">
+                        <button class="btn-approve">Approve</button>
+                        <button class="btn-delete">Delete</button>
+                    </div>
+                </div>
+        
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-author">Sarah M.</span>
+                        <span class="review-rating">★☆☆☆☆</span>
+                        <span class="review-date">2023-10-18</span>
+                    </div>
+                    <div class="review-content">
+                        <p>Very disappointed with my purchase. The item arrived damaged and customer service hasn't responded.</p>
+                    </div>
+                    <div class="review-actions">
+                        <button class="btn-approve">Approve</button>
+                        <button class="btn-delete">Delete</button>
+                    </div>
+                </div>
+        
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-author">Alex T.</span>
+                        <span class="review-rating">★★★★★</span>
+                        <span class="review-date">2023-10-20</span>
+                    </div>
+                    <div class="review-content">
+                        <p>Absolutely love it! Better than I expected. Will definitely buy from this store again.</p>
+                    </div>
+                    <div class="review-actions">
+                        <button class="btn-approve">Approve</button>
+                        <button class="btn-delete">Delete</button>
+                    </div>
+                </div>
+            
+            <div class="review-card flagged">
+                <div class="review-meta">
+                    <span class="review-product">Chanel No. 5</span>
+                    <span class="review-rating">★☆☆☆☆</span>
+                    <span class="review-date">Today</span>
+                    <span class="flag-badge">⚠️ Flagged</span>
+                </div>
+                <div class="review-content">
+                    <p>"This smells nothing like the original! Suspect counterfeit."</p>
+                </div>
+                <div class="review-actions">
+                    <button class="btn-approve">Approve</button>
+                    <button class="btn-reply">Reply Privately</button>
+                    <button class="btn-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <section id="section-settings" class="section">
     <h2>Site Settings</h2>

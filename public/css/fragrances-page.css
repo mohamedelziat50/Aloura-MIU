@@ -21,7 +21,7 @@ body {
 /* ===== PRODUCT CONTAINER ADJUSTMENTS ===== */
 #product-container {
     display: flex;
-    max-width: 90%;  /* Reduced from auto to make container smaller */
+    max-width: 80%;  /* Reduced from auto to make container smaller */
     margin: 0 auto;     /* This centers the container horizontally */
     background-color: white;
     padding: 20px;
@@ -398,6 +398,21 @@ ul{
     font-weight: bold;
     margin-bottom: 20px; /* Space between heading and items */
 }
+
+.might-like-box {
+    width: 260px;
+    margin: 15px;
+    padding: 0;
+    border-radius: 20px;
+    background: #252121;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+
 
 /* Container for arrows and items */
 .suggestion-wrapper {
