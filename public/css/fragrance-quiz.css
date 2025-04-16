@@ -17,23 +17,31 @@ body {
 }
 
 /* Fix for gender section layout and overflow */
+#gender, #gender * {
+    box-sizing: border-box;
+}
+
 #gender {
     position: fixed;
-    top: 0;
+    top: 60px; /* height of navbar */
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 60px); /* fill from navbar to bottom */
     display: flex;
-    z-index: 10;
     background: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
 }
 
 #gender .gender-left {
     width: 50vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 #gender .gender-left h2 {
@@ -56,13 +64,19 @@ body {
 
 #gender .gender-right {
     width: 50vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 #gender .gender-right .option {
-    position: relative;
+    flex: 1 1 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,15 +86,15 @@ body {
 }
 
 #gender .gender-right .option[data-value="male"] {
-    background-color: #D4C4B0;
+    background-color: rgb(212, 194, 166);
 }
 
 #gender .gender-right .option[data-value="female"] {
-    background-color: #E4D5C3;
+    background-color: rgb(237, 220, 191);
 }
 
 #gender .gender-right .option[data-value="neutral"] {
-    background-color: #F4E6D4;
+    background-color: rgb(241, 228, 205);
 }
 
 #gender .gender-right .option:hover {
@@ -89,7 +103,7 @@ body {
 }
 
 #gender .gender-right .option.selected {
-    background-color: #232323 !important;
+    background-color: rgb(35, 35, 35) !important;
     transform: translateX(-10px);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -401,7 +415,7 @@ nav {
 }
 
 .option img {
-    width: 60px;
+    width: auto;
     height: auto;
     margin-bottom: 10px;
 }
