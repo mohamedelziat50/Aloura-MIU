@@ -163,15 +163,12 @@ nav {
 }
 
 /* Age Slider */
-.age-slider {
-    width: 95%;
-    max-width: 1200px;
-    margin: 0 auto 40px;
+.slider-container {
     position: relative;
+    width: 100%;
+    height: 45px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
 }
 
 .slider {
@@ -179,40 +176,53 @@ nav {
     appearance: none;
     width: 100%;
     height: 8px;
-    background: #ddd;
+    background: #E8DCD1;
     outline: none;
     border-radius: 4px;
     margin: 0 auto;
 }
 
+/* Make the actual thumb invisible */
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 28px;
-    height: 28px;
-    background: #333;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: transparent;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .slider::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
-    background: #333;
+    width: 45px;
+    height: 45px;
+    background: transparent;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-.age-value {
-    font-size: 2rem;
-    color: #333;
-    margin-top: 20px;
+/* Style the custom thumb with the number */
+.slider-thumb {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    color: #E8DCD1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
     font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 0;
+}
+
+.slider:active ~ .slider-thumb {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* Options Grid */
