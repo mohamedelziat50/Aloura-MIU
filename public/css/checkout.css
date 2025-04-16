@@ -373,6 +373,7 @@
   position: relative;
   top: 4rem;
   /* background-color: #f1f1f1; */
+  margin-bottom: 10rem; /*To move the footer down*/
 }
 
 .section-number {
@@ -574,6 +575,27 @@ color-mix(in srgb, var(--default-color), transparent 80%);
 #checkout-button:hover {
   color: #121212 !important;
   background-color: white !important;
+}
+
+/* Fix for checkout button overflow on smaller screens */
+@media (max-width: 991px) {
+  .order-summary {
+    position: relative !important;
+    top: 0 !important;
+  }
+  
+  .order-totals .d-flex.justify-content-end {
+    width: 100%;
+  }
+  
+  .order-totals .d-flex.justify-content-end div {
+    width: 100%;
+  }
+  
+  #checkout-button {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
 
 .checkout .checkout-section .section-content .form-check .form-check-label {
