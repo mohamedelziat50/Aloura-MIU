@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import moment from "moment";
+// improted the moment library for formating the time user created and updated later on and will use the moment().format() , moment().FromNow()
 
 
 import UserModel from "./models/mydataSchema.js";
@@ -51,5 +53,4 @@ app.post("/signUp", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-
 });

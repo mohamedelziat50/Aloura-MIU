@@ -33,7 +33,7 @@ const User = new mongoose.Schema({
     default: "img/defultprofile.png",
   },
   verified: { type: Boolean, default: false },
-});
+} , { timestamps: true });
 
 User.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // only hash if changed
