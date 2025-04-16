@@ -219,11 +219,19 @@ body {
 }
 
 #skinTone .skin-right .option span {
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
+    margin-top: 50px;
+}
+
+/* Light text for dark backgrounds (tan + deep) */
+#skinTone .skin-right .option[data-value="tan"] span,
+#skinTone .skin-right .option[data-value="deep"] span,
+#skinTone .skin-right .option[data-value="olive"] span {
+    color: #F4E6D4 !important; /* Light cream (matches your selected state) */
 }
 
 #skinTone .skin-right .option[data-value="fair"] {
