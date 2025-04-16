@@ -62,56 +62,81 @@ body {
 }
 
 #gender .gender-right .option {
-    flex: 1;
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    gap: 10px;
+    transition: all 0.3s ease;
 }
 
 #gender .gender-right .option[data-value="male"] {
-    background-color: rgb(212,194,166);
+    background-color: #D4C4B0;
 }
 
 #gender .gender-right .option[data-value="female"] {
-    background-color: rgb(237,220,191);
+    background-color: #E4D5C3;
 }
 
 #gender .gender-right .option[data-value="neutral"] {
-    background-color: rgb(241,228,205);;
+    background-color: #F4E6D4;
 }
 
 #gender .gender-right .option:hover {
     transform: translateX(-10px);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    z-index: 1;
 }
 
 #gender .gender-right .option.selected {
+    background-color: #232323 !important;
     transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #1a1a1a;
-    z-index: 2;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 #gender .gender-right .option span {
     font-size: 1.7rem;
-    color: #1a1a1a;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+    transition: color 0.3s ease;
 }
 
-#gender .gender-right .gender-symbol {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 14px;
-    object-fit: contain;
+#gender .gender-right .option.selected span {
+    color: #F4E6D4;
+}
+
+#gender .gender-right .option .tick-mark {
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+#gender .gender-right .option.selected .tick-mark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes tickAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    70% {
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Hide progress bar and quiz container when gender section is active */

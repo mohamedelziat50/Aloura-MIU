@@ -52,6 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle scent family special case (max 2 selections)
             if (section.id === 'scentFamily') {
                 handleScentFamilySelection(option);
+            } else if (section.id === 'gender') {
+                // Remove selection and tick from all options
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                
+                // Add selection and animate tick
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
             } else {
                 // Single selection for other sections
                 section.querySelectorAll('.option').forEach(opt => {
