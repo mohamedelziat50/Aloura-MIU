@@ -75,15 +75,15 @@ body {
 }
 
 #gender .gender-right .option[data-value="male"] {
-    background-color: #D4C4B0;
+    background-color: rgb(212,194,166);
 }
 
 #gender .gender-right .option[data-value="female"] {
-    background-color: #E4D5C3;
+    background-color: rgb(237,220,191);
 }
 
 #gender .gender-right .option[data-value="neutral"] {
-    background-color: #F4E6D4;
+    background-color: rgb(241,228,205);;
 }
 
 #gender .gender-right .option:hover {
@@ -242,6 +242,8 @@ nav {
 /* Section Headers */
 .quiz-section h2 {
     font-family: "Monotype Baskerville", serif;
+    text-transform: uppercase;
+
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 40px;
