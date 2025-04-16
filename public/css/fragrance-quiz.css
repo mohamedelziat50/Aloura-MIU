@@ -37,9 +37,21 @@ body {
 }
 
 #gender .gender-left h2 {
-    font-size: 3.5rem;
-    text-align: center;
+    font-size: 4rem;
+    text-align: left;
+    margin-left: 10vw;
     width: 100%;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+#gender .gender-left h2 .gender-word {
+    display: block;
+    text-align: left;
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 0.2em;
 }
 
 #gender .gender-right {
