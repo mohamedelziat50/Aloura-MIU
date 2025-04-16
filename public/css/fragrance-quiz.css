@@ -1,77 +1,109 @@
 /* Basic reset */
-* {
+html, body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
 body {
     background-color: #f1f1f1;
     min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
     position: relative;
 }
 
-/* Gender Section Specific Styles */
+/* Fix for gender section layout and overflow */
 #gender {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    min-height: 60vh;
+    z-index: 10;
+    background: #f1f1f1;
 }
 
-#gender h2 {
-    flex: 1;
-    text-align: left;
-    margin: 0;
-}
-
-#gender .options {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 400px;
-}
-
-#gender .option {
-    padding: 30px;
-    margin: 0;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+#gender .gender-left {
+    width: 50vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#gender .option[data-value="male"] {
-    background-color: #D4C4B0; /* Dark beige */
+#gender .gender-left h2 {
+    font-size: 3.5rem;
+    text-align: center;
+    width: 100%;
 }
 
-#gender .option[data-value="female"] {
-    background-color: #E4D5C3; /* Medium beige */
+#gender .gender-right {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#gender .option[data-value="neutral"] {
-    background-color: #F4E6D4; /* Whitish beige */
+#gender .gender-right .option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#gender .option:hover {
+#gender .gender-right .option[data-value="male"] {
+    background-color: #D4C4B0;
+}
+
+#gender .gender-right .option[data-value="female"] {
+    background-color: #E4D5C3;
+}
+
+#gender .gender-right .option[data-value="neutral"] {
+    background-color: #F4E6D4;
+}
+
+#gender .gender-right .option:hover {
     transform: translateX(-10px);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1;
 }
 
-#gender .option.selected {
+#gender .gender-right .option.selected {
     transform: translateX(-10px);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    border: 2px solid #1a1a1a;
+    border-left: 4px solid #1a1a1a;
+    z-index: 2;
 }
 
-#gender .option span {
-    font-size: 1.2rem;
+#gender .gender-right .option span {
+    font-size: 1.7rem;
     color: #1a1a1a;
-    font-weight: 500;
+    font-weight: 600;
+}
+
+/* Hide progress bar and quiz container when gender section is active */
+.quiz-container.gender-active {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.progress-bar.gender-hide {
+    display: none !important;
 }
 
 /* Loader and Logo Section */
@@ -455,14 +487,6 @@ nav {
 
 .recommendation-card h2 {
     font-family: "Monotype Baskerville", serif;
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.recommendation-card p {
-    color: #666;
-    line-height: 1.6;
     margin-bottom: 15px;
 }
 
