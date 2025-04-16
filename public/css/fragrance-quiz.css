@@ -103,6 +103,15 @@ body {
     font-size: 1.7rem;
     color: #1a1a1a;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#gender .gender-right .gender-symbol {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 14px;
+    object-fit: contain;
 }
 
 /* Hide progress bar and quiz container when gender section is active */
@@ -582,3 +591,6 @@ nav {
         font-size: 1.5rem;
     }
 }
+
+
+
