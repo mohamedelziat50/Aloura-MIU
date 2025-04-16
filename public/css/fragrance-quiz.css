@@ -202,6 +202,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    gap: 0;
 }
 
 #skinTone .skin-right .option {
@@ -209,7 +210,11 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    border: none;
     border-radius: 0;
+    box-shadow: none !important;
+    background-clip: padding-box;
+    outline: 1px solid transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,6 +225,10 @@ body {
     transform-origin: center;
 }
 
+#skinTone .skin-right .option:not(:first-child) {
+    margin-top: -1px;
+}
+
 #skinTone .skin-right .option.skin-animate-expand {
     animation: skinToneExpand 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     z-index: 2;
@@ -227,6 +236,10 @@ body {
 
 #skinTone .skin-right .option.skin-animate-shrink {
     animation: skinToneShrink 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#skinTone .skin-right .option + .option {
+    border-top: none;
 }
 
 @keyframes skinToneExpand {
