@@ -6,6 +6,18 @@
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/admin.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
+  />
+      <link rel="shortcut icon" href="./img/ali.png" type="image/x-icon">
+      
+      <link href="./css/bootstrap.min.css" rel="stylesheet" />
+      <link
+      rel="icon"
+      type="image/x-icon"
+      href="./img/favicons/rounded-background-favicon.ico"
+    />
 </head>
 <body>
     <div class="admin-layout"></div>
@@ -303,7 +315,68 @@
                     <button class="btn-apply">Apply Filters</button>
                 </div>
             </div>
+            <table
+            style="width: 99%"
+            class="text-center mx-auto table mt-5 table-striped table-bordered"
+          >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Verified</th>
+                <th scope="col">Last updated</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+  
+  
+  
+            <tbody>
+  
+            <% arr.forEach((item, index) => { %>
+              <tr>
+                <th scope="row"> <%= index +1 %></th>
+                <td>  <%= item.name %> </td>
+                <td> <%= item.email %>	</td>
+                <td> <%= item.tel %> </td>
+                <td> <%= item.verified %> </td>
+                <td> <%= moment(item.updatedAt).fromNow()%>             </td>
+                <td>
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-title="View details"
+                    data-bs-placement="top"
+                    class="btn btn-primary btn-sm"
+                    href="./user/view.html"
+                    ><i class="bi bi-eye"></i
+                  ></a>
+  
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Edit user"
+                    data-bs-placement="top"
+                    class="btn btn-primary btn-sm"
+                    href="./user/edit.html"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete user"
+                    data-bs-placement="top"
+                    class="btn btn-danger btn-sm"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            <% }) %>
         
+            </tbody>
+          </table>
+          <br><br>
             <!-- Users Grid with Notes -->
             <div class="users-grid">
                 <!-- User Card 1 -->
