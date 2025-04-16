@@ -118,6 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Skin tone hover animation (expand/shrink with keyframes)
+    const skinToneOptions = document.querySelectorAll('#skinTone .skin-right .option');
+    skinToneOptions.forEach(option => {
+        option.addEventListener('mouseenter', () => {
+            option.classList.remove('skin-animate-shrink');
+            option.classList.add('skin-animate-expand');
+        });
+        option.addEventListener('mouseleave', () => {
+            option.classList.remove('skin-animate-expand');
+            option.classList.add('skin-animate-shrink');
+            // Remove shrink class after animation so it can be triggered again
+            option.addEventListener('animationend', function handler(e) {
+                if (e.animationName === 'skinToneShrink') {
+                    option.classList.remove('skin-animate-shrink');
+                    option.removeEventListener('animationend', handler);
+                }
+            });
+        });
+    });
+
     function handleScentFamilySelection(option) {
         if (option.classList.contains('selected')) {
             option.classList.remove('selected');
