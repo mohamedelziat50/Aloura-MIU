@@ -84,26 +84,31 @@
         <section class="quiz-section" id="age">
           <h2>How old are you?</h2>
           <div class="age-slider">
-            <input type="range" min="18" max="80" value="20" class="slider" id="ageSlider">
-            <div class="age-value">20</div>
+            <div class="slider-container">
+              <input type="range" min="1" max="80" value="18" class="slider" id="ageSlider">
+              <div class="slider-thumb">18</div>
+            </div>
           </div>
           <button class="next-btn">Next</button>
         </section>
 
         <!-- Gender Section -->
         <section class="quiz-section" id="gender">
-          <h2>What is your gender?</h2>
-          <div class="options">
+          <div class="gender-left">
+            <h2>What is your <br> gender?</h2>
+          </div>
+          <div class="gender-right">
             <div class="option" data-value="male">
-              <img src="../img/perfumes-transparent/male.png" alt="Male">
+              <img src="/img/maleSymbol.png" alt="Male Symbol" class="gender-symbol" />
               <span>Male</span>
             </div>
             <div class="option" data-value="female">
-              <img src="../img/perfumes-transparent/female.png" alt="Female">
+              <img src="/img/femaleSymbol.png" alt="Female Symbol" class="gender-symbol" />
               <span>Female</span>
             </div>
             <div class="option" data-value="neutral">
-              <span>Neutral</span>
+              <img src="/img/genderNeutralSymbol.png" alt="Gender Neutral Symbol" class="gender-symbol" />
+              <span>Gender Neutral</span>
             </div>
           </div>
         </section>

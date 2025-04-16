@@ -1,14 +1,130 @@
 /* Basic reset */
-* {
+html, body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
 body {
     background-color: #f1f1f1;
     min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
     position: relative;
+}
+
+/* Fix for gender section layout and overflow */
+#gender {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 10;
+    background: #f1f1f1;
+}
+
+#gender .gender-left {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#gender .gender-left h2 {
+    font-size: 4rem;
+    text-align: left;
+    margin-left: 10vw;
+    width: 100%;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+#gender .gender-left h2 .gender-word {
+    display: block;
+    text-align: left;
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 0.2em;
+}
+
+#gender .gender-right {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#gender .gender-right .option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#gender .gender-right .option[data-value="male"] {
+    background-color: #D4C4B0;
+}
+
+#gender .gender-right .option[data-value="female"] {
+    background-color: #E4D5C3;
+}
+
+#gender .gender-right .option[data-value="neutral"] {
+    background-color: #F4E6D4;
+}
+
+#gender .gender-right .option:hover {
+    transform: translateX(-10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#gender .gender-right .option.selected {
+    transform: translateX(-10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #1a1a1a;
+    z-index: 2;
+}
+
+#gender .gender-right .option span {
+    font-size: 1.7rem;
+    color: #1a1a1a;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#gender .gender-right .gender-symbol {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 14px;
+    object-fit: contain;
+}
+
+/* Hide progress bar and quiz container when gender section is active */
+.quiz-container.gender-active {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.progress-bar.gender-hide {
+    display: none !important;
 }
 
 /* Loader and Logo Section */
@@ -163,43 +279,66 @@ nav {
 }
 
 /* Age Slider */
-.age-slider {
-    width: 80%;
-    max-width: 400px;
-    margin: 0 auto 40px;
+.slider-container {
     position: relative;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
 }
 
 .slider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4px;
-    background: #ddd;
+    height: 8px;
+    background: #E8DCD1;
     outline: none;
-    border-radius: 2px;
+    border-radius: 4px;
+    margin: 0 auto;
 }
 
+/* Make the actual thumb invisible */
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #333;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: transparent;
     cursor: pointer;
-    transition: transform 0.2s ease;
 }
 
-.slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
+.slider::-moz-range-thumb {
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
-.age-value {
-    font-size: 2rem;
-    color: #333;
-    margin-top: 20px;
+/* Style the custom thumb with the number */
+.slider-thumb {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    color: #E8DCD1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
     font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 0;
+}
+
+.slider:active ~ .slider-thumb {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* Options Grid */
@@ -369,14 +508,6 @@ nav {
 
 .recommendation-card h2 {
     font-family: "Monotype Baskerville", serif;
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.recommendation-card p {
-    color: #666;
-    line-height: 1.6;
     margin-bottom: 15px;
 }
 
@@ -460,3 +591,6 @@ nav {
         font-size: 1.5rem;
     }
 }
+
+
+

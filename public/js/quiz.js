@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.quiz-section');
     const progressBar = document.querySelector('.progress');
     const ageSlider = document.getElementById('ageSlider');
-    const ageValue = document.querySelector('.age-value');
+    const sliderThumb = document.querySelector('.slider-thumb');
     
     let currentSection = 0;
     const totalSections = sections.length;
@@ -15,12 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
 
     // Handle age slider
-    if (ageSlider) {
-        ageSlider.addEventListener('input', () => {
-            ageValue.textContent = ageSlider.value;
-            userAnswers['age'] = ageSlider.value;
+    if (ageSlider && document.querySelector('.slider-thumb')) {
+        const updateSliderValue = () => {
+            const value = ageSlider.value;
+            const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
+            const thumb = document.querySelector('.slider-thumb');
+            
+            // Update thumb position and text
+            thumb.style.left = `${percent}%`;
+            thumb.textContent = value;
+            
+            userAnswers['age'] = value;
             enableNextButton(sections[currentSection]);
-        });
+        };
+
+        // Set initial value
+        updateSliderValue();
+        
+        // Update on slider movement
+        ageSlider.addEventListener('input', updateSliderValue);
+        ageSlider.addEventListener('change', updateSliderValue);
     }
 
     // Handle section transitions
