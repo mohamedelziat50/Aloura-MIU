@@ -412,8 +412,8 @@ body {
 /* Quality Assurance Text */
 .quality-assurance {
   grid-area: quality;
-  padding-right: 40px;
-  max-width: 600px;
+  /* padding-right: 40px;
+  max-width: 600px; */
 }
 
 .quality-assurance h2 {
