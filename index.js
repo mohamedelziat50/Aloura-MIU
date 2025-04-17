@@ -59,7 +59,9 @@ app.get("/admin", (req, res) => {
 app.post("/delete/:id", (req, res) => {
   UserModel.findByIdAndDelete(req.params.id)
     .then((result) => {
+      console.log(result);
       res.redirect("/admin");
+      
     })
     .catch((err) => {
       console.error(err);
