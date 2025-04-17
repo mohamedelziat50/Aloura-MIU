@@ -328,7 +328,7 @@ if (typeof exports != "undefined") module.exports = AutoDarkMode;
 document.addEventListener('DOMContentLoaded', () => {
   const theme = null;
   const doubleRotatedElements = ['.avoid-dark-mode', // Anything after is partials related
-     'nav .logo', 'footer', '.logo-reveal', '.chat-logo', // Anything after is pages
+     'nav .logo', 'footer', '.logo-reveal', '.chat-logo', // Partials Related - Anything after is pages
     '.product-img', '.img-fluid' // index.ejs related
   ]; 
   new AutoDarkMode(theme, doubleRotatedElements);
