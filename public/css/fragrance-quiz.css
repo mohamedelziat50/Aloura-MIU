@@ -202,6 +202,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    gap: 0;
 }
 
 #skinTone .skin-right .option {
@@ -209,13 +210,66 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    border: none;
     border-radius: 0;
+    box-shadow: none !important;
+    background-clip: padding-box;
+    outline: 1px solid transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
     transition: all 0.3s ease;
+    will-change: transform, box-shadow;
+    transform-origin: center;
+}
+
+#skinTone .skin-right .option:not(:first-child) {
+    margin-top: -1px;
+}
+
+#skinTone .skin-right .option.skin-animate-expand {
+    animation: skinToneExpand 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 2;
+}
+
+#skinTone .skin-right .option.skin-animate-shrink {
+    animation: skinToneShrink 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#skinTone .skin-right .option + .option {
+    border-top: none;
+}
+
+@keyframes skinToneExpand {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    40% {
+        transform: scale(1.18);
+        box-shadow: 0 18px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    70% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+}
+
+@keyframes skinToneShrink {
+    0% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
 }
 
 #skinTone .skin-right .option span {
@@ -772,6 +826,75 @@ nav {
 
     .recommendation-card h2 {
         font-size: 1.5rem;
+    }
+}
+
+/* Split section for 'Which matters the most to you?' */
+#securityVsAdventure.split-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100vh;
+    padding: 0;
+}
+
+#securityVsAdventure .split-question {
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#securityVsAdventure .split-options {
+    display: flex;
+    flex: 1 1 auto;
+    height: 55vh;
+    min-height: 350px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#securityVsAdventure .split-options .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+#securityVsAdventure .split-options .left-option {
+    background: #f5eee6;
+    color: #6d4c2b;
+}
+
+#securityVsAdventure .split-options .right-option {
+    background: #3a2a1a;
+    color: #f5eee6;
+}
+
+#securityVsAdventure .split-options .option span {
+    text-align: center;
+    width: 80%;
+    line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+    #securityVsAdventure .split-question {
+        font-size: 1.5rem;
+    }
+    #securityVsAdventure .split-options .option {
+        font-size: 1.1rem;
     }
 }
 
