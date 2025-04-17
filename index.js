@@ -31,9 +31,7 @@ app.get("/fragrance-quiz", (req, res) => res.render("fragrance-quiz"));
 app.get("/collections", (req, res) => res.render("collections"));
 
 app.post("/signUp", (req, res) => {
-  const User = new UserModel(req.body);
-
-  User.save()
+  UserModel.create(req.body)
     .then(() => {
       console.log("User Created");
       res.redirect("/");
@@ -59,9 +57,7 @@ app.get("/admin", (req, res) => {
 app.post("/delete/:id", (req, res) => {
   UserModel.findByIdAndDelete(req.params.id)
     .then((result) => {
-      console.log(result);
       res.redirect("/admin");
-      
     })
     .catch((err) => {
       console.error(err);
