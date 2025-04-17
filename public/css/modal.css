@@ -469,3 +469,7 @@
 .verification-title {
   font-size: 48px !important;
 }
+
+.modal-open {
+  color: black !important;
+}

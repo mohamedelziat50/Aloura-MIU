@@ -87,10 +87,10 @@
     <div class="menu-overlay"></div>
 
     <!-- For Him & For Her Segment -->
-    <div class="gender">
+    <div class="gender avoid-dark-mode">
       <!--Intialize Container (taking gender CSS container)-->
-      <div class="text-overlay-indulge">INDULGE</div>
-      <div class="text-overlay-your">YOUR SENSES</div>
+      <div class="text-overlay-indulge avoid-dark-mode">INDULGE</div>
+      <div class="text-overlay-your avoid-dark-mode">YOUR SENSES</div>
 
       <div class="female">
         <!-- Canvas for Fluid Effect -->
@@ -101,7 +101,7 @@
           src="./img/girlTestCopy.jpg"
           alt="For Her Fragrances"
         />
-        <div class="text-overlay">
+        <div class="text-overlay avoid-dark-mode"> <!-- Added avoid-dark-mode class to invert the gender container effect and actually switch color-->
           <!-- Increases z-index -->
           <button
             style="z-index: 9999999"
@@ -121,7 +121,7 @@
           src="./img/guyTestCopy.png"
           alt="For Him Fragrances"
         />
-        <div class="text-overlay">
+        <div class="text-overlay avoid-dark-mode"> <!-- Added avoid-dark-mode class to invert the gender container effect and actually switch color-->
           <button
             style="z-index: 9999999"
             onclick="window.location.href='fragrances-for-men'"
@@ -175,7 +175,7 @@
       <div class="model-container">
         <h3>Experience Our Craft</h3>
         <div class="model-loading">Loading 3D Model...</div>
-        <div id="model-viewer"></div>
+        <div id="model-viewer" class="avoid-dark-mode"></div>
         <p class="interaction-hint">Click and drag to rotate</p>
       </div>
 
@@ -351,7 +351,7 @@
               data-size="3.7 oz, 110ml"
               data-price="$120.00"
             >
-              <div class="product-img">
+                <div class="product-img">
                 <img
                   src="./img/perfumes-transparent/versace-eros.png"
                   alt="Versace Eros"
