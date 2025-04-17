@@ -7,6 +7,7 @@
 body {
   /* height: 100px; */
   overflow-x: hidden;
+  background: linear-gradient(to right, #f8f8f8, #ffffff);
 }
 
 /*~~FOR HIM & FOR HER~~*/
@@ -747,7 +748,7 @@ body {
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background-color: #efcfa0;
+  background: linear-gradient(to right, #f8f8f8, #ffffff);
   text-align: center;
 }
 
@@ -790,7 +791,7 @@ body {
 .product-card {
   flex: 0 0 calc(33.333% - 320px);
   margin: 0 160px;
-  background-color: #efcfa0;
+  background: transparent;
   border-radius: 8px;
   box-shadow: 0 4px 8px none;
   overflow: hidden;
@@ -931,3 +932,60 @@ body {
   background-color: #333; /* Darker shade on hover */
   transform: translateY(-2px); /* Slight lift on hover */
 }
+
+/* Find Your Scent Section */
+.find-your-scent-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(to right, #f8f8f8, #ffffff);;
+  margin-top: 40px;
+  position: relative;
+}
+
+.find-your-scent-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  font-family: "Monotype Baskerville", serif;
+}
+
+.find-your-scent-section p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Forgot password button styling */
+.find-scent-btn {
+  position: relative;
+  text-decoration: none;
+  color: #121212;
+  padding: 0;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 25px;
+  font-family: sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.find-scent-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
+}
+
+.find-scent-btn:hover {
+  /* Cancel default blue color */
+  color: #121212;
+}
+
+.find-scent-btn:hover::after {
+  width: 20%;
+}
+
