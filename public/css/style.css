@@ -100,7 +100,7 @@ body {
   transform: translateX(-50%);
   z-index: 10;
   text-align: center;
-  width: 100%;
+  width: auto; /* fix to make div take exactly as the text takes up*/
 }
 
 .fragrance-quiz a{
