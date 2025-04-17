@@ -48,11 +48,21 @@ app.get("/admin", (req, res) => {
   console.log("--------------------------------------------");
   UserModel.find()
     .then((result) => {
-      res.render("admin", { arr: result , moment : moment });
+      res.render("admin", { arr: result, moment: moment });
       console.log(result);
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+app.post("/delete/:id", (req, res) => {
+  UserModel.findByIdAndDelete(req.params.id)
+    .then((result) => {
+      res.redirect("/admin");
+    })
+    .catch((err) => {
+      console.error(err);
     });
 });
 
