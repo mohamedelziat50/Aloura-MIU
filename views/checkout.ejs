@@ -73,7 +73,7 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
-    
+
     <script src="../js/checkout.js"></script>
 
     <!-- Tab Logo / 'Favicon' -->
@@ -121,7 +121,7 @@
 
     <!-- Chatbot -->
     <%- include('partials/chatbot.ejs') %>
-    
+
     <!-- Dark Mode -->
     <%- include('partials/dark-mode.ejs') %>
 
@@ -402,7 +402,10 @@
                               />
                             </div>
                           </div>
-                          <div class="payment-details d-none" id="paypal-details">
+                          <div
+                            class="payment-details d-none"
+                            id="paypal-details"
+                          >
                             <p class="payment-info">
                               You will be redirected to PayPal to complete your
                               purchase securely.
@@ -413,12 +416,12 @@
                             id="apple-pay-details"
                           >
                             <p class="payment-info">
-                              You will be prompted to authorize payment with Apple
-                              Pay.
+                              You will be prompted to authorize payment with
+                              Apple Pay.
                             </p>
                           </div>
                         </div>
-                        
+
                         <!-- Right column with card display -->
                         <div class="card-display-column">
                           <!-- FLIPPING CREDIT CARD -->
@@ -431,7 +434,9 @@
                                       src="../img/checkout-related/card-logo.png"
                                       alt="Card Logo"
                                     />
-                                    <h5 class="card-text-normal">Master Card</h5>
+                                    <h5 class="card-text-normal">
+                                      Master Card
+                                    </h5>
                                   </div>
                                   <img
                                     src="../img/checkout-related/chip.png"
@@ -442,7 +447,9 @@
                                 <div class="card-details">
                                   <div class="name-number">
                                     <h6 class="card-text-small">Card Number</h6>
-                                    <h5 class="card-number">8050 2030 3020 5040</h5>
+                                    <h5 class="card-number">
+                                      8050 2030 3020 5040
+                                    </h5>
                                     <h5 class="card-name">Prem Kumar Shahi</h5>
                                   </div>
                                   <div class="valid-date">
@@ -478,7 +485,7 @@
                 class="order-summary aos-init aos-animate"
                 data-aos="fade-left"
                 data-aos-delay="200"
-                style="top: 4rem;"
+                style="top: 4rem"
               >
                 <div class="order-summary-header">
                   <h3>Order Summary</h3>
@@ -559,8 +566,19 @@
                     <!-- Add Discount Code Section -->
                     <div class="order-discount mb-3">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Discount code or gift card" aria-label="Discount code">
-                        <button class="btn btn-outline-secondary" type="button" id="apply-discount">Apply</button>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Discount code or gift card"
+                          aria-label="Discount code"
+                        />
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          id="apply-discount"
+                        >
+                          Apply
+                        </button>
                       </div>
                     </div>
                     <div class="order-subtotal d-flex justify-content-between">
@@ -581,7 +599,10 @@
                     </div>
                     <div class="d-flex justify-content-end">
                       <div>
-                        <button id="checkout-button" class="btn btn-outline-primary mt-4">
+                        <button
+                          id="checkout-button"
+                          class="btn btn-outline-primary mt-4"
+                        >
                           Checkout
                         </button>
                       </div>
@@ -702,13 +723,16 @@
       <!-- /Checkout Section -->
     </main>
 
-    <!-- Scroll Top -->
+    <!-- Footer -->
+    <%- include('partials/footer') %>
+
+    <!-- Scroll Top
     <a
       class="scroll-top d-flex align-items-center justify-content-center"
       href="#"
       id="scroll-top"
       ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    ></a> -->
 
     <!-- Vendor JS Files -->
     <script src="https://bootstrapmade.com/content/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
