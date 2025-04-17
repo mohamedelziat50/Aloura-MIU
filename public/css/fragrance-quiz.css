@@ -829,5 +829,74 @@ nav {
     }
 }
 
+/* Split section for 'Which matters the most to you?' */
+#securityVsAdventure.split-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100vh;
+    padding: 0;
+}
+
+#securityVsAdventure .split-question {
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#securityVsAdventure .split-options {
+    display: flex;
+    flex: 1 1 auto;
+    height: 55vh;
+    min-height: 350px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#securityVsAdventure .split-options .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+#securityVsAdventure .split-options .left-option {
+    background: #f5eee6;
+    color: #6d4c2b;
+}
+
+#securityVsAdventure .split-options .right-option {
+    background: #3a2a1a;
+    color: #f5eee6;
+}
+
+#securityVsAdventure .split-options .option span {
+    text-align: center;
+    width: 80%;
+    line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+    #securityVsAdventure .split-question {
+        font-size: 1.5rem;
+    }
+    #securityVsAdventure .split-options .option {
+        font-size: 1.1rem;
+    }
+}
+
 
 
