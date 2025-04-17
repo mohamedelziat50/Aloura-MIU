@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Option selection handling
-        if (e.target.closest('.option')) {
-            const option = e.target.closest('.option');
+        if (e.target.closest('.option') || e.target.closest('.split-half')) {
+            const option = e.target.closest('.option') || e.target.closest('.split-half');
             const section = option.closest('.quiz-section');
             
             // Handle scent family special case (max 2 selections)
@@ -93,6 +93,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 userAnswers[section.id] = option.dataset.value;
                 setTimeout(moveToNextSection, 500);
                 return;
+            } else if (section.id === 'securityVsAdventure') {
+                const allOptions = section.querySelectorAll('.split-half');
+                allOptions.forEach(opt => {
+                    opt.classList.remove('selected');
+                    // Remove existing tick if any
+                    const existingTick = opt.querySelector('.tick-mark');
+                    if (existingTick) {
+                        existingTick.remove();
+                    }
+                });
+
+                // Add selected class
+                option.classList.add('selected');
+                
+                // Create and add tick mark
+                const tick = document.createElement('div');
+                tick.className = 'tick-mark';
+                tick.innerHTML = '✓';
+                option.appendChild(tick);
+                tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+
+                // Store the answer
+                userAnswers[section.id] = option.classList.contains('left-option') ? 'security' : 'adventure';
+                
+                // Move to next section after delay
+                setTimeout(moveToNextSection, 500);
+                return;
             } else {
                 // Single selection for other sections
                 section.querySelectorAll('.option').forEach(opt => {
@@ -137,6 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Add mouse move tracking for split section hover effect
+    const splitSection = document.querySelector('#securityVsAdventure');
+    if (splitSection) {
+        const splitHalves = splitSection.querySelectorAll('.split-half');
+        
+        splitHalves.forEach(half => {
+            half.addEventListener('mousemove', (e) => {
+                const rect = half.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                // Update CSS variables for the gradient
+                half.style.setProperty('--mouse-x', `${x}px`);
+                half.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
 
     function handleScentFamilySelection(option) {
         if (option.classList.contains('selected')) {
