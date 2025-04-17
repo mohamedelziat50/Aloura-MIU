@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initModel() {
-  const modelViewer = document.getElementById('model-viewer'); 
+  const modelViewer = document.getElementById('model-viewer');
+  const modelLoading = document.querySelector('.model-loading');
   
   // Set up scene
   const scene = new THREE.Scene(); //creates a new 3D scene.
-  scene.background = new THREE.Color(0xf1f1f1); //sets the background color of the scene to light gray.
+  scene.background = new THREE.Color(0xffffff); //sets the background color of the scene to light gray.
   
   // Set up camera
   const camera = new THREE.PerspectiveCamera(
@@ -20,7 +21,7 @@ function initModel() {
     0.1, //Near clipping plane (objects closer than this won’t be rendered).
     1000 //Far clipping plane (objects further than this won’t be rendered).
   );
-  camera.position.z = 11; //Intial camera position.
+  camera.position.z = 13; //Intial camera position.
   
   // Set up renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true }); //creates a WebGL renderer, which uses the GPU to render the scene. antialias: true smooths out jagged/rough edges
@@ -88,16 +89,30 @@ function initModel() {
           }
         }
       });
+
+      // Show model and hide loading indicator when ready
+      modelViewer.classList.add('loaded');
+      if (modelLoading) {
+        modelLoading.style.display = 'none';
+      }
     },
     
     // Progress callback
     function(xhr) {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded'); //displays the progress of the model loading. 
+      const progress = Math.floor(xhr.loaded / xhr.total * 100);
+      if (modelLoading) {
+        modelLoading.textContent = `Loading 3D Model... ${progress}%`;
+      }
+      console.log(progress + '% loaded'); //displays the progress of the model loading. 
     },
     
     // Error callback
     function(error) {
       console.error('An error happened loading the model:', error);
+      if (modelLoading) {
+        modelLoading.textContent = 'Error loading 3D model';
+        modelLoading.style.color = '#ff0000';
+      }
     }
   );
   

@@ -1,3 +1,31 @@
+/* CSS Variables (Custom Properties) */
+:root {
+  /* Colors
+  --color-primary: #121212;
+  --color-secondary: #666666;
+  --color-background: #ffffff; */
+  --color-background-gradient: white;
+  
+  /* Typography
+  --font-primary: "Monotype Baskerville", serif;
+  --font-secondary: sans-serif;
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 42px; */
+  
+  /* Spacing
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+  --spacing-xlarge: 80px; */
+  
+  /* Transitions 
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.5s ease;
+  --transition-slow: 0.8s ease; */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +35,7 @@
 body {
   /* height: 100px; */
   overflow-x: hidden;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  background: var(--color-background-gradient);
 }
 
 /*~~FOR HIM & FOR HER~~*/
@@ -377,7 +405,7 @@ body {
     "reviews reviews";
   column-gap: 50px;
   padding: 80px 5%;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  background: var(--color-background-gradient);
   justify-content: center;
 }
 
@@ -443,6 +471,7 @@ body {
   max-height: 500px;
   text-align: center;
   justify-self: center;
+  position: relative;
 }
 
 .model-container h3 {
@@ -455,20 +484,44 @@ body {
   width: 100%;
   height: 400px;
   background: #f1f1f1;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
   cursor: grab;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Hide from screen readers and interactions */
 }
 
-#model-viewer:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+#model-viewer.loaded {
+  opacity: 1;
+  visibility: visible;
 }
 
-#model-viewer:active {
-  cursor: grabbing;
+.model-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.model-loading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #121212;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .interaction-hint {
@@ -748,7 +801,7 @@ body {
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  background: var(--color-background-gradient);
   text-align: center;
 }
 
@@ -937,7 +990,7 @@ body {
 .find-your-scent-section {
   text-align: center;
   padding: 80px 20px;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);;
+  background: var(--color-background-gradient);
   margin-top: 40px;
   position: relative;
 }
