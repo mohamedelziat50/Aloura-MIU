@@ -430,6 +430,8 @@ nav {
     text-align: center;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Progress Bar */
@@ -437,9 +439,10 @@ nav {
     width: 100%;
     height: 4px;
     background-color: #eee;
-    margin: 30px 0;
+    margin: 0 0 40px 0;
     border-radius: 2px;
     overflow: hidden;
+    order: -1; /* This moves it to the top */
 }
 
 .progress {
@@ -852,6 +855,7 @@ nav {
     font-weight: 700;
     letter-spacing: 1px;
     width: 100%;
+    color: #333333;
 }
 
 #securityVsAdventure .split-full {
@@ -861,79 +865,97 @@ nav {
     margin: 0;
     padding: 0;
     align-items: stretch;
+    position: relative;
+    overflow: hidden;
 }
 
 #securityVsAdventure .split-half {
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 25px;
     margin: 0;
     padding: 20px;
     border: none;
     font-size: 2.2rem;
     font-weight: 600;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-}
-
-#securityVsAdventure .split-half:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-}
-
-#securityVsAdventure .split-half:hover {
-    animation: elegantHover 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
-}
-
-#securityVsAdventure .split-half:hover:before {
-    opacity: 1;
-}
-
-#securityVsAdventure .split-half .option-content {
-    transform: translateY(0);
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#securityVsAdventure .split-half:hover .option-content {
-    transform: translateY(-5px);
-}
-
-#securityVsAdventure .split-half .option-image {
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
-}
-
-#securityVsAdventure .split-half:hover .option-image {
-    transform: scale(1.05) translateY(-5px);
-    opacity: 1;
-}
-
-#securityVsAdventure .split-half span {
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
-}
-
-#securityVsAdventure .split-half:hover span {
-    transform: translateY(-5px);
+    z-index: 1;
 }
 
 #securityVsAdventure .left-option {
-    background: rgb(237,220,191);
+    background: rgb(237, 220, 191);
     color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.4s ease;
 }
 
 #securityVsAdventure .right-option {
-    background: rgb(212,194,166);
-    color: #f5eee6;
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#securityVsAdventure .left-option:hover {
+    flex: 1.3;
+}
+
+#securityVsAdventure .right-option:hover {
+    flex: 1.3;
+}
+
+#securityVsAdventure .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#securityVsAdventure .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#securityVsAdventure .split-half span {
+    font-size: 2rem;
+    color: #333333;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#skinTone .skin-right .option[data-value="olive"] {
+    background-color: rgb(189, 120, 82);
+}
+
+#skinTone .skin-right .option[data-value="tan"] {
+    background-color: rgb(166, 95, 44);
+}
+
+#skinTone .skin-right .option[data-value="deep"] {
+    background-color: rgb(90, 60, 40);
+}
+
+#skinTone .skin-right .option.selected {
+    background-color: rgb(35, 35, 35) !important;
+    transform: translateX(-10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 #securityVsAdventure .split-half.selected {
@@ -970,21 +992,12 @@ nav {
     }
 }
 
-@keyframes elegantHover {
+@keyframes elegantScale {
     0% {
         transform: scale(1);
-        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        filter: brightness(1);
-    }
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        filter: brightness(1.1);
     }
     100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        filter: brightness(1);
+        transform: scale(1.03);
     }
 }
 

@@ -165,6 +165,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Add mouse move tracking for split section hover effect
+    const splitSection = document.querySelector('#securityVsAdventure');
+    if (splitSection) {
+        const splitHalves = splitSection.querySelectorAll('.split-half');
+        
+        splitHalves.forEach(half => {
+            half.addEventListener('mousemove', (e) => {
+                const rect = half.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                // Update CSS variables for the gradient
+                half.style.setProperty('--mouse-x', `${x}px`);
+                half.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
     function handleScentFamilySelection(option) {
         if (option.classList.contains('selected')) {
             option.classList.remove('selected');
