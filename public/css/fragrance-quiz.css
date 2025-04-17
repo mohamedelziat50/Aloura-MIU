@@ -881,7 +881,7 @@ nav {
     border: none;
     font-size: 2.2rem;
     font-weight: 600;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -892,7 +892,7 @@ nav {
     background: rgb(237, 220, 191);
     color: #6d4c2b;
     transform-origin: right center;
-    transition: flex 0.4s ease;
+    transition: flex 0.3s ease;
 }
 
 #securityVsAdventure .right-option {
