@@ -159,6 +159,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Security vs Adventure section handling
+    document.querySelectorAll('#securityVsAdventure .split-half').forEach(option => {
+        option.addEventListener('click', function() {
+            if (!this.classList.contains('selected') && !this.classList.contains('animating')) {
+                const allOptions = document.querySelectorAll('#securityVsAdventure .split-half');
+                
+                // Add animating class to prevent hover effects during animation
+                allOptions.forEach(opt => opt.classList.add('animating'));
+                
+                // Remove any previous selections
+                allOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // After animation completes, remove animating class
+                setTimeout(() => {
+                    allOptions.forEach(opt => opt.classList.remove('animating'));
+                }, 2000); // Match the animation duration
+            }
+        });
+    });
+
     function handleScentFamilySelection(option) {
         if (option.classList.contains('selected')) {
             option.classList.remove('selected');

@@ -963,6 +963,7 @@ nav {
     color: #F4E6D4 !important;
     position: relative;
     animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3; /* Maintain the expanded state */
 }
 
 #securityVsAdventure .split-half.fade-out {
@@ -976,20 +977,20 @@ nav {
 
 @keyframes selectedExpand {
     0% {
-        flex: 1;
+        flex: 1.3; /* Start from the hovered state */
     }
     40% {
         flex: 3;
     }
     100% {
-        flex: 1;
+        flex: 1.3; /* End at the hovered state */
         transform: translateX(-10px);
     }
 }
 
 @keyframes shrinkOther {
     0% {
-        flex: 1;
+        flex: 1.3; /* Start from potentially hovered state */
     }
     40% {
         flex: 0.2;
