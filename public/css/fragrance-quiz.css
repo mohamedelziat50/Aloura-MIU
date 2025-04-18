@@ -968,8 +968,9 @@ nav {
 
 #securityVsAdventure .split-half .tick-mark {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 80%;
+    left: 48%;
+    transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
     opacity: 0;
