@@ -962,7 +962,7 @@ nav {
     background-color: rgb(35, 35, 35) !important;
     color: #F4E6D4 !important;
     position: relative;
-    animation: selectedExpand 1s ease-in-out;
+    animation: selectedExpand 1.5s ease-in-out;
 }
 
 #securityVsAdventure .split-half.fade-out {
@@ -971,7 +971,7 @@ nav {
 }
 
 #securityVsAdventure .split-half:not(.selected) {
-    animation: shrinkOther 1s ease-in-out;
+    animation: shrinkOther 1.5s ease-in-out;
 }
 
 @keyframes selectedExpand {

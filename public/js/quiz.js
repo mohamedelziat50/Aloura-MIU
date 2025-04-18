@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Delay the transition to next section
         setTimeout(() => {
             moveToNextSection();
-        }, 1300);
+        }, 2000);
     }
 
     document.querySelector('#securityVsAdventure .left-option').addEventListener('click', function(e) {
