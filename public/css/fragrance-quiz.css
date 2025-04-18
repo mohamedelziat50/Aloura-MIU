@@ -1145,7 +1145,6 @@ nav {
     left: 0;
 }
 
-
 #careVsLead .split-question {
     margin-top: 3vh;
     margin-bottom: 2vh;
@@ -1183,6 +1182,8 @@ nav {
     overflow: hidden;
     z-index: 1;
     color: #6d4c2b;
+    min-height: 50vh;
+    margin-top: 96px;
 }
 
 #careVsLead .left-option {
