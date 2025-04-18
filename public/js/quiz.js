@@ -245,14 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
-    document.querySelector('#securityVsAdventure .left-option').addEventListener('click', function(e) {
-        handleSecurityVsAdventureSelection(this);
-    });
-
-    document.querySelector('#securityVsAdventure .right-option').addEventListener('click', function(e) {
-        handleSecurityVsAdventureSelection(this);
-    });
-
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {
             currentSection++;
