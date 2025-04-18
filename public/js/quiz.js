@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (section.id === 'securityVsAdventure') {
                 handleSecurityVsAdventureSelection(option);
                 return;
+            } else if (section.id === 'careVsLead') {
+                handleCareVsLeadSelection(option);
+                return;
             } else {
                 // Single selection for other sections
                 section.querySelectorAll('.option').forEach(opt => {
@@ -159,6 +162,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Add mouse move tracking for split section hover effect for careVsLead
+    const careVsLeadSection = document.querySelector('#careVsLead');
+    if (careVsLeadSection) {
+        const splitHalves = careVsLeadSection.querySelectorAll('.split-half');
+        splitHalves.forEach(half => {
+            half.addEventListener('mousemove', (e) => {
+                const rect = half.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                half.style.setProperty('--mouse-x', `${x}px`);
+                half.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
     // Security vs Adventure section handling
     document.querySelectorAll('#securityVsAdventure .split-half').forEach(option => {
         option.addEventListener('click', function() {
@@ -178,6 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     allOptions.forEach(opt => opt.classList.remove('animating'));
                 }, 2000); // Match the animation duration
+            }
+        });
+    });
+
+    // Care vs Lead section handling (clone of securityVsAdventure)
+    document.querySelectorAll('#careVsLead .split-half').forEach(option => {
+        option.addEventListener('click', function() {
+            if (!this.classList.contains('selected') && !this.classList.contains('animating')) {
+                handleCareVsLeadSelection(this);
             }
         });
     });
@@ -240,6 +267,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
         
         // Delay the transition to next section
+        setTimeout(() => {
+            moveToNextSection();
+        }, 2000);
+    }
+
+    function handleCareVsLeadSelection(selectedOption) {
+        const careOption = document.querySelector('#careVsLead .left-option');
+        const leadOption = document.querySelector('#careVsLead .right-option');
+        careOption.classList.remove('selected', 'fade-out', 'animating');
+        leadOption.classList.remove('selected', 'fade-out', 'animating');
+        careOption.classList.add('animating');
+        leadOption.classList.add('animating');
+        selectedOption.classList.add('selected');
+        let tickMark = selectedOption.querySelector('.tick-mark');
+        if (!tickMark) {
+            tickMark = document.createElement('div');
+            tickMark.className = 'tick-mark';
+            tickMark.innerHTML = '✓';
+            selectedOption.appendChild(tickMark);
+        }
+        const nonSelectedOption = selectedOption === careOption ? leadOption : careOption;
+        nonSelectedOption.classList.add('fade-out');
+        userAnswers['careVsLead'] = selectedOption.dataset.value;
+        setTimeout(() => {
+            careOption.classList.remove('animating');
+            leadOption.classList.remove('animating');
+        }, 1000);
         setTimeout(() => {
             moveToNextSection();
         }, 2000);
