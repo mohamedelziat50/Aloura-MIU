@@ -960,16 +960,58 @@ nav {
 
 #securityVsAdventure .split-half.selected {
     background-color: rgb(35, 35, 35) !important;
-    transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
     color: #F4E6D4 !important;
     position: relative;
+    animation: selectedExpand 1s ease-in-out;
+}
+
+#securityVsAdventure .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s; /* Start fade out after the expand animation */
+}
+
+#securityVsAdventure .split-half:not(.selected) {
+    animation: shrinkOther 1s ease-in-out;
+}
+
+@keyframes selectedExpand {
+    0% {
+        flex: 1;
+    }
+    40% {
+        flex: 3;
+    }
+    100% {
+        flex: 1;
+        transform: translateX(-10px);
+    }
+}
+
+@keyframes shrinkOther {
+    0% {
+        flex: 1;
+    }
+    40% {
+        flex: 0.2;
+    }
+    100% {
+        flex: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 #securityVsAdventure .split-half .tick-mark {
     position: absolute;
-    top: 80%;
-    left: 48%;
+    top: 80% !important;
+    left: 49% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -979,8 +1021,31 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
+#securityVsAdventure .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* Reset any hover effects when animating */
+#securityVsAdventure .split-half.selected,
+#securityVsAdventure .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#securityVsAdventure .split-half:hover {
+    flex: 1.3;
+}
+
+/* Disable hover effects during animation */
+#securityVsAdventure .split-half.animating {
+    pointer-events: none;
+}
+
+/* Keep existing hover animations */
 @keyframes securityHover {
     0% {
         transform: scale(1);

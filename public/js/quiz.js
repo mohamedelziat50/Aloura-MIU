@@ -94,31 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(moveToNextSection, 500);
                 return;
             } else if (section.id === 'securityVsAdventure') {
-                const allOptions = section.querySelectorAll('.split-half');
-                allOptions.forEach(opt => {
-                    opt.classList.remove('selected');
-                    // Remove existing tick if any
-                    const existingTick = opt.querySelector('.tick-mark');
-                    if (existingTick) {
-                        existingTick.remove();
-                    }
-                });
-
-                // Add selected class
-                option.classList.add('selected');
-                
-                // Create and add tick mark
-                const tick = document.createElement('div');
-                tick.className = 'tick-mark';
-                tick.innerHTML = '✓';
-                option.appendChild(tick);
-                tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
-
-                // Store the answer
-                userAnswers[section.id] = option.classList.contains('left-option') ? 'security' : 'adventure';
-                
-                // Move to next section after delay
-                setTimeout(moveToNextSection, 500);
+                handleSecurityVsAdventureSelection(option);
                 return;
             } else {
                 // Single selection for other sections
@@ -202,6 +178,57 @@ document.addEventListener('DOMContentLoaded', () => {
             enableNextButton(option.closest('.quiz-section'));
         }
     }
+
+    function handleSecurityVsAdventureSelection(selectedOption) {
+        const securityOption = document.querySelector('#securityVsAdventure .left-option');
+        const adventureOption = document.querySelector('#securityVsAdventure .right-option');
+        
+        // Remove any existing animation classes
+        securityOption.classList.remove('selected', 'fade-out', 'animating');
+        adventureOption.classList.remove('selected', 'fade-out', 'animating');
+        
+        // Add animating class to both to disable hover
+        securityOption.classList.add('animating');
+        adventureOption.classList.add('animating');
+        
+        // Add selected class to clicked option
+        selectedOption.classList.add('selected');
+        
+        // Make sure tick mark exists and is properly positioned
+        let tickMark = selectedOption.querySelector('.tick-mark');
+        if (!tickMark) {
+            tickMark = document.createElement('div');
+            tickMark.className = 'tick-mark';
+            tickMark.innerHTML = '✓';
+            selectedOption.appendChild(tickMark);
+        }
+        
+        // Add fade-out to non-selected option
+        const nonSelectedOption = selectedOption === securityOption ? adventureOption : securityOption;
+        nonSelectedOption.classList.add('fade-out');
+        
+        // Store the selection
+        userAnswers['securityVsAdventure'] = selectedOption.dataset.value;
+        
+        // Remove animating class after animation completes
+        setTimeout(() => {
+            securityOption.classList.remove('animating');
+            adventureOption.classList.remove('animating');
+        }, 1000);
+        
+        // Delay the transition to next section
+        setTimeout(() => {
+            moveToNextSection();
+        }, 1300);
+    }
+
+    document.querySelector('#securityVsAdventure .left-option').addEventListener('click', function(e) {
+        handleSecurityVsAdventureSelection(this);
+    });
+
+    document.querySelector('#securityVsAdventure .right-option').addEventListener('click', function(e) {
+        handleSecurityVsAdventureSelection(this);
+    });
 
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {
