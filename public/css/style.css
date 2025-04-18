@@ -43,9 +43,13 @@ body {
 .gender {
   display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
   width: 100vw; /* Full screen Width (100% of the *viewport* width) */
-  height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
+  min-height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
   overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
   position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
+  transform-style: preserve-3d;
+  perspective: 1px;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .female,
@@ -54,6 +58,8 @@ body {
   position: relative; /* Allows child elements (.text-overlay) to position themselves inside this container */
   transition: all 0.5s ease-in-out; /* transition Speed + transition type -> Image Expanding*/
   overflow: hidden; /* Hides anything that goes outside the section */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .female img,
@@ -61,6 +67,9 @@ body {
   width: 100%; /* Image takes the full width of its container */
   height: 100%; /* Image takes the full height of its container */
   object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
+  object-position: center;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
@@ -111,7 +120,8 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Fully visible */
   opacity: 1;
   transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth return */
-
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 /* Show class that will be added by JavaScript */
@@ -189,6 +199,8 @@ body {
   transform: scale(1, 1.2) translateY(40px); /* Start position */
   opacity: 0; /* Start invisible */
   transition: opacity 0.8s ease, transform 0.8s ease; /* Match button transition */
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .text-overlay-indulge {
@@ -407,6 +419,9 @@ body {
   padding: 50px 5%;
   background: var(--color-background-gradient);
   justify-content: center;
+  position: relative;
+  z-index: 2;
+  transform: translateZ(0);
 }
 
 /* Quality Assurance Text */
@@ -1116,5 +1131,10 @@ body {
   z-index: 2; /* Make sure it's above the image but below text */
   filter: sepia(100%) hue-rotate(330deg);
   /* filter: sepia(100%) hue-rotate(300deg) saturate(500%); Alot of options with coloring*/
+}
+
+/* Add smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 

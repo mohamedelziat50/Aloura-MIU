@@ -787,4 +787,38 @@ function initReviewCards() {
   }, 10000);
 }
 
+// Parallax scrolling effect
+document.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const gender = document.querySelector('.gender');
+    const qualitySection = document.querySelector('.quality-model-section');
+    
+    if (gender && qualitySection) {
+        // Apply parallax effect to gender section
+        gender.style.transform = `translateY(${scrolled * 0.5}px)`; // Slower scroll effect
+        
+        // Get the position of the quality section
+        const qualityRect = qualitySection.getBoundingClientRect();
+        
+        // Only apply parallax when gender section is visible
+        if (qualityRect.top > window.innerHeight) {
+            gender.style.visibility = 'visible';
+            gender.style.opacity = 1 - (scrolled * 0.0015); // Fade out as user scrolls
+        }
+    }
+});
+
+// Smooth scroll to sections
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
 
