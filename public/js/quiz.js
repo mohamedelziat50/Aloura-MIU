@@ -95,6 +95,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             } else if (section.id === 'securityVsAdventure' || section.id === 'careVsLead' || section.id === 'buildVsInvent' || section.id === 'goodTimeVsSuccess' || section.id === 'organizeVsSurprise') {
                 return;
+            } else if (section.id === 'buildVsInvent') {
+                // Single selection for build vs invent section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'goodTimeVsSuccess') {
+                // Single selection for good time vs success section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'organizeVsSurprise') {
+                // Single selection for organize vs surprise section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
             } else {
                 // Single selection for other sections
                 section.querySelectorAll('.option').forEach(opt => {
