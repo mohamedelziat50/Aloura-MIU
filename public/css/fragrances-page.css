@@ -24,10 +24,9 @@ body {
     max-width: 80%;  /* Reduced from auto to make container smaller */
     margin: 0 auto;     /* This centers the container horizontally */
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0px; /* Removed rounded corners for a sharper look */
     justify-content: center;
+    padding-top: 100px;
 }
 
 /* Keep all your original CSS below this point exactly as it was */
@@ -41,35 +40,11 @@ body {
 }
 
 
-
-/* Headings */
-h1 {
-    color: black;
-
-     /* Letter display related */
-     font-weight: 100; /* Add this to make the font look think and clean */
-     font-size: 64px; /* Added this line for 64px font size */
-     font-family: "Monotype Baskerville", serif;
-     letter-spacing: .1em; /* Distance between letters for design */
-     line-height: 100%;
- 
-     margin: auto;
-     margin-bottom: 6%;
-     text-align: center;
-     text-transform: uppercase;
- 
-     position: relative;
-     top: 60px;
- 
-     min-width: 615px;
-}
-
 #product-details{
     width: 100%;
     display: block;
     height: auto;
     margin: 0%;
-    padding: 20px;
     border-radius: 10px;
     justify-content: center;
 
@@ -81,8 +56,7 @@ h1 {
     flex-direction: column; /* Stack images vertically */
     align-items: center; /* Center everything */
     text-align: center;
-    width: 100%;
-    background-color: #f1f1f1;
+    width: 180%;
     padding: 20px;
     border-radius: 10px;
     justify-content: center;
@@ -93,6 +67,7 @@ h1 {
     height: 50%;
     margin-bottom: 75px;
     margin-top: -200px; /* Moves the main image up */
+    
    
 
 }
@@ -185,22 +160,28 @@ h1 {
 
 
 #perfumeName{
-    color: black;
-
-    font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 24px;
+   
     font-family: "Monotype Baskerville", serif;
-  
+    font-style: normal;
+    font-weight: 100;
     letter-spacing: .1em;
-    line-height: 100%;
-    margin: 10px 0;
-    text-transform: uppercase;
+    line-height: 3.6rem;
+    text-align: left;
 }
 
 #perfumeType{
-    font-weight: 400; 
-    font-size: 17px;
-    font-family: "Monotype Baskerville", serif;
+   
+    list-style: none;
+    box-sizing: inherit;
+    display: block;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: .2em;
+    line-height: 1.6rem;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: -21px;
+
 }
 
 #price {
@@ -208,6 +189,8 @@ h1 {
     color: #444;
     margin: 15px 0;
     float: right; /* Moves price to the right */
+    margin-top: -20px; /* Adjusts vertical position */
+    margin-right: -18px;
 }
 
 #add-to-cart-button {
@@ -230,6 +213,7 @@ h1 {
 
   /* Animation */
   transition: background-color 0.1s linear;
+  margin-top: -30px;
 }
 
  #add-to-cart-button:hover {
@@ -252,8 +236,8 @@ input[type="radio"] {
     border-radius: 5px;
     transition: border-width 0.2s, transform 0.2s;
     display: inline-block;
-    margin: 5px;
-    width: 28%; /* Adjust size as needed */
+    margin: 0rem .5rem 0rem 0;
+    width: 25%; /* Adjust size as needed */
     text-align: center;
     position: relative;
     font-weight: 400; /* Add this to make the font look think and clean */
@@ -261,6 +245,25 @@ input[type="radio"] {
     font-family: "Monotype Baskerville", serif;
     border-width: 0.7px;
     border-color: #a9a1a1;
+}
+
+
+.size-selection{
+    display: flex;
+    justify-content: left;
+    align-items: left ;
+margin-bottom:-20px;
+    width: 100%;
+}
+
+#ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    width: 100%;
 }
 
 /* Hover effect */
@@ -287,6 +290,8 @@ input[type="radio"]:checked + .radio-label {
     line-height: 100%;
     margin: 10px 0;
     text-transform: uppercase;
+    margin-top: -47px;
+
 }
 
 
@@ -373,6 +378,8 @@ ul{
     line-height: 100%;
     margin: 10px 0;
     text-transform: uppercase;
+    margin-top: -47px;
+
 
 }
 #description{
@@ -384,220 +391,227 @@ ul{
 
 
 #suggestions {
-    display: flex;
-    flex-direction: column; /* Stack heading and products vertically */
-    align-items: center; /* Center align everything */
+    margin: 4rem 0;
+    padding: 0 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#might-like-box {
     text-align: center;
-    width: 100%;
-    margin-top: 50px; /* Space from the previous section */
+    margin-bottom: 3rem;
+    position: relative;
 }
 
 #might-like {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px; /* Space between heading and items */
-}
-
-.might-like-box {
-    width: 260px;
-    margin: 15px;
-    padding: 0;
-    border-radius: 20px;
-    background: #252121;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    display: inline-block;
+    font-size: 2.2rem;
+    color: #333;
+    padding: 0 2rem;
+    background: white;
     position: relative;
+    z-index: 1;
+    font-family: "Monotype Baskerville", serif;
+    font-style: normal;
+    font-weight: 100;
+    letter-spacing: .1em;
+    line-height: 3.6rem;
 }
 
+#might-like-box::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #ddd 15%, #ddd 85%, transparent 100%);
+    z-index: 0;
+}
 
-
-/* Container for arrows and items */
 .suggestion-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    width: 100%;
-    margin: auto;
+    gap: 1.5rem;
+    position: relative;
+    padding: 0 3rem;
 }
 
-/* Container that shows only a few items */
-/* Adjust the container to show three perfumes at a time */
 #suggested-products-container {
     overflow: hidden;
-    width: 100%; /* Adjust width for better visibility */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none !important;
-
-}
-
-
-.suggested-container {
-    overflow: hidden; /* Ensure nothing spills out */
-    position: relative;
     width: 100%;
-    box-shadow: none !important;
-
 }
-/* Ensure three items are visible */
+
 #suggested-products {
     display: flex;
-    gap: 20px; /* Space between items */
-    transition: transform 0.5s ease-in-out;
-    width: max-content; /* Prevent shrinking */
-    transform: translateX(0); /* Start from the first item */
-    justify-content: flex-start; /* Prevents unwanted centering */
-    box-shadow: none !important;
-
-
+    gap: 2rem;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 1.5rem 0;
 }
 
-/* Each item takes up one-third of the visible container */
 .suggested-item {
-    flex: 0 0 calc(100% / 3);
-    text-align: left;
-    background: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none !important;
-    align-items: left;
-    justify-content: center;
-     display: inline-block; /* Keeps items inline while allowing structure */
-     text-align: center; /* Centers content */
-    
+    flex: 0 0 calc(25% - 1.5rem); /* 4 items per view (25% width minus gap) */
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.suggested-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
 
-/* Ensure images scale properly */
+.suggested-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #000000 0%, #ffffff 100%);
+}
+
 .suggested-image {
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin: 0 auto 1.5rem;
+    transition: transform 0.4s ease;
 }
 
-/* Remove borders from individual suggested items */
-.suggested-item {
-    border: none;
-    padding: 20px;
+.suggested-item:hover .suggested-image {
+    transform: scale(1.1);
 }
 
 .suggested-name {
-    font-size: 14px;
-    text-align: center;
-    width: 100%;
-
-    color: black;
-
-    /* Letter display related */
-    font-weight: 100; /* Add this to make the font look think and clean */
-    font-size: 14px; /* Added this line for 64px font size */
     font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em; /* Distance between letters for design */
-    line-height: 40%;
-
-    margin: 0;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: .08em;
+    line-height: 3.6rem;
     text-align: center;
-    text-transform: uppercase;
+    font-size: 20px;
 }
 
-/* ===== SAFE HOVER EFFECTS (NO SIZE/PADDING/MARGIN CHANGES) ===== */
-
-/* 1. Subtle "float" animation */
-.suggested-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .suggested-item:hover {
-    transform: translateY(-3px); /* Tiny lift */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Barely visible shadow */
-  }
-  
-  /* 2. Gentle image highlight */
-  .suggested-image {
-    transition: opacity 0.3s ease;
-  }
-  
-  .suggested-item:hover .suggested-image {
-    opacity: 0.9; /* Slight fade for focus */
-  }
-  
-  /* 3. Text color shift (keeps original font/boldness) */
-  .suggested-item:hover .suggested-name {
-    color: #444; /* Darker by just 10% */
-  }
-
-  /* Center-align carousel arrows vertically */
-.suggestion-wrapper {
-    align-items: center; /* No margin/padding changes */
-  }
-  
-  /* Smooth arrow hover */
-  .suggestion-arrow {
-    transition: background-color 0.2s ease;
-  }
-  .suggestion-arrow:hover {
-    background-color: #333; /* Darker than original */
-  }
-
-.suggested-price{
-    font-size: 14px;
-    text-align: center;
-    width: 100%;
-
-    color: black;
-
-    /* Letter display related */
-    font-weight: 100; /* Add this to make the font look think and clean */
-    font-size: 14px; /* Added this line for 64px font size */
-    font-family: "Monotype Baskerville", serif;
-    letter-spacing: .1em; /* Distance between letters for design */
-    line-height: 40%;
-
-    margin-top:10px ;
-    text-align: center;
+.suggested-price {
+    list-style: none;
+    box-sizing: inherit;
+    display: block;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: .2em;
+    line-height: 1.6rem;
     text-transform: uppercase;
+    text-align: left;
+    margin-top: -21px;
 }
 
-
-/* Arrows */
 .suggestion-arrow {
-    background-color: black;
-    color: white;
+    background: white;
     border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #555;
     cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: absolute;
 }
 
 .suggestion-arrow:hover {
-    background-color: grey;
+    background: linear-gradient(90deg, #ffffff 0%, #000000 100%);
+    color: white;
+    transform: scale(1.1);
 }
 
-.custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
-
-.offcanvas-footer
-{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px;
+#prev-suggestion {
+    left: 0;
 }
 
+#next-suggestion {
+    right: 0;
+}
 
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+    .suggested-item {
+        flex: 0 0 calc(25% - 1.5rem);
+    }
+}
 
+@media (max-width: 1200px) {
+    .suggested-item {
+        flex: 0 0 calc(33.33% - 1.5rem);
+    }
+}
 
+@media (max-width: 992px) {
+    .suggested-item {
+        flex: 0 0 calc(50% - 1.5rem);
+        min-height: 300px;
+    }
+    
+    .suggested-image {
+        width: 140px;
+        height: 140px;
+    }
+}
 
+@media (max-width: 768px) {
+    #might-like {
+        font-size: 1.8rem;
+    }
+    
+    .suggestion-wrapper {
+        padding: 0 2.5rem;
+    }
+    
+    .suggested-item {
+        min-height: 280px;
+    }
+}
+
+@media (max-width: 576px) {
+    #suggestions {
+        padding: 0 1rem;
+    }
+    
+    .suggested-item {
+        flex: 0 0 calc(100% - 1rem);
+        min-height: 250px;
+    }
+    
+    .suggested-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .suggestion-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
 @media (max-width: 768px) {
     /* Stack items vertically */
     div {
@@ -654,20 +668,7 @@ ul{
         font-size: 14px;
     }
 
-    /* Adjust suggested products */
-    .suggested-item {
-        flex: 0 0 calc(50% - 10px); /* Two items per row */
-    }
-
-    .suggestion-wrapper {
-        flex-direction: column;
-    }
-
-    /* Adjust suggestion arrows */
-    .suggestion-arrow {
-        font-size: 18px;
-        padding: 8px;
-    }
+ 
 }
 
 
