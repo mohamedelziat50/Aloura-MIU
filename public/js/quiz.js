@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Option selection handling
-        if (e.target.closest('.option') || e.target.closest('.split-half')) {
+        if ((e.target.closest('.option') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
             const option = e.target.closest('.option') || e.target.closest('.split-half');
             const section = option.closest('.quiz-section');
             
@@ -97,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 handleSecurityVsAdventureSelection(option);
                 return;
             } else if (section.id === 'careVsLead') {
+                // Prevent double handling for careVsLead
+                if (e.careVsLeadHandled) return;
                 handleCareVsLeadSelection(option);
                 return;
             } else {
@@ -202,8 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Care vs Lead section handling (clone of securityVsAdventure)
     document.querySelectorAll('#careVsLead .split-half').forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function(e) {
             if (!this.classList.contains('selected') && !this.classList.contains('animating')) {
+                e.careVsLeadHandled = true;
                 handleCareVsLeadSelection(this);
             }
         });
