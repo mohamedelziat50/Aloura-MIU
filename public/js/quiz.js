@@ -93,13 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userAnswers[section.id] = option.dataset.value;
                 setTimeout(moveToNextSection, 500);
                 return;
-            } else if (section.id === 'securityVsAdventure') {
-                handleSecurityVsAdventureSelection(option);
-                return;
-            } else if (section.id === 'careVsLead') {
-                // Prevent double handling for careVsLead
-                if (e.careVsLeadHandled) return;
-                handleCareVsLeadSelection(option);
+            } else if (section.id === 'securityVsAdventure' || section.id === 'careVsLead' || section.id === 'buildVsInvent' || section.id === 'goodTimeVsSuccess' || section.id === 'organizeVsSurprise') {
                 return;
             } else {
                 // Single selection for other sections
@@ -146,29 +140,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add mouse move tracking for split section hover effect
-    const splitSection = document.querySelector('#securityVsAdventure');
-    if (splitSection) {
-        const splitHalves = splitSection.querySelectorAll('.split-half');
-        
-        splitHalves.forEach(half => {
-            half.addEventListener('mousemove', (e) => {
-                const rect = half.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
-                
-                // Update CSS variables for the gradient
-                half.style.setProperty('--mouse-x', `${x}px`);
-                half.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-    }
+    // Generalized split-section logic for all split-section questions
+    const splitSectionIds = [
+        'securityVsAdventure',
+        'careVsLead',
+        'buildVsInvent',
+        'goodTimeVsSuccess',
+        'organizeVsSurprise'
+    ];
 
-    // Add mouse move tracking for split section hover effect for careVsLead
-    const careVsLeadSection = document.querySelector('#careVsLead');
-    if (careVsLeadSection) {
-        const splitHalves = careVsLeadSection.querySelectorAll('.split-half');
-        splitHalves.forEach(half => {
+    splitSectionIds.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        const halves = section.querySelectorAll('.split-half');
+
+        // Mousemove gradient effect
+        halves.forEach(half => {
             half.addEventListener('mousemove', (e) => {
                 const rect = half.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -177,38 +164,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 half.style.setProperty('--mouse-y', `${y}px`);
             });
         });
-    }
 
-    // Security vs Adventure section handling
-    document.querySelectorAll('#securityVsAdventure .split-half').forEach(option => {
-        option.addEventListener('click', function() {
-            if (!this.classList.contains('selected') && !this.classList.contains('animating')) {
-                const allOptions = document.querySelectorAll('#securityVsAdventure .split-half');
-                
-                // Add animating class to prevent hover effects during animation
-                allOptions.forEach(opt => opt.classList.add('animating'));
-                
-                // Remove any previous selections
-                allOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
+        // Click selection logic
+        halves.forEach(half => {
+            half.addEventListener('click', function () {
+                if (this.classList.contains('selected') || this.classList.contains('animating')) return;
+                // Remove classes from both halves
+                halves.forEach(opt => {
+                    opt.classList.remove('selected', 'fade-out', 'animating');
+                });
+                // Add animating to both
+                halves.forEach(opt => opt.classList.add('animating'));
+                // Add selected to clicked
                 this.classList.add('selected');
-                
-                // After animation completes, remove animating class
+                // Tick mark
+                let tickMark = this.querySelector('.tick-mark');
+                if (!tickMark) {
+                    tickMark = document.createElement('div');
+                    tickMark.className = 'tick-mark';
+                    tickMark.innerHTML = '✓';
+                    this.appendChild(tickMark);
+                }
+                // Fade out non-selected
+                halves.forEach(opt => {
+                    if (opt !== this) opt.classList.add('fade-out');
+                });
+                // Store answer
+                userAnswers[sectionId] = this.dataset.value;
+                // Remove animating after animation
                 setTimeout(() => {
-                    allOptions.forEach(opt => opt.classList.remove('animating'));
-                }, 2000); // Match the animation duration
-            }
-        });
-    });
-
-    // Care vs Lead section handling (clone of securityVsAdventure)
-    document.querySelectorAll('#careVsLead .split-half').forEach(option => {
-        option.addEventListener('click', function(e) {
-            if (!this.classList.contains('selected') && !this.classList.contains('animating')) {
-                e.careVsLeadHandled = true;
-                handleCareVsLeadSelection(this);
-            }
+                    halves.forEach(opt => opt.classList.remove('animating'));
+                }, 1000);
+                // Move to next section after animation
+                setTimeout(() => {
+                    moveToNextSection();
+                }, 2000);
+            });
         });
     });
 
@@ -230,76 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedScentCount > 0) {
             enableNextButton(option.closest('.quiz-section'));
         }
-    }
-
-    function handleSecurityVsAdventureSelection(selectedOption) {
-        const securityOption = document.querySelector('#securityVsAdventure .left-option');
-        const adventureOption = document.querySelector('#securityVsAdventure .right-option');
-        
-        // Remove any existing animation classes
-        securityOption.classList.remove('selected', 'fade-out', 'animating');
-        adventureOption.classList.remove('selected', 'fade-out', 'animating');
-        
-        // Add animating class to both to disable hover
-        securityOption.classList.add('animating');
-        adventureOption.classList.add('animating');
-        
-        // Add selected class to clicked option
-        selectedOption.classList.add('selected');
-        
-        // Make sure tick mark exists and is properly positioned
-        let tickMark = selectedOption.querySelector('.tick-mark');
-        if (!tickMark) {
-            tickMark = document.createElement('div');
-            tickMark.className = 'tick-mark';
-            tickMark.innerHTML = '✓';
-            selectedOption.appendChild(tickMark);
-        }
-        
-        // Add fade-out to non-selected option
-        const nonSelectedOption = selectedOption === securityOption ? adventureOption : securityOption;
-        nonSelectedOption.classList.add('fade-out');
-        
-        // Store the selection
-        userAnswers['securityVsAdventure'] = selectedOption.dataset.value;
-        
-        // Remove animating class after animation completes
-        setTimeout(() => {
-            securityOption.classList.remove('animating');
-            adventureOption.classList.remove('animating');
-        }, 1000);
-        
-        // Delay the transition to next section
-        setTimeout(() => {
-            moveToNextSection();
-        }, 2000);
-    }
-
-    function handleCareVsLeadSelection(selectedOption) {
-        const careOption = document.querySelector('#careVsLead .left-option');
-        const leadOption = document.querySelector('#careVsLead .right-option');
-        careOption.classList.remove('selected', 'fade-out', 'animating');
-        leadOption.classList.remove('selected', 'fade-out', 'animating');
-        careOption.classList.add('animating');
-        leadOption.classList.add('animating');
-        selectedOption.classList.add('selected');
-        let tickMark = selectedOption.querySelector('.tick-mark');
-        if (!tickMark) {
-            tickMark = document.createElement('div');
-            tickMark.className = 'tick-mark';
-            tickMark.innerHTML = '✓';
-            selectedOption.appendChild(tickMark);
-        }
-        const nonSelectedOption = selectedOption === careOption ? leadOption : careOption;
-        nonSelectedOption.classList.add('fade-out');
-        userAnswers['careVsLead'] = selectedOption.dataset.value;
-        setTimeout(() => {
-            careOption.classList.remove('animating');
-            leadOption.classList.remove('animating');
-        }, 1000);
-        setTimeout(() => {
-            moveToNextSection();
-        }, 2000);
     }
 
     function moveToNextSection() {
