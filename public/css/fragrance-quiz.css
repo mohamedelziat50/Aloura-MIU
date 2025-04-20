@@ -1848,6 +1848,7 @@ nav {
     /* Remove any margin/padding affecting alignment */
     margin: 0;
     padding: 0;
+    position: relative; /* Add this to position the label relative to bar */
   }
 
 .strength-bar-short {
@@ -1862,6 +1863,20 @@ nav {
   height: 300px;
 }
 
+.strength-label {
+    position: absolute;
+    bottom: -55px; /* Position below the bar */
+    left: 50%;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333333;
+    white-space: nowrap;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
 @media (max-width: 900px) {
   .strength-bars-container {
     gap: 16px;
@@ -1873,6 +1888,10 @@ nav {
   .strength-bar-short { height: 40px; }
   .strength-bar-medium { height: 65px; }
   .strength-bar-tall { height: 90px; }
+  .strength-label {
+    font-size: 0.8rem;
+    bottom: -25px;
+  }
 }
 
 @media (max-width: 900px) {
