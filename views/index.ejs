@@ -85,63 +85,77 @@
 
     <!-- Menu Overlay -->
     <div class="menu-overlay"></div>
-
+    
     <!-- For Him & For Her Segment -->
     <div class="gender">
-      <!--Intialize Container (taking gender CSS container)-->
-      <div class="text-overlay-indulge">INDULGE</div>
-      <div class="text-overlay-your">YOUR SENSES</div>
+    <!-- Initialize Container (taking gender CSS container) -->
+    <div class="text-overlay-indulge">INDULGE</div>
+    <div class="text-overlay-your">YOUR SENSES</div>
 
-      <div class="female">
-        <!-- Canvas for Fluid Effect -->
-        <canvas id="female-fluid-canvas"></canvas>
-        <!--Intialize Container (taking female CSS container)-->
-        <img
-          id="female-img"
-          src="./img/girlTestCopy.jpg"
-          alt="For Her Fragrances"
-        />
-        <div class="text-overlay">
-          <!-- Increases z-index -->
-          <button
-            style="z-index: 9999999"
-            onclick="window.location.href='fragrances-for-women'"
-          >
-            For Her
-          </button>
-          <!-- Creating Button with CSS text-overlay properties-->
-        </div>
-      </div>
+    <div class="left-container"> 
+      <p>&nbsp;DISCOVER CAPTIVATING SCENTS THAT EMBODY<br>
+        &nbsp;GRACE, STRENGTH AND ALLURE—CRAFTED FOR<br>
+        THE MODERN WOMAN.</p>
 
-      <div class="male">
-        <!-- Canvas for Fluid Effect -->
-        <canvas id="male-fluid-canvas"></canvas>
-        <img
-          id="male-img"
-          src="./img/guyTestCopy.png"
-          alt="For Him Fragrances"
-        />
-        <div class="text-overlay">
-          <button
-            style="z-index: 9999999"
-            onclick="window.location.href='fragrances-for-men'"
-          >
-            For Him
-          </button>
-        </div>
-      </div>
+        <!--Explore Fragrances Button-->
+        <button class="explore-fragrances" onclick="window.location.href='fragrances-for-women'">
+          Explore Fragrances
+        </button>
 
-      <!-- Add center journey text -->
-      <div class="fragrance-quiz-container">
-        <div class="fragrance-quiz">
-          <a href="fragrance-quiz">Fragrance Quiz</a>
-        </div>
-      </div>
-
-      <div class="transition-container">
-        <img id="transition-img" src="" alt="Transition Image" />
-      </div>
+      <!-- For Her Button -->
+    <div class="text-overlay">
+      <button class="for-her" style="z-index: 1" onclick="window.location.href='fragrances-for-women'">
+        For Her
+      </button>
     </div>
+    </div>
+
+    <div class="right-container">
+      <p>UNVEIL FRAGRANCES THAT DEFINE<br>
+        CONFIDENCE, CHARISMA, AND REFIENMENT— <br>
+      CRAFTED FOR THE DISTUNGUISHED MAN.</p>
+
+        <!--Explore Fragrances Button-->
+         <button class="explore-fragrances" onclick="window.location.href='fragrances-for-men'">
+          Explore Fragrances
+        </button>
+        
+        <!-- For Him Button -->
+     <div class="text-overlay">
+      <button class="for-him" style="z-index: 1" onclick="window.location.href='fragrances-for-men'">
+        For Him
+      </button>
+    </div>
+    </div>
+
+  <div class="female">
+    <!-- Canvas for Fluid Effect -->
+    <canvas id="female-fluid-canvas"></canvas>
+    
+    <!-- Female Image -->
+    <img id="female-img" src="./img/girlTestCopy.jpg" alt="For Her Fragrances"/>
+  </div>
+
+  <div class="male">
+    <!-- Canvas for Fluid Effect -->
+    <canvas id="male-fluid-canvas"></canvas>
+
+    <!-- Male Image -->
+    <img id="male-img" src="./img/guyTestCopy.png" alt="For Him Fragrances"/>
+  </div>
+
+  <!-- Center Journey Text -->
+  <div class="fragrance-quiz-container">
+    <div class="fragrance-quiz">
+      <a href="fragrance-quiz">Fragrance Quiz</a>
+    </div>
+  </div>
+
+  <!-- Transition Image -->
+  <div class="transition-container">
+    <img id="transition-img" src="" alt="Transition Image" />
+  </div>
+</div>
 
     <!-- After the gender container -->
     <div class="quality-model-section">

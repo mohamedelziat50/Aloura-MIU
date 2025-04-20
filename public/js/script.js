@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize page animations
   initPageAnimations();
 
+  initGenderHoverEffects();
+
   // Initialize product slider
   initProductSlider();
   
@@ -26,17 +28,17 @@ function initPageAnimations() {
   // Fetch all elements that need transitions
   const femaleImg = document.querySelector(".female img");
   const maleImg = document.querySelector(".male img");
-  const buttons = document.querySelectorAll(".text-overlay button");
+  const forHerBtn = document.querySelector(".for-her");
+  const forHimBtn = document.querySelector(".for-him");
   const indulgeText = document.querySelector(".text-overlay-indulge");
   const yourText = document.querySelector(".text-overlay-your");
   const journeyText = document.querySelector(".fragrance-quiz");
 
   // Start image transitions
   setTimeout(() => {
-    // setTimeout delays the execution of the code inside it by 100 milliseconds.
     if (femaleImg) femaleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the female image.
     if (maleImg) maleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the male image.
-  }, 100);
+  }, 100); // Delays execution by 100ms to allow images to load
 
   // Start text transitions after images finish loading
   setTimeout(() => {
@@ -45,59 +47,112 @@ function initPageAnimations() {
 
     // Add slight delay for buttons to appear after the text
     setTimeout(() => {
-      buttons.forEach((button) => {
-        button.classList.add("show");
-        button.style.pointerEvents = "auto"; // Make buttons clickable after they are visible.
-      });
-      
+      if (forHimBtn) forHimBtn.classList.add("show");
+      if (forHerBtn) forHerBtn.classList.add("show");
+
       // Show journey text at the same time as buttons
-      if (journeyText) {
-        journeyText.classList.add("show");
-      }
-    }, 130);
-  }, 200);
+      if (journeyText) journeyText.classList.add("show");
+    }, 130); // Delayed button appearance
+  }, 200); // Delays text transition slightly
 }
+
+
+function initGenderHoverEffects() {
+  const leftContainer = document.querySelector(".left-container");
+  const rightContainer = document.querySelector(".right-container");
+  const forHerBtn = document.querySelector(".for-her");
+  const forHimBtn = document.querySelector(".for-him");
+  const femaleDiv = document.querySelector(".female"); // Select the PARENT div for flex
+  const maleDiv = document.querySelector(".male");     // Select the PARENT div for flex
+  const your = document.querySelector(".text-overlay-your");
+  const indulge = document.querySelector(".text-overlay-indulge");
+  const leftParagraphs = leftContainer.querySelectorAll("p");
+  const rightParagraphs = rightContainer.querySelectorAll("p");
+  const leftBtn = leftContainer.querySelector(".explore-fragrances");
+  const rightBtn = rightContainer.querySelector(".explore-fragrances");
+
+    // Left container hover effect (hovering over female side)
+    leftContainer.addEventListener("mouseenter", () => {
+      forHimBtn.classList.add("hide"); // Hide the "For Him" button
+      your.classList.add("hide");
+      indulge.classList.add("hide");
+      leftBtn.classList.add("show");
+      leftParagraphs.forEach(p => p.classList.add("show"));
+      femaleDiv.style.flexGrow = "1.5";  // Increase the size of the female DIV
+      maleDiv.style.flexGrow = "0.5";    // Decrease the size of the male DIV
+      maleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of male IMG
+    });
+
+    leftContainer.addEventListener("mouseleave", () => {
+      forHimBtn.classList.remove("hide"); // Show the "For Him" button again
+      your.classList.remove("hide");
+      indulge.classList.remove("hide");
+      leftBtn.classList.remove("show");
+      leftParagraphs.forEach(p => p.classList.remove("show"));
+      femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
+      maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
+      maleDiv.style.filter = "";   // Reset filter to default (let CSS rule apply)
+    });
+
+    // Right container hover effect (hovering over male side)
+    rightContainer.addEventListener("mouseenter", () => {
+      forHerBtn.classList.add("hide"); // Hide the "For Her" button
+      your.classList.add("hide");
+      indulge.classList.add("hide");
+      rightBtn.classList.add("show");
+      rightParagraphs.forEach(p => p.classList.add("show"));
+      maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
+      femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
+      femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
+    });
+
+    rightContainer.addEventListener("mouseleave", () => {
+      forHerBtn.classList.remove("hide"); // Show the "For Her" button again
+      your.classList.remove("hide");
+      indulge.classList.remove("hide");
+      rightBtn.classList.remove("show");
+      rightParagraphs.forEach(p => p.classList.remove("show"));
+      maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
+      femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
+      femaleDiv.style.filter = ""; // Reset filter to default (let CSS rule apply)
+    });
+  } // End reinstated null check
+
 
 /**
  * Initializes the product slider with circular looping
- */ function initProductSlider() {
+ */
+
+  function initProductSlider() {
   const slider = document.querySelector(".product-slider");
   const prevBtn = document.querySelector(".prev-btn");
   const nextBtn = document.querySelector(".next-btn");
   const productDetails = document.getElementById("product-details");
   let cards = Array.from(document.querySelectorAll(".product-card"));
 
-  if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails)
-    return;
+  if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails) return;
 
   const visibleCards = 3;
   const cardMargin = 160;
-  const cardWidth = slider.offsetWidth / visibleCards - cardMargin * 2;
   const cardCount = cards.length;
+  const cardWidth = slider.offsetWidth / visibleCards - cardMargin * 2;
 
   // Duplicate first and last few cards for seamless looping
-  const firstClones = cards
-    .slice(0, visibleCards)
-    .map((card) => card.cloneNode(true));
-  const lastClones = cards
-    .slice(-visibleCards)
-    .map((card) => card.cloneNode(true));
+  const firstClones = cards.slice(0, visibleCards).map((card) => card.cloneNode(true));
+  const lastClones = cards.slice(-visibleCards).map((card) => card.cloneNode(true));
 
-  // Append clones at the start and end
+  // Append clones
   firstClones.forEach((clone) => slider.appendChild(clone));
   lastClones.reverse().forEach((clone) => slider.prepend(clone));
 
-  // Update card list after adding clones
+  // Refresh cards array after cloning
   cards = Array.from(slider.children);
 
   let cardIndex = visibleCards;
   slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
 
-  /**
-   * Update product details based on the active card
-   */
   function updateProductDetails() {
-    const activeCard = cards[cardIndex + 1]; // Active card is always cardIndex + 1 due to clones
+    const activeCard = cards[cardIndex + 1]; // +1 to account for prepended clones
     if (!activeCard) return;
 
     const name = activeCard.dataset.name;
@@ -107,38 +162,53 @@ function initPageAnimations() {
     const price = activeCard.dataset.price;
 
     productDetails.querySelector(".product-name").textContent = name;
-    productDetails.querySelector(".product-description").textContent =
-      description;
+    productDetails.querySelector(".product-description").textContent = description;
     productDetails.querySelector(".rating-score").textContent = rating;
     productDetails.querySelector(".product-size").textContent = size;
     productDetails.querySelector(".product-price").textContent = price;
   }
 
-  /**
-   * Moves the slider and handles looping
-   */
-  function updateSlider() {
-    slider.style.scrollBehavior = "smooth";
-    slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
-
-    // Update active class
+  function updateActiveCard() {
     cards.forEach((card, index) => {
       const isActive = index === cardIndex + 1;
       card.classList.toggle("active", isActive);
     });
+  }
 
-    // Update product details
+  function updateSlider() {
+    slider.style.scrollBehavior = "smooth";
+    slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
     updateProductDetails();
+    updateActiveCard();
   }
 
   function resetPosition() {
     slider.style.scrollBehavior = "auto";
+
+    let jumped = false;
+    let newIndex = cardIndex;
+
     if (cardIndex >= cardCount + visibleCards) {
-      cardIndex = visibleCards;
-      slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+      newIndex = visibleCards;
+      jumped = true;
     } else if (cardIndex < visibleCards) {
-      cardIndex = cardCount + visibleCards - 1;
-      slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+      newIndex = cardCount + visibleCards - 1;
+      jumped = true;
+    }
+
+    if (jumped) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          cardIndex = newIndex;
+          slider.scrollLeft = cardIndex * (cardWidth + cardMargin * 2);
+          updateActiveCard();
+
+          const realActive = cards[cardIndex + 1];
+          realActive.style.transition = "none";
+          realActive.offsetHeight;
+          realActive.style.transition = "";
+        });
+      });
     }
   }
 
@@ -151,7 +221,7 @@ function initPageAnimations() {
       setTimeout(() => {
         resetPosition();
         slider.classList.remove("moving");
-      }, 300);
+      }, 350);
     }
   });
 
@@ -163,20 +233,17 @@ function initPageAnimations() {
       setTimeout(() => {
         resetPosition();
         slider.classList.remove("moving");
-      }, 300);
+      }, 350);
     }
   });
 
-  // Handle window resize
-  window.addEventListener("resize", function () {
-    updateSlider();
-  });
-
-  updateSlider(); // Initial update
+  window.addEventListener("resize", updateSlider);
+  updateSlider(); // Initial render
 }
 
 // Initialize the slider
 initProductSlider();
+
 
 /**
  * Handles gender selection animation and transition
