@@ -260,6 +260,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Fragrance Strength Selection
+    const strengthBars = document.querySelectorAll('.strength-bar');
+
+    strengthBars.forEach(bar => {
+        bar.addEventListener('click', function() {
+            // Remove selection from other bars
+            strengthBars.forEach(otherBar => {
+                if (otherBar !== bar) {
+                    otherBar.classList.remove('selected');
+                    otherBar.classList.add('fade-out');
+                }
+            });
+
+            // Select this bar
+            bar.classList.add('selected');
+            bar.classList.remove('fade-out');
+
+            // Get the strength value
+            const strength = bar.getAttribute('data-strength');
+            
+            // Store the selection
+            userAnswers.fragranceStrength = strength;
+
+            // Proceed to next section after animation
+            setTimeout(() => {
+                moveToNextSection();
+            }, 1500); // Match this with your animation duration
+        });
+    });
+
     function handleScentFamilySelection(option) {
         if (option.classList.contains('selected')) {
             option.classList.remove('selected');

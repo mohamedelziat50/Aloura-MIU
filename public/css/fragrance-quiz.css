@@ -1845,11 +1845,49 @@ nav {
     background: rgb(237, 220, 191);
     border: 2.5px solid rgb(212, 194, 166);
     border-radius: 6px 6px 0 0;
-    /* Remove any margin/padding affecting alignment */
     margin: 0;
     padding: 0;
-    position: relative; /* Add this to position the label relative to bar */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+.strength-bar:hover {
+    transform: translateY(-10px);
+    background: rgb(212, 194, 166);
+    border-color: rgb(146, 103, 80);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.strength-bar.selected {
+    background: rgb(35, 35, 35);
+    border-color: rgb(35, 35, 35);
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    animation: strengthSelected 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.strength-bar.selected + .strength-label {
+    color: rgb(35, 35, 35);
+    font-weight: 700;
+}
+
+.strength-bar.fade-out {
+    opacity: 0.3;
+    transform: scale(0.95);
+}
+
+@keyframes strengthSelected {
+    0% {
+        transform: translateY(-10px) scale(1);
+    }
+    40% {
+        transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+        transform: translateY(-15px) scale(1.05);
+    }
+}
 
 .strength-bar-short {
   height: 200px;
@@ -1877,6 +1915,23 @@ nav {
     letter-spacing: 1px;
 }
 
+.strength-bar::after {
+    content: '✓';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    color: rgb(35, 35, 35);
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.strength-bar.selected::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
 @media (max-width: 900px) {
   .strength-bars-container {
     gap: 16px;
@@ -1884,6 +1939,12 @@ nav {
   .strength-bar {
     width: 24px;
     border-radius: 12px 12px 0 0;
+  }
+  .strength-bar:hover {
+    transform: translateY(-5px);
+  }
+  .strength-bar.selected {
+    transform: translateY(-8px) scale(1.05);
   }
   .strength-bar-short { height: 40px; }
   .strength-bar-medium { height: 65px; }
