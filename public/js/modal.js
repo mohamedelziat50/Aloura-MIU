@@ -1,3 +1,5 @@
+import showFunToast from "./toast.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const signUpForm = document.getElementById("signUpForm");
@@ -8,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
 
-
   // Switch to Sign-up Form
   const showSignUpFormBtn = document.getElementById("showSignUpForm");
   if (showSignUpFormBtn) {
@@ -16,10 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
       loginForm.style.display = "none";
       signUpForm.style.display = "block";
       loginModalLabel.textContent = "Sign Up";
-      modalDescription.textContent = "Please fill in your information to create an account:";
+      modalDescription.textContent =
+        "Please fill in your information to create an account:";
     });
   }
-  
+
   // show the 2fa form
   const show2faBtn = document.getElementById("show2fa");
   if (show2faBtn) {
@@ -55,7 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
       loginModalLabel.textContent = "Reset Password";
       loginModalLabel.classList.add("verification-title");
       modalDescription.style.display = "block";
-      modalDescription.textContent = "Enter your email address and we'll send you a link to reset your password";
+      modalDescription.textContent =
+        "Enter your email address and we'll send you a link to reset your password";
     });
   }
 
@@ -71,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
   }
-  
+
   // Switch back to Login Form from Forget Password Form
   const showLoginForm1Btn = document.getElementById("showLoginForm1");
   if (showLoginForm1Btn) {
@@ -155,63 +158,146 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ============ Password toggle functionality ============
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Login form password toggle
-  const passwordToggle = document.getElementById('passwordToggle');
-  const passwordInput = document.getElementById('password');
-  const passwordIcon = document.getElementById('passwordIcon');
-  
+  const passwordToggle = document.getElementById("passwordToggle");
+  const passwordInput = document.getElementById("password");
+  const passwordIcon = document.getElementById("passwordIcon");
+
   if (passwordToggle && passwordInput && passwordIcon) {
-    passwordToggle.addEventListener('click', function() {
+    passwordToggle.addEventListener("click", function () {
       // Toggle password visibility
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        passwordIcon.classList.remove('fa-lock');
-        passwordIcon.classList.add('fa-lock-open');
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordIcon.classList.remove("fa-lock");
+        passwordIcon.classList.add("fa-lock-open");
       } else {
-        passwordInput.type = 'password';
-        passwordIcon.classList.remove('fa-lock-open');
-        passwordIcon.classList.add('fa-lock');
+        passwordInput.type = "password";
+        passwordIcon.classList.remove("fa-lock-open");
+        passwordIcon.classList.add("fa-lock");
       }
     });
   }
-  
+
   // Signup form password toggle
-  const signupPasswordToggle = document.getElementById('signupPasswordToggle');
-  const signupPasswordInput = document.getElementById('signup-password');
-  const signupPasswordIcon = document.getElementById('signupPasswordIcon');
-  
+  const signupPasswordToggle = document.getElementById("signupPasswordToggle");
+  const signupPasswordInput = document.getElementById("signup-password");
+  const signupPasswordIcon = document.getElementById("signupPasswordIcon");
+
   if (signupPasswordToggle && signupPasswordInput && signupPasswordIcon) {
-    signupPasswordToggle.addEventListener('click', function() {
-      if (signupPasswordInput.type === 'password') {
-        signupPasswordInput.type = 'text';
-        signupPasswordIcon.classList.remove('fa-lock');
-        signupPasswordIcon.classList.add('fa-lock-open');
+    signupPasswordToggle.addEventListener("click", function () {
+      if (signupPasswordInput.type === "password") {
+        signupPasswordInput.type = "text";
+        signupPasswordIcon.classList.remove("fa-lock");
+        signupPasswordIcon.classList.add("fa-lock-open");
       } else {
-        signupPasswordInput.type = 'password';
-        signupPasswordIcon.classList.remove('fa-lock-open');
-        signupPasswordIcon.classList.add('fa-lock');
+        signupPasswordInput.type = "password";
+        signupPasswordIcon.classList.remove("fa-lock-open");
+        signupPasswordIcon.classList.add("fa-lock");
       }
     });
   }
-  
+
   // Confirm password toggle
-  const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
-  const confirmPasswordInput = document.getElementById('signup-confirm-password');
-  const confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
-  
+  const confirmPasswordToggle = document.getElementById(
+    "confirmPasswordToggle"
+  );
+  const confirmPasswordInput = document.getElementById(
+    "signup-confirm-password"
+  );
+  const confirmPasswordIcon = document.getElementById("confirmPasswordIcon");
+
   if (confirmPasswordToggle && confirmPasswordInput && confirmPasswordIcon) {
-    confirmPasswordToggle.addEventListener('click', function() {
-      if (confirmPasswordInput.type === 'password') {
-        confirmPasswordInput.type = 'text';
-        confirmPasswordIcon.classList.remove('fa-lock');
-        confirmPasswordIcon.classList.add('fa-lock-open');
+    confirmPasswordToggle.addEventListener("click", function () {
+      if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text";
+        confirmPasswordIcon.classList.remove("fa-lock");
+        confirmPasswordIcon.classList.add("fa-lock-open");
       } else {
-        confirmPasswordInput.type = 'password';
-        confirmPasswordIcon.classList.remove('fa-lock-open');
-        confirmPasswordIcon.classList.add('fa-lock');
+        confirmPasswordInput.type = "password";
+        confirmPasswordIcon.classList.remove("fa-lock-open");
+        confirmPasswordIcon.classList.add("fa-lock");
       }
     });
   }
 });
 
+signUpForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent form from submitting
+
+  const name = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const phone = document.getElementById("signup-phone").value.trim();
+  const password = document.getElementById("signup-password").value;
+  const confirmPassword = document.getElementById(
+    "signup-confirm-password"
+  ).value;
+
+  // Validation
+  if (name === "") {
+    showFunToast("❗ Please enter your name.", "red");
+    return;
+  }
+
+  if (email === "" || !validateEmail(email)) {
+    showFunToast("📧 Please enter a valid email address.", "red");
+    return;
+  }
+
+  if (phone === "" || !validatePhone(phone)) {
+    showFunToast("📱 Please enter a valid phone number.", "red");
+    return;
+  }
+
+  if (password.length < 6) {
+    showFunToast("🔒 Password must be at least 6 characters long.", "red");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showFunToast("🔒 Passwords do not match.", "red");
+    return;
+  }
+
+  const formData = {
+    name,
+    email,
+    phone,
+    password,
+  };
+
+  fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Signed up successfully!", "green");
+        console.log("Success:", data);
+        // window.location.href = "/"; // Redirect to the login page if needed
+      } else {
+        showFunToast(data.message || "❗ An error occurred.", "red");
+        console.error("Error:", data);
+      }
+    })
+    .catch((error) => {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+      console.error("Error:", error);
+    });
+});
+
+// Helper functions
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePhone(phone) {
+  const re = /^[0-9]{10,15}$/;
+  return re.test(phone);
+}
