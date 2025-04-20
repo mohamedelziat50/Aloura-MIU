@@ -1803,13 +1803,20 @@ nav {
 }
 
 #fragranceStrength .strength-right {
+  position: fixed;
+  top: 60px; /* below navbar */
+  left: 50vw; /* start from middle of screen */
   width: 50vw;
-  height: 100%;
+  height: calc(100vh - 60px); /* from below navbar to bottom */
+  background: rgb(237, 220, 191); /* fancy creamy white brownish */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  z-index: 11;
+  margin-top: -60px; /* below navbar */
 }
 
 #fragranceStrength .strength-blank {
