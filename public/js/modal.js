@@ -109,24 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevents form from submitting
-
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      // Check credentials
-      if (email === "admin@gmail.com" && password === "admin") {
-        window.location.href = "/admin"; // Redirect to admin page
-      } else {
-        alert("Invalid email or password");
-      }
-    });
-});
-
 // Mobile Menu Toggle
 document.addEventListener("DOMContentLoaded", function () {
   const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
@@ -301,3 +283,41 @@ function validatePhone(phone) {
   const re = /^[0-9]{10,15}$/;
   return re.test(phone);
 }
+
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent form from submitting
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  const formData = {
+    email,
+    password,
+  };
+
+  fetch("http://localhost:3000/login", {
+    method: "POST",
+    credentials: 'include', // ← important!
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Signed up successfully!", "green");
+        console.log("Success:", data);
+        window.location.href = "/"; // Redirect to the login page if needed  
+      } else {
+        showFunToast(data.message || "❗ An error occurred.", "red");
+        console.error("Error:", data);
+      }
+    })
+    .catch((error) => {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+      console.error("Error:", error);
+    });
+});
