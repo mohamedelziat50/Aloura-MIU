@@ -1840,16 +1840,83 @@ nav {
     transform: translateY(-38%);
   }
   
+  .strength-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .strength-bar {
     width: 142px;
     background: rgb(237, 220, 191);
     border: 2.5px solid rgb(212, 194, 166);
     border-radius: 6px 6px 0 0;
-    /* Remove any margin/padding affecting alignment */
     margin: 0;
     padding: 0;
-    position: relative; /* Add this to position the label relative to bar */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden; /* For the fill animation */
   }
+
+.strength-bar:hover {
+    transform: translateY(-10px);
+    background: rgb(212, 194, 166);
+    border-color: rgb(146, 103, 80);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.strength-bar.selected {
+    background: transparent; /* Remove background as we're using the fill animation */
+    border-color: rgb(35, 35, 35);
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    animation: strengthSelected 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.strength-bar.selected + .strength-label {
+    color: rgb(35, 35, 35);
+    font-weight: 700;
+    opacity: 1;
+}
+
+.strength-bar.fade-out {
+    opacity: 0.3;
+    transform: scale(0.95);
+}
+
+/* Fill animation */
+.strength-bar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgb(35, 35, 35);
+    transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.strength-bar.selected::before {
+    height: 100%;
+}
+
+@keyframes strengthSelected {
+    0% {
+        transform: translateY(-10px) scale(1);
+    }
+    40% {
+        transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+        transform: translateY(-15px) scale(1.05);
+    }
+}
 
 .strength-bar-short {
   height: 200px;
@@ -1864,17 +1931,36 @@ nav {
 }
 
 .strength-label {
-    position: absolute;
-    bottom: -55px; /* Position below the bar */
-    left: 50%;
-    text-transform: uppercase;
-    transform: translateX(-50%);
+    margin-top: 12px;
     font-size: 1.05rem;
     font-weight: 600;
-    color: #333333;
-    white-space: nowrap;
-    text-align: center;
+    color: #333;
+    text-transform: uppercase;
     letter-spacing: 1px;
+    text-align: center;
+    position: static;
+    width: auto;
+    z-index: auto;
+}
+
+/* Adjust tick mark position and add z-index */
+.strength-bar::after {
+    content: '✓';
+    position: absolute;
+    top: -30px;
+    margin-bottom: 3px; /* Added margin from top of rectangle */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    color: rgb(35, 35, 35);
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2; /* Ensure tick stays above the fill */
+}
+
+.strength-bar.selected::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
 }
 
 @media (max-width: 900px) {
@@ -1885,12 +1971,18 @@ nav {
     width: 24px;
     border-radius: 12px 12px 0 0;
   }
+  .strength-bar:hover {
+    transform: translateY(-5px);
+  }
+  .strength-bar.selected {
+    transform: translateY(-8px) scale(1.05);
+  }
   .strength-bar-short { height: 40px; }
   .strength-bar-medium { height: 65px; }
   .strength-bar-tall { height: 90px; }
   .strength-label {
     font-size: 0.8rem;
-    bottom: -25px;
+    margin-top: 12px;
   }
 }
 
