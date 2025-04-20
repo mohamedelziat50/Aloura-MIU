@@ -1848,8 +1848,13 @@ nav {
     margin: 0;
     padding: 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden; /* For the fill animation */
   }
 
 .strength-bar:hover {
@@ -1860,14 +1865,14 @@ nav {
 }
 
 .strength-bar.selected {
-    background: rgb(35, 35, 35);
+    background: transparent; /* Remove background as we're using the fill animation */
     border-color: rgb(35, 35, 35);
     transform: translateY(-15px) scale(1.05);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     animation: strengthSelected 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.strength-bar.selected + .strength-label {
+.strength-bar.selected .strength-label {
     color: rgb(35, 35, 35);
     font-weight: 700;
 }
@@ -1875,6 +1880,23 @@ nav {
 .strength-bar.fade-out {
     opacity: 0.3;
     transform: scale(0.95);
+}
+
+/* Fill animation */
+.strength-bar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgb(35, 35, 35);
+    transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.strength-bar.selected::before {
+    height: 100%;
 }
 
 @keyframes strengthSelected {
@@ -1903,7 +1925,7 @@ nav {
 
 .strength-label {
     position: absolute;
-    bottom: -55px; /* Position below the bar */
+    bottom: -40px;
     left: 50%;
     text-transform: uppercase;
     transform: translateX(-50%);
@@ -1913,18 +1935,22 @@ nav {
     white-space: nowrap;
     text-align: center;
     letter-spacing: 1px;
+    z-index: 3;
 }
 
+/* Adjust tick mark position and add z-index */
 .strength-bar::after {
     content: '✓';
     position: absolute;
     top: -30px;
+    margin-bottom: 3px; /* Added margin from top of rectangle */
     left: 50%;
     transform: translateX(-50%) scale(0);
     color: rgb(35, 35, 35);
     font-size: 1.5rem;
     opacity: 0;
     transition: all 0.3s ease;
+    z-index: 2; /* Ensure tick stays above the fill */
 }
 
 .strength-bar.selected::after {
