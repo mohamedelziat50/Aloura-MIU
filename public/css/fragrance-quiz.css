@@ -98,14 +98,16 @@ body {
 }
 
 #gender .gender-right .option:hover {
-    transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(-10px) scale(1.06);
+    box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28), 0 2px 8px 0 rgba(0,0,0,0.12);
+    z-index: 2;
 }
 
 #gender .gender-right .option.selected {
     background-color: rgb(35, 35, 35) !important;
-    transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(-10px) scale(1.06);
+    box-shadow: 0 16px 48px 0 rgba(0,0,0,0.36), 0 2px 8px 0 rgba(0,0,0,0.16);
+    z-index: 3;
 }
 
 #gender .gender-right .option span {
