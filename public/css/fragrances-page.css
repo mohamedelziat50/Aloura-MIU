@@ -431,6 +431,7 @@ ul{
     z-index: 0;
 }
 
+
 .suggestion-wrapper {
     display: flex;
     align-items: center;
@@ -468,6 +469,9 @@ ul{
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    width: 20px;
+    padding-bottom: 1.5rem; /* Add more padding at bottom for button */
+    min-height: 350px; /* Slightly increase min-height */
 }
 
 .suggested-item:hover {
@@ -505,6 +509,7 @@ ul{
     line-height: 3.6rem;
     text-align: center;
     font-size: 20px;
+    margin-bottom: 0.5rem;
 }
 
 .suggested-price {
@@ -518,6 +523,7 @@ ul{
     text-transform: uppercase;
     text-align: left;
     margin-top: -21px;
+    margin-bottom: 1rem;
 }
 
 .suggestion-arrow {
@@ -551,6 +557,38 @@ ul{
 #next-suggestion {
     right: 0;
 }
+.add-to-cart {
+  /* POSITIONING */
+  width: 80%;
+  margin: auto;
+  margin-top: 10px; /* Bring the button closer to the line seperator*/
+  margin-bottom: 15px; /* Bring the button closer to the line seperator*/
+  padding: 10px;
+
+  /* DISPLAY */
+  font-size: 16px; /* Added this line for 64px font size */
+  font-family: "Monotype Baskerville", serif;
+  font-weight: normal; /* Add this to make the font look think and clean */
+  line-height: 100%;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: .1em; /* Distance between letters for design */
+  background-color: #fff;
+  border: 0.5px solid black;
+  border-radius: 5px;
+
+  /* ANIMATION */
+  transition: background-color 0.1s linear;
+  cursor: pointer;
+} 
+.add-to-cart:hover
+{
+  color: white;
+  background-color: black;
+}
+
+
+
 
 /* Responsive adjustments */
 @media (max-width: 1400px) {
