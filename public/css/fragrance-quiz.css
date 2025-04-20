@@ -103,12 +103,34 @@ body {
     z-index: 2;
 }
 
+
 #gender .gender-right .option.selected {
     background-color: rgb(35, 35, 35) !important;
     transform: translateX(-10px) scale(1.2);
     box-shadow: 0 16px 48px 0 rgba(0,0,0,0.7), 0 2px 8px 0 rgba(0,0,0,0.16);
     z-index: 3;
+    animation: genderSelection 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+@keyframes genderSelection {
+    0% {
+        transform: scale(1.06);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    40% {
+        transform: scale(1.2);
+        box-shadow: 0 18px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    70% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+}
+
 
 #gender .gender-right .option span {
     font-size: 1.7rem;
