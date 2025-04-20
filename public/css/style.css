@@ -1,3 +1,31 @@
+/* CSS Variables (Custom Properties) */
+:root {
+  /* Colors
+  --color-primary: #121212;
+  --color-secondary: #666666;
+  --color-background: #ffffff; */
+  --color-background-gradient: white;
+  
+  /* Typography
+  --font-primary: "Monotype Baskerville", serif;
+  --font-secondary: sans-serif;
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 42px; */
+  
+  /* Spacing
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+  --spacing-xlarge: 80px; */
+  
+  /* Transitions 
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.5s ease;
+  --transition-slow: 0.8s ease; */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +35,7 @@
 body {
   /* height: 100px; */
   overflow-x: hidden;
+  background: var(--color-background-gradient);
 }
 
 /*~~FOR HIM & FOR HER~~*/
@@ -100,7 +129,7 @@ body {
   transform: translateX(-50%);
   z-index: 10;
   text-align: center;
-  width: 100%;
+  width: auto; /* fix to make div take exactly as the text takes up*/
 }
 
 .fragrance-quiz a{
@@ -368,22 +397,32 @@ body {
 
 /* Quality and 3D Model Section */
 .quality-model-section {
-  display: flex;
-  padding: 80px 5%;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  display: grid;
+  grid-template-columns: minmax(auto, 650px) minmax(auto, 650px);
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "quality model"
+    "reviews reviews";
+  column-gap: 50px;
+  padding: 50px 5%;
+  background: var(--color-background-gradient);
+  justify-content: center;
 }
 
 /* Quality Assurance Text */
 .quality-assurance {
-  flex: 1;
-  padding-right: 60px;
+  grid-area: quality;
+  /* padding-right: 40px;
+  max-width: 600px; */
 }
 
 .quality-assurance h2 {
   font-size: 42px;
   margin-bottom: 30px;
-  font-family: "Bebas Neue", sans-serif;
-  letter-spacing: 2px;
+  font-family: "Monotype Baskerville", serif;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   position: relative;
 }
 
@@ -402,11 +441,13 @@ body {
   font-size: 16px;
   line-height: 1.8;
   color: #333;
+  font-family: "Arial", sans-serif;
 }
 
 .learn-more-btn {
   display: inline-block;
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 12px 25px;
   background-color: #000;
   color: #fff;
@@ -414,6 +455,8 @@ body {
   font-weight: 500;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .learn-more-btn:hover {
@@ -423,9 +466,12 @@ body {
 
 /* 3D Model Container */
 .model-container {
-  flex: 1;
-  max-width: 500px;
+  grid-area: model;
+  width: 500px;
+  max-height: 500px;
   text-align: center;
+  justify-self: center;
+  position: relative;
 }
 
 .model-container h3 {
@@ -438,20 +484,44 @@ body {
   width: 100%;
   height: 400px;
   background: #f1f1f1;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
   cursor: grab;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Hide from screen readers and interactions */
 }
 
-#model-viewer:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+#model-viewer.loaded {
+  opacity: 1;
+  visibility: visible;
 }
 
-#model-viewer:active {
-  cursor: grabbing;
+.model-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.model-loading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #121212;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .interaction-hint {
@@ -558,9 +628,16 @@ body {
 
 /* NEW REVIEW CARDS SECTION */
 .reviews-section {
-  margin-top: 60px;
+  grid-area: reviews;
+  margin-top: 5px;
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 40px;
 }
 
 .reviews-title {
@@ -716,15 +793,12 @@ body {
   }
 }
 
-
-
-
 /* --------------------
    Product Slider Section 
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background-color: #efcfa0;
+  background: var(--color-background-gradient);
   text-align: center;
 }
 
@@ -767,7 +841,7 @@ body {
 .product-card {
   flex: 0 0 calc(33.333% - 320px);
   margin: 0 160px;
-  background-color: #efcfa0;
+  background: transparent;
   border-radius: 8px;
   box-shadow: 0 4px 8px none;
   overflow: hidden;
@@ -909,324 +983,117 @@ body {
   transform: translateY(-2px); /* Slight lift on hover */
 }
 
-footer .top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 100px;
-  margin-inline: 100px;
-}
-
-footer .top .ccard {
+/* Find Your Scent Section */
+.find-your-scent-section {
   text-align: center;
-}
-
-footer .top .ccard .img {
-  width: 100px;
-  margin: 0 auto 10px;
-}
-
-footer .top .ccard .text p:first-child {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-footer .top .ccard .text p:last-child {
-  font-size: 10px;
-
-  color: #777;
-}
-
-footer .top .ccard .img img {
-  width: 100%;
-}
-
-footer .middle {
-  background-position: 0rem -17rem;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("../img/footerbackground.jpg");
+  padding: 80px 20px;
+  background: var(--color-background-gradient);
   position: relative;
-  height: 500px;
 }
 
-footer .middle .cccard {
-  background-color: white;
-  text-align: center;
-  padding: 50px;
-  width: 25%;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
+.find-your-scent-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-family: "Monotype Baskerville", serif;
 }
 
-footer .wrapper > * {
-  flex: 0 0 auto;
-}
-
-footer a {
-  text-decoration: none;
-  background-color: transparent;
-}
-
-footer .py-8 {
-  padding-top: 3.5rem !important;
-  padding-bottom: 3.5rem !important;
-  background-color: #000;
-}
-
-footer .footer-link-01 li + li {
-  padding-top: 0.8rem;
-}
-
-footer .footer-title-01 {
-  font-size: 16px;
-  margin: 0 0 20px;
-  font-weight: 600;
-}
-
-footer .footer-title-01 {
-  font-size: 16px;
-  margin: 0 0 20px;
-  font-weight: 600;
-}
-
-footer .footer-link-01 li + li {
-  padding-top: 0.8rem;
-}
-
-@media (max-width: 991.98px) {
-  footer .footer-link-01 li + li {
-    padding-top: 0.6rem;
-  }
-}
-
-footer.footer-link-01 a {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-}
-
-footer .footer-link-01 a:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: auto;
-  right: 0;
-  width: 0;
-  height: 1px;
-  transition: ease all 0.35s;
-  background: currentColor;
-}
-
-.middle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50vh;
-  background: url("your-background-image.jp") center/cover no-repeat;
-}
-
-.cccard {
-  background: white;
-  padding: 40px;
-  text-align: center;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.newsletter {
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 2px;
+.find-your-scent-section p {
+  font-size: 1.1rem;
   color: #666;
-  font-weight: bold;
+  margin-bottom: 0px;
 }
 
-.c-title {
-  font-size: 24px;
-  font-family: "Georgia", serif;
-  font-weight: normal;
-  line-height: 1.4;
-}
-
-.c-title em {
-  font-style: italic;
-}
-
-footer input {
-  width: 100%;
-  padding: 10px;
-  margin: 15px 0;
-  border: none; /* Remove all borders */
-  border-bottom: 1px solid #000; /* Add only bottom border */
-  outline: none; /* Remove focus outline */
-  border-radius: 4px;
-  text-align: center;
-}
-
-.card-buuton {
-  width: 100%;
-  padding: 12px;
-  background: black;
-  color: white;
-  border: none;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
-  cursor: pointer;
-  padding-top: 10px;
-  border: 1px solid black;
-}
-
-.card-buuton:hover {
-  background: white;
-  color: black;
-}
-
-.news-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.news-item img {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.news-text small {
-  display: block;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 12px;
-}
-
-.news-text h6 {
-  margin: 0;
-}
-
-.news-text h6 a {
-  color: white;
-  text-decoration: none;
-}
-
-/* Popup Styles */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.popup-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.popup-container {
+/* Forgot password button styling */
+.find-scent-btn {
   position: relative;
-  max-width: 500px;
-  width: 90%;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-  transform: scale(0.9);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.popup-overlay.active .popup-container {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.popup-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.popup-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255, 255, 255, 0.7);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  z-index: 10;
-}
-
-.popup-close:hover {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.popup-btn {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  padding: 8px 20px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+  text-decoration: none;
+  color: #121212;
+  padding: 0;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 25px;
+  font-family: sans-serif;
   font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background 0.2s ease;
-  border-radius: 4px;
+  margin-top: 1.5rem;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
+  font-weight: 400;
 }
 
-.popup-btn:hover {
-  background: rgba(0, 0, 0, 0.9);
-}
-
-/* When popup is active, disable interactions with background content */
-body.popup-active {
-  overflow: hidden;
-  /* Preserve scroll position visually */
+.find-scent-btn::after {
+  content: '';
+  position: absolute;
   width: 100%;
-  height: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
 }
 
-body.popup-active > *:not(.popup-overlay) {
-  filter: brightness(0.3);
-  transition: filter 0.3s ease;
-  pointer-events: none; /* Disable interactions with background elements */
+.find-scent-btn:hover {
+  /* Cancel default blue color */
+  color: #121212;
 }
 
-/* Basic smooth scrolling */
-html {
-  scroll-behavior: smooth;
+.find-scent-btn:hover::after {
+  width: 20%;
 }
 
-/* FLUID */
-#female-fluid-canvas {
+.perfume-sequence-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 2rem;
+    padding: 3rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    place-items: center;
+}
+
+.perfume-sequence-container img {
+    /* width: 130px; */
+    height: 17rem;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.perfume-sequence-container img:hover {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 1200px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0rem;
+        padding: 2rem;
+    }
+    
+}
+
+@media (max-width: 1100px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    
+}
+
+@media (max-width: 900px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+ /* FLUID */
+ #female-fluid-canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -1251,109 +1118,3 @@ html {
   /* filter: sepia(100%) hue-rotate(300deg) saturate(500%); Alot of options with coloring*/
 }
 
-/* Footer responsive styles */
-@media screen and (max-width: 1200px) {
-  footer .top {
-    gap: 50px;
-    margin-inline: 50px;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  footer .top {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-inline: 20px;
-  }
-
-  footer .top .ccard {
-    flex: 0 0 calc(50% - 30px);
-    max-width: 300px;
-  }
-
-  footer .middle .cccard {
-    width: 40%;
-    padding: 30px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  footer .top {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  footer .top .ccard {
-    flex: 0 0 100%;
-    max-width: 250px;
-  }
-
-  footer .middle .cccard {
-    width: 60%;
-    padding: 25px;
-  }
-
-  .c-title {
-    font-size: 20px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  footer .top {
-    margin-inline: 15px;
-  }
-
-  footer .top .ccard .img {
-    width: 80px;
-  }
-
-  footer .top .ccard .text p:first-child {
-    font-size: 12px;
-  }
-
-  footer .top .ccard .text p:last-child {
-    font-size: 9px;
-  }
-
-  footer .middle .cccard {
-    width: 85%;
-    padding: 20px;
-  }
-
-  .newsletter {
-    font-size: 10px;
-  }
-
-  .c-title {
-    font-size: 18px;
-  }
-
-  footer input {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .card-buuton {
-    padding: 10px;
-    font-size: 12px;
-  }
-}
-
-/* Define the font faces */
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('../fonts/proxima_nova_alt_regular-webfont.woff2') format('woff2'),
-       url('../fonts/proxima_nova_alt_regular-webfont.woff') format('woff');
-  font-weight: 400; /* Normal */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('../fonts/proxima_nova_alt_regular-webfont.woff2') format('woff2'),
-       url('../fonts/proxima_nova_alt_regular-webfont.woff') format('woff');
-  font-weight: 700; /* Bold */
-  font-style: normal;
-}

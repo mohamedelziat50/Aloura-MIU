@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.quiz-section');
     const progressBar = document.querySelector('.progress');
     const ageSlider = document.getElementById('ageSlider');
-    const ageValue = document.querySelector('.age-value');
+    const sliderThumb = document.querySelector('.slider-thumb');
     
     let currentSection = 0;
     const totalSections = sections.length;
@@ -15,12 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
 
     // Handle age slider
-    if (ageSlider) {
-        ageSlider.addEventListener('input', () => {
-            ageValue.textContent = ageSlider.value;
-            userAnswers['age'] = ageSlider.value;
+    if (ageSlider && document.querySelector('.slider-thumb')) {
+        const updateSliderValue = () => {
+            const value = ageSlider.value;
+            const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
+            const thumb = document.querySelector('.slider-thumb');
+            
+            // Update thumb position and text
+            thumb.style.left = `${percent}%`;
+            thumb.textContent = value;
+            
+            userAnswers['age'] = value;
             enableNextButton(sections[currentSection]);
-        });
+        };
+
+        // Set initial value
+        updateSliderValue();
+        
+        // Update on slider movement
+        ageSlider.addEventListener('input', updateSliderValue);
+        ageSlider.addEventListener('change', updateSliderValue);
     }
 
     // Handle section transitions
@@ -31,13 +45,113 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Option selection handling
-        if (e.target.closest('.option')) {
-            const option = e.target.closest('.option');
+        if ((e.target.closest('.option') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
+            const option = e.target.closest('.option') || e.target.closest('.split-half');
             const section = option.closest('.quiz-section');
             
             // Handle scent family special case (max 2 selections)
             if (section.id === 'scentFamily') {
                 handleScentFamilySelection(option);
+            } else if (section.id === 'gender') {
+                // Remove selection and tick from all options
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                
+                // Add selection and animate tick
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'skinTone') {
+                // Single selection for skin tone section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'securityVsAdventure' || section.id === 'careVsLead' || section.id === 'buildVsInvent' || section.id === 'goodTimeVsSuccess' || section.id === 'organizeVsSurprise') {
+                return;
+            } else if (section.id === 'buildVsInvent') {
+                // Single selection for build vs invent section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'goodTimeVsSuccess') {
+                // Single selection for good time vs success section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'organizeVsSurprise') {
+                // Single selection for organize vs surprise section with tick mark
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight; // Trigger reflow
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                const tick = option.querySelector('.tick-mark');
+                if (tick) {
+                    tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
             } else {
                 // Single selection for other sections
                 section.querySelectorAll('.option').forEach(opt => {
@@ -61,6 +175,89 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('next-btn')) {
             moveToNextSection();
         }
+    });
+
+    // Skin tone hover animation (expand/shrink with keyframes)
+    const skinToneOptions = document.querySelectorAll('#skinTone .skin-right .option');
+    skinToneOptions.forEach(option => {
+        option.addEventListener('mouseenter', () => {
+            option.classList.remove('skin-animate-shrink');
+            option.classList.add('skin-animate-expand');
+        });
+        option.addEventListener('mouseleave', () => {
+            option.classList.remove('skin-animate-expand');
+            option.classList.add('skin-animate-shrink');
+            // Remove shrink class after animation so it can be triggered again
+            option.addEventListener('animationend', function handler(e) {
+                if (e.animationName === 'skinToneShrink') {
+                    option.classList.remove('skin-animate-shrink');
+                    option.removeEventListener('animationend', handler);
+                }
+            });
+        });
+    });
+
+    // Generalized split-section logic for all split-section questions
+    const splitSectionIds = [
+        'securityVsAdventure',
+        'careVsLead',
+        'buildVsInvent',
+        'goodTimeVsSuccess',
+        'organizeVsSurprise'
+    ];
+
+    splitSectionIds.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        const halves = section.querySelectorAll('.split-half');
+
+        // Mousemove gradient effect
+        halves.forEach(half => {
+            half.addEventListener('mousemove', (e) => {
+                const rect = half.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                half.style.setProperty('--mouse-x', `${x}px`);
+                half.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Click selection logic
+        halves.forEach(half => {
+            half.addEventListener('click', function () {
+                if (this.classList.contains('selected') || this.classList.contains('animating')) return;
+                // Remove classes from both halves
+                halves.forEach(opt => {
+                    opt.classList.remove('selected', 'fade-out', 'animating');
+                });
+                // Add animating to both
+                halves.forEach(opt => opt.classList.add('animating'));
+                // Add selected to clicked
+                this.classList.add('selected');
+                // Tick mark
+                let tickMark = this.querySelector('.tick-mark');
+                if (!tickMark) {
+                    tickMark = document.createElement('div');
+                    tickMark.className = 'tick-mark';
+                    tickMark.innerHTML = '✓';
+                    this.appendChild(tickMark);
+                }
+                // Fade out non-selected
+                halves.forEach(opt => {
+                    if (opt !== this) opt.classList.add('fade-out');
+                });
+                // Store answer
+                userAnswers[sectionId] = this.dataset.value;
+                // Remove animating after animation
+                setTimeout(() => {
+                    halves.forEach(opt => opt.classList.remove('animating'));
+                }, 1000);
+                // Move to next section after animation
+                setTimeout(() => {
+                    moveToNextSection();
+                }, 2000);
+            });
+        });
     });
 
     function handleScentFamilySelection(option) {

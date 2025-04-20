@@ -14,15 +14,25 @@
     <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
 
     <!-- CSS Links -->
-    <link rel="stylesheet" href="../css/navBar.css" />
     <link rel="stylesheet" href="../css/fragrance-quiz.css" />
-    <link rel="stylesheet" href="../css/page-loader.css" />
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+
+    <!-- Bootstrap CSS & JS(navbar, footer, modal, cart all use it's functionality SO MAKE SURE TO LINK IT) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Initial Scroll When Reloading -->
     <script>
@@ -33,25 +43,25 @@
         window.scrollTo(0, 0);
       };
     </script>
-
-    <!-- JS Links -->
-    <script src="../js/page-loader.js"></script>
   </head>
   <body>
-    <!-- Pre-loader at the top of body -->
-    <div class="fullpage-loader">
-      <div class="loader-content">
-        <div class="logo-reveal">
-          <img src="../img/logo.png" alt="Logo" />
-        </div>
-        <div class="loading-bar-container">
-          <div class="loading-bar"></div>
-        </div>
-      </div>
-    </div>
+    <!-- Loader -->
+    <%- include('partials/loader.ejs') %>
 
     <!-- Navbar -->
     <%- include('partials/navbar.ejs') %>
+
+    <!-- Modal -->
+    <%- include('partials/modal.ejs') %>
+
+    <!-- Cart -->
+    <%- include('partials/cart.ejs') %>
+
+    <!-- Chatbot -->
+    <%- include('partials/chatbot.ejs') %>
+    
+    <!-- Dark Mode -->
+    <%- include('partials/dark-mode.ejs') %>
 
     <!-- Quiz Container -->
     <div class="quiz-container">
@@ -74,57 +84,77 @@
         <section class="quiz-section" id="age">
           <h2>How old are you?</h2>
           <div class="age-slider">
-            <input type="range" min="18" max="80" value="20" class="slider" id="ageSlider">
-            <div class="age-value">20</div>
+            <div class="slider-container">
+              <input type="range" min="1" max="80" value="18" class="slider" id="ageSlider">
+              <div class="slider-thumb">18</div>
+            </div>
           </div>
           <button class="next-btn">Next</button>
         </section>
 
         <!-- Gender Section -->
         <section class="quiz-section" id="gender">
-          <h2>What is your gender?</h2>
-          <div class="options">
+          <div class="gender-left">
+            <h2>
+              What is your<br>
+              <span class="gender-word">gender</span>
+            </h2>
+          </div>
+          <div class="gender-right">
             <div class="option" data-value="male">
-              <img src="../img/perfumes-transparent/male.png" alt="Male">
+              <img src="/img/maleSymbol.png" alt="Male Symbol" class="gender-symbol" />
               <span>Male</span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="female">
-              <img src="../img/perfumes-transparent/female.png" alt="Female">
+              <img src="/img/femaleSymbol.png" alt="Female Symbol" class="gender-symbol" />
               <span>Female</span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="neutral">
-              <span>Neutral</span>
+              <img src="/img/genderNeutralSymbol.png" alt="Gender Neutral Symbol" class="gender-symbol" />
+              <span>Gender Neutral</span>
+              <div class="tick-mark">✓</div>
             </div>
           </div>
         </section>
 
         <!-- Skin Tone Section -->
         <section class="quiz-section" id="skinTone">
-          <h2>What is your skin tone?</h2>
-          <div class="options skin-tones">
+          <div class="skin-left">
+            <h2>
+              What is your<br>
+              <span class="skin-word">skin-tone</span>
+            </h2>
+          </div>
+          <div class="skin-right">
             <div class="option" data-value="fair">
-              <div class="tone-circle" style="background-color: #FFE5D6"></div>
-              <span>Fair</span>
+              <span>fair, ivory, porcelain</span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="light">
-              <div class="tone-circle" style="background-color: #FFD5B3"></div>
-              <span>Light</span>
+              <span>beige, sand, medium white
+              </span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="medium">
-              <div class="tone-circle" style="background-color: #E8B88A"></div>
-              <span>Medium</span>
+              <span>honey, gold, light tan
+              </span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="olive">
-              <div class="tone-circle" style="background-color: #C99C67"></div>
-              <span>Olive</span>
+              <span>moderate brown, chestnut, amber
+              </span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="tan">
-              <div class="tone-circle" style="background-color: #8E6338"></div>
-              <span>Tan</span>
+              <span>dark brown, espresso
+              </span>
+              <div class="tick-mark">✓</div>
             </div>
             <div class="option" data-value="deep">
-              <div class="tone-circle" style="background-color: #593222"></div>
-              <span>Deep</span>
+              <span>mahogany, mocha, umber</span>
+              <div class="tick-mark">✓</div>
             </div>
           </div>
         </section>
@@ -138,62 +168,104 @@
         </section>
 
         <!-- Personality Questions -->
-        <section class="quiz-section" id="securityVsAdventure">
-          <h2>Which matters the most to you?</h2>
-          <div class="options">
-            <div class="option" data-value="security">
-              <span>Feeling safe and secure</span>
+        <section class="quiz-section split-section" id="securityVsAdventure">
+          <h2 class="split-question">Which matters the most to you?</h2>
+          <div class="split-full">
+            <div class="split-half left-option" data-value="security">
+              <div class="option-content">
+                <img src="/img/safe&secure.png" alt="Security" class="option-image">
+                <span>Feeling safe and secure</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
-            <div class="option" data-value="adventure">
-              <span>Searching for adventure</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="quiz-section" id="careVsLead">
-          <h2>Which would you rather do?</h2>
-          <div class="options">
-            <div class="option" data-value="care">
-              <span>Take care of people</span>
-            </div>
-            <div class="option" data-value="lead">
-              <span>Lead and be in charge</span>
+            <div class="split-half right-option" data-value="adventure">
+              <div class="option-content">
+                <img src="/img/searchForAdventure.png" alt="Adventure" class="option-image">
+                <span>Searching for adventure</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
           </div>
         </section>
 
-        <section class="quiz-section" id="traditionVsNew">
-          <h2>Which comes most naturally to you?</h2>
-          <div class="options">
-            <div class="option" data-value="tradition">
-              <span>Building on tradition</span>
+        <section class="quiz-section split-section" id="careVsLead">
+          <h2 class="split-question">Which would you rather do?</h2>
+          <div class="split-full">
+            <div class="split-half left-option" data-value="care">
+              <div class="option-content">
+                <img src="/img/takingCare.png" alt="Take care of people" class="option-image">
+                <span>Take care of people</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
-            <div class="option" data-value="new">
-              <span>Inventing new ways</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="quiz-section" id="funVsSuccess">
-          <h2>Which are you naturally inclined to?</h2>
-          <div class="options">
-            <div class="option" data-value="fun">
-              <span>Having a good time</span>
-            </div>
-            <div class="option" data-value="success">
-              <span>Searching for success</span>
+            <div class="split-half right-option" data-value="lead">
+              <div class="option-content">
+                <img src="/img/lead.png" alt="Lead and be in charge" class="option-image">
+                <span>Lead and be in charge</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
           </div>
         </section>
 
-        <section class="quiz-section" id="organizeVsSurprise">
-          <h2>What is most important for you?</h2>
-          <div class="options">
-            <div class="option" data-value="organize">
-              <span>Organize the feature</span>
+        <section class="quiz-section split-section" id="buildVsInvent">
+          <h2 class="split-question">Which comes most naturally to you?</h2>
+          <div class="split-full">
+            <div class="split-half left-option" data-value="build">
+              <div class="option-content">
+                <img src="/img/tradition.png" alt="Take care of people" class="option-image">
+                <span>Building on traiditon</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
-            <div class="option" data-value="surprise">
-              <span>Enjoy surprises</span>
+            <div class="split-half right-option" data-value="invent">
+              <div class="option-content">
+                <img src="/img/inventing.png" alt="Lead and be in charge" class="option-image">
+                <span>Inventing new ways</span>
+              </div>
+              <div class="tick-mark">✓</div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="quiz-section split-section" id="goodTimeVsSuccess">
+          <h2 class="split-question">Which are you naturally inclined to?</h2>
+          <div class="split-full">
+            <div class="split-half left-option" data-value="goodTime">
+              <div class="option-content">
+                <img src="/img/goodTime.png" alt="Take care of people" class="option-image">
+                <span>Having a good time</span>
+              </div>
+              <div class="tick-mark">✓</div>
+            </div>
+            <div class="split-half right-option" data-value="success">
+              <div class="option-content">
+                <img src="/img/success.png" alt="Lead and be in charge" class="option-image">
+                <span>Searching for success</span>
+              </div>
+              <div class="tick-mark">✓</div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="quiz-section split-section" id="organizeVsSurprise">
+          <h2 class="split-question">What is most important for you?</h2>
+          <div class="split-full">
+            <div class="split-half left-option" data-value="organize">
+              <div class="option-content">
+                <img src="/img/future.png" alt="Take care of people" class="option-image">
+                <span>Organize the future</span>
+              </div>
+              <div class="tick-mark">✓</div>
+            </div>
+            <div class="split-half right-option" data-value="surprise">
+              <div class="option-content">
+                <img src="/img/surprises.png" alt="Lead and be in charge" class="option-image">
+                <span>Enjoy surprises</span>
+              </div>
+              <div class="tick-mark">✓</div>
             </div>
           </div>
         </section>
@@ -269,8 +341,8 @@
       </div>
     </div>
 
+    
     <!-- Scripts -->
-    <script src="../js/page-loader.js"></script>
     <script src="../js/quiz.js"></script>
   </body>
 </html>

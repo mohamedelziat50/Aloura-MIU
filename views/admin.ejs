@@ -1,638 +1,751 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfume Store Admin</title>
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/admin.css" />
     <script src="../js/admin.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
+    />
+    <link rel="shortcut icon" href="./img/ali.png" type="image/x-icon" />
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./img/favicons/rounded-background-favicon.ico"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap JavaScript (for tooltips) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
     <div class="admin-layout"></div>
     <div class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li id="btn-dashboard">Dashboard</li>
-            <li id="btn-products">Products</li>
-            <li id="btn-orders">Orders</li>
-            <li id="btn-users">Users</li>
-            <li id="btn-reviews">Reviews</li>
-            <li id="btn-settings">Settings</li>
-            <li id="btn-logout">Logout</li>
-        </ul>
+      <h2>Admin Panel</h2>
+      <ul>
+        <li id="btn-dashboard">Dashboard</li>
+        <li id="btn-products">Products</li>
+        <li id="btn-orders">Orders</li>
+        <li id="btn-users">Users</li>
+        <li id="btn-reviews">Reviews</li>
+        <li id="btn-settings">Settings</li>
+        <li id="btn-logout">Logout</li>
+      </ul>
     </div>
-</div>
 
     <div class="main">
-        <header>
-            <h1>Welcome, Admin</h1>
-            <div class="admin-info">Aloura Dashboard</div>
-        </header>
+      <header>
+        <h1>Welcome, Admin</h1>
+        <div class="admin-info">Aloura Dashboard</div>
+      </header>
 
-        <!-- Dashboard Section -->
-        <section id="section-dashboard" class="section">
-            <div class="cards">
-                <div class="card">
-                    <h3>Total Sales</h3>
-                    <p>$14,200</p>
+      <!-- Dashboard Section -->
+      <section id="section-dashboard" class="section">
+        <div class="cards">
+          <div class="card">
+            <h3>Total Sales</h3>
+            <p>$14,200</p>
+          </div>
+          <div class="card">
+            <h3>New Orders</h3>
+            <p>23</p>
+          </div>
+          <div class="card">
+            <h3>Low Stock</h3>
+            <p>5 items</p>
+          </div>
+          <div class="card">
+            <h3>Users</h3>
+            <p>1,239</p>
+          </div>
+          <!-- Add to your dashboard section (after the cards div) -->
+          <div class="dashboard-highlights">
+            <!-- 1. Key Metrics -->
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <h3>Today's Sales</h3>
+                <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>New Customers</h3>
+                <p>24 <span class="metric-change down">▼ 3%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>Avg. Order</h3>
+                <p>$87 <span class="metric-change up">▲ 5%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>Conversion</h3>
+                <p>3.2% <span class="metric-change">→</span></p>
+              </div>
+            </div>
+            <!-- Add this where you want the charts in your admin.ejs file -->
+            <div class="dashboard-charts">
+              <!-- Monthly Sales Card -->
+              <div class="chart-card">
+                <h3>Monthly Sales</h3>
+                <div class="chart-data">
+                  <div class="data-row">
+                    <span>January</span>
+                    <span>$1,250</span>
+                  </div>
+                  <div class="data-row">
+                    <span>February</span>
+                    <span>$1,900</span>
+                  </div>
+                  <div class="data-row">
+                    <span>March</span>
+                    <span>$2,100</span>
+                  </div>
+                  <div class="data-row highlight">
+                    <span>Current Month</span>
+                    <span>$2,400</span>
+                  </div>
                 </div>
-                <div class="card">
-                    <h3>New Orders</h3>
-                    <p>23</p>
+              </div>
+              <!-- Top Fragrances Card -->
+              <div class="chart-card">
+                <h3>Top Fragrances</h3>
+                <div class="chart-data">
+                  <div class="data-row">
+                    <span>1. Chanel No.5</span>
+                    <span>85 sold</span>
+                  </div>
+                  <div class="data-row">
+                    <span>2. Dior Sauvage</span>
+                    <span>72 sold</span>
+                  </div>
+                  <div class="data-row">
+                    <span>3. Khamrah</span>
+                    <span>58 sold</span>
+                  </div>
+                  <div class="data-row highlight">
+                    <span>Bestseller</span>
+                    <span>Chanel No.5</span>
+                  </div>
                 </div>
-                <div class="card">
-                    <h3>Low Stock</h3>
-                    <p>5 items</p>
-                </div>
-                <div class="card">
-                    <h3>Users</h3>
-                    <p>1,239</p>
-                </div>
-                <!-- Add to your dashboard section (after the cards div) -->
-<div class="dashboard-highlights">
-    <!-- 1. Key Metrics -->
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <h3>Today's Sales</h3>
-        <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
-      </div>
-      <div class="metric-card">
-        <h3>New Customers</h3>
-        <p>24 <span class="metric-change down">▼ 3%</span></p>
-      </div>
-      <div class="metric-card">
-        <h3>Avg. Order</h3>
-        <p>$87 <span class="metric-change up">▲ 5%</span></p>
-      </div>
-      <div class="metric-card">
-        <h3>Conversion</h3>
-        <p>3.2% <span class="metric-change">→</span></p>
-      </div>
-    </div>
-  
-    <!-- Add this where you want the charts in your admin.ejs file -->
-<div class="dashboard-charts">
-    <!-- Monthly Sales Card -->
-    <div class="chart-card">
-      <h3>Monthly Sales</h3>
-      <div class="chart-data">
-        <div class="data-row">
-          <span>January</span>
-          <span>$1,250</span>
+              </div>
+              <!-- 6. Seasonal Highlights -->
+              <div class="seasonal-alert">
+                <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
+                <p>
+                  Floral scents trending! Create a "Spring Blossom" collection.
+                </p>
+                <button class="promo-btn">Launch Campaign</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="data-row">
-          <span>February</span>
-          <span>$1,900</span>
-        </div>
-        <div class="data-row">
-          <span>March</span>
-          <span>$2,100</span>
-        </div>
-        <div class="data-row highlight">
-          <span>Current Month</span>
-          <span>$2,400</span>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Top Fragrances Card -->
-    <div class="chart-card">
-      <h3>Top Fragrances</h3>
-      <div class="chart-data">
-        <div class="data-row">
-          <span>1. Chanel No.5</span>
-          <span>85 sold</span>
-        </div>
-        <div class="data-row">
-          <span>2. Dior Sauvage</span>
-          <span>72 sold</span>
-        </div>
-        <div class="data-row">
-          <span>3. Khamrah</span>
-          <span>58 sold</span>
-        </div>
-        <div class="data-row highlight">
-          <span>Bestseller</span>
-          <span>Chanel No.5</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
- 
-  
-    <!-- 6. Seasonal Highlights -->
-    <div class="seasonal-alert">
-      <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
-      <p>Floral scents trending! Create a "Spring Blossom" collection.</p>
-      <button class="promo-btn">Launch Campaign</button>
-    </div>
-  </div>
+      </section>
 
-
-            </div>
-
-        </section>
-
-        <!-- Products Section -->
-        <section id="section-products" class="section">
-            <h2>Manage Products</h2>
-            
-            <div class="product-buttons">
-                <button class="product-btn add">Add Product</button>
-                <button class="product-btn edit">Edit Product</button>
-                <button class="product-btn delete">Delete Product</button>
-            </div>
-        </section>
-        
-
-        <!-- Orders Section -->
-         <!-- Add this to your Orders section -->
-         <section id="section-orders" class="section">
-            <h2>Manage Orders</h2>
-            
-            <!-- Order Analytics Dashboard -->
-            <div class="order-analytics">
-                <div class="analytics-card">
-                    <h3>Order Conversion Rate</h3>
-                    <div class="conversion-meter">
-                        <div class="meter-fill" style="width: 68%;"></div>
-                        <span>68%</span>
-                    </div>
-                    <p>From cart to completed purchase</p>
-                </div>
-                
-                <div class="analytics-card">
-                    <h3>Avg. Fulfillment Time</h3>
-                    <div class="time-metric">1.8 days</div>
-                    <p>From payment to shipment</p>
-                </div>
-        
-                <div class="analytics-card">
-                    <h3>Gift Orders</h3>
-                    <div class="time-metric">24%</div>
-                    <p>Of total orders</p>
-                </div>
-            </div>
-        
-            <!-- Gift Service Hub -->
-            <div class="gift-service-hub">
-                <h3><i class="icon-gift"></i> Gift Orders</h3>
-                <div class="gift-orders-grid">
-                    <div class="gift-order-card">
-                        <div class="order-header">
-                            <span class="order-id">#1005</span>
-                            <span class="gift-badge">GIFT</span>
-                        </div>
-                        <div class="gift-details">
-                            <p><strong>To:</strong> Sarah Johnson</p>
-                            <p><strong>Message:</strong> "Happy Anniversary!"</p>
-                            <p><strong>Wrap:</strong> Premium Gold (+$5.99)</p>
-                        </div>
-                        <button class="btn-view">View Order</button>
-                    </div>
-        
-                    <div class="gift-order-card">
-                        <div class="order-header">
-                            <span class="order-id">#1008</span>
-                            <span class="gift-badge">GIFT</span>
-                        </div>
-                        <div class="gift-details">
-                            <p><strong>To:</strong> Michael Brown</p>
-                            <p><strong>Message:</strong> "Happy Birthday!"</p>
-                            <p><strong>Wrap:</strong> Classic Red (+$3.99)</p>
-                        </div>
-                        <button class="btn-view">View Order</button>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Orders Table -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Product</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Gift</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#1001</td>
-                        <td>Aya</td>
-                        <td>Dior Sauvage</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                        <td>$120</td>
-                        <td>No</td>
-                    </tr>
-                    <tr>
-                        <td>#1005</td>
-                        <td>Ali</td>
-                        <td>Chanel No. 5</td>
-                        <td><span class="status shipped">Shipped</span></td>
-                        <td>$150</td>
-                        <td>Yes</td>
-                    </tr>
-                    <tr>
-                        <td>#1008</td>
-                        <td>Fatima</td>
-                        <td>Spice Bomb </td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>$95</td>
-                        <td>Yes</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section id="section-users" class="section">
-            <h2>Manage Users</h2>
-            
-            <!-- User Analytics Dashboard -->
-            <div class="user-analytics">
-                <div class="analytics-card">
-                    <h3>New Users (30d)</h3>
-                    <div class="metric-value">142</div>
-                    <div class="metric-change up">▲ 12% from last month</div>
-                </div>
-                
-                <div class="analytics-card">
-                    <h3>Active Users</h3>
-                    <div class="metric-value">864</div>
-                    <div class="metric-change">Logged in past 30d</div>
-                </div>
-                
-                <div class="analytics-card">
-                    <h3>Avg. Spend</h3>
-                    <div class="metric-value">$87</div>
-                    <div class="metric-change down">▼ 5% from last quarter</div>
-                </div>
-            </div>
-        
-            <!-- Segmentation Tools -->
-            <div class="segmentation-tools">
-                <div class="tool-header">
-                    <h3><i class="icon-filter"></i> User Segments</h3>
-                    <button class="btn-create-segment">+ New Segment</button>
-                </div>
-                
-                <div class="segment-filters">
-                    <div class="filter-group">
-                        <label>Loyalty Tier</label>
-                        <select class="form-input">
-                            <option>All tiers</option>
-                            <option>Gold ($500+)</option>
-                            <option>Silver ($200-$499)</option>
-                            <option>Bronze (<$200)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Last Active</label>
-                        <select class="form-input">
-                            <option>Any time</option>
-                            <option>Past 7 days</option>
-                            <option>Past 30 days</option>
-                            <option>90+ days inactive</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn-apply">Apply Filters</button>
-                </div>
-            </div>
-        
-            <!-- Users Grid with Notes -->
-            <div class="users-grid">
-                <!-- User Card 1 -->
-                <div class="user-card">
-                    <div class="user-avatar">
-                        <img src="https://via.placeholder.com/80" alt="User Avatar">
-                    </div>
-                    <div class="user-info">
-                        <h3 class="user-name">John Doe</h3>
-                        <p class="user-email">john.doe@example.com</p>
-                        <p class="user-role">Gold Member</p>
-                        <p class="user-joined">Last active: 2 days ago</p>
-                        
-                        <!-- Notes Section -->
-                        <div class="user-notes">
-                            <div class="notes-header">
-                                <h4>Customer Notes</h4>
-                                <button class="btn-add-note">+ Add</button>
-                            </div>
-                            <div class="notes-list">
-                                <div class="note">
-                                    <p>"Prefers floral scents - recommended new Chanel launch"</p>
-                                    <span class="note-date">Added May 15, 2023</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user-actions">
-                        <button class="user-btn edit">Edit</button>
-                        <button class="user-btn delete">Delete</button>
-                    </div>
-                </div>
-                
-               <!-- User Card 2 -->
-<div class="user-card">
-    <div class="user-avatar">
-        <img src="https://via.placeholder.com/80" alt="User Avatar">
-    </div>
-    <div class="user-info">
-        <h3 class="user-name">Sarah Smith</h3>
-        <p class="user-email">sarah.smith@example.com</p>
-        <p class="user-role">Silver Member</p>
-        <p class="user-joined">Last active: 5 days ago</p>
-        
-        <!-- Notes Section -->
-        <div class="user-notes">
-            <div class="notes-header">
-                <h4>Customer Notes</h4>
-                <button class="btn-add-note">+ Add</button>
-            </div>
-            <div class="notes-list">
-                <div class="note">
-                    <p>"Allergic to floral scents - prefers woody fragrances"</p>
-                    <span class="note-date">Added Jun 2, 2023</span>
-                </div>
-                <div class="note">
-                    <p>"Complained about slow shipping last order - offer discount"</p>
-                    <span class="note-date">Added Apr 15, 2023</span>
-                </div>
-            </div>
+      <!-- Products Section -->
+      <section id="section-products" class="section">
+        <h2>Manage Products</h2>
+        <div class="product-buttons">
+          <button class="product-btn add">Add Product</button>
+          <button class="product-btn edit">Edit Product</button>
+          <button class="product-btn delete">Delete Product</button>
         </div>
-    </div>
-    <div class="user-actions">
-        <button class="user-btn edit">Edit</button>
-        <button class="user-btn delete">Delete</button>
-    </div>
-</div>
-        </section>
+      </section>
+
+      <!-- Orders Section -->
+      <!-- Add this to your Orders section -->
+      <section id="section-orders" class="section">
+        <h2>Manage Orders</h2>
+        <!-- Order Analytics Dashboard -->
+        <div class="order-analytics">
+          <div class="analytics-card">
+            <h3>Order Conversion Rate</h3>
+            <div class="conversion-meter">
+              <div class="meter-fill" style="width: 68%"></div>
+              <span>68%</span>
+            </div>
+            <p>From cart to completed purchase</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Avg. Fulfillment Time</h3>
+            <div class="time-metric">1.8 days</div>
+            <p>From payment to shipment</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Gift Orders</h3>
+            <div class="time-metric">24%</div>
+            <p>Of total orders</p>
+          </div>
+        </div>
+        <!-- Gift Service Hub -->
+        <div class="gift-service-hub">
+          <h3><i class="icon-gift"></i> Gift Orders</h3>
+          <div class="gift-orders-grid">
+            <div class="gift-order-card">
+              <div class="order-header">
+                <span class="order-id">#1005</span>
+                <span class="gift-badge">GIFT</span>
+              </div>
+              <div class="gift-details">
+                <p><strong>To:</strong> Sarah Johnson</p>
+                <p><strong>Message:</strong> "Happy Anniversary!"</p>
+                <p><strong>Wrap:</strong> Premium Gold (+$5.99)</p>
+              </div>
+              <button class="btn-view">View Order</button>
+            </div>
+            <div class="gift-order-card">
+              <div class="order-header">
+                <span class="order-id">#1008</span>
+                <span class="gift-badge">GIFT</span>
+              </div>
+              <div class="gift-details">
+                <p><strong>To:</strong> Michael Brown</p>
+                <p><strong>Message:</strong> "Happy Birthday!"</p>
+                <p><strong>Wrap:</strong> Classic Red (+$3.99)</p>
+              </div>
+              <button class="btn-view">View Order</button>
+            </div>
+          </div>
+        </div>
+        <!-- Orders Table -->
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Gift</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#1001</td>
+              <td>Aya</td>
+              <td>Dior Sauvage</td>
+              <td><span class="status delivered">Delivered</span></td>
+              <td>$120</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>#1005</td>
+              <td>Ali</td>
+              <td>Chanel No. 5</td>
+              <td><span class="status shipped">Shipped</span></td>
+              <td>$150</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>#1008</td>
+              <td>Fatima</td>
+              <td>Spice Bomb</td>
+              <td><span class="status pending">Pending</span></td>
+              <td>$95</td>
+              <td>Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Users Section -->
+      <section id="section-users" class="section">
+        <h2>Manage Users</h2>
+        <!-- User Analytics Dashboard -->
+        <div class="user-analytics">
+          <div class="analytics-card">
+            <h3>New Users (30d)</h3>
+            <div class="metric-value">142</div>
+            <div class="metric-change up">▲ 12% from last month</div>
+          </div>
+          <div class="analytics-card">
+            <h3>Active Users</h3>
+            <div class="metric-value">864</div>
+            <div class="metric-change">Logged in past 30d</div>
+          </div>
+          <div class="analytics-card">
+            <h3>Avg. Spend</h3>
+            <div class="metric-value">$87</div>
+            <div class="metric-change down">▼ 5% from last quarter</div>
+          </div>
+        </div>
+        <!-- Segmentation Tools -->
+        <div class="segmentation-tools">
+          <div class="tool-header">
+            <h3><i class="icon-filter"></i> User Segments</h3>
+            <button class="btn-create-segment">+ New Segment</button>
+          </div>
+          <div class="segment-filters">
+            <div class="filter-group">
+              <label>Loyalty Tier</label>
+              <select class="form-input">
+                <option>All tiers</option>
+                <option>Gold ($500+)</option>
+                <option>Silver ($200-$499)</option>
+                <option>Bronze (<$200)</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Last Active</label>
+              <select class="form-input">
+                <option>Any time</option>
+                <option>Past 7 days</option>
+                <option>Past 30 days</option>
+                <option>90+ days inactive</option>
+              </select>
+            </div>
+            <button class="btn-apply">Apply Filters</button>
+          </div>
+        </div>
+        <% if (arr.length===0) { %>
+        <h1 style="text-align: center;">No Data To Show</h1>
+        <% } %> <% if (arr.length>0) { %>
+        <table
+          class="text-center mx-auto table mt-5 table-striped table-bordered"
+        >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Verified</th>
+              <th scope="col">Last updated</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% arr.forEach((item, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= item.name %></td>
+              <td><%= item.email %></td>
+              <td><%= item.tel %></td>
+              <td><%= item.verified %></td>
+              <td><%= moment(item.updatedAt).fromNow() %></td>
+              <td>
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="View details"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/view.html"
+                  ><i class="bi bi-eye"></i
+                ></a>
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Edit user"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/edit.html"
+                  ><i class="bi bi-pencil"></i
+                ></a>
+                <form
+                  style="display: inline"
+                  action="/delete/<%= item._id %>?_method=DELETE"
+                  method="post"
+                >
+                  <button
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete user"
+                    data-bs-placement="top"
+                    class="btn btn-danger btn-sm"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <br /><br />
+        <!-- Users Grid with Notes -->
+        <div class="users-grid">
+          <% arr.forEach((item, index) => { %>
+          <div class="user-card">
+            <div class="user-avatar">
+              <img src="<%= item.Image %>" alt="User Avatar" />
+            </div>
+            <div class="user-info">
+              <h3 class="user-name"><%= item.name %></h3>
+              <p class="user-email"><%= item.email %></p>
+              <p class="user-role">Gold Member</p>
+              <p class="user-joined"><%= item.tel %></p>
+              <!-- Notes Section -->
+              <div class="user-notes">
+                <div class="notes-header">
+                  <h4><%= item.verified %></h4>
+                  <button class="btn-add-note">+ Add</button>
+                </div>
+                <div class="notes-list">
+                  <div class="note">
+                    <p>
+                      "Prefers floral scents - recommended new Chanel launch"
+                    </p>
+                    <span class="note-date"
+                      ><%= moment(item.updatedAt).fromNow() %></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="user-actions">
+              <button class="user-btn edit">Edit</button>
+              <form
+                action="/delete/<%= item._id %>?_method=DELETE"
+                method="post"
+              >
+                <button class="user-btn delete">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+      </section>
+
       <!-- Reviews Section -->
       <section id="section-reviews" class="section">
         <h2>Product Reviews</h2>
-        
         <!-- Reviews Analytics -->
         <div class="reviews-analytics">
-            <div class="analytics-card">
-                <h3>Average Rating</h3>
-                <div class="rating-display">4.2 ★</div>
-                <div class="rating-distribution">
-                    <div class="rating-bar" data-rating="5">★★★★★ <span>65%</span></div>
-                    <div class="rating-bar" data-rating="4">★★★★☆ <span>22%</span></div>
-                    <div class="rating-bar" data-rating="3">★★★☆☆ <span>8%</span></div>
-                    <div class="rating-bar" data-rating="2">★★☆☆☆ <span>3%</span></div>
-                    <div class="rating-bar" data-rating="1">★☆☆☆☆ <span>2%</span></div>
-                </div>
+          <div class="analytics-card">
+            <h3>Average Rating</h3>
+            <div class="rating-display">4.2 ★</div>
+            <div class="rating-distribution">
+              <div class="rating-bar" data-rating="5">
+                ★★★★★ <span>65%</span>
+              </div>
+              <div class="rating-bar" data-rating="4">
+                ★★★★☆ <span>22%</span>
+              </div>
+              <div class="rating-bar" data-rating="3">
+                ★★★☆☆ <span>8%</span>
+              </div>
+              <div class="rating-bar" data-rating="2">
+                ★★☆☆☆ <span>3%</span>
+              </div>
+              <div class="rating-bar" data-rating="1">
+                ★☆☆☆☆ <span>2%</span>
+              </div>
             </div>
-            
-            <div class="analytics-card">
-                <h3>Recent Sentiment</h3>
-                <div class="sentiment-meter">
-                    <div class="meter-fill positive" style="width: 78%"></div>
-                    <span>78% Positive</span>
-                </div>
-                <div class="sentiment-keywords">
-                    <span class="keyword">"long-lasting" (42x)</span>
-                    <span class="keyword">"great scent" (38x)</span>
-                    <span class="keyword">"poor packaging" (12x)</span>
-                </div>
+          </div>
+          <div class="analytics-card">
+            <h3>Recent Sentiment</h3>
+            <div class="sentiment-meter">
+              <div class="meter-fill positive" style="width: 78%"></div>
+              <span>78% Positive</span>
             </div>
+            <div class="sentiment-keywords">
+              <span class="keyword">"long-lasting" (42x)</span>
+              <span class="keyword">"great scent" (38x)</span>
+              <span class="keyword">"poor packaging" (12x)</span>
+            </div>
+          </div>
         </div>
-    
         <!-- Reviews Moderation Tools -->
         <div class="moderation-controls">
-            <div class="filter-options">
-                <select class="form-input">
-                    <option>All Reviews</option>
-                    <option>Unapproved (3)</option>
-                    <option>Flagged (1)</option>
-                    <option>5 Star</option>
-                    <option>1-2 Star</option>
-                </select>
-                <button class="btn-export">Export CSV</button>
-            </div>
-            
-            <div class="bulk-actions">
-                <button class="btn-bulk-approve">Approve Selected</button>
-                <button class="btn-bulk-delete">Delete Selected</button>
-            </div>
+          <div class="filter-options">
+            <select class="form-input">
+              <option>All Reviews</option>
+              <option>Unapproved (3)</option>
+              <option>Flagged (1)</option>
+              <option>5 Star</option>
+              <option>1-2 Star</option>
+            </select>
+            <button class="btn-export">Export CSV</button>
+          </div>
+          <div class="bulk-actions">
+            <button class="btn-bulk-approve">Approve Selected</button>
+            <button class="btn-bulk-delete">Delete Selected</button>
+          </div>
         </div>
-    
         <!-- Reviews List (Existing) -->
         <div class="reviews-container">
-           
-                <!-- Review 1 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="review-author">John D.</span>
-                        <span class="review-rating">★★★★☆</span>
-                        <span class="review-date">2023-10-15</span>
-                    </div>
-                    <div class="review-content">
-                        <p>Great product! Works exactly as described. The delivery was a bit slow but worth the wait.</p>
-                    </div>
-                    <div class="review-actions">
-                        <button class="btn-approve">Approve</button>
-                        <button class="btn-delete">Delete</button>
-                    </div>
-                </div>
-        
-                <!-- Review 2 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="review-author">Sarah M.</span>
-                        <span class="review-rating">★☆☆☆☆</span>
-                        <span class="review-date">2023-10-18</span>
-                    </div>
-                    <div class="review-content">
-                        <p>Very disappointed with my purchase. The item arrived damaged and customer service hasn't responded.</p>
-                    </div>
-                    <div class="review-actions">
-                        <button class="btn-approve">Approve</button>
-                        <button class="btn-delete">Delete</button>
-                    </div>
-                </div>
-        
-                <!-- Review 3 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="review-author">Alex T.</span>
-                        <span class="review-rating">★★★★★</span>
-                        <span class="review-date">2023-10-20</span>
-                    </div>
-                    <div class="review-content">
-                        <p>Absolutely love it! Better than I expected. Will definitely buy from this store again.</p>
-                    </div>
-                    <div class="review-actions">
-                        <button class="btn-approve">Approve</button>
-                        <button class="btn-delete">Delete</button>
-                    </div>
-                </div>
-            
-            <div class="review-card flagged">
-                <div class="review-meta">
-                    <span class="review-product">Chanel No. 5</span>
-                    <span class="review-rating">★☆☆☆☆</span>
-                    <span class="review-date">Today</span>
-                    <span class="flag-badge">⚠️ Flagged</span>
-                </div>
-                <div class="review-content">
-                    <p>"This smells nothing like the original! Suspect counterfeit."</p>
-                </div>
-                <div class="review-actions">
-                    <button class="btn-approve">Approve</button>
-                    <button class="btn-reply">Reply Privately</button>
-                    <button class="btn-delete">Delete</button>
-                </div>
+          <!-- Review 1 -->
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-author">John D.</span>
+              <span class="review-rating">★★★★☆</span>
+              <span class="review-date">2023-10-15</span>
             </div>
+            <div class="review-content">
+              <p>
+                Great product! Works exactly as described. The delivery was a
+                bit slow but worth the wait.
+              </p>
+            </div>
+            <div class="review-actions">
+              <button class="btn-approve">Approve</button>
+              <button class="btn-delete">Delete</button>
+            </div>
+          </div>
+          <!-- Review 2 -->
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-author">Sarah M.</span>
+              <span class="review-rating">★☆☆☆☆</span>
+              <span class="review-date">2023-10-18</span>
+            </div>
+            <div class="review-content">
+              <p>
+                Very disappointed with my purchase. The item arrived damaged and
+                customer service hasn't responded.
+              </p>
+            </div>
+            <div class="review-actions">
+              <button class="btn-approve">Approve</button>
+              <button class="btn-delete">Delete</button>
+            </div>
+          </div>
+          <!-- Review 3 -->
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-author">Alex T.</span>
+              <span class="review-rating">★★★★★</span>
+              <span class="review-date">2023-10-20</span>
+            </div>
+            <div class="review-content">
+              <p>
+                Absolutely love it! Better than I expected. Will definitely buy
+                from this store again.
+              </p>
+            </div>
+            <div class="review-actions">
+              <button class="btn-approve">Approve</button>
+              <button class="btn-delete">Delete</button>
+            </div>
+          </div>
+          <div class="review-card flagged">
+            <div class="review-meta">
+              <span class="review-product">Chanel No. 5</span>
+              <span class="review-rating">★☆☆☆☆</span>
+              <span class="review-date">Today</span>
+              <span class="flag-badge">⚠️ Flagged</span>
+            </div>
+            <div class="review-content">
+              <p>
+                "This smells nothing like the original! Suspect counterfeit."
+              </p>
+            </div>
+            <div class="review-actions">
+              <button class="btn-approve">Approve</button>
+              <button class="btn-reply">Reply Privately</button>
+              <button class="btn-delete">Delete</button>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-<section id="section-settings" class="section">
-    <h2>Site Settings</h2>
-    
-    <div class="settings-tabs">
-        <button class="tab-btn active" data-tab="general">General</button>
-        <button class="tab-btn" data-tab="appearance">Appearance</button>
-        <button class="tab-btn" data-tab="seo">SEO</button>
-        <button class="tab-btn" data-tab="social">Social Media</button>
+      <!-- Settings Section -->
+      <section id="section-settings" class="section">
+        <h2>Site Settings</h2>
+        <div class="settings-tabs">
+          <button class="tab-btn active" data-tab="general">General</button>
+          <button class="tab-btn" data-tab="appearance">Appearance</button>
+          <button class="tab-btn" data-tab="seo">SEO</button>
+          <button class="tab-btn" data-tab="social">Social Media</button>
+        </div>
+        <div class="settings-content">
+          <!-- General Settings Tab -->
+          <div class="tab-pane active" id="general-tab">
+            <form class="settings-form">
+              <div class="form-group">
+                <label for="site-name">Site Name</label>
+                <input
+                  type="text"
+                  id="site-name"
+                  value="My Awesome Store"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="site-email">Contact Email</label>
+                <input
+                  type="email"
+                  id="site-email"
+                  value="contact@example.com"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="site-phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="site-phone"
+                  value="+1 (555) 123-4567"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="site-address">Business Address</label>
+                <textarea id="site-address" class="form-input">
+123 Main St, Cityville, ST 12345</textarea
+                >
+              </div>
+              <button type="submit" class="save-btn">
+                Save General Settings
+              </button>
+            </form>
+          </div>
+          <!-- Appearance Settings Tab -->
+          <div class="tab-pane" id="appearance-tab">
+            <form class="settings-form">
+              <div class="form-group">
+                <label>Site Logo</label>
+                <div class="upload-area">
+                  <img
+                    src="https://via.placeholder.com/150x50"
+                    alt="Current Logo"
+                    class="current-logo"
+                  />
+                  <div class="upload-controls">
+                    <input
+                      type="file"
+                      id="logo-upload"
+                      accept="image/*"
+                      hidden
+                    />
+                    <button
+                      type="button"
+                      class="upload-btn"
+                      onclick="document.getElementById('logo-upload').click()"
+                    >
+                      Upload New Logo
+                    </button>
+                    <span class="file-info">PNG, JPG (Max 2MB)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="primary-color">Primary Color</label>
+                <div class="color-picker">
+                  <input type="color" id="primary-color" value="#f3c5c5" />
+                  <span class="color-value">#f3c5c5</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="font-family">Font Family</label>
+                <select id="font-family" class="form-input">
+                  <option value="Montserrat" selected>Montserrat</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Poppins">Poppins</option>
+                </select>
+              </div>
+              <button type="submit" class="save-btn">
+                Save Appearance Settings
+              </button>
+            </form>
+          </div>
+          <!-- SEO Settings Tab -->
+          <div class="tab-pane" id="seo-tab">
+            <form class="settings-form">
+              <div class="form-group">
+                <label for="meta-title">Meta Title</label>
+                <input
+                  type="text"
+                  id="meta-title"
+                  value="My Store - Premium Products"
+                  class="form-input"
+                />
+                <div class="char-count">
+                  <span id="title-count">0</span>/60 characters
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="meta-description">Meta Description</label>
+                <textarea id="meta-description" class="form-input">
+Welcome to our online store featuring the best products at competitive prices.</textarea
+                >
+                <div class="char-count">
+                  <span id="desc-count">0</span>/160 characters
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="site-keywords">Keywords (comma separated)</label>
+                <input
+                  type="text"
+                  id="site-keywords"
+                  value="shop, ecommerce, products, buy"
+                  class="form-input"
+                />
+              </div>
+              <button type="submit" class="save-btn">Save SEO Settings</button>
+            </form>
+          </div>
+          <!-- Social Media Tab -->
+          <div class="tab-pane" id="social-tab">
+            <form class="settings-form">
+              <div class="form-group">
+                <label for="facebook-url">Facebook URL</label>
+                <input
+                  type="url"
+                  id="facebook-url"
+                  placeholder="https://facebook.com/yourpage"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="instagram-url">Instagram URL</label>
+                <input
+                  type="url"
+                  id="instagram-url"
+                  placeholder="https://instagram.com/yourpage"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label for="twitter-url">Twitter URL</label>
+                <input
+                  type="url"
+                  id="twitter-url"
+                  placeholder="https://twitter.com/yourpage"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label>Social Sharing Image</label>
+                <div class="upload-area">
+                  <div class="image-preview"></div>
+                  <div class="upload-controls">
+                    <input
+                      type="file"
+                      id="social-image"
+                      accept="image/*"
+                      hidden
+                    />
+                    <button
+                      type="button"
+                      class="upload-btn"
+                      onclick="document.getElementById('social-image').click()"
+                    >
+                      Upload Image
+                    </button>
+                    <span class="file-info">Recommended: 1200×630px</span>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="save-btn">
+                Save Social Settings
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
-
-    <div class="settings-content">
-        <!-- General Settings Tab -->
-        <div class="tab-pane active" id="general-tab">
-            <form class="settings-form">
-                <div class="form-group">
-                    <label for="site-name">Site Name</label>
-                    <input type="text" id="site-name" value="My Awesome Store" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="site-email">Contact Email</label>
-                    <input type="email" id="site-email" value="contact@example.com" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="site-phone">Phone Number</label>
-                    <input type="tel" id="site-phone" value="+1 (555) 123-4567" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="site-address">Business Address</label>
-                    <textarea id="site-address" class="form-input">123 Main St, Cityville, ST 12345</textarea>
-                </div>
-                
-                <button type="submit" class="save-btn">Save General Settings</button>
-            </form>
-        </div>
-
-        <!-- Appearance Settings Tab -->
-        <div class="tab-pane" id="appearance-tab">
-            <form class="settings-form">
-                <div class="form-group">
-                    <label>Site Logo</label>
-                    <div class="upload-area">
-                        <img src="https://via.placeholder.com/150x50" alt="Current Logo" class="current-logo">
-                        <div class="upload-controls">
-                            <input type="file" id="logo-upload" accept="image/*" hidden>
-                            <button type="button" class="upload-btn" onclick="document.getElementById('logo-upload').click()">
-                                Upload New Logo
-                            </button>
-                            <span class="file-info">PNG, JPG (Max 2MB)</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="primary-color">Primary Color</label>
-                    <div class="color-picker">
-                        <input type="color" id="primary-color" value="#f3c5c5">
-                        <span class="color-value">#f3c5c5</span>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="font-family">Font Family</label>
-                    <select id="font-family" class="form-input">
-                        <option value="Montserrat" selected>Montserrat</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Poppins">Poppins</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="save-btn">Save Appearance Settings</button>
-            </form>
-        </div>
-
-        <!-- SEO Settings Tab -->
-        <div class="tab-pane" id="seo-tab">
-            <form class="settings-form">
-                <div class="form-group">
-                    <label for="meta-title">Meta Title</label>
-                    <input type="text" id="meta-title" value="My Store - Premium Products" class="form-input">
-                    <div class="char-count"><span id="title-count">0</span>/60 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="meta-description">Meta Description</label>
-                    <textarea id="meta-description" class="form-input">Welcome to our online store featuring the best products at competitive prices.</textarea>
-                    <div class="char-count"><span id="desc-count">0</span>/160 characters</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="site-keywords">Keywords (comma separated)</label>
-                    <input type="text" id="site-keywords" value="shop, ecommerce, products, buy" class="form-input">
-                </div>
-                
-                <button type="submit" class="save-btn">Save SEO Settings</button>
-            </form>
-        </div>
-
-        <!-- Social Media Tab -->
-        <div class="tab-pane" id="social-tab">
-            <form class="settings-form">
-                <div class="form-group">
-                    <label for="facebook-url">Facebook URL</label>
-                    <input type="url" id="facebook-url" placeholder="https://facebook.com/yourpage" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="instagram-url">Instagram URL</label>
-                    <input type="url" id="instagram-url" placeholder="https://instagram.com/yourpage" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="twitter-url">Twitter URL</label>
-                    <input type="url" id="twitter-url" placeholder="https://twitter.com/yourpage" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label>Social Sharing Image</label>
-                    <div class="upload-area">
-                        <div class="image-preview"></div>
-                        <div class="upload-controls">
-                            <input type="file" id="social-image" accept="image/*" hidden>
-                            <button type="button" class="upload-btn" onclick="document.getElementById('social-image').click()">
-                                Upload Image
-                            </button>
-                            <span class="file-info">Recommended: 1200×630px</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit" class="save-btn">Save Social Settings</button>
-            </form>
-        </div>
-    </div>
-</section>
-    </div>
-
-  
-</body>
+  </body>
 </html>

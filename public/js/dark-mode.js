@@ -234,7 +234,7 @@ class ToggleAction {
     this.history = new ToggleHistoryManager();
 
     this.rotatedElementsSelectors = [...new Set([
-      "html", "img", "video",
+      "html",
       ...doubleRotatedElements,
     ])];
   
@@ -326,5 +326,10 @@ if (typeof exports != "undefined") module.exports = AutoDarkMode;
 
 // Script to initialize the dark mode toggle
 document.addEventListener('DOMContentLoaded', () => {
-  new AutoDarkMode();
+  const theme = null;
+  const doubleRotatedElements = ['.avoid-dark-mode', // Anything after is partials related
+     'nav .logo', 'footer', '.logo-reveal', '.chat-logo', // Partials Related - Anything after is pages
+    '.product-img', '.img-fluid' // index.ejs related
+  ]; 
+  new AutoDarkMode(theme, doubleRotatedElements);
 });

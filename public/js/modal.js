@@ -1,3 +1,5 @@
+import showFunToast from "./toast.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const signUpForm = document.getElementById("signUpForm");
@@ -7,112 +9,84 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginModalLabel = document.getElementById("loginModalLabel");
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
-  const countryCodeSelect = document.getElementById("countryCode");
-
-  // List of all countries with their codes and flags
-  const countryCodes = [
-    { code: "+1", flag: "🇺🇸" },
-    { code: "+44", flag: "🇬🇧" },
-    { code: "+1", flag: "🇨🇦" },
-    { code: "+91", flag: "🇮🇳" },
-    { name: "Germany", code: "+49", flag: "🇩🇪" },
-    { name: "France", code: "+33", flag: "🇫🇷" },
-    { name: "Australia", code: "+61", flag: "🇦🇺" },
-    { name: "China", code: "+86", flag: "🇨🇳" },
-    { name: "Japan", code: "+81", flag: "🇯🇵" },
-    { name: "Brazil", code: "+55", flag: "🇧🇷" },
-    { name: "South Africa", code: "+27", flag: "🇿🇦" },
-    { name: "Russia", code: "+7", flag: "🇷🇺" },
-    { name: "Mexico", code: "+52", flag: "🇲🇽" },
-    { name: "Italy", code: "+39", flag: "🇮🇹" },
-    { name: "United Arab Emirates", code: "+971", flag: "🇦🇪" },
-    { name: "Saudi Arabia", code: "+966", flag: "🇸🇦" },
-    { name: "South Korea", code: "+82", flag: "🇰🇷" },
-    { name: "Indonesia", code: "+62", flag: "🇮🇩" },
-    { name: "Turkey", code: "+90", flag: "🇹🇷" },
-    { name: "Netherlands", code: "+31", flag: "🇳🇱" },
-    { name: "Spain", code: "+34", flag: "🇪🇸" },
-    { name: "Sweden", code: "+46", flag: "🇸🇪" },
-    { name: "Switzerland", code: "+41", flag: "🇨🇭" },
-    { name: "Argentina", code: "+54", flag: "🇦🇷" },
-    { name: "Nigeria", code: "+234", flag: "🇳🇬" },
-    { name: "Egypt", code: "+20", flag: "🇪🇬" },
-    { name: "Pakistan", code: "+92", flag: "🇵🇰" },
-    { name: "Bangladesh", code: "+880", flag: "🇧🇩" },
-    { name: "Philippines", code: "+63", flag: "🇵🇭" },
-    { name: "Malaysia", code: "+60", flag: "🇲🇾" },
-    { name: "Thailand", code: "+66", flag: "🇹🇭" },
-    { name: "Vietnam", code: "+84", flag: "🇻🇳" },
-    { name: "Colombia", code: "+57", flag: "🇨🇴" },
-    { name: "Poland", code: "+48", flag: "🇵🇱" },
-    { name: "Ukraine", code: "+380", flag: "🇺🇦" },
-  ];
-
-  // Populate the country code dropdown
-  countryCodes.forEach((country) => {
-    const option = document.createElement("option");
-    option.value = country.code;
-    option.textContent = `${country.flag} ${country.name} (${country.code})`;
-    countryCodeSelect.appendChild(option);
-  });
 
   // Switch to Sign-up Form
-  document
-    .getElementById("showSignUpForm")
-    .addEventListener("click", function () {
+  const showSignUpFormBtn = document.getElementById("showSignUpForm");
+  if (showSignUpFormBtn) {
+    showSignUpFormBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
       signUpForm.style.display = "block";
       loginModalLabel.textContent = "Sign Up";
-      modalDescription.style.display = "none"; // Hide the description
+      modalDescription.textContent =
+        "Please fill in your information to create an account:";
     });
+  }
+
   // show the 2fa form
-  document.getElementById("show2fa").addEventListener("click", function () {
-    loginForm.style.display = "none";
-    twofactorForm.style.display = "block";
-    loginModalLabel.textContent = "verification";
-    modalDescription.style.display = "none"; // Hide the description
-    backArrow.style.display = "block";
-  });
+  const show2faBtn = document.getElementById("show2fa");
+  if (show2faBtn) {
+    show2faBtn.addEventListener("click", function () {
+      loginForm.style.display = "none";
+      twofactorForm.style.display = "block";
+      loginModalLabel.textContent = "verification";
+      loginModalLabel.classList.add("verification-title");
+      modalDescription.style.display = "none"; // Hide the description
+      backArrow.style.display = "block";
+    });
+  }
 
   // funtion to clear the fields in the verification form
-  document.getElementById("clearfield").addEventListener("click", function () {
-    const verificationInputs = document.querySelectorAll(
-      "#twofactor input[type='tel']"
-    );
-    verificationInputs.forEach((input) => {
-      input.value = ""; // Clear the input field
+  const clearfieldBtn = document.getElementById("clearfield");
+  if (clearfieldBtn) {
+    clearfieldBtn.addEventListener("click", function () {
+      const verificationInputs = document.querySelectorAll(
+        "#twofactor input[type='tel']"
+      );
+      verificationInputs.forEach((input) => {
+        input.value = ""; // Clear the input field
+      });
     });
-  });
+  }
 
-  document
-    .getElementById("showforgetpassword")
-    .addEventListener("click", function () {
+  // Switch to Forget Password Form
+  const showforgetpasswordBtn = document.getElementById("showforgetpassword");
+  if (showforgetpasswordBtn) {
+    showforgetpasswordBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
-      forgetpasswordForm.style.display = "";
-      loginModalLabel.textContent = "Forget password";
-      modalDescription.style.display = "none"; // Hide the description
+      forgetpasswordForm.style.display = "block";
+      loginModalLabel.textContent = "Reset Password";
+      loginModalLabel.classList.add("verification-title");
+      modalDescription.style.display = "block";
+      modalDescription.textContent =
+        "Enter your email address and we'll send you a link to reset your password";
     });
+  }
 
-  // Switch back to Login Form
-  document
-    .getElementById("showLoginForm")
-    .addEventListener("click", function () {
+  // Switch back to Login Form from Sign-up Form
+  const showLoginFormBtn = document.getElementById("showLoginForm");
+  if (showLoginFormBtn) {
+    showLoginFormBtn.addEventListener("click", function () {
+      console.log("Switching back to login form from sign-up");
       loginForm.style.display = "block";
       signUpForm.style.display = "none";
       loginModalLabel.textContent = "Login";
       modalDescription.style.display = "block"; // Show the description again
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
-  //switch back to login form from forget password form
-  document
-    .getElementById("showLoginForm1")
-    .addEventListener("click", function () {
+  }
+
+  // Switch back to Login Form from Forget Password Form
+  const showLoginForm1Btn = document.getElementById("showLoginForm1");
+  if (showLoginForm1Btn) {
+    showLoginForm1Btn.addEventListener("click", function () {
       loginForm.style.display = "block";
       forgetpasswordForm.style.display = "none";
       loginModalLabel.textContent = "Login";
-      modalDescription.style.display = "block"; // Show the description again
+      loginModalLabel.classList.remove("verification-title");
+      modalDescription.style.display = "block";
       modalDescription.textContent = "Please enter your e-mail and password:";
     });
+  }
 
   // Restrict Phone Number Input to Only Numbers
   if (phoneInput) {
@@ -121,24 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Combine Country Code with Phone Number before Submission
-  signUpForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
-    const fullPhoneNumber = countryCodeSelect.value + phoneInput.value;
-    console.log("Full Phone Number:", fullPhoneNumber);
-    alert("Phone Number Submitted: " + fullPhoneNumber);
-    // You can now send fullPhoneNumber to your backend
-  });
-
   // Add back button functionality for 2FA form
-  document.getElementById("backToLogin").addEventListener("click", function () {
-    twofactorForm.style.display = "none";
-    loginForm.style.display = "block";
-    loginModalLabel.textContent = "Login";
-    modalDescription.style.display = "block";
-    modalDescription.textContent = "Please enter your e-mail and password:";
-    backArrow.style.display = "none";
-  });
+  if (backArrow) {
+    backArrow.addEventListener("click", function () {
+      twofactorForm.style.display = "none";
+      loginForm.style.display = "block";
+      loginModalLabel.textContent = "Login";
+      loginModalLabel.classList.remove("verification-title");
+      modalDescription.style.display = "block";
+      modalDescription.textContent = "Please enter your e-mail and password:";
+      backArrow.style.display = "none";
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -188,3 +156,148 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// ============ Password toggle functionality ============
+document.addEventListener("DOMContentLoaded", function () {
+  // Login form password toggle
+  const passwordToggle = document.getElementById("passwordToggle");
+  const passwordInput = document.getElementById("password");
+  const passwordIcon = document.getElementById("passwordIcon");
+
+  if (passwordToggle && passwordInput && passwordIcon) {
+    passwordToggle.addEventListener("click", function () {
+      // Toggle password visibility
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordIcon.classList.remove("fa-lock");
+        passwordIcon.classList.add("fa-lock-open");
+      } else {
+        passwordInput.type = "password";
+        passwordIcon.classList.remove("fa-lock-open");
+        passwordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+
+  // Signup form password toggle
+  const signupPasswordToggle = document.getElementById("signupPasswordToggle");
+  const signupPasswordInput = document.getElementById("signup-password");
+  const signupPasswordIcon = document.getElementById("signupPasswordIcon");
+
+  if (signupPasswordToggle && signupPasswordInput && signupPasswordIcon) {
+    signupPasswordToggle.addEventListener("click", function () {
+      if (signupPasswordInput.type === "password") {
+        signupPasswordInput.type = "text";
+        signupPasswordIcon.classList.remove("fa-lock");
+        signupPasswordIcon.classList.add("fa-lock-open");
+      } else {
+        signupPasswordInput.type = "password";
+        signupPasswordIcon.classList.remove("fa-lock-open");
+        signupPasswordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+
+  // Confirm password toggle
+  const confirmPasswordToggle = document.getElementById(
+    "confirmPasswordToggle"
+  );
+  const confirmPasswordInput = document.getElementById(
+    "signup-confirm-password"
+  );
+  const confirmPasswordIcon = document.getElementById("confirmPasswordIcon");
+
+  if (confirmPasswordToggle && confirmPasswordInput && confirmPasswordIcon) {
+    confirmPasswordToggle.addEventListener("click", function () {
+      if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text";
+        confirmPasswordIcon.classList.remove("fa-lock");
+        confirmPasswordIcon.classList.add("fa-lock-open");
+      } else {
+        confirmPasswordInput.type = "password";
+        confirmPasswordIcon.classList.remove("fa-lock-open");
+        confirmPasswordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+});
+
+signUpForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent form from submitting
+
+  const name = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const phone = document.getElementById("signup-phone").value.trim();
+  const password = document.getElementById("signup-password").value;
+  const confirmPassword = document.getElementById(
+    "signup-confirm-password"
+  ).value;
+
+  // Validation
+  if (name === "") {
+    showFunToast("❗ Please enter your name.", "red");
+    return;
+  }
+
+  if (email === "" || !validateEmail(email)) {
+    showFunToast("📧 Please enter a valid email address.", "red");
+    return;
+  }
+
+  if (phone === "" || !validatePhone(phone)) {
+    showFunToast("📱 Please enter a valid phone number.", "red");
+    return;
+  }
+
+  if (password.length < 6) {
+    showFunToast("🔒 Password must be at least 6 characters long.", "red");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showFunToast("🔒 Passwords do not match.", "red");
+    return;
+  }
+
+  const formData = {
+    name,
+    email,
+    phone,
+    password,
+  };
+
+  fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Signed up successfully!", "green");
+        console.log("Success:", data);
+        // window.location.href = "/"; // Redirect to the login page if needed
+      } else {
+        showFunToast(data.message || "❗ An error occurred.", "red");
+        console.error("Error:", data);
+      }
+    })
+    .catch((error) => {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+      console.error("Error:", error);
+    });
+});
+
+// Helper functions
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePhone(phone) {
+  const re = /^[0-9]{10,15}$/;
+  return re.test(phone);
+}

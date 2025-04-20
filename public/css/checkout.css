@@ -364,3 +364,446 @@
   font-size: 14px;
   font-weight: 400;
 }
+
+/* Checkout Page Styling To overide bootstrap*/
+
+.checkout {
+  padding: 0 !important;
+  /* padding-top: 2rem;  */
+  position: relative;
+  top: 4rem;
+  /* background-color: #f1f1f1; */
+  margin-bottom: 10rem; /*To move the footer down*/
+}
+
+.section-number {
+  display: none !important;
+}
+
+.checkout .checkout-section .section-header h3 {
+  /* font-size: 19px !important; */
+  /* font-family: sans-serif; */
+  /* font-weight: 400; */
+  /* line-height: 23px; */
+  /* font-family: sans-serif; */
+  /* font-family: "Times New Roman", Times, serif; */
+  /* font-size: 36px; */
+  /* font-weight: 500; */
+  /* text-transform: uppercase; */
+  /* letter-spacing: 0.1em; */
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .checkout-section .section-header {
+  border-bottom: none !important;
+  padding: 0px 24px !important;
+  background-color: color-mix(in srgb, var(--surface-color), var(--background-color) 30%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.checkout .checkout-section .section-content .form-group label {
+  display: none !important;
+}
+
+.checkout .checkout-section {
+  background-color: var(--surface-color) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  margin-bottom: 5px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  padding-top: 2rem !important;
+}
+
+.checkout .checkout-section .section-content {
+  padding: 15px 24px !important;
+  padding-bottom: 5px !important;
+}
+
+.checkout .checkout-section .section-content .form-group {
+  flex: 1 !important;
+}
+
+.checkout .checkout-section .section-content .form-group .form-select {
+  background-position: right 16px center !important;
+  padding-right: 40px !important;
+  border-radius: 0px !important;
+  border: 1px solid #DEDEDE !important;
+}
+
+.checkout .checkout-section .section-content .form-check .form-check-input:checked {
+  border-color: #121212 !important;
+  background-color: #121212 !important;
+  border: 1px solid #DEDEDE !important;
+  border-radius: 0px !important;
+}
+
+.form-check-input[type=checkbox] {
+  border-radius: 0 !important;
+  border: 1px solid #DEDEDE !important;
+}
+
+.rounded {
+  border-radius: 5px !important;
+}
+
+.cod-message {
+  font-family: "Poppins", sans-serif;
+  border-left: 3px solid #121212;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  background-color: rgba(248, 249, 250, 0.9) !important;
+}
+
+.fa-wallet:before {
+  color: lightslategrey !important;
+}
+
+#scroll-top {
+  display: none !important;
+}
+
+.checkout .order-summary {
+  background-color: #F5F5F5 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #DEDEDE !important;
+}
+
+.col-lg-5 {
+  padding-left: 0px !important;
+}
+
+.col-lg-7 {
+  padding-right: 0px !important;
+}
+
+.checkout .order-summary .order-summary-header h3 {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-header .item-count {
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  background-color: #F5F5F5 !important;
+}
+
+.checkout .order-summary .order-summary-header {
+  border-bottom: none !important;
+  padding-bottom: 0px !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details .order-item-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+  font-size: 15px !important;
+}
+
+.checkout .order-summary .order-summary-content .order-items .order-item .order-item-details .order-item-price .price {
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-totals {
+  background-color: #F5F5F5 !important;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.checkout .order-summary .order-summary-content .order-totals>div:last-child {
+  margin-bottom: 0;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed 
+color-mix(in srgb, var(--default-color), transparent 80%);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  display: inline-block !important;
+  width: 100%;
+}
+
+#checkout-button {
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+  color: white !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  background-color: #121212 !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: 100% !important;
+}
+
+#checkout-button:hover {
+  color: #121212 !important;
+  background-color: white !important;
+}
+
+/* Fix for checkout button overflow on smaller screens */
+@media (max-width: 991px) {
+  .order-summary {
+    position: relative !important;
+    top: 0 !important;
+  }
+  
+  .order-totals .d-flex.justify-content-end {
+    width: 100%;
+  }
+  
+  .order-totals .d-flex.justify-content-end div {
+    width: 100%;
+  }
+  
+  #checkout-button {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.checkout .checkout-section .section-content .form-check .form-check-label {
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif !important;
+  /* font-size: 14px !important; */
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #121212 !important;
+}
+
+.cod-confirmation-message span {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Times New Roman", Times, serif !important;
+  /* font-size: 20px !important; */
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  color: #121212 !important;
+}
+
+.checkout .checkout-section .section-content .form-group .form-control, .checkout .checkout-section .section-content .form-group .form-select 
+{
+  color: #acacac !important; 
+}
+
+/* Payment Method Layout */
+.payment-method-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.payment-fields-column {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+  transition: all 0.3s ease-in-out;
+}
+
+.card-display-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0; /* Prevents flex items from overflowing */
+  padding: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animation for payment method section */
+:root {
+  --payment-animation-duration: 0.5s;
+  --payment-animation-timing: ease-in-out;
+}
+
+#payment-method {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+  max-height: 1000px;
+  overflow: hidden;
+  opacity: 1;
+}
+
+#payment-method.hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ensure the section header also animates */
+#payment-method .section-header {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+#payment-method.hidden .section-header {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Ensure the section content animates */
+#payment-method .section-content {
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+#payment-method.hidden .section-content {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Ensure the payment method container animates */
+.payment-method-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Ensure the payment fields column animates */
+.payment-fields-column {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Ensure the card display column animates */
+.card-display-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0; /* Prevents flex items from overflowing */
+  padding: 30px;
+  transition: all var(--payment-animation-duration) var(--payment-animation-timing);
+}
+
+/* Responsive adjustments for payment method */
+@media (max-width: 1399px) {
+  .payment-method-container {
+    flex-direction: column;
+  }
+  
+  .card-display-column {
+    margin-top: 20px;
+  }
+}
+/* Compact the payment fields */
+.payment-fields-column .form-group {
+  margin-bottom: 15px;
+}
+
+.payment-fields-column .row {
+  margin-bottom: 15px;
+}
+
+.payment-fields-column .card-number-wrapper {
+  margin-bottom: 0;
+}
+
+.payment-fields-column .cvv-wrapper {
+  margin-bottom: 0;
+}
+
+/* Adjust card size for better fit */
+.card-flip-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 350px;
+}
+
+.payment-fields-column {
+  padding-top: 1.5rem;
+}
+
+/* Discount Code Styling */
+.order-totals .order-discount {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--default-color), transparent 80%);
+  padding-bottom: 20px;
+}
+
+.order-discount .input-group {
+  width: 100%;
+}
+
+.order-discount .form-control {
+  border-radius: 0;
+  border: 1px solid #DEDEDE;
+  height: 40px;
+  color: #121212;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+}
+
+.order-discount .form-control::placeholder {
+  color: #acacac;
+}
+
+.order-discount .btn {
+  border-radius: 0;
+  border: 1px solid #DEDEDE;
+  background-color: white;
+  color: #121212;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  padding: 0 20px;
+  transition: all 0.2s linear;
+}
+
+.order-discount .btn:hover {
+  background-color: #121212;
+  color: white;
+  border-color: #121212;
+}
+
+.checkout .order-summary .order-summary-content {
+  padding: 0px 24px !important;
+  padding-top: 13px !important;
+}
+
+.checkout .order-summary .order-summary-content .order-totals {
+  margin-bottom: 10px !important;
+}

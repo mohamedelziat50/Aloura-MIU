@@ -348,17 +348,19 @@ body { background-color: #f1f1f1 !important; }
   width: 100%; /* Container Matches the card width */
   height: 100%; /* Container Matches the card height untill it reaches the card title */
 
-  cursor: default; /* Ensure the image container is the one clickable since it's pefectly alligned with the card. */
+  cursor: default; /* Change back to default cursor for the image container */
 }
 
 /* Hovering over the image inside the container is what causes the hover! */
 .card-image-container:hover .card-image {
-  animation: card-image-animation infinite 2s ease-in-out;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
 /* On the return, when user hovers out of card */
 .card-image-container:not(:hover) .card-image {
-  animation: zoomIn  0.5s ease-out; /* ease-out start faster and end slower */
+  transform: scale(1);
+  transition: transform 0.3s ease;
 }
 
 /* Card Image */
@@ -371,6 +373,7 @@ body { background-color: #f1f1f1 !important; }
   /* DISPLAY */
   background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
   pointer-events: none; /* Make sure that only the card image container is the only one clickable since image goes out of the card and will mess the click up */
+  transition: transform 0.3s ease; /* Add transition for smooth scaling */
 }
 
 /* Card Title */
@@ -671,24 +674,7 @@ background-color: #f1f1f1;
 }
 /* End of Image scaling Related */
 
-/* START OF SHOPPING CART RELATED */
-.custom-offcanvas {min-width: 600px !important; /* Adjust as needed */}
-
-.offcanvas-footer
-{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px;
-}
-/* END OF SHOPPING CART RELATED */
-
 /* KEYFRAMES RELATED */
-
-@keyframes card-image-animation {
-  50% { transform: translateY(15px) } /* Controls how much it goes up and down!*/
-}
 
 /* Fade in animation used for drop down menu */
 @keyframes fadeInTop {
@@ -720,13 +706,6 @@ to { opacity: 1 }
 }
 
 /* New for leaving image container animation! */
-@keyframes zoomIn {
-from {
-  /* This animation tricks the eye by slightly enlarging the image as if its returning back to place! */
-  transform: scale(1.025);
-}
-}
-
 @keyframes moveFromBottom {
 from { transform: translateY(800px) }
 }

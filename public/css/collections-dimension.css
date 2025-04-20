@@ -1,0 +1,132 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container {
+    width:100%;
+    height:800vh; /*Controls how long the Dimension is*/
+    max-width: none !important; /*Overrides somestuff of bootstrap*/
+    overflow-x: hidden;
+    background:#141414;
+}
+
+.active-slide {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background: #000;
+    opacity: 0.35;
+    z-index:-1;
+}
+
+.active-slide img {
+    position:absolute;
+    filter:blur(50px);
+    transform: scale(1.125);
+}
+
+.slider {
+    position: fixed;
+    top:0;
+    width:100vw;
+    height:100vh;
+    transform-style: preserve-3d; /*bet5aly el element 3d 3ndy x,y,z axis*/
+    perspective: 750px; /*2zay el appearance bta3 el 3d element hayb2a metshaf*/
+    overflow:hidden;
+}
+
+.slide {
+    position:absolute;
+    width:400px;
+    height:600px;
+    overflow:hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: auto; 
+}
+
+.slide-copy {
+    position: absolute;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; 
+    padding: 20px; 
+    box-sizing: border-box;
+    text-align: center; 
+}
+
+.slide-copy p {
+    font-family: cursive;
+    font-size: 20px;
+    font-weight: bolder;
+    line-height: 150%;
+    color: white;  /*hena nadena 3la el global variable el color 3la tool without writing the color number again */
+}
+
+#slide-4 {
+    position: absolute;
+    top:50%;
+    left:70%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-7500px);
+    opacity:0;
+}
+
+#slide-3 {
+    position: absolute;
+    top:50%;
+    left:30%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-5000px);
+    opacity:0;
+}
+
+#slide-2 {
+    position: absolute;
+    top:50%;
+    left:70%;
+    transform: translateX(-50%) translateY(-50%) translateZ(-2500px);
+    opacity:0.5;
+} 
+
+#slide-1 {
+    position: absolute;
+    top:50%;
+    left:30%;
+    transform: translateX(-50%) translateY(-50%) translateZ(0px);
+    opacity:1;
+}
+
+#section-2 {
+    background-color: #f1f1f1;
+    margin: 0;
+}
+
+#header {
+    /* POSITION RELATED */
+    position: relative; /* Position relative to the document's current flow*/
+    min-width: 615px;
+    margin: auto; /* Doesn't do much, simply an automatic margin (Doesn't center the element)*/
+    padding: 50px;
+    /* TEXT DISPLAY RELATED */
+    font-size: 64px;
+    font-family: "Monotype Baskerville", serif;
+    font-weight: 100; /* Add this to make the font look think and clean */
+    line-height: 100%;
+    color: black;
+    text-align: center; /* Centers the text*/
+    text-transform: uppercase;
+    letter-spacing: .1em; /* Distance between letters for design */
+  }
