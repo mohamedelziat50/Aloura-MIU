@@ -1117,7 +1117,7 @@ box-shadow: #000;
   z-index: 2; /* Make sure it's above the image but below text */
   
   /* Adjusted filter for more orange, less yellow tone */
-  filter: sepia(100%) hue-rotate(345deg) saturate(1500%) brightness(110%);
+  /* filter: sepia(100%) hue-rotate(345deg) saturate(1500%) brightness(110%); */
   
   /* Previous version - a bit too yellow */
   /* filter: sepia(100%) hue-rotate(0deg) saturate(700%) brightness(110%); */
