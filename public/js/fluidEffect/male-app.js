@@ -19,28 +19,33 @@ document.addEventListener('DOMContentLoaded', function () {
       let greyFluid = new Fluid(greyCanvas);
   
       // Initialize Fluid
-      greyFluid.mapBehaviors({
-        // OLD
-        // paused: false,
-        // curl: 5,
-        // dissipation: 0.98,  // Slower fade for longer trails
-        // emitter_size: 0.1,       // Smaller splats (like fine mist)
-  
+      greyFluid.mapBehaviors({  
         // NEW
         paused: false,
-        curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
-        dissipation: 0.985,      // Even slower fade (preserves trails longer)
-        emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
-        velocity: 0.99,          // Smoother, slower movement
-        pressure: 0.9,          // Less "explosive" splats (softer dispersion)
+        // curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
+        // dissipation: 0.985,      // Even slower fade (preserves trails longer)
+        // emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
+        // velocity: 0.99,          // Smoother, slower movement
+        // pressure: 0.9,          // Less "explosive" splats (softer dispersion)
 
-        transparent: true,      // Transparent background makes image look better
-        multi_color: false,     // Enable multi-color mode (default: false)
-        render_shaders: true,
+        // transparent: true,      // Transparent background makes image look better
+        // multi_color: false,     // Enable multi-color mode (default: false)
+        // render_shaders: true,
 
-        // Both of these also effect the fluid
-        sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
-        dye_resolution: 592 // Lower for performance (default: 512)
+        // // Both of these also effect the fluid
+        // sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
+        // dye_resolution: 592 // Lower for performance (default: 512)
+
+        curl: 5,                // Even more subtle for male side, matching template
+        dissipation: 0.985,       // Slightly faster dissipation than female
+        emitter_size: 0.06,       // Slightly larger than female for different effect
+        velocity: 0.99,           // Slightly slower movement
+        pressure: 0.9,            // Different pressure level for unique fluid behavior
+        render_bloom: false,      // Disable bloom for cleaner look
+        render_shaders: true,     // Ensure shaders are used
+        transparent: true,        // Keep transparent background
+        sim_resolution: 208,      // Adjusted resolution for male side
+        dye_resolution: 592       // Slightly different from female for unique effect
       });
       greyFluid.activate();
     }

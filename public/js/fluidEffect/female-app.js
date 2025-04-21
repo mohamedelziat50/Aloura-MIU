@@ -20,27 +20,32 @@ document.addEventListener('DOMContentLoaded', function () {
   
       // Initialize Fluid
       greyFluid.mapBehaviors({
-        // OLD
-        // paused: false,
-        // curl: 5,
-        // dissipation: 0.98,  // Slower fade for longer trails
-        // emitter_size: 0.1,       // Smaller splats (like fine mist)
-  
         // NEW
         paused: false,
-        curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
-        dissipation: 0.985,      // Even slower fade (preserves trails longer)
-        emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
-        velocity: 0.99,          // Smoother, slower movement
-        pressure: 0.9,          // Less "explosive" splats (softer dispersion)
+        // curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
+        // dissipation: 0.985,      // Even slower fade (preserves trails longer)
+        // emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
+        // velocity: 0.99,          // Smoother, slower movement
+        // pressure: 0.9,          // Less "explosive" splats (softer dispersion)
 
-        transparent: true,      // Transparent background makes image look better
-        multi_color: false,     // Enable multi-color mode (default: false)
-        render_shaders: true,
+        // transparent: true,      // Transparent background makes image look better
+        // multi_color: false,     // Enable multi-color mode (default: false)
+        // render_shaders: true,
 
-        // Both of these also effect the fluid
-        sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
-        dye_resolution: 592 // Lower for performance (default: 512)
+        // // Both of these also effect the fluid
+        // sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
+        // dye_resolution: 592 // Lower for performance (default: 512)
+
+        curl: 2,                  // Reduced for more subtle, elegant movement
+        dissipation: 0.99,        // Increased for longer-lasting, smoother trails
+        emitter_size: 0.05,       // Smaller for more delicate, fine mist effect
+        velocity: 0.985,           // Adjusted for slower, more elegant movement
+        pressure: 0.6,            // Reduced for gentler fluid dispersion
+        render_bloom: false,      // Disable bloom for cleaner look
+        render_shaders: true,     // Ensure shaders are used
+        transparent: true,        // Keep transparent background
+        sim_resolution: 208,      // Adjusted for better detail/performance balance
+        dye_resolution: 592       // Higher resolution for smoother appearance
       });
       greyFluid.activate();
     }
