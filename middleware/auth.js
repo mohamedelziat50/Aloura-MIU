@@ -35,14 +35,14 @@ const requireAuth =(req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.redirect("/");
+        res.redirect("/?authError=true");
       } else {
         req.user = decodedToken;
         next();
       }
     });
   } else {
-    res.redirect("/");
+    res.redirect("/?authError=true");
   }
 };
 

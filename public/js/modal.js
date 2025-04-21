@@ -221,12 +221,15 @@ signUpForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (name.length <3) {
+  if (name.length < 3) {
     showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
     return;
   }
-  if (name.length >50) {
-    showFunToast("📏 Whoa! Username's way too long. Keep it under 50 characters!", "red");
+  if (name.length > 50) {
+    showFunToast(
+      "📏 Whoa! Username's way too long. Keep it under 50 characters!",
+      "red"
+    );
     return;
   }
 
@@ -292,7 +295,6 @@ function validatePhone(phone) {
   return re.test(phone);
 }
 
-
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent form from submitting
 
@@ -312,7 +314,7 @@ loginForm.addEventListener("submit", async (event) => {
 
   fetch("http://localhost:3000/login", {
     method: "POST",
-    credentials: 'include', // ← important!
+    credentials: "include", // ← important!
     headers: {
       "Content-Type": "application/json",
     },
@@ -335,3 +337,16 @@ loginForm.addEventListener("submit", async (event) => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const authError = urlParams.get("authError");
+
+  if (authError) {
+    const loginModal = new bootstrap.Modal(
+      document.getElementById("loginModal")
+    );
+    setTimeout(() => {
+      loginModal.show();
+    }, 1000);
+  }
+});
