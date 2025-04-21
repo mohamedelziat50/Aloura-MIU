@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         paused: false,
         curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
         dissipation: 0.985,      // Even slower fade (preserves trails longer)
-        emitter_size: 0.08,      // Finer mist (0.05–0.1 for delicate sprays)
+        emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
         velocity: 0.99,          // Smoother, slower movement
         pressure: 0.9,          // Less "explosive" splats (softer dispersion)
 
