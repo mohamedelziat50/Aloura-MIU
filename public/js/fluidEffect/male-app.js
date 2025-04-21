@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
         velocity: 0.97,          // Smoother, slower movement
         pressure: 0.75,          // Less "explosive" splats (softer dispersion)
 
+        transparent: true,      // Transparent background makes image look better
+
         // Both of these also effect the fluid
         sim_resolution: 48,  // Lower resolution = less GPU strain (default: 128)
         dye_resolution: 192 // Lower for performance (default: 512)
@@ -75,6 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
       simulateMouseDown(startX, startY);
     }
 
-    // Continuously simulate mouse interactions EVERY 1 SECONDS
-    setInterval(simulateFullMouseInteraction, 1000);
+    // Continuously simulate mouse interactions EVERY 2 SECONDS
+    setInterval(simulateFullMouseInteraction, 2000);
 });
