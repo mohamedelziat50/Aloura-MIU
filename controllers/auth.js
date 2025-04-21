@@ -36,9 +36,10 @@ export const signup = async (req, res) => {
 
     const newUser = new UserModel({ name, email, tel: phone, password });
     await newUser.save();
+    const token = generateToken(newUser.id, newUser.role);
+    res.cookie("jwt", token, cookieOptions);
 
     console.log("🎉 New user created:", newUser);
-
     sendEmail({
       to: email,
       subject: "Verify your email!",

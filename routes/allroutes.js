@@ -2,11 +2,13 @@ import express from "express";
 const router = express.Router();
 import UserModel from "../models/user.js";
 import moment from "moment";
-import auth from "../middleware/auth.js";
+import middleware from "../middleware/auth.js";
+const { auth, requireAuth } = middleware;
+
 
 router.get("/", (req, res) => res.render("index"));
 router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
-router.get("/checkout", (req, res) => res.render("checkout"));
+router.get("/checkout", requireAuth, (req, res) => res.render("checkout"));
 router.get("/fluid-only", (req, res) => res.render("fluid-only"));
 router.get("/fragrances-for-men", (req, res) =>
   res.render("fragrances-for-men")

@@ -269,7 +269,9 @@ signUpForm.addEventListener("submit", async (event) => {
 
       if (response.ok) {
         showFunToast(data.message || "✅ Signed up successfully!", "green");
-        // window.location.href = "/"; // Redirect to the login page if needed
+        setTimeout(() => {
+          window.location.href = "/"; // Redirect to the user's page
+        }, 1000);
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
       }
@@ -332,3 +334,4 @@ loginForm.addEventListener("submit", async (event) => {
       showFunToast(error.message || "❗ An error occurred.", "red");
     });
 });
+
