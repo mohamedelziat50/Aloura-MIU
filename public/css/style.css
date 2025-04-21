@@ -1116,12 +1116,13 @@ box-shadow: #000;
   mix-blend-mode: screen; /* Blends with the female div */
   z-index: 2; /* Make sure it's above the image but below text */
   
-  /* Orangey filter for female fluid canvas */
-  filter: sepia(100%) hue-rotate(0deg) saturate(800%);
+  /* Adjusted filter for more orange, less yellow tone */
+  filter: sepia(100%) hue-rotate(345deg) saturate(1500%) brightness(110%);
   
-  /* Option 1: Orangey-red */
-  /* filter: sepia(100%) hue-rotate(0deg) saturate(500%); */
+  /* Previous version - a bit too yellow */
+  /* filter: sepia(100%) hue-rotate(0deg) saturate(700%) brightness(110%); */
   
+  /* Other filter options for reference */
   /* Option 2: Warm orange */
   /* filter: sepia(70%) hue-rotate(5deg) saturate(400%); */
   

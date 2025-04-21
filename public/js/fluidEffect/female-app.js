@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
         pressure: 0.9,          // Less "explosive" splats (softer dispersion)
 
         transparent: true,      // Transparent background makes image look better
+        multi_color: false,     // Enable multi-color mode (default: false)
+        render_shaders: true,
 
         // Both of these also effect the fluid
         sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
