@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
       emitter_size: 0.08,      // Finer mist (0.05–0.1 for delicate sprays)
       velocity: 0.97,          // Smoother, slower movement
       pressure: 0.75,          // Less "explosive" splats (softer dispersion)
+
+      transparent: true,      // Transparent background makes image look better
     });
     greyFluid.activate();
   }
