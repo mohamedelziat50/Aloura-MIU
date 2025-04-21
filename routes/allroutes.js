@@ -20,8 +20,10 @@ router.get("/unisex-fragrances", (req, res) => res.render("unisex-fragrances"));
 router.get("/fragrance-quiz", (req, res) => res.render("fragrance-quiz"));
 router.get("/collections", (req, res) => res.render("collections"));
 
+router.get("/user/:id", (req, res) => res.redirect("/"));
 
-router.get("/admin/:id", (req, res) => {
+
+router.get("/admin/:id", auth(["admin"]),(req, res) => {
   UserModel.find()
     .then((result) => {
       res.render("admin", { arr: result, moment: moment });
