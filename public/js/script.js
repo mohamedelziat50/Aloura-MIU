@@ -70,6 +70,10 @@ function initGenderHoverEffects() {
   const rightParagraphs = rightContainer.querySelectorAll("p");
   const leftBtn = leftContainer.querySelector(".explore-fragrances");
   const rightBtn = rightContainer.querySelector(".explore-fragrances");
+  
+  // Add visibility state flags
+  let femaleFluidVisible = true;
+  let maleFluidVisible = true;
 
     // Left container hover effect (hovering over female side)
     leftContainer.addEventListener("mouseenter", () => {
@@ -81,6 +85,10 @@ function initGenderHoverEffects() {
       femaleDiv.style.flexGrow = "1.5";  // Increase the size of the female DIV
       maleDiv.style.flexGrow = "0.5";    // Decrease the size of the male DIV
       maleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of male IMG
+
+      // Hide female fluid canvas
+      document.getElementById("female-fluid-canvas").style.display = "none";
+      femaleFluidVisible = false;
     });
 
     leftContainer.addEventListener("mouseleave", () => {
@@ -92,6 +100,16 @@ function initGenderHoverEffects() {
       femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
       maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
       maleDiv.style.filter = "";   // Reset filter to default (let CSS rule apply)
+
+      // Show female fluid canvas after delay only if it should be visible
+      if (!femaleFluidVisible) {
+        setTimeout(() => {
+          // Reset the canvas before showing it
+          const femaleCanvas = document.getElementById("female-fluid-canvas");
+          femaleCanvas.style.display = "block";
+          femaleFluidVisible = true;
+        }, 2000); // Match fluid simulation timing
+      }
     });
 
     // Right container hover effect (hovering over male side)
@@ -104,6 +122,10 @@ function initGenderHoverEffects() {
       maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
       femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
       femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
+
+      // Hide male fluid canvas
+      document.getElementById("male-fluid-canvas").style.display = "none";
+      maleFluidVisible = false;
     });
 
     rightContainer.addEventListener("mouseleave", () => {
@@ -115,6 +137,16 @@ function initGenderHoverEffects() {
       maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
       femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
       femaleDiv.style.filter = ""; // Reset filter to default (let CSS rule apply)
+
+      // Show male fluid canvas after delay only if it should be visible
+      if (!maleFluidVisible) {
+        setTimeout(() => {
+          // Reset the canvas before showing it
+          const maleCanvas = document.getElementById("male-fluid-canvas");
+          maleCanvas.style.display = "block";   
+          maleFluidVisible = true;
+        }, 2000); // Match fluid simulation timing
+      }
     });
   } // End reinstated null check
 
