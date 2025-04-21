@@ -170,15 +170,14 @@ box-shadow: #000;
 }
 
 .left-container .text-overlay .for-her{
-  top: 85%; /* Adjust the top position of the "For Her" button */
-  left: 24%; /* Move it to the left */
   transform: translateX(0%); /* Fine-tune if needed */
+  margin: 0rem 0rem 2rem 1rem;
+  
 }
 
 .right-container .text-overlay .for-him{
-  top: 85%; /* Adjust the top position of the "For Her" button */
-  right: 29%; /* Move it to the left */
   transform: translateX(0%); /* Fine-tune if needed */
+  margin: 0rem 0rem 0rem 0rem;
 }
 
 .text-overlay button.hide{
