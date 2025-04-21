@@ -30,15 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
         paused: false,
         curl: 8,                 // Slightly stronger swirls (5–10 for subtlety)
         dissipation: 0.985,      // Even slower fade (preserves trails longer)
-        emitter_size: 0.08,      // Finer mist (0.05–0.1 for delicate sprays)
-        velocity: 0.97,          // Smoother, slower movement
-        pressure: 0.75,          // Less "explosive" splats (softer dispersion)
+        emitter_size: 0.06,      // Finer mist (0.05–0.1 for delicate sprays)
+        velocity: 0.99,          // Smoother, slower movement
+        pressure: 0.9,          // Less "explosive" splats (softer dispersion)
 
         transparent: true,      // Transparent background makes image look better
+        multi_color: false,     // Enable multi-color mode (default: false)
+        render_shaders: true,
 
         // Both of these also effect the fluid
-        sim_resolution: 48,  // Lower resolution = less GPU strain (default: 128)
-        dye_resolution: 192 // Lower for performance (default: 512)
+        sim_resolution: 208,  // Lower resolution = less GPU strain (default: 128) + 80 or - 80
+        dye_resolution: 592 // Lower for performance (default: 512)
       });
       greyFluid.activate();
     }
