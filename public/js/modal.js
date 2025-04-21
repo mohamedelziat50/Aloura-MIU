@@ -269,16 +269,13 @@ signUpForm.addEventListener("submit", async (event) => {
 
       if (response.ok) {
         showFunToast(data.message || "✅ Signed up successfully!", "green");
-        console.log("Success:", data);
         // window.location.href = "/"; // Redirect to the login page if needed
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
-        console.error("Error:", data);
       }
     })
     .catch((error) => {
       showFunToast(error.message || "❗ An error occurred.", "red");
-      console.error("Error:", error);
     });
 });
 
@@ -324,15 +321,14 @@ loginForm.addEventListener("submit", async (event) => {
 
       if (response.ok) {
         showFunToast(data.message || "✅ Signed in successfully!", "green");
-        console.log("Success:", data);
-        window.location.href = `/${data.user.role}/${data.user.id}`; // Redirect to the user's page
+        setTimeout(() => {
+          window.location.href = `/${data.user.role}/${data.user.id}`; // Redirect to the user's page
+        }, 1000);
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
-        console.error("Error:", data);
       }
     })
     .catch((error) => {
       showFunToast(error.message || "❗ An error occurred.", "red");
-      console.error("Error:", error);
     });
 });
