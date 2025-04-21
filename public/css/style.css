@@ -153,7 +153,7 @@ box-shadow: #000;
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
-  margin: 0px 140px 85px;
+  margin: 0px 139px 85px;
   /* top: 10px, right: 20px, bottom: 30px, left: 40px */
   background: transparent;
   color: white;
@@ -171,13 +171,13 @@ box-shadow: #000;
 
 .left-container .text-overlay .for-her{
   transform: translateX(0%); /* Fine-tune if needed */
-  margin: 0rem 0rem 2rem 1rem;
+  margin: -1rem 0rem 0rem 7.5rem
   
 }
 
 .right-container .text-overlay .for-him{
   transform: translateX(0%); /* Fine-tune if needed */
-  margin: 0rem 0rem 0rem 0rem;
+  margin: 0rem 0rem 0rem 8rem
 }
 
 .text-overlay button.hide{
