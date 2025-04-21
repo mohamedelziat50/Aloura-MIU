@@ -221,6 +221,15 @@ signUpForm.addEventListener("submit", async (event) => {
     return;
   }
 
+  if (name.length <3) {
+    showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
+    return;
+  }
+  if (name.length >50) {
+    showFunToast("📏 Whoa! Username's way too long. Keep it under 50 characters!", "red");
+    return;
+  }
+
   if (email === "" || !validateEmail(email)) {
     showFunToast("📧 Please enter a valid email address.", "red");
     return;
@@ -291,6 +300,12 @@ loginForm.addEventListener("submit", async (event) => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  // Validation before sending request
+  if (email === "" || !validateEmail(email)) {
+    showFunToast("📧 Please enter a valid email address.", "red");
+    return;
+  }
+
   const formData = {
     email,
     password,
@@ -308,9 +323,9 @@ loginForm.addEventListener("submit", async (event) => {
       const data = await response.json();
 
       if (response.ok) {
-        showFunToast(data.message || "✅ Signed up successfully!", "green");
+        showFunToast(data.message || "✅ Signed in successfully!", "green");
         console.log("Success:", data);
-        window.location.href = "/"; // Redirect to the login page if needed  
+        window.location.href = `/${data.user.role}/${data.user.id}`; // Redirect to the user's page
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
         console.error("Error:", data);
