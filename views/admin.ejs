@@ -323,6 +323,7 @@
               <th scope="col">Phone</th>
               <th scope="col">Verified</th>
               <th scope="col">Last updated</th>
+              <th scope="col">Role</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -335,6 +336,7 @@
               <td><%= item.tel %></td>
               <td><%= item.verified %></td>
               <td><%= moment(item.updatedAt).fromNow() %></td>
+              <td><%= item.role %></td>
               <td>
                 <a
                   data-bs-toggle="tooltip"
