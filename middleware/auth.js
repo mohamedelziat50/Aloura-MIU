@@ -3,12 +3,11 @@ import jwt from "jsonwebtoken";
 const auth = (allowedRoles = []) => {
   return async (req, res, next) => {
     try {
-      const authHeader = req.headers.authorization;
 
       const token = req.cookies?.jwt;
 
       if (!token) {
-        return res.redirect("/");
+        return res.redirect("/?authError=true");
       }
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -27,23 +26,4 @@ const auth = (allowedRoles = []) => {
   };
 };
 
-
-const requireAuth =(req, res, next) => {
-  const token = req.cookies?.jwt;
-
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        console.log(err.message);
-        res.redirect("/?authError=true");
-      } else {
-        req.user = decodedToken;
-        next();
-      }
-    });
-  } else {
-    res.redirect("/?authError=true");
-  }
-};
-
-export default { auth, requireAuth };
+export default  auth;
