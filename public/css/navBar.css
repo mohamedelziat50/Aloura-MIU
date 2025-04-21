@@ -398,3 +398,14 @@ nav .actions ul li a {
 nav .actions ul li a:visited {
   color: #000;
 }
+
+.fa-magnifying-glass
+{
+  /* Hide it since search isn't used in navbar */
+  display: none;
+}
+
+nav .actions ul li:nth-child(2) {
+  /* Remove padding from the bar beside translate */
+  padding-right: 0px;
+}

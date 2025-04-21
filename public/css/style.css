@@ -42,10 +42,76 @@ body {
 
 .gender {
   display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
-  width: 100vw; /* Full screen Width (100% of the *viewport* width) */
-  height: 100vh; /* Full screen Heigh (100% of the *viewport* height) */
+  width: 100vw; /* Full screen Width (100% of the viewport width) */
+  height: 100vh; /* Full screen Heigh (100% of the viewport height) */
   overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
-  position: relative; /* Makes sure any child element with `absolute` position is placed relative to this container */
+  position: relative; /* Makes sure any child element with absolute position is placed relative to this container */
+}
+
+.left-container,
+.right-container{
+position: absolute;
+height: 500px; 
+background: transparent; 
+display: flex;
+flex-direction: column; /* Stack items vertically */
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 14px;
+border-radius: 10px;
+z-index: 2;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+text-align: center;
+top: 74.5%;
+transform: translateY(-50%); /* Center vertically */
+box-shadow: #000;
+}
+
+.left-container{
+  width: 500px; 
+  left: -10px;
+}
+
+/*PUT THEM IN THE SAME THING????*/
+
+.right-container{
+  width: 500px; 
+  right: -10px;
+}
+
+.right-container p,
+.left-container p {
+  position: relative;
+  opacity: 0;
+  bottom: 20%;
+  transform: translateY(30px); /* Start below */
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Fully clipped at the bottom */
+  font-family: 'proxima-nova', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16.5px;
+  transition: 
+    clip-path 0.5s ease-out,
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.right-container p{
+  margin: 50px 15px 0px 30px;
+}
+.left-container p{
+  margin: 50px 45px;
+}
+
+.right-container p.show,
+.left-container p.show,
+.explore-fragrances.show{
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Fully visible */
+  opacity: 1;
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth return */
 }
 
 .female,
@@ -63,38 +129,6 @@ body {
   object-fit: cover; /* Makes sure the image fills its box without stretching, it will zoom and crop to fit */
 }
 
-/* Apply the shrink & darken effect to both female & male sections whehn hovering anywhere inside .gender */
-.gender:hover .female,
-.gender:hover .male {
-  flex: 0.5;
-  filter: brightness(0.5);
-}
-
-/* override the above effect, making the hovered section expand and stay bright. */
-.gender .female:hover,
-.gender .male:hover {
-  flex: 1.5;
-  filter: brightness(1); /* Restore brightness when hovered */
-}
-
-/* Female hover → Male button slides down */
-.female:hover ~ .male .text-overlay button,
-.gender:hover .male:not(:hover) .text-overlay button {
-  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-  transform: translateY(60px) scale(1, 0.5);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Male hover → Female button slides down */
-.male:hover ~ .female .text-overlay button,
-.gender:hover .female:not(:hover) .text-overlay button {
-  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-  transform: translateY(60px) scale(1, 0.5);
-  opacity: 0;
-  pointer-events: none;
-}
-
 .text-overlay button {
   position: absolute;
   background: transparent;
@@ -107,18 +141,51 @@ body {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0px;
-  
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Fully visible */
   opacity: 1;
   transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth return */
-
 }
 
-/* Show class that will be added by JavaScript */
-.text-overlay button.show {
-  opacity: 1;
-  transform: translateY(0);
-  /* JavaScript will enable pointer-events when ready */
+.explore-fragrances {
+  font-family: 'Urbanist', sans-serif;
+  font-style: normal;
+  size: 21px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0px 140px 85px;
+  /* top: 10px, right: 20px, bottom: 30px, left: 40px */
+  background: transparent;
+  color: white;
+  border: none;
+  text-decoration: underline;
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Fully clipped */
+  opacity: 0;
+  transform: translateY(30px); /* Start below */
+
+  transition:
+    clip-path 0.5s ease-out,
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.left-container .text-overlay .for-her{
+  top: 85%; /* Adjust the top position of the "For Her" button */
+  left: 24%; /* Move it to the left */
+  transform: translateX(0%); /* Fine-tune if needed */
+}
+
+.right-container .text-overlay .for-him{
+  top: 85%; /* Adjust the top position of the "For Her" button */
+  right: 29%; /* Move it to the left */
+  transform: translateX(0%); /* Fine-tune if needed */
+}
+
+.text-overlay button.hide{
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transform: translateY(60px) scale(1, 0.5);
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Journey text styling */
@@ -157,17 +224,6 @@ body {
   transform: translateY(0);
 }
 
-.female .text-overlay button {
-  /* Button sticks to the left bottom corner */
-  left: 10px;
-  bottom: 10px;
-}
-
-.male .text-overlay button {
-  right: 40px;
-  bottom: 10px;
-}
-
 .full-width {
   width: 100%; /*Expands selected image to full width */
 }
@@ -204,16 +260,9 @@ body {
   white-space: nowrap;
 }
 
-/* Show animations */
-.text-overlay-indulge.show,
-.text-overlay-your.show {
-  opacity: 1;
-  transform: scale(1, 1.2) translateY(0); /* End position */
-}
-
 /* Hover effect for text overlays */
-.gender:hover .text-overlay-indulge,
-.gender:hover .text-overlay-your {
+.text-overlay-indulge.hide ,
+.text-overlay-your.hide {
   clip-path: polygon(
     0 0,
     100% 0,
@@ -288,27 +337,7 @@ body {
 /* When hovering the gender container, apply default state to both sides */
 .gender:hover .female,
 .gender:hover .male {
-  flex: 0.6; /* Shrink both sides by default on hover */
-  filter: brightness(0.4); /* Darken both sides */
-}
-
-/* Override for the hovered side */
-.gender .female:hover {
-  flex: 1.4; /* Grow significantly when hovered */
-  filter: brightness(1.1); /* Brighten slightly */
-}
-
-.gender .male:hover {
-  flex: 1.3; /* Grow significantly when hovered */
-  filter: brightness(1.3); /* Brighten slightly */
-}
-
-/* Important: Ensure images don't change scale when container resizes */
-.gender:hover .female img,
-.gender:hover .male img,
-.gender .female:hover img,
-.gender .male:hover img {
-  transform: scale(1); /* Prevent any scaling during hover */
+  filter: brightness(1);
 }
 
 .title {
@@ -374,25 +403,6 @@ body {
   transform: scale(1, 1.2); /* Stretch vertically */
   transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
-}
-
-/* Hover effect for text overlays */
-.gender:hover .text-overlay-indulge,
-.gender:hover .text-overlay-your {
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 0,
-    0 0
-  ); /* Shrink text from bottom to top */
-  transform: translateY(-80px) scale(1, 1.2); /* Move text up */
-}
-
-/* Reset text overlays when not hovering */
-.gender:not(:hover) .text-overlay-indulge,
-.gender:not(:hover) .text-overlay-your {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Restore full height */
-  transform: translateY(0) scale(1, 1.2); /* Return text to original position */
 }
 
 /* Quality and 3D Model Section */
@@ -865,17 +875,21 @@ body {
 
 /* Product image container */
 .product-img {
-  height: 450px;
-  width: auto;
+  width: 220px; 
+  height: 400px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
 /* Product image */
 .product-img img {
-  width: 100%;
-  height: 100%;
+  width: 220px; 
+  height: 400px;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.5s ease;
 }
 
