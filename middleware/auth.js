@@ -27,4 +27,24 @@ const auth = (allowedRoles = []) => {
   };
 };
 
-export default auth;
+
+const requireAuth =(req, res, next) => {
+  const token = req.cookies?.jwt;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.redirect("/");
+      } else {
+        console.log(decodedToken);
+        req.user = decodedToken;
+        next();
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+};
+
+export default { auth, requireAuth };
