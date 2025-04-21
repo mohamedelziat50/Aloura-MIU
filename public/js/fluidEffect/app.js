@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
       transparent: true,      // Transparent background makes image look better
       render_bloom: false,      // Disable bloom for cleaner look
       render_shaders: true,     // Ensure shaders are used
-      transparent: true,        // Keep transparent background
       sim_resolution: 208,      // Adjusted resolution for male side
       dye_resolution: 592       // Slightly different from female for unique effect
     });
