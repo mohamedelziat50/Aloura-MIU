@@ -1,5 +1,5 @@
-import UserModel from "../models/user.js"; // adjust path
-import sendEmail from "../utilities/emailService.js"; // adjust path
+import UserModel from "../models/user.js";
+import sendEmail from "../utilities/emailService.js"; 
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
@@ -28,6 +28,7 @@ export const signup = async (req, res) => {
     if (await UserModel.findOne({ email })) {
       return res.status(409).json({ message: "Email is already taken" });
     }
+    
 
     if (await UserModel.findOne({ tel: phone })) {
       return res.status(409).json({ message: "Phone number is already taken" });
