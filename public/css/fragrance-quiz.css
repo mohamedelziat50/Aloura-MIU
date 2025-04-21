@@ -98,15 +98,39 @@ body {
 }
 
 #gender .gender-right .option:hover {
-    transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(-10px) scale(1.06);
+    box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28), 0 2px 8px 0 rgba(0,0,0,0.12);
+    z-index: 2;
 }
+
 
 #gender .gender-right .option.selected {
     background-color: rgb(35, 35, 35) !important;
-    transform: translateX(-10px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(-10px) scale(1.2);
+    box-shadow: 0 16px 48px 0 rgba(0,0,0,0.7), 0 2px 8px 0 rgba(0,0,0,0.16);
+    z-index: 3;
+    animation: genderSelection 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+@keyframes genderSelection {
+    0% {
+        transform: scale(1.06);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    40% {
+        transform: scale(1.2);
+        box-shadow: 0 18px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    70% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+}
+
 
 #gender .gender-right .option span {
     font-size: 1.7rem;
@@ -202,6 +226,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    gap: 0;
 }
 
 #skinTone .skin-right .option {
@@ -209,13 +234,66 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    border: none;
     border-radius: 0;
+    /* box-shadow: none !important; */
+    background-clip: padding-box;
+    outline: 1px solid transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
     transition: all 0.3s ease;
+    will-change: transform, box-shadow;
+    transform-origin: center;
+}
+
+#skinTone .skin-right .option:not(:first-child) {
+    margin-top: -1px;
+}
+
+#skinTone .skin-right .option.skin-animate-expand {
+    animation: skinToneExpand 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 2;
+}
+
+#skinTone .skin-right .option.skin-animate-shrink {
+    animation: skinToneShrink 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#skinTone .skin-right .option + .option {
+    border-top: none;
+}
+
+@keyframes skinToneExpand {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    40% {
+        transform: scale(1.2);
+        box-shadow: 0 18px 40px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    70% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+}
+
+@keyframes skinToneShrink {
+    0% {
+        transform: scale(1.12);
+        box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
 }
 
 #skinTone .skin-right .option span {
@@ -376,6 +454,8 @@ nav {
     text-align: center;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Progress Bar */
@@ -383,9 +463,10 @@ nav {
     width: 100%;
     height: 4px;
     background-color: #eee;
-    margin: 30px 0;
+    margin: 0 0 40px 0;
     border-radius: 2px;
     overflow: hidden;
+    order: -1; /* This moves it to the top */
 }
 
 .progress {
@@ -775,5 +856,1146 @@ nav {
     }
 }
 
+/* Split section for 'Which matters the most to you?' */
+#securityVsAdventure.split-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
 
+#securityVsAdventure .split-question {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #333333;
+}
 
+#securityVsAdventure .split-full {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+}
+
+#securityVsAdventure .split-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #6d4c2b;
+}
+
+#securityVsAdventure .left-option {
+    background: rgb(237, 220, 191);
+    color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.3s ease;
+}
+
+#securityVsAdventure .right-option {
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#securityVsAdventure .left-option:hover {
+    flex: 1.3;
+}
+
+#securityVsAdventure .right-option:hover {
+    flex: 1.3;
+}
+
+#securityVsAdventure .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#securityVsAdventure .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#securityVsAdventure .split-half span {
+    font-size: 2rem;
+    color: #333333;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#skinTone .skin-right .option[data-value="olive"] {
+    background-color: rgb(189, 120, 82);
+}
+
+#skinTone .skin-right .option[data-value="tan"] {
+    background-color: rgb(166, 95, 44);
+}
+
+#skinTone .skin-right .option[data-value="deep"] {
+    background-color: rgb(90, 60, 40);
+}
+
+#skinTone .skin-right .option.selected {
+    background-color: rgb(35, 35, 35) !important;
+    transform: translateX(-10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#securityVsAdventure .split-half.selected {
+    background-color: rgb(35, 35, 35) !important;
+    color: #F4E6D4 !important;
+    position: relative;
+    animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3; /* Maintain the expanded state */
+}
+
+#securityVsAdventure .split-half.selected span {
+    animation: textColorChange 2s ease-in-out forwards;
+}
+
+@keyframes textColorChange {
+    0% {
+        color: #6d4c2b;
+    }
+    40% {
+        color: rgb(237, 220, 191);
+    }
+    100% {
+        color: rgb(237, 220, 191);
+    }
+}
+
+#securityVsAdventure .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s; /* Start fade out after the expand animation */
+}
+
+#securityVsAdventure .split-half:not(.selected) {
+    animation: shrinkOther 1.5s ease-in-out;
+}
+
+@keyframes selectedExpand {
+    0% {
+        flex: 1.3; /* Start from the hovered state */
+    }
+    40% {
+        flex: 3;
+    }
+    100% {
+        flex: 1.3; /* End at the hovered state */
+        transform: translateX(-10px);
+    }
+}
+
+@keyframes shrinkOther {
+    0% {
+        flex: 1.3; /* Start from potentially hovered state */
+    }
+    40% {
+        flex: 0.2;
+    }
+    100% {
+        flex: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+#securityVsAdventure .split-half .tick-mark {
+    position: absolute;
+    top: 80% !important;
+    left: 49% !important;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#securityVsAdventure .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* Reset any hover effects when animating */
+#securityVsAdventure .split-half.selected,
+#securityVsAdventure .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#securityVsAdventure .split-half:hover {
+    flex: 1.3;
+}
+
+/* Disable hover effects during animation */
+#securityVsAdventure .split-half.animating {
+    pointer-events: none;
+}
+
+/* Keep existing hover animations */
+@keyframes securityHover {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes elegantScale {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.03);
+    }
+}
+
+@media (max-width: 900px) {
+    #securityVsAdventure .split-question {
+        font-size: 1.5rem;
+    }
+    #securityVsAdventure .split-half {
+        font-size: 1.1rem;
+    }
+}
+
+/* Updated Split Section Styles */
+#securityVsAdventure.split-section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Account for navbar */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 60px; /* Below navbar */
+    left: 0;
+}
+
+#securityVsAdventure .split-full {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#securityVsAdventure .split-half {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    min-height: 50vh; /* Ensure minimum height */
+    margin-top: 96px;
+}
+
+/* Remove any max-width constraints that might exist */
+.quiz-container.gender-active,
+.quiz-container.skinTone-active {
+    max-width: 100vw !important;
+}
+
+/* Updated Care vs Lead Section Styles */
+#careVsLead.split-section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Account for navbar */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 60px; /* Below navbar */
+    left: 0;
+}
+
+#careVsLead .split-question {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #333333;
+}
+
+#careVsLead .split-full {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#careVsLead .split-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #6d4c2b;
+    min-height: 50vh;
+    margin-top: 96px;
+}
+
+#careVsLead .left-option {
+    background: rgb(237, 220, 191);
+    color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.3s ease;
+}
+
+#careVsLead .right-option {
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#careVsLead .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#careVsLead .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#careVsLead .split-half span {
+    font-size: 2rem;
+    color: #333333;
+}
+
+#careVsLead .split-half.selected {
+    background-color: rgb(35, 35, 35) !important;
+    color: #F4E6D4 !important;
+    position: relative;
+    animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3;
+}
+
+#careVsLead .split-half.selected span {
+    animation: textColorChange 2s ease-in-out forwards;
+}
+
+#careVsLead .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+#careVsLead .split-half:not(.selected) {
+    animation: shrinkOther 1.5s ease-in-out;
+}
+
+#careVsLead .split-half .tick-mark {
+    position: absolute;
+    top: 80% !important;
+    left: 49% !important;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#careVsLead .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#careVsLead .split-half.selected,
+#careVsLead .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#careVsLead .split-half:hover {
+    flex: 1.3;
+}
+
+#careVsLead .split-half.animating {
+    pointer-events: none;
+}
+
+/* Updated Care vs Lead Section Styles */
+#buildVsInvent.split-section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Account for navbar */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 60px; /* Below navbar */
+    left: 0;
+}
+
+#buildVsInvent .split-question {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #333333;
+}
+
+#buildVsInvent .split-full {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#buildVsInvent .split-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #6d4c2b;
+    min-height: 50vh;
+    margin-top: 96px;
+}
+
+#buildVsInvent .left-option {
+    background: rgb(237, 220, 191);
+    color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.3s ease;
+}
+
+#buildVsInvent .right-option {
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#buildVsInvent .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#buildVsInvent .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#buildVsInvent .split-half span {
+    font-size: 2rem;
+    color: #333333;
+}
+
+#buildVsInvent .split-half.selected {
+    background-color: rgb(35, 35, 35) !important;
+    color: #F4E6D4 !important;
+    position: relative;
+    animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3;
+}
+
+#buildVsInvent .split-half.selected span {
+    animation: textColorChange 2s ease-in-out forwards;
+}
+
+#buildVsInvent .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+#buildVsInvent .split-half:not(.selected) {
+    animation: shrinkOther 1.5s ease-in-out;
+}
+
+#buildVsInvent .split-half .tick-mark {
+    position: absolute;
+    top: 80% !important;
+    left: 49% !important;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#buildVsInvent .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#buildVsInvent .split-half.selected,
+#buildVsInvent .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#buildVsInvent .split-half:hover {
+    flex: 1.3;
+}
+
+#buildVsInvent .split-half.animating {
+    pointer-events: none;
+}
+
+#goodTimeVsSuccess.split-section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Account for navbar */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 60px; /* Below navbar */
+    left: 0;
+}
+
+#goodTimeVsSuccess .split-question {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #333333;
+}
+
+#goodTimeVsSuccess .split-full {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#goodTimeVsSuccess .split-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #6d4c2b;
+    min-height: 50vh;
+    margin-top: 96px;
+}
+
+#goodTimeVsSuccess .left-option {
+    background: rgb(237, 220, 191);
+    color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.3s ease;
+}
+
+#goodTimeVsSuccess .right-option {
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#goodTimeVsSuccess .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#goodTimeVsSuccess .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#goodTimeVsSuccess .split-half span {
+    font-size: 2rem;
+    color: #333333;
+}
+
+#goodTimeVsSuccess .split-half.selected {
+    background-color: rgb(35, 35, 35) !important;
+    color: #F4E6D4 !important;
+    position: relative;
+    animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3;
+}
+
+#goodTimeVsSuccess .split-half.selected span {
+    animation: textColorChange 2s ease-in-out forwards;
+}
+
+#goodTimeVsSuccess .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+#goodTimeVsSuccess .split-half:not(.selected) {
+    animation: shrinkOther 1.5s ease-in-out;
+}
+
+#goodTimeVsSuccess .split-half .tick-mark {
+    position: absolute;
+    top: 80% !important;
+    left: 49% !important;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#goodTimeVsSuccess .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#goodTimeVsSuccess .split-half.selected,
+#goodTimeVsSuccess .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#goodTimeVsSuccess .split-half:hover {
+    flex: 1.3;
+}
+
+#goodTimeVsSuccess .split-half.animating {
+    pointer-events: none;
+}
+
+/* updated organize vs surprise section */
+#organizeVsSurprise.split-section {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Account for navbar */
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 60px; /* Below navbar */
+    left: 0;
+}
+
+#organizeVsSurprise .split-question {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #333333;
+}
+
+#organizeVsSurprise .split-full {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+#organizeVsSurprise .split-half {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    font-size: 2.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #6d4c2b;
+    min-height: 50vh;
+    margin-top: 96px;
+}
+
+#organizeVsSurprise .left-option {
+    background: rgb(237, 220, 191);
+    color: #6d4c2b;
+    transform-origin: right center;
+    transition: flex 0.3s ease;
+}
+
+#organizeVsSurprise .right-option {
+    background: rgb(212, 194, 166);
+    color: #6d4c2b;
+    transform-origin: left center;
+    transition: flex 0.3s ease;
+}
+
+#organizeVsSurprise .split-half .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#organizeVsSurprise .split-half .option-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#organizeVsSurprise .split-half span {
+    font-size: 2rem;
+    color: #333333;
+}
+
+#organizeVsSurprise .split-half.selected {
+    background-color: rgb(35, 35, 35) !important;
+    color: #F4E6D4 !important;
+    position: relative;
+    animation: selectedExpand 1.5s ease-in-out;
+    flex: 1.3;
+}
+
+#organizeVsSurprise .split-half.selected span {
+    animation: textColorChange 2s ease-in-out forwards;
+}
+
+#organizeVsSurprise .split-half.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+#organizeVsSurprise .split-half:not(.selected) {
+    animation: shrinkOther 1.5s ease-in-out;
+}
+
+#organizeVsSurprise .split-half .tick-mark {
+    position: absolute;
+    top: 80% !important;
+    left: 49% !important;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#organizeVsSurprise .split-half.selected .tick-mark {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#organizeVsSurprise .split-half.selected,
+#organizeVsSurprise .split-half.fade-out {
+    transform: none !important;
+    flex: 1;
+}
+
+#organizeVsSurprise .split-half:hover {
+    flex: 1.3;
+}
+
+#organizeVsSurprise .split-half.animating {
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    #careVsLead .split-question {
+        font-size: 1.5rem;
+    }
+    #careVsLead .split-half {
+        font-size: 1.1rem;
+    }
+}
+
+/* Fragrance Strength Section Layout */
+#fragranceStrength {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 60px);
+  display: flex;
+  background: #f1f1f1;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+#fragranceStrength .strength-left {
+  width: 50vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+#fragranceStrength .strength-left h2 {
+  font-size: 4rem;
+  text-align: left;
+  margin-left: 10vw;
+  width: 100%;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+#fragranceStrength .strength-left h2 .strength-word {
+  display: block;
+  text-align: left;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-top: 0.2em;
+}
+
+#fragranceStrength .strength-right {
+  position: fixed;
+  top: 60px; /* below navbar */
+  left: 50vw; /* start from middle of screen */
+  width: 50vw;
+  height: calc(100vh - 60px); /* from below navbar to bottom */
+  background: rgb(237, 220, 191); /* fancy creamy white brownish */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  z-index: 11;
+  margin-top: -60px; /* below navbar */
+}
+
+#fragranceStrength .strength-blank {
+  width: 80%;
+  height: 60%;
+  background: rgb(241,228,205);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+/* im so done with this project fr */
+
+.strength-bars-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Aligns all bottoms together */
+    gap: 32px;
+    height: 100%;
+    position: relative;
+    /* Magic centering technique: */
+    transform: translateY(-38%);
+  }
+  
+  .strength-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .strength-bar {
+    width: 142px;
+    background: rgb(237, 220, 191);
+    border: 2.5px solid rgb(212, 194, 166);
+    border-radius: 6px 6px 0 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden; /* For the fill animation */
+  }
+
+.strength-bar:hover {
+    transform: translateY(-10px);
+    background: rgb(212, 194, 166);
+    border-color: rgb(146, 103, 80);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.strength-bar.selected {
+    background: transparent; /* Remove background as we're using the fill animation */
+    border-color: rgb(35, 35, 35);
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    animation: strengthSelected 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.strength-bar.selected + .strength-label {
+    color: rgb(35, 35, 35);
+    font-weight: 700;
+    opacity: 1;
+}
+
+.strength-bar.fade-out {
+    opacity: 0.3;
+    transform: scale(0.95);
+}
+
+/* Fill animation */
+.strength-bar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgb(35, 35, 35);
+    transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.strength-bar.selected::before {
+    height: 100%;
+}
+
+@keyframes strengthSelected {
+    0% {
+        transform: translateY(-10px) scale(1);
+    }
+    40% {
+        transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+        transform: translateY(-15px) scale(1.05);
+    }
+}
+
+.strength-bar-short {
+  height: 200px;
+}
+
+.strength-bar-medium {
+  height: 250px;
+}
+
+.strength-bar-tall {
+  height: 300px;
+}
+
+.strength-label {
+    margin-top: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    position: static;
+    width: auto;
+    z-index: auto;
+}
+
+/* Adjust tick mark position and add z-index */
+.strength-bar::after {
+    content: '✓';
+    position: absolute;
+    top: -30px;
+    margin-bottom: 3px; /* Added margin from top of rectangle */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    color: rgb(35, 35, 35);
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2; /* Ensure tick stays above the fill */
+}
+
+.strength-bar.selected::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .strength-bars-container {
+    gap: 16px;
+  }
+  .strength-bar {
+    width: 24px;
+    border-radius: 12px 12px 0 0;
+  }
+  .strength-bar:hover {
+    transform: translateY(-5px);
+  }
+  .strength-bar.selected {
+    transform: translateY(-8px) scale(1.05);
+  }
+  .strength-bar-short { height: 40px; }
+  .strength-bar-medium { height: 65px; }
+  .strength-bar-tall { height: 90px; }
+  .strength-label {
+    font-size: 0.8rem;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  #fragranceStrength .strength-left h2 {
+    font-size: 2.2rem;
+    margin-left: 4vw;
+  }
+  #fragranceStrength .strength-left h2 .strength-word {
+    font-size: 2.5rem;
+  }
+  #fragranceStrength .strength-blank {
+    width: 95%;
+    height: 40%;
+  }
+}

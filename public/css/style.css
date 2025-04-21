@@ -1,3 +1,31 @@
+/* CSS Variables (Custom Properties) */
+:root {
+  /* Colors
+  --color-primary: #121212;
+  --color-secondary: #666666;
+  --color-background: #ffffff; */
+  --color-background-gradient: white;
+  
+  /* Typography
+  --font-primary: "Monotype Baskerville", serif;
+  --font-secondary: sans-serif;
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 42px; */
+  
+  /* Spacing
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+  --spacing-xlarge: 80px; */
+  
+  /* Transitions 
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.5s ease;
+  --transition-slow: 0.8s ease; */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +35,7 @@
 body {
   /* height: 100px; */
   overflow-x: hidden;
+  background: var(--color-background-gradient);
 }
 
 /*~~FOR HIM & FOR HER~~*/
@@ -385,16 +414,16 @@ box-shadow: #000;
     "quality model"
     "reviews reviews";
   column-gap: 50px;
-  padding: 80px 5%;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  padding: 50px 5%;
+  background: var(--color-background-gradient);
   justify-content: center;
 }
 
 /* Quality Assurance Text */
 .quality-assurance {
   grid-area: quality;
-  padding-right: 40px;
-  max-width: 600px;
+  /* padding-right: 40px;
+  max-width: 600px; */
 }
 
 .quality-assurance h2 {
@@ -452,6 +481,7 @@ box-shadow: #000;
   max-height: 500px;
   text-align: center;
   justify-self: center;
+  position: relative;
 }
 
 .model-container h3 {
@@ -464,20 +494,44 @@ box-shadow: #000;
   width: 100%;
   height: 400px;
   background: #f1f1f1;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
   cursor: grab;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Hide from screen readers and interactions */
 }
 
-#model-viewer:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+#model-viewer.loaded {
+  opacity: 1;
+  visibility: visible;
 }
 
-#model-viewer:active {
-  cursor: grabbing;
+.model-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.model-loading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #121212;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .interaction-hint {
@@ -749,15 +803,12 @@ box-shadow: #000;
   }
 }
 
-
-
-
 /* --------------------
    Product Slider Section 
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background-color: #efcfa0;
+  background: var(--color-background-gradient);
   text-align: center;
 }
 
@@ -800,7 +851,7 @@ box-shadow: #000;
 .product-card {
   flex: 0 0 calc(33.333% - 320px);
   margin: 0 160px;
-  background-color: #efcfa0;
+  background: transparent;
   border-radius: 8px;
   box-shadow: 0 4px 8px none;
   overflow: hidden;
@@ -945,3 +996,139 @@ box-shadow: #000;
   background-color: #333; /* Darker shade on hover */
   transform: translateY(-2px); /* Slight lift on hover */
 }
+
+/* Find Your Scent Section */
+.find-your-scent-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--color-background-gradient);
+  position: relative;
+}
+
+.find-your-scent-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-family: "Monotype Baskerville", serif;
+}
+
+.find-your-scent-section p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 0px;
+}
+
+/* Forgot password button styling */
+.find-scent-btn {
+  position: relative;
+  text-decoration: none;
+  color: #121212;
+  padding: 0;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 25px;
+  font-family: sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
+  font-weight: 400;
+}
+
+.find-scent-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
+}
+
+.find-scent-btn:hover {
+  /* Cancel default blue color */
+  color: #121212;
+}
+
+.find-scent-btn:hover::after {
+  width: 20%;
+}
+
+.perfume-sequence-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 2rem;
+    padding: 3rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    place-items: center;
+}
+
+.perfume-sequence-container img {
+    /* width: 130px; */
+    height: 17rem;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.perfume-sequence-container img:hover {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 1200px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0rem;
+        padding: 2rem;
+    }
+    
+}
+
+@media (max-width: 1100px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    
+}
+
+@media (max-width: 900px) {
+    .perfume-sequence-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+ /* FLUID */
+ #female-fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  mix-blend-mode: screen; /* Blends with the female div */
+  z-index: 2; /* Make sure it's above the image but below text */
+  filter: sepia(100%) hue-rotate(330deg);
+  /* filter: sepia(100%) hue-rotate(300deg) saturate(500%); Alot of options with coloring*/
+}
+#male-fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  mix-blend-mode: screen; /* Blends with the female div */
+  z-index: 2; /* Make sure it's above the image but below text */
+  filter: sepia(100%) hue-rotate(330deg);
+  /* filter: sepia(100%) hue-rotate(300deg) saturate(500%); Alot of options with coloring*/
+}
+
