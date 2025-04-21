@@ -37,7 +37,6 @@ const requireAuth =(req, res, next) => {
         console.log(err.message);
         res.redirect("/");
       } else {
-        console.log(decodedToken);
         req.user = decodedToken;
         next();
       }
