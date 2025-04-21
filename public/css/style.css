@@ -38,7 +38,7 @@ justify-content: center;
 text-align: center;
 top: 74.5%;
 transform: translateY(-50%); /* Center vertically */
-box-shadow: #000;
+box-shadow: 0 0 10px #000;
 }
 
 .left-container{
