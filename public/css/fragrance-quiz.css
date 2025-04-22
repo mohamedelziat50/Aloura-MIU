@@ -2017,13 +2017,20 @@ nav {
 #desiredFeeling h2 {
     font-size: 4rem;
     text-align: left;
-    margin-left: 10vw;
+    margin-left: 8vw;
+    margin-right:-200px;
     width: 50vw;
     line-height: 1.1;
     font-weight: 700;
     display: flex;
     align-items: center;
 }
+
+
+
+
+
+
 
 #desiredFeeling .options {
     width: 50vw;
@@ -2040,7 +2047,7 @@ nav {
 
 #desiredFeeling .option {
     flex: 1 1 0;
-    width: 100%;
+    width: 127%;
     margin: 0;
     padding: 0;
     border: none;
@@ -2055,7 +2062,6 @@ nav {
     transition: all 0.3s ease;
     will-change: transform, box-shadow;
     transform-origin: center;
-    position: relative;
 }
 
 #desiredFeeling .option:not(:first-child) {
@@ -2076,11 +2082,11 @@ nav {
 }
 
 #desiredFeeling .option[data-value="fresh"] {
-    background-color: rgb(237, 220, 191);
+    background-color: #2562AF1A ;
 }
 
 #desiredFeeling .option[data-value="seductive"] {
-    background-color: rgb(212, 194, 166);
+    background-color: #A405161A;
 }
 
 #desiredFeeling .option:hover {
