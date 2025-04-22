@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 
+
 const auth = (allowedRoles = []) => {
   return async (req, res, next) => {
     try {
-
       const token = req.cookies?.jwt;
 
       if (!token) {
@@ -26,4 +26,6 @@ const auth = (allowedRoles = []) => {
   };
 };
 
-export default  auth;
+
+
+export default auth;

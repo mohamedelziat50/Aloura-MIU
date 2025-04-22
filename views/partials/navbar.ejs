@@ -1,6 +1,8 @@
 <!-- Navbar-specific CSS -->
 <link rel="stylesheet" href="./css/navBar.css" />
 
+<script src="../../js/modal.js"></script>
+
 <!-- Translate related -->
 <script>
   window.gtranslateSettings = {
@@ -20,18 +22,21 @@
 <nav>
   <!-- Left side container with logo and translate -->
   <div class="left-container-nav">
-    <!-- Logo on left side -->
     <div class="logo">
-      <a href="/"> <img src="./img/logo.png" alt="Logo" /></a>
+      <a href="/">
+        <img src="./img/logo.png" alt="Logo" />
+      </a>
     </div>
-
-    <!-- Translate next to logo -->
+    <!-- Translate will be inside actions -->
   </div>
 
+  <!-- Right side actions (search, login, cart, logout) -->
   <div class="actions">
     <ul>
       <li><div class="gtranslate_wrapper"></div></li>
-      <li><i class="fa-solid fa-magnifying-glass"></i></li>
+      <li>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </li>
       <li>
         <button
           style="border: none; background-color: transparent"
@@ -46,17 +51,25 @@
           style="border: none; background-color: transparent"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight"
-          aria-controls="offcanvasRight">
+          aria-controls="offcanvasRight"
+        >
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
+      </li>
+      <li>
+        <a href="/logout" id="logoutLink"
+          ><i class="fa-solid fa-right-from-bracket"></i
+        ></a>
       </li>
     </ul>
   </div>
 
+  <!-- Mobile menu button -->
   <button class="mobile-menu-btn">
     <i class="fa-solid fa-bars"></i>
   </button>
 
+  <!-- Navbar links -->
   <div class="links">
     <ul>
       <div class="mobile-logo">
@@ -64,7 +77,6 @@
           <img src="./img/logo.png" alt="Logo" />
         </a>
       </div>
-
       <li><a href="./all-fragrances">Fragrances</a></li>
       <li><a href="./collections">Collections</a></li>
       <li><a href="./gifting">Gifting</a></li>
