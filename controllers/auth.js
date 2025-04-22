@@ -104,3 +104,12 @@ export const verifyEmail = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
+
+export const logout = (req, res) => {  
+  res.clearCookie("jwt", cookieOptions);
+  res.redirect("/"); 
+  res.status(200).json({ message: "Logged out successfully!" });
+}
+
+export default { signup, login, verifyEmail, logout };

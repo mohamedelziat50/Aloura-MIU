@@ -350,3 +350,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutLink = document.getElementById("logoutLink");
+
+  logoutLink.addEventListener("click", (e) => {
+    e.preventDefault(); // Stop the normal redirect
+
+    showFunToast("👋 Logged out! Hope to see you back soon!", "green");
+
+    // After a small delay, redirect to the logout page
+    setTimeout(() => {
+      window.location.href = "/logout";
+    }, 1000); // 1.5 seconds (adjust if you want)
+  });
+});
+
