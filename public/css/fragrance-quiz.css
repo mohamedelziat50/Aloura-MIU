@@ -1999,3 +1999,137 @@ nav {
     height: 40%;
   }
 }
+
+/* --- Desired Feeling Section (copy of skinTone, but for 2 options) --- */
+#desiredFeeling {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 60px);
+    display: flex;
+    background: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+}
+
+#desiredFeeling h2 {
+    font-size: 4rem;
+    text-align: left;
+    margin-left: 10vw;
+    width: 50vw;
+    line-height: 1.1;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+#desiredFeeling .options {
+    width: 50vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+#desiredFeeling .option {
+    flex: 1 1 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-clip: padding-box;
+    outline: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    will-change: transform, box-shadow;
+    transform-origin: center;
+}
+
+#desiredFeeling .option:not(:first-child) {
+    margin-top: -1px;
+}
+
+#desiredFeeling .option.skin-animate-expand {
+    animation: skinToneExpand 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 2;
+}
+
+#desiredFeeling .option.skin-animate-shrink {
+    animation: skinToneShrink 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#desiredFeeling .option + .option {
+    border-top: none;
+}
+
+#desiredFeeling .option[data-value="fresh"] {
+    background-color: rgb(237, 220, 191);
+}
+
+#desiredFeeling .option[data-value="seductive"] {
+    background-color: rgb(212, 194, 166);
+}
+
+#desiredFeeling .option:hover {
+    transform: translateX(-10px) scale(1.06);
+    box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28), 0 2px 8px 0 rgba(0,0,0,0.12);
+    z-index: 2;
+}
+
+#desiredFeeling .option.selected {
+    background-color: rgb(35, 35, 35) !important;
+    transform: translateX(-10px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#desiredFeeling .option span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    margin-top: 50px;
+    color: #333;
+}
+
+#desiredFeeling .option.selected span {
+    color: #F4E6D4;
+}
+
+#desiredFeeling .option .tick-mark {
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+    color: #F4E6D4;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+#desiredFeeling .option.selected .tick-mark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (max-width: 900px) {
+    #desiredFeeling h2 {
+        font-size: 2.2rem;
+        margin-left: 4vw;
+    }
+    #desiredFeeling .options {
+        width: 100vw;
+    }
+}
