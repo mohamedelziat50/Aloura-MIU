@@ -47,6 +47,22 @@
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
       </li>
+
+      <% if (isAuthenticated) { %>
+      <li>
+        <a href="/logout" id="logoutLink">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </li>
+      <li>
+        <div class="profile">
+          <a href="/">
+            <img src="/img/defultprofile.png" alt="Logo" />
+          </a>
+        </div>
+      </li>
+
+      <% } else { %>
       <li>
         <button
           style="border: none; background-color: transparent"
@@ -56,11 +72,7 @@
           <i class="fa-regular fa-circle-user"></i>
         </button>
       </li>
-      <li>
-        <a href="/logout" id="logoutLink"
-          ><i class="fa-solid fa-right-from-bracket"></i
-        ></a>
-      </li>
+      <% } %>
     </ul>
   </div>
 
