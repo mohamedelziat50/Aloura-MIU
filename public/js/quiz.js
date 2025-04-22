@@ -93,6 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 userAnswers[section.id] = option.dataset.value;
                 setTimeout(moveToNextSection, 500);
                 return;
+            } else if (section.id === 'desiredFeeling') {
+                // Single selection for desired feeling section with tick mark and animation
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight;
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                // Add tick mark if not present
+                let tick = option.querySelector('.tick-mark');
+                if (!tick) {
+                    tick = document.createElement('div');
+                    tick.className = 'tick-mark';
+                    tick.innerHTML = '✓';
+                    option.appendChild(tick);
+                }
+                tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
             } else if (section.id === 'securityVsAdventure' || section.id === 'careVsLead' || section.id === 'buildVsInvent' || section.id === 'goodTimeVsSuccess' || section.id === 'organizeVsSurprise') {
                 return;
             } else if (section.id === 'buildVsInvent') {
@@ -188,6 +212,25 @@ document.addEventListener('DOMContentLoaded', () => {
             option.classList.remove('skin-animate-expand');
             option.classList.add('skin-animate-shrink');
             // Remove shrink class after animation so it can be triggered again
+            option.addEventListener('animationend', function handler(e) {
+                if (e.animationName === 'skinToneShrink') {
+                    option.classList.remove('skin-animate-shrink');
+                    option.removeEventListener('animationend', handler);
+                }
+            });
+        });
+    });
+
+    // Desired Feeling hover animation (expand/shrink with keyframes)
+    const desiredFeelingOptions = document.querySelectorAll('#desiredFeeling .option');
+    desiredFeelingOptions.forEach(option => {
+        option.addEventListener('mouseenter', () => {
+            option.classList.remove('skin-animate-shrink');
+            option.classList.add('skin-animate-expand');
+        });
+        option.addEventListener('mouseleave', () => {
+            option.classList.remove('skin-animate-expand');
+            option.classList.add('skin-animate-shrink');
             option.addEventListener('animationend', function handler(e) {
                 if (e.animationName === 'skinToneShrink') {
                     option.classList.remove('skin-animate-shrink');
