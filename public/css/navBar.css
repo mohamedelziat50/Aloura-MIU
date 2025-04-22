@@ -409,3 +409,19 @@ nav .actions ul li:nth-child(2) {
   /* Remove padding from the bar beside translate */
   padding-right: 0px;
 }
+
+
+
+nav .profile {
+  width: 30px;
+  margin-right: 0;
+}
+
+nav .profile img {
+  width: 100%;
+  height: auto;
+}
+
+nav .profile a:hover::after {
+  display: none;
+}

@@ -4,10 +4,16 @@ import UserModel from "../models/user.js";
 import moment from "moment";
 import auth from "../middleware/auth.js";
 
+  router.use((req, res, next) => {
+    res.locals.isAuthenticated = req.cookies.jwt ? true : false;
+    next();
+  });
 
 router.get("/", (req, res) => res.render("index"));
 router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
-router.get("/checkout", auth(["user" , "admin"]), (req, res) => res.render("checkout"));
+router.get("/checkout", auth(["user", "admin"]), (req, res) =>
+  res.render("checkout")
+);
 router.get("/fluid-only", (req, res) => res.render("fluid-only"));
 router.get("/fragrances-for-men", (req, res) =>
   res.render("fragrances-for-men")
@@ -23,18 +29,16 @@ router.get("/collections", (req, res) => res.render("collections"));
 
 router.get("/user/:id", (req, res) => res.redirect("/"));
 
-
-router.get("/admin/:id", auth(["admin"]),(req, res) => {
+router.get("/admin/:id", auth(["admin"]), (req, res) => {
   UserModel.find()
     .then((result) => {
       res.render("admin", { arr: result, moment: moment });
-      console.log(result);
     })
     .catch((err) => {
       console.log(err);
     });
 });
-router.post("/delete/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   UserModel.findByIdAndDelete(req.params.id)
     .then((result) => {
       res.redirect("/admin");
