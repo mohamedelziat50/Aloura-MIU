@@ -1,4 +1,4 @@
-# Aloura Fragrance Website
+# Aloura - Fragrance Website
 
 This is the repository for Aloura - a real-world startup fragrance e-commerce website.  
 
