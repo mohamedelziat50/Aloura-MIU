@@ -71,85 +71,128 @@ function initGenderHoverEffects() {
   const leftBtn = leftContainer.querySelector(".explore-fragrances");
   const rightBtn = rightContainer.querySelector(".explore-fragrances");
   
-  // Add visibility state flags
-  let femaleFluidVisible = true;
-  let maleFluidVisible = true;
+  // Fluid canvases
+  const femaleCanvas = document.getElementById("female-fluid-canvas");
+  const maleCanvas = document.getElementById("male-fluid-canvas");
+  
+  // State management
+  let isLeftHovered = false;
+  let isRightHovered = false;
+  let femaleFluidTimer = null;
+  let maleFluidTimer = null;
 
-    // Left container hover effect (hovering over female side)
-    leftContainer.addEventListener("mouseenter", () => {
-      forHimBtn.classList.add("hide"); // Hide the "For Him" button
-      your.classList.add("hide");
-      indulge.classList.add("hide");
-      leftBtn.classList.add("show");
-      leftParagraphs.forEach(p => p.classList.add("show"));
-      femaleDiv.style.flexGrow = "1.5";  // Increase the size of the female DIV
-      maleDiv.style.flexGrow = "0.5";    // Decrease the size of the male DIV
-      maleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of male IMG
+  // Left container hover effect (hovering over female side)
+  leftContainer.addEventListener("mouseenter", () => {
+    isLeftHovered = true;
+    
+    // UI changes
+    forHimBtn.classList.add("hide");
+    your.classList.add("hide");
+    indulge.classList.add("hide");
+    leftBtn.classList.add("show");
+    leftParagraphs.forEach(p => p.classList.add("show"));
+    femaleDiv.style.flexGrow = "1.5";
+    maleDiv.style.flexGrow = "0.5";
+    maleDiv.style.filter = "brightness(0.5)";
 
-      // Hide female fluid canvas
-      document.getElementById("female-fluid-canvas").style.display = "none";
-      femaleFluidVisible = false;
-    });
+    // Hide female fluid canvas immediately
+    femaleCanvas.style.opacity = "0";
+    femaleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
+    
+    // Clear any pending timers - This prevents race conditions by canceling any pending timers
+    if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
+    if (maleFluidTimer) clearTimeout(maleFluidTimer);
+  });
 
-    leftContainer.addEventListener("mouseleave", () => {
-      forHimBtn.classList.remove("hide"); // Show the "For Him" button again
-      your.classList.remove("hide");
-      indulge.classList.remove("hide");
-      leftBtn.classList.remove("show");
-      leftParagraphs.forEach(p => p.classList.remove("show"));
-      femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
-      maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
-      maleDiv.style.filter = "";   // Reset filter to default (let CSS rule apply)
+  leftContainer.addEventListener("mouseleave", () => {
+    isLeftHovered = false;
+    
+    // UI changes
+    forHimBtn.classList.remove("hide");
+    your.classList.remove("hide");
+    indulge.classList.remove("hide");
+    leftBtn.classList.remove("show");
+    leftParagraphs.forEach(p => p.classList.remove("show"));
+    femaleDiv.style.flexGrow = "";
+    maleDiv.style.flexGrow = "";
+    maleDiv.style.filter = "";
 
-      // Show female fluid canvas after delay only if it should be visible
-      if (!femaleFluidVisible) {
-        setTimeout(() => {
-          // Reset the canvas before showing it
-          const femaleCanvas = document.getElementById("female-fluid-canvas");
-          femaleCanvas.style.display = "block";
-          femaleFluidVisible = true;
-        }, 2000); // Match fluid simulation timing
-      }
-    });
+    // Only show the fluid canvases if we're not hovering over either container
+    if (!isRightHovered) {
+      // Clear any pending timers
+      if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
+      if (maleFluidTimer) clearTimeout(maleFluidTimer);
+      
+      // Fade in female fluid canvas after delay
+      femaleFluidTimer = setTimeout(() => {
+        femaleCanvas.style.opacity = "1"; // Match CSS opacity
+        femaleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
+      }, 1000);
+      
+      // Ensure male fluid is visible too (in case it was hidden before)
+      maleFluidTimer = setTimeout(() => {
+        maleCanvas.style.opacity = "1"; // Match CSS opacity
+        maleCanvas.style.pointerEvents = "auto";
+      }, 1000);
+    }
+  });
 
-    // Right container hover effect (hovering over male side)
-    rightContainer.addEventListener("mouseenter", () => {
-      forHerBtn.classList.add("hide"); // Hide the "For Her" button
-      your.classList.add("hide");
-      indulge.classList.add("hide");
-      rightBtn.classList.add("show");
-      rightParagraphs.forEach(p => p.classList.add("show"));
-      maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
-      femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
-      femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
+  // Right container hover effect (hovering over male side)
+  rightContainer.addEventListener("mouseenter", () => {
+    isRightHovered = true;
+    
+    // UI changes
+    forHerBtn.classList.add("hide");
+    your.classList.add("hide");
+    indulge.classList.add("hide");
+    rightBtn.classList.add("show");
+    rightParagraphs.forEach(p => p.classList.add("show"));
+    maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
+    femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
+    femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
 
-      // Hide male fluid canvas
-      document.getElementById("male-fluid-canvas").style.display = "none";
-      maleFluidVisible = false;
-    });
+    // Hide male fluid canvas immediately
+    maleCanvas.style.opacity = "0";
+    maleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
+    
+    // Clear any pending timers
+    if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
+    if (maleFluidTimer) clearTimeout(maleFluidTimer);
+  });
 
-    rightContainer.addEventListener("mouseleave", () => {
-      forHerBtn.classList.remove("hide"); // Show the "For Her" button again
-      your.classList.remove("hide");
-      indulge.classList.remove("hide");
-      rightBtn.classList.remove("show");
-      rightParagraphs.forEach(p => p.classList.remove("show"));
-      maleDiv.style.flexGrow = "";   // Reset flexGrow to default (let CSS rule apply)
-      femaleDiv.style.flexGrow = ""; // Reset flexGrow to default (let CSS rule apply)
-      femaleDiv.style.filter = ""; // Reset filter to default (let CSS rule apply)
+  rightContainer.addEventListener("mouseleave", () => {
+    isRightHovered = false;
+    
+    // UI changes
+    forHerBtn.classList.remove("hide");
+    your.classList.remove("hide");
+    indulge.classList.remove("hide");
+    rightBtn.classList.remove("show");
+    rightParagraphs.forEach(p => p.classList.remove("show"));
+    maleDiv.style.flexGrow = "";
+    femaleDiv.style.flexGrow = "";
+    femaleDiv.style.filter = "";
 
-      // Show male fluid canvas after delay only if it should be visible
-      if (!maleFluidVisible) {
-        setTimeout(() => {
-          // Reset the canvas before showing it
-          const maleCanvas = document.getElementById("male-fluid-canvas");
-          maleCanvas.style.display = "block";   
-          maleFluidVisible = true;
-        }, 2000); // Match fluid simulation timing
-      }
-    });
-  } // End reinstated null check
-
+    // Only show the fluid canvases if we're not hovering over either container
+    if (!isLeftHovered) {
+      // Clear any pending timers
+      if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
+      if (maleFluidTimer) clearTimeout(maleFluidTimer);
+      
+      // Fade in male fluid canvas after delay
+      maleFluidTimer = setTimeout(() => {
+        maleCanvas.style.opacity = "1"; // Match CSS opacity
+        maleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
+      }, 1000);
+      
+      // Ensure female fluid is visible too (in case it was hidden before)
+      femaleFluidTimer = setTimeout(() => {
+        femaleCanvas.style.opacity = "1"; // Match CSS opacity
+        femaleCanvas.style.pointerEvents = "auto";
+      }, 1000);
+    }
+  });
+}
 
 /**
  * Initializes the product slider with circular looping

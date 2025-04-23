@@ -1139,7 +1139,8 @@ box-shadow: #000;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 1;
+  opacity: 0; /* Start invisible */
+  transition: opacity 1.5s ease-in-out; /* Smooth transition for opacity */
   mix-blend-mode: screen; /* Blends with the female div */
   z-index: 2; /* Make sure it's above the image but below text */
   
@@ -1155,7 +1156,8 @@ box-shadow: #000;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 1;
+  opacity: 0; /* Start invisible */
+  transition: opacity 1.5s ease-in-out; /* Smooth transition for opacity */
   mix-blend-mode: screen; /* Blends with the male div */
   z-index: 2; /* Make sure it's above the image but below text */
   

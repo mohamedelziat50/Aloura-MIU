@@ -41,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
       dye_resolution: 592       // Slightly different from female for unique effect
     });
     greyFluid.activate();
+      
+      // Fade in the canvas after a short delay (after initial bubble would have disappeared)
+      setTimeout(() => {
+        greyCanvas.style.opacity = '1';
+      }, 1000);
   }
 });
 
