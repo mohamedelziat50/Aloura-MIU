@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         curl: 2,                  // Reduced for more subtle, elegant movement
         dissipation: 0.99,        // Increased for longer-lasting, smoother trails
-        emitter_size: 0.05,       // Smaller for more delicate, fine mist effect
+        emitter_size: 0.045,       // Smaller for more delicate, fine mist effect
         velocity: 0.985,           // Adjusted for slower, more elegant movement
         pressure: 0.6,            // Reduced for gentler fluid dispersion
         render_bloom: false,      // Disable bloom for cleaner look
