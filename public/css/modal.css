@@ -310,18 +310,127 @@
 }
 
 @media screen and (max-width: 768px) {
+  /* Modal header and general layout */
   .modal-header {
-    height: 100px;
+    height: auto !important;
+    padding: 0.5rem 1rem !important;
   }
-#show2fa{
-  display:none;
-}
-
-.btn-close{
-  margin-top: 5px;
-}
-  .modal-dialog{
+  
+  .modal-title {
+    font-size: 32px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .modal-content {
+    padding: 0.5rem !important;
+  }
+  
+  .modal-description {
+    font-size: 13px !important;
+    margin: 0 auto !important;
+    max-width: 90% !important;
+    text-align: center !important;
+  }
+  
+  /* Hide 2FA button on mobile */
+  #show2fa {
+    display: none;
+  }
+  
+  .btn-close {
+    margin-top: 5px;
+  }
+  
+  .modal-dialog {
     margin-top: 20px;
+  }
+  
+  /* Form elements */
+  .form-control {
+    padding: 0.5rem .75rem !important;
+    font-size: 13px !important;
+    height: auto !important;
+  }
+  
+  .password-toggle {
+    min-width: 30px !important;
+  }
+  
+  .password-toggle i {
+    font-size: 13px !important;
+    width: 13px !important;
+  }
+  
+  .input-group-text {
+    padding: 0.5rem .75rem !important;
+    font-size: 12px !important;
+  }
+  
+  /* Button sizing */
+  .loginButton, .signupButton {
+    padding: 8px !important;
+    font-size: 13px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+  
+  #googleSignInBtn, #appleSignInBtn, #googleSignUpBtn, #appleSignUpBtn {
+    padding: 6px !important;
+    font-size: 12px !important;
+  }
+  
+  /* Spacing adjustments */
+  .modal-body {
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  .mb-3 {
+    margin-bottom: 0.6rem !important;
+  }
+  
+  #signUpForm .mb-3 {
+    margin: 0.7rem 0 !important;
+  }
+  
+  /* Forgot password form */
+  #forgetpasswordform .form-control {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  #forgetpasswordform button {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Back to login button styling */
+  #showLoginForm1 {
+    display: block !important;
+    width: 100% !important;
+    font-size: 13px !important;
+    padding: 8px !important;
+  }
+  
+  /* 2FA form adjustments */
+  .form .input-fields input {
+    height: 2.2em !important;
+    width: 2.2em !important;
+    font-size: 1.3rem !important;
+  }
+  
+  .action-btns {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .verify, .clear {
+    padding: 8px 15px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  #backToLogin {
+    padding: 8px !important;
+    font-size: 13px !important;
   }
 }
 
@@ -467,46 +576,6 @@
   font-size: 48px !important;
 }
 
-/* Add this at the end of the file */
-@media screen and (max-width: 768px) {
-  /* Modal specific styles for mobile */
-  .modal-title.verification-title {
-    font-size: 36px !important;
-    margin-bottom: 10px !important;
-  }
-  
-  .modal-content {
-    padding: 0.5rem !important;
-  }
-  
-  .modal-header {
-    padding: 0.75rem !important;
-  }
-  
-  .modal-description {
-    font-size: 13px !important;
-    margin: 0 auto !important;
-    max-width: 90% !important;
-    text-align: center !important;
-  }
-  
-  .modal-body {
-    padding: 0.5rem 1rem !important;
-  }
-  
-  #forgetpasswordform .form-control {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  #forgetpasswordform button {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  /* Back to login button styling */
-  #showLoginForm1 {
-    display: block !important;
-    width: 100% !important;
-  }
+.input-group {
+  padding-top: 0 !important;
 }
