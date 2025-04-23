@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '.product-img', '.img-fluid', '.review-card-avatar img', '.perfume-sequence-container', // index.ejs related
     '.card-image', // all-fragrances.ejs related
     '.subimage', '.suggested-image',  // fragrances-page.ejs related
+    '.grey-section', // our story related
     
   ]; 
   new AutoDarkMode(theme, doubleRotatedElements);
