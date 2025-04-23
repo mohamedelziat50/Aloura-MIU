@@ -123,10 +123,6 @@
   background-color: #121212 !important;
 }
 
-.mb-2 {
-  margin: 1.5rem 0 !important;
-}
-
 #signup-name {
   margin-top: 0 !important;
 }
@@ -134,6 +130,7 @@
 .modal-content {
   background-color: #f8f9fa; /* Light gray background here if you want to change the modal color*/
   color: #333; /* Dark text color here to change the color of the text*/
+  padding: 1rem; /*Add padding to entire container*/
 }
 
 .modal-header {
@@ -468,4 +465,48 @@
 
 .verification-title {
   font-size: 48px !important;
+}
+
+/* Add this at the end of the file */
+@media screen and (max-width: 768px) {
+  /* Modal specific styles for mobile */
+  .modal-title.verification-title {
+    font-size: 36px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .modal-content {
+    padding: 0.5rem !important;
+  }
+  
+  .modal-header {
+    padding: 0.75rem !important;
+  }
+  
+  .modal-description {
+    font-size: 13px !important;
+    margin: 0 auto !important;
+    max-width: 90% !important;
+    text-align: center !important;
+  }
+  
+  .modal-body {
+    padding: 0.5rem 1rem !important;
+  }
+  
+  #forgetpasswordform .form-control {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  #forgetpasswordform button {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Back to login button styling */
+  #showLoginForm1 {
+    display: block !important;
+    width: 100% !important;
+  }
 }

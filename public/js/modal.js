@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       loginModalLabel.classList.add("verification-title");
       modalDescription.style.display = "block";
       modalDescription.textContent =
-        "Enter your email address and we'll send you a link to reset your password";
+        "Enter your email address, a link to reset your password will be sent";
     });
   }
 
