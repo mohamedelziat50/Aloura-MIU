@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       heading.classList.add("visible"); // Zoom in the heading
       glow.classList.add("visible"); // Add glow effect
     }, 100); // Adjust the delay as needed
-  });
+  
 
   // AUDIO RELATED
   const muteBtn = document.getElementById("muteToggle");
@@ -63,3 +63,4 @@ document.addEventListener("DOMContentLoaded", function () {
       };
     }, 700); // Wait 1s before switching video
   };
+});

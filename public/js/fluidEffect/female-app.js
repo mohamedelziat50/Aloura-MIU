@@ -48,6 +48,15 @@ document.addEventListener('DOMContentLoaded', function () {
         dye_resolution: 592       // Higher resolution for smoother appearance
       });
       greyFluid.activate();
+
+      // Initially hide the canvas to prevent seeing the initial bubble
+      greyCanvas.style.opacity = '0';
+      
+      // Fade in the canvas after a short delay (after initial bubble would have disappeared)
+      setTimeout(() => {
+        greyCanvas.style.transition = 'opacity 2.5s ease'; // Still intial bubble appears but is quite good
+        greyCanvas.style.opacity = '1';
+      }, 2500);
     }
   });
 
