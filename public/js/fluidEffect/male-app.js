@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         curl: 5,                // Even more subtle for male side, matching template
         dissipation: 0.985,       // Slightly faster dissipation than female
-        emitter_size: 0.06,       // Slightly larger than female for different effect
+        emitter_size: 0.05,       // Slightly larger than female for different effect
         velocity: 0.99,           // Slightly slower movement
-        pressure: 0.9,            // Different pressure level for unique fluid behavior
+        pressure: 0.55,            // Different pressure level for unique fluid behavior
         render_bloom: false,      // Disable bloom for cleaner look
         render_shaders: true,     // Ensure shaders are used
         transparent: true,        // Keep transparent background
