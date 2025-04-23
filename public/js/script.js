@@ -87,7 +87,8 @@ function initGenderHoverEffects() {
       maleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of male IMG
 
       // Hide female fluid canvas
-      document.getElementById("female-fluid-canvas").style.display = "none";
+      // document.getElementById("female-fluid-canvas").style.display = "none";
+      document.getElementById("female-fluid-canvas").style.opacity = "0";
       femaleFluidVisible = false;
     });
 
@@ -106,9 +107,11 @@ function initGenderHoverEffects() {
         setTimeout(() => {
           // Reset the canvas before showing it
           const femaleCanvas = document.getElementById("female-fluid-canvas");
-          femaleCanvas.style.display = "block";
+          // femaleCanvas.style.display = "block";
+          femaleCanvas.style.opacity = "1"; // Show the female fluid canvas
+          
           femaleFluidVisible = true;
-        }, 2000); // Match fluid simulation timing
+        }, 1500); // Match fluid simulation timing
       }
     });
 
@@ -124,7 +127,8 @@ function initGenderHoverEffects() {
       femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
 
       // Hide male fluid canvas
-      document.getElementById("male-fluid-canvas").style.display = "none";
+      // document.getElementById("male-fluid-canvas").style.display = "none";
+      document.getElementById("male-fluid-canvas").style.opacity = "0";
       maleFluidVisible = false;
     });
 
@@ -143,9 +147,10 @@ function initGenderHoverEffects() {
         setTimeout(() => {
           // Reset the canvas before showing it
           const maleCanvas = document.getElementById("male-fluid-canvas");
-          maleCanvas.style.display = "block";   
+          // maleCanvas.style.display = "block";  
+          maleCanvas.style.opacity = "1"; // Show 
           maleFluidVisible = true;
-        }, 2000); // Match fluid simulation timing
+        }, 1500); // Match fluid simulation timing
       }
     });
   } // End reinstated null check
