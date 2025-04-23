@@ -11,6 +11,7 @@ import auth from "../middleware/auth.js";
 
 router.get("/", (req, res) => res.render("index"));
 router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
+router.get("/gifting", (req, res) => res.render("gifting"));
 router.get("/checkout", auth(["user", "admin"]), (req, res) =>
   res.render("checkout")
 );
