@@ -230,3 +230,10 @@
   box-shadow: none !important;
   border-color: #ced4da !important; /* fallback to default border */
 }
+
+
+@media (min-width: 600px) {
+  .custom-offcanvas {
+    min-width: 450px !important; /* Adjust as needed */
+  }
+}
