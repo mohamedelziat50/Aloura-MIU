@@ -33,34 +33,33 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // VIDEO CYCLE RELATED
-  document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("cyclingVideo");
-    const source = document.getElementById("videoSource");
+  // VIDEO CYCLE RELATED
+  const video = document.getElementById("cyclingVideo");
+  const source = document.getElementById("videoSource");
 
-    // Array of video sources to cycle through
-    const videos = [
-      "../videos/photoshoot-2.mp4",
-      "../videos/photoshoot.mp4",
-      "../videos/photoshoot-romeo.mp4",
-      "../videos/photoshoot-3.mp4",
-      "../videos/photoshoot-nasser.mp4",
-    ];
+  // Array of video sources to cycle through
+  const videos = [
+    "../videos/photoshoot-2.mp4",
+    "../videos/photoshoot.mp4",
+    "../videos/photoshoot-romeo.mp4",
+    "../videos/photoshoot-3.mp4",
+    "../videos/photoshoot-nasser.mp4",
+  ];
 
-    let currentIndex = 0;
+  let currentIndex = 0;
 
-    video.onended = function () {
-      video.style.transition = "opacity 0.7s";
-      video.style.opacity = 0; // Fade out
+  video.onended = function () {
+    video.style.transition = "opacity 0.7s";
+    video.style.opacity = 0; // Fade out
 
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % videos.length;
-        source.src = videos[currentIndex];
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % videos.length;
+      source.src = videos[currentIndex];
 
-        video.load();
-        video.oncanplay = function () {
-          video.style.opacity = 1; // Fade in
-          video.play();
-        };
-      }, 700); // Wait 1s before switching video
-    };
-  });
+      video.load();
+      video.oncanplay = function () {
+        video.style.opacity = 1; // Fade in
+        video.play();
+      };
+    }, 700); // Wait 1s before switching video
+  };
