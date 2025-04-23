@@ -232,8 +232,14 @@
 }
 
 
-@media (min-width: 600px) {
+@media (max-width: 768px) {
   .custom-offcanvas {
     min-width: 450px !important; /* Adjust as needed */
+  }
+}
+
+@media (max-width: 550px) {
+  .custom-offcanvas {
+    min-width: 350px !important; /* Adjust as needed */
   }
 }
