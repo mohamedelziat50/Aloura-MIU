@@ -12,7 +12,7 @@
 
 /* Body Styling */
 body {
-    background-color: #f8f8f8;
+    background-color: white !important; /*Fix bugged dark mode background*/
     color: #333;
     height: auto;
 }

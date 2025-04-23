@@ -36,6 +36,7 @@ body {
   /* height: 100px; */
   overflow-x: hidden;
   background: var(--color-background-gradient);
+  background-color: var(--color-background-gradient) !important; /* Fixes Dark Mode footer part */
 }
 
 /*~~FOR HIM & FOR HER~~*/
