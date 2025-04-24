@@ -45,8 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
             hardwareSpecs.gpuInfo = renderer;
             
             // Check if GPU is discrete by looking for certain keywords
-            // Removed 'amd' as it's mostly CPUs, but keeping 'radeon' which are AMD GPUs
-            const discreteGPUKeywords = ['nvidia', 'radeon', 'geforce', 'rtx', 'gtx'];
+            const discreteGPUKeywords = [
+              // NVIDIA GPUs
+              'nvidia', 'geforce', 'rtx', 'gtx', 'quadro', 
+              // AMD Radeon GPUs
+              'radeon', 'rx', 'vega',
+              // Intel discrete GPUs
+              'arc', 'iris', 
+              // Apple GPUs
+              'apple gpu', 'apple m1', 'apple m2', 
+              // Other professional/gaming GPUs
+              'matrox', 'powervr', 'adreno', 'mali'
+            ];
             hardwareSpecs.isDiscreteGPU = discreteGPUKeywords.some(keyword => 
               renderer.toLowerCase().includes(keyword)
             );
