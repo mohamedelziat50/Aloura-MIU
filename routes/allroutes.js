@@ -23,6 +23,11 @@ router.use(async (req, res, next) => {
 });
 
 router.get("/", (req, res) => res.render("index"));
+<<<<<<< HEAD
+=======
+router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
+router.get("/gifting", (req, res) => res.render("gifting"));
+>>>>>>> c985aa4be51c272faa7b55b1c1678e2aeb2c82fe
 router.get("/checkout", auth(["user", "admin"]), (req, res) =>
   res.render("checkout")
 );
