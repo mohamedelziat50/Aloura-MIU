@@ -1,22 +1,23 @@
 import express from "express";
-
-import allRoutes from "./routes/allroutes.js";
-import authRoutes from "./routes/auth.js";
+import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
-import publicRoutes from "./routes/publicRoutes.js";
 
+import {PORT} from "./config/secrets.js";
 
 const app = express();
-const port = 3000;
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(cookieParser())
 
+// middlewares
 
-app.use(authRoutes);
-app.use(allRoutes);
-app.use(publicRoutes);
+app.use(express.urlencoded({ extended: true })); //read the req.body
+app.use(express.json()); //read the req.body
+app.use(cookieParser()); // read the cookies
+app.use(express.static("public")); // serve static files from public directory
+app.set("view engine", "ejs"); // set the view engine to ejs
 
+connectDB();
 
+//routes
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
