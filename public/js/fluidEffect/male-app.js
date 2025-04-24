@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Detect if screen is smaller than 768px (phones + small tablets)
     const isSmallScreen = window.matchMedia('(max-width: 768px)').matches || 
     /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+    
+    console.log(`Small screen size detection result: ${isSmallScreen}`);
 
     if(isSmallScreen)
     {
         // Fallback for smaller screens (hide canvas or show static content)
       greyCanvas.style.display = 'none';
+      console.log('Small screen detected. Fluid effect disabled for better performance.');
       return; // Exit early (no Fluid-JS initialization)
     }
   

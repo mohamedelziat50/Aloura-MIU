@@ -136,7 +136,7 @@ box-shadow: #000;
   color: white;
   border: none;
   padding: 20px;
-  font-size: 43px;
+  font-size: 3.2rem;
   font-family: 'Bebas Neue'; /* the font used on slider but it doesnt look like it */
   cursor: pointer;
   text-transform: uppercase;
@@ -191,7 +191,7 @@ box-shadow: #000;
 /* Journey text styling */
 .fragrance-quiz-container {
   position: absolute;
-  bottom: 20px;
+  bottom: 4.5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -201,14 +201,14 @@ box-shadow: #000;
 
 .fragrance-quiz a{
   text-decoration: none;
-  color: grey;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .fragrance-quiz {
-  font-family: "Proxima Nova", sans-serif;
   color: grey;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
   height: 24px;
   line-height: 24px;
   letter-spacing: 1px;
@@ -220,7 +220,7 @@ box-shadow: #000;
 
 /* Show class that will be added by JavaScript */
 .fragrance-quiz.show {
-  opacity: 1;
+  opacity: 0.8;
   transform: translateY(0);
 }
 
@@ -241,14 +241,26 @@ box-shadow: #000;
   color: rgb(238, 236, 236);
   z-index: 10;
   pointer-events: none;
-  font-weight: 650;
   transform: scale(1, 1.2) translateY(40px); /* Start position */
   opacity: 0; /* Start invisible */
   transition: opacity 0.8s ease, transform 0.8s ease; /* Match button transition */
 }
 
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.urbanist-custom {
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Replace <weight> with a valid value */
+  font-style: normal;
+}
+
 .text-overlay-indulge {
-  top: 20%;
+  top: 17%;
   left: 10%;
   font-size: 150px;
 }
@@ -371,20 +383,19 @@ box-shadow: #000;
 .text-overlay button.show,
 .text-overlay-indulge.show,
 .text-overlay-your.show {
-  opacity: 1;
+  opacity: 0.95;
   transform: translateY(0);
 }
 
 /* Text Overlay Styles */
 .text-overlay-indulge {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 10%;
   color: rgb(238, 236, 236);
   z-index: 10;
   pointer-events: none;
-  font-size: 150px;
-  font-weight: 650;
+  font-size: 17.5rem;
   transform: scale(1, 1.2); /* Stretch vertically */
   transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
@@ -393,12 +404,11 @@ box-shadow: #000;
 .text-overlay-your {
   position: absolute;
   top: 45%;
-  left: 23%;
+  left: 30%;
   color: rgb(238, 236, 236);
   z-index: 10;
   pointer-events: none;
-  font-size: 150px;
-  font-weight: 650;
+  font-size: 17.5rem;
   white-space: nowrap;
   transform: scale(1, 1.2); /* Stretch vertically */
   transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
