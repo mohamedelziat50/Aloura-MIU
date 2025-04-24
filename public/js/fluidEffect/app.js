@@ -29,11 +29,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Detect hardware specifications
     function detectSpecs() {
       // Detect CPU cores
-      hardwareSpecs.cores = navigator.hardwareConcurrency || 2;
+      hardwareSpecs.cores = navigator.hardwareConcurrency || 4;
       
       // Detect memory (in GB)
-      hardwareSpecs.memory = navigator.deviceMemory || 4;
-
+      // Note: navigator.deviceMemory is often capped at 8GB by browsers and may report much lower values
+      let detectedMemory = navigator.deviceMemory || 4;
+      
+      // Fix for deviceMemory API reporting very low values (0.5GB) on high-end systems 
+      if (detectedMemory < 1) {
+        detectedMemory = 8; // Set a reasonable default if reported memory is suspiciously low
+      }
+      
+      // Fix for deviceMemory API capping at 8GB
+      if (detectedMemory === 8 && hardwareSpecs.cores >= 6) {
+        detectedMemory = 16; // Assume higher memory for machines with many cores
+      }
+      
+      hardwareSpecs.memory = detectedMemory;
+      
       // Detect GPU type
       try {
         const canvas = document.createElement('canvas');
@@ -57,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
               // Other professional/gaming GPUs
               'matrox', 'powervr', 'adreno', 'mali'
             ];
+            
             hardwareSpecs.isDiscreteGPU = discreteGPUKeywords.some(keyword => 
               renderer.toLowerCase().includes(keyword)
             );
@@ -69,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Log more detailed hardware specs for debugging
       console.log('Hardware specs detected:', hardwareSpecs);
       console.log('Raw deviceMemory API value:', navigator.deviceMemory || 'Not available');
+      console.log('Raw hardwareConcurrency API value:', navigator.hardwareConcurrency || 'Not available');
       
       return hardwareSpecs;
     }
@@ -148,8 +163,8 @@ document.addEventListener('DOMContentLoaded', function () {
         transparent: true,
         render_bloom: false,
         render_shaders: false, // Disabled shaders for low tier
-        sim_resolution: 104,  
-        dye_resolution: 296   
+        sim_resolution: 84,   // Further reduced for better performance
+        dye_resolution: 256   // Further reduced for better performance
       }
     };
   
@@ -158,9 +173,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Detect hardware capabilities first
     detectSpecs();
     
-    // Check minimum requirements
+    // Check minimum requirements - if not met, disable fluid effect entirely
+    // NOTE: We're checking if either condition passes (has decent CPU/RAM OR has a discrete GPU)
     const hasMinimumRequirements = 
-      (hardwareSpecs.cores >= 2 && hardwareSpecs.memory >= 2) && hardwareSpecs.isDiscreteGPU;
+      (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) || hardwareSpecs.isDiscreteGPU;
     
     if (!hasMinimumRequirements) {
       console.log('Hardware does not meet minimum requirements for fluid effect, disabling');
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fade in the canvas after a short delay
     setTimeout(() => {
       greyCanvas.style.opacity = '1';
-    }, 1000);
+    }, 2500);
     
     // Re-assess tier after 3 seconds when we have FPS data
     setTimeout(() => {
