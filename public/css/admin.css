@@ -1241,13 +1241,13 @@ canvas {
   font-weight: bold;
 }
 
-.searchButton{
+.ButtonDicoration{
     color: white !important;
     background-color: #121212 !important;
     border: 1px solid #121212 !important;
 }
 
-.searchButton:hover {
+.ButtonDicoration:hover {
   color: #121212 !important;
   background-color: white !important;
 }

@@ -28,6 +28,7 @@ router.get("/checkout", auth(["user", "admin"]), (req, res) =>
   res.render("checkout")
 );
 router.get("/fluid-only", (req, res) => res.render("fluid-only"));
+router.get("/admin/add-user", (req, res) => res.render("addUser"));
 
 router.get("/fragrance-quiz", (req, res) => res.render("fragrance-quiz"));
 

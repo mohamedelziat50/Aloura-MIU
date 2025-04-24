@@ -312,17 +312,23 @@
         <% if (arr.length===0) { %>
         <h1 style="text-align: center">No Data To Show</h1>
         <% } %> <% if (arr.length>0) { %>
-        <div class="d-flex justify-content-end">
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn searchButton" type="submit">Search</button>
-          </form>
-        </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Add User Button on the left -->
+            <a class="btn ButtonDicoration" href="/add-user">AddUser</a>
+          
+            <!-- Search Form on the right -->
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn ButtonDicoration" type="submit">Search</button>
+            </form>
+          </div>
+          
         <table
           class="text-center mx-auto table mt-4 table-striped table-bordered"
         >
@@ -353,7 +359,7 @@
                   data-bs-toggle="tooltip"
                   data-bs-title="View details"
                   data-bs-placement="top"
-                  class="btn btn-primary btn-sm"
+                  class="btn ButtonDicoration btn-sm"
                   href="./user/view.html"
                   ><i class="bi bi-eye"></i
                 ></a>
@@ -361,7 +367,7 @@
                   data-bs-toggle="tooltip"
                   data-bs-title="Edit user"
                   data-bs-placement="top"
-                  class="btn btn-primary btn-sm"
+                  class="btn ButtonDicoration btn-sm"
                   href="./user/edit.html"
                   ><i class="bi bi-pencil"></i
                 ></a>
