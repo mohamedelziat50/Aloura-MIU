@@ -4,11 +4,12 @@ import Fragrance from "../models/Fragrance.js";
 export const createFragrance = async (req, res) => {
   try {
     const fragrance = await Fragrance.create(req.body);
-    res.status(201).json(fragrance);
+    return res.status(201).json(fragrance); // Use return to prevent further execution
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message }); // Use return to prevent further execution
   }
 };
+
 
 // Read all
 export const getAllFragrances = async (req, res) => {

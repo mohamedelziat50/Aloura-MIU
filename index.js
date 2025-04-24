@@ -25,13 +25,13 @@ connectDB();
 //routes
 app.use(frontendRouter);
 app.use("/api/users", userRouter);
-app.use('/api/fragrances', fragranceRoutes);
+app.use('/api/fragrances/', fragranceRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);
 
-app.use((req, res, next) => {
-  res.render("404");
-});
+// app.use((req, res, next) => {
+//   res.render("404");
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

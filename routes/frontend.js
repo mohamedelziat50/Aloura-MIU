@@ -7,11 +7,11 @@ const router = express.Router();
 
 router.use(async (req, res, next) => {
   try {
-    const token = req.cookies?.jwt;
+    const token = req.cookies.jwt;
 
     if (!token) {
       res.locals.user = null; // No user found
-      next();
+      return next();
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
