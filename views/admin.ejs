@@ -310,10 +310,21 @@
           </div>
         </div>
         <% if (arr.length===0) { %>
-        <h1 style="text-align: center;">No Data To Show</h1>
+        <h1 style="text-align: center">No Data To Show</h1>
         <% } %> <% if (arr.length>0) { %>
+        <div class="d-flex justify-content-end">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn searchButton" type="submit">Search</button>
+          </form>
+        </div>
         <table
-          class="text-center mx-auto table mt-5 table-striped table-bordered"
+          class="text-center mx-auto table mt-4 table-striped table-bordered"
         >
           <thead>
             <tr>
@@ -354,20 +365,46 @@
                   href="./user/edit.html"
                   ><i class="bi bi-pencil"></i
                 ></a>
-                <form
-                  style="display: inline"
-                  action="/delete/<%= item._id %>?_method=DELETE"
-                  method="post"
+                <button
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Delete user"
+                  data-bs-placement="top"
+                  data-user-id="<%= item._id %>"
+                  class="btn btn-danger btn-sm"
+                  onclick="deleteUser(this)"
                 >
-                  <button
-                    data-bs-toggle="tooltip"
-                    data-bs-title="Delete user"
-                    data-bs-placement="top"
-                    class="btn btn-danger btn-sm"
-                  >
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </form>
+                  <i class="bi bi-trash"></i>
+                </button>
+                <script type="module">
+                  import { showFunToast } from "./js/toast.js";
+                
+                  window.addEventListener("DOMContentLoaded", () => {
+                    window.deleteUser = (btn) => {
+                      const user_id = btn.getAttribute("data-user-id");
+                
+                      fetch(`http://localhost:3000/delete/${user_id}`, {
+                        method: "DELETE",
+                      })
+                        .then(async (response) => {
+                          const data = await response.json();
+                
+                          if (response.ok) {
+                            showFunToast(data.message || "✅ User deleted successfully!", "green");
+                            setTimeout(() => {
+                              window.location.href = "/admin";
+                            }, 1000);
+                          } else {
+                            showFunToast(data.message || "❗ An error occurred.", "red");
+                          }
+                        })
+                        .catch((error) => {
+                          showFunToast(error.message || "❗ An error occurred.", "red");
+                        });
+                    };
+                  });
+                </script>
+                
+                
               </td>
             </tr>
             <% }) %>
