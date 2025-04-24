@@ -377,34 +377,41 @@
                 </button>
                 <script type="module">
                   import { showFunToast } from "./js/toast.js";
-                
+
                   window.addEventListener("DOMContentLoaded", () => {
                     window.deleteUser = (btn) => {
                       const user_id = btn.getAttribute("data-user-id");
-                
+
                       fetch(`http://localhost:3000/delete/${user_id}`, {
                         method: "DELETE",
                       })
                         .then(async (response) => {
                           const data = await response.json();
-                
+
                           if (response.ok) {
-                            showFunToast(data.message || "✅ User deleted successfully!", "green");
+                            showFunToast(
+                              data.message || "✅ User deleted successfully!",
+                              "green"
+                            );
                             setTimeout(() => {
                               window.location.href = "/admin";
                             }, 1000);
                           } else {
-                            showFunToast(data.message || "❗ An error occurred.", "red");
+                            showFunToast(
+                              data.message || "❗ An error occurred.",
+                              "red"
+                            );
                           }
                         })
                         .catch((error) => {
-                          showFunToast(error.message || "❗ An error occurred.", "red");
+                          showFunToast(
+                            error.message || "❗ An error occurred.",
+                            "red"
+                          );
                         });
                     };
                   });
                 </script>
-                
-                
               </td>
             </tr>
             <% }) %>
