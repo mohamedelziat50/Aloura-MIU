@@ -312,6 +312,8 @@ loginForm.addEventListener("submit", async (event) => {
     password,
   };
 
+  console.log("Form data:", formData); // Log the form data
+
   fetch("http://localhost:3000/login", {
     method: "POST",
     credentials: "include", // ← important!

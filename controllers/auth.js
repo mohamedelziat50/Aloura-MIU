@@ -109,7 +109,6 @@ export const verifyEmail = async (req, res) => {
 export const logout = (req, res) => {  
   res.clearCookie("jwt", cookieOptions);
   res.redirect("/"); 
-  res.status(200).json({ message: "Logged out successfully!" });
 }
 
 export default { signup, login, verifyEmail, logout };

@@ -33,7 +33,7 @@ const User = new mongoose.Schema(
     },
     Image: {
       type: String,
-      default: "/img/defultprofile.png",
+      default: "./img/defultprofile.png",
     },
     verified: {
       type: Boolean,

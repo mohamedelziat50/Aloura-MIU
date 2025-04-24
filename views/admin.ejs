@@ -373,49 +373,6 @@
             <% }) %>
           </tbody>
         </table>
-        <br /><br />
-        <!-- Users Grid with Notes -->
-        <div class="users-grid">
-          <% arr.forEach((item, index) => { %>
-          <div class="user-card">
-            <div class="user-avatar">
-              <img src="<%= item.Image %>" alt="User Avatar" />
-            </div>
-            <div class="user-info">
-              <h3 class="user-name"><%= item.name %></h3>
-              <p class="user-email"><%= item.email %></p>
-              <p class="user-role">Gold Member</p>
-              <p class="user-joined"><%= item.tel %></p>
-              <!-- Notes Section -->
-              <div class="user-notes">
-                <div class="notes-header">
-                  <h4><%= item.verified %></h4>
-                  <button class="btn-add-note">+ Add</button>
-                </div>
-                <div class="notes-list">
-                  <div class="note">
-                    <p>
-                      "Prefers floral scents - recommended new Chanel launch"
-                    </p>
-                    <span class="note-date"
-                      ><%= moment(item.updatedAt).fromNow() %></span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="user-actions">
-              <button class="user-btn edit">Edit</button>
-              <form
-                action="/delete/<%= item._id %>?_method=DELETE"
-                method="post"
-              >
-                <button class="user-btn delete">Delete</button>
-              </form>
-            </div>
-          </div>
-          <% }) %>
-        </div>
         <% } %>
       </section>
 
