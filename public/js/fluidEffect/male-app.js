@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
             hardwareSpecs.gpuInfo = renderer;
             
             // Check if GPU is discrete by looking for certain keywords
-            const discreteGPUKeywords = ['nvidia', 'amd', 'radeon', 'geforce', 'rtx', 'gtx'];
+            // Removed 'amd' as it's mostly CPUs, but keeping 'radeon' which are AMD GPUs
+            const discreteGPUKeywords = ['nvidia', 'radeon', 'geforce', 'rtx', 'gtx'];
             hardwareSpecs.isDiscreteGPU = discreteGPUKeywords.some(keyword => 
               renderer.toLowerCase().includes(keyword)
             );
@@ -101,21 +102,18 @@ document.addEventListener('DOMContentLoaded', function () {
         currentFPS: Math.round(currentFPS)
       });
       
+      // Only high and low tiers now
       if (hardwareSpecs.cores >= 6 && 
           hardwareSpecs.memory >= 8 && 
           hardwareSpecs.isDiscreteGPU && 
-          currentFPS >= 50) {
+          currentFPS >= 30) {
         return 'high';
-      } else if (hardwareSpecs.cores >= 4 && 
-                 hardwareSpecs.memory >= 4 && 
-                 currentFPS >= 30) {
-        return 'mid';
       } else {
         return 'low';
       }
     }
 
-    // Define tier-specific settings
+    // Define tier-specific settings (removed mid tier)
     const tierSettings = {
       high: {
         sim_resolution: 208,
@@ -130,52 +128,46 @@ document.addEventListener('DOMContentLoaded', function () {
         transparent: true,
         paused: false
       },
-      mid: {
-        sim_resolution: 156,
-        dye_resolution: 444,
-        curl: 5,
-        dissipation: 0.95,
-        emitter_size: 0.05,
-        velocity: 0.97,
-        pressure: 0.55,
-        render_bloom: false,
-        render_shaders: true,
-        transparent: true,
-        paused: false
-      },
       low: {
-        sim_resolution: 104,
-        dye_resolution: 296,
+        sim_resolution: 84,  // Further reduced from original low tier (was 104)
+        dye_resolution: 256, // Further reduced from original low tier (was 296)
         curl: 5,
         dissipation: 0.90,
         emitter_size: 0.05,
         velocity: 0.85,
         pressure: 0.55,
         render_bloom: false,
-        render_shaders: true,
+        render_shaders: false, // Disabled shaders for low tier to improve performance
         transparent: true,
         paused: false
       }
     };
   
     // Only runs on desktop/large screens (>1024px)
-    if (typeof Fluid !== 'undefined' && greyCanvas)
-    {
+    if (typeof Fluid !== 'undefined' && greyCanvas) {
       // Detect hardware capabilities first
       detectSpecs();
+      
+      // Check minimum requirements - if not met, disable fluid effect entirely
+      const hasMinimumRequirements = 
+        (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) || hardwareSpecs.isDiscreteGPU;
+      
+      if (!hasMinimumRequirements) {
+        console.log('Hardware does not meet minimum requirements for fluid effect, disabling');
+        greyCanvas.style.display = 'none';
+        return;
+      }
+      
+      // Continue with FPS monitoring and fluid initialization
       startFPSMonitor();
       
       greyFluid = new Fluid(greyCanvas);
       
       // Set initial tier based on hardware specs
       // (since FPS monitoring hasn't collected enough data yet)
-      let initialTier = 'mid'; // Default to mid tier
+      let initialTier = 'low'; // Default to low tier
       if (hardwareSpecs.cores >= 6 && hardwareSpecs.memory >= 8 && hardwareSpecs.isDiscreteGPU) {
         initialTier = 'high';
-      } else if (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) {
-        initialTier = 'mid';
-      } else {
-        initialTier = 'low';
       }
       
       console.log('Initial performance tier:', initialTier);
