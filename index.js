@@ -2,9 +2,13 @@ import express from "express";
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
 
-import {PORT} from "./config/secrets.js";
+import { PORT } from "./config/secrets.js";
 
-import userRouter from "./routes/userS.js";
+import userRouter from "./routes/users.js";
+import fragranceRoutes from "./routes/fragrance.js";
+import reviewRoutes from "./routes/review.js";
+import orderRoutes from "./routes/order.js";
+import frontendRouter from "./routes/frontend.js";
 
 const app = express();
 
@@ -19,8 +23,15 @@ app.set("view engine", "ejs"); // set the view engine to ejs
 connectDB();
 
 //routes
+app.use(frontendRouter);
+app.use("/api/users", userRouter);
+app.use('/api/fragrances', fragranceRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/orders', orderRoutes);
 
-app.use("/api/users/", userRouter);
+app.use((req, res, next) => {
+  res.render("404");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
