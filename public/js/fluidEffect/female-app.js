@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const greyCanvas = document.getElementById('female-fluid-canvas');
     if (!greyCanvas) return;
 
-    // Detect if screen is smaller than 1024px (phones + small tablets)
-    const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches || 
+    // Detect if screen is smaller than 768px (phones + small tablets)
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches || 
     /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
 
     if(isSmallScreen)

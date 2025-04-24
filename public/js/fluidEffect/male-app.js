@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const greyCanvas = document.getElementById('male-fluid-canvas');
     if (!greyCanvas) return;
 
-    // Detect if screen is smaller than 1024px (phones + small tablets)
-    const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches || 
+    // Detect if screen is smaller than 768px (phones + small tablets)
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches || 
     /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
-
+  
     if(isSmallScreen)
     {
-        // Fallback for smaller screens (hide canvas or show static content)
+      // Fallback for smaller screens (hide canvas or show static content)
       greyCanvas.style.display = 'none';
       return; // Exit early (no Fluid-JS initialization)
     }
