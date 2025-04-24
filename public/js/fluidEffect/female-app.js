@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // Check minimum requirements - if not met, disable fluid effect entirely
       const hasMinimumRequirements = 
-        (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) || hardwareSpecs.isDiscreteGPU;
+        (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) && hardwareSpecs.isDiscreteGPU;
       
       if (!hasMinimumRequirements) {
         console.log('Hardware does not meet minimum requirements for fluid effect, disabling');
