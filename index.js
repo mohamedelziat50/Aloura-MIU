@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import allRoutes from "./routes/allroutes.js";
 import authRoutes from "./routes/auth.js";
 import cookieParser from "cookie-parser";
+import publicRoutes from "./routes/publicRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ app.use(cookieParser())
 
 app.use(authRoutes);
 app.use(allRoutes);
+app.use(publicRoutes);
 
 mongoose
   .connect(process.env.monogoDb_URI)
