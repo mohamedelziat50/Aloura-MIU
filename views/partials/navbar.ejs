@@ -48,7 +48,7 @@
         </button>
       </li>
 
-      <% if (isAuthenticated) { %>
+      <% if (user) { %>
       <li>
         <a href="/logout" id="logoutLink">
           <i class="fa-solid fa-right-from-bracket"></i>
@@ -57,7 +57,7 @@
       <li>
         <div class="profile">
           <a href="/">
-            <img src="/img/defultprofile.png" alt="Logo" />
+            <img src="/<%= user.Image %>" alt="Logo" />
           </a>
         </div>
       </li>
@@ -94,6 +94,9 @@
       <li><a href="./gifting">Gifting</a></li>
       <li><a href="./fragrance-quiz">Quiz</a></li>
       <li><a href="./our-story">Our Story</a></li>
+      <% if (user != null && user.role =='admin') { %>
+        <li><a href="./admin/:<%= user.id %>">Admin</a></li>
+      <% } %>
     </ul>
   </div>
 </nav>

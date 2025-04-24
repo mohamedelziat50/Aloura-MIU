@@ -2,12 +2,27 @@ import express from "express";
 const router = express.Router();
 import UserModel from "../models/user.js";
 import moment from "moment";
+import jwt from "jsonwebtoken"; // Add jwt for decoding token
 import auth from "../middleware/auth.js";
 
-  router.use((req, res, next) => {
-    res.locals.isAuthenticated = req.cookies.jwt ? true : false;
+router.use(async (req, res, next) => {
+  try{
+  const token = req.cookies?.jwt;
+
+  if (!token) {
+    res.locals.user = null; // No user found
     next();
-  });
+  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+
+  res.locals.user = await UserModel.findById(decoded.id);
+  next();
+  }
+  catch (error) {
+    next();
+  }
+});
 
 router.get("/", (req, res) => res.render("index"));
 router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
@@ -38,6 +53,7 @@ router.get("/admin/:id", auth(["admin"]), (req, res) => {
       console.log(err);
     });
 });
+
 router.delete("/delete/:id", (req, res) => {
   UserModel.findByIdAndDelete(req.params.id)
     .then((result) => {

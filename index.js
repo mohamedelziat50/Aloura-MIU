@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(cookieParser())
 
 
-app.use(allRoutes);
 app.use(authRoutes);
+app.use(allRoutes);
 
 mongoose
   .connect(process.env.monogoDb_URI)
