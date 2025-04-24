@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 
 import {PORT} from "./config/secrets.js";
 
+import userRouter from "./routes/userS.js";
+
 const app = express();
 
 // middlewares
@@ -17,6 +19,8 @@ app.set("view engine", "ejs"); // set the view engine to ejs
 connectDB();
 
 //routes
+
+app.use("/api/users/", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

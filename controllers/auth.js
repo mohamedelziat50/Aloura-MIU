@@ -1,7 +1,6 @@
 import UserModel from "../models/user.js";
-import sendEmail from "../utilities/emailService.js"; 
-import jwt from "jsonwebtoken";
-import cookie from "cookie";
+import sendEmail from "../utilities/emailService.js";
+import jwt from "jsonwebtoken";``
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -13,9 +12,8 @@ const cookieOptions = {
   httpOnly: true,
   maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
   sameSite: "lax", // important!
-  secure: false,   // only true when using HTTPS
+  secure: false, // only true when using HTTPS
 };
-
 
 export const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
@@ -28,7 +26,6 @@ export const signup = async (req, res) => {
     if (await UserModel.findOne({ email })) {
       return res.status(409).json({ message: "Email is already taken" });
     }
-    
 
     if (await UserModel.findOne({ tel: phone })) {
       return res.status(409).json({ message: "Phone number is already taken" });
@@ -71,7 +68,7 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user.id, user.role);
-    res.cookie("jwt", token,cookieOptions);
+    res.cookie("jwt", token, cookieOptions);
 
     res.status(200).json({
       message: "Login successful!",
@@ -105,10 +102,8 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-
-export const logout = (req, res) => {  
+export const logout = (req, res) => {
   res.clearCookie("jwt", cookieOptions);
-  res.redirect("/"); 
-}
+  res.redirect("/");
+};
 
-export default { signup, login, verifyEmail, logout };

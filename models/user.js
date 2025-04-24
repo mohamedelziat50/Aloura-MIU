@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-// define the schema for the user data
 const User = new mongoose.Schema(
   {
     name: {
@@ -21,7 +20,7 @@ const User = new mongoose.Schema(
         "Please provide a valid email address",
       ],
     },
-    tel: {
+    phone: {
       type: String,
       required: [true, "Phone number is required"],
       match: [/^\d{10}$/, "Phone number must be exactly 10 digits"],
@@ -31,17 +30,17 @@ const User = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
     },
-    Image: {
+    profilePic: {
       type: String,
-      default: "./img/defultprofile.png",
+      default: "./img/defaultProfilePic.png",
     },
-    verified: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
     role: {
       type: String,
-      enum: ["user", "admin"], // only "user" or "admin" allowed
+      enum: ["user", "admin"],
       default: "user",
     },
   },
@@ -65,8 +64,4 @@ User.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// create a model
-const UserModel = mongoose.model("User", User);
-
-// export the model
-export default UserModel;
+export default mongoose.model("User", User);
