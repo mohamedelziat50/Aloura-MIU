@@ -235,3 +235,5 @@ document.querySelectorAll('.btn-add-note').forEach(btn => {
         }
     });
 });
+
+
