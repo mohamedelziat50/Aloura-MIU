@@ -23,7 +23,6 @@ router.use(async (req, res, next) => {
 });
 
 router.get("/", (req, res) => res.render("index"));
-router.get("/all-fragrances", (req, res) => res.render("all-fragrances"));
 router.get("/gifting", (req, res) => res.render("gifting"));
 router.get("/checkout", auth(["user", "admin"]), (req, res) =>
   res.render("checkout")
@@ -47,11 +46,16 @@ router.get("/admin/:id", auth(["admin"]), (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   UserModel.findByIdAndDelete(req.params.id)
     .then((result) => {
-      res.redirect("/admin");
+      if (!result) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({ message: "User deleted successfully" }); // ✅ JSON response
     })
     .catch((err) => {
       console.error(err);
+      res.status(500).json({ message: "Server error" }); // ✅ JSON error
     });
 });
+
 
 export default router;

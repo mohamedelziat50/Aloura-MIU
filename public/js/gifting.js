@@ -1,3 +1,4 @@
+import showFunToast from "./toast.js";
 document.addEventListener('DOMContentLoaded', function() {
     // Modal elements
     const giftModal = document.getElementById('gift-modal');
@@ -54,17 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Validate selections before proceeding
             if (currentStep === 'step-perfume' && !selectedPerfume) {
-                alert('Please select a perfume before continuing');
+                showFunToast("Please select a perfume before continuing", "red");
                 return;
             }
             
             if (currentStep === 'step-wrap' && !selectedWrap) {
-                alert('Please select a gift wrap option before continuing');
+                showFunToast("Please select a gift wrap option before continuing", "red");
                 return;
             }
             
             if (currentStep === 'step-card' && !selectedCard) {
-                alert('Please select a greeting card before continuing');
+                showFunToast("Please select a greeting card before continuing", "red");
                 return;
             }
             
@@ -167,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Validate required fields
             if (!recipientName) {
-                alert('Please enter the recipient\'s name');
+                showFunToast("Please enter the recipient\'s name" , "red");
                 return;
             }
             
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (completeOrderBtn) {
         completeOrderBtn.addEventListener('click', function() {
             // Here you would typically submit the order
-            alert('Order completed!');
+            showFunToast("Order completed!","green");
             giftModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         });
