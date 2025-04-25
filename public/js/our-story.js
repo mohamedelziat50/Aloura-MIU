@@ -1,8 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const heading = document.querySelector(".grey-content h2");
   const glow = document.querySelector(".glow");
-  const video = document.getElementById("cyclingVideo");
-  const source = document.getElementById("videoSource");
+  const videos = [
+    document.getElementById("video1"),
+    document.getElementById("video2"),
+    document.getElementById("video3"),
+    document.getElementById("video4"),
+    document.getElementById("video5")
+  ];
   const audioElement = document.getElementById("videoAudio");
   const muteBtn = document.getElementById("muteToggle");
   const muteIcon = muteBtn.querySelector("i");
@@ -10,33 +15,107 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set initial volume
   audioElement.volume = 0.4;
   
-  // Check if it's a mobile device
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  
   // Trigger animations after a short delay
   setTimeout(() => {
     heading.classList.add("visible"); // Zoom in the heading
     glow.classList.add("visible"); // Add glow effect
   }, 100);
   
-  // Function to handle video transitions without layout shifts
-  function switchVideo(newSrc) {
-    video.style.transition = "opacity 0.7s";
-    video.style.opacity = 0; // Fade out
+  // Set up initial video styles
+  videos.forEach((video, index) => {
+    // Add transition for smooth fade effect
+    video.style.transition = "opacity 0.7s ease";
     
+    // Make sure first video is fully visible
+    if (index === 0) {
+      video.style.opacity = 1;
+      video.style.display = "block";
+    } else {
+      video.style.opacity = 0;
+      video.style.display = "none";
+    }
+  });
+  
+  let currentVideoIndex = 0;
+  let isTransitioning = false;
+  
+  // Function to show next video with proper fade effect
+  function showNextVideo() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    
+    // Get current and next video elements
+    const currentVideo = videos[currentVideoIndex];
+    const nextIndex = (currentVideoIndex + 1) % videos.length;
+    const nextVideo = videos[nextIndex];
+    
+    // 1. Start by fading out current video
+    currentVideo.style.opacity = 0;
+    
+    // 2. After fade out completes, prepare next video but keep it invisible
     setTimeout(() => {
-      source.src = newSrc;
-      video.load();
+      // Hide the current video completely after fade out
+      currentVideo.style.display = "none";
       
-      // When video can play, fade it in
-      video.oncanplay = function() {
-        video.style.opacity = 1; // Fade in
-        video.play().catch(error => {
-          console.log("Video play error:", error);
-        });
-      };
-    }, 700);
+      // Reset current video to beginning for next time
+      currentVideo.currentTime = 0;
+      
+      // Show next video element but with opacity 0
+      nextVideo.style.display = "block";
+      nextVideo.style.opacity = 0;
+      
+      // Make sure video is ready to play
+      nextVideo.load();
+      
+      // 3. Start playing next video while still invisible
+      const playPromise = nextVideo.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // 4. After a small delay, fade in the next video
+            setTimeout(() => {
+              nextVideo.style.opacity = 1;
+              currentVideoIndex = nextIndex;
+              isTransitioning = false;
+            }, 50);
+          })
+          .catch(error => {
+            console.log("Video play error:", error);
+            // If error playing, still show the video and move to next index
+            nextVideo.style.opacity = 1;
+            currentVideoIndex = nextIndex;
+            isTransitioning = false;
+          });
+      } else {
+        // Fallback if play() doesn't return a promise (older browsers)
+        setTimeout(() => {
+          nextVideo.style.opacity = 1;
+          currentVideoIndex = nextIndex;
+          isTransitioning = false;
+        }, 50);
+      }
+    }, 700); // Wait for fade out to complete
   }
+  
+  // Set up ended event for each video
+  videos.forEach(video => {
+    // When video ends, show next video
+    video.addEventListener("ended", showNextVideo);
+    
+    // Handle errors by skipping to next video
+    video.addEventListener("error", function(e) {
+      console.error("Video error:", e);
+      showNextVideo();
+    });
+    
+    // For iOS/mobile - ensure videos don't stall
+    video.addEventListener("stalled", function(e) {
+      console.warn("Video stalled:", e);
+      if (!isTransitioning) {
+        showNextVideo();
+      }
+    });
+  });
   
   // Mobile-friendly audio toggle
   muteBtn.addEventListener("click", function (e) {
@@ -50,10 +129,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => {
           console.log("Audio play error:", error);
-          // If there's an error playing, show a message for mobile users
-          if (isMobile) {
-            alert("Please enable sound in your browser settings for the full experience.");
-          }
+          muteIcon.className = "fas fa-volume-mute";
+          
+          // Simple alert for audio issues
+          alert("To enable sound: Make sure your device is not on silent mode and your media volume is turned up.");
         });
     } else {
       // Pause audio playback
@@ -61,39 +140,4 @@ document.addEventListener("DOMContentLoaded", function () {
       muteIcon.className = "fas fa-volume-mute";
     }
   });
-  
-  // Array of video sources to cycle through
-  const videos = [
-    "../videos/photoshoot-2.mp4",
-    "../videos/photoshoot.mp4",
-    "../videos/photoshoot-romeo.mp4",
-    "../videos/photoshoot-3.mp4",
-    "../videos/photoshoot-nasser.mp4",
-  ];
-  
-  let currentIndex = 0;
-  
-  // Handle video ending and transition to next video
-  video.onended = function() {
-    currentIndex = (currentIndex + 1) % videos.length;
-    switchVideo(videos[currentIndex]);
-  };
-  
-  // On mobile, preload the next video ahead of time to reduce jank
-  if (isMobile) {
-    // Preload next video when current one is halfway through
-    video.ontimeupdate = function() {
-      if (video.currentTime > video.duration / 2 && !window.nextVideoPreloaded) {
-        const nextIndex = (currentIndex + 1) % videos.length;
-        const nextVideo = new Image();
-        nextVideo.src = videos[nextIndex];
-        window.nextVideoPreloaded = true;
-      }
-    };
-    
-    // Reset preload flag when video changes
-    video.onplay = function() {
-      window.nextVideoPreloaded = false;
-    };
-  }
 });
