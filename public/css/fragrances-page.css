@@ -475,7 +475,7 @@ ul{
 }
 
 .suggested-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -545,8 +545,8 @@ ul{
 }
 
 .suggestion-arrow:hover {
-    background: linear-gradient(90deg, #ffffff 0%, #000000 100%);
-    color: white;
+    /* background: linear-gradient(90deg, #ffffff 0%, #000000 100%); */
+    /* color: white; */
     transform: scale(1.1);
 }
 
