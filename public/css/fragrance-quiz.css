@@ -6,6 +6,7 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
 }
 
 body {
@@ -14,6 +15,74 @@ body {
     width: 100vw;
     overflow-x: hidden;
     position: relative;
+}
+
+/* <weight>: Use a value from 100 to 900 */
+
+.jost-heavy {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.jost-light {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Font styling for the entire quiz */
+body {
+    font-family: 'Jost', sans-serif;
+}
+
+/* Make all regular text and labels use Jost-Heavy */
+.option span, 
+.strength-label,
+.next-btn,
+.find-fragrance-btn,
+#gender .gender-right .option span,
+#skinTone .skin-right .option span,
+#desiredFeeling .option span,
+.scent-info h3,
+.scent-info p,
+.selection-count,
+.slider-thumb {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400; /* Jost-Heavy */
+}
+
+/* Reset all heading styles to a clean slate first */
+h2,
+.quiz-section h2,
+#introduction h2,
+#personalityIntro h2,
+#olfactiveIntro h2,
+#age h2,
+#gender .gender-left h2,
+#skinTone .skin-left h2,
+#desiredFeeling h2,
+#fragranceStrength .strength-left h2,
+.split-question,
+#scentFamily h2 {
+    /* Clean single font definition */
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 2.8rem;
+    line-height: 1.2;
+    letter-spacing: normal;
+}
+
+/* Remove all the !important flags and overrides */
+#gender .gender-left h2 .gender-word,
+#skinTone .skin-left h2 .skin-word,
+#fragranceStrength .strength-left h2 .strength-word {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    display: block;
+    margin-top: 0.2em;
 }
 
 /* Fix for gender section layout and overflow */
@@ -1891,11 +1960,6 @@ nav {
     color: rgb(35, 35, 35);
     font-weight: 700;
     opacity: 1;
-}
-
-.strength-bar.fade-out {
-    opacity: 0.3;
-    transform: scale(0.95);
 }
 
 /* Fill animation */
