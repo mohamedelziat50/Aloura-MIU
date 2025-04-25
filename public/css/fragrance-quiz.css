@@ -2166,8 +2166,8 @@ nav {
 
 .scent-family-option {
   position: relative;
-  height: 100px; /* Much smaller height */
-  border-radius: 12px;
+  height: 150px; /* Much smaller height */
+  /* border-radius: 12px; */
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -2220,6 +2220,7 @@ nav {
   font-size: 1rem;
   font-weight: 600;
   color: #333;
+  text-transform: uppercase;
 }
 
 .scent-info p {
