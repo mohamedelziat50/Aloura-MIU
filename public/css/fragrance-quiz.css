@@ -2026,12 +2026,6 @@ nav {
     align-items: center;
 }
 
-
-
-
-
-
-
 #desiredFeeling .options {
     width: 50vw;
     height: 100%;
@@ -2082,17 +2076,22 @@ nav {
 }
 
 #desiredFeeling .option[data-value="fresh"] {
-    background-color: #2562AF1A ;
+    background-color: rgba(37, 98, 175, 0.2); /* Increased from 0.1 opacity */
 }
 
 #desiredFeeling .option[data-value="seductive"] {
-    background-color: #A405161A;
+    background-color: rgba(164, 5, 22, 0.2); /* Increased from 0.1 opacity */
 }
 
 #desiredFeeling .option:hover {
     transform: translateX(-10px) scale(1.06);
     box-shadow: 0 12px 40px 0 rgba(0,0,0,0.28), 0 2px 8px 0 rgba(0,0,0,0.12);
     z-index: 2;
+    background-color: rgba(37, 98, 175, 0.4); /* Darker on hover for fresh */
+}
+
+#desiredFeeling .option[data-value="seductive"]:hover {
+    background-color: rgba(164, 5, 22, 0.4); /* Darker on hover for seductive */
 }
 
 #desiredFeeling .option.selected {
