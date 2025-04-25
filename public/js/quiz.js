@@ -37,6 +37,39 @@ document.addEventListener('DOMContentLoaded', () => {
         ageSlider.addEventListener('change', updateSliderValue);
     }
 
+    // Handle scent family selections
+    const scentFamilyOptions = document.querySelectorAll('.scent-family-option');
+    scentFamilyOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Handle selection toggling and limits
+            if (option.classList.contains('selected')) {
+                option.classList.remove('selected');
+                selectedScentCount--;
+            } else if (selectedScentCount < 2) {
+                option.classList.add('selected');
+                selectedScentCount++;
+            }
+
+            // Store selected scents
+            const selectedScents = Array.from(document.querySelectorAll('.scent-family-option.selected'))
+                .map(opt => opt.dataset.value);
+            userAnswers.scentFamily = selectedScents;
+
+            // Enable next button if at least one scent is selected
+            if (selectedScentCount > 0) {
+                const findFragranceBtn = document.querySelector('.find-fragrance-btn');
+                if (findFragranceBtn) {
+                    findFragranceBtn.classList.add('active');
+                }
+            } else {
+                const findFragranceBtn = document.querySelector('.find-fragrance-btn');
+                if (findFragranceBtn) {
+                    findFragranceBtn.classList.remove('active');
+                }
+            }
+        });
+    });
+
     // Handle section transitions
     document.addEventListener('click', (e) => {
         // Arrow down button handling
@@ -44,15 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
             moveToNextSection();
         }
 
-        // Option selection handling
-        if ((e.target.closest('.option') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
-            const option = e.target.closest('.option') || e.target.closest('.split-half');
+        // Option selection handling (for sections other than scent family)
+        if ((e.target.closest('.option:not(.scent-family-option)') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
+            const option = e.target.closest('.option:not(.scent-family-option)') || e.target.closest('.split-half');
             const section = option.closest('.quiz-section');
             
-            // Handle scent family special case (max 2 selections)
-            if (section.id === 'scentFamily') {
-                handleScentFamilySelection(option);
-            } else if (section.id === 'gender') {
+            // Handle section-specific selection behaviors
+            if (section.id === 'gender') {
                 // Remove selection and tick from all options
                 section.querySelectorAll('.option').forEach(opt => {
                     opt.classList.remove('selected');
@@ -196,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Next button handling
-        if (e.target.classList.contains('next-btn')) {
+        if (e.target.classList.contains('next-btn') || e.target.classList.contains('find-fragrance-btn')) {
             moveToNextSection();
         }
     });
@@ -332,26 +363,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1500); // Match this with your animation duration
         });
     });
-
-    function handleScentFamilySelection(option) {
-        if (option.classList.contains('selected')) {
-            option.classList.remove('selected');
-            selectedScentCount--;
-        } else if (selectedScentCount < 2) {
-            option.classList.add('selected');
-            selectedScentCount++;
-        }
-
-        // Store selected scents
-        const selectedScents = Array.from(option.closest('.options').querySelectorAll('.selected'))
-            .map(opt => opt.dataset.value);
-        userAnswers.scentFamily = selectedScents;
-
-        // Enable next button if at least one scent is selected
-        if (selectedScentCount > 0) {
-            enableNextButton(option.closest('.quiz-section'));
-        }
-    }
 
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {
