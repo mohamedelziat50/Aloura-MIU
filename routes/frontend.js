@@ -1,7 +1,8 @@
 import express from "express";
 import { JWT_SECRET } from "../config/secrets.js";
 import jwt from "jsonwebtoken";
-import UserModel from "../models/User.js";
+import UserModel from "../models/User.js"; 
+import Fragrances from "../models/fragrance.js"; 
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.use(async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     res.locals.user = await UserModel.findById(decoded.id);
+    console.log(res.locals.user);
     next();
   } catch (error) {
     next();
@@ -27,7 +29,13 @@ router.get("/", (req, res) => {
 });
 
 router.get("/all-fragrances", (req, res) => {
-  res.render("fragrances");
+  Fragrances.find()
+  .then((result) => {
+    res.render("all-fragrances", { fragrances : result});
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 });
 
 router.get("/collections", (req, res) => {

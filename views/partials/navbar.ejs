@@ -1,7 +1,7 @@
 <!-- Navbar-specific CSS -->
 <link rel="stylesheet" href="./css/navBar.css" />
 
-<script src="../../js/modal.js"></script>
+<script type="module" src="../../js/modal.js"></script>
 
 <!-- Translate related -->
 <script>
@@ -35,9 +35,6 @@
     <ul>
       <li><div class="gtranslate_wrapper"></div></li>
       <li>
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </li>
-      <li>
         <button
           style="border: none; background-color: transparent"
           data-bs-toggle="offcanvas"
@@ -57,7 +54,7 @@
       <li>
         <div class="profile">
           <a href="/">
-            <img src="/<%= user.Image %>" alt="Logo" />
+            <img src="/<%= user.profilePic %>" alt="Logo" />
           </a>
         </div>
       </li>

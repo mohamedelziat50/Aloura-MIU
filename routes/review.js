@@ -6,11 +6,12 @@ import {
   updateReview,
   deleteReview,
 } from "../controllers/review.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/", createReview);
-router.get("/", getAllReviews);
+router.post("/" , auth(["user"]), createReview);
+router.get("/", auth(["user" , "admin"]), getAllReviews);
 router.get("/:id", getReviewById);
 router.put("/:id", updateReview);
 router.delete("/:id", deleteReview);

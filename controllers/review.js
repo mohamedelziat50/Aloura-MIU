@@ -3,7 +3,19 @@ import Review from '../models/Review.js';
 // Create
 export const createReview = async (req, res) => {
   try {
-    const review = await Review.create(req.body);
+    const { fragrance, rating, comment } = req.body;
+
+    if (!res.locals.user) {
+      return res.status(401).json({ error: "Unauthorized. User not found." });
+    }
+
+    const review = await Review.create({
+      fragrance,
+      user: res.locals.user._id,
+      rating,
+      comment,
+    });
+
     res.status(201).json(review);
   } catch (err) {
     res.status(400).json({ error: err.message });

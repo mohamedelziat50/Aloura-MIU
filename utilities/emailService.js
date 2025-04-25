@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { EMAIL_USER, EMAIL_PASS } from "../config/secrets";
+import { EMAIL_USER, EMAIL_PASS } from "../config/secrets.js";
 
 export default async function sendEmail({ to, subject, text }) {
   try {

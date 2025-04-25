@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const User = new mongoose.Schema(
+// ✅ Define the schema with a consistent name
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -47,8 +48,8 @@ const User = new mongoose.Schema(
   { timestamps: true }
 );
 
-// hash password before saving
-User.pre("save", async function (next) {
+// ✅ Hash password before saving
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // only hash if changed
   try {
     const salt = await bcrypt.genSalt(10);
@@ -59,9 +60,11 @@ User.pre("save", async function (next) {
   }
 });
 
-// method to compare password
-User.methods.comparePassword = async function (candidatePassword) {
+// ✅ Method to compare password
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-export default mongoose.model("User", User);
+// ✅ Export model safely to avoid OverwriteModelError
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+export default User;
