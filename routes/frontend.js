@@ -50,6 +50,10 @@ router.get("/fragrance-quiz", (req, res) => {
   res.render("fragrance-quiz");
 });
 
+router.get("/fragrances-page", (req, res) => {
+  res.render("fragrances-page");
+});
+
 router.get("/our-story", (req, res) => {
   res.render("our-story");
 });
