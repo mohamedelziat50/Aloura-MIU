@@ -103,7 +103,6 @@ body {
     z-index: 2;
 }
 
-
 #gender .gender-right .option.selected {
     background-color: rgb(35, 35, 35) !important;
     transform: translateX(-10px) scale(1.2);
@@ -130,7 +129,6 @@ body {
         box-shadow: 0 12px 32px 0 rgba(0,0,0,0.18), 0 2px 8px 0 rgba(0,0,0,0.10);
     }
 }
-
 
 #gender .gender-right .option span {
     font-size: 1.7rem;
@@ -2301,4 +2299,26 @@ nav {
     width: 90%;
     max-width: 380px;
   }
+}
+
+/* Center the intro sections properly - less vertical offset */
+#introduction, #personalityIntro, #olfactiveIntro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 85vh; /* Reduced from 100vh to bring content up */
+    padding: 0 20px;
+    margin-top: -80px; /* Negative margin to shift everything up */
+}
+
+#introduction h2, #personalityIntro h2, #olfactiveIntro h2 {
+    margin-bottom: 30px;
+    font-size: 2.8rem;
+    max-width: 800px;
+}
+
+#introduction .arrow-down, #personalityIntro .arrow-down, #olfactiveIntro .arrow-down {
+    margin-top: 30px; /* Reduced from 40px */
 }
