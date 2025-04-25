@@ -60,24 +60,35 @@ body {
     padding: 20px;
     border-radius: 10px;
     justify-content: center;
+    margin-top: -50px;
+}
+
+#main-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px; /* Fixed height for consistency */
+    background-color: #f5f5f5; /* Soft grey background */
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 30px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Subtle shadow */
+    margin-bottom: 300px;
 }
 
 #main-image {
-    width: 100%;
-    height: 50%;
-    margin-bottom: 75px;
-    margin-top: -200px; /* Moves the main image up */
-    
-   
-
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Ensures full image is visible */
+    transition: transform 0.3s ease; /* Smooth hover effect */
 }
-
 #subImages {
     display: flex;
     justify-content: space-between;
     gap: 5px;
     width: 100%;
-    margin-top: -150px; /* Moves the sub-images up */
+    margin-top: -281px;
     box-shadow: none;
     height: 50%;
     background-color: #f1f1f1;
@@ -141,10 +152,12 @@ body {
     padding: 10px;
     user-select: none;
     z-index: 1002;
+    
 }
 
 #prev { left: 10px; }
 #next { right: 10px; }
+
 
 
 /* Prevent clicks going through the lightbox */
@@ -545,8 +558,8 @@ ul{
 }
 
 .suggestion-arrow:hover {
-    /* background: linear-gradient(90deg, #ffffff 0%, #000000 100%); */
-    /* color: white; */
+    background-color: #000000;
+    color: white;
     transform: scale(1.1);
 }
 
@@ -587,127 +600,295 @@ ul{
   background-color: black;
 }
 
+#perks-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 800px;
+    margin-top: -80px;
+    margin-bottom: 42px;
+}
+
+.perk-item {
+    display: block;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    flex: 1;
+}
+
+.perk-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 28px;
+}
+
+.perk-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.perk-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
 
 
+/* ==================== MEDIA QUERIES ==================== */
 
-/* Responsive adjustments */
-@media (max-width: 1400px) {
+/* Large Tablets and Small Laptops (1024px and below) */
+@media (max-width: 1024px) {
+    #product-container {
+        max-width: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #image-container {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #main-image-container {
+        height: 380px; /* Between desktop (400px) and tablet (350px) */
+        margin-bottom: 280px; /* Proportional space for sub-images */
+        padding: 18px; /* Slightly reduced from desktop */
+    }
+
+    #product-details {
+        width: 100%;
+        padding: 0 20px;
+    }
+
     .suggested-item {
-        flex: 0 0 calc(25% - 1.5rem);
+        flex: 0 0 calc(33.333% - 1.5rem); /* 3 items per view */
     }
 }
 
-@media (max-width: 1200px) {
-    .suggested-item {
-        flex: 0 0 calc(33.33% - 1.5rem);
-    }
-}
+/* Tablets (768px and below) */
+    @media (max-width: 768px) {
+        #product-container {
+            padding-top: 80px;
+        }
 
-@media (max-width: 992px) {
-    .suggested-item {
-        flex: 0 0 calc(50% - 1.5rem);
-        min-height: 300px;
-    }
-    
-    .suggested-image {
-        width: 140px;
-        height: 140px;
-    }
-}
+        #main-image-container {
+            height: 350px; /* Slightly smaller than desktop */
+            margin-bottom: 250px; /* Reduced space for sub-images */
+            padding: 15px; /* Slightly less padding */
+        }
 
-@media (max-width: 768px) {
-    #might-like {
-        font-size: 1.8rem;
-    }
-    
-    .suggestion-wrapper {
-        padding: 0 2.5rem;
-    }
-    
-    .suggested-item {
-        min-height: 280px;
-    }
-}
+        #subImages {
+            margin-top: -200px;
+        }
 
+        .perk-item {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .perk-icon {
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
+
+        .suggested-item {
+            flex: 0 0 calc(50% - 1.5rem); /* 2 items per view */
+            min-height: 320px;
+        }
+
+        #might-like {
+            font-size: 1.8rem;
+        }
+
+        .radio-label {
+            width: 30%;
+            padding: 8px 10px;
+        }
+        #price {
+            float: none;
+            display: block;
+            clear: both;
+            text-align: left;
+            margin: 10px 0 20px 0;
+            font-size: 22px;
+            margin-right: 0;
+            margin-top: 0;
+        }
+
+        .size-selection {
+            margin-bottom: 10px;
+        }
+    }
+
+/* Large Phones (576px and below) */
 @media (max-width: 576px) {
-    #suggestions {
-        padding: 0 1rem;
+    #product-container {
+        max-width: 90%;
+        flex-direction: column;
+        align-items: center;
     }
-    
+
+    #image-container {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #main-image-container {
+        margin-bottom: 20px;
+        height: 350px;
+        margin-bottom: 250px; /* Adjusted to maintain proportion */
+    }
+
+    #main-image-container {
+        height: 250px;
+        padding: 15px;
+    }
+
+    #subImages {
+        margin-top: -150px;
+    }
+
+    #perfumeName {
+        font-size: 2rem;
+        line-height: 2.8rem;
+    }
+
+    #perfumeType {
+        font-size: 0.9rem;
+    }
+
+    #price {
+        font-size: 20px;
+    }
+    #perks-container {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: -50px;
+    }
+
+    .perk-item {
+        text-align: left;
+        flex-direction: row;
+    }
+
     .suggested-item {
-        flex: 0 0 calc(100% - 1rem);
-        min-height: 250px;
+        flex: 0 0 calc(100% - 1.5rem); /* 1 item per view */
     }
-    
-    .suggested-image {
-        width: 120px;
-        height: 120px;
-    }
-    
+
     .suggestion-arrow {
         width: 40px;
         height: 40px;
         font-size: 1.2rem;
     }
+
+    .radio-label {
+        width: 32%;
+        font-size: 15px;
+        padding: 6px 8px;
+    }
+
+    #description-title, #notes {
+        font-size: 1.3rem;
+    }
 }
-@media (max-width: 768px) {
-    /* Stack items vertically */
-    div {
-        flex-direction: column;
-        text-align: center;
+
+/* Small Phones (400px and below) */
+@media (max-width: 400px) {
+    #main-image-container {
+        height: 300px;
+        margin-bottom: 200px; /* Adjusted to maintain proportion */
         padding: 15px;
-        width: 100%;
     }
 
-    /* Adjust image container */
-    #image-container {
-        width: 100%;
-        align-items: center;
-    }
-
-    #main-image {
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-        margin-top: 0;
-    }
-
-    /* Sub-images display fix */
     #subImages {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        flex-wrap: wrap; /* Allows wrapping */
-        margin-top: 10px;
+        margin-top: -120px;
+    }
+
+    #perfumeName {
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+    }
+
+    .radio-label {
         width: 100%;
+        margin-bottom: 8px;
     }
 
-    .subimage {
-        width: 48%; /* Ensures they stay side by side */
-        height: auto;
+    .size-selection {
+        flex-direction: column;
     }
 
-    /* Center text elements */
-    h1, #perfumeName, #perfumeType, #notes, #description-title {
-        font-size: 20px;
-        text-align: center;
+    #might-like {
+        font-size: 1.5rem;
+        padding: 0 1rem;
     }
 
-    #price {
-        float: none;
-        text-align: center;
-        display: block;
-        margin: 10px auto;
+    .suggested-name {
+        font-size: 18px;
     }
 
-    #add-to-cart-button {
-        width: 100%;
-        padding: 12px;
+    .suggested-price {
         font-size: 14px;
     }
 
- 
+    .add-to-cart {
+        font-size: 14px;
+        padding: 8px;
+    }
+    #price {
+        font-size: 18px;
+        letter-spacing: normal;
+    }
 }
+
+/* Very Small Phones (350px and below) */
+@media (max-width: 350px) {
+    #main-image-container {
+        height: 250px;
+        margin-bottom: 150px; /* Adjusted to maintain proportion */
+    }
+    #perfumeName {
+        font-size: 1.6rem;
+    }
+
+    #might-like {
+        font-size: 1.3rem;
+    }
+
+    .suggestion-wrapper {
+        padding: 0 2rem;
+    }
+    #price {
+        font-size: 18px;
+        letter-spacing: normal;
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    #product-container {
+        flex-direction: row;
+    }
+
+    #image-container {
+        width: 50%;
+    }
+
+    #product-details {
+        width: 50%;
+    }
+
+    #main-image-container {
+        height: 180px;
+        margin-bottom: 100px; /* Adjusted to maintain proportion */
+    }
+
+}
+
+
 
 
 

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    
+    <link rel="icon" type="image/x-icon" href="../img/favicons/rounded-background-favicon.ico" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/page-loader.css" />
+    <link rel="stylesheet" href="/css/addUser.css" />
+
+    <!-- Page Loader -->
+    <script src="/js/page-loader.js"></script>
+  
+
+    <script src="/js/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+   
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS & JS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  </head>
+
+  <body>
+    <%- include('../partials/loader.ejs') %>
+
+
+    <div class="main">
+      <header>
+        <h1>Welcome, Admin</h1>
+        <div class="admin-info">Aloura Dashboard</div>
+      </header>
+
+      <div class="containerr">
+        <div class="addusercard row justify-content-center">
+          <div class="col-md-20">
+            <div class="form-wrapper">
+              <h2 class="text-center mb-4">Add User</h2>
+              <form id="addUserForm">
+                <div class="mb-3">
+                  <label for="adduser-name" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="adduser-name"
+                    placeholder="Full Name*"
+                    name="name"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="adduser-email" class="form-label">Email address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="adduser-email"
+                    placeholder="Your Email*"
+                    name="email"
+                  />
+                </div>
+
+                <div class="mb-2">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="phone">+20</span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      class="form-control"
+                      placeholder="Phone number*"
+                      aria-label="Phone"
+                      aria-describedby="phone"
+                      maxlength="10"
+                      id="adduser-phone"
+                      pattern="\d{10}"
+                      inputmode="numeric"
+                      oninput="this.value = this.value.replace(/\D/g, '')"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="adduser-password" class="form-label">Password</label>
+                  <div class="input-group">
+                    <input
+                      name="password"
+                      type="password"
+                      class="form-control"
+                      id="adduser-password"
+                      placeholder="Create a password*"
+                    />
+                    <span class="input-group-text password-toggle" id="signupPasswordToggle">
+                      <i class="fa-solid fa-lock" id="signupPasswordIcon"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="adduser-confirm-password" class="form-label">Confirm Password</label>
+                  <div class="input-group">
+                    <input
+                      name="Confirm Password"
+                      type="password"
+                      class="form-control"
+                      id="adduser-confirm-password"
+                      placeholder="Confirm password*"
+                    />
+                    <span class="input-group-text password-toggle" id="confirmPasswordToggle">
+                      <i class="fa-solid fa-lock" id="confirmPasswordIcon"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <p class="adduser-confirm-password"></p>
+                <button
+                  type="submit"
+                  id="signup-button-diffcolor"
+                  class="signupButton btn btn-primary w-100"
+                >
+                  Add User
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <%- include('../partials/footer.ejs') %>
+  <script type="module">  
+    import showFunToast from "/js/toast.js";
+  addUserForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent form from submitting
+
+  const name = document.getElementById("adduser-name").value.trim();
+  const email = document.getElementById("adduser-email").value.trim();
+  const phone = document.getElementById("adduser-phone").value.trim();
+  const password = document.getElementById("adduser-password").value;
+  const confirmPassword = document.getElementById(
+    "adduser-confirm-password"
+  ).value;
+
+  // Validation
+  if (name === "") {
+    showFunToast("❗ Please enter your name.", "red");
+    return;
+  }
+
+  if (name.length < 3) {
+    showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
+    return;
+  }
+  if (name.length > 50) {
+    showFunToast(
+      "📏 Whoa! Username's way too long. Keep it under 50 characters!",
+      "red"
+    );
+    return;
+  }
+
+  if (email === "" || !validateEmail(email)) {
+    showFunToast("📧 Please enter a valid email address.", "red");
+    return;
+  }
+
+  if (phone === "" || !validatePhone(phone)) {
+    showFunToast("📱 Please enter a valid phone number.", "red");
+    return;
+  }
+
+  if (password.length < 6) {
+    showFunToast("🔒 Password must be at least 6 characters long.", "red");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showFunToast("🔒 Passwords do not match.", "red");
+    return;
+  }
+
+  const formData = {
+    name,
+    email,
+    phone,
+    password,
+  };
+
+  fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Signed up successfully!", "green");
+        setTimeout(() => {
+          window.location.href = "/admin/:id"; // Redirect to the user's page
+        }, 1000);
+      } else {
+        showFunToast(data.message || "❗ An error occurred.", "red");
+      }
+    })
+    .catch((error) => {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    });
+
+    function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePhone(phone) {
+  const re = /^[0-9]{10,15}$/;
+  return re.test(phone);
+}
+
+  const passwordToggle = document.getElementById("passwordToggle");
+  const passwordInput = document.getElementById("password");
+  const passwordIcon = document.getElementById("passwordIcon");
+
+  if (passwordToggle && passwordInput && passwordIcon) {
+    passwordToggle.addEventListener("click", function () {
+      // Toggle password visibility
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordIcon.classList.remove("fa-lock");
+        passwordIcon.classList.add("fa-lock-open");
+      } else {
+        passwordInput.type = "password";
+        passwordIcon.classList.remove("fa-lock-open");
+        passwordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+
+  // Signup form password toggle
+  const signupPasswordToggle = document.getElementById("signupPasswordToggle");
+  const signupPasswordInput = document.getElementById("signup-password");
+  const signupPasswordIcon = document.getElementById("signupPasswordIcon");
+
+  if (signupPasswordToggle && signupPasswordInput && signupPasswordIcon) {
+    signupPasswordToggle.addEventListener("click", function () {
+      if (signupPasswordInput.type === "password") {
+        signupPasswordInput.type = "text";
+        signupPasswordIcon.classList.remove("fa-lock");
+        signupPasswordIcon.classList.add("fa-lock-open");
+      } else {
+        signupPasswordInput.type = "password";
+        signupPasswordIcon.classList.remove("fa-lock-open");
+        signupPasswordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+
+  // Confirm password toggle
+  const confirmPasswordToggle = document.getElementById(
+    "confirmPasswordToggle"
+  );
+  const confirmPasswordInput = document.getElementById(
+    "signup-confirm-password"
+  );
+  const confirmPasswordIcon = document.getElementById("confirmPasswordIcon");
+
+  if (confirmPasswordToggle && confirmPasswordInput && confirmPasswordIcon) {
+    confirmPasswordToggle.addEventListener("click", function () {
+      if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text";
+        confirmPasswordIcon.classList.remove("fa-lock");
+        confirmPasswordIcon.classList.add("fa-lock-open");
+      } else {
+        confirmPasswordInput.type = "password";
+        confirmPasswordIcon.classList.remove("fa-lock-open");
+        confirmPasswordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+});
+
+  </script>
+  </body>
+</html>

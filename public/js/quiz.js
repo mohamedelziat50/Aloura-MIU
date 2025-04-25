@@ -14,27 +14,51 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSection(currentSection);
     updateProgress();
 
-    // Handle age slider
+    // Handle age slider with performance optimizations
     if (ageSlider && document.querySelector('.slider-thumb')) {
+        // Use requestAnimationFrame for smoother updates
+        let lastUpdateTime = 0;
         const updateSliderValue = () => {
             const value = ageSlider.value;
-            const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
-            const thumb = document.querySelector('.slider-thumb');
-            
-            // Update thumb position and text
-            thumb.style.left = `${percent}%`;
-            thumb.textContent = value;
-            
             userAnswers['age'] = value;
             enableNextButton(sections[currentSection]);
+            
+            // Use requestAnimationFrame for visual updates to reduce layout thrashing
+            if (!lastUpdateTime || performance.now() - lastUpdateTime > 16) { // ~60fps
+                requestAnimationFrame(() => {
+                    const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
+                    const thumb = document.querySelector('.slider-thumb');
+                    
+                    // Update thumb position and text
+                    thumb.style.left = `${percent}%`;
+                    thumb.textContent = value;
+                    lastUpdateTime = performance.now();
+                });
+            }
         };
 
         // Set initial value
         updateSliderValue();
         
-        // Update on slider movement
+        // Add both input and mousemove for better responsiveness
         ageSlider.addEventListener('input', updateSliderValue);
         ageSlider.addEventListener('change', updateSliderValue);
+        
+        // Handle mousemove for very fast dragging
+        let isMouseDown = false;
+        ageSlider.addEventListener('mousedown', () => {
+            isMouseDown = true;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+        
+        ageSlider.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                updateSliderValue();
+            }
+        });
     }
 
     // Handle scent family selections

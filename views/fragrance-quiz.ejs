@@ -34,6 +34,13 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- font of the fragrance quiz -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+
     <!-- Initial Scroll When Reloading -->
     <script>
       if (history.scrollRestoration) {
@@ -74,7 +81,7 @@
       <div class="question-slides">
         <!-- Introduction Section -->
         <section class="quiz-section active" id="introduction">
-          <h2>First, we'll need an introduction from you.</h2>
+          <h2>First, we'll need an <br> introduction from you.</h2>
           <div class="arrow-down">
             <i class="fa-solid fa-chevron-down"></i>
           </div>
@@ -97,8 +104,8 @@
           <div class="gender-left">
             <h2>
               What is your<br>
-              <span class="gender-word">gender</span>
-            </h2>
+              gender
+            </h2> 
           </div>
           <div class="gender-right">
             <div class="option" data-value="male">
@@ -124,7 +131,7 @@
           <div class="skin-left">
             <h2>
               What is your<br>
-              <span class="skin-word">skin-tone</span>
+              skin-tone
             </h2>
           </div>
           <div class="skin-right">
@@ -161,7 +168,7 @@
 
         <!-- Personality Intro Section -->
         <section class="quiz-section" id="personalityIntro">
-          <h2>Let's dive deeper into your personality</h2>
+          <h2>Let's dive deeper <br> into your personality</h2>
           <div class="arrow-down">
             <i class="fa-solid fa-chevron-down"></i>
           </div>
@@ -319,148 +326,88 @@
 
         <!-- Scent Family -->
         <section class="quiz-section" id="scentFamily">
-          <h2>Choose your preferred fragrance family <span class="selection-count">(Select up to 2)</span></h2>
+          <h2>Any favorite perfume family? <span class="selection-count"> <br> (Select up to 2)</span></h2>
           <div class="scent-families-container">
-            <div class="scent-family-option" data-value="fresh-citrusy">
-              <div class="scent-image-container">
-                <img src="/img/fresh.jpg" alt="Fresh & Citrusy Fragrance" class="scent-image">
-                <div class="scent-overlay">
+            <div class="column left-column">
+              <div class="scent-family-option" data-value="fresh-citrusy">
+                <div class="scent-image-container">
+                  <img src="/img/fresh.jpg" alt="Fresh & Citrusy Fragrance" class="scent-image">
+                </div>
+                <div class="scent-info">
+                  <h3>Fresh & Citrusy</h3>
                   <div class="scent-check">✓</div>
                 </div>
               </div>
-              <div class="scent-info">
-                <h3>Fresh & Citrusy</h3>
-                <p>Bright, clean, invigorating</p>
-                <div class="scent-notes">
-                  <span>Bergamot</span>
-                  <span>Lemon</span>
-                  <span>Marine</span>
+              
+              <div class="scent-family-option" data-value="aromatic-green">
+                <div class="scent-image-container">
+                  <img src="/img/new_aromatic__green.jpg" alt="Aromatic & Green Fragrance" class="scent-image">
+                </div>
+                <div class="scent-info">
+                  <h3>Aromatic & Green</h3>
+                  <div class="scent-check">✓</div>
+                </div>
+              </div>
+              
+              <div class="scent-family-option" data-value="fruity-delicious">
+                <div class="scent-image-container">
+                  <img src="/img/fruity.jpg" alt="Fruity & Delicious Fragrance" class="scent-image">
+                </div>
+                <div class="scent-info">
+                  <h3>Fruity & Delicious</h3>
+                  <div class="scent-check">✓</div>
+                </div>
+              </div>
+              
+              <div class="scent-family-option" data-value="floral-delicate">
+                <div class="scent-image-container">
+                  <img src="/img/new_floral.jpg" alt="Floral & Delicate Fragrance" class="scent-image">
+                </div>
+                <div class="scent-info">
+                  <h3>Floral & Delicate</h3>
+                  <div class="scent-check">✓</div>
                 </div>
               </div>
             </div>
             
-            <div class="scent-family-option" data-value="aromatic-green">
-              <div class="scent-image-container">
-                <img src="/img/new_aromatic__green.jpg" alt="Aromatic & Green Fragrance" class="scent-image">
-                <div class="scent-overlay">
+            <div class="column right-column">
+              <div class="scent-family-option" data-value="woody-profound">
+                <div class="scent-image-container">
+                  <img src="/img/woody.jpg" alt="Woody & Profound Fragrance" class="scent-image">
+                </div>
+                <div class="scent-info">
+                  <h3>Woody & Profound</h3>
                   <div class="scent-check">✓</div>
                 </div>
               </div>
-              <div class="scent-info">
-                <h3>Aromatic & Green</h3>
-                <p>Herbaceous, natural, refreshing</p>
-                <div class="scent-notes">
-                  <span>Mint</span>
-                  <span>Rosemary</span>
-                  <span>Basil</span>
+              
+              <div class="scent-family-option" data-value="sweet-gourmand">
+                <div class="scent-image-container">
+                  <img src="/img/new_sweet.jpg" alt="Sweet & Gourmand Fragrance" class="scent-image">
                 </div>
-              </div>
-            </div>
-            
-            <div class="scent-family-option" data-value="fruity-delicious">
-              <div class="scent-image-container">
-                <img src="/img/fruity.jpg" alt="Fruity & Delicious Fragrance" class="scent-image">
-                <div class="scent-overlay">
+                <div class="scent-info">
+                  <h3>Sweet & Gourmand</h3>
                   <div class="scent-check">✓</div>
                 </div>
               </div>
-              <div class="scent-info">
-                <h3>Fruity & Delicious</h3>
-                <p>Sweet, juicy, playful</p>
-                <div class="scent-notes">
-                  <span>Apple</span>
-                  <span>Peach</span>
-                  <span>Berry</span>
+              
+              <div class="scent-family-option" data-value="amber-spicy">
+                <div class="scent-image-container">
+                  <img src="/img/spicy.jpg" alt="Amber & Spicy Fragrance" class="scent-image">
                 </div>
-              </div>
-            </div>
-            
-            <div class="scent-family-option" data-value="floral-delicate">
-              <div class="scent-image-container">
-                <img src="/img/new_floral.jpg" alt="Floral & Delicate Fragrance" class="scent-image">
-                <div class="scent-overlay">
+                <div class="scent-info">
+                  <h3>Amber & Spicy</h3>
                   <div class="scent-check">✓</div>
                 </div>
               </div>
-              <div class="scent-info">
-                <h3>Floral & Delicate</h3>
-                <p>Romantic, elegant, feminine</p>
-                <div class="scent-notes">
-                  <span>Rose</span>
-                  <span>Jasmine</span>
-                  <span>Lily</span>
+              
+              <div class="scent-family-option" data-value="leathery-distinctive">
+                <div class="scent-image-container">
+                  <img src="/img/leathery.jpg" alt="Leathery & Distinctive Fragrance" class="scent-image">
                 </div>
-              </div>
-            </div>
-            
-            <div class="scent-family-option" data-value="woody-profound">
-              <div class="scent-image-container">
-                <img src="/img/woody.jpg" alt="Woody & Profound Fragrance" class="scent-image">
-                <div class="scent-overlay">
+                <div class="scent-info">
+                  <h3>Leathery & Distinctive</h3>
                   <div class="scent-check">✓</div>
-                </div>
-              </div>
-              <div class="scent-info">
-                <h3>Woody & Profound</h3>
-                <p>Sophisticated, earthy, grounding</p>
-                <div class="scent-notes">
-                  <span>Sandalwood</span>
-                  <span>Cedar</span>
-                  <span>Oud</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="scent-family-option" data-value="sweet-gourmand">
-              <div class="scent-image-container">
-                <img src="/img/new_sweet.jpg" alt="Sweet & Gourmand Fragrance" class="scent-image">
-                <div class="scent-overlay">
-                  <div class="scent-check">✓</div>
-                </div>
-              </div>
-              <div class="scent-info">
-                <h3>Sweet & Gourmand</h3>
-                <p>Edible, warm, comforting</p>
-                <div class="scent-notes">
-                  <span>Vanilla</span>
-                  <span>Caramel</span>
-                  <span>Chocolate</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="scent-family-option" data-value="amber-spicy">
-              <div class="scent-image-container">
-                <img src="/img/spicy.jpg" alt="Amber & Spicy Fragrance" class="scent-image">
-                <div class="scent-overlay">
-                  <div class="scent-check">✓</div>
-                </div>
-              </div>
-              <div class="scent-info">
-                <h3>Amber & Spicy</h3>
-                <p>Warm, exotic, sensual</p>
-                <div class="scent-notes">
-                  <span>Amber</span>
-                  <span>Cinnamon</span>
-                  <span>Cardamom</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="scent-family-option" data-value="leathery-distinctive">
-              <div class="scent-image-container">
-                <img src="/img/leathery.jpg" alt="Leathery & Distinctive Fragrance" class="scent-image">
-                <div class="scent-overlay">
-                  <div class="scent-check">✓</div>
-                </div>
-              </div>
-              <div class="scent-info">
-                <h3>Leathery & Distinctive</h3>
-                <p>Bold, unique, memorable</p>
-                <div class="scent-notes">
-                  <span>Leather</span>
-                  <span>Tobacco</span>
-                  <span>Suede</span>
                 </div>
               </div>
             </div>
