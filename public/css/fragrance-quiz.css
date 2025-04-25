@@ -119,15 +119,15 @@ h2,
     margin-left: 10vw;
     width: 100%;
     line-height: 1.1;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 #gender .gender-left h2 .gender-word {
     display: block;
     text-align: left;
     font-size: 4.5rem;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-weight: 400;
+    letter-spacing: normal;
     margin-top: 0.2em;
 }
 
@@ -274,15 +274,15 @@ h2,
     margin-left: 10vw;
     width: 100%;
     line-height: 1.1;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 #skinTone .skin-left h2 .skin-word {
     display: block;
     text-align: left;
     font-size: 4.5rem;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-weight: 400;
+    letter-spacing: normal;
     margin-top: 0.2em;
 }
 
@@ -1868,15 +1868,15 @@ nav {
   margin-left: 10vw;
   width: 100%;
   line-height: 1.1;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 #fragranceStrength .strength-left h2 .strength-word {
   display: block;
   text-align: left;
   font-size: 4.5rem;
-  font-weight: 900;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: normal;
   margin-top: 0.2em;
 }
 
@@ -2094,7 +2094,7 @@ nav {
     margin-right:-200px;
     width: 50vw;
     line-height: 1.1;
-    font-weight: 700;
+    font-weight: 400;
     display: flex;
     align-items: center;
 }
