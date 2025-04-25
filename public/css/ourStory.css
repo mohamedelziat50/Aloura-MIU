@@ -16,7 +16,6 @@
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  gap: 10em;
   max-width: 1200px; /* Prevent content from getting too wide */
   width: 100%;
   margin: 0 auto; /* Center the container */
@@ -50,6 +49,7 @@
   margin: 0 auto; /* Center the video container */
   margin-top: -4.5em;  /* Slight upward adjustment to match */
   animation: moveFromBottom 1.7s ease-in-out; 
+  aspect-ratio: 9/16; /* Set a fixed aspect ratio container to prevent layout shifts */
 }
 
 @keyframes moveFromBottom {
@@ -59,8 +59,8 @@ from { transform: translateY(800px) }
 /* Video styling */
 .grey-video {
   width: 100%; /* Fill container */
-  height: auto;
-  min-height: 45vw;
+  height: 100%; /* Fill container completely */
+  object-fit: cover; /* Maintain aspect ratio but fill container */
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   display: block; /* Remove inline spacing */
