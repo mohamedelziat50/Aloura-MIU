@@ -1,7 +1,7 @@
 import UserModel from "../models/user.js";
-import sendEmail from "../utilities/emailService.js"; 
+import sendEmail from "../utilities/emailService.js";
 import jwt from "jsonwebtoken";
-import cookie from "cookie";
+``;
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -13,9 +13,8 @@ const cookieOptions = {
   httpOnly: true,
   maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
   sameSite: "lax", // important!
-  secure: false,   // only true when using HTTPS
+  secure: false, // only true when using HTTPS
 };
-
 
 export const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
@@ -25,33 +24,48 @@ export const signup = async (req, res) => {
   }
 
   try {
+    // Check if the email is already taken
     if (await UserModel.findOne({ email })) {
       return res.status(409).json({ message: "Email is already taken" });
     }
-    
 
-    if (await UserModel.findOne({ tel: phone })) {
+    // Check if the phone number is already taken
+    if (await UserModel.findOne({ phone })) {
       return res.status(409).json({ message: "Phone number is already taken" });
     }
 
-    const newUser = new UserModel({ name, email, tel: phone, password });
+    // Create the new user
+    const newUser = new UserModel({ name, email, phone, password });
     await newUser.save();
+
+    // Generate a token for the new user
     const token = generateToken(newUser.id, newUser.role);
-    res.cookie("jwt", token, cookieOptions);
+
+    // Check if there's already a JWT cookie (e.g., for admin user) and only set a token for the new user if no token exists
+    if (!req.cookies.jwt) {
+      // If there's no JWT token in the cookies, set a new token for the new user
+      res.cookie("jwt", token, cookieOptions);
+    } else {
+      // If there's already a JWT token (e.g., admin logged in), don't overwrite it
+      console.log("JWT token already exists, not overwriting it.");
+    }
 
     console.log("🎉 New user created:", newUser);
-    sendEmail({
-      to: email,
-      subject: "Verify your email!",
-      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/verify/${newUser._id}`,
-    });
+    // Optionally, you can send a verification email
+    // sendEmail({
+    //   to: email,
+    //   subject: "Verify your email!",
+    //   text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/verify/${newUser._id}`,
+    // });
 
+    // Respond with a success message and the newly created user
     res.status(201).json({ message: "Signed up successfully!", user: newUser });
   } catch (error) {
     console.error("❌ Error during signup:", error);
     res.status(500).json({ message: "Server error." });
   }
 };
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -71,7 +85,7 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user.id, user.role);
-    res.cookie("jwt", token,cookieOptions);
+    res.cookie("jwt", token, cookieOptions);
 
     res.status(200).json({
       message: "Login successful!",
@@ -105,10 +119,7 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-
-export const logout = (req, res) => {  
+export const logout = (req, res) => {
   res.clearCookie("jwt", cookieOptions);
-  res.redirect("/"); 
-}
-
-export default { signup, login, verifyEmail, logout };
+  res.redirect("/");
+};

@@ -20,7 +20,7 @@ body {
   width: 250px;
   height: 100vh;
   background-color: #000000;
-  padding: 30px 20px;
+  padding: 70px 20px;
   color: white;
   position: fixed; /* Changed from sticky to fixed */
   left: 0;
@@ -36,6 +36,7 @@ body {
 
 .sidebar ul {
   list-style: none;
+  padding-left: 0rem;
 }
 
 .sidebar ul li {
@@ -43,6 +44,7 @@ body {
   cursor: pointer;
   transition: all 0.3s;
   border-bottom: 1px solid #333;
+
 }
 
 .sidebar ul li:hover {
@@ -1241,13 +1243,13 @@ canvas {
   font-weight: bold;
 }
 
-.searchButton{
-    color: white !important;
-    background-color: #121212 !important;
-    border: 1px solid #121212 !important;
+.ButtonDicoration {
+  color: white !important;
+  background-color: #121212 !important;
+  border: 1px solid #121212 !important;
 }
 
-.searchButton:hover {
+.ButtonDicoration:hover {
   color: #121212 !important;
   background-color: white !important;
 }

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-// define the schema for the user data
-const User = new mongoose.Schema(
+// ✅ Define the schema with a consistent name
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -21,7 +21,7 @@ const User = new mongoose.Schema(
         "Please provide a valid email address",
       ],
     },
-    tel: {
+    phone: {
       type: String,
       required: [true, "Phone number is required"],
       match: [/^\d{10}$/, "Phone number must be exactly 10 digits"],
@@ -31,25 +31,25 @@ const User = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
     },
-    Image: {
+    profilePic: {
       type: String,
-      default: "./img/defultprofile.png",
+      default: "./img/defaultProfilePic.png",
     },
-    verified: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
     role: {
       type: String,
-      enum: ["user", "admin"], // only "user" or "admin" allowed
+      enum: ["user", "admin"],
       default: "user",
     },
   },
   { timestamps: true }
 );
 
-// hash password before saving
-User.pre("save", async function (next) {
+// ✅ Hash password before saving
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // only hash if changed
   try {
     const salt = await bcrypt.genSalt(10);
@@ -60,13 +60,11 @@ User.pre("save", async function (next) {
   }
 });
 
-// method to compare password
-User.methods.comparePassword = async function (candidatePassword) {
+// ✅ Method to compare password
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// create a model
-const UserModel = mongoose.model("User", User);
-
-// export the model
-export default UserModel;
+// ✅ Export model safely to avoid OverwriteModelError
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+export default User;

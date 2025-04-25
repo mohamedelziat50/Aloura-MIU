@@ -1,33 +1,42 @@
 import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import allRoutes from "./routes/allroutes.js";
-import authRoutes from "./routes/auth.js";
+import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
-import publicRoutes from "./routes/publicRoutes.js";
 
-dotenv.config();
+import { PORT } from "./config/secrets.js";
+
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import fragranceRoutes from "./routes/fragrance.js";
+import reviewRoutes from "./routes/review.js";
+import orderRoutes from "./routes/order.js";
+import frontendRouter from "./routes/frontend.js";
+import allRouters from "./routes/allroutes.js";
+
 const app = express();
-const port = 3000;
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(cookieParser())
 
+// middlewares
 
-app.use(authRoutes);
-app.use(allRoutes);
-app.use(publicRoutes);
+app.use(express.urlencoded({ extended: true })); //read the req.body
+app.use(express.json()); //read the req.body
+app.use(cookieParser()); // read the cookies
+app.use(express.static("public")); // serve static files from public directory
+app.set("view engine", "ejs"); // set the view engine to ejs
 
-mongoose
-  .connect(process.env.monogoDb_URI)
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`http://localhost:${port}/`);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+connectDB();
 
+//routes
+app.use(frontendRouter);
+app.use(authRoutes)
+app.use("/api/users", userRoutes);
+app.use('/api/fragrances/', fragranceRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/orders', orderRoutes);
+app.use(allRouters)
+
+app.use((req, res, next) => {
+  res.render("404");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
