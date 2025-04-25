@@ -93,19 +93,25 @@
 
         <!-- New container wrapping video and button -->
         <div class="video-control-container">
-          <!-- Original video element -->
-          <video
-            id="cyclingVideo"
-            class="grey-video"
-            autoplay
-            muted
-            playsinline
-          >
-            <source
-              id="videoSource"
-              src="../videos/photoshoot-2.mp4"
-              type="video/mp4"
-            />
+          <!-- Multiple video elements - only one will be shown at a time -->
+          <video id="video1" class="grey-video" autoplay muted playsinline>
+            <source src="../videos/photoshoot-2.mp4" type="video/mp4" />
+          </video>
+          
+          <video id="video2" class="grey-video" autoplay muted playsinline style="display: none;">
+            <source src="../videos/photoshoot.mp4" type="video/mp4" />
+          </video>
+          
+          <video id="video3" class="grey-video" autoplay muted playsinline style="display: none;">
+            <source src="../videos/photoshoot-romeo.mp4" type="video/mp4" />
+          </video>
+          
+          <video id="video4" class="grey-video" autoplay muted playsinline style="display: none;">
+            <source src="../videos/photoshoot-3.mp4" type="video/mp4" />
+          </video>
+          
+          <video id="video5" class="grey-video" autoplay muted playsinline style="display: none;">
+            <source src="../videos/photoshoot-nasser.mp4" type="video/mp4" />
           </video>
 
           <!-- Hidden audio element that will play the same audio -->

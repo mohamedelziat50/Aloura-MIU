@@ -14,28 +14,85 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSection(currentSection);
     updateProgress();
 
-    // Handle age slider
+    // Handle age slider with performance optimizations
     if (ageSlider && document.querySelector('.slider-thumb')) {
+        // Use requestAnimationFrame for smoother updates
+        let lastUpdateTime = 0;
         const updateSliderValue = () => {
             const value = ageSlider.value;
-            const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
-            const thumb = document.querySelector('.slider-thumb');
-            
-            // Update thumb position and text
-            thumb.style.left = `${percent}%`;
-            thumb.textContent = value;
-            
             userAnswers['age'] = value;
             enableNextButton(sections[currentSection]);
+            
+            // Use requestAnimationFrame for visual updates to reduce layout thrashing
+            if (!lastUpdateTime || performance.now() - lastUpdateTime > 16) { // ~60fps
+                requestAnimationFrame(() => {
+                    const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
+                    const thumb = document.querySelector('.slider-thumb');
+                    
+                    // Update thumb position and text
+                    thumb.style.left = `${percent}%`;
+                    thumb.textContent = value;
+                    lastUpdateTime = performance.now();
+                });
+            }
         };
 
         // Set initial value
         updateSliderValue();
         
-        // Update on slider movement
+        // Add both input and mousemove for better responsiveness
         ageSlider.addEventListener('input', updateSliderValue);
         ageSlider.addEventListener('change', updateSliderValue);
+        
+        // Handle mousemove for very fast dragging
+        let isMouseDown = false;
+        ageSlider.addEventListener('mousedown', () => {
+            isMouseDown = true;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+        
+        ageSlider.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                updateSliderValue();
+            }
+        });
     }
+
+    // Handle scent family selections
+    const scentFamilyOptions = document.querySelectorAll('.scent-family-option');
+    scentFamilyOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Handle selection toggling and limits
+            if (option.classList.contains('selected')) {
+                option.classList.remove('selected');
+                selectedScentCount--;
+            } else if (selectedScentCount < 2) {
+                option.classList.add('selected');
+                selectedScentCount++;
+            }
+
+            // Store selected scents
+            const selectedScents = Array.from(document.querySelectorAll('.scent-family-option.selected'))
+                .map(opt => opt.dataset.value);
+            userAnswers.scentFamily = selectedScents;
+
+            // Enable next button if at least one scent is selected
+            if (selectedScentCount > 0) {
+                const findFragranceBtn = document.querySelector('.find-fragrance-btn');
+                if (findFragranceBtn) {
+                    findFragranceBtn.classList.add('active');
+                }
+            } else {
+                const findFragranceBtn = document.querySelector('.find-fragrance-btn');
+                if (findFragranceBtn) {
+                    findFragranceBtn.classList.remove('active');
+                }
+            }
+        });
+    });
 
     // Handle section transitions
     document.addEventListener('click', (e) => {
@@ -44,15 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             moveToNextSection();
         }
 
-        // Option selection handling
-        if ((e.target.closest('.option') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
-            const option = e.target.closest('.option') || e.target.closest('.split-half');
+        // Option selection handling (for sections other than scent family)
+        if ((e.target.closest('.option:not(.scent-family-option)') || e.target.closest('.split-half')) && !e.careVsLeadHandled) {
+            const option = e.target.closest('.option:not(.scent-family-option)') || e.target.closest('.split-half');
             const section = option.closest('.quiz-section');
             
-            // Handle scent family special case (max 2 selections)
-            if (section.id === 'scentFamily') {
-                handleScentFamilySelection(option);
-            } else if (section.id === 'gender') {
+            // Handle section-specific selection behaviors
+            if (section.id === 'gender') {
                 // Remove selection and tick from all options
                 section.querySelectorAll('.option').forEach(opt => {
                     opt.classList.remove('selected');
@@ -90,6 +145,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (tick) {
                     tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
                 }
+                userAnswers[section.id] = option.dataset.value;
+                setTimeout(moveToNextSection, 500);
+                return;
+            } else if (section.id === 'desiredFeeling') {
+                // Single selection for desired feeling section with tick mark and animation
+                section.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    const tick = opt.querySelector('.tick-mark');
+                    if (tick) {
+                        tick.style.animation = 'none';
+                        tick.offsetHeight;
+                        tick.style.animation = null;
+                    }
+                });
+                option.classList.add('selected');
+                // Add tick mark if not present
+                let tick = option.querySelector('.tick-mark');
+                if (!tick) {
+                    tick = document.createElement('div');
+                    tick.className = 'tick-mark';
+                    tick.innerHTML = '✓';
+                    option.appendChild(tick);
+                }
+                tick.style.animation = 'tickAppear 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards';
                 userAnswers[section.id] = option.dataset.value;
                 setTimeout(moveToNextSection, 500);
                 return;
@@ -172,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Next button handling
-        if (e.target.classList.contains('next-btn')) {
+        if (e.target.classList.contains('next-btn') || e.target.classList.contains('find-fragrance-btn')) {
             moveToNextSection();
         }
     });
@@ -188,6 +267,25 @@ document.addEventListener('DOMContentLoaded', () => {
             option.classList.remove('skin-animate-expand');
             option.classList.add('skin-animate-shrink');
             // Remove shrink class after animation so it can be triggered again
+            option.addEventListener('animationend', function handler(e) {
+                if (e.animationName === 'skinToneShrink') {
+                    option.classList.remove('skin-animate-shrink');
+                    option.removeEventListener('animationend', handler);
+                }
+            });
+        });
+    });
+
+    // Desired Feeling hover animation (expand/shrink with keyframes)
+    const desiredFeelingOptions = document.querySelectorAll('#desiredFeeling .option');
+    desiredFeelingOptions.forEach(option => {
+        option.addEventListener('mouseenter', () => {
+            option.classList.remove('skin-animate-shrink');
+            option.classList.add('skin-animate-expand');
+        });
+        option.addEventListener('mouseleave', () => {
+            option.classList.remove('skin-animate-expand');
+            option.classList.add('skin-animate-shrink');
             option.addEventListener('animationend', function handler(e) {
                 if (e.animationName === 'skinToneShrink') {
                     option.classList.remove('skin-animate-shrink');
@@ -289,26 +387,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1500); // Match this with your animation duration
         });
     });
-
-    function handleScentFamilySelection(option) {
-        if (option.classList.contains('selected')) {
-            option.classList.remove('selected');
-            selectedScentCount--;
-        } else if (selectedScentCount < 2) {
-            option.classList.add('selected');
-            selectedScentCount++;
-        }
-
-        // Store selected scents
-        const selectedScents = Array.from(option.closest('.options').querySelectorAll('.selected'))
-            .map(opt => opt.dataset.value);
-        userAnswers.scentFamily = selectedScents;
-
-        // Enable next button if at least one scent is selected
-        if (selectedScentCount > 0) {
-            enableNextButton(option.closest('.quiz-section'));
-        }
-    }
 
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {

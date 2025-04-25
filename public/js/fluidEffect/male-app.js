@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Detect if screen is smaller than 768px (phones + small tablets)
     const isSmallScreen = window.matchMedia('(max-width: 768px)').matches || 
     /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+    
+    console.log(`Small screen size detection result: ${isSmallScreen}`);
 
     if(isSmallScreen)
     {
         // Fallback for smaller screens (hide canvas or show static content)
       greyCanvas.style.display = 'none';
+      console.log('Small screen detected. Fluid effect disabled for better performance.');
       return; // Exit early (no Fluid-JS initialization)
     }
   
@@ -176,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Check minimum requirements - if not met, disable fluid effect entirely
       // NOTE: We're checking if either condition passes (has decent CPU/RAM OR has a discrete GPU)
       const hasMinimumRequirements = 
-        (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) || hardwareSpecs.isDiscreteGPU;
+        (hardwareSpecs.cores >= 4 && hardwareSpecs.memory >= 4) && hardwareSpecs.isDiscreteGPU;
       
       if (!hasMinimumRequirements) {
         console.log('Hardware does not meet minimum requirements for fluid effect, disabling');
