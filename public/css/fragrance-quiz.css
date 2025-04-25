@@ -73,6 +73,7 @@ h2,
     font-weight: 400;
     font-size: 2.8rem;
     line-height: 1.2;
+    color: black;
     letter-spacing: normal;
 }
 
@@ -115,7 +116,7 @@ h2,
 }
 
 #gender .gender-left h2 {
-    font-size: 4rem;
+    font-size: 4.5rem;
     text-align: left;
     margin-left: 10vw;
     width: 100%;
@@ -576,7 +577,7 @@ nav {
     font-family: "Monotype Baskerville", serif;
     text-transform: uppercase;
     font-size: 2.5rem;
-    color: #333;
+    color: black;
     margin-bottom: 40px;
     line-height: 1.4;
 }
@@ -960,7 +961,7 @@ nav {
     text-align: center;
     letter-spacing: normal;
     width: 100%;
-    color: #333333;
+    color: #000000;
 }
 
 #securityVsAdventure .split-full {
@@ -1260,7 +1261,7 @@ nav {
     text-align: center;
     letter-spacing: normal;
     width: 100%;
-    color: #333333;
+    color: #000000;
 }
 
 #careVsLead .split-full {
@@ -1416,7 +1417,7 @@ nav {
     text-align: center;
     letter-spacing: normal;
     width: 100%;
-    color: #333333;
+    color: #000000;
 }
 
 #buildVsInvent .split-full {
@@ -1571,7 +1572,7 @@ nav {
     text-align: center;
     letter-spacing: normal;
     width: 100%;
-    color: #333333;
+    color: #000000;
 }
 
 #goodTimeVsSuccess .split-full {
@@ -1727,7 +1728,7 @@ nav {
     text-align: center;
     letter-spacing: normal;
     width: 100%;
-    color: #333333;
+    color: #000000;
 }
 
 #organizeVsSurprise .split-full {
