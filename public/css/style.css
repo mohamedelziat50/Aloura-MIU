@@ -191,7 +191,7 @@ box-shadow: #000;
 /* Journey text styling */
 .fragrance-quiz-container {
   position: absolute;
-  bottom: 4.5rem;
+  bottom: 3.2rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
