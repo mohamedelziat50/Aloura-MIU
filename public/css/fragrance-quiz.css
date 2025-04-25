@@ -2301,7 +2301,7 @@ nav {
   }
 }
 
-/* Center the intro sections properly - less vertical offset */
+/* Center the intro sections properly - adjust vertical position */
 #introduction, #personalityIntro, #olfactiveIntro {
     display: flex;
     flex-direction: column;
@@ -2310,7 +2310,7 @@ nav {
     text-align: center;
     height: 85vh; /* Reduced from 100vh to bring content up */
     padding: 0 20px;
-    margin-top: -80px; /* Negative margin to shift everything up */
+    margin-top: -120px; /* Increased negative margin to shift everything up more */
 }
 
 #introduction h2, #personalityIntro h2, #olfactiveIntro h2 {
@@ -2321,4 +2321,27 @@ nav {
 
 #introduction .arrow-down, #personalityIntro .arrow-down, #olfactiveIntro .arrow-down {
     margin-top: 30px; /* Reduced from 40px */
+}
+
+/* Center the age section */
+#age {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 85vh;
+    padding: 0 20px;
+    margin-top: -120px; /* Match the intro sections */
+}
+
+#age h2 {
+    margin-bottom: 40px;
+    font-size: 2.8rem;
+}
+
+#age .age-slider {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
