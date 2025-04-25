@@ -30,7 +30,7 @@
     "nodemailer": "^6.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.10"
   },
   "nodemonConfig": {
     "ext": "js,html, css , ejs"
