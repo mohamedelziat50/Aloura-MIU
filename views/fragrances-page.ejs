@@ -59,8 +59,11 @@
         <div id="product-container" >
             <!-- Image Gallery (structure unchanged) -->
             <div id="image-container"> 
-                <img id="main-image" src="../img/perfumes-transparent/spicebomb-extreme.png" 
-                     alt="Spicebomb Extreme" class="card-image">
+                <div id="main-image-container">
+                    <img id="main-image" src="../img/perfumes-transparent/spicebomb-extreme.png" 
+                    alt="Spicebomb Extreme" class="card-image">
+                </div>
+                
                 <div id="subImages">
                     <img src="../img/spicebomb1.jpg" class="subimage">
                     <img src="../img/spicebomb2.jpg" class="subimage">
@@ -97,6 +100,24 @@
                 <br><br>
                 <button id="add-to-cart-button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button">Add to Cart</button>
                 <br><br><br><br>
+
+                <div id="perks-container">
+                    <div class="perk-item">
+                        <img src="img/delivery.webp" alt="Delivery" class="perk-icon">
+                        <div class="perk-text">
+                            <h4>Fastest Delivery</h4>
+                            <p>Unmatched speed. Any address</p>
+                        </div>
+                    </div>
+                
+                    <div class="perk-item">
+                        <img src="img/best-quality.webp" alt="Samples" class="perk-icon">
+                        <div class="perk-text">
+                            <h4>Best Quality</h4>
+                            <p>Better than what you’ve bought before</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <h2 id="description-title">Description:</h2>
                 <h3 id="description">Spicebomb Extreme is known for its explosive spicy opening and its smooth, sweet tobacco-vanilla dry down. It's perfect for colder weather, evening wear, and special occasions.</h3>                
