@@ -1,6 +1,6 @@
 // controllers/orderController.js
-import Order from '../models/Order.js';
-import Fragrance from '../models/Fragrance.js';
+import Order from '../models/order.js';
+import Fragrance from '../models/fragrance.js';
 
 export const createOrder = async (req, res) => {
   try {

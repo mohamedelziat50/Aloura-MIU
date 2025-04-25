@@ -1,8 +1,8 @@
 import express from "express";
 import { JWT_SECRET } from "../config/secrets.js";
 import jwt from "jsonwebtoken";
-import UserModel from "../models/User.js"; 
-import Fragrances from "../models/fragrance.js"; 
+import UserModel from "../models/user.js"; 
+import Fragrances from "../models/fragrance.js";
 
 const router = express.Router();
 

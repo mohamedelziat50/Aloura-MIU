@@ -4,7 +4,6 @@ import UserModel from "../models/user.js";
 import moment from "moment";
 import jwt from "jsonwebtoken"; // Add jwt for decoding token
 import auth from "../middleware/auth.js";
-import User from "../models/user.js";
 
 router.get("/", (req, res) => res.render("index"));
 router.get("/gifting", (req, res) => res.render("gifting"));
