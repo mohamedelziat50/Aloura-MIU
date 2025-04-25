@@ -950,12 +950,13 @@ nav {
 }
 
 #securityVsAdventure .split-question {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     margin-top: 3vh;
     margin-bottom: 2vh;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: normal;
     width: 100%;
     color: #333333;
 }
@@ -1034,9 +1035,10 @@ nav {
 }
 
 #securityVsAdventure .split-half span {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     font-size: 2rem;
     color: #333333;
-    font-weight: 600;
     text-align: center;
     position: relative;
     z-index: 2;
@@ -1248,12 +1250,13 @@ nav {
 }
 
 #careVsLead .split-question {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     margin-top: 3vh;
     margin-bottom: 2vh;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: normal;
     width: 100%;
     color: #333333;
 }
@@ -1323,8 +1326,14 @@ nav {
 }
 
 #careVsLead .split-half span {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     font-size: 2rem;
     color: #333333;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #careVsLead .split-half.selected {
@@ -1397,12 +1406,13 @@ nav {
 }
 
 #buildVsInvent .split-question {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     margin-top: 3vh;
     margin-bottom: 2vh;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: normal;
     width: 100%;
     color: #333333;
 }
@@ -1472,8 +1482,14 @@ nav {
 }
 
 #buildVsInvent .split-half span {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     font-size: 2rem;
     color: #333333;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #buildVsInvent .split-half.selected {
@@ -1545,12 +1561,13 @@ nav {
 }
 
 #goodTimeVsSuccess .split-question {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     margin-top: 3vh;
     margin-bottom: 2vh;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: normal;
     width: 100%;
     color: #333333;
 }
@@ -1620,8 +1637,14 @@ nav {
 }
 
 #goodTimeVsSuccess .split-half span {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     font-size: 2rem;
     color: #333333;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #goodTimeVsSuccess .split-half.selected {
@@ -1694,12 +1717,13 @@ nav {
 }
 
 #organizeVsSurprise .split-question {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     margin-top: 3vh;
     margin-bottom: 2vh;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: normal;
     width: 100%;
     color: #333333;
 }
@@ -1769,8 +1793,14 @@ nav {
 }
 
 #organizeVsSurprise .split-half span {
+    font-family: 'Jost', sans-serif !important;
+    font-weight: 400 !important;
     font-size: 2rem;
     color: #333333;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #organizeVsSurprise .split-half.selected {
