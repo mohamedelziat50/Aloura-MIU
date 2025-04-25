@@ -2149,7 +2149,16 @@ nav {
 }
 
 /* Scent Families Section - Redesigned for horizontal layout */
+#scentFamily h2 {
+  margin-top: -140px; /* Reduced from default to shift it upward */
+  margin-bottom: 20px; /* Smaller bottom margin */
+  padding-top: 0; /* Remove any top padding */
+  line-height: 1.2; /* Tighten line height */
+  text-align: center; /* Keep it centered */
+}
+
 .scent-families-container {
+  margin: 20px auto; /* Reduced from 30px to 20px */
   display: flex;
   justify-content: center;
   gap: 20px;
