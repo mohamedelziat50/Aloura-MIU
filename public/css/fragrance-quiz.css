@@ -547,6 +547,7 @@ nav {
     height: 45px;
     display: flex;
     align-items: center;
+    padding: 0 10px; /* Added padding to prevent thumb from overflowing */
 }
 
 .slider {
@@ -558,6 +559,7 @@ nav {
     outline: none;
     border-radius: 4px;
     margin: 0 auto;
+    cursor: pointer; /* Added cursor pointer */
 }
 
 /* Make the actual thumb invisible */
@@ -568,6 +570,7 @@ nav {
     height: 45px;
     background: transparent;
     cursor: pointer;
+    touch-action: manipulation; /* Optimize for touch */
 }
 
 .slider::-moz-range-thumb {
@@ -576,6 +579,7 @@ nav {
     background: transparent;
     border: none;
     cursor: pointer;
+    touch-action: manipulation; /* Optimize for touch */
 }
 
 /* Style the custom thumb with the number */
@@ -592,15 +596,22 @@ nav {
     font-size: 16px;
     font-weight: 500;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: all 0.15s linear; /* Made faster and changed to linear for smoother updates */
     transform: translate(-50%, -50%);
     top: 50%;
     left: 0;
+    will-change: transform; /* Optimize rendering performance */
 }
 
 .slider:active ~ .slider-thumb {
     transform: translate(-50%, -50%) scale(1.15);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#age .age-slider {
+    width: 100%;
+    max-width: 700px; /* Increased from 500px */
+    margin: 0 auto;
 }
 
 /* Options Grid */
@@ -2342,6 +2353,6 @@ nav {
 
 #age .age-slider {
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px; /* Increased from 500px */
     margin: 0 auto;
 }
