@@ -94,6 +94,8 @@
     transition: all 0.4s ease;
     position: relative;
     border: 1px solid #f0f0f0;
+    width: 70%;
+    margin-left:  140px;;
 }
 
 .gift-item:hover {
