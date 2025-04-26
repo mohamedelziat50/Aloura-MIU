@@ -666,6 +666,11 @@ ul{
     .suggested-item {
         flex: 0 0 calc(33.333% - 1.5rem); /* 3 items per view */
     }
+
+    .suggested-image{
+        margin: 12px;
+        text-align: center;
+    }
 }
 
 /* Tablets (768px and below) */
@@ -676,8 +681,13 @@ ul{
 
         #main-image-container {
             height: 350px; /* Slightly smaller than desktop */
-            margin-bottom: 250px; /* Reduced space for sub-images */
+            margin-bottom: 157px;
             padding: 15px; /* Slightly less padding */
+        }
+
+        .card-image{
+            margin-right: -6px;
+
         }
 
         #subImages {
@@ -739,7 +749,7 @@ ul{
     #main-image-container {
         margin-bottom: 20px;
         height: 350px;
-        margin-bottom: 250px; /* Adjusted to maintain proportion */
+        margin-bottom: 157px;
     }
 
     #main-image-container {
@@ -776,6 +786,9 @@ ul{
 
     .suggested-item {
         flex: 0 0 calc(100% - 1.5rem); /* 1 item per view */
+        
+        margin-left: 5px;
+
     }
 
     .suggestion-arrow {
@@ -799,12 +812,13 @@ ul{
 @media (max-width: 400px) {
     #main-image-container {
         height: 300px;
-        margin-bottom: 200px; /* Adjusted to maintain proportion */
+        margin-bottom: 121px;
         padding: 15px;
     }
 
     #subImages {
         margin-top: -120px;
+        
     }
 
     #perfumeName {
@@ -830,6 +844,12 @@ ul{
         font-size: 18px;
     }
 
+    .suggested-image {
+        margin: 25px;
+        text-align: center;
+        
+    }
+
     .suggested-price {
         font-size: 14px;
     }
@@ -848,7 +868,7 @@ ul{
 @media (max-width: 350px) {
     #main-image-container {
         height: 250px;
-        margin-bottom: 150px; /* Adjusted to maintain proportion */
+        margin-bottom: 74px;
     }
     #perfumeName {
         font-size: 1.6rem;
@@ -864,6 +884,9 @@ ul{
     #price {
         font-size: 18px;
         letter-spacing: normal;
+    }
+    .card-image{
+        margin-right: -10px;
     }
 }
 
