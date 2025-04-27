@@ -61,7 +61,7 @@ const fragranceSchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
-    imageUrl: {
+    image: {
       type: String,
     },
     popularityScore: {

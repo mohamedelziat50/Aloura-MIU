@@ -82,6 +82,45 @@
                 />
               </div>
 
+              <div class="mb-3">
+                <label for="newPassword" class="form-label">Old Password</label>
+                <div class="input-group">
+                  <input
+                    name="password"
+                    type="password"
+                    class="form-control"
+                    id="user-oldPassword"
+                    placeholder="Enter Old password*"
+                  />
+                  <span
+                    class="input-group-text password-toggle"
+                    id="signupPasswordToggle"
+                  >
+                    <i class="fa-solid fa-lock" id="signupPasswordIcon"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="oldPassword" class="form-label"
+                  >New Password</label
+                >
+                <div class="input-group">
+                  <input
+                    name="Confirm Password"
+                    type="password"
+                    class="form-control"
+                    id="user-newPassword"
+                    placeholder="Enter New password*"
+                  />
+                  <span
+                    class="input-group-text password-toggle"
+                    id="confirmPasswordToggle"
+                  >
+                    <i class="fa-solid fa-lock" id="confirmPasswordIcon"></i>
+                  </span>
+                </div>
+              </div>
+
               <div class="mb-2">
                 <label for="user-phone" class="form-label">Phone Number</label>
                 <div class="input-group">
@@ -142,60 +181,74 @@
       import showFunToast from "/js/toast.js";
       
       const form = document.getElementById("editUserForm");
-    
+      
       // Save the initial values when the page loads
       const originalValues = {
-        id: document.getElementById("user-id").textContent.trim(), // Get ID from <p> instead of value
+        id: document.getElementById("user-id").textContent.trim(),
         name: document.getElementById("user-name").value,
         email: document.getElementById("user-email").value,
         phone: document.getElementById("user-phone")?.value || "",
         role: document.getElementById("user-role")?.value || "",
-        isVerified: document.getElementById("user-isVerified")?.value || "", // Save initial isVerified value
+        isVerified: document.getElementById("user-isVerified")?.value || "",
+        oldPassword: document.getElementById("user-oldPassword")?.value || "",
+        newPassword: document.getElementById("user-newPassword")?.value || "",
       };
-    
+      
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-    
+      
         // Extract form data
-        const id = document.getElementById("user-id").textContent.trim(); // Get ID from <p> instead of value
+        const id = document.getElementById("user-id").textContent.trim();
         const name = document.getElementById("user-name").value;
         const email = document.getElementById("user-email").value;
         const phone = document.getElementById("user-phone")?.value || "";
         const role = document.getElementById("user-role")?.value || "";
-        const isVerified = document.getElementById("user-isVerified")?.value || ""; // Get isVerified value
-    
+        const isVerified = document.getElementById("user-isVerified")?.value || "";
+        const oldpassword = document.getElementById("user-oldPassword")?.value.trim() || "";
+        const newpassword = document.getElementById("user-newPassword")?.value.trim() || "";
+      
         // Check if anything has changed
         const hasChanged =
           name !== originalValues.name ||
           email !== originalValues.email ||
           phone !== originalValues.phone ||
           role !== originalValues.role ||
-          isVerified !== originalValues.isVerified; // Include isVerified check
-    
+          isVerified !== originalValues.isVerified ||
+          oldpassword !== "" ||
+          newpassword !== "";
+      
         if (!hasChanged) {
           showFunToast("ℹ️ No changes detected.", "red");
-          return; // Exit early, don't send request
+          return;
         }
-    
-        const body = { name, email, phone , role, isVerified }; // Include isVerified in the body
-        if (role !== undefined) body.role = role;
-    
+      
+        const body = { name, email, phone, role, isVerified };
+      
+        // 👉 NEW: Only send password fields if user filled them
+        if (oldpassword && newpassword) {
+          body.oldpassword = oldpassword;
+          body.newpassword = newpassword;
+        }else if (oldpassword || newpassword) {
+        showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
+        return;
+      }
+      
         try {
-          const response = await fetch(`http://localhost:3000/api/users/editUser/${id}`, {
+          const response = await fetch(`http://localhost:3000/api/users/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
           });
-    
+      
           const data = await response.json();
-    
+      
           if (response.ok) {
             setTimeout(() => {
               showFunToast(
                 data.message || "✅ Updated successfully!",
                 "green"
               );
-              window.location.href = "/admin/:id"; // Redirect after success
+              window.location.href = `/admin/${id}`; // 👉 Fixed redirect
             }, 1500);
           } else {
             showFunToast(data.message || "❌ Error occurred!", "red");
@@ -205,8 +258,8 @@
           showFunToast("❌ Error occurred!", "red");
         }
       });
-    </script>
-    
+      </script>
+      
     
   </body>
 </html>
