@@ -2,6 +2,7 @@ import express from "express";
 import { JWT_SECRET } from "../config/secrets.js";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/user.js"; 
+
 import Fragrances from "../models/fragrance.js"; // Import the Fragrances model
 
 const router = express.Router();
@@ -51,6 +52,10 @@ router.get("/gifting", (req, res) => {
 
 router.get("/fragrance-quiz", (req, res) => {
   res.render("fragrance-quiz");
+});
+
+router.get("/fragrances-page", (req, res) => {
+  res.render("fragrances-page");
 });
 
 router.get("/our-story", (req, res) => {
