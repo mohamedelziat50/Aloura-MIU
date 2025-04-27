@@ -98,6 +98,22 @@ document.addEventListener("DOMContentLoaded", function () {
         let dy = event.touches[0].clientY - event.touches[1].clientY;
         return Math.sqrt(dx * dx + dy * dy);
     }
+
+
+    // Collapsible sections functionality
+    const collapsibleHeaders = document.querySelectorAll('.collapsible-header');
+    
+    collapsibleHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            // Toggle active class on the arrow icon
+            const arrow = this.querySelector('.collapsible-arrow');
+            arrow.classList.toggle('active');
+            
+            // Toggle the content visibility
+            const content = this.nextElementSibling;
+            content.classList.toggle('active');
+        });
+    });
 });
 
 

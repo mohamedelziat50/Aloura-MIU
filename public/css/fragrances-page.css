@@ -300,18 +300,12 @@ input[type="radio"]:checked + .radio-label {
 }
 
 #notes{
-   color: black;
-
-    font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
+    color: black;
+    font-weight: 500;
+    font-size: 16px;
     line-height: 100%;
     margin: 10px 0;
-    text-transform: uppercase;
     margin-top: -47px;
-
 }
 
 
@@ -387,21 +381,15 @@ ul{
     list-style-type: none;
 }
 
-#description-title{
+#description-title {
     color: black;
-
-    font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
+    font-weight: 500;
+    font-size: 16px;
     line-height: 100%;
     margin: 10px 0;
-    text-transform: uppercase;
     margin-top: -47px;
-
-
 }
+
 #description{
      font-weight: 400; 
     font-size: 17px;
@@ -616,7 +604,8 @@ ul{
     padding: 20px 0px;
     max-width: 800px;
     margin-top: -80px;
-    margin-bottom: 42px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .perk-item {
@@ -919,45 +908,59 @@ ul{
 
 }
 
-
-
-
-
-
-/* h4 {
-    font-weight: 400; 
-    font-size: 17px;
-    font-family: "Monotype Baskerville", serif;
+/* Collapsible Sections Styling */
+.collapsible-section {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    width: 100%;
 }
 
-h3 {
-        font-size: 22px;
-        color: #444;
-        margin: 15px 0;
-        display: inline;
-}
-
-h2 {
-    color: black;
-
-    font-weight: 400; 
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
-    line-height: 100%;
-    margin: 10px 0;
-    text-transform: uppercase;
-
-
-div {
+.collapsible-header {
     display: flex;
-    max-width: auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+    user-select: none;
 }
 
-} */
+.collapsible-arrow {
+    transition: transform 0.3s ease;
+    color: #000;
+    font-size: 18px;
+}
+
+.collapsible-arrow.active {
+    transform: rotate(90deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 15px;
+}
+
+.collapsible-content.active {
+    max-height: 500px; /* Adjust based on your content */
+    transition: max-height 0.5s ease-in;
+}
+
+#description-title, #notes {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Ensure the description doesn't have the negative margin anymore since we're using collapsible sections */
+#description-title {
+    margin-top: 0;
+}
+
+#notes {
+    margin-top: 0;
+}
+
+.fa, .fas {
+    scale: 0.75;
+}
