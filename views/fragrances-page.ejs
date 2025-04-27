@@ -114,7 +114,30 @@
                 </div>
 
                 <h3 id="price" class="inter-custom">275 €</h3>
-                <br><br>
+                <br>
+
+                <!-- Static Gender Slider - Developer Configurable (3 positions) -->
+                <div class="gender-slider-container" data-gender-value="1">
+                    <div class="gender-slider-label">
+                        <span class="gender-icon-male"><i class="fas fa-mars"></i></span>
+                        <span class="gender-text">FOR</span>
+                    </div>
+                    
+                    <div class="modern-gender-slider">
+                        <div class="slider-track"></div>
+                        <div class="slider-points">
+                            <div class="slider-point" data-value="1"></div>
+                            <div class="slider-point" data-value="2"></div>
+                            <div class="slider-point" data-value="3"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gender-slider-label">
+                        <span class="gender-text">FOR</span>
+                        <span class="gender-icon-female"><i class="fas fa-venus"></i></span>
+                    </div>
+                </div>
+
                 <button id="add-to-cart-button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button" class="inter-custom">Add to Cart</button>
                 <br><br><br><br>
 
@@ -160,12 +183,7 @@
                     </div>
                 </div>
                 
-                <!-- Gender Slider -->
-                <div class="gender-slider">
-                    <img src="../img/perfumes-transparent/female.png" alt="Female" class="gender-icon">
-                    <input type="range" min="0" max="100" value="70" id="genderRange" disabled>
-                    <img src="../img/perfumes-transparent/male.png" alt="Male" class="gender-icon">
-                </div>
+                
             </div>
         </div>
 
@@ -250,7 +268,7 @@
                             <p class="suggested-price">900EGP</p>
                             <button class="add-to-cart">Add to Cart</button>
                         </div>
-                        <div class="suggested-item">
+                        <div class="suggested-item"></div>
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
                             <p class="suggested-price">900EGP</p>
@@ -262,6 +280,7 @@
                     <button id="next-suggestion" class="suggestion-arrow">&gt;</button>
                 </div>
                
+
             </div>
         </div>
 

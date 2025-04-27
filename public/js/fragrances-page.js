@@ -114,6 +114,40 @@ document.addEventListener("DOMContentLoaded", function () {
             content.classList.toggle('active');
         });
     });
+
+    // Initialize static gender slider based on data attribute
+    const genderSlider = document.querySelector('.gender-slider-container');
+    if (genderSlider) {
+        // Get the gender value from the data attribute (default to 2 if not set)
+        const genderValue = genderSlider.getAttribute('data-gender-value') || '2';
+        
+        // Convert the gender value to a slider position (1-3)
+        let sliderPosition;
+        switch (genderValue) {
+            case '1': // Male
+                sliderPosition = '1';
+                break;
+            case '2': // Neutral
+                sliderPosition = '2';
+                break;
+            case '3': // Female
+                sliderPosition = '3';
+                break;
+            default:
+                sliderPosition = '2'; // Default to neutral
+        }
+        
+        // Remove active class from all points
+        const sliderPoints = genderSlider.querySelectorAll('.slider-point');
+        sliderPoints.forEach(point => {
+            point.classList.remove('active');
+            
+            // Add active class to the point that matches the gender value
+            if (point.getAttribute('data-value') === sliderPosition) {
+                point.classList.add('active');
+            }
+        });
+    }
 });
 
 
