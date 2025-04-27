@@ -34,6 +34,8 @@ body {
     border-radius: 0px; /* Removed rounded corners for a sharper look */
     justify-content: center;
     padding-top: 100px;
+    padding-left: 4rem;
+    padding-right: 10rem;
 }
 
 /* Keep all your original CSS below this point exactly as it was */
@@ -54,7 +56,8 @@ body {
     margin: 0%;
     border-radius: 10px;
     justify-content: center;
-
+    padding: 20px 0;
+    padding-left: 1rem;
    
 }
 
@@ -188,6 +191,7 @@ body {
     text-align: left;
     margin-bottom: 0;
     text-transform: uppercase;
+    margin-top: 2rem;
 }
 
 #perfumeType{
@@ -207,22 +211,19 @@ body {
 }
 
 #price {
-    font-size: 20.5px;
+    font-size: 20px;
     color: black;
     margin: 15px 0;
     float: right; /* Moves price to the right */
-    margin-top: -10px; /* Adjusts vertical position */
-    margin-right: -18px;
+    margin-top: -8px; /* Adjusts vertical position */
 }
 
 #add-to-cart-button {
     width: 100%;
-  padding: 10px;
+  padding: 15px;
   /* Bring the button closer to the line seperator*/
 
-  font-weight: normal; /* Add this to make the font look think and clean */
-  font-size: 16px; /* Added this line for 64px font size */
-  font-family: "Monotype Baskerville", serif;
+  font-size: 14px; /* Added this line for 64px font size */
   letter-spacing: .1em; /* Distance between letters for design */
   line-height: 100%;
   text-transform: uppercase;
@@ -230,12 +231,10 @@ body {
   background-color: #000000;
   color: #ffffff;
   border: 0.5px solid rgb(0, 0, 0);
-  border-radius: 5px;
   cursor: pointer;
 
   /* Animation */
   transition: background-color 0.1s linear;
-  margin-top: -30px;
 }
 
  #add-to-cart-button:hover {
@@ -290,7 +289,7 @@ margin-bottom:-20px;
 /* Hover effect */
 .radio-label:hover {
     background-color: rgba(0, 0, 0, 0.1); /* Slightly visible on hover */
-    transform: scale(1.025);
+    transform: scale(1.035);
 }
 
 /* When the radio button is checked */
@@ -611,8 +610,10 @@ ul{
 #perks-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    padding: 20px;
+    /* align-items: center; */
+    /* gap: 30px; */
+    text-align: center;
+    padding: 20px 0px;
     max-width: 800px;
     margin-top: -80px;
     margin-bottom: 42px;
@@ -627,9 +628,8 @@ ul{
 }
 
 .perk-icon {
-    width: 40px;
-    height: 40px;
-    margin-left: 28px;
+    width: 50px;
+    height: 50px;
 }
 
 .perk-text h4 {
