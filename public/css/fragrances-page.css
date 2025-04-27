@@ -29,7 +29,7 @@ body {
 #product-container {
     display: flex;
     max-width: 80%;  /* Reduced from auto to make container smaller */
-    margin: 0 auto;     /* This centers the container horizontally */
+    margin: 0 auto;  /* This centers the container horizontally */
     background-color: white;
     border-radius: 0px; /* Removed rounded corners for a sharper look */
     justify-content: center;
@@ -45,7 +45,7 @@ body {
     width: auto;
     height: auto;
     object-fit: contain;
-    margin-right: 40px;
+    margin: auto !important;
 }
 
 
@@ -70,7 +70,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     justify-content: center;
-    margin-top: -50px;
+    margin-top: 0;
 }
 
 #main-image-container {
@@ -78,9 +78,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 400px; /* Fixed height for consistency */
+    height: 40rem; /* Fixed height for consistency */
     background-color: #f5f5f5; /* Soft grey background */
-    border-radius: 8px; /* Rounded corners */
     margin-bottom: 30px;
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Subtle shadow */
@@ -101,17 +100,15 @@ body {
     margin-top: -281px;
     box-shadow: none;
     height: 50%;
-    background-color: #f1f1f1;
-   
-    
 }
 .subimage {
-    width: 50%; /* Adjust as needed */
+    width: 100%;
     height: auto;
-    object-fit: cover; /* Ensure no space appears due to aspect ratio */
-    margin: 0; /* Remove any unwanted margins */
-    padding: 0; /* Ensure no padding adds spacing */
-    border: none; /* Remove any border that could add gaps */
+    object-fit: cover;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 /* Ensure lightbox is on top */
@@ -636,12 +633,42 @@ ul{
 
 /* ==================== MEDIA QUERIES ==================== */
 
+/* Extra Large Screens (1600px and above) */
+@media (min-width: 1600px) {
+    #product-container {
+        max-width: 1575px;
+        padding-left: 3rem;
+        padding-right: 6rem;
+    }
+}
+
+/* Large Desktop Screens (1200px to 1599px) */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    #product-container {
+        max-width: 90%;
+        padding-left: 3rem;
+        padding-right: 5rem;
+    }
+}
+
+/* Medium Desktop Screens (1024px to 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    #product-container {
+        max-width: 90%;
+        padding-left: 2.5rem;
+        padding-right: 4rem;
+    }
+}
+
 /* Large Tablets and Small Laptops (1024px and below) */
 @media (max-width: 1024px) {
     #product-container {
-        max-width: 90%;
+        max-width: 95%;
         flex-direction: column;
         align-items: center;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 80px;
     }
 
     #image-container {
@@ -673,7 +700,10 @@ ul{
 /* Tablets (768px and below) */
     @media (max-width: 768px) {
         #product-container {
-            padding-top: 80px;
+            padding-top: 60px;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            max-width: 100%;
         }
 
         #main-image-container {
@@ -733,9 +763,12 @@ ul{
 /* Large Phones (576px and below) */
 @media (max-width: 576px) {
     #product-container {
-        max-width: 90%;
+        max-width: 100%;
         flex-direction: column;
         align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 50px;
     }
 
     #image-container {
