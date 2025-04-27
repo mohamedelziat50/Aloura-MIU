@@ -413,17 +413,18 @@ ul{
 
 #might-like {
     display: inline-block;
-    font-size: 2.2rem;
-    color: #333;
+    font-size: 2rem;
+    color: black;
     padding: 0 2rem;
     background: white;
     position: relative;
     z-index: 1;
-    font-family: "Monotype Baskerville", serif;
+    /* font-family: "Monotype Baskerville", serif; */
     font-style: normal;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing: .1em;
     line-height: 3.6rem;
+    text-transform: uppercase;
 }
 
 #might-like-box::before {
@@ -432,8 +433,8 @@ ul{
     top: 50%;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #ddd 15%, #ddd 85%, transparent 100%);
+    height: 1px;
+    background: #e0e0e0;
     z-index: 0;
 }
 
@@ -481,7 +482,7 @@ ul{
 }
 
 .suggested-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -491,8 +492,8 @@ ul{
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #000000 0%, #ffffff 100%);
+    height: 4px;
+    background: black;
 }
 
 .suggested-image {
@@ -510,26 +511,30 @@ ul{
 .suggested-name {
     font-family: "Monotype Baskerville", serif;
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: .08em;
-    line-height: 3.6rem;
-    text-align: center;
+    font-weight: 400;
     font-size: 20px;
-    margin-bottom: 0.5rem;
+    letter-spacing: .1em;
+    line-height: 1.2;
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
 }
 
 .suggested-price {
-    list-style: none;
-    box-sizing: inherit;
-    display: block;
+    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 500;
-    letter-spacing: .2em;
-    line-height: 1.6rem;
+    font-size: 15px;
+    color: #333;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    text-align: left;
-    margin-top: -21px;
+    text-align: center;
+    margin-top: 8px;
     margin-bottom: 1rem;
+    font-size: 15px;
+    /* font-weight: bold; */
+    color: #333;
 }
 
 .suggestion-arrow {
@@ -571,8 +576,7 @@ ul{
   padding: 10px;
 
   /* DISPLAY */
-  font-size: 16px; /* Added this line for 64px font size */
-  font-family: "Monotype Baskerville", serif;
+  font-size: 14px; /* Added this line for 64px font size */
   font-weight: normal; /* Add this to make the font look think and clean */
   line-height: 100%;
   color: #000;
@@ -580,7 +584,6 @@ ul{
   letter-spacing: .1em; /* Distance between letters for design */
   background-color: #fff;
   border: 0.5px solid black;
-  border-radius: 5px;
 
   /* ANIMATION */
   transition: background-color 0.1s linear;
