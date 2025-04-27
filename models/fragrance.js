@@ -25,7 +25,6 @@ const fragranceSchema = new mongoose.Schema(
     topNotes: [String],
     middleNotes: [String],
     baseNotes: [String],
-    ingredients: [String],
     description: {
       type: String,
     },

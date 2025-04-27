@@ -165,16 +165,16 @@
       <section id="section-products" class="section">
         <h2>Manage Products</h2>
         <div class="product-buttons">
-          <button class="product-btn add">Add Product</button>
-          <button class="product-btn edit">Edit Product</button>
-          <button class="product-btn delete">Delete Product</button>
+          <a class="product-btn ButtonDicoration add "  href="/addFragrance">Add Product</a>
         </div>
         <br />
         <br />
         <% if (fragrance.length === 0) { %>
         <h1 style="text-align: center">No Products To Show</h1>
-        <% } else { %> <% fragrance.forEach((product) => { %>
-        <div class="users-grid">
+        <% } else { %> 
+          
+          <div class="product-grid">
+          <% fragrance.forEach((product) => { %>
           <div class="product-card">
             <div class="product-avatar">
               <img src="<%= product.image %>" alt="product Avatar" />
@@ -205,12 +205,12 @@
               <button class="product-btn delete">Delete</button>
             </div>
           </div>
-        </div>
+        
         <% }) %>
-      </section>
+      </div>
 
       <% } %>
-
+    </section>
       <!-- Orders Section -->
       <!-- Add this to your Orders section -->
       <section id="section-orders" class="section">
