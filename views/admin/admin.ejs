@@ -55,7 +55,7 @@
         <li id="btn-users">Users</li>
         <li id="btn-reviews">Reviews</li>
         <li id="btn-settings">Settings</li>
-        <li id="btn-logout">Logout</li>
+        <li id="btn-logout">Back To Store</li>
       </ul>
     </div>
 
@@ -364,15 +364,7 @@
               <td><%= user.isVerified %></td>
               <td><%= moment(user.updatedAt).fromNow() %></td>
               <td><%= user.role %></td>
-              <td>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-title="View details"
-                  data-bs-placement="top"
-                  class="btn ButtonDicoration btn-sm"
-                  href="./user/view.html"
-                  ><i class="bi bi-eye"></i
-                ></a>
+              <td class="d-flex justify-content-center actionlist">
                 <a
                   data-bs-toggle="tooltip"
                   data-bs-title="Edit user"
