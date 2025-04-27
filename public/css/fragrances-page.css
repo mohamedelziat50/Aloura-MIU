@@ -288,7 +288,8 @@ margin-bottom:-20px;
 
 /* Hover effect */
 .radio-label:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Slightly visible on hover */
+    background-color: rgba(0, 0, 0, 0.05); /* Slightly visible on hover */
+    border-color: black;
     transform: scale(1.035);
 }
 
