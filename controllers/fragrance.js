@@ -1,4 +1,4 @@
-import Fragrance from "../models/Fragrance.js";
+import Fragrance from "../models/fragrance.js";
 
 // Create
 export const createFragrance = async (req, res) => {

@@ -113,6 +113,17 @@
                 <% } %>
               </div>
 
+              <% if (user.isVerified !== undefined) { %>
+                <div class="mb-3">
+                  <label for="isVerified" class="form-label">Verified</label>
+                  <select id="user-isVerified" class="form-select">
+                    <option value="true" <%= user.isVerified === true ? 'selected' : '' %>> True</option>
+                    <option value="false" <%= user.isVerified === false ? 'selected' : '' %>> False</option>
+                  </select>
+                </div>
+              <% } %>
+            
+
               <p class="signup-confirm-password"></p>
               <button
                 type="submit"
@@ -127,48 +138,75 @@
       </div>
     </div>
 
-    <script type="module">  
+    <script type="module">
       import showFunToast from "/js/toast.js";
+      
       const form = document.getElementById("editUserForm");
-      const statusMessage = document.getElementById("statusMessage");
-
+    
+      // Save the initial values when the page loads
+      const originalValues = {
+        id: document.getElementById("user-id").textContent.trim(), // Get ID from <p> instead of value
+        name: document.getElementById("user-name").value,
+        email: document.getElementById("user-email").value,
+        phone: document.getElementById("user-phone")?.value || "",
+        role: document.getElementById("user-role")?.value || "",
+        isVerified: document.getElementById("user-isVerified")?.value || "", // Save initial isVerified value
+      };
+    
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const id = document.getElementById("user-id");
+    
+        // Extract form data
+        const id = document.getElementById("user-id").textContent.trim(); // Get ID from <p> instead of value
         const name = document.getElementById("user-name").value;
         const email = document.getElementById("user-email").value;
-        const phone = document.getElementById("user-phone").value;
-        const role = document.getElementById("user-role")?.value;
-
-        const body = { name, email };
+        const phone = document.getElementById("user-phone")?.value || "";
+        const role = document.getElementById("user-role")?.value || "";
+        const isVerified = document.getElementById("user-isVerified")?.value || ""; // Get isVerified value
+    
+        // Check if anything has changed
+        const hasChanged =
+          name !== originalValues.name ||
+          email !== originalValues.email ||
+          phone !== originalValues.phone ||
+          role !== originalValues.role ||
+          isVerified !== originalValues.isVerified; // Include isVerified check
+    
+        if (!hasChanged) {
+          showFunToast("ℹ️ No changes detected.", "red");
+          return; // Exit early, don't send request
+        }
+    
+        const body = { name, email, phone , role, isVerified }; // Include isVerified in the body
         if (role !== undefined) body.role = role;
-
+    
         try {
-          const response = await fetch(`/api/users/${id}`, {
+          const response = await fetch(`http://localhost:3000/api/users/editUser/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
           });
-
+    
           const data = await response.json();
-
+    
           if (response.ok) {
             setTimeout(() => {
               showFunToast(
-                data.message || "✅ Signed up successfully!",
+                data.message || "✅ Updated successfully!",
                 "green"
               );
-
-              window.location.href = "/admin"; // Redirect after success
+              window.location.href = "/admin/:id"; // Redirect after success
             }, 1500);
           } else {
             showFunToast(data.message || "❌ Error occurred!", "red");
           }
         } catch (err) {
-            console.error(err);
-            showFunToast("❌ Error occurred!", "red");
+          console.error(err);
+          showFunToast("❌ Error occurred!", "red");
         }
       });
     </script>
+    
+    
   </body>
 </html>
