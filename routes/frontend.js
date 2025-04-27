@@ -62,4 +62,7 @@ router.get("/our-story", (req, res) => {
   res.render("our-story");
 });
 
+
+
+
 export default router;
