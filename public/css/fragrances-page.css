@@ -6,6 +6,13 @@
     font-family: 'Arial', sans-serif;
 } */
 
+/* Google fonts */
+.inter-custom {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+
 #heading{
     margin-bottom: 65px;
 }
@@ -22,11 +29,13 @@ body {
 #product-container {
     display: flex;
     max-width: 80%;  /* Reduced from auto to make container smaller */
-    margin: 0 auto;     /* This centers the container horizontally */
+    margin: 0 auto;  /* This centers the container horizontally */
     background-color: white;
     border-radius: 0px; /* Removed rounded corners for a sharper look */
     justify-content: center;
     padding-top: 100px;
+    padding-left: 4rem;
+    padding-right: 10rem;
 }
 
 /* Keep all your original CSS below this point exactly as it was */
@@ -36,7 +45,7 @@ body {
     width: auto;
     height: auto;
     object-fit: contain;
-    margin-right: 40px;
+    margin: auto !important;
 }
 
 
@@ -47,7 +56,8 @@ body {
     margin: 0%;
     border-radius: 10px;
     justify-content: center;
-
+    padding: 20px 0;
+    padding-left: 1rem;
    
 }
 
@@ -60,7 +70,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     justify-content: center;
-    margin-top: -50px;
+    margin-top: 0;
 }
 
 #main-image-container {
@@ -68,9 +78,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 400px; /* Fixed height for consistency */
+    height: 40rem; /* Fixed height for consistency */
     background-color: #f5f5f5; /* Soft grey background */
-    border-radius: 8px; /* Rounded corners */
     margin-bottom: 30px;
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Subtle shadow */
@@ -91,17 +100,15 @@ body {
     margin-top: -281px;
     box-shadow: none;
     height: 50%;
-    background-color: #f1f1f1;
-   
-    
 }
 .subimage {
-    width: 50%; /* Adjust as needed */
+    width: 100%;
     height: auto;
-    object-fit: cover; /* Ensure no space appears due to aspect ratio */
-    margin: 0; /* Remove any unwanted margins */
-    padding: 0; /* Ensure no padding adds spacing */
-    border: none; /* Remove any border that could add gaps */
+    object-fit: cover;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 /* Ensure lightbox is on top */
@@ -178,8 +185,10 @@ body {
     font-style: normal;
     font-weight: 100;
     letter-spacing: .1em;
-    line-height: 3.6rem;
     text-align: left;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    margin-top: 2rem;
 }
 
 #perfumeType{
@@ -193,27 +202,25 @@ body {
     line-height: 1.6rem;
     text-transform: uppercase;
     text-align: left;
-    margin-top: -21px;
-
+    margin-top: -10px;
+    font-size: .9rem;
+    margin-bottom: -5px;
 }
 
 #price {
-    font-size: 22px;
-    color: #444;
+    font-size: 20px;
+    color: black;
     margin: 15px 0;
     float: right; /* Moves price to the right */
-    margin-top: -20px; /* Adjusts vertical position */
-    margin-right: -18px;
+    margin-top: -8px; /* Adjusts vertical position */
 }
 
 #add-to-cart-button {
     width: 100%;
-  padding: 10px;
+  padding: 15px;
   /* Bring the button closer to the line seperator*/
 
-  font-weight: normal; /* Add this to make the font look think and clean */
-  font-size: 16px; /* Added this line for 64px font size */
-  font-family: "Monotype Baskerville", serif;
+  font-size: 14px; /* Added this line for 64px font size */
   letter-spacing: .1em; /* Distance between letters for design */
   line-height: 100%;
   text-transform: uppercase;
@@ -221,12 +228,10 @@ body {
   background-color: #000000;
   color: #ffffff;
   border: 0.5px solid rgb(0, 0, 0);
-  border-radius: 5px;
   cursor: pointer;
 
   /* Animation */
   transition: background-color 0.1s linear;
-  margin-top: -30px;
 }
 
  #add-to-cart-button:hover {
@@ -243,10 +248,9 @@ input[type="radio"] {
 .radio-label {
     background-color: transparent; /* No background color */
     color: black; /* Text color */
-    border: 2px solid black; /* Normal border thickness */
-    padding: 10px 15px;
+    border: 0.3px solid black; /* Normal border thickness */
+    padding: 5px 10px;
     cursor: pointer;
-    border-radius: 5px;
     transition: border-width 0.2s, transform 0.2s;
     display: inline-block;
     margin: 0rem .5rem 0rem 0;
@@ -254,10 +258,10 @@ input[type="radio"] {
     text-align: center;
     position: relative;
     font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 17px;
+    font-size: 14px;
     font-family: "Monotype Baskerville", serif;
     border-width: 0.7px;
-    border-color: #a9a1a1;
+    border-color: #e0e0e0;
 }
 
 
@@ -281,8 +285,9 @@ margin-bottom:-20px;
 
 /* Hover effect */
 .radio-label:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Slightly visible on hover */
-    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.05); /* Slightly visible on hover */
+    border-color: black;
+    transform: scale(1.035);
 }
 
 /* When the radio button is checked */
@@ -293,18 +298,12 @@ input[type="radio"]:checked + .radio-label {
 }
 
 #notes{
-   color: black;
-
-    font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
+    color: black;
+    font-weight: 500;
+    font-size: 17px;
     line-height: 100%;
     margin: 10px 0;
-    text-transform: uppercase;
     margin-top: -47px;
-
 }
 
 
@@ -380,26 +379,20 @@ ul{
     list-style-type: none;
 }
 
-#description-title{
+#description-title {
     color: black;
-
-    font-weight: 400; /* Add this to make the font look think and clean */
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
+    font-weight: 500;
+    font-size: 17px;
     line-height: 100%;
     margin: 10px 0;
-    text-transform: uppercase;
     margin-top: -47px;
-
-
 }
+
 #description{
      font-weight: 400; 
     font-size: 17px;
     font-family: "Monotype Baskerville", serif;
-
+    margin: 0.5rem 0;
 }
 
 
@@ -420,17 +413,18 @@ ul{
 
 #might-like {
     display: inline-block;
-    font-size: 2.2rem;
-    color: #333;
+    font-size: 2rem;
+    color: black;
     padding: 0 2rem;
     background: white;
     position: relative;
     z-index: 1;
-    font-family: "Monotype Baskerville", serif;
+    /* font-family: "Monotype Baskerville", serif; */
     font-style: normal;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing: .1em;
     line-height: 3.6rem;
+    text-transform: uppercase;
 }
 
 #might-like-box::before {
@@ -439,8 +433,8 @@ ul{
     top: 50%;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #ddd 15%, #ddd 85%, transparent 100%);
+    height: 1px;
+    background: #e0e0e0;
     z-index: 0;
 }
 
@@ -488,7 +482,7 @@ ul{
 }
 
 .suggested-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -498,8 +492,8 @@ ul{
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #000000 0%, #ffffff 100%);
+    height: 4px;
+    background: black;
 }
 
 .suggested-image {
@@ -517,26 +511,30 @@ ul{
 .suggested-name {
     font-family: "Monotype Baskerville", serif;
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: .08em;
-    line-height: 3.6rem;
-    text-align: center;
+    font-weight: 400;
     font-size: 20px;
-    margin-bottom: 0.5rem;
+    letter-spacing: .1em;
+    line-height: 1.2;
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
 }
 
 .suggested-price {
-    list-style: none;
-    box-sizing: inherit;
-    display: block;
+    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 500;
-    letter-spacing: .2em;
-    line-height: 1.6rem;
+    font-size: 15px;
+    color: #333;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    text-align: left;
-    margin-top: -21px;
+    text-align: center;
+    margin-top: 8px;
     margin-bottom: 1rem;
+    font-size: 15px;
+    /* font-weight: bold; */
+    color: #333;
 }
 
 .suggestion-arrow {
@@ -554,7 +552,6 @@ ul{
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     z-index: 2;
-    position: absolute;
 }
 
 .suggestion-arrow:hover {
@@ -579,8 +576,7 @@ ul{
   padding: 10px;
 
   /* DISPLAY */
-  font-size: 16px; /* Added this line for 64px font size */
-  font-family: "Monotype Baskerville", serif;
+  font-size: 14px; /* Added this line for 64px font size */
   font-weight: normal; /* Add this to make the font look think and clean */
   line-height: 100%;
   color: #000;
@@ -588,7 +584,6 @@ ul{
   letter-spacing: .1em; /* Distance between letters for design */
   background-color: #fff;
   border: 0.5px solid black;
-  border-radius: 5px;
 
   /* ANIMATION */
   transition: background-color 0.1s linear;
@@ -603,11 +598,14 @@ ul{
 #perks-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    padding: 20px;
+    /* align-items: center; */
+    /* gap: 30px; */
+    text-align: center;
+    padding: 20px 0px;
     max-width: 800px;
     margin-top: -80px;
-    margin-bottom: 42px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .perk-item {
@@ -619,9 +617,8 @@ ul{
 }
 
 .perk-icon {
-    width: 40px;
-    height: 40px;
-    margin-left: 28px;
+    width: 50px;
+    height: 50px;
 }
 
 .perk-text h4 {
@@ -639,12 +636,42 @@ ul{
 
 /* ==================== MEDIA QUERIES ==================== */
 
+/* Extra Large Screens (1600px and above) */
+@media (min-width: 1600px) {
+    #product-container {
+        max-width: 1575px;
+        padding-left: 3rem;
+        padding-right: 6rem;
+    }
+}
+
+/* Large Desktop Screens (1200px to 1599px) */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    #product-container {
+        max-width: 90%;
+        padding-left: 3rem;
+        padding-right: 5rem;
+    }
+}
+
+/* Medium Desktop Screens (1024px to 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    #product-container {
+        max-width: 90%;
+        padding-left: 2.5rem;
+        padding-right: 4rem;
+    }
+}
+
 /* Large Tablets and Small Laptops (1024px and below) */
 @media (max-width: 1024px) {
     #product-container {
-        max-width: 90%;
+        max-width: 95%;
         flex-direction: column;
         align-items: center;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 80px;
     }
 
     #image-container {
@@ -676,7 +703,10 @@ ul{
 /* Tablets (768px and below) */
     @media (max-width: 768px) {
         #product-container {
-            padding-top: 80px;
+            padding-top: 60px;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            max-width: 100%;
         }
 
         #main-image-container {
@@ -736,9 +766,12 @@ ul{
 /* Large Phones (576px and below) */
 @media (max-width: 576px) {
     #product-container {
-        max-width: 90%;
+        max-width: 100%;
         flex-direction: column;
         align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 50px;
     }
 
     #image-container {
@@ -911,45 +944,146 @@ ul{
 
 }
 
-
-
-
-
-
-/* h4 {
-    font-weight: 400; 
-    font-size: 17px;
-    font-family: "Monotype Baskerville", serif;
+/* Collapsible Sections Styling */
+.collapsible-section {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    width: 100%;
 }
 
-h3 {
-        font-size: 22px;
-        color: #444;
-        margin: 15px 0;
-        display: inline;
-}
-
-h2 {
-    color: black;
-
-    font-weight: 400; 
-    font-size: 24px;
-    font-family: "Monotype Baskerville", serif;
-  
-    letter-spacing: .1em;
-    line-height: 100%;
-    margin: 10px 0;
-    text-transform: uppercase;
-
-
-div {
+.collapsible-header {
     display: flex;
-    max-width: auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+    user-select: none;
+}
+
+.collapsible-arrow {
+    transition: transform 0.3s ease;
+    color: #000;
+    font-size: 18px;
+}
+
+.collapsible-arrow.active {
+    transform: rotate(90deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.active {
+    max-height: 500px; /* Adjust based on your content */
+    transition: max-height 0.5s ease-in;
+}
+
+#description-title, #notes {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Ensure the description doesn't have the negative margin anymore since we're using collapsible sections */
+#description-title {
+    margin-top: 0;
+}
+
+#notes {
+    margin-top: 0;
+}
+
+.fa, .fas {
+    scale: 0.75;
+}
+
+ul {
+    padding-left: 0;
+}
+
+.note-subtitle {
+    font-weight: 600;
+    display: inline-block;
+    margin: 0.3rem 0;
+}
+
+/* Modern Gender Slider Styling */
+.gender-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.gender-slider-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.gender-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: #666;
+}
+
+.gender-icon-male, .gender-icon-female {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-} */
+.gender-icon-male {
+    color: #000;
+}
+
+.gender-icon-female {
+    color: #000;
+}
+
+.modern-gender-slider {
+    position: relative;
+    width: -webkit-fill-available;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider-points {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 2;
+}
+
+.slider-point {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    transition: all 0.2s ease;
+}
+
+.slider-point.active {
+    background-color: #000;
+}

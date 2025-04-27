@@ -26,6 +26,14 @@
   --transition-slow: 0.8s ease; */
 }
 
+/* Google fonts */
+.inter-custom {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -423,7 +431,7 @@ box-shadow: #000;
   grid-template-areas: 
     "quality model"
     "reviews reviews";
-  column-gap: 50px;
+  /* column-gap: 50px; */
   padding: 50px 5%;
   background: var(--color-background-gradient);
   justify-content: center;
@@ -658,6 +666,7 @@ box-shadow: #000;
   align-items: center;
   border-top: 1px solid #eee;
   padding-top: 40px;
+  padding: 3rem;
 }
 
 .reviews-title {

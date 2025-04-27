@@ -33,6 +33,23 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="../css/fragrances-page.css">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- Intial Scroll When Reloading-->
+    <script>
+        // Prevent the browser from restoring the scroll position
+        if (history.scrollRestoration) {
+          history.scrollRestoration = "manual";
+        }
+        // Scroll to the top of the page on load
+        window.onload = function () {
+          window.scrollTo(0, 0);
+        };
+      </script>
 </head>
 <body>
     <!-- Loader -->
@@ -81,24 +98,47 @@
             <div id="product-details">
                 <h2 id="perfumeName">Spicebomb Extreme</h2>
                 <br>
-                <h4 id="perfumeType">EAU DE PARFUM</h4>
+                <h4 id="perfumeType" class="inter-custom">EAU DE PARFUM</h4>
                 <br>
                 
                 <!-- Size Selection -->
                 <div class="size-selection">
                     <input type="radio" name="size" id="radio100ml" value="100ml" checked>
-                    <label for="radio100ml" class="radio-label">100ml</label>
+                    <label for="radio100ml" class="radio-label inter-custom">100ml</label>
                     
                     <input type="radio" name="size" id="radio50ml" value="50ml">
-                    <label for="radio50ml" class="radio-label">50ml</label>
+                    <label for="radio50ml" class="radio-label inter-custom">50ml</label>
                     
                     <input type="radio" name="size" id="radio30ml" value="30ml">
-                    <label for="radio30ml" class="radio-label">30ml</label>
+                    <label for="radio30ml" class="radio-label inter-custom">30ml</label>
                 </div>
 
-                <h3 id="price">275 €</h3>
-                <br><br>
-                <button id="add-to-cart-button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button">Add to Cart</button>
+                <h3 id="price" class="inter-custom">275 €</h3>
+                <br>
+
+                <!-- Static Gender Slider - Developer Configurable (3 positions) -->
+                <div class="gender-slider-container" data-gender-value="1">
+                    <div class="gender-slider-label">
+                        <span class="gender-icon-male"><i class="fas fa-mars"></i></span>
+                        <span class="gender-text">FOR</span>
+                    </div>
+                    
+                    <div class="modern-gender-slider">
+                        <div class="slider-track"></div>
+                        <div class="slider-points">
+                            <div class="slider-point" data-value="1"></div>
+                            <div class="slider-point" data-value="2"></div>
+                            <div class="slider-point" data-value="3"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gender-slider-label">
+                        <span class="gender-text">FOR</span>
+                        <span class="gender-icon-female"><i class="fas fa-venus"></i></span>
+                    </div>
+                </div>
+
+                <button id="add-to-cart-button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button" class="inter-custom">Add to Cart</button>
                 <br><br><br><br>
 
                 <div id="perks-container">
@@ -119,24 +159,31 @@
                     </div>
                 </div>
                 
-                <h2 id="description-title">Description:</h2>
-                <h3 id="description">Spicebomb Extreme is known for its explosive spicy opening and its smooth, sweet tobacco-vanilla dry down. It's perfect for colder weather, evening wear, and special occasions.</h3>                
-                
-                <br><br><br>
-                <h3 id="notes">Notes:</h3>
-                <ul>
-                    <li><strong>Top:</strong> Lavender, enhanced with spices like cumin, cinnamon, and saffron.</li>
-                    <li><strong>Heart:</strong> Black pepper and saffron, adding warmth and depth.</li>
-                    <li><strong>Base:</strong> Tobacco, Bourbon vanilla, and subtle hints of amber, creating a rich and lasting finish.</li>
-                </ul>
-                <br><br><br>
-                
-                <!-- Gender Slider -->
-                <div class="gender-slider">
-                    <img src="../img/perfumes-transparent/female.png" alt="Female" class="gender-icon">
-                    <input type="range" min="0" max="100" value="70" id="genderRange" disabled>
-                    <img src="../img/perfumes-transparent/male.png" alt="Male" class="gender-icon">
+                <div class="collapsible-section">
+                    <div class="collapsible-header inter-custom">
+                        <h2 id="description-title">Description</h2>
+                        <i class="fas fa-chevron-right collapsible-arrow active"></i>
+                    </div>
+                    <div class="collapsible-content active">
+                        <h3 id="description">Spicebomb Extreme is known for its explosive spicy opening and its smooth, sweet tobacco-vanilla dry down. It's perfect for colder weather, evening wear, and special occasions.</h3>
+                    </div>                
                 </div>
+            
+                <div class="collapsible-section">
+                    <div class="collapsible-header inter-custom">
+                        <h3 id="notes">Notes</h3>
+                        <i class="fas fa-chevron-right collapsible-arrow"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong class="note-subtitle">Top Notes</strong> <br> Lavender, enhanced with spices like cumin, cinnamon, and saffron.</li>
+                            <li><strong class="note-subtitle">Heart Notes</strong> <br> Black pepper and saffron, adding warmth and depth.</li>
+                            <li><strong class="note-subtitle">Base Notes</strong>  <br> Tobacco, Bourbon vanilla, and subtle hints of amber, creating a rich and lasting finish.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
             </div>
         </div>
 
@@ -144,7 +191,7 @@
         <div id="suggestions">
 
     <div id="might-like-box">
-                <h2 id="might-like">You May Also Like</h2>
+                <h2 id="might-like" class="inter-custom">You May Also Like</h2>
             </div>
             
             <div class="suggestion-wrapper">
@@ -154,85 +201,87 @@
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/khamrah.png" alt="Khamrah" class="suggested-image">
                             <p class="suggested-name">Khamrah</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
         
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/bleu-de-chanel.png" alt="Bleu de Chanel" class="suggested-image">
                             <p class="suggested-name">Bleu de Chanel</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
         
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
         
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
         
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
                         <div class="suggested-item">
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
-                        <div class="suggested-item">
+                        <div class="suggested-item"></div>
                             <img src="../img/perfumes-transparent/stronger-with-you.png" alt="Stronger with you intensely" class="suggested-image">
                             <p class="suggested-name">Stronger with you intensely</p>
-                            <p class="suggested-price">900EGP</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="suggested-price">900€</p>
+                            <button class="add-to-cart inter-custom">Add to Cart</button>
                         </div>
 
                     </div>
-                    </div>
                     <button id="next-suggestion" class="suggestion-arrow">&gt;</button>
+                    </div>
+                    
                 </div>
                
+
             </div>
         </div>
 
