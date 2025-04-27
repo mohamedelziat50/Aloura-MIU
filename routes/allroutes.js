@@ -5,7 +5,6 @@ import moment from "moment";
 import jwt from "jsonwebtoken"; // Add jwt for decoding token
 import auth from "../middleware/auth.js";
 
-
 router.get("/", (req, res) => res.render("index"));
 router.get("/gifting", (req, res) => res.render("gifting"));
 router.get("/checkout", auth(["user", "admin"]), (req, res) =>
