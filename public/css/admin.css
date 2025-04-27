@@ -1267,6 +1267,125 @@ canvas {
   
 }
 
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #000000;
+}
+
+.product-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-info {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.product-name {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.product-email {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+  word-break: break-all;
+}
+
+.usproducter-role {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.product-role.admin {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.product-role.moderator {
+  background-color: #f1f1f1;
+  color: #000000;
+}
+
+.product-role.customer {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.product-joined {
+  color: #888;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.product-btn.edit {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.product-btn.delete {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.product-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 768px) {
   .dashboard-charts {
     grid-template-columns: 1fr;

@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import bcrypt from "bcrypt";
 
 // Create new user
 export const createUser = async (req, res) => {
@@ -32,45 +33,44 @@ export const getUser = async (req, res) => {
   }
 };
 
-// Update a user
+
+
 export const updateUser = async (req, res) => {
   try {
-    const { email, phone } = req.body;
-    const userId = req.params.id;
+    const { id } = req.params;
+    const { name, email, phone, role, isVerified, oldpassword, newpassword } = req.body;
 
-    // Check if email already exists for another user
-    if (email) {
-      const existingEmailUser = await User.findOne({ email, _id: { $ne: userId } });
-      if (existingEmailUser) {
-        return res.status(400).json({ message: "Email is already in use by another user" });
-      }
-    }
-
-    // Check if phone already exists for another user
-    if (phone) {
-      const existingPhoneUser = await User.findOne({ phone, _id: { $ne: userId } });
-      if (existingPhoneUser) {
-        return res.status(400).json({ message: "Phone number is already in use by another user" });
-      }
-    }
-
-    // Now safe to update
-    const user = await User.findByIdAndUpdate(userId, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
+    const user = await User.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found." });
     }
 
-    res.status(200).json({ message: "User updated successfully", user });
+    // If user wants to update password
+    if (oldpassword && newpassword) {
+      const isMatch = await bcrypt.compare(oldpassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Old password is incorrect." });
+      }
+      user.password = newpassword; // Set new password (it will be hashed by pre-save hook)
+    }
 
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ message: err.message });
+    // Update other fields
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (phone) user.phone = phone;
+    if (role) user.role = role;
+    if (typeof isVerified !== 'undefined') user.isVerified = isVerified;
+
+    await user.save(); // Triggers pre('save') hook and hashes new password if changed
+
+    res.status(200).json({ message: "User updated successfully." });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
   }
 };
+
 
 // Delete a user
 export const deleteUser = async (req, res) => {
