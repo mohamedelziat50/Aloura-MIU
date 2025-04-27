@@ -17,7 +17,6 @@ router.use(async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     res.locals.user = await UserModel.findById(decoded.id);
-    console.log(res.locals.user);
     next();
   } catch (error) {
     next();
@@ -40,6 +39,10 @@ router.get("/all-fragrances", (req, res) => {
 
 router.get("/collections", (req, res) => {
   res.render("collections");
+});
+
+router.get("/fragrances-page", (req, res) => {
+  res.render("fragrances-page");
 });
 
 router.get("/gifting", (req, res) => {
