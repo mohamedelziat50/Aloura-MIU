@@ -11,6 +11,7 @@ import reviewRoutes from "./routes/review.js";
 import orderRoutes from "./routes/order.js";
 import frontendRouter from "./routes/frontend.js";
 import allRouters from "./routes/allroutes.js";
+import adminRouter from "./routes/admin.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true })); //read the req.body
 app.use(express.json()); //read the req.body
 app.use(cookieParser()); // read the cookies
 app.use(express.static("public")); // serve static files from public directory
+app.use('/uploads', express.static('uploads'));
 app.set("view engine", "ejs"); // set the view engine to ejs
 
 connectDB();
@@ -28,6 +30,7 @@ connectDB();
 app.use(frontendRouter);
 app.use(authRoutes)
 app.use("/api/users", userRoutes);
+app.use( adminRouter);
 app.use('/api/fragrances/', fragranceRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);

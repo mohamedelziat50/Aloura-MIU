@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "./img/defaultProfilePic.png",
+      default: "./uploads/defaultProfilePic.png",
     },
     isVerified: {
       type: Boolean,

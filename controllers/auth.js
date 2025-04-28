@@ -18,6 +18,8 @@ const cookieOptions = {
 
 export const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
+  const profilePicture = req.file ? req.file.filename : null;  // get uploaded picture filename if it exists
+
 
   if (!name || !email || !phone || !password) {
     return res.status(400).json({ message: "All fields are required." });
@@ -35,8 +37,15 @@ export const signup = async (req, res) => {
     }
 
     // Create the new user
-    const newUser = new UserModel({ name, email, phone, password });
+    const newUser = new UserModel({ 
+      name, 
+      email, 
+      phone, 
+      password,
+      profilePic: profilePicture ? `./uploads/${profilePicture}` : `./uploads/defaultProfilePic.png`
+    });
     await newUser.save();
+    
 
     // Generate a token for the new user
     const token = generateToken(newUser.id, newUser.role);
