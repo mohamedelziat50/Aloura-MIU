@@ -425,3 +425,12 @@ nav .profile img {
 nav .profile a:hover::after {
   display: none;
 }
+
+nav .profile img,
+.profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;   /* Makes the picture stay centered and not stretched */
+  border-radius: 50%;  /* Makes it perfectly circular */
+  border: 2px solid #000; /* Optional: adds a nice black border */
+}

@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true })); //read the req.body
 app.use(express.json()); //read the req.body
 app.use(cookieParser()); // read the cookies
 app.use(express.static("public")); // serve static files from public directory
+app.use('/uploads', express.static('uploads'));
 app.set("view engine", "ejs"); // set the view engine to ejs
 
 connectDB();
