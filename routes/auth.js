@@ -7,7 +7,7 @@ const router = express.Router();
 // Setup multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // folder to save profile pics
+    cb(null, "public/uploads/"); // folder to save profile pics
   },
   filename: function (req, file, cb) {
     const timestamp = Date.now();

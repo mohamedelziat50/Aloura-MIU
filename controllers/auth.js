@@ -42,7 +42,7 @@ export const signup = async (req, res) => {
       email, 
       phone, 
       password,
-      profilePic: profilePicture ? `./uploads/${profilePicture}` : `./uploads/defaultProfilePic.png`
+      profilePic: profilePicture ? `/uploads/${profilePicture}` : `/uploads/defaultProfilePic.png`
     });
     await newUser.save();
     

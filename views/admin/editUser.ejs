@@ -42,6 +42,19 @@
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <style>
+      .ButtonDicoration {
+        color: white !important;
+        background-color: #121212 !important;
+        border: 1px solid #121212 !important;
+      }
+
+      .ButtonDicoration:hover {
+        color: #121212 !important;
+        background-color: white !important;
+      }
+    </style>
   </head>
   <body>
     <div class="containerr">
@@ -54,7 +67,44 @@
                     <label for="user-id" class="form-label">User_ID</label>
                     <p id="user-id" class="form-control"><%= user._id %></p>
                   </div>
-    
+                  <div class="mb-3 text-center">
+                    <label for="profile-picture" class="form-label"
+                      >Profile Picture</label
+                    >
+                    <div class="d-flex flex-column align-items-center">
+                      <img
+                        id="profile-picture-preview"
+                        src="<%= user.profilePic %>"
+                        alt="Profile Preview"
+                        class="rounded-circle mb-2"
+                        style="
+                          width: 120px;
+                          height: 120px;
+                          object-fit: cover;
+                          border: 2px solid #ccc;
+                        "
+                      />
+  
+                      <!-- Hidden file input -->
+                      <input
+                        type="file"
+                        class="d-none"
+                        id="profile-picture"
+                        name="profilePicture"
+                        accept="image/*"
+                      />
+  
+                      <!-- Custom styled button -->
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
+                        onclick="document.getElementById('profile-picture').click();"
+                        style="width: 120px"
+                      >
+                        Upload Picture
+                      </button>
+                    </div>
+                  </div>
               <div class="mb-3">
                 <label for="user-name" class="form-label">Full Name</label>
                 <input
@@ -179,7 +229,19 @@
 
     <script type="module">
       import showFunToast from "/js/toast.js";
-      
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("profile-picture");
+        const preview = document.getElementById("profile-picture-preview");
+
+        fileInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            preview.src = URL.createObjectURL(file);
+          }
+        });
+      });
+
       const form = document.getElementById("editUserForm");
       
       // Save the initial values when the page loads
