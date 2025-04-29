@@ -164,20 +164,23 @@ footer .top {
   .card-buuton {
     width: 100%;
     padding: 12px;
-    background: black;
+    background: #121212;
     color: white;
     border: none;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
     padding-top: 10px;
     border: 1px solid black;
+    font-family: "Poppins", sans-serif !important;
+    border: 1px solid #121212 !important;
+    transition: all 0.2s linear !important;
   }
   
   .card-buuton:hover {
-    background: white;
-    color: black;
+    color: #121212 !important;
+    background-color: white !important;
   }
   
   .news-item {
