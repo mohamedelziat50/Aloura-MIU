@@ -30,14 +30,14 @@ footer .top {
   }
   
   footer .top .ccard .img img {
-    width: 100%;
+    width: auto;
   }
   
   footer .middle {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../img/footerbackground.jpg");
+    background-image: url("../img/footer-icons/background.png");
     position: relative;
     height: auto; /* Allow height to adjust based on content */
     padding: 50px 20px; /* Add padding for smaller screens */
