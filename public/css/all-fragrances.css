@@ -471,8 +471,8 @@ body { background-color: #f1f1f1 !important; }
   padding: 10px;
 
   /* DISPLAY */
-  font-size: 16px; /* Added this line for 64px font size */
-  font-family: "Monotype Baskerville", serif;
+  font-size: 15px; /* Added this line for 64px font size */
+  font-family: "Poppins", sans-serif !important;
   font-weight: normal; /* Add this to make the font look think and clean */
   line-height: 100%;
   color: #000;
@@ -483,7 +483,7 @@ body { background-color: #f1f1f1 !important; }
   border-radius: 5px;
 
   /* ANIMATION */
-  transition: background-color 0.1s linear;
+  transition: all 0.2s linear !important;
   cursor: pointer;
 }
 
