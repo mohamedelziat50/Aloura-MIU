@@ -18,8 +18,7 @@ const cookieOptions = {
 
 export const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
-  const profilePicture = req.file ? req.file.filename : null;  // get uploaded picture filename if it exists
-
+  const profilePicture = req.file ? req.file.filename : null; // get uploaded picture filename if it exists
 
   if (!name || !email || !phone || !password) {
     return res.status(400).json({ message: "All fields are required." });
@@ -37,15 +36,16 @@ export const signup = async (req, res) => {
     }
 
     // Create the new user
-    const newUser = new UserModel({ 
-      name, 
-      email, 
-      phone, 
+    const newUser = new UserModel({
+      name,
+      email,
+      phone,
       password,
-      profilePic: profilePicture ? `/uploads/${profilePicture}` : `/uploads/defaultProfilePic.png`
+      profilePic: profilePicture
+        ? `/uploads/${profilePicture}`
+        : `/uploads/defaultProfilePic.png`,
     });
     await newUser.save();
-    
 
     // Generate a token for the new user
     const token = generateToken(newUser.id, newUser.role);
@@ -74,7 +74,6 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
-
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -131,4 +130,46 @@ export const verifyEmail = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("jwt", cookieOptions);
   res.redirect("/");
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "No user found with that email." });
+    }
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let verificationCode = "";
+    for (let i = 0; i < 4; i++) {
+      verificationCode += letters.charAt(
+        Math.floor(Math.random() * letters.length)
+      );
+    }
+
+    user.resetPasswordCode = verificationCode;
+    user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
+    
+
+    //Now send the email
+    // await sendEmail({
+    //   to: email,
+    //   subject: "Password Reset Verification Code",
+    //   text: `Your verification code is: ${verificationCode}`,
+    // });
+
+    res.status(200).json({ message: "Verification code sent to your email." });
+  } catch (error) {
+    console.error("❌ Error during forgot password:", error);
+    res.status(500).json({ message: "Server error." });
+  }
 };

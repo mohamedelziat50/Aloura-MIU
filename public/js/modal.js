@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const signUpForm = document.getElementById("signUpForm");
   const forgetpasswordForm = document.getElementById("forgetpasswordform");
-  const twofactorForm = document.getElementById("twofactor");
   const backArrow = document.getElementById("backToLogin");
+
+  const twofactorForm = document.getElementById("twofactor");
   const loginModalLabel = document.getElementById("loginModalLabel");
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
@@ -95,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Add back button functionality for 2FA form
   if (backArrow) {
     backArrow.addEventListener("click", function () {
       twofactorForm.style.display = "none";
@@ -370,4 +370,95 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document
+  .getElementById("forgetpasswordform")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
 
+    const email = document.getElementById("forget-email").value.trim();
+
+    if (!email) {
+      showFunToast("❗ Please enter your email.", "red");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        showFunToast(
+          data.message || "✅ Check your email for reset instructions!",
+          "green"
+        );
+
+        setTimeout(() => {
+          document.getElementById("loginForm").style.display = "none";
+          document.getElementById("signUpForm").style.display = "none";
+          document.getElementById("forgetpasswordform").style.display = "none";
+
+          // Show the 2FA form
+          document.getElementById("twofactor").style.display = "block";
+
+          // Update modal title and description
+          document.getElementById("loginModalLabel").textContent =
+            "Verification";
+          document
+            .getElementById("loginModalLabel")
+            .classList.add("verification-title");
+          document.querySelector(".modal-description").style.display = "none"; // Hide description
+          document.getElementById("backToLogin").style.display = "block";
+
+        }, 1000);
+      } else {
+        showFunToast(data.message || "❌ Error: Email not found.", "red");
+      }
+    } catch (error) {
+      console.error(error);
+      showFunToast("❌ Server error.", "red");
+    }
+    ``;
+  });
+
+//when you paste the code it automaticly write each one in the write spot 
+document.addEventListener("DOMContentLoaded", function () {
+  const inputs = document.querySelectorAll("#twofactor input[type='tel']");
+
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", (e) => {
+      const value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+      e.target.value = value;
+
+      if (value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const paste = (e.clipboardData || window.clipboardData).getData("text")
+        .toUpperCase()
+        .replace(/[^A-Z]/g, "");
+
+      if (paste.length === inputs.length) {
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].value = paste[i];
+        }
+        inputs[inputs.length - 1].focus();
+      }
+    });
+  });
+});

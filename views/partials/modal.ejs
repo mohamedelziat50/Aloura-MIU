@@ -59,7 +59,7 @@
             </div>
           </div>
           <div class="mb-3 text-end">
-            <button id="showforgetpassword" class="btn btn-link">
+            <button id="showforgetpassword" class="btn btn-link" type="button">
               Forgot password ?
             </button>
           </div>
@@ -76,11 +76,8 @@
             Create One
           </button>
 
-          <hr />
+          <hr/>
           <!-- 2fa button -->
-          <button id="show2fa" type="button" class="btn btn-link w-100 mt-2">
-            Two-Factor Verification
-          </button>
           <div class="social-signin-container">
             <!-- Google Sign In Button -->
             <button
@@ -210,7 +207,7 @@
               placeholder="Enter your email"
             />
           </div>
-          <button type="button" class="signupButton btn btn-primary w-100">
+          <button type="submit" class="signupButton btn btn-primary w-100">
             Send Reset Link
           </button>
           <button
@@ -222,38 +219,57 @@
           </button>
         </form>
         <!-- 2fa modal -->
-        <form
-          id="twofactor"
-          class="form"
-          style="display: none"
-          style="margin: auto"
-        >
-          <div class="info">
-            <!-- <span class="title">Two-Factor Verification</span> -->
-            <p class="description">
-              Enter the two-factor authentication code provided by the
-              authenticator app
-            </p>
-          </div>
-          <div class="input-fields">
-            <input placeholder="" type="tel" maxlength="1" />
-            <input placeholder="" type="tel" maxlength="1" />
-            <input placeholder="" type="tel" maxlength="1" />
-            <input placeholder="" type="tel" maxlength="1" />
-          </div>
-
-          <div class="action-btns">
-            <a class="verify">Verify</a>
-            <a class="clear" id="clearfield">Clear</a>
-          </div>
-          <button
-            type="button"
-            id="backToLogin"
-            class="loginButton btn btn-primary w-100 mt-4"
+          <form
+            id="twofactor"
+            class="form"
+            style="display: none"
+            style="margin: auto"
           >
-            Back to Login
-          </button>
-        </form>
+            <div class="info">
+              <!-- <span class="title">Two-Factor Verification</span> -->
+              <p class="description">
+                Enter the two-factor authentication code provided by the
+                authenticator app
+              </p>
+            </div>
+            <div class="input-fields">
+              <input placeholder="" type="tel" maxlength="1" />
+              <input placeholder="" type="tel" maxlength="1" />
+              <input placeholder="" type="tel" maxlength="1" />
+              <input placeholder="" type="tel" maxlength="1" />
+            </div>
+            
+            <div class="mb-3 mt-3">
+              <label for="new-password" class="form-label">New Password</label>
+              <div class="input-group">
+                <input
+                  name="password"
+                  type="password"
+                  class="form-control"
+                  id="new-password"
+                  placeholder="Create a new password*"
+                />
+                <span
+                  class="input-group-text password-toggle"
+                  id="newPasswordToggle"
+                >
+                  <i class="fa-solid fa-lock" id="newPasswordIcon"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="action-btns">
+              <a class="verify">Verify</a>
+              <a class="clear" id="clearfield">Clear</a>
+            </div>
+            <button
+              type="button"
+              id="backToLogin"
+              class="loginButton btn btn-primary w-100 mt-4"
+            >
+              Back to Login
+            </button>
+          </form>
       </div>
     </div>
   </div>
