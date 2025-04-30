@@ -30,14 +30,14 @@ footer .top {
   }
   
   footer .top .ccard .img img {
-    width: 100%;
+    width: auto;
   }
   
   footer .middle {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../img/footerbackground.jpg");
+    background-image: url("../img/footer-icons/background.png");
     position: relative;
     height: auto; /* Allow height to adjust based on content */
     padding: 50px 20px; /* Add padding for smaller screens */
@@ -164,20 +164,23 @@ footer .top {
   .card-buuton {
     width: 100%;
     padding: 12px;
-    background: black;
+    background: #121212;
     color: white;
     border: none;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
     padding-top: 10px;
     border: 1px solid black;
+    font-family: "Poppins", sans-serif !important;
+    border: 1px solid #121212 !important;
+    transition: all 0.2s linear !important;
   }
   
   .card-buuton:hover {
-    background: white;
-    color: black;
+    color: #121212 !important;
+    background-color: white !important;
   }
   
   .news-item {

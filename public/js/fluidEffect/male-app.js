@@ -39,13 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
       let detectedMemory = navigator.deviceMemory || 4;
       
       // Fix for deviceMemory API reporting very low values (0.5GB) on high-end systems 
-      if (detectedMemory < 1) {
+      if (detectedMemory <= 2) {
         detectedMemory = 8; // Set a reasonable default if reported memory is suspiciously low
+        console.log('Corrected suspiciously low memory value to:', detectedMemory);
       }
       
       // Fix for deviceMemory API capping at 8GB
-      if (detectedMemory === 8 && hardwareSpecs.cores >= 6) {
+      if (detectedMemory >= 6 && hardwareSpecs.cores >= 6) {
         detectedMemory = 16; // Assume higher memory for machines with many cores
+        console.log('Adjusted memory value to 16GB based on core count:', hardwareSpecs.cores);
       }
       
       hardwareSpecs.memory = detectedMemory;
