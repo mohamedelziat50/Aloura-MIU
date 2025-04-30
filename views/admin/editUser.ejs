@@ -240,137 +240,130 @@
     <script type="module">
       import showFunToast from "/js/toast.js";
       document.addEventListener("DOMContentLoaded", function () {
-        const fileInput = document.getElementById("profile-picture");
-        const preview = document.getElementById("profile-picture-preview");
-        const resetButton = document.getElementById("reset-profile-picture");
+  const fileInput = document.getElementById("profile-picture");
+  const preview = document.getElementById("profile-picture-preview");
+  const resetButton = document.getElementById("reset-profile-picture");
 
-        fileInput.addEventListener("change", function (event) {
-          const file = event.target.files[0];
+  // Save the initial values when the page loads
+  const originalValues = {
+    id: document.getElementById("user-id").textContent.trim(),
+    name: document.getElementById("user-name").value,
+    email: document.getElementById("user-email").value,
+    phone: document.getElementById("user-phone")?.value || "",
+    role: document.getElementById("user-role")?.value || "",
+    isVerified: document.getElementById("user-isVerified")?.value || "",
+    oldPassword: document.getElementById("userOldPassword")?.value || "",
+    newPassword: document.getElementById("userNewPassword")?.value || "",
+    profilePicture: document.getElementById("profile-picture-preview").getAttribute('src'),
+  };
 
-          if (file) {
-            preview.src = URL.createObjectURL(file);
-          }
-        });
-        resetButton.addEventListener("click", function () {
-         preview.src = "/uploads/defaultProfilePic.png"; // 👈 Set back to your default profile picture path
-         fileInput.value = ""; // 👈 Clear the file input (remove selected file)
-      });
-      });
+  fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
 
-      const form = document.getElementById("editUserForm");
-      
-      // Save the initial values when the page loads
-      const originalValues = {
-        id: document.getElementById("user-id").textContent.trim(),
-        name: document.getElementById("user-name").value,
-        email: document.getElementById("user-email").value,
-        phone: document.getElementById("user-phone")?.value || "",
-        role: document.getElementById("user-role")?.value || "",
-        isVerified: document.getElementById("user-isVerified")?.value || "",
-        oldPassword: document.getElementById("user-oldPassword")?.value || "",
-        newPassword: document.getElementById("user-newPassword")?.value || "",
-        profilePicture: document.getElementById("profile-picture").getAttribute('src'), // <-- Grab selected new file (if any)
-      };
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const id = document.getElementById("user-id").textContent.trim();
-        const name = document.getElementById("user-name").value;
-        const email = document.getElementById("user-email").value;
-        const phone = document.getElementById("user-phone")?.value || "";
-        const role = document.getElementById("user-role")?.value || "";
-        const isVerified = document.getElementById("user-isVerified")?.value || "";
-        const oldpassword = document.getElementById("user-oldPassword")?.value.trim() || "";
-        const newpassword = document.getElementById("user-newPassword")?.value.trim() || "";
-        const profilePicture = document.getElementById("profile-picture").files[0]; // <-- Grab selected new file (if any)
-        const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
-
-        
-      
-        // Check if anything has changed
-        const hasChanged =
-          name !== originalValues.name ||
-          email !== originalValues.email ||
-          phone !== originalValues.phone ||
-          role !== originalValues.role ||
-          isVerified !== originalValues.isVerified ||
-          oldpassword !== "" ||
-          newpassword !== ""||
-          currentPicture !== originalValues.profilePicture; // <-- Check if a new file is selected
-      
-        if (!hasChanged) {
-          showFunToast("ℹ️ No changes detected.", "red");
-          return;
-        }
-      
-        const body = { name, email, phone, role, isVerified };
-      
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("phone", phone);
-        formData.append("name", name);
-        formData.append("role", role);
-        formData.append("isVerified", isVerified);
-        
-        if (profilePicture) {
-          formData.append("profilePicture", profilePicture);
-        }
-
-        if (oldpassword && newpassword) {
-          formData.append("oldpassword", oldpassword);
-          formData.append("newpassword", newpassword);
-        } else if (oldpassword || newpassword) {
-          showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
-          return;
-        }
-
-
-      
-        try {
-          const response = await fetch(`http://localhost:3000/api/users/${id}`, {
-            method: "PUT",
-            body: formData,
-          });
-      
-          const data = await response.json();
-      
-          if (response.ok) {
-            setTimeout(() => {
-              showFunToast(
-                data.message || "✅ Updated successfully!",
-                "green"
-              );
-              window.location.href = `/admin/${id}`; // 👉 Fixed redirect
-            }, 1500);
-          } else {
-            showFunToast(data.message || "❌ Error occurred!", "red");
-          }
-        } catch (err) {
-          console.error(err);
-          showFunToast("❌ Error occurred!", "red");
-        }
-      });
-
-      document.addEventListener("DOMContentLoaded", function () {
-    const setupPasswordToggle = (inputId, iconId) => {
-      const input = document.getElementById(inputId);
-      const icon = document.getElementById(iconId);
-
-      if (!input || !icon) return;
-
-      icon.parentElement.addEventListener("click", () => {
-        const isPassword = input.type === "password";
-        input.type = isPassword ? "text" : "password";
-
-        icon.classList.toggle("fa-lock", !isPassword);
-        icon.classList.toggle("fa-lock-open", isPassword);
-      });
-    };
-
-    // Apply the toggle to the old and new password fields
-    setupPasswordToggle("userOldPassword", "userOldPasswordIcon");
-    setupPasswordToggle("userNewPassword", "userNewPasswordIcon");
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+    }
   });
+
+  resetButton.addEventListener("click", function () {
+    preview.src = "/uploads/defaultProfilePic.png"; // Set to default picture
+    fileInput.value = ""; // Clear the file input (remove selected file)
+  });
+
+  const form = document.getElementById("editUserForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById("user-id").textContent.trim();
+    const name = document.getElementById("user-name").value;
+    const email = document.getElementById("user-email").value;
+    const phone = document.getElementById("user-phone")?.value || "";
+    const role = document.getElementById("user-role")?.value || "";
+    const isVerified = document.getElementById("user-isVerified")?.value || "";
+    const oldpassword = document.getElementById("userOldPassword")?.value.trim() || "";
+    const newpassword = document.getElementById("userNewPassword")?.value.trim() || "";
+    const profilePicture = document.getElementById("profile-picture").files[0]; // Get selected file if any
+    const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
+
+    // Check if anything has changed
+    const hasChanged =
+      name !== originalValues.name ||
+      email !== originalValues.email ||
+      phone !== originalValues.phone ||
+      role !== originalValues.role ||
+      isVerified !== originalValues.isVerified ||
+      oldpassword !== "" ||
+      newpassword !== "" ||
+      currentPicture !== originalValues.profilePicture; // Check if a new file is selected
+
+    if (!hasChanged) {
+      showFunToast("ℹ️ No changes detected.", "red"); // Show no changes detected message
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("name", name);
+    formData.append("role", role);
+    formData.append("isVerified", isVerified);
+
+    if (profilePicture) {
+      formData.append("profilePicture", profilePicture);
+    }
+
+    if (oldpassword && newpassword) {
+      formData.append("oldpassword", oldpassword);
+      formData.append("newpassword", newpassword);
+    } else if (oldpassword || newpassword) {
+      showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setTimeout(() => {
+          showFunToast(data.message || "✅ Updated successfully!", "green");
+          window.location.href = `/admin/${id}`; // Fixed redirect
+        }, 1500);
+      } else {
+        showFunToast(data.message || "❌ Error occurred!", "red");
+      }
+    } catch (err) {
+      console.error(err);
+      showFunToast("❌ Error occurred!", "red");
+    }
+  });
+
+  // Password toggle functionality
+  const setupPasswordToggle = (inputId, iconId) => {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+
+    if (!input || !icon) return;
+
+    icon.parentElement.addEventListener("click", () => {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+
+      icon.classList.toggle("fa-lock", !isPassword);
+      icon.classList.toggle("fa-lock-open", isPassword);
+    });
+  };
+
+  // Apply the toggle to the old and new password fields
+  setupPasswordToggle("userOldPassword", "userOldPasswordIcon");
+  setupPasswordToggle("userNewPassword", "userNewPasswordIcon");
+});
+
       </script>
       
     
