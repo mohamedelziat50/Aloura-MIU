@@ -588,8 +588,8 @@ nav {
     cursor: pointer;
     transition: transform 0.3s ease;
     /* New styles for oval shape */
-    background-color: #F4E6D4; /* Cream color */
-    border: 2px solid #E8D6C0; /* Slightly darker border */
+    background-color: rgb(255, 244, 224); /* Cream color */
+    border: 2px solid #c9b7a1; /* Slightly darker border */
     border-radius: 85px; /* Highly curved corners for oval shape */
     padding: 30px 14px; /* Add padding to create oval shape */
     display: inline-block; /* Make it a block element with specific dimensions */
