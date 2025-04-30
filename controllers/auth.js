@@ -1,7 +1,7 @@
 import UserModel from "../models/user.js";
-import sendEmail from "../utilities/emailService.js";
 import jwt from "jsonwebtoken";
-``;
+import sendEmail from "../utilities/emailService.js"; // Assuming you have a utility function to send emails
+
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -163,11 +163,11 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
    // Now send the email
-    // await sendEmail({
-    //   to: email,
-    //   subject: "Password Reset Verification Code",
-    //   text: `Your verification code is: ${verificationCode}`,
-    // });
+    await sendEmail({
+      to: email,
+      subject: "Password Reset Verification Code",
+      text: `Your verification code is: ${verificationCode}`,
+    });
 
     res.status(200).json({ message: "Verification code sent to your email." });
   } catch (error) {
@@ -178,31 +178,30 @@ export const forgotPassword = async (req, res) => {
 
 // Inside auth.js controller
 export const resetPassword = async (req, res) => {
-  const { email, code, newPassword } = req.body;
-
-  if (!email || !code || !newPassword) {
-    return res.status(400).json({ message: "All fields are required." });
-  }
+  const { code, newPassword } = req.body;
 
   try {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ resetPasswordCode: code });
 
-    if (!user || user.resetPasswordCode !== code) {
-      return res.status(400).json({ message: "Invalid code." });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid verification code." });
     }
 
-    if (Date.now() > user.resetPasswordCodeExpires) {
-      return res.status(400).json({ message: "Verification code expired." });
+    if (!user.resetPasswordCodeExpires || user.resetPasswordCodeExpires < Date.now()) {
+      return res.status(400).json({ message: "Code has expired." });
     }
+  
+    user.password = await newPassword;
 
-    user.password = newPassword;
-    user.resetPasswordCode = undefined;
-    user.resetPasswordCodeExpires = undefined;
+    // Clear the reset code and expiry
+    user.resetPasswordCode = null;
+    user.resetPasswordCodeExpires = null;
+
     await user.save();
 
-    res.status(200).json({ message: "Password has been reset." });
-  } catch (err) {
-    console.error(err);
+    res.status(200).json({ message: "Password successfully updated." });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server error." });
   }
 };

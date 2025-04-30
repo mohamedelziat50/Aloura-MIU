@@ -169,9 +169,9 @@
                     />
                     <span
                       class="input-group-text password-toggle"
-                      id="signupPasswordToggle"
+                      id="addUserPasswordToggle"
                     >
-                      <i class="fa-solid fa-lock" id="signupPasswordIcon"></i>
+                      <i class="fa-solid fa-lock" id="addUserPasswordIcon"></i>
                     </span>
                   </div>
                 </div>
@@ -190,9 +190,12 @@
                     />
                     <span
                       class="input-group-text password-toggle"
-                      id="confirmPasswordToggle"
+                      id="addUserConfirmPasswordToggle"
                     >
-                      <i class="fa-solid fa-lock" id="confirmPasswordIcon"></i>
+                      <i
+                        class="fa-solid fa-lock"
+                        id="addUserConfirmPasswordIcon"
+                      ></i>
                     </span>
                   </div>
                 </div>
@@ -323,6 +326,30 @@
           const re = /^[0-9]{10,15}$/;
           return re.test(phone);
         }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const setupPasswordToggle = (inputId, iconId) => {
+          const input = document.getElementById(inputId);
+          const icon = document.getElementById(iconId);
+
+          if (!input || !icon) return;
+
+          icon.parentElement.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+
+            icon.classList.toggle("fa-lock", !isPassword);
+            icon.classList.toggle("fa-lock-open", isPassword);
+          });
+        };
+
+
+        setupPasswordToggle("adduser-password", "addUserPasswordIcon");
+        setupPasswordToggle(
+          "adduser-confirm-password",
+          "addUserConfirmPasswordIcon"
+        );
       });
     </script>
   </body>
