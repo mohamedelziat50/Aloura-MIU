@@ -61,7 +61,14 @@ const fragranceSchema = new mongoose.Schema(
       },
     ],
     image: {
-      type: String,
+      type: [String],
+      validate: {
+        validator: function (val) {
+          return Array.isArray(val) && val.length === 3;
+        },
+        message: "There must be exactly 3 images for a fragrance.",
+      },
+      required: true,
     },
     popularityScore: {
       type: Number,
