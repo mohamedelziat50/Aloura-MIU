@@ -159,8 +159,10 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordCode = verificationCode;
     user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
     
+    
+    await user.save();
 
-    //Now send the email
+   // Now send the email
     // await sendEmail({
     //   to: email,
     //   subject: "Password Reset Verification Code",
@@ -170,6 +172,37 @@ export const forgotPassword = async (req, res) => {
     res.status(200).json({ message: "Verification code sent to your email." });
   } catch (error) {
     console.error("❌ Error during forgot password:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+// Inside auth.js controller
+export const resetPassword = async (req, res) => {
+  const { email, code, newPassword } = req.body;
+
+  if (!email || !code || !newPassword) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user || user.resetPasswordCode !== code) {
+      return res.status(400).json({ message: "Invalid code." });
+    }
+
+    if (Date.now() > user.resetPasswordCodeExpires) {
+      return res.status(400).json({ message: "Verification code expired." });
+    }
+
+    user.password = newPassword;
+    user.resetPasswordCode = undefined;
+    user.resetPasswordCodeExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: "Password has been reset." });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error." });
   }
 };

@@ -211,7 +211,7 @@
 .form .input-fields {
   display: flex;
   justify-content: space-evenly;
-  gap: 10px;
+  gap: 40px;
 }
 
 .form .input-fields input {
