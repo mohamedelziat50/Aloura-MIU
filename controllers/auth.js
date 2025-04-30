@@ -1,7 +1,7 @@
 import UserModel from "../models/user.js";
-import sendEmail from "../utilities/emailService.js";
 import jwt from "jsonwebtoken";
-``;
+import sendEmail from "../utilities/emailService.js"; // Assuming you have a utility function to send emails
+
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -159,17 +159,49 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordCode = verificationCode;
     user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
     
+    
+    await user.save();
 
-    //Now send the email
-    // await sendEmail({
-    //   to: email,
-    //   subject: "Password Reset Verification Code",
-    //   text: `Your verification code is: ${verificationCode}`,
-    // });
+   // Now send the email
+    await sendEmail({
+      to: email,
+      subject: "Password Reset Verification Code",
+      text: `Your verification code is: ${verificationCode}`,
+    });
 
     res.status(200).json({ message: "Verification code sent to your email." });
   } catch (error) {
     console.error("❌ Error during forgot password:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+// Inside auth.js controller
+export const resetPassword = async (req, res) => {
+  const { code, newPassword } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ resetPasswordCode: code });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid verification code." });
+    }
+
+    if (!user.resetPasswordCodeExpires || user.resetPasswordCodeExpires < Date.now()) {
+      return res.status(400).json({ message: "Code has expired." });
+    }
+  
+    user.password = await newPassword;
+
+    // Clear the reset code and expiry
+    user.resetPasswordCode = null;
+    user.resetPasswordCodeExpires = null;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password successfully updated." });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server error." });
   }
 };

@@ -20,7 +20,6 @@ export const editUser = async (req, res) => {
 export const getAdmin = async (req, res) => {
   Promise.all([UserModel.find(), FragranceModel.find()])
     .then(([users, fragrances]) => {
-      console.log(users, fragrances);
       res.render("admin/admin", {
         arr: users,
         fragrance: fragrances,
