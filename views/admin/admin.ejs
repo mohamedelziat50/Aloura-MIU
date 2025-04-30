@@ -165,16 +165,18 @@
       <section id="section-products" class="section">
         <h2>Manage Products</h2>
         <div class="product-buttons">
-          <button class="product-btn add">Add Product</button>
-          <button class="product-btn edit">Edit Product</button>
-          <button class="product-btn delete">Delete Product</button>
+          <a class="product-btn ButtonDicoration add" href="/addFragrance"
+            >Add Product</a
+          >
         </div>
         <br />
         <br />
         <% if (fragrance.length === 0) { %>
         <h1 style="text-align: center">No Products To Show</h1>
-        <% } else { %> <% fragrance.forEach((product) => { %>
-        <div class="users-grid">
+        <% } else { %>
+
+        <div class="product-grid">
+          <% fragrance.forEach((product) => { %>
           <div class="product-card">
             <div class="product-avatar">
               <img src="<%= product.image %>" alt="product Avatar" />
@@ -195,7 +197,9 @@
                     <p>
                       "Prefers floral scents - recommended new Chanel launch"
                     </p>
-                    <span class="product-date"><%= moment(product.updatedAt).fromNow() %></span>
+                    <span class="product-date"
+                      ><%= moment(product.updatedAt).fromNow() %></span
+                    >
                   </div>
                 </div>
               </div>
@@ -205,12 +209,12 @@
               <button class="product-btn delete">Delete</button>
             </div>
           </div>
+
+          <% }) %>
         </div>
-        <% }) %>
+
+        <% } %>
       </section>
-
-      <% } %>
-
       <!-- Orders Section -->
       <!-- Add this to your Orders section -->
       <section id="section-orders" class="section">
@@ -436,12 +440,9 @@
                     window.deleteUser = (btn) => {
                       const user_id = btn.getAttribute("data-user-id");
 
-                      fetch(
-                        `http://localhost:3000/api/users/${user_id}`,
-                        {
-                          method: "DELETE",
-                        }
-                      )
+                      fetch(`http://localhost:3000/api/users/${user_id}`, {
+                        method: "DELETE",
+                      })
                         .then(async (response) => {
                           const data = await response.json();
 

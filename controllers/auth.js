@@ -1,7 +1,7 @@
 import UserModel from "../models/user.js";
-import sendEmail from "../utilities/emailService.js";
 import jwt from "jsonwebtoken";
-``;
+import sendEmail from "../utilities/emailService.js"; // Assuming you have a utility function to send emails
+
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -18,6 +18,7 @@ const cookieOptions = {
 
 export const signup = async (req, res) => {
   const { name, email, phone, password } = req.body;
+  const profilePicture = req.file ? req.file.filename : null; // get uploaded picture filename if it exists
 
   if (!name || !email || !phone || !password) {
     return res.status(400).json({ message: "All fields are required." });
@@ -35,7 +36,15 @@ export const signup = async (req, res) => {
     }
 
     // Create the new user
-    const newUser = new UserModel({ name, email, phone, password });
+    const newUser = new UserModel({
+      name,
+      email,
+      phone,
+      password,
+      profilePic: profilePicture
+        ? `/uploads/${profilePicture}`
+        : `/uploads/defaultProfilePic.png`,
+    });
     await newUser.save();
 
     // Generate a token for the new user
@@ -65,7 +74,6 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
-
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -122,4 +130,78 @@ export const verifyEmail = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("jwt", cookieOptions);
   res.redirect("/");
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "No user found with that email." });
+    }
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let verificationCode = "";
+    for (let i = 0; i < 4; i++) {
+      verificationCode += letters.charAt(
+        Math.floor(Math.random() * letters.length)
+      );
+    }
+
+    user.resetPasswordCode = verificationCode;
+    user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
+    
+    
+    await user.save();
+
+   // Now send the email
+    await sendEmail({
+      to: email,
+      subject: "Password Reset Verification Code",
+      text: `Your verification code is: ${verificationCode}`,
+    });
+
+    res.status(200).json({ message: "Verification code sent to your email." });
+  } catch (error) {
+    console.error("❌ Error during forgot password:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+// Inside auth.js controller
+export const resetPassword = async (req, res) => {
+  const { code, newPassword } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ resetPasswordCode: code });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid verification code." });
+    }
+
+    if (!user.resetPasswordCodeExpires || user.resetPasswordCodeExpires < Date.now()) {
+      return res.status(400).json({ message: "Code has expired." });
+    }
+  
+    user.password = await newPassword;
+
+    // Clear the reset code and expiry
+    user.resetPasswordCode = null;
+    user.resetPasswordCodeExpires = null;
+
+    await user.save();
+
+    res.status(200).json({ message: "Password successfully updated." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
+  }
 };

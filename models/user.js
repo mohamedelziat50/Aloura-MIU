@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "./img/defaultProfilePic.png",
+      default: "./uploads/defaultProfilePic.png",
     },
     isVerified: {
       type: Boolean,
@@ -43,6 +43,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+    resetPasswordCode: {
+      type: String,
+      default: null, // No code initially
+    },
+    resetPasswordCodeExpires: {
+      type: Date,
+      default: null, // No expiration initially
     },
   },
   { timestamps: true }

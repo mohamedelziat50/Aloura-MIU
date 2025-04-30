@@ -1,11 +1,13 @@
+
 import showFunToast from "./toast.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const signUpForm = document.getElementById("signUpForm");
   const forgetpasswordForm = document.getElementById("forgetpasswordform");
-  const twofactorForm = document.getElementById("twofactor");
   const backArrow = document.getElementById("backToLogin");
+
+  const twofactorForm = document.getElementById("twofactor");
   const loginModalLabel = document.getElementById("loginModalLabel");
   const modalDescription = document.querySelector(".modal-description");
   const phoneInput = document.getElementById("phone");
@@ -43,8 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "#twofactor input[type='tel']"
       );
       verificationInputs.forEach((input) => {
-        input.value = ""; // Clear the input field
+        input.value = "";
       });
+      const resetpassword = document.getElementById("resetpassword");
+      resetpassword.value = "";
     });
   }
 
@@ -95,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Add back button functionality for 2FA form
   if (backArrow) {
     backArrow.addEventListener("click", function () {
       twofactorForm.style.display = "none";
@@ -204,6 +207,27 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const resetPasswordToggle = document.getElementById("resetpasswordToggle");
+  const resetPasswordInput = document.getElementById("resetpasswordInput");
+  const resetPasswordIcon = document.getElementById("resetpasswordIcon");
+
+  if (resetPasswordToggle && resetPasswordInput && resetPasswordIcon) {
+    resetPasswordToggle.addEventListener("click", function () {
+      if (resetPasswordInput.type === "password") {
+        resetPasswordInput.type = "text";
+        resetPasswordIcon.classList.remove("fa-lock");
+        resetPasswordIcon.classList.add("fa-lock-open");
+      } else {
+        resetPasswordInput.type = "password"; // ✅ Fix here
+        resetPasswordIcon.classList.remove("fa-lock-open");
+        resetPasswordIcon.classList.add("fa-lock");
+      }
+    });
+  }
+});
+
+
 signUpForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent form from submitting
 
@@ -273,7 +297,7 @@ signUpForm.addEventListener("submit", async (event) => {
       if (response.ok) {
         showFunToast(data.message || "✅ Signed up successfully!", "green");
         setTimeout(() => {
-          window.location.href = "/"; // Redirect to the user's page
+          window.location.href = "/?authError=true"; // Redirect to the user's page
         }, 1000);
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
@@ -370,4 +394,148 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document
+  .getElementById("forgetpasswordform")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
 
+    const email = document.getElementById("forget-email").value.trim();
+
+    if (!email) {
+      showFunToast("❗ Please enter your email.", "red");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        showFunToast(
+          data.message || "✅ Check your email for reset instructions!",
+          "green"
+        );
+
+        setTimeout(() => {
+          document.getElementById("loginForm").style.display = "none";
+          document.getElementById("signUpForm").style.display = "none";
+          document.getElementById("forgetpasswordform").style.display = "none";
+
+          // Show the 2FA form
+          document.getElementById("twofactor").style.display = "block";
+
+          // Update modal title and description
+          document.getElementById("loginModalLabel").textContent =
+            "Verification";
+          document
+            .getElementById("loginModalLabel")
+            .classList.add("verification-title");
+          document.querySelector(".modal-description").style.display = "none"; // Hide description
+          document.getElementById("backToLogin").style.display = "block";
+        }, 1000);
+      } else {
+        showFunToast(data.message || "❌ Error: Email not found.", "red");
+      }
+    } catch (error) {
+      console.error(error);
+      showFunToast("❌ Server error.", "red");
+    }
+    ``;
+  });
+
+//when you paste the code it automaticly write each one in the write spot
+document.addEventListener("DOMContentLoaded", function () {
+  const inputs = document.querySelectorAll("#twofactor input[type='tel']");
+
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", (e) => {
+      const value = e.target.value.toUpperCase().replace(/[^A-Z]/g, "");
+      e.target.value = value;
+
+      if (value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const paste = (e.clipboardData || window.clipboardData)
+        .getData("text")
+        .toUpperCase()
+        .replace(/[^A-Z]/g, "");
+
+      if (paste.length === inputs.length) {
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].value = paste[i];
+        }
+        inputs[inputs.length - 1].focus();
+      }
+    });
+  });
+});
+
+// JS for handling the reset from the verification modal
+
+document.querySelector(".verify").addEventListener("click", async () => {
+  const codeInputs = document.querySelectorAll(".input-fields input");
+  const newPassword = document.getElementById("resetpasswordInput").value.trim();
+  const code = Array.from(codeInputs)
+    .map((input) => input.value)
+    .join("");
+
+  if (code.length !== 4) {
+    showFunToast("❗ Please enter the full 4-digit code.", "red");
+    return;
+  }
+
+  if (!newPassword) {
+    showFunToast("❗ Please enter a new password.", "red");
+    return;
+  }
+
+  if (newPassword.length < 6) {
+    showFunToast("❗ Password must be at least 6 characters long.", "red");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/auth/reset-password",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code, newPassword }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      showFunToast(
+        data.message || "✅ Password updated successfully!",
+        "green"
+      );
+      setTimeout(() => {
+        window.location.href = "/?authError=true"; // Redirect to the login page
+      },1000);
+    } else {
+      showFunToast(data.message || "❌ Failed to update password.", "red");
+    }
+  } catch (error) {
+    console.error(error);
+    showFunToast("❌ Server error.", "red");
+  }
+});

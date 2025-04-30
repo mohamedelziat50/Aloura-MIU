@@ -42,6 +42,19 @@
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <style>
+      .ButtonDicoration {
+        color: white !important;
+        background-color: #121212 !important;
+        border: 1px solid #121212 !important;
+      }
+
+      .ButtonDicoration:hover {
+        color: #121212 !important;
+        background-color: white !important;
+      }
+    </style>
   </head>
   <body>
     <div class="containerr">
@@ -54,7 +67,52 @@
                     <label for="user-id" class="form-label">User_ID</label>
                     <p id="user-id" class="form-control"><%= user._id %></p>
                   </div>
-    
+                  <div class="mb-3 text-center">
+                    <label for="profile-picture" class="form-label"
+                      >Profile Picture</label
+                    >
+                    <div class="d-flex flex-column align-items-center">
+                      <img
+                        id="profile-picture-preview"
+                        src="<%= user.profilePic %>"
+                        alt="Profile Preview"
+                        class="rounded-circle mb-2"
+                        style="
+                          width: 120px;
+                          height: 120px;
+                          object-fit: cover;
+                          border: 2px solid #ccc;
+                        "
+                      />
+  
+                      <!-- Hidden file input -->
+                      <input
+                        type="file"
+                        class="d-none"
+                        id="profile-picture"
+                        name="profilePicture"
+                        accept="image/*"
+                      />
+  
+                      <!-- Custom styled button -->
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
+                        onclick="document.getElementById('profile-picture').click();"
+                        style="width: 120px"
+                      >
+                        Upload Picture
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
+                        id="reset-profile-picture"
+                        style="width: 120px"
+                      >
+                        Default Picture
+                      </button>
+                    </div>
+                  </div>
               <div class="mb-3">
                 <label for="user-name" class="form-label">Full Name</label>
                 <input
@@ -83,25 +141,26 @@
               </div>
 
               <div class="mb-3">
-                <label for="newPassword" class="form-label">Old Password</label>
+                <label for="userOldPassword" class="form-label">Old Password</label>
                 <div class="input-group">
                   <input
                     name="password"
                     type="password"
                     class="form-control"
-                    id="user-oldPassword"
-                    placeholder="Enter Old password*"
+                    id="userOldPassword"
+                    placeholder="Enter Old password"
                   />
                   <span
                     class="input-group-text password-toggle"
-                    id="signupPasswordToggle"
+                    id="userOldPasswordToggle"
+                    style="cursor: pointer;"
                   >
-                    <i class="fa-solid fa-lock" id="signupPasswordIcon"></i>
+                    <i class="fa-solid fa-lock" id="userOldPasswordIcon"></i>
                   </span>
                 </div>
               </div>
               <div class="mb-3">
-                <label for="oldPassword" class="form-label"
+                <label for="userNewPassword" class="form-label"
                   >New Password</label
                 >
                 <div class="input-group">
@@ -109,14 +168,15 @@
                     name="Confirm Password"
                     type="password"
                     class="form-control"
-                    id="user-newPassword"
-                    placeholder="Enter New password*"
+                    id="userNewPassword"
+                    placeholder="Enter New password"
                   />
                   <span
                     class="input-group-text password-toggle"
-                    id="confirmPasswordToggle"
+                    id="userNewPassword"
+                    style="cursor: pointer;"
                   >
-                    <i class="fa-solid fa-lock" id="confirmPasswordIcon"></i>
+                    <i class="fa-solid fa-lock" id="userNewPasswordIcon"></i>
                   </span>
                 </div>
               </div>
@@ -179,7 +239,24 @@
 
     <script type="module">
       import showFunToast from "/js/toast.js";
-      
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("profile-picture");
+        const preview = document.getElementById("profile-picture-preview");
+        const resetButton = document.getElementById("reset-profile-picture");
+
+        fileInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            preview.src = URL.createObjectURL(file);
+          }
+        });
+        resetButton.addEventListener("click", function () {
+         preview.src = "/uploads/defaultProfilePic.png"; // 👈 Set back to your default profile picture path
+         fileInput.value = ""; // 👈 Clear the file input (remove selected file)
+      });
+      });
+
       const form = document.getElementById("editUserForm");
       
       // Save the initial values when the page loads
@@ -192,12 +269,11 @@
         isVerified: document.getElementById("user-isVerified")?.value || "",
         oldPassword: document.getElementById("user-oldPassword")?.value || "",
         newPassword: document.getElementById("user-newPassword")?.value || "",
+        profilePicture: document.getElementById("profile-picture").getAttribute('src'), // <-- Grab selected new file (if any)
       };
-      
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-      
-        // Extract form data
+
         const id = document.getElementById("user-id").textContent.trim();
         const name = document.getElementById("user-name").value;
         const email = document.getElementById("user-email").value;
@@ -206,6 +282,10 @@
         const isVerified = document.getElementById("user-isVerified")?.value || "";
         const oldpassword = document.getElementById("user-oldPassword")?.value.trim() || "";
         const newpassword = document.getElementById("user-newPassword")?.value.trim() || "";
+        const profilePicture = document.getElementById("profile-picture").files[0]; // <-- Grab selected new file (if any)
+        const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
+
+        
       
         // Check if anything has changed
         const hasChanged =
@@ -215,7 +295,8 @@
           role !== originalValues.role ||
           isVerified !== originalValues.isVerified ||
           oldpassword !== "" ||
-          newpassword !== "";
+          newpassword !== ""||
+          currentPicture !== originalValues.profilePicture; // <-- Check if a new file is selected
       
         if (!hasChanged) {
           showFunToast("ℹ️ No changes detected.", "red");
@@ -224,20 +305,31 @@
       
         const body = { name, email, phone, role, isVerified };
       
-        // 👉 NEW: Only send password fields if user filled them
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("name", name);
+        formData.append("role", role);
+        formData.append("isVerified", isVerified);
+        
+        if (profilePicture) {
+          formData.append("profilePicture", profilePicture);
+        }
+
         if (oldpassword && newpassword) {
-          body.oldpassword = oldpassword;
-          body.newpassword = newpassword;
-        }else if (oldpassword || newpassword) {
-        showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
-        return;
-      }
+          formData.append("oldpassword", oldpassword);
+          formData.append("newpassword", newpassword);
+        } else if (oldpassword || newpassword) {
+          showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
+          return;
+        }
+
+
       
         try {
           const response = await fetch(`http://localhost:3000/api/users/${id}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+            body: formData,
           });
       
           const data = await response.json();
@@ -258,6 +350,27 @@
           showFunToast("❌ Error occurred!", "red");
         }
       });
+
+      document.addEventListener("DOMContentLoaded", function () {
+    const setupPasswordToggle = (inputId, iconId) => {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+
+      if (!input || !icon) return;
+
+      icon.parentElement.addEventListener("click", () => {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+
+        icon.classList.toggle("fa-lock", !isPassword);
+        icon.classList.toggle("fa-lock-open", isPassword);
+      });
+    };
+
+    // Apply the toggle to the old and new password fields
+    setupPasswordToggle("userOldPassword", "userOldPasswordIcon");
+    setupPasswordToggle("userNewPassword", "userNewPasswordIcon");
+  });
       </script>
       
     
