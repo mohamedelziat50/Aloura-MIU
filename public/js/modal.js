@@ -297,7 +297,7 @@ signUpForm.addEventListener("submit", async (event) => {
       if (response.ok) {
         showFunToast(data.message || "✅ Signed up successfully!", "green");
         setTimeout(() => {
-          window.location.href = "/?authError=true"; // Redirect to the user's page
+          window.location.href = "/"; // Redirect to the user's page
         }, 1000);
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");

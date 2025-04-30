@@ -258,12 +258,7 @@
                   src="../../img/perfumes-transparent/sauvauge-dior.png"
                   alt="Fragrance Preview"
                   class="mb-2"
-                  style="
-                    width: 200px;
-                    height: 200px;
-                    object-fit: cover;
-                    border: 2px solid #ccc;
-                  "
+                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
                 />
                 <div class="text-center">
                   <input
@@ -283,18 +278,13 @@
                     Upload Picture 1
                   </button>
                   <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                  onclick="removeImage('profile-picture-preview-3', 'profile-picture-3')"
-                  style="
-                    width: 30px;
-                    height: 30px;
-                    padding: 0;
-                  "
-                >
-                  X
-                </button>
-                
+                    type="button"
+                    class="btn btn-outline-danger btn-sm mt-2 ml-2"
+                    onclick="removeImage('profile-picture-preview-1', 'profile-picture-1')"
+                    style="width: 30px; height: 30px; padding: 0"
+                  >
+                    X
+                  </button>
                 </div>
               </div>
           
@@ -306,12 +296,7 @@
                   src="../../img/ALOURA.jpg"
                   alt="background-color 1"
                   class="mb-2"
-                  style="
-                    width: 200px;
-                    height: 200px;
-                    object-fit: cover;
-                    border: 2px solid #ccc;
-                  "
+                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
                 />
                 <div class="text-center">
                   <input
@@ -331,18 +316,13 @@
                     Upload Picture 2
                   </button>
                   <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                  onclick="removeImage('profile-picture-preview-3', 'profile-picture-3')"
-                  style="
-                    width: 30px;
-                    height: 30px;
-                    padding: 0;
-                  "
-                >
-                  X
-                </button>
-                
+                    type="button"
+                    class="btn btn-outline-danger btn-sm mt-2 ml-2"
+                    onclick="removeImage('profile-picture-preview-2', 'profile-picture-2')"
+                    style="width: 30px; height: 30px; padding: 0"
+                  >
+                    X
+                  </button>
                 </div>
               </div>
           
@@ -354,12 +334,7 @@
                   src="../../img/ALOURA.jpg"
                   alt="background-color 2"
                   class="mb-2"
-                  style="
-                    width: 200px;
-                    height: 200px;
-                    object-fit: cover;
-                    border: 2px solid #ccc;
-                  "
+                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
                 />
                 <div class="text-center">
                   <input
@@ -379,18 +354,13 @@
                     Upload Picture 3
                   </button>
                   <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                  onclick="removeImage('profile-picture-preview-3', 'profile-picture-3')"
-                  style="
-                    width: 30px;
-                    height: 30px;
-                    padding: 0;
-                  "
-                >
-                  X
-                </button>
-                
+                    type="button"
+                    class="btn btn-outline-danger btn-sm mt-2 ml-2"
+                    onclick="removeImage('profile-picture-preview-3', 'profile-picture-3')"
+                    style="width: 30px; height: 30px; padding: 0"
+                  >
+                    X
+                  </button>
                 </div>
               </div>
             </div>
@@ -469,8 +439,10 @@
         const preview = document.getElementById(previewId);
         const input = document.getElementById(inputId);
 
-        preview.src = ""; // Clear the preview image
-        input.value = ""; // Reset the file input field
+        // Clear the image preview
+        preview.src = "";
+        // Reset the file input field
+        input.value = "";
       }
     </script>
   </body>
