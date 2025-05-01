@@ -85,3 +85,7 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const getaccount = async (req, res) => {
+  res.render("account");
+};
