@@ -3,12 +3,77 @@ import Fragrance from "../models/fragrance.js";
 // Create
 export const createFragrance = async (req, res) => {
   try {
-    const fragrance = await Fragrance.create(req.body);
-    return res.status(201).json(fragrance); // Use return to prevent further execution
-  } catch (err) {
-    return res.status(400).json({ error: err.message }); // Use return to prevent further execution
+    const {
+      name,
+      brand,
+      gender,
+      category,
+      description,
+      topNotes,
+      middleNotes,
+      baseNotes,
+      sizes = [],
+      price30,
+      price50,
+      price100,
+      quantity30,
+      quantity50,
+      quantity100,
+      releaseDate,
+      tags,
+    } = req.body;
+
+    // Build public image paths from Multer
+    const imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
+
+    // Handle size options manually
+    const selectedSizes = Array.isArray(sizes) ? sizes : [sizes];
+    const sizeOptions = [];
+
+    if (selectedSizes.includes("30")) {
+      sizeOptions.push({
+        size: 30,
+        price: price30,
+        quantity: quantity30,
+      });
+    }
+    if (selectedSizes.includes("50")) {
+      sizeOptions.push({
+        size: 50,
+        price: price50,
+        quantity: quantity50,
+      });
+    }
+    if (selectedSizes.includes("100")) {
+      sizeOptions.push({
+        size: 100,
+        price: price100,
+        quantity: quantity100,
+      });
+    }
+
+    // Create fragrance document
+    const newFragrance = await Fragrance.create({
+      name,
+      brand,
+      gender,
+      category,
+      description,
+      image: imagePaths,
+      sizeOptions,
+      topNotes: topNotes?.split(",").map((s) => s.trim()),
+      middleNotes: middleNotes?.split(",").map((s) => s.trim()),
+      baseNotes: baseNotes?.split(",").map((s) => s.trim()),
+      tags: tags?.split(",").map((s) => s.trim()),
+      releaseDate,
+    });
+
+    res.status(201).json(newFragrance);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
+
 
 
 // Read all
