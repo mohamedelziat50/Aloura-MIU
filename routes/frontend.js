@@ -62,6 +62,9 @@ router.get("/our-story", (req, res) => {
   res.render("our-story");
 });
 
+router.get("/account", (req, res) => {
+  res.render("account");
+});
 
 
 
