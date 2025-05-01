@@ -1,231 +1,236 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- META DATA -->
-    <!-- Define type of characters used in our website -->
-    <meta charset="UTF-8" />
-    <!-- Keywords for search engine: will be useful when publishing -->
-    <meta name="keywords" content="Perfumes, Fragrances" />
-    <!--  Different devices with different resolutions-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Description displayed in search engine -->
-    <meta
-      name="description"
-      content="Discover suitable high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
-    />
-    <title>- Aloura</title>
-    <!-- END OF META DATA -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | Aloura</title>
+    <link rel="stylesheet" href="/css/collections-dimension.css">
+    <link rel="stylesheet" href="/css/navBar.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
 
-    <!-- LINKS -->
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>ALOURA</h1>
+                <p class="hero-subtitle">The Art of Fragrance</p>
+            </div>
+            <div class="hero-image-container">
+                <video autoplay muted loop playsinline class="hero-image">
+                    <source src="/videos/EMMA STONE - LV.mp4" type="video/mp4">
+                </video>
+                <div class="hero-overlay"></div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Tab Logo / 'Favicon' -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="../img/favicons/rounded-background-favicon.ico"
-    />
+    <!-- Collection Showcase -->
+    <section class="collection-showcase">
+        <div class="module-block">
+            <div class="image-container">
+                <img src="/img/fresh.jpg" alt="Signature Collection">
+            </div>
+            <div class="content-container">
+                <div class="content-inner">
+                    <h2>Signature Collection</h2>
+                    <p>Discover our iconic fragrances, carefully crafted to embody the essence of luxury and sophistication. Each scent tells a unique story, creating an unforgettable olfactory experience.</p>
+                    <a href="#" class="showcase-button">Explore Collection</a>
+                </div>
+            </div>
+        </div>
 
-    <!-- For the 3D World -->
-    <link rel="stylesheet" href="/css/collections-dimension.css" />
+        <div class="module-block reverse">
+            <div class="image-container">
+                <img src="/img/spicy.jpg" alt="For Him">
+            </div>
+            <div class="content-container">
+                <div class="content-inner">
+                    <h2>For Him</h2>
+                    <p>Bold and sophisticated fragrances designed for the modern gentleman. Our masculine collection combines strength with elegance, creating distinctive scents that leave a lasting impression.</p>
+                    <a href="#" class="showcase-button">View Collection</a>
+                </div>
+            </div>
+        </div>
 
-    <!-- Intial Scroll When Reloading -->
+        <div class="module-block">
+            <div class="image-container">
+                <img src="/img/floral.jpg" alt="For Her">
+            </div>
+            <div class="content-container">
+                <div class="content-inner">
+                    <h2>For Her</h2>
+                    <p>Delicate yet powerful, our feminine collection captures the essence of modern elegance. Each fragrance is a masterpiece of refined notes that celebrate feminine beauty and confidence.</p>
+                    <a href="#" class="showcase-button">View Collection</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Universe Section -->
+    <section class="universe-section">
+        <div class="universe-content">
+            <div class="universe-text">
+                <h2>Our Universe</h2>
+                <p>Where artistry meets alchemy, each fragrance tells a story of sophistication.</p>
+                <a href="#explore" class="universe-button">Explore</a>
+            </div>
+            <div class="universe-image">
+                <img src="/img/ALOURA.jpg" alt="Aloura Universe">
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragrance Notes Carousel -->
+    <section class="fragrance-notes">
+        <h2 class="section-title">Explore by Notes</h2>
+        <div class="notes-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/fruity.jpg" alt="Fruity Notes">
+                            </div>
+                            <div class="note-back">
+                                <h3>Fruity Notes</h3>
+                                <p>Fresh and vibrant compositions</p>
+                                <a href="#" class="note-link">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/spicy.jpg" alt="Spicy Notes">
+                            </div>
+                            <div class="note-back">
+                                <h3>Spicy Notes</h3>
+                                <p>Bold and intense characters</p>
+                                <a href="#" class="note-link">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/leathery.jpg" alt="Woody Notes">
+                            </div>
+                            <div class="note-back">
+                                <h3>Woody Notes</h3>
+                                <p>Deep and sophisticated essences</p>
+                                <a href="#" class="note-link">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/new_floral.jpg" alt="Floral Notes">
+                            </div>
+                            <div class="note-back">
+                                <h3>Floral Notes</h3>
+                                <p>Elegant and romantic blends</p>
+                                <a href="#" class="note-link">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/new_aromatic__green.jpg" alt="Aromatic Notes">
+                            </div>
+                            <div class="note-back">
+                                <h3>Aromatic Notes</h3>
+                                <p>Fresh and herbal essences</p>
+                                <a href="#" class="note-link">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-btn prev-btn" aria-label="Previous slide">❮</button>
+            <button class="carousel-btn next-btn" aria-label="Next slide">❯</button>
+        </div>
+    </section>
+
     <script>
-      // Prevent the browser from restoring the scroll position
-      if (history.scrollRestoration) {
-        history.scrollRestoration = "manual";
-      }
-      // Scroll to the top of the page on load
-      window.onload = function () {
-        window.scrollTo(0, 0);
-      };
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Combined Intersection Observer for all animated elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            // Observe all elements that should animate
+            document.querySelectorAll('.module-block, .showcase-item, .note-item, .universe-text, .universe-image').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const items = document.querySelectorAll('.note-item');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+            const itemWidth = items[0].offsetWidth;
+            const visibleItems = 3;
+            const totalItems = items.length;
+            
+            function updateCarousel() {
+                const offset = -currentIndex * (itemWidth + 20); // 20px is the gap
+                track.style.transform = `translateX(${offset}px)`;
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % (totalItems - visibleItems + 1);
+                updateCarousel();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + (totalItems - visibleItems + 1)) % (totalItems - visibleItems + 1);
+                updateCarousel();
+            });
+            
+            // Auto-rotate carousel
+            let autoRotate = setInterval(() => {
+                currentIndex = (currentIndex + 1) % (totalItems - visibleItems + 1);
+                updateCarousel();
+            }, 5000);
+            
+            // Pause auto-rotation on hover
+            document.querySelector('.notes-carousel').addEventListener('mouseenter', () => {
+                clearInterval(autoRotate);
+            });
+            
+            document.querySelector('.notes-carousel').addEventListener('mouseleave', () => {
+                autoRotate = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % (totalItems - visibleItems + 1);
+                    updateCarousel();
+                }, 5000);
+            });
+        });
     </script>
-  </head>
-  <body>
-    <%- include('partials/navbar.ejs') %>
-
-    <div class="container">
-      <div class="active-slide">
-        <img
-          src="/photo/ariana-grande-sweetner-album-art-2018-billboard-1240.jpg"
-          alt=""
-        />
-        <img
-          src="/photo/_photoshop__the_weeknd___starboy_album_remake_by_david_sotelo_dcc3xth-pre.jpg"
-          alt=""
-        />
-        <img
-          src="/photo/bob-marleythe-wailers-rastaman-vibration-1976-billboard-1240.jpg"
-          alt=""
-        />
-        <img src="/img/guyTest.png" alt="" />
-      </div>
-      <div class="slider">
-        <div class="slide" id="slide-4">
-          <div class="slide-copy">
-            <p>
-              Experience personalized recommendations tailored to your music
-              preferences.
-            </p>
-          </div>
-          <div class="slide-img"></div>
-          <img
-            src="/photo/ariana-grande-sweetner-album-art-2018-billboard-1240.jpg"
-            alt=""
-          />
-        </div>
-        <div class="slide" id="slide-3">
-          <div class="slide-copy">
-            <p>
-              Customize playlists and organize your favorite songs effortlessly.
-            </p>
-          </div>
-          <div class="slide-img"></div>
-          <img
-            src="/photo/_photoshop__the_weeknd___starboy_album_remake_by_david_sotelo_dcc3xth-pre.jpg"
-            alt=""
-          />
-        </div>
-
-        <div class="slide" id="slide-2">
-          <div class="slide-copy">
-            <p>
-              Enhance your music listening experience with SoundSpot Music's
-              user-friendly features.
-            </p>
-          </div>
-          <div class="slide-img"></div>
-          <img
-            src="/photo/bob-marleythe-wailers-rastaman-vibration-1976-billboard-1240.jpg"
-            alt=""
-          />
-        </div>
-        <div class="slide" id="slide-1">
-          <div class="slide-copy">
-            <p>
-              SoundSpot Music offers a seamless web experience for music
-              enthusiasts.
-            </p>
-          </div>
-          <div class="slide-img"></div>
-          <img src="/img/guyTest.png" alt="" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Testing for another section -->
-    <div id="section-2">
-      <h1 id="header">Collections</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cumque
-        nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas. Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Nisi cumque nostrum eaque tempora ratione molestias
-        culpa quasi optio! Ullam, maiores vero? A consequatur praesentium sit
-        molestias quae minus sed unde. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium nam laborum vitae alias. Numquam illo
-        consequatur unde? In, voluptatem sapiente. Beatae recusandae odio
-        consequuntur quam modi, sint molestias inventore voluptas. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Nisi cumque nostrum eaque
-        tempora ratione molestias culpa quasi optio! Ullam, maiores vero? A
-        consequatur praesentium sit molestias quae minus sed unde. Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium nam laborum
-        vitae alias. Numquam illo consequatur unde? In, voluptatem sapiente.
-        Beatae recusandae odio consequuntur quam modi, sint molestias inventore
-        voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi
-        cumque nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas. Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Nisi cumque nostrum eaque tempora ratione molestias
-        culpa quasi optio! Ullam, maiores vero? A consequatur praesentium sit
-        molestias quae minus sed unde. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium nam laborum vitae alias. Numquam illo
-        consequatur unde? In, voluptatem sapiente. Beatae recusandae odio
-        consequuntur quam modi, sint molestias inventore voluptas.Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Nisi cumque nostrum eaque
-        tempora ratione molestias culpa quasi optio! Ullam, maiores vero? A
-        consequatur praesentium sit molestias quae minus sed unde. Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium nam laborum
-        vitae alias. Numquam illo consequatur unde? In, voluptatem sapiente.
-        Beatae recusandae odio consequuntur quam modi, sint molestias inventore
-        voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi
-        cumque nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas.Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Nisi cumque nostrum eaque tempora ratione molestias
-        culpa quasi optio! Ullam, maiores vero? A consequatur praesentium sit
-        molestias quae minus sed unde. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium nam laborum vitae alias. Numquam illo
-        consequatur unde? In, voluptatem sapiente. Beatae recusandae odio
-        consequuntur quam modi, sint molestias inventore voluptas.Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Nisi cumque nostrum eaque
-        tempora ratione molestias culpa quasi optio! Ullam, maiores vero? A
-        consequatur praesentium sit molestias quae minus sed unde. Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium nam laborum
-        vitae alias. Numquam illo consequatur unde? In, voluptatem sapiente.
-        Beatae recusandae odio consequuntur quam modi, sint molestias inventore
-        voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi
-        cumque nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas.Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Nisi cumque nostrum eaque tempora ratione molestias
-        culpa quasi optio! Ullam, maiores vero? A consequatur praesentium sit
-        molestias quae minus sed unde. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium nam laborum vitae alias. Numquam illo
-        consequatur unde? In, voluptatem sapiente. Beatae recusandae odio
-        consequuntur quam modi, sint molestias inventore voluptas.Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Nisi cumque nostrum eaque
-        tempora ratione molestias culpa quasi optio! Ullam, maiores vero? A
-        consequatur praesentium sit molestias quae minus sed unde. Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium nam laborum
-        vitae alias. Numquam illo consequatur unde? In, voluptatem sapiente.
-        Beatae recusandae odio consequuntur quam modi, sint molestias inventore
-        voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi
-        cumque nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas.Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Nisi cumque nostrum eaque tempora ratione molestias
-        culpa quasi optio! Ullam, maiores vero? A consequatur praesentium sit
-        molestias quae minus sed unde. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium nam laborum vitae alias. Numquam illo
-        consequatur unde? In, voluptatem sapiente. Beatae recusandae odio
-        consequuntur quam modi, sint molestias inventore voluptas.Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Nisi cumque nostrum eaque
-        tempora ratione molestias culpa quasi optio! Ullam, maiores vero? A
-        consequatur praesentium sit molestias quae minus sed unde. Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium nam laborum
-        vitae alias. Numquam illo consequatur unde? In, voluptatem sapiente.
-        Beatae recusandae odio consequuntur quam modi, sint molestias inventore
-        voluptas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi
-        cumque nostrum eaque tempora ratione molestias culpa quasi optio! Ullam,
-        maiores vero? A consequatur praesentium sit molestias quae minus sed
-        unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium nam laborum vitae alias. Numquam illo consequatur unde? In,
-        voluptatem sapiente. Beatae recusandae odio consequuntur quam modi, sint
-        molestias inventore voluptas.
-      </p>
-    </div>
-
-    <!-- js libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="/js/collections-dimension.js"></script>
-    <link rel="stylesheet" href="../css/navBar.css" />
-  </body>
+</body>
 </html>
