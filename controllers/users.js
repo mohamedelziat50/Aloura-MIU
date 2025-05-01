@@ -36,33 +36,37 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone, role, isVerified, oldpassword, newpassword } =
-      req.body;
-    const profilePicture = req.file ? req.file.filename : null; // 👉 get uploaded file if any
+    const { name, email, phone, role, isVerified, oldpassword, newpassword } = req.body;
 
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    // If user wants to update password
+    // Password update
     if (oldpassword && newpassword) {
       const isMatch = await bcrypt.compare(oldpassword, user.password);
       if (!isMatch) {
         return res.status(400).json({ message: "Old password is incorrect." });
       }
-      user.password = newpassword; // Set new password (it will be hashed by pre-save hook)
+      user.password = newpassword;
     }
 
-    // Update other fields
+    // Profile picture logic
+    if (req.file) {
+      user.profilePic = `/uploads/${req.file.filename}`;
+    } else if (typeof req.body.profilePicture === "string") {
+      user.profilePic = req.body.profilePicture;
+    }
+
+    // Other fields
     if (name) user.name = name;
     if (email) user.email = email;
     if (phone) user.phone = phone;
     if (role) user.role = role;
     if (typeof isVerified !== "undefined") user.isVerified = isVerified;
-    if (profilePicture) user.profilePic = `/uploads/${profilePicture}`; // 👉 update profilePic if uploaded
 
-    await user.save(); // Triggers pre('save') hook and hashes new password if changed
+    await user.save();
 
     res.status(200).json({ message: "User updated successfully." });
   } catch (error) {
@@ -80,4 +84,8 @@ export const deleteUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+};
+
+export const getaccount = async (req, res) => {
+  res.render("account");
 };

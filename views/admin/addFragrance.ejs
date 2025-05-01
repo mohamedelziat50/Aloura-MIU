@@ -103,6 +103,12 @@
         }
       }
     </style>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   </head>
   <body>
     <div class="container">
@@ -254,25 +260,30 @@
               <div class="d-flex flex-column align-items-center mb-3 mb-md-0">
                 <p>Fragrance picture</p>
                 <img
-                  id="profile-picture-preview-1"
+                  id="fragrancePicture"
                   src="../../img/perfumes-transparent/sauvauge-dior.png"
                   alt="Fragrance Preview"
                   class="mb-2"
-                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
+                    border: 2px solid #ccc;
+                  "
                 />
                 <div class="text-center">
                   <input
                     type="file"
                     class="d-none"
-                    id="profile-picture-1"
-                    name="profilePicture1"
+                    id="fragrancePictureInput"
+                    name="images"
                     accept="image/*"
-                    onchange="previewImage(event, 'profile-picture-preview-1')"
+                    onchange="previewImage(event, 'fragrancePicture')"
                   />
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                    onclick="document.getElementById('profile-picture-1').click()"
+                    onclick="document.getElementById('fragrancePictureInput').click()"
                     style="width: 150px"
                   >
                     Upload Picture 1
@@ -280,37 +291,42 @@
                   <button
                     type="button"
                     class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                    onclick="removeImage('profile-picture-preview-1', 'profile-picture-1')"
+                    onclick="removeImage('fragrancePicture', 'fragrancePictureInput')"
                     style="width: 30px; height: 30px; padding: 0"
                   >
                     X
                   </button>
                 </div>
               </div>
-          
+
               <!-- Image 2 -->
               <div class="d-flex flex-column align-items-center mb-3 mb-md-0">
                 <p>Background 1</p>
                 <img
-                  id="profile-picture-preview-2"
+                  id="backgroundPicture1"
                   src="../../img/ALOURA.jpg"
                   alt="background-color 1"
                   class="mb-2"
-                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
+                    border: 2px solid #ccc;
+                  "
                 />
                 <div class="text-center">
                   <input
                     type="file"
                     class="d-none"
-                    id="profile-picture-2"
-                    name="profilePicture2"
+                    id="backgroundPicture1Input"
+                    name="images"
                     accept="image/*"
-                    onchange="previewImage(event, 'profile-picture-preview-2')"
+                    onchange="previewImage(event, 'backgroundPicture1')"
                   />
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                    onclick="document.getElementById('profile-picture-2').click()"
+                    onclick="document.getElementById('backgroundPicture1Input').click()"
                     style="width: 150px"
                   >
                     Upload Picture 2
@@ -318,37 +334,42 @@
                   <button
                     type="button"
                     class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                    onclick="removeImage('profile-picture-preview-2', 'profile-picture-2')"
+                    onclick="removeImage('backgroundPicture1', 'backgroundPicture1Input')"
                     style="width: 30px; height: 30px; padding: 0"
                   >
                     X
                   </button>
                 </div>
               </div>
-          
+
               <!-- Image 3 -->
               <div class="d-flex flex-column align-items-center">
                 <p>Background 2</p>
                 <img
-                  id="profile-picture-preview-3"
+                  id="backgroundPicture2"
                   src="../../img/ALOURA.jpg"
                   alt="background-color 2"
                   class="mb-2"
-                  style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc;"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
+                    border: 2px solid #ccc;
+                  "
                 />
                 <div class="text-center">
                   <input
                     type="file"
                     class="d-none"
-                    id="profile-picture-3"
-                    name="profilePicture3"
+                    id="backgroundPicture2Input"
+                    name="images"
                     accept="image/*"
-                    onchange="previewImage(event, 'profile-picture-preview-3')"
+                    onchange="previewImage(event, 'backgroundPicture2')"
                   />
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                    onclick="document.getElementById('profile-picture-3').click()"
+                    onclick="document.getElementById('backgroundPicture2Input').click()"
                     style="width: 150px"
                   >
                     Upload Picture 3
@@ -356,7 +377,7 @@
                   <button
                     type="button"
                     class="btn btn-outline-danger btn-sm mt-2 ml-2"
-                    onclick="removeImage('profile-picture-preview-3', 'profile-picture-3')"
+                    onclick="removeImage('backgroundPicture2', 'backgroundPicture2Input')"
                     style="width: 30px; height: 30px; padding: 0"
                   >
                     X
@@ -365,31 +386,6 @@
               </div>
             </div>
           </div>
-          
-
-          <script>
-            function previewImage(event, previewId) {
-              const file = event.target.files[0];
-              const reader = new FileReader();
-
-              reader.onload = function () {
-                const preview = document.getElementById(previewId);
-                preview.src = reader.result;
-              };
-
-              if (file) {
-                reader.readAsDataURL(file);
-              }
-            }
-
-            function removeImage(previewId, inputId) {
-              const preview = document.getElementById(previewId);
-              const input = document.getElementById(inputId);
-
-              preview.src = ""; // Clear the preview image
-              input.value = ""; // Reset the file input field
-            }
-          </script>
 
           <div class="mb-3">
             <label class="form-label">Release Date</label>
@@ -421,29 +417,111 @@
         }
       }
 
-      function previewImage(event, previewId) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function () {
-          const preview = document.getElementById(previewId);
-          preview.src = reader.result;
-        };
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-      }
-
       function removeImage(previewId, inputId) {
         const preview = document.getElementById(previewId);
         const input = document.getElementById(inputId);
 
-        // Clear the image preview
-        preview.src = "";
-        // Reset the file input field
-        input.value = "";
+        preview.src = ""; // Clear the preview image
+        input.value = ""; // Reset the file input field
       }
+    </script>
+
+    <script type="module">
+      import showFunToast from "/js/toast.js";
+
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        let hasEmptyField = false;
+
+        // ✅ Validate all required inputs (exclude type="file" and checkboxes)
+        const allFields = form.querySelectorAll(
+          "input:not([type=checkbox]):not([type=file]), select, textarea"
+        );
+
+        for (const field of allFields) {
+          if (!field.value.trim()) {
+            showFunToast(`Please fill out the "${field.name}" field.`, "red");
+           // field.scrollIntoView({ behavior: "smooth", block: "center" });
+            field.focus();
+            hasEmptyField = true;
+            break;
+          }
+        }
+
+        // ✅ Ensure at least one size option is selected
+        const checkedSizes = form.querySelectorAll(
+          "input[name='sizes']:checked"
+        );
+        if (checkedSizes.length === 0) {
+          showFunToast("Please select at least one size option.", "red");
+          document
+            .getElementById("size30")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+          hasEmptyField = true;
+        }
+
+        // ✅ Ensure 3 images are selected
+        const imageInputs = [
+          "fragrancePictureInput",
+          "backgroundPicture1Input",
+          "backgroundPicture2Input",
+        ];
+
+        for (const inputId of imageInputs) {
+          const input = document.getElementById(inputId);
+          if (!input.files || input.files.length === 0) {
+            showFunToast("Please upload all three images.", "red");
+            input.scrollIntoView({ behavior: "smooth", block: "center" });
+            hasEmptyField = true;
+            break;
+          }
+        }
+
+        if (hasEmptyField) return;
+
+        // ✅ Append selected sizes manually
+        checkedSizes.forEach((checkbox) => {
+          formData.append("sizes", checkbox.value);
+        });
+
+        // ✅ Send form
+        try {
+          const response = await fetch("/api/fragrances", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showFunToast("Fragrance added successfully!", "green");
+            form.reset();
+
+            // Clear image previews
+            [
+              "fragrancePicture",
+              "backgroundPicture1",
+              "backgroundPicture2",
+            ].forEach((id) => {
+              const img = document.getElementById(id);
+              if (img) img.src = "";
+            });
+          } else {
+            showFunToast(
+              `Error: ${result.error || "Something went wrong"}`,
+              "red"
+            );
+            console.error("Server Error:", result);
+          }
+        } catch (error) {
+          showFunToast("Request failed. Please check your connection.", "red");
+          console.error("Fetch Error:", error);
+        }
+      });
     </script>
   </body>
 </html>

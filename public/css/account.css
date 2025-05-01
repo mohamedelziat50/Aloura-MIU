@@ -182,6 +182,7 @@ h3 {
   text-transform: uppercase !important;
   border: 1px solid #121212 !important;
   transition: all 0.2s linear !important;
+  text-decoration: none;
 }
 
 .sign-out-button:hover {

@@ -244,6 +244,9 @@
   const preview = document.getElementById("profile-picture-preview");
   const resetButton = document.getElementById("reset-profile-picture");
 
+  let isDefaultPicture = false; 
+  const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
+
   // Save the initial values when the page loads
   const originalValues = {
     id: document.getElementById("user-id").textContent.trim(),
@@ -268,6 +271,7 @@
   resetButton.addEventListener("click", function () {
     preview.src = "/uploads/defaultProfilePic.png"; // Set to default picture
     fileInput.value = ""; // Clear the file input (remove selected file)
+    isDefaultPicture = true
   });
 
   const form = document.getElementById("editUserForm");
@@ -283,7 +287,7 @@
     const isVerified = document.getElementById("user-isVerified")?.value || "";
     const oldpassword = document.getElementById("userOldPassword")?.value.trim() || "";
     const newpassword = document.getElementById("userNewPassword")?.value.trim() || "";
-    const profilePicture = document.getElementById("profile-picture").files[0]; // Get selected file if any
+    const profilePicture = fileInput.files[0]; // Get selected file if any
     const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
 
     // Check if anything has changed
@@ -310,8 +314,11 @@
     formData.append("isVerified", isVerified);
 
     if (profilePicture) {
-      formData.append("profilePicture", profilePicture);
-    }
+        formData.append("profilePicture", profilePicture);
+      } else if (isDefaultPicture) {
+        // ❗Send path as a string for default picture
+        formData.append("profilePicture", DEFAULT_PIC_PATH);
+      }
 
     if (oldpassword && newpassword) {
       formData.append("oldpassword", oldpassword);
