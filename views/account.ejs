@@ -90,7 +90,7 @@
         <div class="details-container">
           <div class="profile-section">
             <h3>PROFILE & SECURITY</h3>
-            <div class="edit-link">Edit</div>
+            <div class="edit-link" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</div>
           </div>
 
           <div class="profile-info">
@@ -122,6 +122,52 @@
 
       <div class="sign-out-container">
         <button class="sign-out-button">SIGN OUT</button>
+      </div>
+    </div>
+
+    <!-- Bootstrap Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content edit-profile-modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="profile-form">
+                <h6 class="mt-4 mb-3">CHANGE YOUR PASSWORD</h6>
+              <div class="mb-3">
+                <input type="text" id="firstName" class="form-control" placeholder="First name">
+              </div>
+              <div class="mb-3">
+                <input type="text" id="lastName" class="form-control" placeholder="Last name">
+              </div>
+              <div class="mb-3">
+                <input type="tel" id="phoneNumber" class="form-control" placeholder="Phone number">
+              </div>
+              <div class="mb-3">
+                <input type="email" id="email" class="form-control" placeholder="Email" value="<%= locals.user ? locals.user.email : '' %>" readonly>
+              </div>
+
+              <h6 class="mt-4 mb-3">CHANGE YOUR PASSWORD</h6>
+              
+              <div class="mb-3">
+                <input type="password" id="currentPassword" class="form-control password-field" placeholder="•••••••">
+              </div>
+              <div class="mb-3">
+                <input type="password" id="newPassword" class="form-control" placeholder="New password">
+              </div>
+              <div class="mb-3">
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter new password">
+              </div>
+              <p class="password-hint text-muted">Passwords must be at least 6 characters.</p>
+
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-dark save-button">SAVE</button>
+                <button type="button" class="btn btn-outline-dark cancel-button" data-bs-dismiss="modal">CANCEL</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
