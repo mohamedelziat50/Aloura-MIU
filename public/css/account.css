@@ -1,0 +1,440 @@
+body {
+  font-family: 'ProximaNova', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+
+.account-container {
+  max-width: 95rem;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  position: relative;
+  top: 3rem;
+}
+
+.main-heading {
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+/* Common section styles */
+.order-history,
+.account-details,
+.address-book {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 18px !important;
+  font-weight: 400;
+  margin-bottom: 1rem !important;
+  letter-spacing: 0.05rem;
+}
+
+.empty-message {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Order history section */
+.action-button {
+  background-color: #000;
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  width: 200px;
+  text-align: center;
+  font-family: "Poppins", sans-serif !important;
+  text-transform: uppercase !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+}
+
+.action-button:hover {
+    color: #121212 !important;
+    background-color: white !important;
+}
+
+/* Account details section */
+.details-container {
+  border: 1px solid #e5e5e5;
+}
+
+.profile-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+h3 {
+  font-size: 1rem !important;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.15rem;
+}
+
+/* Updated edit link with animated underline */
+.edit-link {
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.edit-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
+}
+
+.edit-link:hover {
+    color: black;
+}
+
+.edit-link:hover::after {
+  width: 20%;
+}
+
+.profile-info {
+  padding: 10px 0;
+}
+
+.info-row {
+  display: flex;
+  padding: 10px 20px;
+}
+
+.info-label {
+  flex: 1;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.info-value {
+  flex: 1;
+  color: #666;
+}
+
+/* Address book section */
+/* Updated add address link with animated underline */
+.add-address {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+  margin-bottom: 15px;
+  position: relative;
+    transition: color 0.3s ease;
+}
+
+.add-address::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.5s ease;
+}
+
+.add-address:hover {
+    color: black;
+}
+
+.add-address:hover::after {
+  width: 20%;
+}
+
+/* Sign out button */
+.sign-out-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.sign-out-button {
+  background-color: #000;
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  width: 200px;
+  text-align: center;
+  font-family: "Poppins", sans-serif !important;
+  text-transform: uppercase !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+}
+
+.sign-out-button:hover {
+    color: #121212 !important;
+    background-color: white !important;
+}
+
+/* Edit Profile Modal Styles */
+.edit-profile-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 50px auto;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: modalFadeIn 0.3s;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-header {
+    padding: 20px;
+    position: relative;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 18px !important;
+    letter-spacing: 1px;
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    padding: 0 20px 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: #999;
+  }
+  
+  .password-input {
+    background-color: #f7f9fc;
+  }
+  
+  .password-hint {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .save-button, .cancel-button {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+  }
+  
+  .save-button {
+    background-color: #000;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .cancel-button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+  }
+
+/* Bootstrap Modal Customization */
+#editProfileModal .modal-content {
+  border-radius: 0.5rem !important;
+  border: 2px solid black;
+}
+
+#editProfileModal .modal-header {
+  border-bottom: none !important;
+  padding: 10px !important;
+  padding-bottom: 0px !important;
+}
+
+#editProfileModal .btn-close {
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#editProfileModal .modal-title {
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 30px !important;
+  letter-spacing: 1px !important;
+  font-weight: 400 !important;
+}
+
+#editProfileModal .modal-body {
+  padding: 20px 30px 30px !important;
+  padding-top: 0px !important;
+}
+
+#editProfileModal .form-control {
+  border-radius: 0 !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+  border: 1px solid black !important;
+}
+
+#editProfileModal .form-control:focus {
+  box-shadow: none !important;
+  border-color: #000 !important;
+}
+
+#editProfileModal .password-field {
+  background-color: #f7f9fc !important;
+}
+
+#editProfileModal h6 {
+    letter-spacing: 1.8px !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    color: black;
+}
+
+#editProfileModal .password-hint {
+  font-size: 12px !important;
+  margin-top: -8px !important;
+  color: #666 !important;
+}
+
+#editProfileModal .btn {
+  border-radius: 0 !important;
+  padding: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+#editProfileModal .btn-dark {
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+  color: white !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  background-color: #121212 !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+#editProfileModal .btn-dark:hover {
+    color: #121212 !important;
+    background-color: white !important;
+}
+
+#editProfileModal .btn-outline-dark {
+    border-radius: 0 !important;
+    padding: 10px !important;
+    font-size: 14px !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    color: #121212 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    background-color: white !important;
+    border: 1px solid #121212 !important;
+    transition: all 0.2s linear !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+#editProfileModal .btn-outline-dark:hover {
+    color: white !important;
+    background-color: #121212 !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .account-container {
+    padding: 20px 15px 60px;
+  }
+  
+  .info-row {
+    flex-direction: column;
+  }
+  
+  .info-label {
+    margin-bottom: 5px;
+  }
+
+  .modal-content {
+    width: 90%;
+    margin: 50px 5%;
+  }
+
+  .modal-dialog {
+    margin: 1rem;
+  }
+}

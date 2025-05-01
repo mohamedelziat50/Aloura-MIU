@@ -59,4 +59,159 @@ window.addEventListener("load", function () { //el page to be fully load 3lshan 
     });
 });
 
+// Intersection Observer for the Universe section
+const universeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, {
+    threshold: 0.2
+});
+
+// Observe universe elements
+document.addEventListener('DOMContentLoaded', () => {
+    const universeText = document.querySelector('.universe-text');
+    const universeImage = document.querySelector('.universe-image');
+    
+    if (universeText) universeObserver.observe(universeText);
+    if (universeImage) universeObserver.observe(universeImage);
+
+    // Parallax effect for universe section
+    const universeSection = document.querySelector('.universe-section');
+    if (universeSection) {
+        window.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const x = (clientX / window.innerWidth - 0.5) * 20;
+            const y = (clientY / window.innerHeight - 0.5) * 20;
+
+            universeSection.style.backgroundPosition = `${x}px ${y}px`;
+        });
+    }
+
+    // Add particle effect
+    createParticles();
+});
+
+// Create floating particles
+function createParticles() {
+    const universeSection = document.querySelector('.universe-section');
+    if (!universeSection) return;
+
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'particles-container';
+    particlesContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+    `;
+    universeSection.appendChild(particlesContainer);
+
+    // Create particles
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.cssText = `
+            position: absolute;
+            background: rgba(255, 255, 255, ${Math.random() * 0.3});
+            border-radius: 50%;
+            pointer-events: none;
+            width: ${Math.random() * 4}px;
+            height: ${Math.random() * 4}px;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            transform: scale(0);
+            animation: floatParticle ${5 + Math.random() * 10}s linear infinite;
+        `;
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Add explosion effect on universe button click
+document.addEventListener('DOMContentLoaded', () => {
+    const universeButton = document.querySelector('.universe-button');
+    if (universeButton) {
+        universeButton.addEventListener('click', createExplosion);
+    }
+});
+
+function createExplosion(e) {
+    const explosion = document.createElement('div');
+    explosion.className = 'explosion';
+    explosion.style.cssText = `
+        position: absolute;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    `;
+
+    // Create particles for explosion
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        const angle = (i / 20) * 360;
+        const velocity = 5 + Math.random() * 5;
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            transform: rotate(${angle}deg) translateX(10px);
+            animation: explode 1s ease-out forwards;
+        `;
+        
+        explosion.appendChild(particle);
+    }
+
+    document.body.appendChild(explosion);
+    setTimeout(() => explosion.remove(), 1000);
+}
+
+// Add style for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes floatParticle {
+        0% {
+            transform: translateY(0) scale(0);
+            opacity: 0;
+        }
+        20% {
+            transform: translateY(-20%) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) scale(0);
+            opacity: 0;
+        }
+    }
+
+    @keyframes explode {
+        0% {
+            transform: rotate(var(--angle)) translateX(10px);
+            opacity: 1;
+        }
+        100% {
+            transform: rotate(var(--angle)) translateX(100px);
+            opacity: 0;
+        }
+    }
+
+    .particle {
+        will-change: transform, opacity;
+    }
+
+    .explosion {
+        z-index: 1000;
+    }
+`;
+
+document.head.appendChild(style);
+
 
