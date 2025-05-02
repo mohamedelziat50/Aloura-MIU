@@ -634,14 +634,16 @@ nav {
 
 #age .age-slider {
     width: 100%;
-    max-width: 95vw; /* Using viewport width to ensure it's much wider */
+    max-width: 95%; /* Significantly increased width */
     margin: 0 auto;
+    padding: 0 10px; /* Reduced padding slightly to maximize width */
 }
 
 .slider-container {
     position: relative;
-    width: 100%;
-    height: 90px; /* Increased height to accommodate labels */
+    width: 100%; /* Ensure container matches slider width */
+    max-width: 95%; /* Match the slider's max-width */
+    height: 90px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -711,9 +713,21 @@ nav {
 .slider-checkpoints {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 100%; /* Checkpoints span the full width of the container */
     margin-top: 20px;
     position: relative;
+    font-family: 'Jost', sans-serif; 
+    padding: 0 5px; /* Add slight padding to align with slider edges */
+}
+
+/* Make checkpoints style consistent with other elements */
+.slider-checkpoints span {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #333;
+    /* Ensure labels don't wrap unnecessarily */
+    white-space: nowrap;
 }
 
 /* Options Grid */
