@@ -97,8 +97,8 @@
       <section class="order-history">
         <h2>ORDER HISTORY</h2>
         <p class="empty-message">You haven't placed any orders yet.</p>
-        <button class="action-button">START SHOPPING</button>
-      </section>
+        <a class="action-button" href="/all-fragrances">START SHOPPING</a>
+      </section> 
 
       <section class="account-details">
         <h2>ACCOUNT DETAILS</h2>
@@ -169,7 +169,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="profile-form">
+            <form id="profile-form" data-user-id="<%= user._id %>">
               <!-- ✅ Profile Picture Upload -->
 
               <!-- ✅ Profile Details -->
