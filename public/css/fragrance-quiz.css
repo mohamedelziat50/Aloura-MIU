@@ -654,7 +654,7 @@ nav {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 15px;
+    height: 12px;
     background: rgb(212, 194, 166);
     outline: none;
     border-radius: 80px;
@@ -795,7 +795,7 @@ nav {
     left: unset !important;
     transform: none !important;
     font-family: 'Jost', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: #333;
     min-width: 24px;
     text-align: center;
@@ -878,8 +878,8 @@ nav {
     background-color: black;
     color: white;
     border: none;
-    padding: 15px 60px;
-    border-radius: 17px;
+    padding: 10px 47px;
+    border-radius: 14px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -2551,7 +2551,7 @@ nav {
 
 #introduction h2, #personalityIntro h2, #olfactiveIntro h2 {
     margin-bottom: 30px;
-    font-size: 4rem;
+    font-size: 3rem;
     max-width: 1000px;
 }
 
@@ -2575,7 +2575,7 @@ nav {
 
 #age h2 {
     margin-bottom: 40px;
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 65px;
 }
 
