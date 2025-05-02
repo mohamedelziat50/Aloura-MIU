@@ -34,6 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Update thumb position and text
                     thumb.style.left = `${percent}%`;
                     thumb.textContent = value;
+
+                    // --- Dynamic slider track coloring ---
+                    // Thumb color: rgb(44,44,34), Track color: rgb(212, 194, 166)
+                    ageSlider.style.background = `linear-gradient(to right, rgb(44,44,34) 0%, rgb(44,44,34) ${percent}%, rgb(212,194,166) ${percent}%, rgb(212,194,166) 100%)`;
+
                     lastUpdateTime = performance.now();
                 });
             }
