@@ -433,10 +433,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {
-            currentSection++;
-            updateSection(currentSection);
-            updateProgress();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Animate out current section
+            const prevSection = sections[currentSection];
+            prevSection.classList.remove('active', 'slide-up-in');
+            prevSection.classList.add('slide-up-out');
+
+            // Prepare next section
+            const nextSection = sections[currentSection + 1];
+            nextSection.classList.remove('slide-up-out');
+            nextSection.classList.add('slide-up-in');
+            nextSection.style.visibility = 'visible';
+
+            // Wait for out animation, then update section
+            setTimeout(() => {
+                prevSection.classList.remove('slide-up-out');
+                prevSection.style.visibility = 'hidden';
+                currentSection++;
+                updateSection(currentSection);
+                updateProgress();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500); // Match with slide-up-out duration
         } else {
             showResults();
         }
@@ -444,9 +460,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSection(index) {
         sections.forEach((section, i) => {
-            section.classList.remove('active');
+            section.classList.remove('active', 'slide-up-in', 'slide-up-out');
             if (i === index) {
-                section.classList.add('active');
+                section.classList.add('active', 'slide-up-in');
+                section.style.visibility = 'visible';
+            } else {
+                section.style.visibility = 'hidden';
             }
         });
         // Toggle age-active class for full-width slider

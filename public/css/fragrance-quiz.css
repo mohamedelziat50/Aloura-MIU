@@ -560,16 +560,19 @@ nav {
     width: 100%;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, visibility 0.5s, transform 0.5s ease;
     padding: 40px 20px;
     background-color: rgb(252,250,246);
+    transition: none !important;
 }
 
-.quiz-section.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.quiz-section.slide-up-in {
+    animation: quizSectionSlideUpIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    z-index: 2;
+}
+
+.quiz-section.slide-up-out {
+    animation: quizSectionSlideUpOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+    z-index: 1;
 }
 
 /* Section Headers */
@@ -2613,4 +2616,41 @@ nav {
     max-width: 95vw; /* Using viewport width to ensure it's much wider */
     margin: 0 auto;
     padding: 0 20px; /* Add padding to avoid edge issues */
+}
+
+/* --- Slide Up Section Animation --- */
+@keyframes quizSectionSlideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(100vh);
+    z-index: 2;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2;
+  }
+}
+
+@keyframes quizSectionSlideUpOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-40px);
+    z-index: 1;
+  }
+}
+
+.quiz-section.slide-up-in {
+  animation: quizSectionSlideUpIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 2;
+}
+
+.quiz-section.slide-up-out {
+  animation: quizSectionSlideUpOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  z-index: 1;
 }
