@@ -795,7 +795,7 @@ nav {
     left: unset !important;
     transform: none !important;
     font-family: 'Jost', sans-serif;
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #333;
     min-width: 24px;
     text-align: center;
@@ -2551,8 +2551,8 @@ nav {
 
 #introduction h2, #personalityIntro h2, #olfactiveIntro h2 {
     margin-bottom: 30px;
-    font-size: 2.8rem;
-    max-width: 800px;
+    font-size: 4rem;
+    max-width: 1000px;
 }
 
 #introduction .arrow-down, #personalityIntro .arrow-down, #olfactiveIntro .arrow-down {
@@ -2575,7 +2575,8 @@ nav {
 
 #age h2 {
     margin-bottom: 40px;
-    font-size: 2.8rem;
+    font-size: 4rem;
+    margin-bottom: 65px;
 }
 
 #age .age-slider {
