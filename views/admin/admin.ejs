@@ -183,22 +183,19 @@
             </div>
             <div class="product-info">
               <h3 class="product-name"><%= product.name %></h3>
-              <p class="product-email">john.doe@example.com</p>
-              <p class="product-role">Gold Member</p>
-              <p class="product-joined">Last active: 2 days ago</p>
-
+              <p class="product-email"><%= product.category %></p>
+              <p class="product-role"><%= product.gender %></p>
               <div class="product-notes">
                 <div class="product-header">
                   <h4>Customer Notes</h4>
-                  <button class="btn-add-note">+ Add</button>
                 </div>
                 <div class="notes-list">
                   <div class="note">
                     <p>
-                      "Prefers floral scents - recommended new Chanel launch"
+                     <%= product.description %>
                     </p>
                     <span class="product-date"
-                      ><%= moment(product.updatedAt).fromNow() %></span
+                      ><%= moment(product.releaseDate).fromNow() %></span
                     >
                   </div>
                 </div>

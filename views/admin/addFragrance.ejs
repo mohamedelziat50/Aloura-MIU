@@ -8,6 +8,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
       body {
         background-color: #ffffff;
@@ -103,12 +108,6 @@
         }
       }
     </style>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   </head>
   <body>
     <div class="container">
@@ -126,7 +125,7 @@
               name="name"
               placeholder="Fragrance Name"
               class="form-control"
-              required
+              id="fragranceName"
             />
           </div>
           <div class="mb-3">
@@ -136,12 +135,17 @@
               name="brand"
               placeholder="Fragrance Brand"
               class="form-control"
-              required
+              id="fragranceBrand"
             />
           </div>
           <div class="mb-3">
             <label class="form-label">Gender</label>
-            <select name="gender" class="form-select" required>
+            <select
+              name="gender"
+              id="fragranceGender"
+              class="form-select"
+              required
+            >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Unisex">Unisex</option>
@@ -149,7 +153,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Category</label>
-            <select name="category" class="form-select">
+            <select name="category" id="fragranceCategory" class="form-select">
               <option value="Eau de Parfum">Eau de Parfum</option>
               <option value="Eau de Toilette">Eau de Toilette</option>
               <option value="Cologne">Cologne</option>
@@ -158,15 +162,30 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Top Notes (comma-separated)</label>
-            <input type="text" name="topNotes" class="form-control" />
+            <input
+              type="text"
+              id="fragranceTopNotes"
+              name="topNotes"
+              class="form-control"
+            />
           </div>
           <div class="mb-3">
             <label class="form-label">Middle Notes (comma-separated)</label>
-            <input type="text" name="middleNotes" class="form-control" />
+            <input
+              type="text"
+              name="middleNotes"
+              id="fragranceMidNotes"
+              class="form-control"
+            />
           </div>
           <div class="mb-3">
             <label class="form-label">Base Notes (comma-separated)</label>
-            <input type="text" name="baseNotes" class="form-control" />
+            <input
+              type="text"
+              name="baseNotes"
+              id="fragranceBaseNotes"
+              class="form-control"
+            />
           </div>
           <div class="mb-3">
             <label class="form-label">Description</label>
@@ -174,6 +193,7 @@
               name="description"
               class="form-control"
               rows="3"
+              id="fragranceDescription"
             ></textarea>
           </div>
 
@@ -197,8 +217,8 @@
                   type="number"
                   name="quantity30"
                   class="form-control"
-                  min="0"
                   placeholder="Quantity"
+                  id="quantity30"
                 />
               </div>
               <div class="checkbox-item">
@@ -219,8 +239,8 @@
                   type="number"
                   name="quantity50"
                   class="form-control"
-                  min="0"
                   placeholder="Quantity"
+                  id="quantity50"
                 />
               </div>
               <div class="checkbox-item">
@@ -246,8 +266,8 @@
                   type="number"
                   name="quantity100"
                   class="form-control"
-                  min="0"
                   placeholder="Quantity"
+                  id="quantity100"
                 />
               </div>
             </div>
@@ -261,7 +281,7 @@
                 <p>Fragrance picture</p>
                 <img
                   id="fragrancePicture"
-                  src="../../img/perfumes-transparent/sauvauge-dior.png"
+                  src="/img/perfumes-transparent/sauvauge-dior.png"
                   alt="Fragrance Preview"
                   class="mb-2"
                   style="
@@ -304,7 +324,7 @@
                 <p>Background 1</p>
                 <img
                   id="backgroundPicture1"
-                  src="../../img/ALOURA.jpg"
+                  src="/img/ALOURA.jpg"
                   alt="background-color 1"
                   class="mb-2"
                   style="
@@ -347,7 +367,7 @@
                 <p>Background 2</p>
                 <img
                   id="backgroundPicture2"
-                  src="../../img/ALOURA.jpg"
+                  src="/img/ALOURA.jpg"
                   alt="background-color 2"
                   class="mb-2"
                   style="
@@ -389,11 +409,16 @@
 
           <div class="mb-3">
             <label class="form-label">Release Date</label>
-            <input type="date" name="releaseDate" class="form-control" />
+            <input
+              type="date"
+              id="releaseDate"
+              name="releaseDate"
+              class="form-control"
+            />
           </div>
           <div class="mb-3">
             <label class="form-label">Tags (comma-separated)</label>
-            <input type="text" name="tags" class="form-control" />
+            <input type="text" id="tags" name="tags" class="form-control" />
           </div>
           <button type="submit" class="btn btn-primary ButtonDicoration">
             Add Fragrance
@@ -402,93 +427,143 @@
       </div>
     </div>
 
-    <script>
+    <script type="module">
+      import showFunToast from "/js/toast.js";
+
+      // ✅ Image preview & removal
       function previewImage(event, previewId) {
         const file = event.target.files[0];
         const reader = new FileReader();
-
-        reader.onload = function () {
+        reader.onload = () => {
           const preview = document.getElementById(previewId);
           preview.src = reader.result;
         };
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
+        if (file) reader.readAsDataURL(file);
       }
 
       function removeImage(previewId, inputId) {
         const preview = document.getElementById(previewId);
         const input = document.getElementById(inputId);
-
-        preview.src = ""; // Clear the preview image
-        input.value = ""; // Reset the file input field
+        preview.src = "";
+        input.value = "";
       }
-    </script>
 
-    <script type="module">
-      import showFunToast from "/js/toast.js";
+      window.previewImage = previewImage;
+      window.removeImage = removeImage;
 
+      // ✅ Form logic
       const form = document.querySelector("form");
 
-      form.addEventListener("submit", async function (e) {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const formData = new FormData(form);
-        let hasEmptyField = false;
 
-        // ✅ Validate all required inputs (exclude type="file" and checkboxes)
-        const allFields = form.querySelectorAll(
-          "input:not([type=checkbox]):not([type=file]), select, textarea"
-        );
+        // ✅ Get fields
+        const name = document.getElementById("fragranceName").value.trim();
+        const brand = document.getElementById("fragranceBrand").value.trim();
+        const gender = document.getElementById("fragranceGender").value.trim();
+        const category = document
+          .getElementById("fragranceCategory")
+          .value.trim();
+        const topNotes = document
+          .getElementById("fragranceTopNotes")
+          .value.trim();
+        const midNotes = document
+          .getElementById("fragranceMidNotes")
+          .value.trim();
+        const baseNotes = document
+          .getElementById("fragranceBaseNotes")
+          .value.trim();
+        const description = document
+          .getElementById("fragranceDescription")
+          .value.trim();
+        const releaseDate = document.getElementById("releaseDate").value.trim();
+        const tags = document.getElementById("tags").value.trim();
 
-        for (const field of allFields) {
-          if (!field.value.trim()) {
-            showFunToast(`Please fill out the "${field.name}" field.`, "red");
-           // field.scrollIntoView({ behavior: "smooth", block: "center" });
-            field.focus();
-            hasEmptyField = true;
-            break;
-          }
-        }
+        // ✅ Validate required text fields
+        if (!name)
+          return showFunToast("⚠️ Please enter the fragrance name.", "red");
+        if (!brand)
+          return showFunToast("⚠️ Please enter the fragrance brand.", "red");
+        if (!gender) return showFunToast("⚠️ Please select a gender.", "red");
+        if (!category)
+          return showFunToast("⚠️ Please select a category.", "red");
+        if (!topNotes) return showFunToast("⚠️ Please enter top notes.", "red");
+        if (!midNotes)
+          return showFunToast("⚠️ Please enter middle notes.", "red");
+        if (!baseNotes)
+          return showFunToast("⚠️ Please enter base notes.", "red");
+        if (!description)
+          return showFunToast("⚠️ Please enter a description.", "red");
 
-        // ✅ Ensure at least one size option is selected
+        // ✅ Validate size checkbox
         const checkedSizes = form.querySelectorAll(
           "input[name='sizes']:checked"
         );
         if (checkedSizes.length === 0) {
-          showFunToast("Please select at least one size option.", "red");
-          document
-            .getElementById("size30")
-            .scrollIntoView({ behavior: "smooth", block: "center" });
-          hasEmptyField = true;
+          return showFunToast(
+            "⚠️ Please select at least one size option.",
+            "red"
+          );
         }
 
-        // ✅ Ensure 3 images are selected
+        // ✅ Validate quantity fields for selected sizes
+        const missingQuantities = [];
+        const invalidQuantities = [];
+
+        for (const checkbox of checkedSizes) {
+          const size = checkbox.value; // "30", "50", "100"
+          const quantityInput = document.getElementById(`quantity${size}`);
+
+          if (!quantityInput || quantityInput.value.trim() === "") {
+            missingQuantities.push(`${size}ml`);
+          } else {
+            const quantity = parseInt(quantityInput.value.trim(), 10);
+            if (isNaN(quantity) || quantity < 0) {
+              invalidQuantities.push(`${size}ml`);
+            }
+          }
+        }
+
+        if (missingQuantities.length > 0) {
+          return showFunToast(
+            `⚠️ Please enter quantity for: ${missingQuantities.join(", ")}`,
+            "red"
+          );
+        }
+
+        if (invalidQuantities.length > 0) {
+          return showFunToast(
+            `⚠️ Quantity must be a positive number for: ${invalidQuantities.join(
+              ", "
+            )}`,
+            "red"
+          );
+        }
+
+        // ✅ Validate images
         const imageInputs = [
           "fragrancePictureInput",
           "backgroundPicture1Input",
           "backgroundPicture2Input",
         ];
-
         for (const inputId of imageInputs) {
           const input = document.getElementById(inputId);
           if (!input.files || input.files.length === 0) {
-            showFunToast("Please upload all three images.", "red");
-            input.scrollIntoView({ behavior: "smooth", block: "center" });
-            hasEmptyField = true;
-            break;
+            return showFunToast("⚠️ Please upload all three images.", "red");
           }
         }
 
-        if (hasEmptyField) return;
+        if (!releaseDate)
+          return showFunToast("⚠️ Please enter a release date.", "red");
+        if (!tags) return showFunToast("⚠️ Please enter tags.", "red");
 
-        // ✅ Append selected sizes manually
+        // ✅ Append sizes
         checkedSizes.forEach((checkbox) => {
           formData.append("sizes", checkbox.value);
         });
 
-        // ✅ Send form
+        // ✅ Submit
         try {
           const response = await fetch("/api/fragrances", {
             method: "POST",
@@ -498,10 +573,8 @@
           const result = await response.json();
 
           if (response.ok) {
-            showFunToast("Fragrance added successfully!", "green");
+            showFunToast("✅ Fragrance added successfully!", "green");
             form.reset();
-
-            // Clear image previews
             [
               "fragrancePicture",
               "backgroundPicture1",
@@ -512,14 +585,16 @@
             });
           } else {
             showFunToast(
-              `Error: ${result.error || "Something went wrong"}`,
+              `❌ ${result.error || "Something went wrong."}`,
               "red"
             );
-            console.error("Server Error:", result);
           }
         } catch (error) {
-          showFunToast("Request failed. Please check your connection.", "red");
-          console.error("Fetch Error:", error);
+          console.error("Fetch error:", error);
+          showFunToast(
+            "❌ Request failed. Please check your connection.",
+            "red"
+          );
         }
       });
     </script>
