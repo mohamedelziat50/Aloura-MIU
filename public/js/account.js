@@ -10,10 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Address adding functionality will be implemented here");
     });
   }
-  
-
 });
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("profile-picture");
@@ -54,7 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value.trim();
     const oldpassword = document.getElementById("currentPassword").value.trim();
     const newpassword = document.getElementById("newPassword").value.trim();
-    const confirmpassword = document.getElementById("confirmPassword").value.trim();
+    const confirmpassword = document
+      .getElementById("confirmPassword")
+      .value.trim();
     const profilePicture = fileInput.files[0];
     const currentPicture = preview.getAttribute("src");
 
@@ -72,15 +71,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (newpassword || oldpassword) {
-      if (!oldpassword || !newpassword || newpassword !== confirmpassword) {
-        showFunToast("⚠️ Fill all password fields correctly!", "red");
+    // Password validation block
+    if (oldpassword || newpassword || confirmpassword) {
+      if (!oldpassword || !newpassword || !confirmpassword) {
+        showFunToast("⚠️ Fill all password fields!", "red");
         return;
       }
-    }
-    if(newpassword.length < 6|| confirmpassword.length < 6){
-      showFunToast("⚠️ Password must be at least 6 characters long!", "red");
-      return;
+
+      if (newpassword.length < 6 || confirmpassword.length < 6) {
+        showFunToast("⚠️ Password must be at least 6 characters long!", "red");
+        return;
+      }
+
+      if (newpassword !== confirmpassword) {
+        showFunToast("⚠️ New passwords do not match!", "red");
+        return;
+      }
     }
 
     const formData = new FormData();
@@ -100,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const id = document.getElementById("profile-form").dataset.userId;; // EJS injects this into the script
+      const id = document.getElementById("profile-form").dataset.userId; // EJS injects this into the script
       const response = await fetch(`http://localhost:3000/api/users/${id}`, {
         method: "PUT",
         body: formData,
