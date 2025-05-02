@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Use requestAnimationFrame for visual updates to reduce layout thrashing
             if (!lastUpdateTime || performance.now() - lastUpdateTime > 16) { // ~60fps
                 requestAnimationFrame(() => {
+                    // Calculate percentage position based on slider value 
+                    // Adjusted for exact positioning with the wider slider
                     const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
                     const thumb = document.querySelector('.slider-thumb');
                     

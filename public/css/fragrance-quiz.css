@@ -619,13 +619,33 @@ nav {
 }
 
 /* Age Slider */
+#age {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 85vh;
+    padding: 0;
+    margin-top: -120px;
+    background-color: rgb(252,250,246);
+    width: 100%;
+}
+
+#age .age-slider {
+    width: 100%;
+    max-width: 95vw; /* Using viewport width to ensure it's much wider */
+    margin: 0 auto;
+}
+
 .slider-container {
     position: relative;
     width: 100%;
-    height: 45px;
+    height: 90px; /* Increased height to accommodate labels */
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 0 10px; /* Added padding to prevent thumb from overflowing */
+    margin: 0 auto;
 }
 
 .slider {
@@ -637,7 +657,7 @@ nav {
     outline: none;
     border-radius: 4px;
     margin: 0 auto;
-    cursor: pointer; /* Added cursor pointer */
+    cursor: pointer;
 }
 
 /* Make the actual thumb invisible */
@@ -648,7 +668,7 @@ nav {
     height: 45px;
     background: transparent;
     cursor: pointer;
-    touch-action: manipulation; /* Optimize for touch */
+    touch-action: manipulation;
 }
 
 .slider::-moz-range-thumb {
@@ -657,7 +677,7 @@ nav {
     background: transparent;
     border: none;
     cursor: pointer;
-    touch-action: manipulation; /* Optimize for touch */
+    touch-action: manipulation;
 }
 
 /* Style the custom thumb with the number */
@@ -674,11 +694,12 @@ nav {
     font-size: 16px;
     font-weight: 500;
     pointer-events: none;
-    transition: all 0.08s linear; /* Made faster and changed to linear for smoother updates */
+    transition: all 0.08s linear;
     transform: translate(-50%, -50%);
-    top: 50%;
+    top: 4px;
     left: 0;
-    will-change: transform; /* Optimize rendering performance */
+    will-change: transform;
+    z-index: 10; /* Ensure it appears above the slider */
 }
 
 .slider:active ~ .slider-thumb {
@@ -686,10 +707,13 @@ nav {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-#age .age-slider {
+/* Checkpoint markers below slider */
+.slider-checkpoints {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    max-width: 700px; /* Increased from 500px */
-    margin: 0 auto;
+    margin-top: 20px;
+    position: relative;
 }
 
 /* Options Grid */
@@ -2446,9 +2470,10 @@ nav {
     align-items: center;
     text-align: center;
     height: 85vh;
-    padding: 0 20px;
+    padding: 0;
     margin-top: -120px; /* Match the intro sections */
     background-color: rgb(252,250,246);
+    width: 100%;
 }
 
 #age h2 {
@@ -2458,6 +2483,7 @@ nav {
 
 #age .age-slider {
     width: 100%;
-    max-width: 1000px; /* Increased from 500px */
+    max-width: 95vw; /* Using viewport width to ensure it's much wider */
     margin: 0 auto;
+    padding: 0 20px; /* Add padding to avoid edge issues */
 }
