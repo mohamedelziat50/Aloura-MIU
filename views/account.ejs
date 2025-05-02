@@ -62,6 +62,14 @@
         window.scrollTo(0, 0);
       };
     </script>
+    <!-- Toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- This page's main js file -->
+    <script type="module" src="/js/account.js"></script>
   </head>
 
   <body>
@@ -109,11 +117,11 @@
           <div class="profile-info">
             <div class="info-row">
               <div class="info-label">Name</div>
-              <div class="info-value">Add name</div>
+              <div class="info-value"><%= user.name %></div>
             </div>
             <div class="info-row">
               <div class="info-label">Contact</div>
-              <div class="info-value">Add mobile</div>
+              <div class="info-value"><%= user.phone %></div>
             </div>
             <div class="info-row">
               <div class="info-label">Email</div>
@@ -148,9 +156,11 @@
       aria-labelledby="editProfileModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-sm custom-modal-width">
+      <div
+        class="modal-dialog modal-dialog-centered modal-sm custom-modal-width"
+      >
         <div class="modal-content edit-profile-modal-content">
-          <div class="modal-header" style="height: 35px;">
+          <div class="modal-header" style="height: 35px">
             <button
               type="button"
               class="btn-close"
@@ -289,9 +299,6 @@
 
     <!-- Footer -->
     <%- include('partials/footer.ejs') %>
-
-    <!-- This page's main js file -->
-    <script type="module" src="/js/account.js"></script>
 
     <!-- END OF BODY SCRIPTS -->
   </body>

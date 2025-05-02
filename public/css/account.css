@@ -1,5 +1,5 @@
 body {
-  font-family: 'ProximaNova', Arial, sans-serif;
+  font-family: "ProximaNova", Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
@@ -15,10 +15,10 @@ body {
 }
 
 .main-heading {
-    letter-spacing: 0.5px;
-    margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 /* Common section styles */
@@ -36,9 +36,9 @@ h2 {
 }
 
 .empty-message {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    color: #666;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
 }
 
 /* Order history section */
@@ -58,8 +58,8 @@ h2 {
 }
 
 .action-button:hover {
-    color: #121212 !important;
-    background-color: white !important;
+  color: #121212 !important;
+  background-color: white !important;
 }
 
 /* Account details section */
@@ -93,7 +93,7 @@ h3 {
 }
 
 .edit-link::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 1px;
@@ -104,7 +104,7 @@ h3 {
 }
 
 .edit-link:hover {
-    color: black;
+  color: black;
 }
 
 .edit-link:hover::after {
@@ -140,11 +140,11 @@ h3 {
   display: inline-block;
   margin-bottom: 15px;
   position: relative;
-    transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .add-address::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 1px;
@@ -155,7 +155,7 @@ h3 {
 }
 
 .add-address:hover {
-    color: black;
+  color: black;
 }
 
 .add-address:hover::after {
@@ -186,125 +186,126 @@ h3 {
 }
 
 .sign-out-button:hover {
-    color: #121212 !important;
-    background-color: white !important;
+  color: #121212 !important;
+  background-color: white !important;
 }
 
 /* Edit Profile Modal Styles */
 .edit-profile-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow: auto;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  margin: 50px auto;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .modal-content {
-    position: relative;
-    background-color: #fff;
-    margin: 50px auto;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: modalFadeIn 0.3s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  @keyframes modalFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .modal-header {
-    padding: 20px;
-    position: relative;
-  }
-  
-  .modal-header h2 {
-    margin: 0;
-    text-align: center;
-    font-size: 18px !important;
-    letter-spacing: 1px;
-  }
-  
-  .close-modal {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .modal-body {
-    padding: 0 20px 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border-color: #999;
-  }
-  
-  .password-input {
-    background-color: #f7f9fc;
-  }
-  
-  .password-hint {
-    font-size: 12px;
-    color: #666;
-    margin-top: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .form-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .save-button, .cancel-button {
-    padding: 15px;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    border: none;
-    width: 100%;
-  }
-  
-  .save-button {
-    background-color: #000;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  
-  .cancel-button {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ddd;
-  }
+}
+
+.modal-header {
+  padding: 20px;
+  position: relative;
+}
+
+.modal-header h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 18px !important;
+  letter-spacing: 1px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 0 20px 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #999;
+}
+
+.password-input {
+  background-color: #f7f9fc;
+}
+
+.password-hint {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-button,
+.cancel-button {
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+
+.save-button {
+  background-color: #000;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.cancel-button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+}
 
 /* Bootstrap Modal Customization */
 #editProfileModal .modal-content {
@@ -353,10 +354,10 @@ h3 {
 }
 
 #editProfileModal h6 {
-    letter-spacing: 1.8px !important;
-    font-size: 17px !important;
-    font-weight: bold !important;
-    color: black;
+  letter-spacing: 1.8px !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+  color: black;
 }
 
 #editProfileModal .password-hint {
@@ -391,36 +392,37 @@ h3 {
 }
 
 #editProfileModal .btn-dark:hover {
-    color: #121212 !important;
-    background-color: white !important;
+  color: #121212 !important;
+  background-color: white !important;
 }
 
 #editProfileModal .btn-outline-dark {
-    border-radius: 0 !important;
-    padding: 10px !important;
-    font-size: 14px !important;
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 500 !important;
-    color: #121212 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 2px !important;
-    background-color: white !important;
-    border: 1px solid #121212 !important;
-    transition: all 0.2s linear !important;
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
+  border-radius: 0 !important;
+  padding: 10px !important;
+  font-size: 14px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+  color: #121212 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  background-color: white !important;
+  border: 1px solid #121212 !important;
+  transition: all 0.2s linear !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
 }
 
 #editProfileModal .btn-outline-dark:hover {
-    color: white !important;
-    background-color: #121212 !important;
+  color: white !important;
+  background-color: #121212 !important;
 }
- .input-group-text {
+.input-group-text {
   border: 1px solid #121212 !important;
-  }
-/* Make modal smaller and prevent overflow */
+}
+
+/* Make modal smaller and prevent overflow comment this if you want to modal size to be without scrolling */
 .custom-modal-width {
-  max-width: 5000px !important;
+  max-width: 500px !important;
   width: 100%;
 }
 
@@ -429,17 +431,16 @@ h3 {
   overflow-y: auto;
 }
 
-
 /* Responsive styles */
 @media (max-width: 768px) {
   .account-container {
     padding: 20px 15px 60px;
   }
-  
+
   .info-row {
     flex-direction: column;
   }
-  
+
   .info-label {
     margin-bottom: 5px;
   }
