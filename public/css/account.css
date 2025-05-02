@@ -415,6 +415,20 @@ h3 {
     color: white !important;
     background-color: #121212 !important;
 }
+ .input-group-text {
+  border: 1px solid #121212 !important;
+  }
+/* Make modal smaller and prevent overflow */
+.custom-modal-width {
+  max-width: 5000px !important;
+  width: 100%;
+}
+
+#editProfileModal .modal-body {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {
