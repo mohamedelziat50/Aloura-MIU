@@ -408,6 +408,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 section.classList.add('active');
             }
         });
+        // Toggle age-active class for full-width slider
+        const quizContainer = document.querySelector('.quiz-container');
+        if (sections[index].id === 'age') {
+            quizContainer.classList.add('age-active');
+        } else {
+            quizContainer.classList.remove('age-active');
+        }
     }
 
     function updateProgress() {

@@ -730,6 +730,89 @@ nav {
     white-space: nowrap;
 }
 
+/* --- AGE SLIDER: FORCE 80vw WIDTH --- */
+.quiz-container.age-active {
+    max-width: 80vw !important;
+    width: 80vw !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#age {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#age .age-slider {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.slider-container {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.slider {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.slider-checkpoints {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    font-family: 'Jost', sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-checkpoint {
+    position: relative;
+    left: unset !important;
+    transform: none !important;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    min-width: 24px;
+    text-align: center;
+    font-weight: 500;
+    flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+    .quiz-container.age-active,
+    #age, #age .age-slider, .slider-container, .slider, .slider-checkpoints {
+        width: 98vw !important;
+        max-width: 98vw !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
 /* Options Grid */
 .options {
     display: grid;
