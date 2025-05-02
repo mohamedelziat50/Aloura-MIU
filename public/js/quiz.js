@@ -50,16 +50,42 @@ document.addEventListener('DOMContentLoaded', () => {
         let isMouseDown = false;
         ageSlider.addEventListener('mousedown', () => {
             isMouseDown = true;
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('active');
         });
         
         document.addEventListener('mouseup', () => {
             isMouseDown = false;
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('active');
         });
         
         ageSlider.addEventListener('mousemove', (e) => {
             if (isMouseDown) {
                 updateSliderValue();
             }
+        });
+
+        // Add hover effect
+        ageSlider.addEventListener('mouseenter', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('hover');
+        });
+
+        ageSlider.addEventListener('mouseleave', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('hover');
+        });
+
+        // Touch events for mobile
+        ageSlider.addEventListener('touchstart', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('active');
+        });
+
+        ageSlider.addEventListener('touchend', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('active');
         });
     }
 
