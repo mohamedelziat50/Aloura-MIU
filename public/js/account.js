@@ -10,31 +10,113 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Address adding functionality will be implemented here");
     });
   }
+  
 
-  // Start shopping button functionality
-  const startShoppingBtn = document.querySelector(".action-button");
-  if (startShoppingBtn) {
-    startShoppingBtn.addEventListener("click", function () {
-      // Navigate to the shop/products page
-      window.location.href = "/all-fragrances";
-    });
-  }
+});
 
+
+document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("profile-picture");
   const preview = document.getElementById("profile-picture-preview");
   const resetButton = document.getElementById("reset-profile-picture");
   const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
+  let isDefaultPicture = false;
 
-  fileInput.addEventListener("change", function (event) {
+  // Store original values on load
+  const originalValues = {
+    name: document.getElementById("firstName").value.trim(),
+    phone: document.getElementById("phoneNumber").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    profilePicture: preview.getAttribute("src"),
+  };
+
+  fileInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
-
     if (file) {
       preview.src = URL.createObjectURL(file);
+      isDefaultPicture = false;
     }
   });
 
-  resetButton.addEventListener("click", function () {
-    preview.src = DEFAULT_PIC_PATH; // Set to default picture
-    fileInput.value = ""; // Clear the file input (remove selected file)
+  resetButton.addEventListener("click", () => {
+    preview.src = DEFAULT_PIC_PATH;
+    fileInput.value = "";
+    isDefaultPicture = true;
+  });
+
+  const form = document.getElementById("profile-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("firstName").value.trim();
+    const phone = document.getElementById("phoneNumber").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const oldpassword = document.getElementById("currentPassword").value.trim();
+    const newpassword = document.getElementById("newPassword").value.trim();
+    const confirmpassword = document.getElementById("confirmPassword").value.trim();
+    const profilePicture = fileInput.files[0];
+    const currentPicture = preview.getAttribute("src");
+
+    // Detect if any field has changed
+    const hasChanged =
+      name !== originalValues.name ||
+      phone !== originalValues.phone ||
+      email !== originalValues.email ||
+      oldpassword !== "" ||
+      newpassword !== "" ||
+      currentPicture !== originalValues.profilePicture;
+
+    if (!hasChanged) {
+      showFunToast("ℹ️ No changes detected.", "red");
+      return;
+    }
+
+    if (newpassword || oldpassword) {
+      if (!oldpassword || !newpassword || newpassword !== confirmpassword) {
+        showFunToast("⚠️ Fill all password fields correctly!", "red");
+        return;
+      }
+    }
+    if(newpassword.length < 6|| confirmpassword.length < 6){
+      showFunToast("⚠️ Password must be at least 6 characters long!", "red");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("phone", phone);
+    formData.append("email", email);
+
+    if (profilePicture) {
+      formData.append("profilePicture", profilePicture);
+    } else if (isDefaultPicture) {
+      formData.append("profilePicture", DEFAULT_PIC_PATH);
+    }
+
+    if (oldpassword && newpassword) {
+      formData.append("oldpassword", oldpassword);
+      formData.append("newpassword", newpassword);
+    }
+
+    try {
+      const id = document.getElementById("profile-form").dataset.userId;; // EJS injects this into the script
+      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast("✅ Profile updated successfully!", "green");
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        showFunToast(data.message || "❌ Update failed.", "red");
+      }
+    } catch (err) {
+      console.error(err);
+      showFunToast("❌ Something went wrong.", "red");
+    }
   });
 });
