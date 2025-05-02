@@ -1,5 +1,4 @@
-import showFunToast from "/toast.js";
-
+import showFunToast from "/js/toast.js";
 // Account page functionality
 document.addEventListener("DOMContentLoaded", function () {
   // Add address link functionality
@@ -21,25 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Sign out button functionality
-  const signOutBtn = document.querySelector(".sign-out-button");
-  // nabilo to do: add sign out functionality
-});
+  const fileInput = document.getElementById("profile-picture");
+  const preview = document.getElementById("profile-picture-preview");
+  const resetButton = document.getElementById("reset-profile-picture");
+  const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
 
-const fileInput = document.getElementById("profile-picture");
-const preview = document.getElementById("profile-picture-preview");
-const resetButton = document.getElementById("reset-profile-picture");
-const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
-fileInput.addEventListener("change", function (event) {
-  const file = event.target.files[0];
+  fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
 
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-  }
-});
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+    }
+  });
 
-resetButton.addEventListener("click", function () {
-  preview.src = "/uploads/defaultProfilePic.png"; // Set to default picture
-  fileInput.value = ""; // Clear the file input (remove selected file)
-  isDefaultPicture = true;
+  resetButton.addEventListener("click", function () {
+    preview.src = DEFAULT_PIC_PATH; // Set to default picture
+    fileInput.value = ""; // Clear the file input (remove selected file)
+  });
 });
