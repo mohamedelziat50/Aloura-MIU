@@ -10,6 +10,16 @@
 <body>
     <%- include('partials/navbar') %>
 
+    <!-- Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="progress-dot" data-section="hero"></div>
+        <div class="progress-dot" data-section="signature"></div>
+        <div class="progress-dot" data-section="him"></div>
+        <div class="progress-dot" data-section="her"></div>
+        <div class="progress-dot" data-section="universe"></div>
+        <div class="progress-dot" data-section="notes"></div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
@@ -84,7 +94,8 @@
 
     <!-- Fragrance Notes Carousel -->
     <section class="fragrance-notes">
-        <h2 class="section-title">Explore by Notes</h2>
+        <h2 class="section-title">Explore Our Notes</h2>
+        <p class="section-subtitle">Discover the elements that define our distinctive fragrances</p>
         <div class="notes-carousel">
             <div class="carousel-container">
                 <div class="carousel-track">
@@ -93,58 +104,75 @@
                             <div class="note-front">
                                 <img src="/img/fruity.jpg" alt="Fruity Notes">
                             </div>
-                            <div class="note-back">
+                            <div class="note-overlay">
                                 <h3>Fruity Notes</h3>
-                                <p>Fresh and vibrant compositions</p>
-                                <a href="#" class="note-link">Explore</a>
+                                <p>A vibrant composition of succulent fruits and crisp citrus, creating an energetic and refreshing experience</p>
+                                <a href="#" class="note-link">Discover</a>
                             </div>
                         </div>
                     </div>
+
                     <div class="note-item">
                         <div class="note-inner">
                             <div class="note-front">
                                 <img src="/img/spicy.jpg" alt="Spicy Notes">
                             </div>
-                            <div class="note-back">
+                            <div class="note-overlay">
                                 <h3>Spicy Notes</h3>
-                                <p>Bold and intense characters</p>
+                                <p>An intense blend of warming spices and aromatic elements that create depth and sophistication</p>
                                 <a href="#" class="note-link">Explore</a>
                             </div>
                         </div>
                     </div>
-                    <div class="note-item">
-                        <div class="note-inner">
-                            <div class="note-front">
-                                <img src="/img/leathery.jpg" alt="Woody Notes">
-                            </div>
-                            <div class="note-back">
-                                <h3>Woody Notes</h3>
-                                <p>Deep and sophisticated essences</p>
-                                <a href="#" class="note-link">Explore</a>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="note-item">
                         <div class="note-inner">
                             <div class="note-front">
                                 <img src="/img/new_floral.jpg" alt="Floral Notes">
                             </div>
-                            <div class="note-back">
+                            <div class="note-overlay">
                                 <h3>Floral Notes</h3>
-                                <p>Elegant and romantic blends</p>
-                                <a href="#" class="note-link">Explore</a>
+                                <p>Refined compositions of precious flowers creating timelessly elegant fragrances</p>
+                                <a href="#" class="note-link">View Collection</a>
                             </div>
                         </div>
                     </div>
+
                     <div class="note-item">
                         <div class="note-inner">
                             <div class="note-front">
-                                <img src="/img/new_aromatic__green.jpg" alt="Aromatic Notes">
+                                <img src="/img/leathery.jpg" alt="Woody Notes">
                             </div>
-                            <div class="note-back">
-                                <h3>Aromatic Notes</h3>
-                                <p>Fresh and herbal essences</p>
-                                <a href="#" class="note-link">Explore</a>
+                            <div class="note-overlay">
+                                <h3>Woody Notes</h3>
+                                <p>Rich and complex aromas of precious woods, creating distinguished masculine essence</p>
+                                <a href="#" class="note-link">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/new_aromatic__green.jpg" alt="Fresh Notes">
+                            </div>
+                            <div class="note-overlay">
+                                <h3>Fresh Notes</h3>
+                                <p>Pure and invigorating compositions with crisp, natural elements</p>
+                                <a href="#" class="note-link">Discover More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note-item">
+                        <div class="note-inner">
+                            <div class="note-front">
+                                <img src="/img/fresh.jpg" alt="Sweet Notes">
+                            </div>
+                            <div class="note-overlay">
+                                <h3>Sweet Notes</h3>
+                                <p>Refined gourmand accords with sophisticated vanilla and amber undertones</p>
+                                <a href="#" class="note-link">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -229,6 +257,66 @@
                     currentIndex = (currentIndex + 1) % (totalItems - visibleItems + 1);
                     updateCarousel();
                 }, 5000);
+            });
+        });
+
+        // Progress Indicator and Scroll Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = [
+                document.querySelector('.hero-section'),
+                ...document.querySelectorAll('.module-block'),
+                document.querySelector('.universe-section'),
+                document.querySelector('.fragrance-notes')
+            ];
+            
+            const dots = document.querySelectorAll('.progress-dot');
+
+            // Handle dot clicks
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    sections[index].scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Update active dot on scroll
+            let currentSection = 0;
+            const observerOptions = {
+                root: null,
+                threshold: 0.5,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = sections.indexOf(entry.target);
+                        updateActiveDot(index);
+                        if (entry.target.classList.contains('module-block')) {
+                            entry.target.classList.add('visible');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+
+            function updateActiveDot(index) {
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                currentSection = index;
+            }
+
+            // Initial active state
+            updateActiveDot(0);
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
             });
         });
     </script>
