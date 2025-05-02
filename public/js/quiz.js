@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize first section and progress
     updateSection(currentSection);
     updateProgress();
+    // Always enable next button for age section on load
+    const ageSection = document.getElementById('age');
+    if (ageSection) {
+        const nextBtn = ageSection.querySelector('.next-btn');
+        if (nextBtn) {
+            nextBtn.classList.add('active');
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+        }
+    }
 
     // Handle age slider with performance optimizations
     if (ageSlider && document.querySelector('.slider-thumb')) {
