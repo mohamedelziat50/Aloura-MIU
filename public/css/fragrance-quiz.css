@@ -788,6 +788,7 @@ nav {
     font-family: 'Jost', sans-serif;
     display: flex;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 .slider-checkpoint {
@@ -883,7 +884,7 @@ nav {
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 40px;
+    margin-top: 15px;
     opacity: 0.5;
     pointer-events: none;
 }
