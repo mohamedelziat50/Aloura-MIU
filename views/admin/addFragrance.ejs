@@ -9,6 +9,11 @@
       rel="stylesheet"
     />
     <link
+    rel="icon"
+    type="image/x-icon"
+    href="/img/favicons/rounded-background-favicon.ico"
+  />
+    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
@@ -163,6 +168,7 @@
           <div class="mb-3">
             <label class="form-label">Top Notes (comma-separated)</label>
             <input
+            placeholder="e.g., Lemon, Lavender, Bergamot"
               type="text"
               id="fragranceTopNotes"
               name="topNotes"
@@ -174,6 +180,7 @@
             <input
               type="text"
               name="middleNotes"
+              placeholder="e.g., Rose, Jasmine, Cinnamon"
               id="fragranceMidNotes"
               class="form-control"
             />
@@ -183,6 +190,7 @@
             <input
               type="text"
               name="baseNotes"
+              placeholder="e.g., Sandalwood, Vanilla, Musk"
               id="fragranceBaseNotes"
               class="form-control"
             />
@@ -193,6 +201,7 @@
               name="description"
               class="form-control"
               rows="3"
+              placeholder="Fragrance Description...."
               id="fragranceDescription"
             ></textarea>
           </div>
@@ -418,7 +427,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Tags (comma-separated)</label>
-            <input type="text" id="tags" name="tags" class="form-control" />
+            <input type="text" placeholder="Brand Tags" id="tags" name="tags" class="form-control" />
           </div>
           <button type="submit" class="btn btn-primary ButtonDicoration">
             Add Fragrance
