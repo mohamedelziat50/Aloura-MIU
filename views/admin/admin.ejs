@@ -11,6 +11,11 @@
       rel="stylesheet"
     />
     <link
+    rel="icon"
+    type="image/x-icon"
+    href="/img/favicons/rounded-background-favicon.ico"
+  />
+    <link
       rel="stylesheet"
       href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
     />
@@ -203,7 +208,11 @@
             </div>
             <div class="product-actions">
               <button class="product-btn edit">Edit</button>
-              <button class="product-btn delete">Delete</button>
+              <button class="product-btn delete"
+              data-fragrance-id="<%= product._id %>"
+              onclick="deleteProduct(this)"
+              
+              >Delete</button>
             </div>
           </div>
 
@@ -212,6 +221,43 @@
 
         <% } %>
       </section>
+      <script type="module">
+        import showFunToast from "/js/toast.js";
+        window.addEventListener("DOMContentLoaded", () => {
+          window.deleteProduct = (btn) => {
+            const fragrance_id = btn.getAttribute("data-fragrance-id");
+
+            fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+              method: "DELETE",
+            })
+              .then(async (response) => {
+                const data = await response.json();
+
+                if (response.ok) {
+                  showFunToast(
+                    data.message || "✅ Fragrance deleted successfully!",
+                    "green"
+                  );
+                  setTimeout(() => {
+                    window.location.href = "/admin/:id";
+                  }, 1000);
+                } else {
+                  showFunToast(
+                    data.message || "❗ An error occurred.",
+                    "red"
+                  );
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                showFunToast(
+                  error.message || "❗ An error occurred.",
+                  "red"
+                );
+              });
+          };
+        });
+      </script>
       <!-- Orders Section -->
       <!-- Add this to your Orders section -->
       <section id="section-orders" class="section">
