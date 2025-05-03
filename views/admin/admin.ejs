@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfume Store Admin</title>
-    <link rel="stylesheet" href="../css/admin.css" />
-    <script type="module" src="../js/admin.js"></script>
+    <link rel="stylesheet" href="/css/admin.css" />
+    <script type="module" src="/js/admin.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
@@ -221,43 +221,7 @@
 
         <% } %>
       </section>
-      <script type="module">
-        import showFunToast from "/js/toast.js";
-        window.addEventListener("DOMContentLoaded", () => {
-          window.deleteProduct = (btn) => {
-            const fragrance_id = btn.getAttribute("data-fragrance-id");
 
-            fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
-              method: "DELETE",
-            })
-              .then(async (response) => {
-                const data = await response.json();
-
-                if (response.ok) {
-                  showFunToast(
-                    data.message || "✅ Fragrance deleted successfully!",
-                    "green"
-                  );
-                  setTimeout(() => {
-                    window.location.href = "/admin/:id";
-                  }, 1000);
-                } else {
-                  showFunToast(
-                    data.message || "❗ An error occurred.",
-                    "red"
-                  );
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                showFunToast(
-                  error.message || "❗ An error occurred.",
-                  "red"
-                );
-              });
-          };
-        });
-      </script>
       <!-- Orders Section -->
       <!-- Add this to your Orders section -->
       <section id="section-orders" class="section">
@@ -477,43 +441,7 @@
                   <i class="bi bi-trash"></i>
                 </button>
 
-                <script type="module">
-                  import showFunToast from "/js/toast.js";
-                  window.addEventListener("DOMContentLoaded", () => {
-                    window.deleteUser = (btn) => {
-                      const user_id = btn.getAttribute("data-user-id");
 
-                      fetch(`http://localhost:3000/api/users/${user_id}`, {
-                        method: "DELETE",
-                      })
-                        .then(async (response) => {
-                          const data = await response.json();
-
-                          if (response.ok) {
-                            showFunToast(
-                              data.message || "✅ User deleted successfully!",
-                              "green"
-                            );
-                            setTimeout(() => {
-                              window.location.href = "/admin/:id";
-                            }, 1000);
-                          } else {
-                            showFunToast(
-                              data.message || "❗ An error occurred.",
-                              "red"
-                            );
-                          }
-                        })
-                        .catch((error) => {
-                          console.log(error);
-                          showFunToast(
-                            error.message || "❗ An error occurred.",
-                            "red"
-                          );
-                        });
-                    };
-                  });
-                </script>
               </td>
             </tr>
             <% }) %>

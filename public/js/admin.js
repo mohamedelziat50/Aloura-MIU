@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = {
     dashboard: document.getElementById("btn-dashboard"),
@@ -245,3 +244,61 @@ document.querySelectorAll(".btn-add-note").forEach((btn) => {
   });
 });
 
+import showFunToast from "/js/toast.js";
+window.addEventListener("DOMContentLoaded", () => {
+  window.deleteProduct = (btn) => {
+    const fragrance_id = btn.getAttribute("data-fragrance-id");
+
+    fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+      method: "DELETE",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (response.ok) {
+          showFunToast(
+            data.message || "✅ Fragrance deleted successfully!",
+            "green"
+          );
+          setTimeout(() => {
+            window.location.href = "/admin/:id";
+          }, 1000);
+        } else {
+          showFunToast(data.message || "❗ An error occurred.", "red");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        showFunToast(error.message || "❗ An error occurred.", "red");
+      });
+  };
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  window.deleteUser = (btn) => {
+    const user_id = btn.getAttribute("data-user-id");
+
+    fetch(`http://localhost:3000/api/users/${user_id}`, {
+      method: "DELETE",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (response.ok) {
+          showFunToast(
+            data.message || "✅ User deleted successfully!",
+            "green"
+          );
+          setTimeout(() => {
+            window.location.href = "/admin/:id";
+          }, 1000);
+        } else {
+          showFunToast(data.message || "❗ An error occurred.", "red");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        showFunToast(error.message || "❗ An error occurred.", "red");
+      });
+  };
+});
