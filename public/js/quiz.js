@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize first section and progress
     updateSection(currentSection);
     updateProgress();
+    // Always enable next button for age section on load
+    const ageSection = document.getElementById('age');
+    if (ageSection) {
+        const nextBtn = ageSection.querySelector('.next-btn');
+        if (nextBtn) {
+            nextBtn.classList.add('active');
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+        }
+    }
 
     // Handle age slider with performance optimizations
     if (ageSlider && document.querySelector('.slider-thumb')) {
@@ -34,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Update thumb position and text
                     thumb.style.left = `${percent}%`;
                     thumb.textContent = value;
+
+                    // --- Dynamic slider track coloring ---
+                    // Thumb color: rgb(44,44,34), Track color: rgb(212, 194, 166)
+                    ageSlider.style.background = `linear-gradient(to right, rgb(44,44,34) 0%, rgb(44,44,34) ${percent}%, rgb(212,194,166) ${percent}%, rgb(212,194,166) 100%)`;
+
                     lastUpdateTime = performance.now();
                 });
             }
@@ -50,16 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
         let isMouseDown = false;
         ageSlider.addEventListener('mousedown', () => {
             isMouseDown = true;
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('active');
         });
         
         document.addEventListener('mouseup', () => {
             isMouseDown = false;
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('active');
         });
         
         ageSlider.addEventListener('mousemove', (e) => {
             if (isMouseDown) {
                 updateSliderValue();
             }
+        });
+
+        // Add hover effect
+        ageSlider.addEventListener('mouseenter', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('hover');
+        });
+
+        ageSlider.addEventListener('mouseleave', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('hover');
+        });
+
+        // Touch events for mobile
+        ageSlider.addEventListener('touchstart', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.add('active');
+        });
+
+        ageSlider.addEventListener('touchend', () => {
+            const thumb = document.querySelector('.slider-thumb');
+            if (thumb) thumb.classList.remove('active');
         });
     }
 
@@ -408,6 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 section.classList.add('active');
             }
         });
+        // Toggle age-active class for full-width slider
+        const quizContainer = document.querySelector('.quiz-container');
+        if (sections[index].id === 'age') {
+            quizContainer.classList.add('age-active');
+        } else {
+            quizContainer.classList.remove('age-active');
+        }
     }
 
     function updateProgress() {

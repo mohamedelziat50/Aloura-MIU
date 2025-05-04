@@ -634,14 +634,16 @@ nav {
 
 #age .age-slider {
     width: 100%;
-    max-width: 95vw; /* Using viewport width to ensure it's much wider */
+    max-width: 95%; /* Significantly increased width */
     margin: 0 auto;
+    padding: 0 10px; /* Reduced padding slightly to maximize width */
 }
 
 .slider-container {
     position: relative;
-    width: 100%;
-    height: 90px; /* Increased height to accommodate labels */
+    width: 100%; /* Ensure container matches slider width */
+    max-width: 95%; /* Match the slider's max-width */
+    height: 90px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -652,7 +654,7 @@ nav {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 15px;
+    height: 12px;
     background: rgb(212, 194, 166);
     outline: none;
     border-radius: 80px;
@@ -694,26 +696,150 @@ nav {
     font-size: 20px;
     font-weight: 800;
     pointer-events: none;
-    transition: all 0.08s linear;
+    transition: box-shadow 0.18s linear;
     transform: translate(-50%, -50%);
     top: 4px;
     left: 0;
-    will-change: transform;
-    z-index: 10; /* Ensure it appears above the slider */
+    will-change: box-shadow;
+    z-index: 10;
+    box-shadow: none;
 }
 
-.slider:active ~ .slider-thumb {
-    transform: translate(-50%, -50%) scale(1.15);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.slider-thumb::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(80,80,80,0.25);
+    opacity: 0;
+    transition: width 0.22s cubic-bezier(.4,1.5,.5,1), height 0.22s cubic-bezier(.4,1.5,.5,1), opacity 0.18s, background 0.18s, transform 0.22s cubic-bezier(.4,1.5,.5,1);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.slider-thumb.hover::before {
+    width: 70px;
+    height: 70px;
+    opacity: 0.7;
+    background: rgba(80,80,80,0.35);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.slider-thumb.active::before {
+    width: 75px;
+    height: 75px;
+    opacity: 0.85;
+    background: rgba(80,80,80,0.45);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 /* Checkpoint markers below slider */
 .slider-checkpoints {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 100%; /* Checkpoints span the full width of the container */
     margin-top: 20px;
     position: relative;
+    font-family: 'Jost', sans-serif; 
+    padding: 0 5px; /* Add slight padding to align with slider edges */
+}
+
+/* Make checkpoints style consistent with other elements */
+.slider-checkpoints span {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #333;
+    /* Ensure labels don't wrap unnecessarily */
+    white-space: nowrap;
+}
+
+/* --- AGE SLIDER: FORCE 80vw WIDTH --- */
+.quiz-container.age-active {
+    max-width: 80vw !important;
+    width: 80vw !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#age {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#age .age-slider {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.slider-container {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.slider {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+slider-checkpoints {
+    width: 80vw !important;
+    max-width: 80vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    font-family: 'Jost', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.slider-checkpoint {
+    position: relative;
+    left: unset !important;
+    transform: none !important;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    min-width: 24px;
+    text-align: center;
+    font-weight: 500;
+    flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+    .quiz-container.age-active,
+    #age, #age .age-slider, .slider-container, .slider, .slider-checkpoints {
+        width: 98vw !important;
+        max-width: 98vw !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 
 /* Options Grid */
@@ -778,15 +904,15 @@ nav {
 
 /* Navigation Button */
 .next-btn {
-    background-color: #333;
+    background-color: black;
     color: white;
     border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
+    padding: 10px 47px;
+    border-radius: 14px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 40px;
+    margin-top: 15px;
     opacity: 0.5;
     pointer-events: none;
 }
@@ -2454,8 +2580,8 @@ nav {
 
 #introduction h2, #personalityIntro h2, #olfactiveIntro h2 {
     margin-bottom: 30px;
-    font-size: 2.8rem;
-    max-width: 800px;
+    font-size: 3rem;
+    max-width: 1000px;
 }
 
 #introduction .arrow-down, #personalityIntro .arrow-down, #olfactiveIntro .arrow-down {
@@ -2478,7 +2604,8 @@ nav {
 
 #age h2 {
     margin-bottom: 40px;
-    font-size: 2.8rem;
+    font-size: 3rem;
+    margin-bottom: 65px;
 }
 
 #age .age-slider {
