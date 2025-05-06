@@ -99,19 +99,60 @@ export const getFragranceById = async (req, res) => {
   }
 };
 
-// Update
 export const updateFragrance = async (req, res) => {
   try {
-    const fragrance = await Fragrance.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(fragrance);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const fragranceId = req.params.id;
+    const { name, brand, gender, category, topNotes, middleNotes, baseNotes, description, sizeOptions, releaseDate, tags , image ,backgroundImage1 , backgroundImage2 } = req.body;
+
+    // Handle image upload (multer automatically adds files to req.files)
+    let imagePaths = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+
+    // Get the current fragrance data to check which images should stay
+    const fragrance = await Fragrance.findById(fragranceId);
+
+    if (!fragrance) {
+      return res.status(404).json({ message: "Fragrance not found" });
+    }
+
+    const updatedImages = [...fragrance.image]; // Copy existing images
+
+    // If there are new images uploaded, update the specific fields
+    if (imagePaths.length > 0) {
+      updatedImages[0] = image
+      updatedImages[1] = backgroundImage1
+      updatedImages[2] = backgroundImage2
+    }
+
+    const updateData = {
+      name,
+      brand,
+      gender,
+      category,
+      topNotes: topNotes ? topNotes.split(",").map(s => s.trim()) : [],
+      middleNotes: middleNotes ? middleNotes.split(",").map(s => s.trim()) : [],
+      baseNotes: baseNotes ? baseNotes.split(",").map(s => s.trim()) : [],
+      description,
+      sizeOptions,
+      releaseDate,
+      tags: tags ? tags.split(",").map(s => s.trim()) : [],
+      image: updatedImages, // Only update the image array with new values where available
+    };
+
+    const updatedFragrance = await Fragrance.findByIdAndUpdate(fragranceId, updateData, { new: true });
+
+    if (!updatedFragrance) {
+      return res.status(404).json({ message: "Fragrance not found" });
+    }
+
+    res.status(200).json(updatedFragrance);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
 
 // Delete
 export const deleteFragrance = async (req, res) => {
