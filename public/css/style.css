@@ -46,6 +46,11 @@ body {
   background: var(--color-background-gradient);
   background-color: var(--color-background-gradient) !important; /* Fixes Dark Mode footer part */
 }
+/* anything selectd in another color instead of the boring blue */
+::selection {
+  background-color: black;
+  color: white;
+}
 
 /*~~FOR HIM & FOR HER~~*/
 
@@ -1191,4 +1196,3 @@ box-shadow: #000;
   
 
 }
-

@@ -207,7 +207,7 @@
               </div>
             </div>
             <div class="product-actions">
-              <button class="product-btn edit">Edit</button>
+              <a class="product-btn edit" href="/editFragrance/<%= product._id %>" style="text-decoration: none;">Edit</a>
               <button class="product-btn delete"
               data-fragrance-id="<%= product._id %>"
               onclick="deleteProduct(this)"
