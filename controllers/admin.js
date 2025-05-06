@@ -34,7 +34,21 @@ export const getAdmin = async (req, res) => {
 
 export const getAddUser = async (req, res) => res.render("admin/addUser");
 
+export const getAddFragrance = async (req, res) =>
+  res.render("admin/addFragrance");
 
-export const getAddFragrance = async (req, res) => res.render("admin/addFragrance");
 
+export const geteditFragrance = async (req, res) =>{
+  try {
+    const fragranceId = req.params.id;
+    
+    const fragrance = await FragranceModel.findById(fragranceId);
+    if (!fragrance) {
+      return res.status(404).send("Fragrance not found");
+    }
 
+    res.render("admin/editFragrance", { fragrance });
+  } catch (err) {
+    console.error("Error fetching fragrance:", err);
+    res.status(500).send("Internal Server Error");
+  }}
