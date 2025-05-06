@@ -396,7 +396,7 @@
           </div>
           
 
-<div class="form-section">
+          <div class="form-section">
   <div class="form-grid-3">
     <!-- Size 30ml -->
     <div class="checkbox-item">
@@ -478,7 +478,7 @@
       />
     </div>
   </div>
-</div>
+          </div>
 
 
           <div class="form-section">
@@ -513,13 +513,6 @@
                   >
                     Upload
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    onclick="removeImage('fragrancePicture', 'fragrancePictureInput')"
-                  >
-                    X
-                  </button>
                 </div>
               </div>
           
@@ -553,13 +546,6 @@
                   >
                     Upload
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    onclick="removeImage('backgroundPicture1', 'backgroundPicture1Input')"
-                  >
-                    X
-                  </button>
                 </div>
               </div>
           
@@ -592,14 +578,6 @@
                     onclick="document.getElementById('backgroundPicture2Input').click()"
                   >
                     Upload
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    onclick="removeImage('backgroundPicture2', 'backgroundPicture2Input')"
-                  >
-                    X
-                  </button>
                 </div>
               </div>
             </div>
@@ -638,7 +616,7 @@
           </div>
 
           <div class="submit-button-container">
-            <button type="submit" class="btn btn-primary ButtonDicoration">
+            <button type="submit" fragranceid = "<%= fragrance._id %>"class="btn btn-primary ButtonDicoration">
               Edit Fragrance
             </button>
           </div>
@@ -649,8 +627,8 @@
 
     <script type="module">
       import showFunToast from "/js/toast.js";
-
-      // ✅ Image preview & removal
+      
+      // ✅ Image preview & removal (Global functions)
       function previewImage(event, previewId) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -660,47 +638,147 @@
         };
         if (file) reader.readAsDataURL(file);
       }
-
-      function removeImage(previewId, inputId) {
-        const preview = document.getElementById(previewId);
-        const input = document.getElementById(inputId);
-        preview.src = "";
-        input.value = "";
-      }
-
       window.previewImage = previewImage;
-      window.removeImage = removeImage;
+    
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("fragranceForm");
+        
+        // Function to get selected size options values
+        function getSizeOptionsValues() {
+          const sizes = ['30', '50', '100'];
+          return sizes.map(size => ({
+            size: size,
+            price: document.querySelector(`select[name="price${size}"]`).value,
+            quantity: document.querySelector(`#quantity${size}`).value,
+            checked: document.getElementById(`size${size}`).checked,
+          }));
+        }
+    
+        // Define originalValues to hold the initial values of the form
+        const originalValues = {
+          name: document.getElementById("fragranceName").value,
+          brand: document.getElementById("fragranceBrand").value,
+          gender: document.getElementById("fragranceGender").value,
+          category: document.getElementById("fragranceCategory").value,
+          topNotes: document.getElementById("fragranceTopNotes").value,
+          middleNotes: document.getElementById("fragranceMidNotes").value,
+          baseNotes: document.getElementById("fragranceBaseNotes").value,
+          description: document.getElementById("fragranceDescription").value,
+          sizeOptions: getSizeOptionsValues(),
+          releaseDate: document.getElementById("releaseDate").value,
+          tags: document.getElementById("tags").value,
+          image: document.getElementById("fragrancePicture").src, // Save the initial image URL in originalValues
+          backgroundImage1: document.getElementById("backgroundPicture1").src, // Save the initial image URL in originalValues
+          backgroundImage2: document.getElementById("backgroundPicture2").src, // Save the initial image URL in originalValues
+        };
+    
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+    
+          // Get all the current values from the form fields
+          const name = document.getElementById("fragranceName").value;
+          const brand = document.getElementById("fragranceBrand").value;
+          const gender = document.getElementById("fragranceGender").value;
+          const category = document.getElementById("fragranceCategory").value;
+          const topNotes = document.getElementById("fragranceTopNotes").value;
+          const middleNotes = document.getElementById("fragranceMidNotes").value;
+          const baseNotes = document.getElementById("fragranceBaseNotes").value;
+          const description = document.getElementById("fragranceDescription").value;
+          const sizeOptions = getSizeOptionsValues();
+          const releaseDate = document.getElementById("releaseDate").value;
+          const tags = document.getElementById("tags").value;
+          const image = document.getElementById("fragrancePicture").src;
+          const backgroundImage1 = document.getElementById("backgroundPicture1").src;
+          const backgroundImage2 = document.getElementById("backgroundPicture2").src;
+          
+    
+          let hasChanged = false;
+    
+          // Check if any form values have changed
+          if (
+            originalValues.name !== name ||
+            originalValues.brand !== brand ||
+            originalValues.gender !== gender ||
+            originalValues.category !== category ||
+            originalValues.topNotes !== topNotes ||
+            originalValues.middleNotes !== middleNotes ||
+            originalValues.baseNotes !== baseNotes ||
+            originalValues.description !== description ||
+            originalValues.releaseDate !== releaseDate ||
+            originalValues.tags !== tags ||
+            originalValues.image !== image ||
+            originalValues.backgroundImage1 !== backgroundImage1 ||
+            originalValues.backgroundImage2 !== backgroundImage2
+          ) {
+            hasChanged = true;
+          }
+    
+          // Check if the selected size options have changed
+          sizeOptions.forEach(option => {
+            const originalSizeOption = originalValues.sizeOptions.find(o => o.size === option.size);
+            if (
+              originalSizeOption.price !== option.price ||
+              originalSizeOption.quantity !== option.quantity ||
+              originalSizeOption.checked !== option.checked
+            ) {
+              hasChanged = true;
+            }
+          });
+    
+          // If no changes, show toast and stop submission
+          if (!hasChanged) {
+            showFunToast("ℹ️ No changes detected.", "red");
+            return;
+          }
+    
+          // Create FormData and append the new values
+          const formData = new FormData(form);
+          sizeOptions.forEach(option => {
+            if (option.checked) {
+              formData.append("sizes[]", option.size);
+              formData.append(`price${option.size}`, option.price);
+              formData.append(`quantity${option.size}`, option.quantity);
+            }
+          });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
+           // Ensure you are appending the files in the correct order
+          formData.append("image", image); // Append fragrancePicture first
+          formData.append("backgroundImage1", backgroundImage1); // Append backgroundPicture1 second
+          formData.append("backgroundImage2", backgroundImage2); // Append backgroundPicture2 third
+    
+    
+          const id = form.querySelector("button[type='submit']").getAttribute("fragranceid");
+    
+          // Submit the form data
+          try {
+            const response = await fetch(`/api/fragrances/${id}`, {
+              method: "PUT",
+              body: formData,
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+              setTimeout(() => {
+                showFunToast(data.message || "✅ Fragrance updated successfully!", "green");
+                window.location.href = "/admin/fragrances"; // Redirect after successful update
+              }, 1500);
+            } else {
+              showFunToast(data.message || "❌ Error occurred while updating fragrance!", "red");
+            }
+          } catch (err) {
+            console.error(err);
+            showFunToast("❌ Error occurred!", "red");
+          }
+        });
+      });
     </script>
+    
+    
+    
+    
+    
+    
+    
   </body>
 </html>

@@ -2,7 +2,6 @@ import express from "express";
 import upload from "../middleware/multer.js";
 import auth from "../middleware/auth.js"
 import {
-  createUser,
   getUsers,
   getUser,
   updateUser,
@@ -14,7 +13,6 @@ import {
 
 const router = express.Router();
 
-router.post("/", createUser);
 router.get("/", getUsers);
 router.get("/:id", getUser);
 router.put("/:id",upload.single("profilePicture"), updateUser);
