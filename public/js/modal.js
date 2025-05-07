@@ -1,4 +1,3 @@
-
 import showFunToast from "./toast.js";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (show2faBtn) {
     show2faBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
+      forgetpasswordForm.style.display = "none";
       twofactorForm.style.display = "block";
       loginModalLabel.textContent = "verification";
       loginModalLabel.classList.add("verification-title");
@@ -226,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
 
 signUpForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent form from submitting
@@ -491,7 +490,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.querySelector(".verify").addEventListener("click", async () => {
   const codeInputs = document.querySelectorAll(".input-fields input");
-  const newPassword = document.getElementById("resetpasswordInput").value.trim();
+  const newPassword = document
+    .getElementById("resetpasswordInput")
+    .value.trim();
   const code = Array.from(codeInputs)
     .map((input) => input.value)
     .join("");
@@ -530,7 +531,7 @@ document.querySelector(".verify").addEventListener("click", async () => {
       );
       setTimeout(() => {
         window.location.href = "/?authError=true"; // Redirect to the login page
-      },1000);
+      }, 1000);
     } else {
       showFunToast(data.message || "❌ Failed to update password.", "red");
     }
