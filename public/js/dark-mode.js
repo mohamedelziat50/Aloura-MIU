@@ -328,12 +328,12 @@ if (typeof exports != "undefined") module.exports = AutoDarkMode;
 document.addEventListener('DOMContentLoaded', () => {
   const theme = null;
   const doubleRotatedElements = ['.avoid-dark-mode', // Anything after is partials related
-     'nav .logo', 'footer', '.top img', '.top .text', '.logo-reveal', '.chat-logo', // Partials Related - Anything after is pages
+     'nav .logo', 'footer', '.logo-reveal', '.chat-logo', // Partials Related - Anything after is pages
     '.product-img', '.img-fluid', '.review-card-avatar img', '.perfume-sequence-container', // index.ejs related
     '.card-image', // all-fragrances.ejs related
     '.subimage', '.suggested-image',  // fragrances-page.ejs related
     '.grey-section', // our story related
-    
+    '.image-container', '.hero-image-container', '.note-front img', '.note-overlay' // collections related
   ]; 
   new AutoDarkMode(theme, doubleRotatedElements);
 });
