@@ -783,18 +783,6 @@
           );
         }
 
-        // ✅ Validate images
-        const imageInputs = [
-          "fragrancePictureInput",
-          "backgroundPicture1Input",
-          "backgroundPicture2Input",
-        ];
-        for (const inputId of imageInputs) {
-          const input = document.getElementById(inputId);
-          if (!input.files || input.files.length === 0) {
-            return showFunToast("⚠️ Please upload all three images.", "red");
-          }
-        }
 
         if (!releaseDate)
           return showFunToast("⚠️ Please enter a release date.", "red");
