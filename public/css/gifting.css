@@ -1,3 +1,7 @@
+body {
+  background: white !important;
+}
+
 /* ===== GIFTING PAGE STYLES ===== */
 #gifting-hero {
     position: relative;
