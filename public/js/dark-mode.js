@@ -333,7 +333,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '.card-image', // all-fragrances.ejs related
     '.subimage', '.suggested-image',  // fragrances-page.ejs related
     '.grey-section', // our story related
-    '.image-container', '.hero-image-container', '.note-front img', '.note-overlay' // collections related
+    '.image-container', '.hero-image-container', '.note-front img', '.note-overlay', // collections related
+    '.gift-image', '.feature-icon', '.perfume-option img', '.wrap-option img', '.card-option img'// gifting related
   ]; 
   new AutoDarkMode(theme, doubleRotatedElements);
 });
