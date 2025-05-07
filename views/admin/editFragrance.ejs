@@ -730,6 +730,75 @@
             showFunToast("ℹ️ No changes detected.", "red");
             return;
           }
+
+           // ✅ Validate required text fields
+        if (!name)
+          return showFunToast("⚠️ Please enter the fragrance name.", "red");
+        if (!brand)
+          return showFunToast("⚠️ Please enter the fragrance brand.", "red");
+        if (!gender) return showFunToast("⚠️ Please select a gender.", "red");
+        if (!category)
+          return showFunToast("⚠️ Please select a category.", "red");
+        if (!topNotes) return showFunToast("⚠️ Please enter top notes.", "red");
+        if (!middleNotes)
+          return showFunToast("⚠️ Please enter middle notes.", "red");
+        if (!baseNotes)
+          return showFunToast("⚠️ Please enter base notes.", "red");
+        if (!description)
+          return showFunToast("⚠️ Please enter a description.", "red");
+
+        // ✅ Validate size checkbox
+        const checkedSizes = form.querySelectorAll(
+          "input[name='sizes']:checked"
+        );
+        if (checkedSizes.length === 0) {
+          return showFunToast(
+            "⚠️ Please select at least one size option.",
+            "red"
+          );
+        }
+
+        // ✅ Validate quantity fields for selected sizes
+        const missingQuantities = [];
+        const invalidQuantities = [];
+
+        for (const checkbox of checkedSizes) {
+          const size = checkbox.value; // "30", "50", "100"
+          const quantityInput = document.getElementById(`quantity${size}`);
+
+          if (!quantityInput || quantityInput.value.trim() === "") {
+            missingQuantities.push(`${size}ml`);
+          } else {
+            const quantity = parseInt(quantityInput.value.trim(), 10);
+            if (isNaN(quantity) || quantity < 0) {
+              invalidQuantities.push(`${size}ml`);
+            }
+          }
+        }
+
+        if (missingQuantities.length > 0) {
+          return showFunToast(
+            `⚠️ Please enter quantity for: ${missingQuantities.join(", ")}`,
+            "red"
+          );
+        }
+
+        // ✅ Validate images
+        const imageInputs = [
+          "fragrancePictureInput",
+          "backgroundPicture1Input",
+          "backgroundPicture2Input",
+        ];
+        for (const inputId of imageInputs) {
+          const input = document.getElementById(inputId);
+          if (!input.files || input.files.length === 0) {
+            return showFunToast("⚠️ Please upload all three images.", "red");
+          }
+        }
+
+        if (!releaseDate)
+          return showFunToast("⚠️ Please enter a release date.", "red");
+        if (!tags) return showFunToast("⚠️ Please enter tags.", "red");
     
           // Create FormData and append the new values
           const formData = new FormData(form);

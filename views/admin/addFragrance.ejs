@@ -744,15 +744,6 @@
           );
         }
 
-        if (invalidQuantities.length > 0) {
-          return showFunToast(
-            `⚠️ Quantity must be a positive number for: ${invalidQuantities.join(
-              ", "
-            )}`,
-            "red"
-          );
-        }
-
         // ✅ Validate images
         const imageInputs = [
           "fragrancePictureInput",
