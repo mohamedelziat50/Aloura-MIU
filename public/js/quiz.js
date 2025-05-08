@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const percent = (value - min) / (max - min);
                     const sliderWidth = getSliderWidth();
                     const thumb = document.querySelector('.slider-thumb');
-                    // Calculate px so thumb center aligns with label
-                    const px = percent * (sliderWidth - thumbWidth) + thumbWidth / 2;
+                    // Calculate px so thumb center aligns with label, nudge by 1px to the right
+                    const px = percent * (sliderWidth - thumbWidth) + thumbWidth / 2 + 9;
                     thumb.style.left = `${px}px`;
                     thumb.textContent = value;
 

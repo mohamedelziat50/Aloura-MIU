@@ -742,7 +742,7 @@ nav {
     display: flex;
     justify-content: space-between;
     width: 100%; /* Checkpoints span the full width of the container */
-    margin-top: 5px;
+    margin-top: 20px;
     position: relative;
     font-family: 'Jost', sans-serif; 
     padding: 0 5px; /* Add slight padding to align with slider edges */
