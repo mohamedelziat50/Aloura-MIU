@@ -202,10 +202,10 @@ h2,
 }
 
 #gender .gender-right .option span {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
     transition: color 0.3s ease;
 }
 
@@ -878,7 +878,8 @@ slider-checkpoints {
 .option img {
     width: auto;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 50px;
 }
 
 .option span {
