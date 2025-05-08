@@ -470,6 +470,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateProgress() {
         const progress = ((currentSection + 1) / totalSections) * 100;
         progressBar.style.width = `${progress}%`;
+        // Update quiz navbar progress bar (only on quiz page)
+        const quizNavbarProgressFill = document.querySelector('.quiz-navbar-progress-bar-fill');
+        if (quizNavbarProgressFill) {
+            quizNavbarProgressFill.style.width = `${progress}%`;
+        }
     }
 
     function enableNextButton(section) {

@@ -27,6 +27,13 @@
         <img src="/img/logo.png" alt="Logo" />
       </a>
     </div>
+    <% if (typeof showQuizProgressBar !== 'undefined' && showQuizProgressBar) { %>
+      <div class="quiz-navbar-progress-bar-outer">
+        <div class="quiz-navbar-progress-bar-track">
+          <div class="quiz-navbar-progress-bar-fill"></div>
+        </div>
+      </div>
+    <% } %>
     <!-- Translate will be inside actions -->
   </div>
 

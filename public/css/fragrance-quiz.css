@@ -546,6 +546,49 @@ nav {
     border-radius: 2px;
 }
 
+/* Quiz Navbar Progress Bar */
+.quiz-navbar-progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 420px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.quiz-navbar-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #D4C2A6;
+    border-radius: 8px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
+    box-shadow: 0 2px 12px 0 #d4c2a655;
+}
+
+nav:hover ~ .quiz-navbar-progress-bar-container,
+nav:focus-within ~ .quiz-navbar-progress-bar-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+nav .links ul {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+nav:hover .links ul,
+nav:focus-within .links ul {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Question Slides Container */
 .question-slides {
     position: relative;
