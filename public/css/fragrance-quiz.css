@@ -202,10 +202,10 @@ h2,
 }
 
 #gender .gender-right .option span {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
     transition: color 0.3s ease;
 }
 
@@ -878,7 +878,8 @@ slider-checkpoints {
 .option img {
     width: auto;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 50px;
 }
 
 .option span {
@@ -1111,11 +1112,12 @@ nav {
 #securityVsAdventure .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1195,8 +1197,8 @@ nav {
 
 #securityVsAdventure .split-half span {
     font-family: 'Jost', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2rem;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
     color: #333333;
     text-align: center;
     position: relative;
@@ -1292,7 +1294,7 @@ nav {
 #securityVsAdventure .split-half .tick-mark {
     position: absolute;
     top: 80% !important;
-    left: 49% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -1411,11 +1413,12 @@ nav {
 #careVsLead .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1486,8 +1489,8 @@ nav {
 
 #careVsLead .split-half span {
     font-family: 'Jost', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2rem;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
     color: #333333;
     text-align: center;
     position: relative;
@@ -1519,7 +1522,7 @@ nav {
 #careVsLead .split-half .tick-mark {
     position: absolute;
     top: 80% !important;
-    left: 49% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -1567,11 +1570,12 @@ nav {
 #buildVsInvent .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1642,8 +1646,8 @@ nav {
 
 #buildVsInvent .split-half span {
     font-family: 'Jost', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2rem;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
     color: #333333;
     text-align: center;
     position: relative;
@@ -1675,7 +1679,7 @@ nav {
 #buildVsInvent .split-half .tick-mark {
     position: absolute;
     top: 80% !important;
-    left: 49% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -1722,11 +1726,12 @@ nav {
 #goodTimeVsSuccess .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1797,8 +1802,8 @@ nav {
 
 #goodTimeVsSuccess .split-half span {
     font-family: 'Jost', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2rem;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
     color: #333333;
     text-align: center;
     position: relative;
@@ -1830,7 +1835,7 @@ nav {
 #goodTimeVsSuccess .split-half .tick-mark {
     position: absolute;
     top: 80% !important;
-    left: 49% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -1878,11 +1883,12 @@ nav {
 #organizeVsSurprise .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1953,8 +1959,8 @@ nav {
 
 #organizeVsSurprise .split-half span {
     font-family: 'Jost', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2rem;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
     color: #333333;
     text-align: center;
     position: relative;
@@ -1986,7 +1992,7 @@ nav {
 #organizeVsSurprise .split-half .tick-mark {
     position: absolute;
     top: 80% !important;
-    left: 49% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
