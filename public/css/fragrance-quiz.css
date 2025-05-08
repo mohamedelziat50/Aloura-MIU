@@ -1112,11 +1112,12 @@ nav {
 #securityVsAdventure .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1412,11 +1413,12 @@ nav {
 #careVsLead .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1568,11 +1570,12 @@ nav {
 #buildVsInvent .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1723,11 +1726,12 @@ nav {
 #goodTimeVsSuccess .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
@@ -1879,11 +1883,12 @@ nav {
 #organizeVsSurprise .split-question {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    font-size: 2.5rem;
+    padding-top: 48px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    font-size: 48px !important;
     text-align: center;
-    letter-spacing: normal;
+    letter-spacing: 2px !important;
     width: 100%;
     color: #000000;
 }
