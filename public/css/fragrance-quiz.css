@@ -2369,13 +2369,13 @@ nav {
 }
 
 #desiredFeeling .option span {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
-    margin-top: 50px;
-    color: #333;
+    margin-top: 0px;
+    color: black;
 }
 
 #desiredFeeling .option.selected span {
