@@ -32,7 +32,7 @@ nav.nav-visible {
 nav .left-container-nav {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 155px;
   order: 1;
   position: absolute;
   left: 20px;
@@ -60,11 +60,37 @@ nav .left-container-nav {
 
 .quiz-navbar-progress-bar-track {
   width: 100%;
-  height: 5px; /* Reduced height */
+  height: 5px;
   background: #ede3d2;
   border-radius: 8px;
   position: relative;
-  overflow: hidden;
+}
+
+.quiz-navbar-progress-bar-circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 23px;
+  height: 23px;
+  background: #ede3d2;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 2px 8px #d4c2a655;
+  pointer-events: none;
+  /* Center the circle on the bar */
+  transform: translate(-50%, -50%);
+}
+.quiz-navbar-progress-bar-circle.circle-1 {
+  left: 25%;
+  top: 50%;
+}
+.quiz-navbar-progress-bar-circle.circle-2 {
+  left: 50%;
+  top: 50%;
+}
+.quiz-navbar-progress-bar-circle.circle-3 {
+  left: 75%;
+  top: 50%;
 }
 
 .quiz-navbar-progress-bar-fill {
