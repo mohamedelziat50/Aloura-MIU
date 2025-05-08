@@ -26,28 +26,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle age slider with performance optimizations
     if (ageSlider && document.querySelector('.slider-thumb')) {
-        // Use requestAnimationFrame for smoother updates
         let lastUpdateTime = 0;
+        const checkpoints = [1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80];
+        const getSliderMin = () => parseInt(ageSlider.min, 10);
+        const getSliderMax = () => parseInt(ageSlider.max, 10);
+        const getSliderWidth = () => ageSlider.offsetWidth;
+        const thumbWidth = 58; // px, must match .slider-thumb CSS
+
+        function isCheckpoint(val) {
+            return checkpoints.includes(val);
+        }
+
         const updateSliderValue = () => {
-            const value = ageSlider.value;
+            let value = parseInt(ageSlider.value, 10);
             userAnswers['age'] = value;
             enableNextButton(sections[currentSection]);
-            
-            // Use requestAnimationFrame for visual updates to reduce layout thrashing
-            if (!lastUpdateTime || performance.now() - lastUpdateTime > 16) { // ~60fps
+
+            if (!lastUpdateTime || performance.now() - lastUpdateTime > 16) {
                 requestAnimationFrame(() => {
-                    // Calculate percentage position based on slider value 
-                    // Adjusted for exact positioning with the wider slider
-                    const percent = (value - ageSlider.min) / (ageSlider.max - ageSlider.min) * 100;
+                    const min = getSliderMin();
+                    const max = getSliderMax();
+                    const percent = (value - min) / (max - min);
+                    const sliderWidth = getSliderWidth();
                     const thumb = document.querySelector('.slider-thumb');
-                    
-                    // Update thumb position and text
-                    thumb.style.left = `${percent}%`;
+                    // Calculate px so thumb center aligns with label
+                    const px = percent * (sliderWidth - thumbWidth) + thumbWidth / 2;
+                    thumb.style.left = `${px}px`;
                     thumb.textContent = value;
 
-                    // --- Dynamic slider track coloring ---
-                    // Thumb color: rgb(44,44,34), Track color: rgb(212, 194, 166)
-                    ageSlider.style.background = `linear-gradient(to right, rgb(44,44,34) 0%, rgb(44,44,34) ${percent}%, rgb(212,194,166) ${percent}%, rgb(212,194,166) 100%)`;
+                    // Track coloring
+                    const percent100 = percent * 100;
+                    ageSlider.style.background = `linear-gradient(to right, rgb(44,44,34) 0%, rgb(44,44,34) ${percent100}%, rgb(212,194,166) ${percent100}%, rgb(212,194,166) 100%)`;
 
                     lastUpdateTime = performance.now();
                 });

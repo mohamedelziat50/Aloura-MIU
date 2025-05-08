@@ -742,7 +742,7 @@ nav {
     display: flex;
     justify-content: space-between;
     width: 100%; /* Checkpoints span the full width of the container */
-    margin-top: 20px;
+    margin-top: 5px;
     position: relative;
     font-family: 'Jost', sans-serif; 
     padding: 0 5px; /* Add slight padding to align with slider edges */
@@ -828,7 +828,7 @@ slider-checkpoints {
     color: #333;
     min-width: 24px;
     text-align: center;
-    font-weight: 500;
+    font-weight: 400;
     flex: 0 0 auto;
 }
 
