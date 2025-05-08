@@ -496,7 +496,8 @@ nav {
     z-index: 100000000000000;
     background-color: rgba(252,250,246, 0.95);
     backdrop-filter: blur(5px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+    
 }
 
 /* Loading Bar Animation */
@@ -2663,3 +2664,18 @@ nav {
     margin: 0 auto;
     padding: 0 20px; /* Add padding to avoid edge issues */
 }
+
+body.fragrance-quiz-page nav {
+    height: 64px !important;
+    min-height: 62px !important;
+    box-shadow: 0 6px 24px -4px rgba(44, 44, 34, 0.18);
+  }
+  
+  body.fragrance-quiz-page .left-container-nav {
+    height: 62px !important;
+    align-items: center;
+  }
+  
+  body.fragrance-quiz-page .quiz-navbar-progress-bar-outer {
+    height: 40px !important;
+  }
