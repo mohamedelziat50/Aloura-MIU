@@ -2666,9 +2666,10 @@ nav {
 }
 
 body.fragrance-quiz-page nav {
-    height: 64px !important;
+    height: 70px !important;
     min-height: 62px !important;
     box-shadow: 0 6px 24px -4px rgba(44, 44, 34, 0.18);
+    background-color: #fff !important;
   }
   
   body.fragrance-quiz-page .left-container-nav {
