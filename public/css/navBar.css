@@ -60,7 +60,7 @@ nav.nav-visible {
 nav .left-container-nav {
   display: flex;
   align-items: center;
-  gap: 12.3vw;
+  gap: 11.75vw;
   order: 1;
   position: absolute;
   left: 20px;
@@ -84,6 +84,7 @@ nav .left-container-nav {
   position: relative;
   z-index: 100;
   pointer-events: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .quiz-navbar-progress-bar-track {
