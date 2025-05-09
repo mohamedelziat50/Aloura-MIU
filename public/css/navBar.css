@@ -28,11 +28,39 @@ nav.nav-visible {
   background-color: white;
 }
 
+.progress-bar-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  /* flex: 0 0 40px; */
+  position: relative;
+  z-index: 20;
+}
+
+.progress-bar-img {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+  /* background: #fff; */
+  /* box-shadow: 0 2px 8px #d4c2a655; */
+  display: block;
+}
+
+.scent-left-img {
+  margin-right: -15px;
+}
+
+.bottle-right-img {
+  margin-left: -15px;
+}
+
 /* Left container styles */
 nav .left-container-nav {
   display: flex;
   align-items: center;
-  gap: 250px;
+  gap: 12.3vw;
   order: 1;
   position: absolute;
   left: 20px;
@@ -59,7 +87,7 @@ nav .left-container-nav {
 }
 
 .quiz-navbar-progress-bar-track {
-  width: 90%;
+  width: 88%;
   height: 5px;
   background: #D4C2A6;
   border-radius: 0px;
@@ -69,7 +97,7 @@ nav .left-container-nav {
 .circle-number {
   color: white;
   font-family: 'Jost', sans-serif;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -105,8 +133,8 @@ nav .left-container-nav {
   position: absolute;
   left: 0;
   top: 0;
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
   background: #D4C2A6;
   border-radius: 50%;
   z-index: 10;
