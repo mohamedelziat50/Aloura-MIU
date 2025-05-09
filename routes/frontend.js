@@ -1,9 +1,23 @@
 import express from "express";
-import { JWT_SECRET } from "../config/secrets.js";
 import jwt from "jsonwebtoken";
-import UserModel from "../models/user.js"; 
-
+import UserModel from "../models/user.js";
+import auth from "../middleware/auth.js"; // Import the auth middleware
 import Fragrances from "../models/fragrance.js"; // Import the Fragrances model
+import {
+  getIdex,
+  getAllFragrances,
+  getAdmin,
+  getAddFragrance,
+  getAddUser,
+  editUser,
+  geteditFragrance,
+  getCollectionsPage,
+  getFragrancesPage,
+  getGiftingPage,
+  getFragranceQuizPage,
+  getOurStoryPage,
+  getNightlifeCollectionPage,
+} from "../controllers/frontend.js"; // Import the getAdmin function
 
 const router = express.Router();
 
@@ -24,46 +38,18 @@ router.use(async (req, res, next) => {
   }
 });
 
-router.get("/", (req, res) => {
-  res.render("index");
-});
-
-router.get("/all-fragrances", (req, res) => {
-  Fragrances.find()
-  .then((result) => {
-    res.render("all-fragrances", { fragrances : result});
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-});
-
-router.get("/collections", (req, res) => {
-  res.render("collections");
-});
-
-router.get("/fragrances-page", (req, res) => {
-  res.render("fragrances-page");
-});
-
-router.get("/gifting", (req, res) => {
-  res.render("gifting");
-});
-
-router.get("/fragrance-quiz", (req, res) => {
-  res.render("fragrance-quiz");
-});
-
-router.get("/fragrances-page", (req, res) => {
-  res.render("fragrances-page");
-});
-
-router.get("/our-story", (req, res) => {
-  res.render("our-story");
-});
-
-router.get("/nightlife-collection", (req, res) => {
-  res.render("nightlife-collection");
-});
+router.get("/", getIdex);
+router.get("/all-fragrances", getAllFragrances);
+router.get("/collections", getCollectionsPage);
+router.get("/fragrances-page", getFragrancesPage);
+router.get("/gifting", getGiftingPage);
+router.get("/fragrance-quiz", getFragranceQuizPage);
+router.get("/our-story", getOurStoryPage);
+router.get("/nightlife-collection", getNightlifeCollectionPage);
+router.get("/admin/:id", auth(["admin"]), getAdmin);
+router.get("/addFragrance", auth(["admin"]), getAddFragrance);
+router.get("/addUser", auth(["admin"]), getAddUser);
+router.get("/editUser/:id", auth(["admin"]), editUser);
+router.get("/editFragrance/:id", auth(["admin"]), geteditFragrance);
 
 export default router;

@@ -11,7 +11,6 @@ import reviewRoutes from "./routes/review.js";
 import orderRoutes from "./routes/order.js";
 import frontendRouter from "./routes/frontend.js";
 import allRouters from "./routes/allroutes.js";
-import adminRouter from "./routes/admin.js";
 
 const app = express();
 
@@ -29,7 +28,6 @@ connectDB();
 app.use(frontendRouter);
 app.use(authRoutes)
 app.use("/api/users", userRoutes);
-app.use( adminRouter);
 app.use('/api/fragrances/', fragranceRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);
