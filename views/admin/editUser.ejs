@@ -12,11 +12,6 @@
     />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/page-loader.css" />
-    <link rel="stylesheet" href="/css/editUser.css" />
-
-    <!-- Page Loader -->
-
-
 
     <!-- Bootstrap -->
     <link
@@ -44,77 +39,244 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <style>
+      /* Base styles */
+      body {
+        background-color: whitesmoke;
+        color: #000000;
+        font-family: "Arial", sans-serif;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in forwards;
+        padding: 2rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Form container */
+      .form-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      /* Typography */
+      .title-container {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        position: relative;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #121212;
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #121212;
+        transition: width 0.3s ease;
+      }
+
+      h2:hover::after {
+        width: 100%;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: #121212;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      /* Form controls */
+      .form-control,
+      .form-select {
+        background-color: #ffffff;
+        color: #121212;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #121212;
+        box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.15);
+        outline: none;
+      }
+
+      /* Profile picture section */
+      .profile-picture-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .profile-picture-wrapper {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .profile-picture-wrapper:hover {
+        border-color: #121212;
+      }
+
+      .profile-picture-preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      /* Submit button */
+      .submit-button-container {
+        text-align: start;
+        margin-top: 2rem;
+      }
+
       .ButtonDicoration {
         color: white !important;
         background-color: #121212 !important;
         border: 1px solid #121212 !important;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        flex: 1;
       }
 
       .ButtonDicoration:hover {
         color: #121212 !important;
         background-color: white !important;
       }
+
+      /* Form sections */
+      .form-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .form-section:last-child {
+        border-bottom: none;
+      }
+
+      /* Grid layout */
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+
+        .button-group {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .ButtonDicoration {
+          width: 100%;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animation classes */
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
     </style>
   </head>
   <body>
-    <div class="containerr">
-      <div class="addusercard row justify-content-center">
-        <div class="col-md-20">
-          <div class="form-wrapper">
-            <h2 class="text-center mb-4">Edit User</h2>
-            <form id="editUserForm">
-                <div class="mb-3">
-                    <label for="user-id" class="form-label">User_ID</label>
-                    <p id="user-id" class="form-control"><%= user._id %></p>
-                  </div>
-                  <div class="mb-3 text-center">
-                    <label for="profile-picture" class="form-label"
-                      >Profile Picture</label
-                    >
-                    <div class="d-flex flex-column align-items-center">
-                      <img
-                        id="profile-picture-preview"
-                        src="<%= user.profilePic %>"
-                        alt="Profile Preview"
-                        class="rounded-circle mb-2"
-                        style="
-                          width: 120px;
-                          height: 120px;
-                          object-fit: cover;
-                          border: 2px solid #ccc;
-                        "
-                      />
-  
-                      <!-- Hidden file input -->
-                      <input
-                        type="file"
-                        class="d-none"
-                        id="profile-picture"
-                        name="profilePicture"
-                        accept="image/*"
-                      />
-  
-                      <!-- Custom styled button -->
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                        onclick="document.getElementById('profile-picture').click();"
-                        style="width: 120px"
-                      >
-                        Upload Picture
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                        id="reset-profile-picture"
-                        style="width: 120px"
-                      >
-                        Default Picture
-                      </button>
-                    </div>
-                  </div>
-              <div class="mb-3">
-                <label for="user-name" class="form-label">Full Name</label>
+    <div class="container fade-in">
+      <div class="form-container">
+        <h2 class="mb-4">Edit User</h2>
+        <form id="editUserForm">
+          <div class="form-section">
+            <div class="form-grid">
+              <div class="mb-4">
+                <label class="form-label">User ID</label>
+                <p id="user-id" class="form-control"><%= user._id %></p>
+              </div>
+            </div>
+
+            <div class="profile-picture-container">
+              <label class="form-label">Profile Picture</label>
+              <div class="profile-picture-wrapper" onclick="document.getElementById('profile-picture').click()">
+                <img
+                  id="profile-picture-preview"
+                  src="<%= user.profilePic %>"
+                  alt="Profile Preview"
+                  class="profile-picture-preview"
+                />
+              </div>
+              <div class="button-group">
+                <input
+                  type="file"
+                  class="d-none"
+                  id="profile-picture"
+                  name="profilePicture"
+                  accept="image/*"
+                />
+                <button
+                  type="button"
+                  class="btn btn-outline-primary ButtonDicoration"
+                  onclick="document.getElementById('profile-picture').click()"
+                >
+                  Upload Picture
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary ButtonDicoration"
+                  id="reset-profile-picture"
+                >
+                  Default Picture
+                </button>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="mb-4">
+                <label class="form-label">Full Name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -124,13 +286,8 @@
                 />
               </div>
 
-              
-               
-
-              <div class="mb-3">
-                <label for="user-email" class="form-label"
-                  >Email address</label
-                >
+              <div class="mb-4">
+                <label class="form-label">Email address</label>
                 <input
                   type="text"
                   class="form-control"
@@ -139,9 +296,11 @@
                   name="email"
                 />
               </div>
+            </div>
 
-              <div class="mb-3">
-                <label for="userOldPassword" class="form-label">Old Password</label>
+            <div class="form-grid">
+              <div class="mb-4">
+                <label class="form-label">Old Password</label>
                 <div class="input-group">
                   <input
                     name="password"
@@ -159,10 +318,9 @@
                   </span>
                 </div>
               </div>
-              <div class="mb-3">
-                <label for="userNewPassword" class="form-label"
-                  >New Password</label
-                >
+
+              <div class="mb-4">
+                <label class="form-label">New Password</label>
                 <div class="input-group">
                   <input
                     name="Confirm Password"
@@ -180,18 +338,18 @@
                   </span>
                 </div>
               </div>
+            </div>
 
-              <div class="mb-2">
-                <label for="user-phone" class="form-label">Phone Number</label>
+            <div class="form-grid">
+              <div class="mb-4">
+                <label class="form-label">Phone Number</label>
                 <div class="input-group">
-                  <span class="input-group-text" id="phone">+20</span>
+                  <span class="input-group-text">+20</span>
                   <input
                     type="tel"
                     name="tel"
                     class="form-control"
                     value="<%= user.phone %>"
-                    aria-label="Phone"
-                    aria-describedby="phone"
                     maxlength="10"
                     id="user-phone"
                     pattern="\d{10}"
@@ -199,41 +357,38 @@
                     oninput="this.value = this.value.replace(/\D/g, '')"
                   />
                 </div>
-                <% if (user.role) { %>
-                <div class="mb-3">
-                  <label for="role" class="form-label">Role</label>
-                  <select id="user-role" class="form-select">
-                    <option value="user" <%= user.role === 'user' ? 'selected' :
-                    '' %>> User</option>
-                    <option value="admin" <%= user.role === 'admin' ?
-                    'selected' : '' %>> Admin</option>
-                  </select>
-                </div>
-                <% } %>
               </div>
 
-              <% if (user.isVerified !== undefined) { %>
-                <div class="mb-3">
-                  <label for="isVerified" class="form-label">Verified</label>
-                  <select id="user-isVerified" class="form-select">
-                    <option value="true" <%= user.isVerified === true ? 'selected' : '' %>> True</option>
-                    <option value="false" <%= user.isVerified === false ? 'selected' : '' %>> False</option>
-                  </select>
-                </div>
+              <% if (user.role) { %>
+              <div class="mb-4">
+                <label class="form-label">Role</label>
+                <select id="user-role" class="form-select">
+                  <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
+                  <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                </select>
+              </div>
               <% } %>
-            
+            </div>
 
-              <p class="signup-confirm-password"></p>
-              <button
-                type="submit"
-                id="signup-button-diffcolor"
-                class="signupButton btn btn-primary w-100"
-              >
-                Edit User
-              </button>
-            </form>
+            <% if (user.isVerified !== undefined) { %>
+            <div class="form-grid">
+              <div class="mb-4">
+                <label class="form-label">Verified</label>
+                <select id="user-isVerified" class="form-select">
+                  <option value="true" <%= user.isVerified === true ? 'selected' : '' %>>True</option>
+                  <option value="false" <%= user.isVerified === false ? 'selected' : '' %>>False</option>
+                </select>
+              </div>
+            </div>
+            <% } %>
           </div>
-        </div>
+
+          <div class="submit-button-container">
+            <button type="submit" class="btn btn-primary ButtonDicoration">
+              Edit User
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
