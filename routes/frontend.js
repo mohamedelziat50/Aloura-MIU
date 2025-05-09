@@ -62,8 +62,8 @@ router.get("/our-story", (req, res) => {
   res.render("our-story");
 });
 
-
-
-
+router.get("/nightlife-collection", (req, res) => {
+  res.render("nightlife-collection");
+});
 
 export default router;

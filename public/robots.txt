@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://aloura.up.railway.app/sitemap.xml 
