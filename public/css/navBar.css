@@ -156,6 +156,15 @@ nav .left-container-nav {
   top: 50%;
 }
 
+.quiz-navbar-progress-bar-circle.passed {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 2px 8px #1112;
+}
+.quiz-navbar-progress-bar-circle.passed .circle-number {
+  color: #fff;
+}
+
 .quiz-navbar-progress-bar-fill {
   position: absolute;
   left: 0;

@@ -475,6 +475,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (quizNavbarProgressFill) {
             quizNavbarProgressFill.style.width = `${progress}%`;
         }
+        // Update checkpoints/circles color
+        const circles = document.querySelectorAll('.quiz-navbar-progress-bar-circle');
+        circles.forEach((circle, idx) => {
+            circle.classList.remove('passed');
+            // 0: 25%, 1: 50%, 2: 75%
+            if (progress >= (idx + 1) * 25) {
+                circle.classList.add('passed');
+            }
+        });
     }
 
     function enableNextButton(section) {
