@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collections | Aloura</title>
+ <!-- META DATA -->
+    <!-- Define type of characters used in our website -->
+    <meta charset="UTF-8" />
+    <!-- Keywords for search engine: will be useful when publishing -->
+    <meta name="keywords" content="Perfumes, Fragrances" />
+    <!--  Different devices with different resolutions-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Description displayed in search engine -->
+    <meta
+      name="description"
+      content="Discover suitable high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
+    />
+    <title>Collections - Aloura</title>
+    <!-- END OF META DATA -->
+
+    <!-- Tab Logo / 'Favicon' -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../img/favicons/rounded-background-favicon.ico"
+    />
+
+    <!-- Scrolly's animations-related -->
+
+    <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS & JS(navbar, footer, modal, cart all use it's functionality SO MAKE SURE TO LINK IT) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- CSS Links (Connecting the CSS file to this file) -->
     <link rel="stylesheet" href="/css/collections-dimension.css">
-    <link rel="stylesheet" href="/css/navBar.css">
 </head>
 <body>
-    <%- include('partials/navbar') %>
+
+ <!-- Loader -->
+ <%- include('partials/loader.ejs') %>
+
+ <!-- Navbar -->
+ <%- include('partials/navbar.ejs') %>
+
+ <!-- Modal -->
+ <%- include('partials/modal.ejs') %>
+
+ <!-- Cart -->
+ <%- include('partials/cart.ejs') %>
+
+ <!-- Chatbot -->
+ <%- include('partials/chatbot.ejs') %>
+
+ <!-- Dark Mode -->
+ <%- include('partials/dark-mode.ejs') %>
 
     <!-- Progress Indicator -->
     <div class="scroll-progress">
@@ -44,7 +100,7 @@
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>Summer Collection</h2>
+                    <section class="horizontal-section"><h2>Summer Collection</h2></section>
                     <p>Fresh, uplifting scents inspired by sun-soaked days and coastal escapes. This collection captures the spirit of youth, freedom, and relaxation—perfect for laid-back personalities, vacation-goers, and summer lovers of all genders.</p>
                     <a href="#" class="showcase-button">Explore Collection</a>
                 </div>
@@ -57,7 +113,7 @@
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>Soft Spot Collection</h2>
+                    <section class="horizontal-section"><h2>Soft Spot Collection</h2></section>
                     <p>Warm, intimate, and effortlessly comforting, this collection is made for those who seek romance. Perfect for cozy moments and close encounters, each scent creates a soft, alluring presence that captures the essence of warmth and affection. Ideal for those who cherish quiet connection and tender intimacy.</p>
                     <a href="#" class="showcase-button">View Collection</a>
                 </div>
@@ -70,7 +126,7 @@
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>Nightlife Collection</h2>
+                    <section class="horizontal-section"><h2>Nightlife</h2></section>
                     <p>Bold, confident, and designed to stand out, this collection is for those who thrive after dark. Perfect for nights out, parties, and unforgettable moments, each fragrance delivers an intense, attention-grabbing presence. With daring and seductive notes, these scents are made for anyone who embraces the excitement and energy of the nightlife.</p>
                     <a href="/nightlife-collection" class="showcase-button">View Collection</a>
                 </div>
@@ -81,7 +137,7 @@
     <!-- Combined Universe and Notes Section -->
     <div class="combined-section">
         <!-- Universe Section -->
-        <section class="universe-section">
+        <section class="universe-section avoid-dark-mode">
             <div class="universe-heading">
                 <h2>Discover Our Universe</h2>
                 <p>Immerse yourself in the world of Aloura, where artistry meets alchemy in perfect harmony.</p>

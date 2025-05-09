@@ -9,6 +9,7 @@ html {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
     scroll-behavior: smooth;
+    background: white;
 }
 
 body {
@@ -41,6 +42,7 @@ body {
 
 .hero-text h1 {
     font-size: 5rem;
+    font-family: "Times New Roman", Times, serif;
     letter-spacing: 0.5em;
     margin-right: -0.5em;
     font-weight: 300;
@@ -49,6 +51,7 @@ body {
 
 .hero-subtitle {
     font-size: 1.5rem;
+    font-family: "Times New Roman", Times, serif;
     margin-top: 1rem;
     letter-spacing: 0.2em;
     animation: fadeInUp 1s ease-out 0.3s backwards;
@@ -331,6 +334,7 @@ body {
 
 .content-inner h2 {
     font-size: 3rem;
+    font-family: "Times New Roman", Times, serif;
     margin-bottom: 2rem;
     font-weight: 300;
     opacity: 0;
@@ -341,6 +345,7 @@ body {
 
 .content-inner p {
     font-size: 1.2rem;
+    font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
     margin-bottom: 2rem;
     opacity: 0;
@@ -350,6 +355,7 @@ body {
 }
 
 .showcase-button {
+    font-family: "Times New Roman", Times, serif;
     display: inline-block;
     padding: 1rem 2rem;
     border: 1px solid #000;
@@ -408,6 +414,7 @@ body {
 
 .universe-heading h2 {
     font-size: 3.5rem;
+    font-family: "Times New Roman", Times, serif;
     font-weight: 300;
     margin-bottom: 1rem;
     background: linear-gradient(45deg, #fff 20%, #a3a3a3 40%, #fff 60%, #a3a3a3 80%);
@@ -419,6 +426,7 @@ body {
 
 .universe-heading p {
     font-size: 1.2rem;
+    font-family: "Times New Roman", Times, serif;
     color: #a3a3a3;
     max-width: 600px;
     margin: 0 auto;
@@ -482,6 +490,7 @@ body {
 
 .universe-card h3 {
     font-size: 2rem;
+    font-family: "Times New Roman", Times, serif;
     font-weight: 300;
     margin-bottom: 1.5rem;
     background: linear-gradient(45deg, #fff 20%, #a3a3a3 40%, #fff 60%, #a3a3a3 80%);
@@ -493,6 +502,7 @@ body {
 
 .universe-card p {
     font-size: 1rem;
+    font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
     color: #a3a3a3;
     margin-bottom: 2rem;
@@ -500,6 +510,7 @@ body {
 
 .universe-card-btn {
     display: inline-block;
+    font-family: "Times New Roman", Times, serif;
     padding: 1rem 2.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
@@ -574,6 +585,7 @@ body {
 .section-title {
     text-align: center;
     font-size: 2.8rem;
+    font-family: "Times New Roman", Times, serif;
     margin-bottom: 1rem;
     font-weight: 300;
     color: #1a1a1a;
@@ -583,6 +595,7 @@ body {
 .section-subtitle {
     text-align: center;
     font-size: 1.1rem;
+    font-family: "Times New Roman", Times, serif;
     color: #666;
     margin-bottom: 3.5rem;
     font-weight: 300;
@@ -650,6 +663,7 @@ body {
 
 .note-overlay {
     position: absolute;
+    font-family: "Times New Roman", Times, serif;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -683,6 +697,7 @@ body {
 
 .note-overlay p {
     font-size: 1rem;
+    font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
     color: rgba(255,255,255,0.9);
     margin-bottom: 1.5rem;
@@ -699,6 +714,7 @@ body {
 
 .note-link {
     display: inline-block;
+    font-family: "Times New Roman", Times, serif;
     padding: 0.9rem 2.2rem;
     border: 1px solid rgba(255,255,255,0.3);
     color: #fff;
