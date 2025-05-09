@@ -302,3 +302,139 @@ window.addEventListener("DOMContentLoaded", () => {
       });
   };
 });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("profile-picture");
+        const preview = document.getElementById("profile-picture-preview");
+
+        fileInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            preview.src = URL.createObjectURL(file);
+          }
+        });
+      });
+
+      addUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent form from submitting
+
+        const name = document.getElementById("adduser-name").value.trim();
+        const email = document.getElementById("adduser-email").value.trim();
+        const phone = document.getElementById("adduser-phone").value.trim();
+        const password = document.getElementById("adduser-password").value;
+        const confirmPassword = document.getElementById(
+          "adduser-confirm-password"
+        ).value;
+        const profilePicture =
+          document.getElementById("profile-picture").files[0];
+
+        // Validation
+        if (name === "") {
+          showFunToast("❗ Please enter your name.", "red");
+          return;
+        }
+
+        if (name.length < 3) {
+          showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
+          return;
+        }
+        if (name.length > 50) {
+          showFunToast(
+            "📏 Whoa! Username's way too long. Keep it under 50 characters!",
+            "red"
+          );
+          return;
+        }
+
+        if (email === "" || !validateEmail(email)) {
+          showFunToast("📧 Please enter a valid email address.", "red");
+          return;
+        }
+
+        if (phone === "" || !validatePhone(phone)) {
+          showFunToast("📱 Please enter a valid phone number.", "red");
+          return;
+        }
+
+        if (password.length < 6) {
+          showFunToast(
+            "🔒 Password must be at least 6 characters long.",
+            "red"
+          );
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          showFunToast("🔒 Passwords do not match.", "red");
+          return;
+        }
+
+        const formData = new FormData(); // <-- This is special, different than {}
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("password", password);
+
+        if (profilePicture) {
+          formData.append("profilePicture", profilePicture);
+        }
+
+        fetch("http://localhost:3000/signup", {
+          method: "POST",
+          body: formData,
+        })
+          .then(async (response) => {
+            const data = await response.json();
+
+            if (response.ok) {
+              showFunToast(
+                data.message || "✅ User Created successfully!",
+                "green"
+              );
+              setTimeout(() => {
+                window.location.href = "/admin/:id"; // Redirect to the user's page
+              }, 1000);
+            } else {
+              showFunToast(data.message || "❗ An error occurred.", "red");
+            }
+          })
+          .catch((error) => {
+            showFunToast(error.message || "❗ An error occurred.", "red");
+          });
+
+        function validateEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+        }
+
+        function validatePhone(phone) {
+          const re = /^[0-9]{10,15}$/;
+          return re.test(phone);
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const setupPasswordToggle = (inputId, iconId) => {
+          const input = document.getElementById(inputId);
+          const icon = document.getElementById(iconId);
+
+          if (!input || !icon) return;
+
+          icon.parentElement.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+
+            icon.classList.toggle("fa-lock", !isPassword);
+            icon.classList.toggle("fa-lock-open", isPassword);
+          });
+        };
+
+
+        setupPasswordToggle("adduser-password", "addUserPasswordIcon");
+        setupPasswordToggle(
+          "adduser-confirm-password",
+          "addUserConfirmPasswordIcon"
+        );
+      });
+    

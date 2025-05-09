@@ -4,50 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfume Store Admin</title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/img/favicons/rounded-background-favicon.ico"
+    />
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/css/admin.css" />
-    <script type="module" src="/js/admin.js"></script>
+    <link rel="stylesheet" href="/css/page-loader.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link
-    rel="icon"
-    type="image/x-icon"
-    href="/img/favicons/rounded-background-favicon.ico"
-  />
-    <link
-      rel="stylesheet"
-      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
-    />
-    <link rel="shortcut icon" href="./img/ali.png" type="image/x-icon" />
-    <link href="./css/bootstrap.min.css" rel="stylesheet" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="./img/favicons/rounded-background-favicon.ico"
-    />
-    <!-- Bootstrap CSS -->
-    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap Icons -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap JavaScript (for tooltips) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+
+    <!-- JavaScript -->
+    <script type="module" src="/js/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <link rel="stylesheet" href="/css/page-loader.css" />
   </head>
+
   <body>
+    <!-- Admin Layout -->
     <div class="admin-layout"></div>
+
+    <!-- Sidebar -->
     <div class="sidebar">
       <h2>Admin Panel</h2>
       <ul>
@@ -61,6 +60,7 @@
       </ul>
     </div>
 
+    <!-- Main Content -->
     <div class="main">
       <header>
         <h1>Welcome, Admin</h1>
@@ -86,81 +86,85 @@
             <h3>Users</h3>
             <p>1,239</p>
           </div>
-          <!-- Add to your dashboard section (after the cards div) -->
-          <div class="dashboard-highlights">
-            <!-- 1. Key Metrics -->
-            <div class="metrics-grid">
-              <div class="metric-card">
-                <h3>Today's Sales</h3>
-                <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
-              </div>
-              <div class="metric-card">
-                <h3>New Customers</h3>
-                <p>24 <span class="metric-change down">▼ 3%</span></p>
-              </div>
-              <div class="metric-card">
-                <h3>Avg. Order</h3>
-                <p>$87 <span class="metric-change up">▲ 5%</span></p>
-              </div>
-              <div class="metric-card">
-                <h3>Conversion</h3>
-                <p>3.2% <span class="metric-change">→</span></p>
+        </div>
+
+        <!-- Dashboard Highlights -->
+        <div class="dashboard-highlights">
+          <!-- Key Metrics -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <h3>Today's Sales</h3>
+              <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+            </div>
+            <div class="metric-card">
+              <h3>New Customers</h3>
+              <p>24 <span class="metric-change down">▼ 3%</span></p>
+            </div>
+            <div class="metric-card">
+              <h3>Avg. Order</h3>
+              <p>$87 <span class="metric-change up">▲ 5%</span></p>
+            </div>
+            <div class="metric-card">
+              <h3>Conversion</h3>
+              <p>3.2% <span class="metric-change">→</span></p>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="dashboard-charts">
+            <!-- Monthly Sales Card -->
+            <div class="chart-card">
+              <h3>Monthly Sales</h3>
+              <div class="chart-data">
+                <div class="data-row">
+                  <span>January</span>
+                  <span>$1,250</span>
+                </div>
+                <div class="data-row">
+                  <span>February</span>
+                  <span>$1,900</span>
+                </div>
+                <div class="data-row">
+                  <span>March</span>
+                  <span>$2,100</span>
+                </div>
+                <div class="data-row highlight">
+                  <span>Current Month</span>
+                  <span>$2,400</span>
+                </div>
               </div>
             </div>
-            <!-- Add this where you want the charts in your admin.ejs file -->
-            <div class="dashboard-charts">
-              <!-- Monthly Sales Card -->
-              <div class="chart-card">
-                <h3>Monthly Sales</h3>
-                <div class="chart-data">
-                  <div class="data-row">
-                    <span>January</span>
-                    <span>$1,250</span>
-                  </div>
-                  <div class="data-row">
-                    <span>February</span>
-                    <span>$1,900</span>
-                  </div>
-                  <div class="data-row">
-                    <span>March</span>
-                    <span>$2,100</span>
-                  </div>
-                  <div class="data-row highlight">
-                    <span>Current Month</span>
-                    <span>$2,400</span>
-                  </div>
+
+            <!-- Top Fragrances Card -->
+            <div class="chart-card">
+              <h3>Top Fragrances</h3>
+              <div class="chart-data">
+                <div class="data-row">
+                  <span>1. Chanel No.5</span>
+                  <span>85 sold</span>
+                </div>
+                <div class="data-row">
+                  <span>2. Dior Sauvage</span>
+                  <span>72 sold</span>
+                </div>
+                <div class="data-row">
+                  <span>3. Khamrah</span>
+                  <span>58 sold</span>
+                </div>
+                <div class="data-row highlight">
+                  <span>Bestseller</span>
+                  <span>Chanel No.5</span>
                 </div>
               </div>
-              <!-- Top Fragrances Card -->
-              <div class="chart-card">
-                <h3>Top Fragrances</h3>
-                <div class="chart-data">
-                  <div class="data-row">
-                    <span>1. Chanel No.5</span>
-                    <span>85 sold</span>
-                  </div>
-                  <div class="data-row">
-                    <span>2. Dior Sauvage</span>
-                    <span>72 sold</span>
-                  </div>
-                  <div class="data-row">
-                    <span>3. Khamrah</span>
-                    <span>58 sold</span>
-                  </div>
-                  <div class="data-row highlight">
-                    <span>Bestseller</span>
-                    <span>Chanel No.5</span>
-                  </div>
-                </div>
-              </div>
-              <!-- 6. Seasonal Highlights -->
-              <div class="seasonal-alert">
-                <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
-                <p>
-                  Floral scents trending! Create a "Spring Blossom" collection.
-                </p>
-                <button class="promo-btn">Launch Campaign</button>
-              </div>
+            </div>
+
+            <!-- Seasonal Highlights -->
+            <div class="seasonal-alert">
+              <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
+              <p>
+                Floral scents trending! Create a "Spring Blossom" collection.
+              </p>
+              <button class="promo-btn">Launch Campaign</button>
             </div>
           </div>
         </div>
@@ -174,12 +178,10 @@
             >Add Product</a
           >
         </div>
-        <br />
-        <br />
+
         <% if (fragrance.length === 0) { %>
         <h1 style="text-align: center">No Products To Show</h1>
         <% } else { %>
-
         <div class="product-grid">
           <% fragrance.forEach((product) => { %>
           <div class="product-card">
@@ -196,37 +198,41 @@
                 </div>
                 <div class="notes-list">
                   <div class="note">
-                    <p>
-                     <%= product.description %>
-                    </p>
-                    <span class="product-date"
-                      ><%= moment(product.releaseDate).format(("dddd, MMMM Do YYYY")) %></span
-                    >
+                    <p><%= product.description %></p>
+                    <span class="product-date">
+                      <%= moment(product.releaseDate).format(("dddd, MMMM Do
+                      YYYY")) %>
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="product-actions">
-              <a class="product-btn edit" href="/editFragrance/<%= product._id %>" style="text-decoration: none;">Edit</a>
-              <button class="product-btn delete"
-              data-fragrance-id="<%= product._id %>"
-              onclick="deleteProduct(this)"
-              
-              >Delete</button>
+              <a
+                class="product-btn edit"
+                href="/editFragrance/<%= product._id %>"
+                style="text-decoration: none"
+                >Edit</a
+              >
+              <button
+                class="product-btn delete"
+                data-fragrance-id="<%= product._id %>"
+                onclick="deleteProduct(this)"
+              >
+                Delete
+              </button>
             </div>
           </div>
-
           <% }) %>
         </div>
-
         <% } %>
       </section>
 
       <!-- Orders Section -->
-      <!-- Add this to your Orders section -->
       <section id="section-orders" class="section">
         <h2>Manage Orders</h2>
-        <!-- Order Analytics Dashboard -->
+
+        <!-- Order Analytics -->
         <div class="order-analytics">
           <div class="analytics-card">
             <h3>Order Conversion Rate</h3>
@@ -247,6 +253,7 @@
             <p>Of total orders</p>
           </div>
         </div>
+
         <!-- Gift Service Hub -->
         <div class="gift-service-hub">
           <h3><i class="icon-gift"></i> Gift Orders</h3>
@@ -277,6 +284,7 @@
             </div>
           </div>
         </div>
+
         <!-- Orders Table -->
         <table>
           <thead>
@@ -321,7 +329,8 @@
       <!-- Users Section -->
       <section id="section-users" class="section">
         <h2>Manage Users</h2>
-        <!-- User Analytics Dashboard -->
+
+        <!-- User Analytics -->
         <div class="user-analytics">
           <div class="analytics-card">
             <h3>New Users (30d)</h3>
@@ -339,43 +348,15 @@
             <div class="metric-change down">▼ 5% from last quarter</div>
           </div>
         </div>
-        <!-- Segmentation Tools -->
-        <div class="segmentation-tools">
-          <div class="tool-header">
-            <h3><i class="icon-filter"></i> User Segments</h3>
-            <button class="btn-create-segment">+ New Segment</button>
-          </div>
-          <div class="segment-filters">
-            <div class="filter-group">
-              <label>Loyalty Tier</label>
-              <select class="form-input">
-                <option>All tiers</option>
-                <option>Gold ($500+)</option>
-                <option>Silver ($200-$499)</option>
-                <option>Bronze ($200)</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Last Active</label>
-              <select class="form-input">
-                <option>Any time</option>
-                <option>Past 7 days</option>
-                <option>Past 30 days</option>
-                <option>90+ days inactive</option>
-              </select>
-            </div>
-            <button class="btn-apply">Apply Filters</button>
-          </div>
-        </div>
-        <% if (arr.length===0) { %>
-        <h1 style="text-align: center">No Data To Show</h1>
-        <% } %> <% if (arr.length>0) { %>
 
+        <!-- User Management -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <!-- Add User Button on the left -->
-          <a class="btn ButtonDicoration" href="/addUser">AddUser</a>
-
-          <!-- Search Form on the right -->
+          <a
+            class="btn ButtonDicoration"
+            data-bs-toggle="modal"
+            data-bs-target="#addUserModal"
+            >Add User</a
+          >
           <form class="d-flex" role="search">
             <input
               class="form-control me-2"
@@ -387,6 +368,191 @@
           </form>
         </div>
 
+        <!-- Add User Modal -->
+        <div
+          class="modal fade"
+          id="addUserModal"
+          tabindex="-1"
+          aria-labelledby="addUserModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="addUserModalLabel">Add User</h4>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="containerr">
+                  <div class="addusercard row justify-content-center">
+                    <div class="col-md-20">
+                      <div class="form-wrapper">
+                        <form id="addUserForm">
+                          <!-- Profile Picture -->
+                          <div class="mb-3 text-center">
+                            <label for="profile-picture" class="form-label"
+                              >Profile Picture</label
+                            >
+                            <div class="d-flex flex-column align-items-center">
+                              <img
+                                id="profile-picture-preview"
+                                src="../uploads/defaultProfilePic.png"
+                                alt="Profile Preview"
+                                class="rounded-circle mb-2"
+                                style="
+                                  width: 120px;
+                                  height: 120px;
+                                  object-fit: cover;
+                                  border: 2px solid #ccc;
+                                "
+                              />
+                              <input
+                                type="file"
+                                class="d-none"
+                                id="profile-picture"
+                                name="profilePicture"
+                                accept="image/*"
+                              />
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
+                                onclick="document.getElementById('profile-picture').click();"
+                                style="width: 120px"
+                              >
+                                Upload Picture
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- User Details -->
+                          <div class="mb-3">
+                            <label for="adduser-name" class="form-label"
+                              >Full Name</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="adduser-name"
+                              placeholder="Full Name"
+                              name="name"
+                            />
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="adduser-email" class="form-label"
+                              >Email address</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="adduser-email"
+                              placeholder="Your Email*"
+                              name="email"
+                            />
+                          </div>
+
+                          <div class="mb-2">
+                            <label for="phone" class="form-label"
+                              >Phone Number</label
+                            >
+                            <div class="input-group">
+                              <span class="input-group-text" id="phone"
+                                >+20</span
+                              >
+                              <input
+                                type="tel"
+                                name="phone"
+                                class="form-control"
+                                placeholder="Phone number*"
+                                aria-label="Phone"
+                                aria-describedby="phone"
+                                maxlength="10"
+                                id="adduser-phone"
+                                pattern="\d{10}"
+                                inputmode="numeric"
+                                oninput="this.value = this.value.replace(/\D/g, '')"
+                              />
+                            </div>
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="adduser-password" class="form-label"
+                              >Password</label
+                            >
+                            <div class="input-group">
+                              <input
+                                name="password"
+                                type="password"
+                                class="form-control"
+                                id="adduser-password"
+                                placeholder="Create a password*"
+                              />
+                              <span
+                                class="input-group-text password-toggle cursor-pointer"
+                                id="addUserPasswordToggle"
+                              >
+                                <i
+                                  class="fa-solid fa-lock"
+                                  id="addUserPasswordIcon"
+                                ></i>
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="mb-3">
+                            <label
+                              for="adduser-confirm-password"
+                              class="form-label"
+                              >Confirm Password</label
+                            >
+                            <div class="input-group">
+                              <input
+                                name="Confirm Password"
+                                type="password"
+                                class="form-control"
+                                id="adduser-confirm-password"
+                                placeholder="Confirm password*"
+                              />
+                              <span
+                                class="input-group-text password-toggle cursor-pointer"
+                                id="addUserConfirmPasswordToggle"
+                              >
+                                <i
+                                  class="fa-solid fa-lock"
+                                  id="addUserConfirmPasswordIcon"
+                                ></i>
+                              </span>
+                            </div>
+                          </div>
+
+                          <p class="adduser-confirm-password"></p>
+                          <button
+                            type="submit"
+                            id="signup-button-diffcolor"
+                            class="signupButton btn btn-primary w-100 ButtonDicoration"
+                          >
+                            Add User
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <% if (arr.length === 0) { %>
+        <h1 style="text-align: center">No Data To Show</h1>
+        <% } else { %>
         <table
           class="text-center mx-auto table mt-4 table-striped table-bordered"
         >
@@ -413,23 +579,15 @@
               <td><%= moment(user.updatedAt).fromNow() %></td>
               <td><%= user.role %></td>
               <td class="d-flex justify-content-center actionlist">
-                <!-- <a
-                  data-bs-toggle="tooltip"
-                  data-bs-title="View details"
-                  data-bs-placement="top"
-                  class="btn ButtonDicoration btn-sm"
-                  href="./user/view.html"
-                  ><i class="bi bi-eye"></i
-                ></a> -->
-
                 <a
                   data-bs-toggle="tooltip"
                   data-bs-title="Edit user"
                   data-bs-placement="top"
                   class="btn ButtonDicoration btn-sm"
                   href="/editUser/<%= user._id %>"
-                  ><i class="bi bi-pencil"></i
-                ></a>
+                >
+                  <i class="bi bi-pencil"></i>
+                </a>
                 <button
                   data-bs-toggle="tooltip"
                   data-bs-title="Delete user"
@@ -440,8 +598,6 @@
                 >
                   <i class="bi bi-trash"></i>
                 </button>
-
-
               </td>
             </tr>
             <% }) %>
@@ -453,6 +609,7 @@
       <!-- Reviews Section -->
       <section id="section-reviews" class="section">
         <h2>Product Reviews</h2>
+
         <!-- Reviews Analytics -->
         <div class="reviews-analytics">
           <div class="analytics-card">
@@ -489,7 +646,8 @@
             </div>
           </div>
         </div>
-        <!-- Reviews Moderation Tools -->
+
+        <!-- Reviews Moderation -->
         <div class="moderation-controls">
           <div class="filter-options">
             <select class="form-input">
@@ -506,9 +664,10 @@
             <button class="btn-bulk-delete">Delete Selected</button>
           </div>
         </div>
-        <!-- Reviews List (Existing) -->
+
+        <!-- Reviews List -->
         <div class="reviews-container">
-          <!-- Review 1 -->
+          <!-- Review Cards -->
           <div class="review-card">
             <div class="review-header">
               <span class="review-author">John D.</span>
@@ -526,7 +685,7 @@
               <button class="btn-delete">Delete</button>
             </div>
           </div>
-          <!-- Review 2 -->
+
           <div class="review-card">
             <div class="review-header">
               <span class="review-author">Sarah M.</span>
@@ -544,7 +703,7 @@
               <button class="btn-delete">Delete</button>
             </div>
           </div>
-          <!-- Review 3 -->
+
           <div class="review-card">
             <div class="review-header">
               <span class="review-author">Alex T.</span>
@@ -562,6 +721,7 @@
               <button class="btn-delete">Delete</button>
             </div>
           </div>
+
           <div class="review-card flagged">
             <div class="review-meta">
               <span class="review-product">Chanel No. 5</span>
@@ -586,14 +746,18 @@
       <!-- Settings Section -->
       <section id="section-settings" class="section">
         <h2>Site Settings</h2>
+
+        <!-- Settings Tabs -->
         <div class="settings-tabs">
           <button class="tab-btn active" data-tab="general">General</button>
           <button class="tab-btn" data-tab="appearance">Appearance</button>
           <button class="tab-btn" data-tab="seo">SEO</button>
           <button class="tab-btn" data-tab="social">Social Media</button>
         </div>
+
+        <!-- Settings Content -->
         <div class="settings-content">
-          <!-- General Settings Tab -->
+          <!-- General Settings -->
           <div class="tab-pane active" id="general-tab">
             <form class="settings-form">
               <div class="form-group">
@@ -634,7 +798,8 @@
               </button>
             </form>
           </div>
-          <!-- Appearance Settings Tab -->
+
+          <!-- Appearance Settings -->
           <div class="tab-pane" id="appearance-tab">
             <form class="settings-form">
               <div class="form-group">
@@ -684,7 +849,8 @@
               </button>
             </form>
           </div>
-          <!-- SEO Settings Tab -->
+
+          <!-- SEO Settings -->
           <div class="tab-pane" id="seo-tab">
             <form class="settings-form">
               <div class="form-group">
@@ -720,7 +886,8 @@ Welcome to our online store featuring the best products at competitive prices.</
               <button type="submit" class="save-btn">Save SEO Settings</button>
             </form>
           </div>
-          <!-- Social Media Tab -->
+
+          <!-- Social Media Settings -->
           <div class="tab-pane" id="social-tab">
             <form class="settings-form">
               <div class="form-group">

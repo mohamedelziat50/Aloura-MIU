@@ -8,7 +8,6 @@ import {
   getAllFragrances,
   getAdmin,
   getAddFragrance,
-  getAddUser,
   editUser,
   geteditFragrance,
   getCollectionsPage,
@@ -17,6 +16,7 @@ import {
   getFragranceQuizPage,
   getOurStoryPage,
   getNightlifeCollectionPage,
+  getCheckout,
 } from "../controllers/frontend.js"; // Import the getAdmin function
 
 const router = express.Router();
@@ -46,9 +46,9 @@ router.get("/gifting", getGiftingPage);
 router.get("/fragrance-quiz", getFragranceQuizPage);
 router.get("/our-story", getOurStoryPage);
 router.get("/nightlife-collection", getNightlifeCollectionPage);
+router.get("/checkout", auth(["user", "admin"]),getCheckout);
 router.get("/admin/:id", auth(["admin"]), getAdmin);
 router.get("/addFragrance", auth(["admin"]), getAddFragrance);
-router.get("/addUser", auth(["admin"]), getAddUser);
 router.get("/editUser/:id", auth(["admin"]), editUser);
 router.get("/editFragrance/:id", auth(["admin"]), geteditFragrance);
 

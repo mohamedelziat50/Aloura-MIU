@@ -10,6 +10,10 @@ export const getAllFragrances = (req, res) => {
   res.render("all-fragrances");
 };
 
+export const getCheckout = (req, res) => {
+  res.render("checkout");
+};
+
 export const getCollectionsPage = (req, res) => {
   res.render("collections");
 };
@@ -52,8 +56,6 @@ export const getAdmin = async (req, res) => {
 export const getAddFragrance = (req, res) => {
   res.render("admin/addFragrance");
 };
-
-export const getAddUser = async (req, res) => res.render("admin/addUser");
 
 export const geteditFragrance = async (req, res) => {
   try {
