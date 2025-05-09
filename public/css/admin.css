@@ -44,7 +44,6 @@ body {
   cursor: pointer;
   transition: all 0.3s;
   border-bottom: 1px solid #333;
-
 }
 
 .sidebar ul li:hover {
@@ -1262,12 +1261,9 @@ canvas {
   margin-bottom: 8px;
 }
 
-
-.actionlist a{
-  margin-right : 5px;
-  
+.actionlist a {
+  margin-right: 5px;
 }
-
 
 .product-grid {
   display: grid;
@@ -1279,13 +1275,13 @@ canvas {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .product-avatar {
@@ -1377,8 +1373,6 @@ canvas {
   max-height: 90vh;
   overflow-y: auto;
 }
-
-
 
 @media (max-width: 768px) {
   .dashboard-charts {
