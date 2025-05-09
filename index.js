@@ -31,7 +31,7 @@ app.use("/api/fragrances/", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.render("404");
 });
 
