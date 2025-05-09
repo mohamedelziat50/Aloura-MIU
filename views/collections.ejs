@@ -1,69 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- META DATA -->
-    <!-- Define type of characters used in our website -->
-    <meta charset="UTF-8" />
-    <!-- Keywords for search engine: will be useful when publishing -->
-    <meta name="keywords" content="Perfumes, Fragrances" />
-    <!--  Different devices with different resolutions-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Description displayed in search engine -->
-    <meta
-      name="description"
-      content="Discover suitable high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
-    />
-    <title>Collections - Aloura</title>
-    <!-- END OF META DATA -->
-
-    <!-- Tab Logo / 'Favicon' -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="../img/favicons/rounded-background-favicon.ico"
-    />
-
-    <!-- Scrolly's animations-related -->
-
-    <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <!-- Bootstrap CSS & JS(navbar, footer, modal, cart all use it's functionality SO MAKE SURE TO LINK IT) -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- CSS Links (Connecting the CSS file to this file) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections | Aloura</title>
     <link rel="stylesheet" href="/css/collections-dimension.css">
+    <link rel="stylesheet" href="/css/navBar.css">
 </head>
 <body>
-    <!-- Loader -->
-    <%- include('partials/loader.ejs') %>
-
-    <!-- Navbar -->
-    <%- include('partials/navbar.ejs') %>
-
-    <!-- Modal -->
-    <%- include('partials/modal.ejs') %>
-
-    <!-- Cart -->
-    <%- include('partials/cart.ejs') %>
-
-    <!-- Chatbot -->
-    <%- include('partials/chatbot.ejs') %>
-
-    <!-- Dark Mode -->
-    <%- include('partials/dark-mode.ejs') %>
+    <%- include('partials/navbar') %>
 
     <!-- Progress Indicator -->
     <div class="scroll-progress">
@@ -95,12 +40,12 @@
     <section class="collection-showcase">
         <div class="module-block">
             <div class="image-container">
-                <img src="/img/fresh.jpg" alt="Signature Collection">
+                <img src="https://gretastravels.com/wp-content/uploads/2017/02/Saona-1024x1024.jpg.webp" alt="Signature Collection">
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>Signature Collection</h2>
-                    <p>Discover our iconic fragrances, carefully crafted to embody the essence of luxury and sophistication. Each scent tells a unique story, creating an unforgettable olfactory experience.</p>
+                    <h2>Summer Collection</h2>
+                    <p>Fresh, uplifting scents inspired by sun-soaked days and coastal escapes. This collection captures the spirit of youth, freedom, and relaxation—perfect for laid-back personalities, vacation-goers, and summer lovers of all genders.</p>
                     <a href="#" class="showcase-button">Explore Collection</a>
                 </div>
             </div>
@@ -108,12 +53,12 @@
 
         <div class="module-block reverse">
             <div class="image-container">
-                <img src="/img/spicy.jpg" alt="For Him">
+                <img src="https://static.vecteezy.com/system/resources/previews/032/194/381/large_2x/romantic-dinner-setting-for-two-a-cozy-table-with-a-bouquet-of-roses-as-the-focal-point-free-photo.jpg" alt="For Him">
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>For Him</h2>
-                    <p>Bold and sophisticated fragrances designed for the modern gentleman. Our masculine collection combines strength with elegance, creating distinctive scents that leave a lasting impression.</p>
+                    <h2>Soft Spot Collection</h2>
+                    <p>Warm, intimate, and effortlessly comforting, this collection is made for those who seek romance. Perfect for cozy moments and close encounters, each scent creates a soft, alluring presence that captures the essence of warmth and affection. Ideal for those who cherish quiet connection and tender intimacy.</p>
                     <a href="#" class="showcase-button">View Collection</a>
                 </div>
             </div>
@@ -121,13 +66,13 @@
 
         <div class="module-block">
             <div class="image-container">
-                <img src="/img/floral.jpg" alt="For Her">
+                <img src="https://static.visa2fly.com/blog/blog-production/best-nightlife-cities/best-nightlife-cities.jpeg" alt="For Her">
             </div>
             <div class="content-container">
                 <div class="content-inner">
-                    <h2>For Her</h2>
-                    <p>Delicate yet powerful, our feminine collection captures the essence of modern elegance. Each fragrance is a masterpiece of refined notes that celebrate feminine beauty and confidence.</p>
-                    <a href="#" class="showcase-button">View Collection</a>
+                    <h2>Nightlife Collection</h2>
+                    <p>Bold, confident, and designed to stand out, this collection is for those who thrive after dark. Perfect for nights out, parties, and unforgettable moments, each fragrance delivers an intense, attention-grabbing presence. With daring and seductive notes, these scents are made for anyone who embraces the excitement and energy of the nightlife.</p>
+                    <a href="/nightlife-collection" class="showcase-button">View Collection</a>
                 </div>
             </div>
         </div>
@@ -136,7 +81,7 @@
     <!-- Combined Universe and Notes Section -->
     <div class="combined-section">
         <!-- Universe Section -->
-        <section class="universe-section avoid-dark-mode">
+        <section class="universe-section">
             <div class="universe-heading">
                 <h2>Discover Our Universe</h2>
                 <p>Immerse yourself in the world of Aloura, where artistry meets alchemy in perfect harmony.</p>
@@ -173,7 +118,7 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/fruity.jpg" alt="Fruity Notes">
+                                    <img src="/img/notes/fruity.jpg" alt="Fruity Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Fruity Notes</h3>
@@ -186,7 +131,7 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/spicy.jpg" alt="Spicy Notes">
+                                    <img src="/img/notes/spicy.jpg" alt="Spicy Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Spicy Notes</h3>
@@ -199,7 +144,7 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/new_floral.jpg" alt="Floral Notes">
+                                    <img src="/img/notes/new_floral.jpg" alt="Floral Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Floral Notes</h3>
@@ -212,7 +157,7 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/leathery.jpg" alt="Woody Notes">
+                                    <img src="/img/notes/Woody.jpg" alt="Woody Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Woody Notes</h3>
@@ -225,7 +170,20 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/new_aromatic__green.jpg" alt="Fresh Notes">
+                                    <img src="/img/notes/leathery.jpg" alt="Woody Notes">
+                                </div>
+                                <div class="note-overlay">
+                                    <h3>Leathery Notes</h3>
+                                    <p>Rich and complex aromas of precious woods, creating distinguished masculine essence</p>
+                                    <a href="#" class="note-link">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note-item">
+                            <div class="note-inner">
+                                <div class="note-front">
+                                    <img src="/img/notes/new_aromatic__green.jpg" alt="Fresh Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Fresh Notes</h3>
@@ -238,7 +196,7 @@
                         <div class="note-item">
                             <div class="note-inner">
                                 <div class="note-front">
-                                    <img src="/img/fresh.jpg" alt="Sweet Notes">
+                                    <img src="/img/notes/new_sweet.jpg" alt="Sweet Notes">
                                 </div>
                                 <div class="note-overlay">
                                     <h3>Sweet Notes</h3>
@@ -254,9 +212,6 @@
             </div>
         </section>
     </div>
-
-    <!-- Footer -->
-    <%- include('partials/footer.ejs') %>
 
     <script>
         // Smooth scroll behavior
@@ -405,3 +360,4 @@
     </script>
 </body>
 </html>
+``` 
