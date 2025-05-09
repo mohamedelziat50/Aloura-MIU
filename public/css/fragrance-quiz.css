@@ -496,7 +496,8 @@ nav {
     z-index: 100000000000000;
     background-color: rgba(252,250,246, 0.95);
     backdrop-filter: blur(5px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+    
 }
 
 /* Loading Bar Animation */
@@ -529,8 +530,8 @@ nav {
 
 /* Progress Bar */
 .progress-bar {
-    width: 100%;
-    height: 4px;
+    width: 0%;
+    height: 0px;
     background-color: #eee;
     margin: 0 0 40px 0;
     border-radius: 2px;
@@ -544,6 +545,49 @@ nav {
     width: 0;
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 2px;
+}
+
+/* Quiz Navbar Progress Bar */
+.quiz-navbar-progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 420px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    pointer-events: none;
+    transition: opacity 0.9s;
+}
+
+.quiz-navbar-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #D4C2A6;
+    border-radius: 8px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
+    box-shadow: 0 2px 12px 0 #d4c2a655;
+}
+
+nav:hover ~ .quiz-navbar-progress-bar-container,
+nav:focus-within ~ .quiz-navbar-progress-bar-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+nav .links ul {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+nav:hover .links ul,
+nav:focus-within .links ul {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Question Slides Container */
@@ -1113,8 +1157,8 @@ nav {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
     padding-top: 48px !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: -30px !important;
     font-size: 48px !important;
     text-align: center;
     letter-spacing: 2px !important;
@@ -1414,8 +1458,8 @@ nav {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
     padding-top: 48px !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: -30px !important;
     font-size: 48px !important;
     text-align: center;
     letter-spacing: 2px !important;
@@ -1571,8 +1615,8 @@ nav {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
     padding-top: 48px !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: -30px !important;
     font-size: 48px !important;
     text-align: center;
     letter-spacing: 2px !important;
@@ -1727,8 +1771,8 @@ nav {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
     padding-top: 48px !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: -30px !important;
     font-size: 48px !important;
     text-align: center;
     letter-spacing: 2px !important;
@@ -1884,8 +1928,8 @@ nav {
     font-family: 'Jost', sans-serif !important;
     font-weight: 400 !important;
     padding-top: 48px !important;
-    margin-top: 0 !important;
-    margin-bottom: 12px !important;
+    margin-top: 20px !important;
+    margin-bottom: -30px !important;
     font-size: 48px !important;
     text-align: center;
     letter-spacing: 2px !important;
@@ -2369,13 +2413,13 @@ nav {
 }
 
 #desiredFeeling .option span {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
-    margin-top: 50px;
-    color: #333;
+    margin-top: 0px;
+    color: black;
 }
 
 #desiredFeeling .option.selected span {
@@ -2620,3 +2664,19 @@ nav {
     margin: 0 auto;
     padding: 0 20px; /* Add padding to avoid edge issues */
 }
+
+body.fragrance-quiz-page nav {
+    height: 70px !important;
+    min-height: 62px !important;
+    box-shadow: 0 6px 24px -4px rgba(44, 44, 34, 0.18);
+    background-color: #fff !important;
+  }
+  
+  body.fragrance-quiz-page .left-container-nav {
+    height: 62px !important;
+    align-items: center;
+  }
+  
+  body.fragrance-quiz-page .quiz-navbar-progress-bar-outer {
+    height: 40px !important;
+  }

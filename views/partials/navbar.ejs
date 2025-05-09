@@ -27,6 +27,22 @@
         <img src="/img/logo.png" alt="Logo" />
       </a>
     </div>
+    <% if (typeof showQuizProgressBar !== 'undefined' && showQuizProgressBar) { %>
+      <div class="quiz-navbar-progress-bar-outer">
+        <div class="progress-bar-images">
+          <img src="/img/ScentLeft.jpg" alt="Scent Left" class="progress-bar-img scent-left-img" />
+        </div>
+        <div class="quiz-navbar-progress-bar-track">
+          <div class="quiz-navbar-progress-bar-fill"></div>
+          <div class="quiz-navbar-progress-bar-circle circle-1"><span class="circle-number">1</span><span class="circle-label">About</span></div>
+          <div class="quiz-navbar-progress-bar-circle circle-2"><span class="circle-number">2</span><span class="circle-label">Personality</span></div>
+          <div class="quiz-navbar-progress-bar-circle circle-3"><span class="circle-number">3</span><span class="circle-label">Scents</span></div>
+        </div>
+        <div class="progress-bar-images">
+          <img src="/img/bottleRight.jpg" alt="Bottle Right" class="progress-bar-img bottle-right-img" />
+        </div>
+      </div>
+    <% } %>
     <!-- Translate will be inside actions -->
   </div>
 
