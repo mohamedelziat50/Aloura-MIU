@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize first section and progress
     updateSection(currentSection);
-    updateProgress();
+    // Set progress bar to 0% initially
+    progressBar.style.width = '0%';
+    const quizNavbarProgressFill = document.querySelector('.quiz-navbar-progress-bar-fill');
+    if (quizNavbarProgressFill) quizNavbarProgressFill.style.width = '0%';
+    // Do NOT call updateProgress() here, only call it after the first user action
     // Always enable next button for age section on load
     const ageSection = document.getElementById('age');
     if (ageSection) {
@@ -444,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentSection < totalSections - 1) {
             currentSection++;
             updateSection(currentSection);
-            updateProgress();
+            updateProgress(); // Always call updateProgress here, never set progress manually
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             showResults();
@@ -468,7 +472,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgress() {
-        const progress = ((currentSection + 1) / totalSections) * 100;
+        // Progress should be 0 if still on the first section
+        let progress = 0;
+        if (currentSection > 0) {
+            progress = ((currentSection) / (totalSections - 1)) * 100;
+        }
         progressBar.style.width = `${progress}%`;
         // Update quiz navbar progress bar (only on quiz page)
         const quizNavbarProgressFill = document.querySelector('.quiz-navbar-progress-bar-fill');
@@ -479,8 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const circles = document.querySelectorAll('.quiz-navbar-progress-bar-circle');
         circles.forEach((circle, idx) => {
             circle.classList.remove('passed');
-            // 0: 25%, 1: 50%, 2: 75%
-            if (progress >= (idx + 1) * 25) {
+            if (progress > (idx + 1) * 25) {
                 circle.classList.add('passed');
             }
         });
