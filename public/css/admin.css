@@ -1373,17 +1373,10 @@ canvas {
   opacity: 0.9;
   transform: translateY(-2px);
 }
-
-
-
-
-
-
-
-
-
-
-
+.modal-dialog {
+  max-height: 90vh;
+  overflow-y: auto;
+}
 
 
 
