@@ -350,9 +350,11 @@ loginForm.addEventListener("submit", async (event) => {
 
       if (response.ok) {
         showFunToast(data.message || "✅ Signed in successfully!", "green");
-        setTimeout(() => {
-          window.location.href = `/${data.user.role}/${data.user.id}`; // Redirect to the user's page
-        }, 1000);
+        if (data.user.role === "admin") {
+          window.location.href = `/admin/${data.user.id}`;
+        } else {
+          window.location.href = `/`; // or any public/index route
+        }
       } else {
         showFunToast(data.message || "❗ An error occurred.", "red");
       }
