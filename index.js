@@ -25,7 +25,7 @@ connectDB();
 
 //routes
 app.use(frontendRouter);
-app.use(authRoutes);
+app.use("/api/auth",authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/fragrances/", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);

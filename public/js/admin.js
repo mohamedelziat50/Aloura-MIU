@@ -380,7 +380,7 @@ window.addEventListener("DOMContentLoaded", () => {
           formData.append("profilePicture", profilePicture);
         }
 
-        fetch("http://localhost:3000/signup", {
+        fetch("http://localhost:3000/api/auth/signup", {
           method: "POST",
           body: formData,
         })

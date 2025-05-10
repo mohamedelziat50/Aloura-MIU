@@ -283,7 +283,7 @@ signUpForm.addEventListener("submit", async (event) => {
     password,
   };
 
-  fetch("http://localhost:3000/signup", {
+  fetch("http://localhost:3000/api/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -337,7 +337,7 @@ loginForm.addEventListener("submit", async (event) => {
 
   console.log("Form data:", formData); // Log the form data
 
-  fetch("http://localhost:3000/login", {
+  fetch("http://localhost:3000/api/auth/login", {
     method: "POST",
     credentials: "include", // ← important!
     headers: {
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // After a small delay, redirect to the logout page
       setTimeout(() => {
-        window.location.href = "/logout";
+        window.location.href = "/api/auth/logout";
       }, 1000);
     });
   }
