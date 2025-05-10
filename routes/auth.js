@@ -10,7 +10,7 @@ router.post("/signup", upload.single("profilePicture"), signup);
 router.post("/login", login);
 router.get("/logout", logout);
 router.get("/verify/:id", verifyEmail);
-router.post("/api/auth/forgot-password", forgotPassword);
-router.post("/api/auth/reset-password", resetPassword );   
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword );   
 
 export default router;
