@@ -444,6 +444,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Learn more toggle for quiz info rectangles
+    function setupLearnMoreToggles() {
+        const toggles = document.querySelectorAll('.learn-more-toggle');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const parent = toggle.closest('.quiz-info-rectangle');
+                let content = parent.nextElementSibling;
+                // Find the next .learn-more-content sibling
+                while (content && !content.classList.contains('learn-more-content')) {
+                    content = content.nextElementSibling;
+                }
+                if (content) {
+                    const arrow = toggle.querySelector('.arrow-icon');
+                    const expanded = content.style.display === 'block';
+                    content.style.display = expanded ? 'none' : 'block';
+                    if (arrow) {
+                        arrow.classList.toggle('expanded', !expanded);
+                    }
+                }
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupLearnMoreToggles);
+
     function moveToNextSection() {
         if (currentSection < totalSections - 1) {
             currentSection++;
