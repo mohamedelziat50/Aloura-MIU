@@ -301,9 +301,7 @@
     <div class="container fade-in">
       <div class="form-container">
         <h2 class="mb-4">Add New Fragrance</h2>
-        <form
-          action="/api/fragrances"
-          method="POST"
+        <form 
           enctype="multipart/form-data"
           class="scale-hover"
         >
@@ -779,7 +777,7 @@
             showFunToast("✅ Fragrance added successfully!", "green");
             setTimeout(() => {
               window.location.href = "/admin/:id";
-            }, 1000);
+            }, 900);
             form.reset();
             [
               "fragrancePicture",

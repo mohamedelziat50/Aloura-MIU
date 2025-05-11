@@ -18,9 +18,7 @@ import {
   getNightlifeCollectionPage,
   getCheckout,
 } from "../controllers/frontend.js"; // Import the getAdmin function
-
 const router = express.Router();
-
 router.use(async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
@@ -37,11 +35,10 @@ router.use(async (req, res, next) => {
     next();
   }
 });
-
 router.get("/", getIdex);
 router.get("/all-fragrances", getAllFragrances);
 router.get("/collections", getCollectionsPage);
-router.get("/fragrances-page", getFragrancesPage);
+router.get("/fragrances-page/:id", getFragrancesPage);
 router.get("/gifting", getGiftingPage);
 router.get("/fragrance-quiz", getFragranceQuizPage);
 router.get("/our-story", getOurStoryPage);
@@ -51,5 +48,4 @@ router.get("/admin/:id", auth(["admin"]), getAdmin);
 router.get("/addFragrance", auth(["admin"]), getAddFragrance);
 router.get("/editUser/:id", auth(["admin"]), editUser);
 router.get("/editFragrance/:id", auth(["admin"]), geteditFragrance);
-
 export default router;

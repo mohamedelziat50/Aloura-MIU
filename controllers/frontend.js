@@ -6,8 +6,17 @@ export const getIdex = (req, res) => {
   res.render("index");
 };
 
-export const getAllFragrances = (req, res) => {
-  res.render("all-fragrances");
+export const getAllFragrances = async (req, res) => {
+  FragranceModel.find()
+    .then((fragrances) => {
+      res.render("all-fragrances", {
+        fragrance: fragrances,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Server Error");
+    });
 };
 
 export const getCheckout = (req, res) => {
@@ -18,8 +27,19 @@ export const getCollectionsPage = (req, res) => {
   res.render("collections");
 };
 
-export const getFragrancesPage = (req, res) => {
-  res.render("fragrances-page");
+export const getFragrancesPage = async (req, res) => {
+  try {
+    const fragranceId = req.params.id;
+    const fragrance = await FragranceModel.findById(fragranceId);
+    if (!fragrance) {
+      return res.status(404).send("User not found");
+    }
+
+    res.render("fragrances-page", { fragrance });
+  } catch (err) {
+    console.error("Error fetching Fragrance:", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 export const getGiftingPage = (req, res) => {

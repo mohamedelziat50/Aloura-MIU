@@ -73,9 +73,6 @@ export const createFragrance = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-
-
 // Read all
 export const getAllFragrances = async (req, res) => {
   try {
@@ -101,58 +98,82 @@ export const getFragranceById = async (req, res) => {
 
 export const updateFragrance = async (req, res) => {
   try {
-    const fragranceId = req.params.id;
-    const { name, brand, gender, category, topNotes, middleNotes, baseNotes, description, sizeOptions, releaseDate, tags , image ,backgroundImage1 , backgroundImage2 } = req.body;
-
-    // Handle image upload (multer automatically adds files to req.files)
-    let imagePaths = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
-
-    // Get the current fragrance data to check which images should stay
-    const fragrance = await Fragrance.findById(fragranceId);
-
-    if (!fragrance) {
-      return res.status(404).json({ message: "Fragrance not found" });
-    }
-
-    const updatedImages = [...fragrance.image]; // Copy existing images
-
-    // If there are new images uploaded, update the specific fields
-    if (imagePaths.length > 0) {
-      updatedImages[0] = image
-      updatedImages[1] = backgroundImage1
-      updatedImages[2] = backgroundImage2
-    }
-
-    const updateData = {
+    const { id } = req.params;
+    const {
       name,
       brand,
       gender,
       category,
-      topNotes: topNotes ? topNotes.split(",").map(s => s.trim()) : [],
-      middleNotes: middleNotes ? middleNotes.split(",").map(s => s.trim()) : [],
-      baseNotes: baseNotes ? baseNotes.split(",").map(s => s.trim()) : [],
+      topNotes,
+      middleNotes,
+      baseNotes,
       description,
-      sizeOptions,
       releaseDate,
-      tags: tags ? tags.split(",").map(s => s.trim()) : [],
-      image: updatedImages, // Only update the image array with new values where available
-    };
+      tags,
+      sizes,
+      image,
+      backgroundImage1,
+      backgroundImage2,
+    } = req.body;
 
-    const updatedFragrance = await Fragrance.findByIdAndUpdate(fragranceId, updateData, { new: true });
+    // Convert notes and tags from comma-separated strings
+    const top = topNotes.split(",").map((n) => n.trim());
+    const mid = middleNotes.split(",").map((n) => n.trim());
+    const base = baseNotes.split(",").map((n) => n.trim());
+    const tagList = tags.split(",").map((t) => t.trim());
 
-    if (!updatedFragrance) {
+    // Convert sizes array and build sizeOptions
+    const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
+    const sizeOptions = sizeArray.map((size) => ({
+      size: parseInt(size),
+      price: parseFloat(req.body[`price${size}`] || 0),
+      quantity: parseInt(req.body[`quantity${size}`] || 0),
+    }));
+
+    // Find the fragrance
+    const fragrance = await Fragrance.findById(id);
+    if (!fragrance) {
       return res.status(404).json({ message: "Fragrance not found" });
     }
 
-    res.status(200).json(updatedFragrance);
+    // Update basic info
+    fragrance.name = name;
+    fragrance.brand = brand;
+    fragrance.gender = gender;
+    fragrance.category = category;
+    fragrance.topNotes = top;
+    fragrance.middleNotes = mid;
+    fragrance.baseNotes = base;
+    fragrance.description = description;
+    fragrance.releaseDate = releaseDate;
+    fragrance.tags = tagList;
+    fragrance.sizeOptions = sizeOptions;
+
+    // Update images if values provided
+    if (image || backgroundImage1 || backgroundImage2) {
+      const updatedImages = [...fragrance.image]; // Keep old if not replaced
+
+      if (image) updatedImages[0] = image;
+      if (backgroundImage1) updatedImages[1] = backgroundImage1;
+      if (backgroundImage2) updatedImages[2] = backgroundImage2;
+
+      fragrance.image = updatedImages;
+    }
+
+    // Save changes
+    await fragrance.save();
+    res.status(200).json({
+      message: "✅ Fragrance updated successfully",
+      fragrance,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("❌ Error updating fragrance:", error);
+    res.status(500).json({
+      message: "❌ Server Error: Failed to update fragrance",
+      error: error.message,
+    });
   }
 };
-
-
-
 
 // Delete
 export const deleteFragrance = async (req, res) => {
