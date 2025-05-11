@@ -2742,3 +2742,50 @@ body.fragrance-quiz-page nav {
   box-shadow: 0 2px 8px rgba(212, 180, 130, 0.04);
   transition: all 0.3s;
 }
+
+/* Inline version for info rectangle inside h2 */
+.quiz-info-rectangle-inline {
+  display: inline-flex;
+  align-items: center;
+  background: #f5e7d6;
+  border: 1px solid black;
+  border-radius: 50px;
+  padding: 9px 18px 9px 18px;
+  margin-top: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+  color: rgb(86,86,78);
+  width: auto;
+  box-shadow: 0 2px 8px rgba(212, 180, 130, 0.07);
+  gap: 16px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.quiz-info-rectangle-inline .select-text {
+  font-weight: 400;
+}
+
+.quiz-info-rectangle-inline .learn-more-toggle {
+  cursor: pointer;
+  color: black;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  margin-left: 12px;
+}
+
+.quiz-info-rectangle-inline .learn-more-toggle:hover {
+  color: #7a5c36;
+}
+
+.quiz-info-rectangle-inline .arrow-icon {
+  margin-left: 6px;
+  font-size: 1.1em;
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+.quiz-info-rectangle-inline .arrow-icon.expanded {
+  transform: rotate(180deg);
+}
