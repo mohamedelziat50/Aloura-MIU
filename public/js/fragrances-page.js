@@ -242,3 +242,47 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const priceDisplay = document.getElementById("price");
+    const sizeRadios = document.querySelectorAll("input[name='size']");
+
+    function updatePriceFromChecked() {
+      const selected = document.querySelector("input[name='size']:checked");
+      if (selected && selected.dataset.price) {
+        priceDisplay.textContent = `${selected.dataset.price} LE`;
+      }
+    }
+
+    // Update price on page load
+    updatePriceFromChecked();
+
+    // Update price when user changes selection
+    sizeRadios.forEach(radio => {
+      radio.addEventListener("change", updatePriceFromChecked);
+    });
+  });
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const genderSlider = document.querySelector(".modern-gender-slider");
+    const gender = genderSlider.dataset.gender;
+    const sliderPoints = genderSlider.querySelectorAll(".slider-point");
+
+    // Map gender string to point index
+    const genderMap = {
+      Male: 1,
+      Unisex: 2,
+      Female: 3
+    };
+
+    const activeValue = genderMap[gender];
+    sliderPoints.forEach(point => {
+      if (point.dataset.value === String(activeValue)) {
+        point.classList.add("active");
+      } else {
+        point.classList.remove("active");
+      }
+    });
+  });
+
