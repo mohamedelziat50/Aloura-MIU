@@ -2,7 +2,7 @@ import FragranceModel from "../models/fragrance.js";
 import UserModel from "../models/user.js";
 import moment from "moment";
 
-export const getIdex = (req, res) => {
+export const getIndex = (req, res) => {
   res.render("index");
 };
 
@@ -32,7 +32,7 @@ export const getFragrancesPage = async (req, res) => {
     const fragranceId = req.params.id;
     const fragrance = await FragranceModel.findById(fragranceId);
     if (!fragrance) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("fragrance not found");
     }
 
     res.render("fragrances-page", { fragrance });

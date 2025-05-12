@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.post("/",upload.array("images", 3), createFragrance);
+router.post("/",upload.array("images", 3),createFragrance);
 router.get("/", getAllFragrances);
 router.get("/:id", getFragranceById);
 router.put("/:id",upload.array("images", 3) , updateFragrance);
