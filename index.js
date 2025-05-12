@@ -20,14 +20,14 @@ app.use(express.json()); //read the req.body
 app.use(cookieParser()); // read the cookies
 app.use(express.static("public")); // serve static files from public directory
 app.set("view engine", "ejs"); // set the view engine to ejs
-
+  
 connectDB();
 
 //routes
 app.use(frontendRouter);
 app.use("/api/auth",authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/fragrances/", fragranceRoutes);
+app.use("/api/fragrances", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 

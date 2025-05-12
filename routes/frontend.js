@@ -4,7 +4,7 @@ import UserModel from "../models/user.js";
 import auth from "../middleware/auth.js"; // Import the auth middleware
 import Fragrances from "../models/fragrance.js"; // Import the Fragrances model
 import {
-  getIdex,
+  getIndex,
   getAllFragrances,
   getAdmin,
   getAddFragrance,
@@ -35,7 +35,7 @@ router.use(async (req, res, next) => {
     next();
   }
 });
-router.get("/", getIdex);
+router.get("/", getIndex);
 router.get("/all-fragrances", getAllFragrances);
 router.get("/collections", getCollectionsPage);
 router.get("/fragrances-page/:id", getFragrancesPage);

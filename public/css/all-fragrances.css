@@ -7,7 +7,9 @@ html {
 }
 
 /* Body's background color specified */
-body { background-color: #f1f1f1 !important; }
+body {
+  background-color: #f1f1f1 !important;
+}
 
 /* Header */
 #header {
@@ -16,7 +18,7 @@ body { background-color: #f1f1f1 !important; }
   top: 105px; /* Spacing to appear below the navbar */
   min-width: 615px;
   margin: auto; /* Doesn't do much, simply an automatic margin (Doesn't center the element)*/
-  
+
   /* TEXT DISPLAY RELATED */
   font-size: 64px;
   font-family: "Monotype Baskerville", serif;
@@ -25,13 +27,12 @@ body { background-color: #f1f1f1 !important; }
   color: black;
   text-align: center; /* Centers the text*/
   text-transform: uppercase;
-  letter-spacing: .1em; /* Distance between letters for design */
+  letter-spacing: 0.1em; /* Distance between letters for design */
 }
 
 /* START OF MIDDLE LINKS NAVBAR RELATED */
 
-.middle-links
-{
+.middle-links {
   /* Simply positioning & size in the container holdings the links */
   position: relative; /* Relative to the view port*/
   top: 110px; /* To appear below the header*/
@@ -42,8 +43,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Unordered list for middle links */
-.middle-links ul
-{
+.middle-links ul {
   /* POSITION RELATED */
   display: flex; /* To horzinatally allign the elements */
   justify-content: center; /* Center the links on the main axis (x-axis) / horiziontal*/
@@ -54,23 +54,21 @@ body { background-color: #f1f1f1 !important; }
   /* TEXT DISPLAY RELATED - Applies it for ALL list items*/
   font-size: 14px;
   font-weight: normal;
-  text-transform: uppercase; 
+  text-transform: uppercase;
   list-style: none; /* Without bullets */
 }
 
-.middle-links li a
-{
+.middle-links li a {
   position: relative;
   color: #000;
   text-decoration: none; /* Without an underline */
 }
 
-.middle-links li a::after
-{
+.middle-links li a::after {
   /* Acts as an empty placeholder for the underlining animation when hovering!
    You could write any type of text & it will appear*/
   content: "";
-  
+
   /* POSITION RELATED */
   position: absolute;
   bottom: -3px; /* Adjust underline position */
@@ -86,8 +84,7 @@ body { background-color: #f1f1f1 !important; }
   transition: 0.3s; /* CONTROLS THE SPEED OF THE UNDERLINE ANIMATION */
 }
 
-.middle-links li a:hover::after 
-{
+.middle-links li a:hover::after {
   /* Positions the hovering correctly, play with the numbers to understand */
   right: 0;
   width: 100%;
@@ -98,10 +95,9 @@ body { background-color: #f1f1f1 !important; }
 /* START OF CONTROLS: FILTER + SEARCH BAR RELATED */
 
 /* CONTROLS CONTAINER: Wraps Search bar + filter button */
-.controls-container 
-{
+.controls-container {
   /* Simply controls positioning */
-  z-index: 1001; /* Higher priority to be above other elements */ 
+  z-index: 1001; /* Higher priority to be above other elements */
   position: relative; /* Position relative to the flow*/
   top: 6.5rem;
   display: flex;
@@ -114,8 +110,7 @@ body { background-color: #f1f1f1 !important; }
 /* DROP DOWN MENU OF FILTERS RELATED */
 
 /* Filter Container */
-.filter-container 
-{
+.filter-container {
   /* SIMPLE POSITIONING */
   z-index: 1000; /* Ensure the filter container is above other elements: this includes all it's wrapped elemnents including the drop-down menu itself! */
   position: relative;
@@ -125,8 +120,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Filter Button */
-.filter-button
-{
+.filter-button {
   /* POSITION RELATED */
   padding: 7px 17px; /* Space around the text itself */
 
@@ -135,7 +129,7 @@ body { background-color: #f1f1f1 !important; }
   font-weight: 400;
   line-height: 1.8rem;
   text-transform: uppercase;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
   background-color: white !important;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -147,11 +141,12 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Filter button hover animation*/
-.filter-button:hover { background-color: #f1f1f1 !important;}
+.filter-button:hover {
+  background-color: #f1f1f1 !important;
+}
 
-/* START OF FILTERS DROP DOWN MENU */ 
-.dropdown-menu-filter 
-{
+/* START OF FILTERS DROP DOWN MENU */
+.dropdown-menu-filter {
   /* POSITION RELATED */
   position: absolute; /* Removing this will cause the drop-down menu to push all cards/entire page down! Absolute meaning it can have other elements on it */
   top: 100%;
@@ -170,8 +165,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Dropdown Options */
-.dropdown-option-filter
-{
+.dropdown-option-filter {
   padding: 10px;
 
   /* DISPLAY RELATED */
@@ -181,12 +175,13 @@ body { background-color: #f1f1f1 !important; }
   cursor: pointer;
 }
 
-.dropdown-option-filter:hover {background-color: #f1f1f1;}
+.dropdown-option-filter:hover {
+  background-color: #f1f1f1;
+}
 
 /* Show dropdown menu when active(class we added in JAVASCRIPT) */
 /* SIMPLE EXPLAINATION -> Once user clicks we add an active class to show the drop down menu */
-.filter-container.active .dropdown-menu-filter
-{
+.filter-container.active .dropdown-menu-filter {
   display: block;
 
   /* Animation Related -> Show Drop Down Menu */
@@ -197,15 +192,16 @@ body { background-color: #f1f1f1 !important; }
 
 /* Hide dropdown menu with fade-out animation */
 /* SIMPLE EXPLAINATION -> Once user clicks away we remove the active class to hide the drop down menu */
-.filter-container:not(.active) .dropdown-menu-filter { animation: fadeOutTop 0.3s ease forwards;}
+.filter-container:not(.active) .dropdown-menu-filter {
+  animation: fadeOutTop 0.3s ease forwards;
+}
 
 /*END OF FILTERS DROP DOWN MENU*/
 
 /* START OF SEARCH BAR RELATED */
 
 /* Container having the entire search bar stuff */
-.search-container
-{
+.search-container {
   /* SIMPLE POSITIONING */
   position: relative;
   width: 11.5rem;
@@ -215,21 +211,19 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Search box: text box in which we write in */
-.search-input 
-{
+.search-input {
   /* POSITION RELATED */
   width: 80%; /* Ensure it stops right before the icons*/
   padding: 10px 40px 10px 10px;
 
   /* DISPLAY RELATED */
-  outline: none; /* When you click on the text box a border and outline will appear, so hide them -> outline + border*/  
+  outline: none; /* When you click on the text box a border and outline will appear, so hide them -> outline + border*/
   border: none;
   font-size: 16px;
   background: transparent; /* Remove default white background */
 }
 
-.search-label
-{
+.search-label {
   /* Position Related */
   position: absolute;
   top: 55%;
@@ -241,19 +235,20 @@ body { background-color: #f1f1f1 !important; }
   /* ANIMATION RELATED */
   transition: all 0.3s ease; /*This controls the speed at which the animation "search" moves at the top - all meaning all things inside the element*/
   opacity: 0;
-  transform: translateY(-50%); /*Shifts the element down from it's original position: use animation to return to original position*/
+  transform: translateY(
+    -50%
+  ); /*Shifts the element down from it's original position: use animation to return to original position*/
   pointer-events: none;
 }
 
 .search-input:focus + .search-label,
 .search-input:not(:placeholder-shown) + .search-label {
-    top: -2px; /*This controls by how much does the label of "search" go to the top as animation*/
-    font-size: 12px;
-    color: #646464;
+  top: -2px; /*This controls by how much does the label of "search" go to the top as animation*/
+  font-size: 12px;
+  color: #646464;
 }
 
-.search-icon 
-{
+.search-icon {
   /* Positioniong */
   position: absolute;
   top: 25%;
@@ -261,8 +256,7 @@ body { background-color: #f1f1f1 !important; }
   cursor: pointer;
 }
 
-.close-icon
-{
+.close-icon {
   /* Positioning */
   position: absolute;
   top: 25%;
@@ -276,19 +270,21 @@ body { background-color: #f1f1f1 !important; }
 /* START OF CARD RELATED */
 
 /* Cards Container */
-.cards-container 
-{
+.cards-container {
   /* EXPLAINATION WITHOUT MEDIA QUERIES
       repeat(): Repeats a pattern for columns or rows.
       Non-responsive old way: repeat(3, 1fr) creates 3 columns with equal width.
-      auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there’s not enough space
-      Minimum width: 335px (columns won’t shrink below this).
+      auto-fit: Fits as many columns as possible into the available space, Wraps columns to the next row if there's not enough space
+      Minimum width: 335px (columns won't shrink below this).
       Maximum width: 1fr (columns expand to fill extra space).
  */
- /* POSITIONING */
+  /* POSITIONING */
   row-gap: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr)); /* columns with equal width - ADJUSTED TO BECOME BETTER ON MOBILE */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(335px, 1fr)
+  ); /* columns with equal width - ADJUSTED TO BECOME BETTER ON MOBILE */
   gap: 0px; /* Space between cards */
   min-width: 615px; /* Make it so that user can't shrink window beyond a certain point */
   margin: 20px; /* Space around cards container*/
@@ -297,8 +293,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Card Container */
-.card
-{
+.card {
   /* POSITIONING */
   position: relative; /* Ensure dropdown is positioned relative to the card */
   overflow: visible; /* Allow dropdown to extend outside the card */
@@ -315,8 +310,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Card Label */
-.card-label 
-{
+.card-label {
   /* POSITIONING */
   position: absolute; /* Position the label absolutely (top left so it can have other stuff on it) within the card */
   top: 1%; /* Align to the top of the card */
@@ -336,19 +330,37 @@ body { background-color: #f1f1f1 !important; }
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
   cursor: default; /* Ensures no cursor change */
   pointer-events: none; /* Completely disables interaction */
-} 
+}
 
 /* Card Image Container */
-.card-image-container 
-{
+.card-image-container {
   /* POSITIONING */
   z-index: 2; /* Ensures it remains interactive */
-  top: 0; /* Aligns it with the card */
-  left: 0;
+  position: relative; /* Changed from absolute to relative */
   width: 100%; /* Container Matches the card width */
-  height: 100%; /* Container Matches the card height untill it reaches the card title */
+  height: 350px; /* Increased height for more space */
+  display: flex; /* Added for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  overflow: hidden; /* Prevent image overflow */
+  cursor: pointer; /* Show pointer on hover */
+  padding: 20px 0; /* Add padding top and bottom */
+  margin: 10px 0; /* Add margin for extra spacing */
+}
 
-  cursor: default; /* Change back to default cursor for the image container */
+/* Card Image */
+.card-image {
+  /* POSITIONING */
+  width: auto; /* Changed from 100% to auto */
+  height: auto; /* Changed from 100% to auto */
+  max-width: 90%; /* Reduced from 100% to give more space on sides */
+  max-height: 90%; /* Reduced from 100% to give more space top/bottom */
+  object-fit: contain; /* Changed to contain to show full image */
+
+  /* DISPLAY */
+  background-color: transparent;
+  pointer-events: none;
+  transition: transform 0.3s ease;
 }
 
 /* Hovering over the image inside the container is what causes the hover! */
@@ -363,22 +375,8 @@ body { background-color: #f1f1f1 !important; }
   transition: transform 0.3s ease;
 }
 
-/* Card Image */
-.card-image
-{
-  /* POSITIONING */
-  width: 100%; /* Image fills out the entire card */
-  height: 100%; /* Auto determine the card's height, changed it to be 65% because some errors happend */ 
-
-  /* DISPLAY */
-  background-color: transparent;  /* Hide it's background so it doesn't hide the title text! */
-  pointer-events: none; /* Make sure that only the card image container is the only one clickable since image goes out of the card and will mess the click up */
-  transition: transform 0.3s ease; /* Add transition for smooth scaling */
-}
-
 /* Card Title */
-.card-title 
-{
+.card-title {
   margin: 10px 0;
 
   /* DISPLAY */
@@ -388,21 +386,19 @@ body { background-color: #f1f1f1 !important; }
   line-height: 100%;
   color: black;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 }
 
 /* Link wrapping the card's title */
-.card-title-link
-{
+.card-title-link {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
 /* Card Type */
-.card-type 
-{
-  margin: .5rem 0;
+.card-type {
+  margin: 0.5rem 0;
 
   /* DISPLAY */
   font-size: 16px;
@@ -411,7 +407,7 @@ body { background-color: #f1f1f1 !important; }
   line-height: 100%;
   color: #121212;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   opacity: 0.93;
 }
 
@@ -423,36 +419,32 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Price + ml CONTAINER*/
-.card-price 
-{
+.card-price {
   /* POSITIONING */
   position: relative; /* Needed for absolute positioning of dropdown */
   display: flex;
   justify-content: space-between; /* Justify with space between the elements on each end */
   align-items: center;
-  margin: 1px 0; 
+  margin: 1px 0;
   padding: 0 20px; /* space between inner edges and the text */
 }
 
 /* Prices inside the card-price class */
-.card-price .price
-{
+.card-price .price {
   font-size: 15px;
   font-weight: bold;
   color: #333;
 }
 
 /* milliters inside the card-price class */
-.card-price .ml 
-{
+.card-price .ml {
   font-size: 14px;
   color: #666;
   cursor: pointer;
 }
 
 /* Card Separator between add to cart*/
-.card-separator
-{
+.card-separator {
   height: 3.5px;
   margin: 10px 20px;
   margin-top: 5px;
@@ -461,8 +453,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Add to Cart Button */
-.card-button 
-{
+.card-button {
   /* POSITIONING */
   width: 80%;
   margin: auto;
@@ -477,7 +468,7 @@ body { background-color: #f1f1f1 !important; }
   line-height: 100%;
   color: #000;
   text-transform: uppercase;
-  letter-spacing: .1em; /* Distance between letters for design */
+  letter-spacing: 0.1em; /* Distance between letters for design */
   background-color: #fff;
   border: 0.5px solid black;
   border-radius: 5px;
@@ -488,8 +479,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Card hovering animation: change background and text color */
-.card-button:hover
-{
+.card-button:hover {
   color: white;
   background-color: black;
 }
@@ -499,8 +489,7 @@ body { background-color: #f1f1f1 !important; }
 /* DROP DOWN MENU RELATED */
 
 /* Dropdown Menu */
-.dropdown-menu
-{
+.dropdown-menu {
   /* POSITIONING */
   z-index: 1; /* Ensure it appears above other elements */
   position: absolute;
@@ -524,8 +513,7 @@ body { background-color: #f1f1f1 !important; }
 }
 
 /* Dropdown Options */
-.dropdown-option 
-{
+.dropdown-option {
   /* POSITIONING */
   display: flex;
   justify-content: space-between; /* Align price and ml on opposite ends */
@@ -549,17 +537,16 @@ body { background-color: #f1f1f1 !important; }
 
 /* Hover effect for dropdown options */
 .dropdown-option:hover {
-background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 /* Show dropdown menu when active */
-.card-price.active .dropdown-menu 
-{
-    /* ANIMATION */
-    animation: fadeIn 0.2s ease forwards;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto; /* Enable interaction when visible */
+.card-price.active .dropdown-menu {
+  /* ANIMATION */
+  animation: fadeIn 0.2s ease forwards;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable interaction when visible */
 }
 
 /* Hide dropdown menu with fade-out animation */
@@ -570,28 +557,26 @@ background-color: #f1f1f1;
 /* END OF DROP DOWN MENU RELATED */
 
 /* BACK TO TOP BUTTON RELATED */
-#back-to-top-div 
-{
+#back-to-top-div {
   /*This is so the div can be put on other elements - overrides the display:block i think*/
-  position: absolute; 
+  position: absolute;
 
   /* Positioning at the bottom right */
-  top: 90%; 
+  top: 90%;
   margin-left: 94.5%;
 
   animation: moveFromBottom 1.35s ease-in-out; /* Animation to move in manually when loading screen because scrolly wouldn't work!*/
 }
 
-#back-to-top-button 
-{
+#back-to-top-button {
   width: auto;
   height: auto;
   padding: 10px;
   text-align: center;
-  
+
   /* This is so that the button scroll down along side the user regardless of it's parent div being absolute */
   position: fixed;
-  
+
   font-size: 12px;
   background-color: white;
   border: 1px solid #ccc;
@@ -618,12 +603,11 @@ background-color: #f1f1f1;
 }
 
 #back-to-top-button:hover {
-  background-color: #f1f1f1 !important;  /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
+  background-color: #f1f1f1 !important; /*CHANGING THE Background 'S BACKGROUND COLOR WORKED ONLY WHEN I PUT !IMPORTANT*/
 }
 
 /* To Top Responsive Styles for Mobile Devices */
-@media (max-width: 1400px)
-{
+@media (max-width: 1400px) {
   #back-to-top-div {
     /* Adjust positioning for smaller screens */
     top: 90%; /* Move it slightly higher */
@@ -678,36 +662,42 @@ background-color: #f1f1f1;
 
 /* Fade in animation used for drop down menu */
 @keyframes fadeInTop {
-from {
+  from {
     opacity: 0;
     transform: translateY(-10px); /* Adjust for a subtle fade-in */
-}
-to {
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
-}
+  }
 }
 
 /* Fade out animation - drop down menu*/
 @keyframes fadeOutTop {
-from {
+  from {
     opacity: 1;
     transform: translateY(0);
-}
-to {
+  }
+  to {
     opacity: 0;
     transform: translateY(-10px); /* Adjust for a subtle fade-out */
-}
+  }
 }
 
 @keyframes fadeIn {
-from { opacity: 0.15 } /* Adjusted starting opacity to look smoother when hovering out of card's image */
-to { opacity: 1 }
+  from {
+    opacity: 0.15;
+  } /* Adjusted starting opacity to look smoother when hovering out of card's image */
+  to {
+    opacity: 1;
+  }
 }
 
 /* New for leaving image container animation! */
 @keyframes moveFromBottom {
-from { transform: translateY(800px) }
+  from {
+    transform: translateY(800px);
+  }
 }
 
 /* End of KEYFRAMES related */
@@ -722,27 +712,27 @@ from { transform: translateY(800px) }
     min-width: 0;
     width: 100%;
   }
-  
+
   .middle-links {
     top: 85px;
     min-width: 0;
     width: 100%;
   }
-  
+
   .controls-container {
     top: 5rem;
     min-width: 0;
     width: calc(100% - 40px);
   }
-  
+
   .filter-container {
     margin-left: 4rem;
   }
-  
+
   .search-container {
     margin-right: 2rem;
   }
-  
+
   .cards-container {
     min-width: 0;
     width: 100%;
@@ -757,31 +747,31 @@ from { transform: translateY(800px) }
     font-size: 36px;
     top: 60px;
   }
-  
+
   .middle-links {
     top: 65px;
   }
-  
+
   .middle-links ul {
     gap: 15px;
     flex-wrap: wrap;
     padding: 0 15px;
   }
-  
+
   .controls-container {
     top: 7rem;
     gap: 20px;
     align-items: center;
   }
-  
+
   .filter-container {
     margin-left: 2.1em;
   }
-  
+
   .search-container {
     margin-right: 0;
   }
-  
+
   .cards-container {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     padding: 120px 20px 40px 20px;
@@ -790,7 +780,7 @@ from { transform: translateY(800px) }
   .dropdown-menu {
     max-height: 150px; /* Limit height on small screens */
   }
-  
+
   .custom-offcanvas {
     min-width: 50% !important;
   }
@@ -802,47 +792,47 @@ from { transform: translateY(800px) }
     font-size: 28px;
     top: 65px;
   }
-  
+
   .middle-links {
     top: 70px;
   }
-  
+
   .middle-links ul {
     gap: 20px;
     font-size: 12px;
   }
-  
+
   .filter-button {
     padding: 5px 12px;
     font-size: 0.7rem;
   }
-  
+
   .search-container {
     width: 70%;
   }
-  
+
   .cards-container {
     grid-template-columns: 1fr;
     padding: 120px 10px 40px 10px;
   }
-  
+
   .card-title {
     font-size: 20px;
   }
-  
+
   .card-type {
     font-size: 14px;
   }
-  
+
   .card-mood {
     font-size: 12px;
   }
-  
+
   .card-price .price,
   .card-price .ml {
     font-size: 13px;
   }
-  
+
   .card-button {
     font-size: 14px;
     padding: 8px;
@@ -854,11 +844,11 @@ from { transform: translateY(800px) }
   #header {
     font-size: 24px;
   }
-  
+
   .middle-links ul {
     font-size: 11px;
   }
-  
+
   .dropdown-menu-filter {
     width: 180px;
   }
@@ -870,16 +860,16 @@ from { transform: translateY(800px) }
   .cards-container {
     row-gap: 25px;
   }
-  
+
   .card {
     scale: 1;
     margin: 0;
   }
-  
+
   .card-image-container:hover .card-image {
     animation: none; /* Disable animation on very small screens */
   }
-  
+
   #back-to-top-div {
     margin-left: 70%;
   }
