@@ -73,15 +73,6 @@ export const createFragrance = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-// Read all
-export const getAllFragrances = async (req, res) => {
-  try {
-    const fragrances = await Fragrance.find().populate("reviews");
-    res.status(200).json(fragrances);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
 // Read one
 export const getFragranceById = async (req, res) => {
