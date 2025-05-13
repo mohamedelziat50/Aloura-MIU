@@ -7,18 +7,25 @@ export const updateUser = async (req, res) => {
     const { name, email, phone, role, isVerified, oldpassword, newpassword } =
       req.body;
 
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
     // Check if the email is used by another user
     const existingEmail = await User.findOne({ email });
-    if (existingEmail) {
+    if (existingEmail && existingEmail._id.toString() !== id) {
       return res.status(409).json({ message: "❌ Email is already taken" });
     }
+
     // Check if the phone is used by another user
     const existingPhone = await User.findOne({ phone });
-    if (existingPhone) {
+    if (existingPhone && existingPhone._id.toString() !== id) {
       return res
         .status(409)
         .json({ message: "❌ Phone number is already taken" });
     }
+
     // Password update
     if (oldpassword && newpassword) {
       const isMatch = await bcrypt.compare(oldpassword, user.password);
@@ -50,6 +57,7 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
 
 // Delete a user
 export const deleteUser = async (req, res) => {
