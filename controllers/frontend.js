@@ -31,16 +31,18 @@ export const getFragrancesPage = async (req, res) => {
   try {
     const fragranceId = req.params.id;
     const fragrance = await FragranceModel.findById(fragranceId);
-    if (!fragrance) {
-      return res.status(404).send("fragrance not found");
-    }
+    if (!fragrance) return res.status(404).send("fragrance not found");
 
-    res.render("fragrances-page", { fragrance });
+    // Get all fragrances EXCEPT the current one
+    const allFragrances = await FragranceModel.find({ _id: { $ne: fragranceId } });
+
+    res.render("fragrances-page", { fragrance, allFragrances });
   } catch (err) {
     console.error("Error fetching Fragrance:", err);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 export const getGiftingPage = (req, res) => {
   res.render("gifting");
