@@ -107,3 +107,7 @@ export const editUser = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+export const getaccount = async (req, res) => {
+  res.render("account");
+};

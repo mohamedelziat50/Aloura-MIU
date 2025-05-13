@@ -1,37 +1,24 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 
-// Get all users
-export const getUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Get a single user
-export const getUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ error: "User not found" });
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone, role, isVerified, oldpassword, newpassword } = req.body;
+    const { name, email, phone, role, isVerified, oldpassword, newpassword } =
+      req.body;
 
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
+    // Check if the email is used by another user
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(409).json({ message: "❌ Email is already taken" });
     }
-
+    // Check if the phone is used by another user
+    const existingPhone = await User.findOne({ phone });
+    if (existingPhone) {
+      return res
+        .status(409)
+        .json({ message: "❌ Phone number is already taken" });
+    }
     // Password update
     if (oldpassword && newpassword) {
       const isMatch = await bcrypt.compare(oldpassword, user.password);
@@ -73,8 +60,4 @@ export const deleteUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
-
-export const getaccount = async (req, res) => {
-  res.render("account");
 };
