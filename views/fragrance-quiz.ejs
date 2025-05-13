@@ -124,7 +124,15 @@
             <h2>
               What is your<br>
               gender
-            </h2> 
+              <br>
+              <div class="quiz-info-rectangle-inline">
+                <span class="select-text">Select only 1.</span>
+                <span class="learn-more-toggle">Learn more <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+              </div>
+            </h2>
+            <div class="learn-more-content" style="display:none;">
+              <p>Choose the gender you most identify with. This helps us personalize your fragrance recommendations.</p>
+            </div>
           </div>
           <div class="gender-right">
             <div class="option" data-value="male">
@@ -151,7 +159,15 @@
             <h2>
               What is your<br>
               skin-tone
+              <br>
+              <div class="quiz-info-rectangle-inline">
+                <span class="select-text">Select only 1.</span>
+                <span class="learn-more-toggle">Learn more <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+              </div>
             </h2>
+            <div class="learn-more-content" style="display:none;">
+              <p>Your skin tone can influence how a fragrance smells on you. Select the option that best matches your skin.</p>
+            </div>
           </div>
           <div class="skin-right">
             <div class="option" data-value="fair">
@@ -310,7 +326,15 @@
             <h2>
               How strong do <br> you like your<br>
               perfume?
+              <br>
+              <div class="quiz-info-rectangle-inline">
+                <span class="select-text">Select only 1.</span>
+                <span class="learn-more-toggle">Learn more <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+              </div>
             </h2>
+            <div class="learn-more-content" style="display:none;">
+              <p>Fragrance strength affects how noticeable your scent is. Choose your preferred intensity.</p>
+            </div>
           </div>
           <div class="strength-right">
             <div class="strength-bars-container">
@@ -332,7 +356,12 @@
 
         <!-- Feeling -->
         <section class="quiz-section" id="desiredFeeling">
-          <h2>How would you <br> like to feel with <br> your perfume?</h2>
+          <h2>
+            How would you <br> like to feel with <br> your perfume?
+          </h2>
+          <div class="learn-more-content" style="display:none;">
+            <p>Pick the feeling you want your fragrance to evoke. This helps us match you with the perfect scent.</p>
+          </div>
           <div class="options">
             <div class="option" data-value="fresh">
               <span>Fresh & elegant</span>
@@ -345,7 +374,17 @@
 
         <!-- Scent Family -->
         <section class="quiz-section" id="scentFamily">
-          <h2>Any favorite perfume family? <span class="selection-count"> <br> (Select up to 2)</span></h2>
+          <h2>
+            Any favorite perfume family?
+            <br>
+            <div class="quiz-info-rectangle-inline">
+              <span class="select-text">Select 2 max.</span>
+              <span class="learn-more-toggle">Learn more <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+            </div>
+          </h2>
+          <div class="learn-more-content" style="display:none;">
+            <p>You can select up to two scent families you enjoy most. This helps us narrow down your fragrance profile.</p>
+          </div>
           <div class="scent-families-container">
             <div class="column left-column">
               <div class="scent-family-option" data-value="fresh-citrusy">
@@ -432,6 +471,24 @@
             </div>
           </div>
           <button class="next-btn find-fragrance-btn">Find My Perfect Fragrance</button>
+        </section>
+
+        <!-- Recommendation Section -->
+        <section class="quiz-section split-section" id="recommendation">
+          <div class="recommendation-left">
+            <img src="/img/quizFinalRec.png" alt="Quiz Recommendation" class="recommendation-image" />
+          </div>
+          <div class="recommendation-right">
+            <h2>preparing your personalised perfume <br> recomendations...</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. You will see your result here after subscribing.</p>
+            <form id="recommendation-form">
+              <div class="mb-3">
+                <label for="recommendationEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="recommendationEmail" placeholder="Enter your email" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Reveal My Result</button>
+            </form>
+          </div>
         </section>
       </div>
     </div>

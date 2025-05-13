@@ -5,6 +5,9 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 } */
+.radio-label.text-muted {
+  cursor: not-allowed;
+}
 
 /* Google fonts */
 .inter-custom {
@@ -246,23 +249,25 @@ input[type="radio"] {
 
 /* Style label to look like a button but colorless */
 .radio-label {
-    background-color: transparent; /* No background color */
-    color: black; /* Text color */
-    border: 0.3px solid black; /* Normal border thickness */
+    background-color: transparent;
+    color: black;
+    border: 0.7px solid #e0e0e0;
     padding: 5px 10px;
     cursor: pointer;
     transition: border-width 0.2s, transform 0.2s;
-    display: inline-block;
+    display: flex;                /* Use flex to center content */
+    align-items: center;          /* Vertical centering */
+    justify-content: center;      /* Horizontal centering */
     margin: 0rem .5rem 0rem 0;
-    width: 25%; /* Adjust size as needed */
+    width: 25%;
+    height: 40px;                 /* Optional: force consistent height */
     text-align: center;
-    position: relative;
-    font-weight: 400; /* Add this to make the font look think and clean */
+    font-weight: 400;
     font-size: 14px;
     font-family: "Monotype Baskerville", serif;
-    border-width: 0.7px;
-    border-color: #e0e0e0;
+    position: relative;
 }
+
 
 
 .size-selection{

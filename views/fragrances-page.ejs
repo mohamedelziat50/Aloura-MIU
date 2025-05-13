@@ -120,35 +120,55 @@
 
           <!-- Size Selection -->
           <div class="size-selection">
+            <% const size30 = fragrance.sizeOptions.find(o => o.size === 30); %>
+            <% if (size30) { %>
             <input
               type="radio"
               name="size"
               id="radio30ml"
               value="30ml"
-              data-price="<%= fragrance.sizeOptions.find(o => o.size === 30)?.price %>"
+              data-price="<%= size30.price %>"
             />
             <label for="radio30ml" class="radio-label inter-custom">30ml</label>
-
+            <% } else { %>
+            <input type="radio" id="radio30ml" disabled />
+            <label for="radio30ml" class="radio-label inter-custom text-muted"
+              >30ml (Out of Stock)</label
+            >
+            <% } %> <% const size50 = fragrance.sizeOptions.find(o => o.size ===
+            50); %> <% if (size50) { %>
             <input
               type="radio"
               name="size"
               id="radio50ml"
               value="50ml"
-              data-price="<%= fragrance.sizeOptions.find(o => o.size === 50)?.price %>"
+              data-price="<%= size50.price %>"
             />
             <label for="radio50ml" class="radio-label inter-custom">50ml</label>
-
+            <% } else { %>
+            <input type="radio" id="radio50ml" disabled />
+            <label for="radio50ml" class="radio-label inter-custom text-muted"
+              >50ml (Out of Stock)</label
+            >
+            <% } %> <% const size100 = fragrance.sizeOptions.find(o => o.size
+            === 100); %> <% if (size100) { %>
             <input
               type="radio"
               name="size"
               id="radio100ml"
               value="100ml"
-              data-price="<%= fragrance.sizeOptions.find(o => o.size === 100)?.price %>"
+              data-price="<%= size100.price %>"
               checked
             />
             <label for="radio100ml" class="radio-label inter-custom"
               >100ml</label
             >
+            <% } else { %>
+            <input type="radio" id="radio100ml" disabled />
+            <label for="radio100ml" class="radio-label inter-custom text-muted"
+              >100ml (Out of Stock)</label
+            >
+            <% } %>
           </div>
 
           <h3 id="price" class="inter-custom"></h3>
@@ -260,129 +280,18 @@
           <button id="prev-suggestion" class="suggestion-arrow">&lt;</button>
           <div id="suggested-products-container">
             <div id="suggested-products">
+              <% allFragrances.forEach(frag => { %>
               <div class="suggested-item">
                 <img
-                  src="/img/perfumes-transparent/khamrah.png"
-                  alt="Khamrah"
+                  src="<%= frag.image[0] %>"
+                  alt="<%= frag.name %>"
                   class="suggested-image"
                 />
-                <p class="suggested-name">Khamrah</p>
-                <p class="suggested-price">900€</p>
+                <p class="suggested-name"><%= frag.name %></p>
+                <p class="suggested-price"><%= frag.sizeOptions[0].price %>LE</p>
                 <button class="add-to-cart inter-custom">Add to Cart</button>
               </div>
-
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/bleu-de-chanel.png"
-                  alt="Bleu de Chanel"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Bleu de Chanel</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item">
-                <img
-                  src="/img/perfumes-transparent/stronger-with-you.png"
-                  alt="Stronger with you intensely"
-                  class="suggested-image"
-                />
-                <p class="suggested-name">Stronger with you intensely</p>
-                <p class="suggested-price">900€</p>
-                <button class="add-to-cart inter-custom">Add to Cart</button>
-              </div>
-              <div class="suggested-item"></div>
-              <img
-                src="/img/perfumes-transparent/stronger-with-you.png"
-                alt="Stronger with you intensely"
-                class="suggested-image"
-              />
-              <p class="suggested-name">Stronger with you intensely</p>
-              <p class="suggested-price">900€</p>
-              <button class="add-to-cart inter-custom">Add to Cart</button>
+              <% }) %>
             </div>
           </div>
           <button id="next-suggestion" class="suggestion-arrow">&gt;</button>
