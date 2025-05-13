@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+       if (phone.length > 10) {
+        showFunToast("⚠️ Phone number must be exactly 10 digits.", "red");
+        return;
+      }
+
     // Password validation block
     if (oldpassword || newpassword || confirmpassword) {
       if (!oldpassword || !newpassword || !confirmpassword) {
@@ -87,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showFunToast("⚠️ New passwords do not match!", "red");
         return;
       }
+
     }
 
     const formData = new FormData();
