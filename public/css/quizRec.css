@@ -301,4 +301,133 @@
   box-shadow: 0 8px 24px rgba(86, 86, 78, 0.18);
 }
 
+/* --- Recommendation Modal Overlay Styles --- */
+.rec-modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0; top: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(30, 24, 18, 0.82);
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s cubic-bezier(.4,2,.6,1);
+  opacity: 0;
+}
+.rec-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+.rec-modal-container {
+  background: #fff8ef;
+  border-radius: 22px;
+  box-shadow: 0 16px 60px 0 rgba(44,44,34,0.22), 0 2px 8px 0 rgba(44,44,34,0.10);
+  max-width: 480px;
+  width: 95vw;
+  padding: 0 0 32px 0;
+  position: relative;
+  animation: recModalPopIn 0.45s cubic-bezier(.4,2,.6,1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@keyframes recModalPopIn {
+  0% { transform: scale(0.85) translateY(40px); opacity: 0; }
+  80% { transform: scale(1.04) translateY(-8px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.rec-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: rgba(255,255,255,0.7);
+  border: none;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  font-size: 2rem;
+  color: #56564E;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(44,44,34,0.08);
+  transition: background 0.18s;
+  z-index: 2;
+}
+.rec-modal-close:hover {
+  background: #f8f3ea;
+}
+.rec-modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 38px;
+  width: 100%;
+}
+.rec-modal-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(44,44,34,0.10);
+  background: #f5e7d6;
+  margin-bottom: 18px;
+}
+.rec-modal-info {
+  text-align: center;
+  padding: 0 18px;
+}
+.rec-modal-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #56564E;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.rec-modal-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.1rem;
+  color: #7a6a4a;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.rec-modal-price {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.2rem;
+  color: #a07c4a;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.rec-modal-shop {
+  background: #56564E;
+  color: rgb(241, 228, 205);
+  border: none;
+  border-radius: 18px;
+  padding: 14px 38px;
+  font-size: 1.15rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(86, 86, 78, 0.13);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.rec-modal-shop:hover {
+  background: #43433d;
+  color: rgb(241, 228, 205);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(86, 86, 78, 0.18);
+}
+@media (max-width: 600px) {
+  .rec-modal-container {
+    max-width: 98vw;
+    padding: 0 0 18px 0;
+  }
+  .rec-modal-img {
+    width: 120px; height: 120px;
+  }
+  .rec-modal-title { font-size: 1.3rem; }
+  .rec-modal-desc { font-size: 1rem; }
+  .rec-modal-price { font-size: 1.05rem; }
+  .rec-modal-shop { font-size: 1rem; padding: 12px 18px; }
+}
+
 
