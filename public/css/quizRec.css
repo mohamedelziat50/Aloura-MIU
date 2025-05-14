@@ -174,8 +174,8 @@
 .rec-benefit-circle .rec-benefit-tick {
   width: 0.75em;
   height: 0.4em;
-  border-left: 2px rgb(44,44,34);
-  border-bottom: 2px rgb(44,44,34);
+  border-left: 2px solid rgb(44,44,34);
+  border-bottom: 2px solid rgb(44,44,34);
   display: block;
   position: absolute;
   left: 1px;
@@ -197,20 +197,28 @@
 }
 
 #recommendationEmail.form-control {
-  border-radius: 22px;
-  border: 2px solid #f5e7d6;
-  padding: 18px 24px;
-  font-size: 1.3rem;
-  background: #fff8ef;
-  color: #6d4c2b;
-  transition: border 0.2s;
-  width: 100%;
-  max-width: 500px;
+  border-radius: 30px !important;
+  border: 1px solid #f5e7d6 !important;
+  padding: 18px 24px !important;
+  font-size: 1.3rem !important;
+  background: rgb(252,250,246) !important;
+  color: rgb(44,44,34) !important;
+  transition: border 0.2s !important;
+  width: 100% !important;
+  max-width: 750px !important;
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 330 !important;
 }
 #recommendationEmail.form-control:focus {
-  border: 2px solid #a07c4a;
-  outline: none;
-  background: #f8f3ea;
+  border: 2px solid #a07c4a !important;
+  outline: none !important;
+  background: #f8f3ea !important;
+}
+#recommendationEmail.form-control::placeholder {
+  color: #b8a98e !important;
+  font-family: 'Jost', sans-serif !important;
+  opacity: 1 !important;
+  font-size: 1.1rem !important;
 }
 
 #recommendation-form .btn-primary {
