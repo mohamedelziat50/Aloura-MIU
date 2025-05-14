@@ -198,7 +198,7 @@
 
 #recommendationEmail.form-control {
   border-radius: 30px !important;
-  border: 1px solid #f5e7d6 !important;
+  border: 2px solid black !important;
   padding: 18px 24px !important;
   font-size: 1.3rem !important;
   background: rgb(252,250,246) !important;
@@ -222,23 +222,25 @@
 }
 
 #recommendation-form .btn-primary {
-  background: linear-gradient(90deg, #a07c4a 60%, #d2bfa3 100%);
-  color: #fff;
+  background: #56564E !important;
+  color: rgb(241, 228, 205) !important;
   border: none;
   border-radius: 25px;
   padding: 16px 40px;
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: 1px;
-  box-shadow: 0 8px 24px rgba(160, 124, 74, 0.2);
-  transition: background 0.2s, transform 0.2s;  margin-top: 10px;
+  font-family: 'Jost', sans-serif !important;
+  box-shadow: none;
+  transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1), background 0.2s;
+  margin-top: 10px;
   min-width: 250px;
 }
 #recommendation-form .btn-primary:hover {
-  background: linear-gradient(90deg, #d2bfa3 60%, #a07c4a 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(160, 124, 74, 0.25);
-  color: #fff;
+  background: #43433d !important; /* slightly darker on hover */
+  color: rgb(241, 228, 205) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(86, 86, 78, 0.18);
 }
 
 
