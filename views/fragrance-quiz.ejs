@@ -494,9 +494,11 @@
               <li><span class="rec-benefit-circle"><span class="rec-benefit-tick"></span></span>Your personalised scent mixed recommendations</li>
             </ul>
             <form id="recommendation-form">
-              <div class="mb-3 rec-email-container">
-                <input type="email" class="form-control" id="recommendationEmail" placeholder=" " autocomplete="off">
-                <label for="recommendationEmail" class="rec-email-label">Email</label>
+              <div class="mb-3 rec-email-anim-container">
+                <div class="rec-email-container" id="recEmailField">
+                  <input type="email" class="form-control" id="recommendationEmail" placeholder=" " autocomplete="off">
+                  <label for="recommendationEmail" class="rec-email-label">Email</label>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Reveal My Result</button>
             </form>
@@ -508,5 +510,46 @@
     
     <!-- Scripts -->
     <script src="../js/quiz.js"></script>
+    <script>
+    // Email field show/hide animation for quiz recommendation
+    (function() {
+      const checkbox = document.getElementById('recEmailCheckbox');
+      const emailAnimContainer = document.querySelector('.rec-email-anim-container');
+      const emailField = document.getElementById('recEmailField');
+      const revealBtn = document.querySelector('#recommendation-form .btn-primary');
+
+      function showEmailField() {
+        emailAnimContainer.style.maxHeight = emailField.scrollHeight + 40 + 'px';
+        emailAnimContainer.style.opacity = '1';
+        emailAnimContainer.style.marginBottom = '25px';
+        emailField.style.transform = 'translateY(0)';
+        emailField.style.opacity = '1';
+        revealBtn.style.transform = 'translateY(0)';
+      }
+      function hideEmailField() {
+        emailAnimContainer.style.maxHeight = '0px';
+        emailAnimContainer.style.opacity = '0';
+        emailAnimContainer.style.marginBottom = '0px';
+        emailField.style.transform = 'translateY(-20px)';
+        emailField.style.opacity = '0';
+        revealBtn.style.transform = 'translateY(-20px)';
+      }
+
+      // Initial state
+      if (checkbox.checked) {
+        showEmailField();
+      } else {
+        hideEmailField();
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+          showEmailField();
+        } else {
+          hideEmailField();
+        }
+      });
+    })();
+    </script>
   </body>
 </html>
