@@ -15,6 +15,7 @@
 
     <!-- CSS Links -->
     <link rel="stylesheet" href="../css/fragrance-quiz.css" />
+    <link rel="stylesheet" href="../css/quizRec.css" />
 
     <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
     <link
@@ -480,11 +481,24 @@
           </div>
           <div class="recommendation-right">
             <h2>preparing your personalised perfume <br> recomendations...</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. You will see your result here after subscribing.</p>
+            <div class="rec-checkbox-row">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="recEmailCheckbox" checked>
+                <span class="custom-checkbox"></span>
+                Tick to receive result by email:
+              </label>
+            </div>
+            <ul class="rec-benefits-list">
+              <li><span class="rec-benefit-circle"><span class="rec-benefit-tick"></span></span>Your personality decoding</li>
+              <li><span class="rec-benefit-circle"><span class="rec-benefit-tick"></span></span>Your scent style analysis</li>
+              <li><span class="rec-benefit-circle"><span class="rec-benefit-tick"></span></span>Your personalised scent mixed recommendations</li>
+            </ul>
             <form id="recommendation-form">
-              <div class="mb-3">
-                <label for="recommendationEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="recommendationEmail" placeholder="Enter your email" required>
+              <div class="mb-3 rec-email-anim-container">
+                <div class="rec-email-container" id="recEmailField">
+                  <input type="email" class="form-control" id="recommendationEmail" placeholder=" " autocomplete="off">
+                  <label for="recommendationEmail" class="rec-email-label">Email</label>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Reveal My Result</button>
             </form>
@@ -493,8 +507,64 @@
       </div>
     </div>
 
-    
+    <!-- Recommendation Modal Overlay -->
+    <div id="rec-modal-overlay" class="rec-modal-overlay">
+      <div class="rec-modal-container">
+        <button class="rec-modal-close" aria-label="Close">&times;</button>
+        <div class="rec-modal-card">
+          <img src="" alt="Fragrance Image" class="rec-modal-img" />
+          <div class="rec-modal-info">
+            <h2 class="rec-modal-title"></h2>
+            <p class="rec-modal-desc"></p>
+            <p class="rec-modal-price"></p>
+            <button class="rec-modal-shop">Shop Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Scripts -->
     <script src="../js/quiz.js"></script>
+    <script>
+    // Email field show/hide animation for quiz recommendation
+    (function() {
+      const checkbox = document.getElementById('recEmailCheckbox');
+      const emailAnimContainer = document.querySelector('.rec-email-anim-container');
+      const emailField = document.getElementById('recEmailField');
+      const revealBtn = document.querySelector('#recommendation-form .btn-primary');
+
+      function showEmailField() {
+        emailAnimContainer.style.maxHeight = emailField.scrollHeight + 40 + 'px';
+        emailAnimContainer.style.opacity = '1';
+        emailAnimContainer.style.marginBottom = '25px';
+        emailField.style.transform = 'translateY(0)';
+        emailField.style.opacity = '1';
+        revealBtn.style.transform = 'translateY(0)';
+      }
+      function hideEmailField() {
+        emailAnimContainer.style.maxHeight = '0px';
+        emailAnimContainer.style.opacity = '0';
+        emailAnimContainer.style.marginBottom = '0px';
+        emailField.style.transform = 'translateY(-20px)';
+        emailField.style.opacity = '0';
+        revealBtn.style.transform = 'translateY(-20px)';
+      }
+
+      // Initial state
+      if (checkbox.checked) {
+        showEmailField();
+      } else {
+        hideEmailField();
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+          showEmailField();
+        } else {
+          hideEmailField();
+        }
+      });
+    })();
+    </script>
   </body>
 </html>
