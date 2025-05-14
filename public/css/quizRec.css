@@ -196,36 +196,80 @@
   margin-bottom: 25px !important;
 }
 
+/* --- Floating label email input for quiz recommendation section --- */
+
+.rec-email-container {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
 #recommendationEmail.form-control {
   border-radius: 30px !important;
   border: 2px solid black !important;
-  padding: 18px 24px !important;
-  font-size: 1.3rem !important;
+  padding: 22px 24px 10px 24px !important;
+  font-size: 1.15rem !important;
   background: rgb(252,250,246) !important;
   color: rgb(44,44,34) !important;
-  transition: border 0.2s !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s !important;
   width: 100% !important;
-  max-width: 750px !important;
   font-family: 'Jost', sans-serif !important;
-  font-weight: 330 !important;
+  font-weight: 400 !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 #recommendationEmail.form-control:focus {
   border: 2px solid #a07c4a !important;
-  outline: none !important;
   background: #f8f3ea !important;
 }
+
+/* Hide default placeholder, use label instead */
 #recommendationEmail.form-control::placeholder {
-  color: #b8a98e !important;
-  font-family: 'Jost', sans-serif !important;
-  opacity: 1 !important;
-  font-size: 1.1rem !important;
+  color: transparent !important;
+}
+
+/* Floating label styles */
+.rec-email-label {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: rgb(252,250,246) !important;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  pointer-events: none;
+  background: transparent;
+  padding: 0 6px;
+  transition: all 0.22s cubic-bezier(.4,2,.6,1);
+  opacity: 1;
+}
+#recommendationEmail.form-control:focus + .rec-email-label,
+#recommendationEmail.form-control:not(:placeholder-shown) + .rec-email-label {
+  top: 7px;
+  left: 22px;
+  font-size: 0.93rem;
+  color: #a07c4a;
+  background: rgb(252,250,246);
+  opacity: 1;
+}
+
+/* Error state (optional, for future JS validation) */
+#recommendationEmail.form-control.invalid {
+  border-color: #ff654a !important;
+}
+#recommendationEmail.form-control.invalid + .rec-email-label {
+  color: #ff654a !important;
 }
 
 #recommendation-form .btn-primary {
   background: #56564E !important;
   color: rgb(241, 228, 205) !important;
   border: none;
-  border-radius: 25px;
+  border-radius: 18px;
   padding: 16px 40px;
   font-size: 1.4rem;
   font-weight: 600;
@@ -233,7 +277,7 @@
   font-family: 'Jost', sans-serif !important;
   box-shadow: none;
   transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1), background 0.2s;
-  margin-top: 10px;
+  margin-top: 0px;
   min-width: 250px;
 }
 #recommendation-form .btn-primary:hover {

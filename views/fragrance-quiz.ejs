@@ -494,8 +494,9 @@
               <li><span class="rec-benefit-circle"><span class="rec-benefit-tick"></span></span>Your personalised scent mixed recommendations</li>
             </ul>
             <form id="recommendation-form">
-              <div class="mb-3">
-                <input type="email" class="form-control" id="recommendationEmail" placeholder="Email">
+              <div class="mb-3 rec-email-container">
+                <input type="email" class="form-control" id="recommendationEmail" placeholder=" " autocomplete="off">
+                <label for="recommendationEmail" class="rec-email-label">Email</label>
               </div>
               <button type="submit" class="btn btn-primary">Reveal My Result</button>
             </form>
