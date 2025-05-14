@@ -50,13 +50,14 @@
   min-width: 400px;
   max-width: 50%;
   height: 100%;
+  background: rgb(252,250,246);
 }
 
 .recommendation-right h2 {
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 400;
-  color: black;
-  margin-bottom: 30px;
+  color: rgb(44,44,34);
+  margin-bottom: 22px;
   letter-spacing: 1px;
   font-family: 'Jost', sans-serif;
   line-height: 1.2;
@@ -84,10 +85,11 @@
   align-items: center;
   font-size: 18px;
   font-weight: 400;
-  color: #6d4c2b;
+  color: rgb(44,44,34);
   cursor: pointer;
   gap: 10px;
   font-family: 'Jost', sans-serif;
+  margin-bottom: -13px;
 }
 
 .custom-checkbox-label input[type="checkbox"] {
@@ -99,7 +101,7 @@
   height: 22px;
   border: 2px solid #bdbdbd;
   border-radius: 4px;
-  background: #fff8ef;
+  background: rgb(252,250,246);
   display: flex;
   align-items: center;
   justify-content: center;
