@@ -544,6 +544,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
+
+        // Show recommendation modal
+        if (typeof showRecModal === 'function') {
+            showRecModal(recommendation);
+        }
     }
 
     function generateRecommendation(answers) {
@@ -614,5 +619,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return recommendation;
+    }
+});
+
+// === Recommendation Modal Logic ===
+document.addEventListener('DOMContentLoaded', function() {
+    const recModalOverlay = document.getElementById('rec-modal-overlay');
+    const recModalClose = document.querySelector('.rec-modal-close');
+    const recModalImg = document.querySelector('.rec-modal-img');
+    const recModalTitle = document.querySelector('.rec-modal-title');
+    const recModalDesc = document.querySelector('.rec-modal-desc');
+    const recModalPrice = document.querySelector('.rec-modal-price');
+    const recModalShop = document.querySelector('.rec-modal-shop');
+    const recForm = document.getElementById('recommendation-form');
+
+    // Helper to show modal with recommendation data
+    function showRecModal(rec) {
+        recModalImg.src = rec.image;
+        recModalImg.alt = rec.name;
+        recModalTitle.textContent = rec.name;
+        recModalDesc.textContent = rec.description;
+        recModalPrice.textContent = rec.price;
+        recModalShop.onclick = function() {
+            window.location.href = rec.link;
+        };
+        recModalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Hide modal
+    function hideRecModal() {
+        recModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    recModalClose.addEventListener('click', hideRecModal);
+    recModalOverlay.addEventListener('click', function(e) {
+        if (e.target === recModalOverlay) hideRecModal();
+    });
+
+    // Intercept form submit to show modal
+    if (recForm) {
+        recForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Use the same logic as showResults to get recommendation
+            const recommendation = typeof generateRecommendation === 'function'
+                ? generateRecommendation(window.userAnswers || {})
+                : {
+                    image: '../img/perfumes-transparent/valentino-born-in-roma.png',
+                    name: 'Valentino Born in Roma',
+                    description: 'A modern and vibrant fragrance with bergamot and jasmine.',
+                    price: '€220',
+                    link: 'all-fragrances.html'
+                };
+            showRecModal(recommendation);
+        });
     }
 });
