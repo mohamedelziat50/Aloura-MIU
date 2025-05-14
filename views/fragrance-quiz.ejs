@@ -15,6 +15,7 @@
 
     <!-- CSS Links -->
     <link rel="stylesheet" href="../css/fragrance-quiz.css" />
+    <link rel="stylesheet" href="../css/quizRec.css" />
 
     <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
     <link
@@ -480,11 +481,21 @@
           </div>
           <div class="recommendation-right">
             <h2>preparing your personalised perfume <br> recomendations...</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. You will see your result here after subscribing.</p>
+            <div class="rec-checkbox-row">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="recEmailCheckbox" checked>
+                <span class="custom-checkbox"></span>
+                Tick to receive result by email:
+              </label>
+            </div>
+            <p class="rec-benefits">
+              Your personality decoding<br>
+              Your scent style analysis<br>
+              Your personalised scent mixed recommendations
+            </p>
             <form id="recommendation-form">
               <div class="mb-3">
-                <label for="recommendationEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="recommendationEmail" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="recommendationEmail" placeholder="Email only">
               </div>
               <button type="submit" class="btn btn-primary">Reveal My Result</button>
             </form>
