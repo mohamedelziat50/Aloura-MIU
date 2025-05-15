@@ -97,10 +97,14 @@
       data-scrolly-down="moveFromBottom, duration 1.5s, delay:0.15s"
     >
       <ul>
-        <li><a href="/all-fragrances">All Fragrances</a></li>
-        <li><a href="/account">For Women</a></li>
-        <li><a href="/fragrances-for-men">For Men</a></li>
-        <li><a href="/unisex-fragrances">Unisex</a></li>
+        <li><a href="" class="gender-filter" data-gender="None">All Fragrances</a></li>
+        <li>
+          <a href="" class="gender-filter" data-gender="Female">For Women</a>
+        </li>
+        <li><a href="" class="gender-filter" data-gender="Male">For Men</a></li>
+        <li>
+          <a href="" class="gender-filter" data-gender="Unisex">Unisex</a>
+        </li>
       </ul>
     </div>
 
@@ -129,10 +133,8 @@
           <div class="dropdown-option-filter" data-value="Eau de Toilette">
             Eau de Toilette
           </div>
-          <div class="dropdown-option-filter" data-value="Eau de Cologne">
-            Eau de Cologne
-          </div>
-          <div class="dropdown-option-filter" data-value="Parfum">Parfum</div>
+          <div class="dropdown-option-filter" data-value="Cologne">Cologne</div>
+          <div class="dropdown-option-filter" data-value="Body Mist">Body Mist</div>
         </div>
       </div>
       <!-- END OF Filter Button and Dropdown Menu Container-->
@@ -181,6 +183,8 @@
         id="spicebomb-extreme"
         data-scrolly-top="moveFromTop, duration:0.5s, delay:0.1s"
         data-scrolly-down="moveFromBottom, duration:1.0s, delay:0.12s"
+        data-category="<%= product.category %>"
+        data-gender="<%= product.gender %>"
       >
         <!-- Label -->
         <div class="card-label"><%= product.gender %></div>

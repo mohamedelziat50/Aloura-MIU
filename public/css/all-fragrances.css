@@ -874,3 +874,8 @@ body {
     margin-left: 70%;
   }
 }
+
+
+.card.hidden {
+  display: none !important;
+}
