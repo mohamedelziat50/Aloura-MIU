@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("/api/chatbot/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, pageUrl: window.location.pathname }),
       });
 
       const data = await response.json();

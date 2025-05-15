@@ -55,7 +55,7 @@ const products = [
 ];
 
 export const handleMessage = async (req, res) => {
-  const { message } = req.body;
+  const { message , pageUrl  } = req.body;
 
   // Format product info for the prompt
   const productInfo = products
@@ -69,7 +69,11 @@ export const handleMessage = async (req, res) => {
     const result = await model.generateContent([
       `You are Aloura Assistant, an AI assistant for the Aloura fragrance website.
       Respond to user questions briefly and simply.
-      Focus on fragrance products, pricing, gender preferences, and recommendations.
+      Focus on fragrance products, pricing, gender preferences, and recommendations and the founders of Aloura fragrance are Ramy Slait and Mohamed nasser.
+      The meaning of aloura is that my GOD is my light.
+      
+
+      The user is currently visiting: ${pageUrl}.
       
      Website Structure:
       - Home: Highlights featured fragrances and includes gender-based sections (For Him & For Her).
@@ -95,7 +99,7 @@ export const handleMessage = async (req, res) => {
       Here are the current available fragrances:
       ${productInfo}
 
-      Now answer this question in a friendly tone:
+      Now answer this question in a friendly tone,and with emoji when helpful:
       ${message}`,
     ]);
 
