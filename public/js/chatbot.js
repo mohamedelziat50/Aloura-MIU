@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const chatButton = document.querySelector(".chat-button");
   const chatInterface = document.querySelector(".chat-interface");
   const closeChat = document.querySelector(".close-chat");
@@ -6,14 +6,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const chatInput = document.querySelector(".chat-input input");
   const sendButton = document.querySelector(".send-button");
 
-  // Toggle chat interface
+  let greeted = false; // ⬅️ Declared once per session (reset on refresh)
+
+  // Toggle chat visibility
   chatButton.addEventListener("click", () => {
     chatInterface.classList.toggle("active");
-    if (chatInterface.classList.contains("active")) {
+
+    if (chatInterface.classList.contains("active") && !greeted) {
       addMessage(
         "bot",
         "Hello! I'm your Aloura Assistant. How can I help you today?"
       );
+      greeted = true;
     }
   });
 
@@ -21,56 +25,58 @@ document.addEventListener("DOMContentLoaded", function () {
     chatInterface.classList.remove("active");
   });
 
-  // Send message function
-  function sendMessage() {
+  // Send message handler
+  const sendMessage = async () => {
     const message = chatInput.value.trim();
-    if (message) {
-      // Add user message to chat
-      addMessage("user", message);
-      chatInput.value = "";
+    if (!message) return;
 
-      // Show typing indicator
-      showTypingIndicator();
+    addMessage("user", message);
+    chatInput.value = "";
+    showTypingIndicator();
 
-      // Simulate bot response
-      setTimeout(() => {
-        removeTypingIndicator();
-        addMessage("bot", "I'm currently offline. Please try again later.");
-      }, 1000);
+    try {
+      const response = await fetch("/api/chatbot/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await response.json();
+      removeTypingIndicator();
+      addMessage("bot", data.reply);
+    } catch (error) {
+      removeTypingIndicator();
+      addMessage("bot", "Something went wrong. Please try again later.");
     }
-  }
+  };
 
-  // Send message on button click or Enter key
+  // Event listeners for send
   sendButton.addEventListener("click", sendMessage);
   chatInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
+    if (e.key === "Enter") sendMessage();
   });
 
   // Add message to chat
-  function addMessage(type, text) {
+  const addMessage = (type, text) => {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", `${type}-message`);
     messageDiv.textContent = text;
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+  };
 
-  // Show typing indicator
-  function showTypingIndicator() {
+  // Show typing dots
+  const showTypingIndicator = () => {
     const typingDiv = document.createElement("div");
     typingDiv.classList.add("typing-indicator");
     typingDiv.innerHTML = "<span></span><span></span><span></span>";
     chatMessages.appendChild(typingDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+  };
 
-  // Remove typing indicator
-  function removeTypingIndicator() {
+  // Remove typing dots
+  const removeTypingIndicator = () => {
     const typingIndicator = document.querySelector(".typing-indicator");
-    if (typingIndicator) {
-      typingIndicator.remove();
-    }
-  }
+    if (typingIndicator) typingIndicator.remove();
+  };
 });
