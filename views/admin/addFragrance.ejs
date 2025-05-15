@@ -211,7 +211,6 @@
         background-color: white !important;
       }
 
-
       .btn-outline-danger {
         border-radius: 8px;
         padding: 0.5rem !important;
@@ -301,10 +300,7 @@
     <div class="container fade-in">
       <div class="form-container">
         <h2 class="mb-4">Add New Fragrance</h2>
-        <form 
-          enctype="multipart/form-data"
-          class="scale-hover"
-        >
+        <form enctype="multipart/form-data" class="scale-hover">
           <div class="form-section">
             <div class="form-grid">
               <div class="mb-4">
@@ -331,12 +327,7 @@
             <div class="form-grid-2">
               <div class="mb-4">
                 <label class="form-label">Gender</label>
-                <select
-                  name="gender"
-                  id="fragranceGender"
-                  class="form-select"
-                  required
-                >
+                <select name="gender" id="fragranceGender" class="form-select">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Unisex">Unisex</option>
@@ -414,9 +405,12 @@
                   id="size30"
                 />
                 <label class="form-check-label" for="size30">30ml</label>
-                <select name="price30" class="form-select" required>
+                <select name="price30" class="form-select">
+                  <option value="600">600 EGP</option>
                   <option value="900">900 EGP</option>
                   <option value="1200">1200 EGP</option>
+                  <option value="1500">1500 EGP</option>
+                  <option value="2000">2000 EGP</option>
                 </select>
                 <input
                   type="number"
@@ -435,10 +429,12 @@
                   id="size50"
                 />
                 <label class="form-check-label" for="size50">50ml</label>
-                <select name="price50" class="form-select" required>
-                  <option value="1200">900 EGP</option>
+                <select name="price50" class="form-select">
+                  <option value="600">600 EGP</option>
+                  <option value="900">900 EGP</option>
                   <option value="1200">1200 EGP</option>
                   <option value="1500">1500 EGP</option>
+                  <option value="2000">2000 EGP</option>
                 </select>
                 <input
                   type="number"
@@ -457,15 +453,12 @@
                   id="size100"
                 />
                 <label class="form-check-label" for="size100">100ml</label>
-                <select
-                  name="price100"
-                  class="form-select"
-                  id="price100"
-                  required
-                >
-                  <option value="1200">900 EGP</option>
+                <select name="price100" class="form-select" id="price100">
+                  <option value="600">600 EGP</option>
+                  <option value="900">900 EGP</option>
                   <option value="1200">1200 EGP</option>
                   <option value="1500">1500 EGP</option>
+                  <option value="2000">2000 EGP</option>
                 </select>
                 <input
                   type="number"
