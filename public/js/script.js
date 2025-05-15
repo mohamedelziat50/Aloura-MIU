@@ -98,6 +98,10 @@ function initGenderHoverEffects() {
     // Hide female fluid canvas immediately
     femaleCanvas.style.opacity = "0";
     femaleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
+
+    // Hide male fluid canvas immediately
+    maleCanvas.style.opacity = "0";
+    maleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
     
     // Clear any pending timers - This prevents race conditions by canceling any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
@@ -127,13 +131,13 @@ function initGenderHoverEffects() {
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
         femaleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
-      }, 1000);
+      }, 2000);
       
       // Ensure male fluid is visible too (in case it was hidden before)
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
         maleCanvas.style.pointerEvents = "auto";
-      }, 1000);
+      }, 2000);
     }
   });
 
@@ -154,6 +158,10 @@ function initGenderHoverEffects() {
     // Hide male fluid canvas immediately
     maleCanvas.style.opacity = "0";
     maleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
+
+    // Hide female fluid canvas immediately
+    femaleCanvas.style.opacity = "0";
+    femaleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
     
     // Clear any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
@@ -183,13 +191,13 @@ function initGenderHoverEffects() {
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
         maleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
-      }, 1000);
+      }, 2000);
       
       // Ensure female fluid is visible too (in case it was hidden before)
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
         femaleCanvas.style.pointerEvents = "auto";
-      }, 1000);
+      }, 2000);
     }
   });
 }
