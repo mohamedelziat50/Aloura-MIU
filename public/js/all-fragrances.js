@@ -244,7 +244,46 @@ genderLinks.forEach((link) => {
           "moveFromBottom, duration:1.0s, delay:0.12s"
         );
       });
-
     });
   });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const genderFromUrl = urlParams.get("gender");
+
+  if (genderFromUrl) {
+    const matchingCards = [];
+
+    allCards.forEach((card) => {
+      card.classList.add("hidden");
+      card.removeAttribute("data-scrolly-top");
+      card.removeAttribute("data-scrolly-down");
+    });
+
+    fragranceCards.forEach((card) => {
+      const cardGender = card.getAttribute("data-gender");
+      if (
+        genderFromUrl === "None" ||
+        cardGender.toLowerCase() === genderFromUrl.toLowerCase()
+      ) {
+        matchingCards.push(card);
+      }
+    });
+
+    requestAnimationFrame(() => {
+      matchingCards.forEach((card) => {
+        card.classList.remove("hidden");
+        card.setAttribute(
+          "data-scrolly-top",
+          "moveFromTop, duration:0.5s, delay:0.1s"
+        );
+        card.setAttribute(
+          "data-scrolly-down",
+          "moveFromBottom, duration:1.0s, delay:0.12s"
+        );
+      });
+    });
+  }
 });
