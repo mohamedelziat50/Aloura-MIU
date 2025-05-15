@@ -10,6 +10,7 @@ import fragranceRoutes from "./routes/fragrance.js";
 import reviewRoutes from "./routes/review.js";
 import orderRoutes from "./routes/order.js";
 import frontendRouter from "./routes/frontend.js";
+import chatbotRoutes from "./routes/chatbot.js";
 
 const app = express();
 
@@ -25,6 +26,7 @@ connectDB();
 
 //routes
 app.use(frontendRouter);
+app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/fragrances", fragranceRoutes);

@@ -14,3 +14,5 @@ export const JWT_SECRET = process.env.JWT_SECRET;
 export const JWT_EXPIRY = process.env.JWT_EXPIRY;
 
 export const NODE_ENV = process.env.NODE_ENV;
+export const GENAI = process.env.genAI;
+
