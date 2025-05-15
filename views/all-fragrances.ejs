@@ -104,10 +104,8 @@
       </ul>
     </div>
 
-
-
     <% if (fragrance.length > 0) { %>
-          <!-- Controls Container: Filter Button + Search Bar -->
+    <!-- Controls Container: Filter Button + Search Bar -->
     <div
       class="controls-container"
       data-scrolly-top="moveFromTop, duration 1.5s, delay:0.15s"
@@ -188,18 +186,19 @@
         <div class="card-label"><%= product.gender %></div>
 
         <!-- Image Container -->
-         <div class="pictureContainer"><a
-          href="/fragrances-page/<%= product._id %>"
-          target="_self"
-          class="card-image-container"
-        >
-          <img
-            class="card-image"
-            src="<%= product.image[0] %>"
-            alt="<%= product.name %> Image"
-          />
-        </a></div>
-        
+        <div class="pictureContainer">
+          <a
+            href="/fragrances-page/<%= product._id %>"
+            target="_self"
+            class="card-image-container"
+          >
+            <img
+              class="card-image"
+              src="<%= product.image[0] %>"
+              alt="<%= product.name %> Image"
+            />
+          </a>
+        </div>
 
         <!-- Title -->
         <a
@@ -227,8 +226,11 @@
           <% } %>
 
           <!-- Dropdown Menu -->
+          <% const seen = new Set(); %>
           <div class="dropdown-menu">
-            <% product.sizeOptions.forEach(option => { %>
+            <% product.sizeOptions.forEach(option => { const key =
+            `${option.size}-${option.price}`; if (!seen.has(key)) {
+            seen.add(key); %>
             <div
               class="dropdown-option"
               data-price="<%= option.price %> EGP"
@@ -237,7 +239,7 @@
               <span class="dropdown-price"><%= option.price %> EGP</span>
               <span class="dropdown-ml"><%= option.size %>ml</span>
             </div>
-            <% }) %>
+            <% } }) %>
           </div>
         </div>
 

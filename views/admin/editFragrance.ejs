@@ -327,7 +327,7 @@
             <div class="form-grid-2">
               <div class="mb-4">
                 <label class="form-label">Gender</label>
-                <select name="gender" id="fragranceGender" class="form-select" required>
+                <select name="gender" id="fragranceGender" class="form-select">
                   <option value="Male" <%= fragrance.gender === 'Male' ? 'selected' : '' %>>Male</option>
                   <option value="Female" <%= fragrance.gender === 'Female' ? 'selected' : '' %>>Female</option>
                   <option value="Unisex" <%= fragrance.gender === 'Unisex' ? 'selected' : '' %>>Unisex</option>
@@ -409,9 +409,12 @@
         <%= fragrance.sizeOptions.some(option => option.size === 30) ? 'checked' : '' %> 
       />
       <label class="form-check-label" for="size30">30ml</label>
-      <select name="price30" class="form-select" required>
+      <select name="price30" class="form-select">
+        <option value="600" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 600 ? 'selected' : '' %>>600 EGP</option>
         <option value="900" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 900 ? 'selected' : '' %>>900 EGP</option>
         <option value="1200" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1200 ? 'selected' : '' %>>1200 EGP</option>
+        <option value="1500" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1500 ? 'selected' : '' %>>1500 EGP</option>
+        <option value="2000" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 2000 ? 'selected' : '' %>>2000 EGP</option>
       </select>
       <input
         type="number"
@@ -435,10 +438,12 @@
         <%= fragrance.sizeOptions.some(option => option.size === 50) ? 'checked' : '' %> 
       />
       <label class="form-check-label" for="size50">50ml</label>
-      <select name="price50" class="form-select" required>
-        <option value="1200" <%= fragrance.sizeOptions.find(option => option.size === 50)?.price === 1200 ? 'selected' : '' %>>1200 EGP</option>
-        <option value="1500" <%= fragrance.sizeOptions.find(option => option.size === 50)?.price === 1500 ? 'selected' : '' %>>1500 EGP</option>
-        <option value="1800" <%= fragrance.sizeOptions.find(option => option.size === 50)?.price === 1800 ? 'selected' : '' %>>1800 EGP</option>
+      <select name="price50" class="form-select">
+        <option value="600" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 600 ? 'selected' : '' %>>600 EGP</option>
+        <option value="900" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 900 ? 'selected' : '' %>>900 EGP</option>
+        <option value="1200" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1200 ? 'selected' : '' %>>1200 EGP</option>
+        <option value="1500" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1500 ? 'selected' : '' %>>1500 EGP</option>
+        <option value="2000" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 2000 ? 'selected' : '' %>>2000 EGP</option>
       </select>
       <input
         type="number"
@@ -462,10 +467,12 @@
         <%= fragrance.sizeOptions.some(option => option.size === 100) ? 'checked' : '' %> 
       />
       <label class="form-check-label" for="size100">100ml</label>
-      <select name="price100" class="form-select" required>
-        <option value="1500" <%= fragrance.sizeOptions.find(option => option.size === 100)?.price === 1500 ? 'selected' : '' %>>1500 EGP</option>
-        <option value="1800" <%= fragrance.sizeOptions.find(option => option.size === 100)?.price === 1800 ? 'selected' : '' %>>1800 EGP</option>
-        <option value="2000" <%= fragrance.sizeOptions.find(option => option.size === 100)?.price === 2000 ? 'selected' : '' %>>2000 EGP</option>
+      <select name="price100" class="form-select">
+        <option value="600" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 600 ? 'selected' : '' %>>600 EGP</option>
+        <option value="900" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 900 ? 'selected' : '' %>>900 EGP</option>
+        <option value="1200" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1200 ? 'selected' : '' %>>1200 EGP</option>
+        <option value="1500" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 1500 ? 'selected' : '' %>>1500 EGP</option>
+        <option value="2000" <%= fragrance.sizeOptions.find(option => option.size === 30)?.price === 2000 ? 'selected' : '' %>>2000 EGP</option>
       </select>
       <input
         type="number"
