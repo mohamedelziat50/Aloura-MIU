@@ -63,12 +63,22 @@ document.addEventListener("DOMContentLoaded", function () {
     cardNameDisplay.textContent = cleanedName || "PREM KUMAR SHAHI";
   }
 
-  function updateCardExpiry() {
-    let value = cardExpiryInput.value.replace(/\D/g, "");
-    if (value.length > 2) value = value.slice(0, 2) + "/" + value.slice(2, 4);
-    cardExpiryInput.value = value.slice(0, 5);
-    cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
+function updateCardExpiry() {
+  let value = cardExpiryInput.value.replace(/\D/g, "");  // Remove non-digit characters
+  // If the value length is more than 2, insert a slash between month and year
+  if (value.length > 2) {
+    value = value.slice(0, 2) + "/" + value.slice(2, 4);
   }
+  // If the month is greater than 12, set it to 12
+  const month = parseInt(value.slice(0, 2), 10);
+  if (month > 12) {
+    value = "12" + value.slice(2);  // Limit the month to 12
+  }
+  // Limit the input to 5 characters (MM/YY)
+  cardExpiryInput.value = value.slice(0, 5);
+  // Update the display with the current expiry value or default
+  cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
+}
 
   function updateCardCVV() {
     let digitsOnly = cardCVVInput.value.replace(/\D/g, "").slice(0, 3);
