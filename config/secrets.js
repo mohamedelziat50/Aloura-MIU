@@ -16,3 +16,10 @@ export const JWT_EXPIRY = process.env.JWT_EXPIRY;
 export const NODE_ENV = process.env.NODE_ENV;
 export const GENAI = process.env.genAI;
 
+export const APIKEY = process.env.apiKey;
+export const APISECRET = process.env.apiSecret;
+
+
+export const ACCOUNTSID = process.env.accountSid;
+export const AUTHTOKEN = process.env.authToken;
+export const FRONUMBER = process.env.fromNumber;
