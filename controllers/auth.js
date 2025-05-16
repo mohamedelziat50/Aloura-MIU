@@ -1,6 +1,7 @@
 import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
-import sendEmail from "../utilities/emailService.js"; // Assuming you have a utility function to send emails
+import sendEmail from "../utilities/emailService.js";
+import { generateVerificationEmail } from "../utilities/emailtemplates.js";
 import sendSMS from "../utilities/smsService.js";
 import sendSMStwilio from "../utilities/twilio.js";
 
@@ -62,18 +63,13 @@ export const signup = async (req, res) => {
 
     console.log("🎉 New user created:", newUser);
     // so here write the html you want to be send in the email
-       const htmlContent = `
-      <html>
-        <body>
-        </body>
-      </html>
-    `;
+    const htmlContent = generateVerificationEmail(name, id);
 
     sendEmail({
       to: email,
       subject: "Verify your email!",
-      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`,
-      html: htmlContent
+      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`, // this will show if the user do not support html email
+      html: htmlContent,
     });
 
     // Respond with a success message and the newly created user
@@ -177,9 +173,7 @@ export const forgotPassword = async (req, res) => {
     //   `Your password reset verification code is: ${verificationCode}`
     // );
 
-    // await sendSMS(normalizedPhone , `Your password reset verification code is: ${verificationCode}` 
-
-
+    // await sendSMS(normalizedPhone , `Your password reset verification code is: ${verificationCode}`
 
     // Now send the email
     await sendEmail({
