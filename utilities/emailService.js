@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { EMAIL_USER, EMAIL_PASS } from "../config/secrets.js";
 
-export default async function sendEmail({ to, subject, text }) {
+export default async function sendEmail({ to, subject, text, html }) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -15,7 +15,8 @@ export default async function sendEmail({ to, subject, text }) {
       from: EMAIL_USER,
       to,
       subject,
-      text,
+      text,  // This will be the plain text version of the email (fallback)
+      html,  // This will be the HTML version of the email
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
