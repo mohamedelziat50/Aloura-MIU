@@ -61,12 +61,20 @@ export const signup = async (req, res) => {
     }
 
     console.log("🎉 New user created:", newUser);
-    // Optionally, you can send a verification email
-    // sendEmail({
-    //   to: email,
-    //   subject: "Verify your email!",
-    //   text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`,
-    // });
+    // so here write the html you want to be send in the email
+       const htmlContent = `
+      <html>
+        <body>
+        </body>
+      </html>
+    `;
+
+    sendEmail({
+      to: email,
+      subject: "Verify your email!",
+      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`,
+      html: htmlContent
+    });
 
     // Respond with a success message and the newly created user
     res.status(201).json({ message: "Signed up successfully!", user: newUser });
