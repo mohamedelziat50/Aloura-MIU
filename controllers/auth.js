@@ -1,7 +1,8 @@
 import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utilities/emailService.js"; // Assuming you have a utility function to send emails
-
+import sendSMS from "../utilities/smsService.js";
+import sendSMStwilio from "../utilities/twilio.js";
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -158,11 +159,21 @@ export const forgotPassword = async (req, res) => {
 
     user.resetPasswordCode = verificationCode;
     user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
-    
-    
     await user.save();
+    // const normalizedPhone = user.phone.startsWith("+")
+    //   ? user.phone
+    //   : `+20${user.phone}`;
 
-   // Now send the email
+    // await sendSMStwilio(
+    //   normalizedPhone,
+    //   `Your password reset verification code is: ${verificationCode}`
+    // );
+
+    // await sendSMS(normalizedPhone , `Your password reset verification code is: ${verificationCode}` 
+
+
+
+    // Now send the email
     await sendEmail({
       to: email,
       subject: "Password Reset Verification Code",
@@ -187,10 +198,13 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Invalid verification code." });
     }
 
-    if (!user.resetPasswordCodeExpires || user.resetPasswordCodeExpires < Date.now()) {
+    if (
+      !user.resetPasswordCodeExpires ||
+      user.resetPasswordCodeExpires < Date.now()
+    ) {
       return res.status(400).json({ message: "Code has expired." });
     }
-  
+
     user.password = await newPassword;
 
     // Clear the reset code and expiry
