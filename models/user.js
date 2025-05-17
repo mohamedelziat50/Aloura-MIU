@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-// ✅ Define the schema with a consistent name
+// User Schema
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -46,19 +46,36 @@ const userSchema = new mongoose.Schema(
     },
     resetPasswordCode: {
       type: String,
-      default: null, // No code initially
+      default: null,
     },
     resetPasswordCodeExpires: {
       type: Date,
-      default: null, // No expiration initially
+      default: null,
     },
+    // Cart array that holds fragrance IDs and quantities
+    cart: [
+      {
+        fragrance: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Fragrance", // Reference to the Fragrance model
+        },
+        size: {
+          type: String, // Store the selected size
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          default: 1, // Default quantity is 1
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-// ✅ Hash password before saving
+// Hash password before saving
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next(); // only hash if changed
+  if (!this.isModified("password")) return next();
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -68,11 +85,10 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-// ✅ Method to compare password
+// Method to compare password
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// ✅ Export model safely to avoid OverwriteModelError
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;
