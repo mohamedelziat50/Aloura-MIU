@@ -248,7 +248,6 @@ genderLinks.forEach((link) => {
   });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const genderFromUrl = urlParams.get("gender");
@@ -287,3 +286,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartButtons = document.querySelectorAll(".card-button");
+
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", async function () {
+      const card = this.closest(".card");
+      const cardPriceContainer = card.querySelector(".card-price");
+
+      const priceText = cardPriceContainer
+        ?.querySelector(".price")
+        ?.textContent?.trim();
+      const mlText = cardPriceContainer
+        ?.querySelector(".ml")
+        ?.textContent?.trim();
+
+      if (!priceText || !mlText) {
+        alert("Missing price or size.");
+        return;
+      }
+
+      const price = parseFloat(priceText);
+      const size = mlText.replace("▼", "").trim();
+      const productId = this.getAttribute("productId");
+
+      if (!productId) {
+        alert("Missing product ID.");
+        return;
+      }
+
+      const data = { productId, size, price };
+      console.log("Sending to backend:", data);
+
+      try {
+        const response = await fetch("/api/users/addToCart", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          updateCartUI(result);
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    });
+  });
+});
+
+// Function to update the UI (e.g., cart count, cart items list, etc.)
+function updateCartUI(result) {
+  // For example, update the cart count displayed in the header
+  const cartCount = document.getElementById("cart-count");
+  if (cartCount) {
+    cartCount.textContent = result.cartCount; // Assuming the backend returns the updated cart count
+  }
+
+  // Optionally, you can add more dynamic updates like showing the cart items
+}

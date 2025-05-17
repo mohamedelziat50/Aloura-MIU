@@ -6,7 +6,7 @@ const vonage = new Vonage({
   apiSecret: APISECRET,
 });
 
-const from = "Alora Fragrances";
+const from = "Aloura";
 const text = "A text message sent using the Vonage SMS API";
 
 export default async function sendSMS(to, message) {

@@ -63,7 +63,7 @@ export const signup = async (req, res) => {
 
     console.log("🎉 New user created:", newUser);
     // so here write the html you want to be send in the email
-    const htmlContent = generateVerificationEmail(name, id);
+    const htmlContent = generateVerificationEmail(newUser.name, newUser._id);
 
     sendEmail({
       to: email,
@@ -173,7 +173,10 @@ export const forgotPassword = async (req, res) => {
     //   `Your password reset verification code is: ${verificationCode}`
     // );
 
-    // await sendSMS(normalizedPhone , `Your password reset verification code is: ${verificationCode}`
+    // await sendSMS(
+    //   normalizedPhone,
+    //   `Your password reset verification code is: ${verificationCode}`
+    // );
 
     // Now send the email
     await sendEmail({
