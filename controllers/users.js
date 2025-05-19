@@ -104,7 +104,7 @@ export const addToCart = async (req, res) => {
         price, // If you store price per unit in the cart
         quantity: 1,
       });
-    }
+    } 
 
     await user.save();
 
@@ -124,5 +124,121 @@ export const addToCart = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "An error occurred on the server." });
+  }
+};
+
+export const increaseCartItem = async (req, res) => {
+  const { productId, size } = req.body;
+
+  if (!productId || !size) {
+    return res.status(400).json({
+      success: false,
+      message: "Product ID and size are required.",
+    });
+  }
+
+  try {
+    
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    const item = user.cart.find(
+      (i) => i.fragrance.toString() === productId && i.size === size
+    );
+
+    if (!item) {
+      return res.status(404).json({ success: false, message: "Cart item not found." });
+    }
+
+    item.quantity += 1;
+    await user.save();
+
+    return res.json({ success: true, message: "Quantity increased." });
+  } catch (error) {
+    console.error("Increase quantity error:", error);
+    res.status(500).json({ success: false, message: "Server error." });
+  }
+};
+
+export const decreaseCartItem = async (req, res) => {
+  const { productId, size } = req.body;
+
+  if (!productId || !size) {
+    return res.status(400).json({
+      success: false,
+      message: "Product ID and size are required.",
+    });
+  }
+
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    const item = user.cart.find(
+      (i) => i.fragrance.toString() === productId && i.size === size
+    );
+
+    if (!item) {
+      return res.status(404).json({ success: false, message: "Cart item not found." });
+    }
+
+    if (item.quantity <= 1) {
+      return res.status(400).json({ success: false, message: "Minimum quantity reached." });
+    }
+
+    item.quantity -= 1;
+    await user.save();
+
+    return res.json({ success: true, message: "Quantity decreased." });
+  } catch (error) {
+    console.error("Decrease quantity error:", error);
+    res.status(500).json({ success: false, message: "Server error." });
+  }
+};
+
+
+export const removeFromCart = async (req, res) => {
+  try {
+    const userId = req.user.id; // comes from auth middleware
+    const { fragranceId, size } = req.body;
+
+    if (!fragranceId) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing fragranceId.",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    // Optional: remove by fragrance AND size (more precise)
+    user.cart = user.cart.filter(
+      (item) =>
+        item.fragrance.toString() !== fragranceId ||
+        (size && item.size !== size)
+    );
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: "Item removed from cart successfully.",
+    });
+  } catch (error) {
+    console.error("Remove from cart error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while removing item from cart.",
+    });
   }
 };
