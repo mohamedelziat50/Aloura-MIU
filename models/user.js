@@ -67,6 +67,10 @@ const userSchema = new mongoose.Schema(
           type: Number,
           default: 1, // Default quantity is 1
         },
+        price: {
+          type: Number,
+          required: true,
+        },
       },
     ],
   },

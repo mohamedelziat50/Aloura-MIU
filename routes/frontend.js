@@ -24,13 +24,13 @@ router.use(async (req, res, next) => {
     const token = req.cookies.jwt;
 
     if (!token) {
-      res.locals.user = null; // No user found
-      return next(); // ⛔ prevent the rest of the function from running
+      res.locals.user = null;
+      return next();
     }
-    // This line won't be reached if there's no token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    res.locals.user = await UserModel.findById(decoded.id);
+    // Populate cart.fragrance
+    res.locals.user = await UserModel.findById(decoded.id).populate("cart.fragrance");
     next();
   } catch (error) {
     next();
