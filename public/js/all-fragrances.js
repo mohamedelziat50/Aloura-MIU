@@ -52,7 +52,6 @@ mlElements.forEach((ml) => {
   });
 });
 
-
 // Close dropdown when clicking outside
 document.addEventListener("click", () => {
   mlElements.forEach((ml) => {
@@ -394,9 +393,11 @@ function updateCartUI(result) {
 
         // Reattach event listeners for the new buttons
         attachCartEventListeners();
-        showFunToast("item added to cart" , "green")
-
-
+        showFunToast(
+          "✅ Item successfully added to your cart!",
+          "green",
+          "left"
+        );
       }
     })
     .catch((error) => {
