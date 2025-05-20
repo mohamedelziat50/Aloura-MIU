@@ -104,7 +104,7 @@ export const addToCart = async (req, res) => {
         price, // If you store price per unit in the cart
         quantity: 1,
       });
-    } 
+    }
 
     await user.save();
 
@@ -138,10 +138,11 @@ export const increaseCartItem = async (req, res) => {
   }
 
   try {
-    
     const user = await User.findById(req.user.id);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
     }
 
     const item = user.cart.find(
@@ -149,7 +150,9 @@ export const increaseCartItem = async (req, res) => {
     );
 
     if (!item) {
-      return res.status(404).json({ success: false, message: "Cart item not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "Cart item not found." });
     }
 
     item.quantity += 1;
@@ -175,7 +178,9 @@ export const decreaseCartItem = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
     }
 
     const item = user.cart.find(
@@ -183,11 +188,15 @@ export const decreaseCartItem = async (req, res) => {
     );
 
     if (!item) {
-      return res.status(404).json({ success: false, message: "Cart item not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "Cart item not found." });
     }
 
     if (item.quantity <= 1) {
-      return res.status(400).json({ success: false, message: "Minimum quantity reached." });
+      return res
+        .status(400)
+        .json({ success: false, message: "Minimum quantity reached." });
     }
 
     item.quantity -= 1;
@@ -199,8 +208,6 @@ export const decreaseCartItem = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error." });
   }
 };
-
-
 
 export const removeFromCart = async (req, res) => {
   try {
@@ -247,3 +254,25 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
+export const getCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("cart.fragrance");
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    return res.json({
+      success: true,
+      cart: user.cart,
+    });
+  } catch (error) {
+    console.error("Get cart error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while fetching cart.",
+    });
+  }
+};

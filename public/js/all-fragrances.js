@@ -1,3 +1,4 @@
+import showFunToast from "/js/toast.js";
 // Select all ml elements from the card-price container
 const mlElements = document.querySelectorAll(".card-price .ml");
 
@@ -50,18 +51,6 @@ mlElements.forEach((ml) => {
     }
   });
 });
-
-/*
-Adds a click event listener to the entire document.
-
-When a click occurs anywhere on the page:
-
-Loops through all .ml elements.
-
-For each .ml element, finds its closest .card-price container.
-
-If the .card-price container has the active class, removes the active class to hide the dropdown menu. 
-*/
 
 // Close dropdown when clicking outside
 document.addEventListener("click", () => {
@@ -341,11 +330,201 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to update the UI (e.g., cart count, cart items list, etc.)
 function updateCartUI(result) {
-  // For example, update the cart count displayed in the header
+  // Update the cart count displayed in the header
   const cartCount = document.getElementById("cart-count");
   if (cartCount) {
-    cartCount.textContent = result.cartCount; // Assuming the backend returns the updated cart count
+    cartCount.textContent = result.cartCount;
   }
 
-  // Optionally, you can add more dynamic updates like showing the cart items
+  // Get the cart items container
+  const cartItemsContainer = document.querySelector(".cart-items-container");
+  if (!cartItemsContainer) return;
+
+  // If cart is empty, show empty state
+  if (result.cartCount === 0) {
+    cartItemsContainer.innerHTML = `
+      <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+        <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+        <h4 class="mt-3">Your cart is empty.</h4>
+      </div>
+    `;
+    return;
+  }
+
+  // Fetch the latest cart data
+  fetch("/api/users/cart")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success && data.cart) {
+        // Clear existing items
+        cartItemsContainer.innerHTML = "";
+
+        // Add each cart item
+        data.cart.forEach((item) => {
+          const cartItemHTML = `
+            <div class="row cart-item mb-3" data-price="${item.price}">
+              <div class="col-md-3">
+                <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
+              </div>
+              <div class="col-md-5 mt-3">
+                <h5 class="card-title">${item.fragrance.name}</h5>
+                <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
+              </div>
+              <div class="col-md-4 d-flex flex-column">
+                <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="input-group" style="max-width: 180px">
+                    <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
+                    <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
+                    <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
+        });
+
+        // Update subtotal
+        updateSubtotal();
+
+        // Reattach event listeners for the new buttons
+        attachCartEventListeners();
+        showFunToast(
+          "✅ Item successfully added to your cart!",
+          "green",
+          "left"
+        );
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching cart data:", error);
+    });
+}
+
+// Function to attach event listeners to cart buttons
+function attachCartEventListeners() {
+  // Attach event listeners to plus buttons
+  document.querySelectorAll(".plus-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const fragranceId = this.getAttribute("data-fragrance-id");
+      const size = this.getAttribute("data-size");
+      const cartItem = this.closest(".cart-item");
+      const quantityInput = cartItem.querySelector(".quantity-input");
+      const originalQty = parseInt(quantityInput.value);
+
+      quantityInput.value = originalQty + 1;
+      updateSubtotal();
+
+      try {
+        const res = await fetch("/api/users/increase", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: fragranceId, size }),
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          quantityInput.value = originalQty;
+        }
+      } catch (error) {
+        quantityInput.value = originalQty;
+        console.error("Increase error:", error);
+      }
+    });
+  });
+
+  // Attach event listeners to minus buttons
+  document.querySelectorAll(".minus-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const fragranceId = this.getAttribute("data-fragrance-id");
+      const size = this.getAttribute("data-size");
+      const cartItem = this.closest(".cart-item");
+      const quantityInput = cartItem.querySelector(".quantity-input");
+      const originalQty = parseInt(quantityInput.value);
+
+      if (originalQty <= 1) return;
+
+      quantityInput.value = originalQty - 1;
+      updateSubtotal();
+
+      try {
+        const res = await fetch("/api/users/decrease", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId: fragranceId, size }),
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          quantityInput.value = originalQty;
+        }
+      } catch (error) {
+        quantityInput.value = originalQty;
+        console.error("Decrease error:", error);
+      }
+    });
+  });
+
+  // Attach event listeners to trash buttons
+  document.querySelectorAll(".trash-can-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const fragranceId = this.getAttribute("data-fragrance-id");
+      const size = this.getAttribute("data-size");
+      const cartItem = this.closest(".cart-item");
+      const cartItemsContainer = document.querySelector(
+        ".cart-items-container"
+      );
+
+      try {
+        const res = await fetch("/api/users/removefromcart", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fragranceId, size }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          cartItem.remove();
+          updateSubtotal();
+
+          // Check if this was the last item
+          const remainingItems =
+            cartItemsContainer.querySelectorAll(".cart-item");
+          if (remainingItems.length === 0) {
+            cartItemsContainer.innerHTML = `
+              <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+                <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+                <h4 class="mt-3">Your cart is empty.</h4>
+              </div>
+            `;
+          }
+        } else {
+          alert("Error removing item. Please try again.");
+        }
+      } catch (err) {
+        console.error("Failed to remove item from cart:", err);
+      }
+    });
+  });
+}
+
+// Function to update subtotal
+function updateSubtotal() {
+  const cartItems = document.querySelectorAll(".cart-item");
+  let subtotal = 0;
+
+  cartItems.forEach((item) => {
+    const price = parseFloat(item.getAttribute("data-price"));
+    const quantity = parseInt(item.querySelector(".quantity-input").value);
+    subtotal += price * quantity;
+  });
+
+  const subtotalElement = document.querySelector(".cart-info-subtotal span");
+  if (subtotalElement) {
+    subtotalElement.textContent = `${subtotal} EGP`;
+  }
 }
