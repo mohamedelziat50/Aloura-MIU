@@ -1,29 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".trash-can-button").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const fragranceId = button.getAttribute("data-fragrance-id");
-      const size = button.getAttribute("data-size");
-
-      try {
-        const res = await fetch("/api/users/removefromcart", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ fragranceId, size }),
-        });
-
-        const data = await res.json();
-        console.log(data.message);
-        if (data.success) {
-          location.reload(); // or remove the element dynamically
-        }
-      } catch (err) {
-        console.error("Failed to remove item from cart:", err);
-      }
-    });
-  });
-});
 
 function updateSubtotal() {
   const cartItems = document.querySelectorAll(".cart-item");
@@ -139,40 +113,42 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const trashButtons = document.querySelectorAll(".trash-can-button");
+  document.querySelectorAll(".trash-can-button").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const fragranceId = button.getAttribute("data-fragrance-id");
+      const size = button.getAttribute("data-size");
+      const cartItem = button.closest(".cart-item");
+      const cartItemsContainer = document.querySelector(".cart-items-container");
 
-  trashButtons.forEach((button) => {
-    button.addEventListener("click", async function () {
-      const fragranceId = this.getAttribute("data-fragrance-id");
-      const size = this.getAttribute("data-size");
-
-      const cartItem = this.closest(".cart-item");
-
-      // Optimistically remove the item from UI
       cartItem.remove();
       updateSubtotal();
 
       try {
-        const res = await fetch("/api/users/cart/" + fragranceId, {
+        const res = await fetch("/api/users/removefromcart", {
           method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ size }), // size is optional but recommended
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fragranceId, size }),
         });
-        if (res.status === 204) {
-          return { success: true }; // mock a success
-        }
 
         const data = await res.json();
-
         if (!data.success) {
-          // Optionally re-insert the item if needed
-          window.location.reload(); // fallback in case of failure
+          alert("Error removing item. Please try again.");
         }
-      } catch (error) {
-        console.error("Remove from cart error:", error);
+
+        // ✅ Check again after removal
+        if (cartItemsContainer && cartItemsContainer.querySelectorAll(".cart-item").length === 0) {
+          cartItemsContainer.innerHTML = `
+            <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+              <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+              <h4 class="mt-3">Your cart is empty.</h4>
+            </div>
+          `;
+        }
+      } catch (err) {
+        console.error("Failed to remove item from cart:", err);
       }
     });
   });
 });
+
+

@@ -201,9 +201,10 @@ export const decreaseCartItem = async (req, res) => {
 };
 
 
+
 export const removeFromCart = async (req, res) => {
   try {
-    const userId = req.user.id; // comes from auth middleware
+    const userId = req.user.id;
     const { fragranceId, size } = req.body;
 
     if (!fragranceId) {
@@ -221,24 +222,28 @@ export const removeFromCart = async (req, res) => {
       });
     }
 
-    // Optional: remove by fragrance AND size (more precise)
-    user.cart = user.cart.filter(
-      (item) =>
-        item.fragrance.toString() !== fragranceId ||
-        (size && item.size !== size)
+    await User.updateOne(
+      { _id: userId },
+      {
+        $pull: {
+          cart: {
+            fragrance: fragranceId,
+            ...(size ? { size } : {}), // only match size if provided
+          },
+        },
+      }
     );
 
-    await user.save();
-
-    res.json({
+    return res.json({
       success: true,
       message: "Item removed from cart successfully.",
     });
   } catch (error) {
     console.error("Remove from cart error:", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Server error while removing item from cart.",
     });
   }
 };
+
