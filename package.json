@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/mohamedelziat50/Aloura-MIU#readme",
   "dependencies": {
-    "@google/genai": "^0.14.0",
+    "@google/genai": "^0.15.0",
     "@google/generative-ai": "^0.24.1",
     "@vonage/server-sdk": "^3.21.0",
     "bcrypt": "^5.1.1",
