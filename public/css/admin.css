@@ -205,10 +205,12 @@ tr:nth-child(even) {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   color: white;
+  width: auto;
 }
 
 .product-btn.add {
   background-color: #000000;
+  white-space: nowrap;
 }
 
 .product-btn.edit {
@@ -1441,14 +1443,9 @@ canvas {
     font-size: 12px;
   }
 
-  .product-actions {
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .product-btn {
-    width: 100%;
-    padding: 8px;
+    width: auto;
+    padding: 8px 16px;
     font-size: 14px;
   }
 
@@ -1503,6 +1500,11 @@ canvas {
   .sidebar.active + .menu-toggle {
     display: none;
   }
+
+  .product-buttons {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1532,11 +1534,12 @@ canvas {
   }
 
   .product-buttons {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-start;
   }
 
   .product-btn {
-    width: 100%;
+    width: auto;
   }
 
   .review-card {
