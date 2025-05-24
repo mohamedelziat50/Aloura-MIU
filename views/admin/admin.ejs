@@ -564,56 +564,56 @@
           <% if (arr.length === 0) { %>
           <h1 style="text-align: center">No Data To Show</h1>
           <% } else { %>
-          <table
-            class="text-center mx-auto table mt-4 table-striped table-bordered"
-          >
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Verified</th>
-                <th scope="col">Last updated</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% arr.forEach((user, index) => { %>
-              <tr>
-                <th scope="row"><%= index + 1 %></th>
-                <td><%= user.name %></td>
-                <td><%= user.email %></td>
-                <td><%= user.phone %></td>
-                <td><%= user.isVerified %></td>
-                <td><%= moment(user.updatedAt).fromNow() %></td>
-                <td><%= user.role %></td>
-                <td class="d-flex justify-content-center actionlist">
-                  <a
-                    data-bs-toggle="tooltip"
-                    data-bs-title="Edit user"
-                    data-bs-placement="top"
-                    class="btn ButtonDicoration btn-sm"
-                    href="/editUser/<%= user._id %>"
-                  >
-                    <i class="bi bi-pencil"></i>
-                  </a>
-                  <button
-                    data-bs-toggle="tooltip"
-                    data-bs-title="Delete user"
-                    data-bs-placement="top"
-                    data-user-id="<%= user._id %>"
-                    class="btn btn-danger btn-sm"
-                    onclick="deleteUser(this)"
-                  >
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Verified</th>
+                  <th scope="col">Last updated</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% arr.forEach((user, index) => { %>
+                <tr>
+                  <th scope="row"><%= index + 1 %></th>
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.phone %></td>
+                  <td><%= user.isVerified %></td>
+                  <td><%= moment(user.updatedAt).fromNow() %></td>
+                  <td><%= user.role %></td>
+                  <td class="actionlist">
+                    <a
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Edit user"
+                      data-bs-placement="top"
+                      class="btn ButtonDicoration btn-sm"
+                      href="/editUser/<%= user._id %>"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <button
+                      data-bs-toggle="tooltip"
+                      data-bs-title="Delete user"
+                      data-bs-placement="top"
+                      data-user-id="<%= user._id %>"
+                      class="btn btn-danger btn-sm"
+                      onclick="deleteUser(this)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
           <% } %>
         </section>
 
