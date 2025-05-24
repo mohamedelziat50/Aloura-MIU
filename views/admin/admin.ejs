@@ -43,503 +43,515 @@
   </head>
 
   <body>
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <!-- Admin Layout -->
-    <div class="admin-layout"></div>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+          <li id="btn-dashboard">Dashboard</li>
+          <li id="btn-products">Products</li>
+          <li id="btn-orders">Orders</li>
+          <li id="btn-users">Users</li>
+          <li id="btn-reviews">Reviews</li>
+          <li id="btn-settings">Settings</li>
+          <li id="btn-logout">Back To Store</li>
+        </ul>
+      </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Admin Panel</h2>
-      <ul>
-        <li id="btn-dashboard">Dashboard</li>
-        <li id="btn-products">Products</li>
-        <li id="btn-orders">Orders</li>
-        <li id="btn-users">Users</li>
-        <li id="btn-reviews">Reviews</li>
-        <li id="btn-settings">Settings</li>
-        <li id="btn-logout">Back To Store</li>
-      </ul>
-    </div>
+      <!-- Main Content -->
+      <div class="main">
+        <header>
+          <h1>Welcome, <%= user.name %></h1>
+          <div class="admin-info">Aloura Dashboard</div>
+        </header>
 
-    <!-- Main Content -->
-    <div class="main">
-      <header>
-        <h1>Welcome, <%= user.name %></h1>
-        <div class="admin-info">Aloura Dashboard</div>
-      </header>
-
-      <!-- Dashboard Section -->
-      <section id="section-dashboard" class="section">
-        <div class="cards">
-          <div class="card">
-            <h3>Total Sales</h3>
-            <p>$14,200</p>
-          </div>
-          <div class="card">
-            <h3>New Orders</h3>
-            <p>23</p>
-          </div>
-          <div class="card">
-            <h3>Low Stock</h3>
-            <p>5 items</p>
-          </div>
-          <div class="card">
-            <h3>Users</h3>
-            <p>1,239</p>
-          </div>
-        </div>
-
-        <!-- Dashboard Highlights -->
-        <div class="dashboard-highlights">
-          <!-- Key Metrics -->
-          <div class="metrics-grid">
-            <div class="metric-card">
-              <h3>Today's Sales</h3>
-              <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="section">
+          <div class="cards">
+            <div class="card">
+              <h3>Total Sales</h3>
+              <p>$14,200</p>
             </div>
-            <div class="metric-card">
-              <h3>New Customers</h3>
-              <p>24 <span class="metric-change down">▼ 3%</span></p>
+            <div class="card">
+              <h3>New Orders</h3>
+              <p>23</p>
             </div>
-            <div class="metric-card">
-              <h3>Avg. Order</h3>
-              <p>$87 <span class="metric-change up">▲ 5%</span></p>
+            <div class="card">
+              <h3>Low Stock</h3>
+              <p>5 items</p>
             </div>
-            <div class="metric-card">
-              <h3>Conversion</h3>
-              <p>3.2% <span class="metric-change">→</span></p>
+            <div class="card">
+              <h3>Users</h3>
+              <p>1,239</p>
             </div>
           </div>
 
-          <!-- Charts -->
-          <div class="dashboard-charts">
-            <!-- Monthly Sales Card -->
-            <div class="chart-card">
-              <h3>Monthly Sales</h3>
-              <div class="chart-data">
-                <div class="data-row">
-                  <span>January</span>
-                  <span>$1,250</span>
-                </div>
-                <div class="data-row">
-                  <span>February</span>
-                  <span>$1,900</span>
-                </div>
-                <div class="data-row">
-                  <span>March</span>
-                  <span>$2,100</span>
-                </div>
-                <div class="data-row highlight">
-                  <span>Current Month</span>
-                  <span>$2,400</span>
-                </div>
+          <!-- Dashboard Highlights -->
+          <div class="dashboard-highlights">
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <h3>Today's Sales</h3>
+                <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>New Customers</h3>
+                <p>24 <span class="metric-change down">▼ 3%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>Avg. Order</h3>
+                <p>$87 <span class="metric-change up">▲ 5%</span></p>
+              </div>
+              <div class="metric-card">
+                <h3>Conversion</h3>
+                <p>3.2% <span class="metric-change">→</span></p>
               </div>
             </div>
 
-            <!-- Top Fragrances Card -->
-            <div class="chart-card">
-              <h3>Top Fragrances</h3>
-              <div class="chart-data">
-                <div class="data-row">
-                  <span>1. Chanel No.5</span>
-                  <span>85 sold</span>
-                </div>
-                <div class="data-row">
-                  <span>2. Dior Sauvage</span>
-                  <span>72 sold</span>
-                </div>
-                <div class="data-row">
-                  <span>3. Khamrah</span>
-                  <span>58 sold</span>
-                </div>
-                <div class="data-row highlight">
-                  <span>Bestseller</span>
-                  <span>Chanel No.5</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Seasonal Highlights -->
-            <div class="seasonal-alert">
-              <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
-              <p>
-                Floral scents trending! Create a "Spring Blossom" collection.
-              </p>
-              <button class="promo-btn">Launch Campaign</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Products Section -->
-      <section id="section-products" class="section">
-        <h2>Manage Products</h2>
-        <div class="product-buttons">
-          <a class="product-btn ButtonDicoration add" href="/addFragrance"
-            >Add Product</a
-          >
-        </div>
-        <br>
-
-        <% if (fragrance.length === 0) { %>
-        <h1 style="text-align: center">No Products To Show</h1>
-        <% } else { %>
-        <div class="product-grid">
-          <% fragrance.forEach((product) => { %>
-          <div class="product-card">
-            <div class="product-avatar">
-              <img src="<%= product.image[0] %>" alt="product Avatar" />
-            </div>
-            <div class="product-info">
-              <h3 class="product-name"><%= product.name %></h3>
-              <p class="product-email"><%= product.category %></p>
-              <p class="product-role"><%= product.gender %></p>
-              <div class="product-notes">
-                <div class="product-header">
-                  <h4>Customer Notes</h4>
-                </div>
-                <div class="notes-list">
-                  <div class="note">
-                    <p><%= product.description %></p>
-                    <span class="product-date">
-                      <%= moment(product.releaseDate).format(("dddd, MMMMDoYYYY")) %>
-                    </span>
+            <!-- Charts -->
+            <div class="dashboard-charts">
+              <!-- Monthly Sales Card -->
+              <div class="chart-card">
+                <h3>Monthly Sales</h3>
+                <div class="chart-data">
+                  <div class="data-row">
+                    <span>January</span>
+                    <span>$1,250</span>
+                  </div>
+                  <div class="data-row">
+                    <span>February</span>
+                    <span>$1,900</span>
+                  </div>
+                  <div class="data-row">
+                    <span>March</span>
+                    <span>$2,100</span>
+                  </div>
+                  <div class="data-row highlight">
+                    <span>Current Month</span>
+                    <span>$2,400</span>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="product-actions">
-              <a
-                class="product-btn edit"
-                href="/editFragrance/<%= product._id %>"
-                style="text-decoration: none"
-                >Edit</a
-              >
-              <button
-                class="product-btn delete"
-                data-fragrance-id="<%= product._id %>"
-                onclick="deleteProduct(this)"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-          <% }) %>
-        </div>
-        <% } %>
-      </section>
 
-      <!-- Orders Section -->
-      <section id="section-orders" class="section">
-        <h2>Manage Orders</h2>
-
-        <!-- Order Analytics -->
-        <div class="order-analytics">
-          <div class="analytics-card">
-            <h3>Order Conversion Rate</h3>
-            <div class="conversion-meter">
-              <div class="meter-fill" style="width: 68%"></div>
-              <span>68%</span>
-            </div>
-            <p>From cart to completed purchase</p>
-          </div>
-          <div class="analytics-card">
-            <h3>Avg. Fulfillment Time</h3>
-            <div class="time-metric">1.8 days</div>
-            <p>From payment to shipment</p>
-          </div>
-          <div class="analytics-card">
-            <h3>Gift Orders</h3>
-            <div class="time-metric">24%</div>
-            <p>Of total orders</p>
-          </div>
-        </div>
-
-        <!-- Gift Service Hub -->
-        <div class="gift-service-hub">
-          <h3><i class="icon-gift"></i> Gift Orders</h3>
-          <div class="gift-orders-grid">
-            <div class="gift-order-card">
-              <div class="order-header">
-                <span class="order-id">#1005</span>
-                <span class="gift-badge">GIFT</span>
+              <!-- Top Fragrances Card -->
+              <div class="chart-card">
+                <h3>Top Fragrances</h3>
+                <div class="chart-data">
+                  <div class="data-row">
+                    <span>1. Chanel No.5</span>
+                    <span>85 sold</span>
+                  </div>
+                  <div class="data-row">
+                    <span>2. Dior Sauvage</span>
+                    <span>72 sold</span>
+                  </div>
+                  <div class="data-row">
+                    <span>3. Khamrah</span>
+                    <span>58 sold</span>
+                  </div>
+                  <div class="data-row highlight">
+                    <span>Bestseller</span>
+                    <span>Chanel No.5</span>
+                  </div>
+                </div>
               </div>
-              <div class="gift-details">
-                <p><strong>To:</strong> Sarah Johnson</p>
-                <p><strong>Message:</strong> "Happy Anniversary!"</p>
-                <p><strong>Wrap:</strong> Premium Gold (+$5.99)</p>
+
+              <!-- Seasonal Highlights -->
+              <div class="seasonal-alert">
+                <h3><span class="season-icon">🌸</span> Spring Promotion</h3>
+                <p>
+                  Floral scents trending! Create a "Spring Blossom" collection.
+                </p>
+                <button class="promo-btn">Launch Campaign</button>
               </div>
-              <button class="btn-view">View Order</button>
-            </div>
-            <div class="gift-order-card">
-              <div class="order-header">
-                <span class="order-id">#1008</span>
-                <span class="gift-badge">GIFT</span>
-              </div>
-              <div class="gift-details">
-                <p><strong>To:</strong> Michael Brown</p>
-                <p><strong>Message:</strong> "Happy Birthday!"</p>
-                <p><strong>Wrap:</strong> Classic Red (+$3.99)</p>
-              </div>
-              <button class="btn-view">View Order</button>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- Orders Table -->
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Product</th>
-              <th>Status</th>
-              <th>Total</th>
-              <th>Gift</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>#1001</td>
-              <td>Aya</td>
-              <td>Dior Sauvage</td>
-              <td><span class="status delivered">Delivered</span></td>
-              <td>$120</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>#1005</td>
-              <td>Ali</td>
-              <td>Chanel No. 5</td>
-              <td><span class="status shipped">Shipped</span></td>
-              <td>$150</td>
-              <td>Yes</td>
-            </tr>
-            <tr>
-              <td>#1008</td>
-              <td>Fatima</td>
-              <td>Spice Bomb</td>
-              <td><span class="status pending">Pending</span></td>
-              <td>$95</td>
-              <td>Yes</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Users Section -->
-      <section id="section-users" class="section">
-        <h2>Manage Users</h2>
-
-        <!-- User Analytics -->
-        <div class="user-analytics">
-          <div class="analytics-card">
-            <h3>New Users (30d)</h3>
-            <div class="metric-value">142</div>
-            <div class="metric-change up">▲ 12% from last month</div>
+        <!-- Products Section -->
+        <section id="section-products" class="section">
+          <h2>Manage Products</h2>
+          <div class="product-buttons">
+            <a class="product-btn ButtonDicoration add" href="/addFragrance"
+              >Add Product</a
+            >
           </div>
-          <div class="analytics-card">
-            <h3>Active Users</h3>
-            <div class="metric-value">864</div>
-            <div class="metric-change">Logged in past 30d</div>
-          </div>
-          <div class="analytics-card">
-            <h3>Avg. Spend</h3>
-            <div class="metric-value">$87</div>
-            <div class="metric-change down">▼ 5% from last quarter</div>
-          </div>
-        </div>
+          <br />
 
-        <!-- User Management -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <a
-            class="btn ButtonDicoration"
-            data-bs-toggle="modal"
-            data-bs-target="#addUserModal"
-            >Add User</a
-          >
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn ButtonDicoration" type="submit">Search</button>
-          </form>
-        </div>
-
-        <!-- Add User Modal -->
-        <div
-          class="modal fade"
-          id="addUserModal"
-          tabindex="-1"
-          aria-labelledby="addUserModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="addUserModalLabel">Add User</h4>
+          <% if (fragrance.length === 0) { %>
+          <h1 style="text-align: center">No Products To Show</h1>
+          <% } else { %>
+          <div class="product-grid">
+            <% fragrance.forEach((product) => { %>
+            <div class="product-card">
+              <div class="product-avatar">
+                <img src="<%= product.image[0] %>" alt="product Avatar" />
+              </div>
+              <div class="product-info">
+                <h3 class="product-name"><%= product.name %></h3>
+                <p class="product-email"><%= product.category %></p>
+                <p class="product-role"><%= product.gender %></p>
+                <div class="product-notes">
+                  <div class="product-header">
+                    <h4>Customer Notes</h4>
+                  </div>
+                  <div class="notes-list">
+                    <div class="note">
+                      <p><%= product.description %></p>
+                      <span class="product-date">
+                        <%=
+                        moment(product.releaseDate).format(("dddd,MMMMDoYYYY"))
+                        %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a
+                  class="product-btn edit"
+                  href="/editFragrance/<%= product._id %>"
+                  style="text-decoration: none"
+                  >Edit</a
+                >
                 <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="product-btn delete"
+                  data-fragrance-id="<%= product._id %>"
+                  onclick="deleteProduct(this)"
+                >
+                  Delete
+                </button>
               </div>
+            </div>
+            <% }) %>
+          </div>
+          <% } %>
+        </section>
 
-              <div class="modal-body">
-                <div class="containerr">
-                  <div class="addusercard row justify-content-center">
-                    <div class="col-md-20">
-                      <div class="form-wrapper">
-                        <form id="addUserForm">
-                          <!-- Profile Picture -->
-                          <div class="mb-3 text-center">
-                            <label for="profile-picture" class="form-label"
-                              >Profile Picture</label
-                            >
-                            <div class="d-flex flex-column align-items-center">
-                              <img
-                                id="profile-picture-preview"
-                                src="../uploads/defaultProfilePic.png"
-                                alt="Profile Preview"
-                                class="rounded-circle mb-2"
-                                style="
-                                  width: 120px;
-                                  height: 120px;
-                                  object-fit: cover;
-                                  border: 2px solid #ccc;
-                                "
-                              />
-                              <input
-                                type="file"
-                                class="d-none"
-                                id="profile-picture"
-                                name="profilePicture"
-                                accept="image/*"
-                              />
-                              <button
-                                type="button"
-                                class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
-                                onclick="document.getElementById('profile-picture').click();"
-                                style="width: 120px"
+        <!-- Orders Section -->
+        <section id="section-orders" class="section">
+          <h2>Manage Orders</h2>
+
+          <!-- Order Analytics -->
+          <div class="order-analytics">
+            <div class="analytics-card">
+              <h3>Order Conversion Rate</h3>
+              <div class="conversion-meter">
+                <div class="meter-fill" style="width: 68%"></div>
+                <span>68%</span>
+              </div>
+              <p>From cart to completed purchase</p>
+            </div>
+            <div class="analytics-card">
+              <h3>Avg. Fulfillment Time</h3>
+              <div class="time-metric">1.8 days</div>
+              <p>From payment to shipment</p>
+            </div>
+            <div class="analytics-card">
+              <h3>Gift Orders</h3>
+              <div class="time-metric">24%</div>
+              <p>Of total orders</p>
+            </div>
+          </div>
+
+          <!-- Gift Service Hub -->
+          <div class="gift-service-hub">
+            <h3><i class="icon-gift"></i> Gift Orders</h3>
+            <div class="gift-orders-grid">
+              <div class="gift-order-card">
+                <div class="order-header">
+                  <span class="order-id">#1005</span>
+                  <span class="gift-badge">GIFT</span>
+                </div>
+                <div class="gift-details">
+                  <p><strong>To:</strong> Sarah Johnson</p>
+                  <p><strong>Message:</strong> "Happy Anniversary!"</p>
+                  <p><strong>Wrap:</strong> Premium Gold (+$5.99)</p>
+                </div>
+                <button class="btn-view">View Order</button>
+              </div>
+              <div class="gift-order-card">
+                <div class="order-header">
+                  <span class="order-id">#1008</span>
+                  <span class="gift-badge">GIFT</span>
+                </div>
+                <div class="gift-details">
+                  <p><strong>To:</strong> Michael Brown</p>
+                  <p><strong>Message:</strong> "Happy Birthday!"</p>
+                  <p><strong>Wrap:</strong> Classic Red (+$3.99)</p>
+                </div>
+                <button class="btn-view">View Order</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Gift</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#1001</td>
+                <td>Aya</td>
+                <td>Dior Sauvage</td>
+                <td><span class="status delivered">Delivered</span></td>
+                <td>$120</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>#1005</td>
+                <td>Ali</td>
+                <td>Chanel No. 5</td>
+                <td><span class="status shipped">Shipped</span></td>
+                <td>$150</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>#1008</td>
+                <td>Fatima</td>
+                <td>Spice Bomb</td>
+                <td><span class="status pending">Pending</span></td>
+                <td>$95</td>
+                <td>Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Users Section -->
+        <section id="section-users" class="section">
+          <h2>Manage Users</h2>
+
+          <!-- User Analytics -->
+          <div class="user-analytics">
+            <div class="analytics-card">
+              <h3>New Users (30d)</h3>
+              <div class="metric-value">142</div>
+              <div class="metric-change up">▲ 12% from last month</div>
+            </div>
+            <div class="analytics-card">
+              <h3>Active Users</h3>
+              <div class="metric-value">864</div>
+              <div class="metric-change">Logged in past 30d</div>
+            </div>
+            <div class="analytics-card">
+              <h3>Avg. Spend</h3>
+              <div class="metric-value">$87</div>
+              <div class="metric-change down">▼ 5% from last quarter</div>
+            </div>
+          </div>
+
+          <!-- User Management -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <a
+              class="btn ButtonDicoration"
+              data-bs-toggle="modal"
+              data-bs-target="#addUserModal"
+              >Add User</a
+            >
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn ButtonDicoration" type="submit">Search</button>
+            </form>
+          </div>
+
+          <!-- Add User Modal -->
+          <div
+            class="modal fade"
+            id="addUserModal"
+            tabindex="-1"
+            aria-labelledby="addUserModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="addUserModalLabel">Add User</h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+
+                <div class="modal-body">
+                  <div class="containerr">
+                    <div class="addusercard row justify-content-center">
+                      <div class="col-md-20">
+                        <div class="form-wrapper">
+                          <form id="addUserForm">
+                            <!-- Profile Picture -->
+                            <div class="mb-3 text-center">
+                              <label for="profile-picture" class="form-label"
+                                >Profile Picture</label
                               >
-                                Upload Picture
-                              </button>
+                              <div
+                                class="d-flex flex-column align-items-center"
+                              >
+                                <img
+                                  id="profile-picture-preview"
+                                  src="../uploads/defaultProfilePic.png"
+                                  alt="Profile Preview"
+                                  class="rounded-circle mb-2"
+                                  style="
+                                    width: 120px;
+                                    height: 120px;
+                                    object-fit: cover;
+                                    border: 2px solid #ccc;
+                                  "
+                                />
+                                <input
+                                  type="file"
+                                  class="d-none"
+                                  id="profile-picture"
+                                  name="profilePicture"
+                                  accept="image/*"
+                                />
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-primary btn-sm mt-2 ButtonDicoration"
+                                  onclick="document.getElementById('profile-picture').click();"
+                                  style="width: 120px"
+                                >
+                                  Upload Picture
+                                </button>
+                              </div>
                             </div>
-                          </div>
 
-                          <!-- User Details -->
-                          <div class="mb-3">
-                            <label for="adduser-name" class="form-label"
-                              >Full Name</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="adduser-name"
-                              placeholder="Full Name"
-                              name="name"
-                            />
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="adduser-email" class="form-label"
-                              >Email address</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="adduser-email"
-                              placeholder="Your Email*"
-                              name="email"
-                            />
-                          </div>
-
-                          <div class="mb-2">
-                            <label for="phone" class="form-label"
-                              >Phone Number</label
-                            >
-                            <div class="input-group">
-                              <span class="input-group-text" id="phone"
-                                >+20</span
+                            <!-- User Details -->
+                            <div class="mb-3">
+                              <label for="adduser-name" class="form-label"
+                                >Full Name</label
                               >
                               <input
-                                type="tel"
-                                name="phone"
+                                type="text"
                                 class="form-control"
-                                placeholder="Phone number*"
-                                aria-label="Phone"
-                                aria-describedby="phone"
-                                maxlength="10"
-                                id="adduser-phone"
-                                pattern="\d{10}"
-                                inputmode="numeric"
-                                oninput="this.value = this.value.replace(/\D/g, '')"
+                                id="adduser-name"
+                                placeholder="Full Name"
+                                name="name"
                               />
                             </div>
-                          </div>
 
-                          <div class="mb-3">
-                            <label for="adduser-password" class="form-label"
-                              >Password</label
-                            >
-                            <div class="input-group">
-                              <input
-                                name="password"
-                                type="password"
-                                class="form-control"
-                                id="adduser-password"
-                                placeholder="Create a password*"
-                              />
-                              <span
-                                class="input-group-text password-toggle cursor-pointer"
-                                id="addUserPasswordToggle"
+                            <div class="mb-3">
+                              <label for="adduser-email" class="form-label"
+                                >Email address</label
                               >
-                                <i
-                                  class="fa-solid fa-lock"
-                                  id="addUserPasswordIcon"
-                                ></i>
-                              </span>
-                            </div>
-                          </div>
-
-                          <div class="mb-3">
-                            <label
-                              for="adduser-confirm-password"
-                              class="form-label"
-                              >Confirm Password</label
-                            >
-                            <div class="input-group">
                               <input
-                                name="Confirm Password"
-                                type="password"
+                                type="text"
                                 class="form-control"
-                                id="adduser-confirm-password"
-                                placeholder="Confirm password*"
+                                id="adduser-email"
+                                placeholder="Your Email*"
+                                name="email"
                               />
-                              <span
-                                class="input-group-text password-toggle cursor-pointer"
-                                id="addUserConfirmPasswordToggle"
-                              >
-                                <i
-                                  class="fa-solid fa-lock"
-                                  id="addUserConfirmPasswordIcon"
-                                ></i>
-                              </span>
                             </div>
-                          </div>
 
-                          <p class="adduser-confirm-password"></p>
-                          <button
-                            type="submit"
-                            id="signup-button-diffcolor"
-                            class="signupButton btn btn-primary w-100 ButtonDicoration"
-                          >
-                            Add User
-                          </button>
-                        </form>
+                            <div class="mb-2">
+                              <label for="phone" class="form-label"
+                                >Phone Number</label
+                              >
+                              <div class="input-group">
+                                <span class="input-group-text" id="phone"
+                                  >+20</span
+                                >
+                                <input
+                                  type="tel"
+                                  name="phone"
+                                  class="form-control"
+                                  placeholder="Phone number*"
+                                  aria-label="Phone"
+                                  aria-describedby="phone"
+                                  maxlength="10"
+                                  id="adduser-phone"
+                                  pattern="\d{10}"
+                                  inputmode="numeric"
+                                  oninput="this.value = this.value.replace(/\D/g, '')"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="adduser-password" class="form-label"
+                                >Password</label
+                              >
+                              <div class="input-group">
+                                <input
+                                  name="password"
+                                  type="password"
+                                  class="form-control"
+                                  id="adduser-password"
+                                  placeholder="Create a password*"
+                                />
+                                <span
+                                  class="input-group-text password-toggle cursor-pointer"
+                                  id="addUserPasswordToggle"
+                                >
+                                  <i
+                                    class="fa-solid fa-lock"
+                                    id="addUserPasswordIcon"
+                                  ></i>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label
+                                for="adduser-confirm-password"
+                                class="form-label"
+                                >Confirm Password</label
+                              >
+                              <div class="input-group">
+                                <input
+                                  name="Confirm Password"
+                                  type="password"
+                                  class="form-control"
+                                  id="adduser-confirm-password"
+                                  placeholder="Confirm password*"
+                                />
+                                <span
+                                  class="input-group-text password-toggle cursor-pointer"
+                                  id="addUserConfirmPasswordToggle"
+                                >
+                                  <i
+                                    class="fa-solid fa-lock"
+                                    id="addUserConfirmPasswordIcon"
+                                  ></i>
+                                </span>
+                              </div>
+                            </div>
+
+                            <p class="adduser-confirm-password"></p>
+                            <button
+                              type="submit"
+                              id="signup-button-diffcolor"
+                              class="signupButton btn btn-primary w-100 ButtonDicoration"
+                            >
+                              Add User
+                            </button>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -547,405 +559,463 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Users Table -->
-        <% if (arr.length === 0) { %>
-        <h1 style="text-align: center">No Data To Show</h1>
-        <% } else { %>
-        <table
-          class="text-center mx-auto table mt-4 table-striped table-bordered"
-        >
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Verified</th>
-              <th scope="col">Last updated</th>
-              <th scope="col">Role</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% arr.forEach((user, index) => { %>
-            <tr>
-              <th scope="row"><%= index + 1 %></th>
-              <td><%= user.name %></td>
-              <td><%= user.email %></td>
-              <td><%= user.phone %></td>
-              <td><%= user.isVerified %></td>
-              <td><%= moment(user.updatedAt).fromNow() %></td>
-              <td><%= user.role %></td>
-              <td class="d-flex justify-content-center actionlist">
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-title="Edit user"
-                  data-bs-placement="top"
-                  class="btn ButtonDicoration btn-sm"
-                  href="/editUser/<%= user._id %>"
-                >
-                  <i class="bi bi-pencil"></i>
-                </a>
-                <button
-                  data-bs-toggle="tooltip"
-                  data-bs-title="Delete user"
-                  data-bs-placement="top"
-                  data-user-id="<%= user._id %>"
-                  class="btn btn-danger btn-sm"
-                  onclick="deleteUser(this)"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-        <% } %>
-      </section>
+          <!-- Users Table -->
+          <% if (arr.length === 0) { %>
+          <h1 style="text-align: center">No Data To Show</h1>
+          <% } else { %>
+          <table
+            class="text-center mx-auto table mt-4 table-striped table-bordered"
+          >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Verified</th>
+                <th scope="col">Last updated</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% arr.forEach((user, index) => { %>
+              <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.phone %></td>
+                <td><%= user.isVerified %></td>
+                <td><%= moment(user.updatedAt).fromNow() %></td>
+                <td><%= user.role %></td>
+                <td class="d-flex justify-content-center actionlist">
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Edit user"
+                    data-bs-placement="top"
+                    class="btn ButtonDicoration btn-sm"
+                    href="/editUser/<%= user._id %>"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete user"
+                    data-bs-placement="top"
+                    data-user-id="<%= user._id %>"
+                    class="btn btn-danger btn-sm"
+                    onclick="deleteUser(this)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <% } %>
+        </section>
 
-      <!-- Reviews Section -->
-      <section id="section-reviews" class="section">
-        <h2>Product Reviews</h2>
+        <!-- Reviews Section -->
+        <section id="section-reviews" class="section">
+          <h2>Product Reviews</h2>
 
-        <!-- Reviews Analytics -->
-        <div class="reviews-analytics">
-          <div class="analytics-card">
-            <h3>Average Rating</h3>
-            <div class="rating-display">4.2 ★</div>
-            <div class="rating-distribution">
-              <div class="rating-bar" data-rating="5">
-                ★★★★★ <span>65%</span>
+          <!-- Reviews Analytics -->
+          <div class="reviews-analytics">
+            <div class="analytics-card">
+              <h3>Average Rating</h3>
+              <div class="rating-display">4.2 ★</div>
+              <div class="rating-distribution">
+                <div class="rating-bar" data-rating="5">
+                  ★★★★★ <span>65%</span>
+                </div>
+                <div class="rating-bar" data-rating="4">
+                  ★★★★☆ <span>22%</span>
+                </div>
+                <div class="rating-bar" data-rating="3">
+                  ★★★☆☆ <span>8%</span>
+                </div>
+                <div class="rating-bar" data-rating="2">
+                  ★★☆☆☆ <span>3%</span>
+                </div>
+                <div class="rating-bar" data-rating="1">
+                  ★☆☆☆☆ <span>2%</span>
+                </div>
               </div>
-              <div class="rating-bar" data-rating="4">
-                ★★★★☆ <span>22%</span>
+            </div>
+            <div class="analytics-card">
+              <h3>Recent Sentiment</h3>
+              <div class="sentiment-meter">
+                <div class="meter-fill positive" style="width: 78%"></div>
+                <span>78% Positive</span>
               </div>
-              <div class="rating-bar" data-rating="3">
-                ★★★☆☆ <span>8%</span>
-              </div>
-              <div class="rating-bar" data-rating="2">
-                ★★☆☆☆ <span>3%</span>
-              </div>
-              <div class="rating-bar" data-rating="1">
-                ★☆☆☆☆ <span>2%</span>
+              <div class="sentiment-keywords">
+                <span class="keyword">"long-lasting" (42x)</span>
+                <span class="keyword">"great scent" (38x)</span>
+                <span class="keyword">"poor packaging" (12x)</span>
               </div>
             </div>
           </div>
-          <div class="analytics-card">
-            <h3>Recent Sentiment</h3>
-            <div class="sentiment-meter">
-              <div class="meter-fill positive" style="width: 78%"></div>
-              <span>78% Positive</span>
-            </div>
-            <div class="sentiment-keywords">
-              <span class="keyword">"long-lasting" (42x)</span>
-              <span class="keyword">"great scent" (38x)</span>
-              <span class="keyword">"poor packaging" (12x)</span>
-            </div>
-          </div>
-        </div>
 
-        <!-- Reviews Moderation -->
-        <div class="moderation-controls">
-          <div class="filter-options">
-            <select class="form-input">
-              <option>All Reviews</option>
-              <option>Unapproved (3)</option>
-              <option>Flagged (1)</option>
-              <option>5 Star</option>
-              <option>1-2 Star</option>
-            </select>
-            <button class="btn-export">Export CSV</button>
-          </div>
-          <div class="bulk-actions">
-            <button class="btn-bulk-approve">Approve Selected</button>
-            <button class="btn-bulk-delete">Delete Selected</button>
-          </div>
-        </div>
-
-        <!-- Reviews List -->
-        <div class="reviews-container">
-          <!-- Review Cards -->
-          <div class="review-card">
-            <div class="review-header">
-              <span class="review-author">John D.</span>
-              <span class="review-rating">★★★★☆</span>
-              <span class="review-date">2023-10-15</span>
+          <!-- Reviews Moderation -->
+          <div class="moderation-controls">
+            <div class="filter-options">
+              <select class="form-input">
+                <option>All Reviews</option>
+                <option>Unapproved (3)</option>
+                <option>Flagged (1)</option>
+                <option>5 Star</option>
+                <option>1-2 Star</option>
+              </select>
+              <button class="btn-export">Export CSV</button>
             </div>
-            <div class="review-content">
-              <p>
-                Great product! Works exactly as described. The delivery was a
-                bit slow but worth the wait.
-              </p>
-            </div>
-            <div class="review-actions">
-              <button class="btn-approve">Approve</button>
-              <button class="btn-delete">Delete</button>
+            <div class="bulk-actions">
+              <button class="btn-bulk-approve">Approve Selected</button>
+              <button class="btn-bulk-delete">Delete Selected</button>
             </div>
           </div>
 
-          <div class="review-card">
-            <div class="review-header">
-              <span class="review-author">Sarah M.</span>
-              <span class="review-rating">★☆☆☆☆</span>
-              <span class="review-date">2023-10-18</span>
-            </div>
-            <div class="review-content">
-              <p>
-                Very disappointed with my purchase. The item arrived damaged and
-                customer service hasn't responded.
-              </p>
-            </div>
-            <div class="review-actions">
-              <button class="btn-approve">Approve</button>
-              <button class="btn-delete">Delete</button>
-            </div>
-          </div>
-
-          <div class="review-card">
-            <div class="review-header">
-              <span class="review-author">Alex T.</span>
-              <span class="review-rating">★★★★★</span>
-              <span class="review-date">2023-10-20</span>
-            </div>
-            <div class="review-content">
-              <p>
-                Absolutely love it! Better than I expected. Will definitely buy
-                from this store again.
-              </p>
-            </div>
-            <div class="review-actions">
-              <button class="btn-approve">Approve</button>
-              <button class="btn-delete">Delete</button>
-            </div>
-          </div>
-
-          <div class="review-card flagged">
-            <div class="review-meta">
-              <span class="review-product">Chanel No. 5</span>
-              <span class="review-rating">★☆☆☆☆</span>
-              <span class="review-date">Today</span>
-              <span class="flag-badge">⚠️ Flagged</span>
-            </div>
-            <div class="review-content">
-              <p>
-                "This smells nothing like the original! Suspect counterfeit."
-              </p>
-            </div>
-            <div class="review-actions">
-              <button class="btn-approve">Approve</button>
-              <button class="btn-reply">Reply Privately</button>
-              <button class="btn-delete">Delete</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Settings Section -->
-      <section id="section-settings" class="section">
-        <h2>Site Settings</h2>
-
-        <!-- Settings Tabs -->
-        <div class="settings-tabs">
-          <button class="tab-btn active" data-tab="general">General</button>
-          <button class="tab-btn" data-tab="appearance">Appearance</button>
-          <button class="tab-btn" data-tab="seo">SEO</button>
-          <button class="tab-btn" data-tab="social">Social Media</button>
-        </div>
-
-        <!-- Settings Content -->
-        <div class="settings-content">
-          <!-- General Settings -->
-          <div class="tab-pane active" id="general-tab">
-            <form class="settings-form">
-              <div class="form-group">
-                <label for="site-name">Site Name</label>
-                <input
-                  type="text"
-                  id="site-name"
-                  value="My Awesome Store"
-                  class="form-input"
-                />
+          <!-- Reviews List -->
+          <div class="reviews-container">
+            <!-- Review Cards -->
+            <div class="review-card">
+              <div class="review-header">
+                <span class="review-author">John D.</span>
+                <span class="review-rating">★★★★☆</span>
+                <span class="review-date">2023-10-15</span>
               </div>
-              <div class="form-group">
-                <label for="site-email">Contact Email</label>
-                <input
-                  type="email"
-                  id="site-email"
-                  value="contact@example.com"
-                  class="form-input"
-                />
+              <div class="review-content">
+                <p>
+                  Great product! Works exactly as described. The delivery was a
+                  bit slow but worth the wait.
+                </p>
               </div>
-              <div class="form-group">
-                <label for="site-phone">Phone Number</label>
-                <input
-                  type="tel"
-                  id="site-phone"
-                  value="+1 (555) 123-4567"
-                  class="form-input"
-                />
+              <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
               </div>
-              <div class="form-group">
-                <label for="site-address">Business Address</label>
-                <textarea id="site-address" class="form-input">
-123 Main St, Cityville, ST 12345</textarea
-                >
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <span class="review-author">Sarah M.</span>
+                <span class="review-rating">★☆☆☆☆</span>
+                <span class="review-date">2023-10-18</span>
               </div>
-              <button type="submit" class="save-btn">
-                Save General Settings
-              </button>
-            </form>
+              <div class="review-content">
+                <p>
+                  Very disappointed with my purchase. The item arrived damaged
+                  and customer service hasn't responded.
+                </p>
+              </div>
+              <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
+              </div>
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <span class="review-author">Alex T.</span>
+                <span class="review-rating">★★★★★</span>
+                <span class="review-date">2023-10-20</span>
+              </div>
+              <div class="review-content">
+                <p>
+                  Absolutely love it! Better than I expected. Will definitely
+                  buy from this store again.
+                </p>
+              </div>
+              <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-delete">Delete</button>
+              </div>
+            </div>
+
+            <div class="review-card flagged">
+              <div class="review-meta">
+                <span class="review-product">Chanel No. 5</span>
+                <span class="review-rating">★☆☆☆☆</span>
+                <span class="review-date">Today</span>
+                <span class="flag-badge">⚠️ Flagged</span>
+              </div>
+              <div class="review-content">
+                <p>
+                  "This smells nothing like the original! Suspect counterfeit."
+                </p>
+              </div>
+              <div class="review-actions">
+                <button class="btn-approve">Approve</button>
+                <button class="btn-reply">Reply Privately</button>
+                <button class="btn-delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="section-settings" class="section">
+          <h2>Site Settings</h2>
+
+          <!-- Settings Tabs -->
+          <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="general">General</button>
+            <button class="tab-btn" data-tab="appearance">Appearance</button>
+            <button class="tab-btn" data-tab="seo">SEO</button>
+            <button class="tab-btn" data-tab="social">Social Media</button>
           </div>
 
-          <!-- Appearance Settings -->
-          <div class="tab-pane" id="appearance-tab">
-            <form class="settings-form">
-              <div class="form-group">
-                <label>Site Logo</label>
-                <div class="upload-area">
-                  <img
-                    src="https://via.placeholder.com/150x50"
-                    alt="Current Logo"
-                    class="current-logo"
+          <!-- Settings Content -->
+          <div class="settings-content">
+            <!-- General Settings -->
+            <div class="tab-pane active" id="general-tab">
+              <form class="settings-form">
+                <div class="form-group">
+                  <label for="site-name">Site Name</label>
+                  <input
+                    type="text"
+                    id="site-name"
+                    value="My Awesome Store"
+                    class="form-input"
                   />
-                  <div class="upload-controls">
-                    <input
-                      type="file"
-                      id="logo-upload"
-                      accept="image/*"
-                      hidden
+                </div>
+                <div class="form-group">
+                  <label for="site-email">Contact Email</label>
+                  <input
+                    type="email"
+                    id="site-email"
+                    value="contact@example.com"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="site-phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="site-phone"
+                    value="+1 (555) 123-4567"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="site-address">Business Address</label>
+                  <textarea id="site-address" class="form-input">
+123 Main St, Cityville, ST 12345</textarea
+                  >
+                </div>
+                <button type="submit" class="save-btn">
+                  Save General Settings
+                </button>
+              </form>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div class="tab-pane" id="appearance-tab">
+              <form class="settings-form">
+                <div class="form-group">
+                  <label>Site Logo</label>
+                  <div class="upload-area">
+                    <img
+                      src="https://via.placeholder.com/150x50"
+                      alt="Current Logo"
+                      class="current-logo"
                     />
-                    <button
-                      type="button"
-                      class="upload-btn"
-                      onclick="document.getElementById('logo-upload').click()"
-                    >
-                      Upload New Logo
-                    </button>
-                    <span class="file-info">PNG, JPG (Max 2MB)</span>
+                    <div class="upload-controls">
+                      <input
+                        type="file"
+                        id="logo-upload"
+                        accept="image/*"
+                        hidden
+                      />
+                      <button
+                        type="button"
+                        class="upload-btn"
+                        onclick="document.getElementById('logo-upload').click()"
+                      >
+                        Upload New Logo
+                      </button>
+                      <span class="file-info">PNG, JPG (Max 2MB)</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="primary-color">Primary Color</label>
-                <div class="color-picker">
-                  <input type="color" id="primary-color" value="#f3c5c5" />
-                  <span class="color-value">#f3c5c5</span>
+                <div class="form-group">
+                  <label for="primary-color">Primary Color</label>
+                  <div class="color-picker">
+                    <input type="color" id="primary-color" value="#f3c5c5" />
+                    <span class="color-value">#f3c5c5</span>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="font-family">Font Family</label>
-                <select id="font-family" class="form-input">
-                  <option value="Montserrat" selected>Montserrat</option>
-                  <option value="Roboto">Roboto</option>
-                  <option value="Open Sans">Open Sans</option>
-                  <option value="Poppins">Poppins</option>
-                </select>
-              </div>
-              <button type="submit" class="save-btn">
-                Save Appearance Settings
-              </button>
-            </form>
-          </div>
+                <div class="form-group">
+                  <label for="font-family">Font Family</label>
+                  <select id="font-family" class="form-input">
+                    <option value="Montserrat" selected>Montserrat</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Poppins">Poppins</option>
+                  </select>
+                </div>
+                <button type="submit" class="save-btn">
+                  Save Appearance Settings
+                </button>
+              </form>
+            </div>
 
-          <!-- SEO Settings -->
-          <div class="tab-pane" id="seo-tab">
-            <form class="settings-form">
-              <div class="form-group">
-                <label for="meta-title">Meta Title</label>
-                <input
-                  type="text"
-                  id="meta-title"
-                  value="My Store - Premium Products"
-                  class="form-input"
-                />
-                <div class="char-count">
-                  <span id="title-count">0</span>/60 characters
+            <!-- SEO Settings -->
+            <div class="tab-pane" id="seo-tab">
+              <form class="settings-form">
+                <div class="form-group">
+                  <label for="meta-title">Meta Title</label>
+                  <input
+                    type="text"
+                    id="meta-title"
+                    value="My Store - Premium Products"
+                    class="form-input"
+                  />
+                  <div class="char-count">
+                    <span id="title-count">0</span>/60 characters
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="meta-description">Meta Description</label>
-                <textarea id="meta-description" class="form-input">
+                <div class="form-group">
+                  <label for="meta-description">Meta Description</label>
+                  <textarea id="meta-description" class="form-input">
 Welcome to our online store featuring the best products at competitive prices.</textarea
-                >
-                <div class="char-count">
-                  <span id="desc-count">0</span>/160 characters
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="site-keywords">Keywords (comma separated)</label>
-                <input
-                  type="text"
-                  id="site-keywords"
-                  value="shop, ecommerce, products, buy"
-                  class="form-input"
-                />
-              </div>
-              <button type="submit" class="save-btn">Save SEO Settings</button>
-            </form>
-          </div>
-
-          <!-- Social Media Settings -->
-          <div class="tab-pane" id="social-tab">
-            <form class="settings-form">
-              <div class="form-group">
-                <label for="facebook-url">Facebook URL</label>
-                <input
-                  type="url"
-                  id="facebook-url"
-                  placeholder="https://facebook.com/yourpage"
-                  class="form-input"
-                />
-              </div>
-              <div class="form-group">
-                <label for="instagram-url">Instagram URL</label>
-                <input
-                  type="url"
-                  id="instagram-url"
-                  placeholder="https://instagram.com/yourpage"
-                  class="form-input"
-                />
-              </div>
-              <div class="form-group">
-                <label for="twitter-url">Twitter URL</label>
-                <input
-                  type="url"
-                  id="twitter-url"
-                  placeholder="https://twitter.com/yourpage"
-                  class="form-input"
-                />
-              </div>
-              <div class="form-group">
-                <label>Social Sharing Image</label>
-                <div class="upload-area">
-                  <div class="image-preview"></div>
-                  <div class="upload-controls">
-                    <input
-                      type="file"
-                      id="social-image"
-                      accept="image/*"
-                      hidden
-                    />
-                    <button
-                      type="button"
-                      class="upload-btn"
-                      onclick="document.getElementById('social-image').click()"
-                    >
-                      Upload Image
-                    </button>
-                    <span class="file-info">Recommended: 1200×630px</span>
+                  >
+                  <div class="char-count">
+                    <span id="desc-count">0</span>/160 characters
                   </div>
                 </div>
-              </div>
-              <button type="submit" class="save-btn">
-                Save Social Settings
-              </button>
-            </form>
+                <div class="form-group">
+                  <label for="site-keywords">Keywords (comma separated)</label>
+                  <input
+                    type="text"
+                    id="site-keywords"
+                    value="shop, ecommerce, products, buy"
+                    class="form-input"
+                  />
+                </div>
+                <button type="submit" class="save-btn">
+                  Save SEO Settings
+                </button>
+              </form>
+            </div>
+
+            <!-- Social Media Settings -->
+            <div class="tab-pane" id="social-tab">
+              <form class="settings-form">
+                <div class="form-group">
+                  <label for="facebook-url">Facebook URL</label>
+                  <input
+                    type="url"
+                    id="facebook-url"
+                    placeholder="https://facebook.com/yourpage"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="instagram-url">Instagram URL</label>
+                  <input
+                    type="url"
+                    id="instagram-url"
+                    placeholder="https://instagram.com/yourpage"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="twitter-url">Twitter URL</label>
+                  <input
+                    type="url"
+                    id="twitter-url"
+                    placeholder="https://twitter.com/yourpage"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Social Sharing Image</label>
+                  <div class="upload-area">
+                    <div class="image-preview"></div>
+                    <div class="upload-controls">
+                      <input
+                        type="file"
+                        id="social-image"
+                        accept="image/*"
+                        hidden
+                      />
+                      <button
+                        type="button"
+                        class="upload-btn"
+                        onclick="document.getElementById('social-image').click()"
+                      >
+                        Upload Image
+                      </button>
+                      <span class="file-info">Recommended: 1200×630px</span>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="save-btn">
+                  Save Social Settings
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   </body>
+  <script>
+    // Mobile menu functionality
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const main = document.querySelector(".main");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("active");
+      sidebarOverlay.classList.toggle("active");
+      document.body.style.overflow = sidebar.classList.contains("active")
+        ? "hidden"
+        : "";
+
+      // Toggle menu button visibility
+      if (sidebar.classList.contains("active")) {
+        menuToggle.style.display = "none";
+      } else {
+        menuToggle.style.display = "block";
+      }
+    }
+
+    menuToggle.addEventListener("click", toggleSidebar);
+    sidebarOverlay.addEventListener("click", toggleSidebar);
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener("click", (e) => {
+      if (
+        window.innerWidth <= 768 &&
+        !sidebar.contains(e.target) &&
+        !menuToggle.contains(e.target) &&
+        sidebar.classList.contains("active")
+      ) {
+        toggleSidebar();
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove("active");
+        sidebarOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+        menuToggle.style.display = "none";
+      } else {
+        menuToggle.style.display = "block";
+      }
+    });
+
+    // Initial check for screen size
+    if (window.innerWidth <= 768) {
+      menuToggle.style.display = "block";
+    } else {
+      menuToggle.style.display = "none";
+    }
+  </script>
 </html>
