@@ -18,6 +18,11 @@
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Add Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <style>
       /* Base styles */
       body {
@@ -299,7 +304,12 @@
     
     <div class="container fade-in">
       <div class="form-container">
-        <h2 class="mb-4">Edit Fragrance</h2>
+        <div class="d-flex align-items-center mb-4">
+          <a href="/admin/<%= user._id %>" class="btn btn-link text-dark p-0 me-3 ms-3" style="font-size: 1.5rem;">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <h2 class="mb-0">Edit Fragrance</h2>
+        </div>
         <form id="fragranceForm">
           <div class="form-section">
             <div class="form-grid">
