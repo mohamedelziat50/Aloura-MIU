@@ -20,7 +20,7 @@ body {
   width: 250px;
   height: 100vh;
   background-color: #000000;
-  padding: 70px 20px;
+  padding:20px; /* removed the padding top so Admin panel and welcom admin be on the same level*/
   color: white;
   position: fixed; /* Changed from sticky to fixed */
   left: 0;
