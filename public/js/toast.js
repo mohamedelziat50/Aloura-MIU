@@ -1,4 +1,4 @@
-export default function showFunToast(msg, color) {
+export default function showFunToast(msg, color, position = "right") {
   Toastify({
     text: msg,
     duration: 4000,
@@ -10,7 +10,7 @@ export default function showFunToast(msg, color) {
       fontFamily: "Poppins",
     },
     gravity: "bottom",
-    position: "right",
+    position,
     stopOnFocus: true,
   }).showToast();
 }
