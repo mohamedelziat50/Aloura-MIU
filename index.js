@@ -1,9 +1,7 @@
 import express from "express";
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
-
 import { PORT } from "./config/secrets.js";
-
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import fragranceRoutes from "./routes/fragrance.js";
