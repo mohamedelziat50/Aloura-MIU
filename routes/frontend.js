@@ -2,6 +2,8 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/user.js";
 import auth from "../middleware/auth.js"; // Import the auth middleware
+import {JWT_SECRET} from "../config/secrets.js"
+
 import {
   getIndex,
   getAllFragrances,
@@ -27,7 +29,7 @@ router.use(async (req, res, next) => {
       res.locals.user = null;
       return next();
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token,JWT_SECRET);
 
     // Populate cart.fragrance
     res.locals.user = await UserModel.findById(decoded.id).populate("cart.fragrance");

@@ -2,11 +2,12 @@ import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utilities/emailService.js";
 import { generateVerificationEmail } from "../utilities/emailtemplates.js";
+import {JWT_SECRET} from "../config/secrets.js"
 import sendSMS from "../utilities/smsService.js";
 import sendSMStwilio from "../utilities/twilio.js";
 
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
+  return jwt.sign({ id, role }, JWT_SECRET, {
     expiresIn: "3d",
   });
 };
