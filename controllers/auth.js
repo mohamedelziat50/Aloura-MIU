@@ -2,19 +2,21 @@ import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utilities/emailService.js";
 import { generateVerificationEmail } from "../utilities/emailtemplates.js";
-import {JWT_SECRET} from "../config/secrets.js"
+import { JWT_SECRET } from "../config/secrets.js";
+import { JWT_EXPIRY } from "../config/secrets.js";
+import ms from "ms";
 import sendSMS from "../utilities/smsService.js";
 import sendSMStwilio from "../utilities/twilio.js";
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, JWT_SECRET, {
-    expiresIn: "3d",
+    expiresIn: JWT_EXPIRY,
   });
 };
 
 const cookieOptions = {
   httpOnly: true,
-  maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+  maxAge: ms(JWT_EXPIRY), // 1 hour
   sameSite: "lax", // important!
   secure: false, // only true when using HTTPS
 };
