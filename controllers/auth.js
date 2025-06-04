@@ -1,7 +1,10 @@
 import UserModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utilities/emailService.js";
-import { generateVerificationEmail } from "../utilities/emailtemplates.js";
+import {
+  generateVerificationEmail,
+  generatePasswordResetEmail,
+} from "../utilities/emailtemplates.js";
 import { JWT_SECRET } from "../config/secrets.js";
 import { JWT_EXPIRY } from "../config/secrets.js";
 import ms from "ms";
@@ -182,10 +185,13 @@ export const forgotPassword = async (req, res) => {
     // );
 
     // Now send the email
+    const htmlContent = generatePasswordResetEmail(user.name, verificationCode);
+
     await sendEmail({
       to: email,
       subject: "Password Reset Verification Code",
       text: `Your verification code is: ${verificationCode}`,
+      html: htmlContent,
     });
 
     res.status(200).json({ message: "Verification code sent to your email." });
