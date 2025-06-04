@@ -125,7 +125,7 @@ export const verifyEmail = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    user.verified = true;
+    user.isVerified = true;
     await user.save();
 
     res.status(200).json({ message: "Email verified successfully!" });
