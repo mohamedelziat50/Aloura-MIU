@@ -39,7 +39,6 @@ const orderSchema = new Schema({
     min: 0
   },
   shippingAddress: {
-    fullName: { type: String, required: true },
     address: { type: String, required: true }, // General address area
     apartment: { type: String, required: true }, // Apartment suite, etc.
     city: { type: String, required: true },

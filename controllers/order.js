@@ -5,7 +5,33 @@ import User from '../models/user.js'
 
 export const createOrder = async (req, res) => {
     // // req.body only contains what you send; destructuring is for checking clarity and safety.
-    // const {fullName, email, phone, address, apartment, city, state, country} = req.body
+    const { fullName, email, phone, shippingAddress } = req.body;
+
+    // Manual validation for each field for clear error messages
+    if (!fullName || fullName.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Full Name is required in customer information." });
+    }
+    if (!email || email.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Email is required in customer information." });
+    }
+    if (!phone || phone.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Phone Number is required in customer information." });
+    }
+    if (!shippingAddress.address || shippingAddress.address.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Address is required in shipping address." });
+    }
+    if (!shippingAddress.apartment || shippingAddress.apartment.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Apartment is required in shipping address." });
+    }
+    if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ City is required in shipping address." });
+    }
+    if (!shippingAddress.state || shippingAddress.state.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ State is required in shipping address." });
+    }
+    if (!shippingAddress.country || shippingAddress.country.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Country is required in shipping address." });
+    }
 
     // Get the user's id (through the middleware - user's id from auth used to find the actual user object from his schema)
     const user = await User.findById(req.user.id)
@@ -39,7 +65,7 @@ export const createOrder = async (req, res) => {
      try {
         await order.save();
         // Backend must send a response (success or error) for the frontend to work.
-        res.status(201).json({ message: "Order added successfully" });
+        res.status(201).json({ message: "✅ Order added successfully" });
     } catch (error) {
         console.log(`Order Data Save Error: ${error}`);
         res.status(500).json({ error: "Failed to add order" });

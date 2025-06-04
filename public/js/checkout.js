@@ -1,3 +1,5 @@
+import showFunToast from "./toast.js";
+
 // script to remove the cerdit card payemt when chencked
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -157,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Customer Information
         const fullName = document.getElementById("first-name").value
         const email = document.getElementById("email").value
-        const phone = document.getElementById("phone").value
+        const phone = document.getElementById("phoneNumber").value
 
         // Shipping Address
         const address = document.getElementById("address").value;
@@ -168,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create shippingAddress object
         const shippingAddress = {
-          fullName,
           address,
           apartment,
           city,
@@ -177,6 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         const formData = {
+          fullName,
           email,
           phone,
           shippingAddress // Pass the shippingAddress object
@@ -198,18 +200,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) 
             {
-                console.log("Response is ok: " + data.message)
-                // Redirecting happens from the FRONT END Code
+                showFunToast(data.message || "Order placed successfully!", "green");
                 setTimeout(() => {
                     window.location.href = "/";
                 }, 900);
             }
             else {
-                console.log("Response is not ok: " + data.error)
+                showFunToast(data.message || "An error occurred.", "red");
             }
         }
         catch(error) {
-            console.log(error)
+            showFunToast(error.message || "Network error.", "red");
         }
         
     })
