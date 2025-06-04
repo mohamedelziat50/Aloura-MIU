@@ -140,7 +140,7 @@
                 class="checkout-container aos-init aos-animate"
                 data-aos="fade-up"
               >
-                <form class="checkout-form">
+                <form class="checkout-form" id="checkoutForm">
                   <!-- Customer Information -->
                   <div class="checkout-section" id="customer-info">
                     <div class="section-header">
@@ -156,7 +156,7 @@
                             id="first-name"
                             name="first-name"
                             placeholder="Full Name*"
-                            required=""
+                            
                             type="text"
                             value="<%= user.name %>"
                           />
@@ -169,7 +169,7 @@
                           id="email"
                           name="email"
                           placeholder="Email*"
-                          required=""
+                          
                           type="email"
                           value="<%= user.email %>"
                         />
@@ -181,7 +181,7 @@
                           id="phone"
                           name="phone"
                           placeholder="Phone Number*"
-                          required=""
+                          
                           type="tel"
                           value="<%= user.phone %>"
                         />
@@ -202,7 +202,7 @@
                           id="address"
                           name="address"
                           placeholder="Address*"
-                          required=""
+                          
                           type="text"
                         />
                       </div>
@@ -226,7 +226,7 @@
                             id="city"
                             name="city"
                             placeholder="City*"
-                            required=""
+                            
                             type="text"
                           />
                         </div>
@@ -237,7 +237,7 @@
                             id="state"
                             name="state"
                             placeholder="State*"
-                            required=""
+                            
                             type="text"
                           />
                         </div>
@@ -248,7 +248,7 @@
                             id="zip"
                             name="zip"
                             placeholder="ZIP Code"
-                            required=""
+                            
                             type="text"
                           />
                         </div> -->
@@ -259,7 +259,7 @@
                           class="form-select"
                           id="country"
                           name="country"
-                          required=""
+                          
                         >
                           <option value="">Select Country</option>
                           <option value="US">United States</option>
@@ -327,7 +327,7 @@
                                   id="card-number"
                                   name="card-number"
                                   placeholder="1234 5678 9012 3456*"
-                                  required=""
+                                  
                                   type="text"
                                 />
                                 <div class="card-icons">
@@ -344,7 +344,7 @@
                                   id="expiry"
                                   name="expiry"
                                   placeholder="MM/YY*"
-                                  required=""
+                                  
                                   type="text"
                                 />
                               </div>
@@ -356,7 +356,7 @@
                                     id="cvv"
                                     name="cvv"
                                     placeholder="CVV*"
-                                    required=""
+                                    
                                     type="text"
                                   />
                                   <span
@@ -378,7 +378,7 @@
                                 id="card-name"
                                 name="card-name"
                                 placeholder="Card Holder Name*"
-                                required=""
+                                
                                 type="text"
                                 maxlength="28"
                               />

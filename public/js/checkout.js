@@ -135,3 +135,82 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// Creating an HTTP POST Request for an order happens here
+document.addEventListener("DOMContentLoaded", function () {
+  
+  // Get the checkout button
+  const checkoutButton = document.getElementById("checkout-button");
+  // Get the form
+  const form = document.getElementById('checkoutForm')
+
+  // The checkout button is outside the form, so handle it to properly submit
+  checkoutButton.addEventListener('click', function() {
+      // Use requestSubmit to trigger the submit event and allow JS handler -> not .submit( does default form submission)
+      form.requestSubmit();
+  });
+
+  form.addEventListener("submit", async (event) => {
+        // Prevent default form submission => Don't do any default form stuff {MOST IMPORTANT LINE}
+        event.preventDefault();
+        
+        // Customer Information
+        const fullName = document.getElementById("first-name").value
+        const email = document.getElementById("email").value
+        const phone = document.getElementById("phone").value
+
+        // Shipping Address
+        const address = document.getElementById("address").value;
+        const apartment = document.getElementById("apartment").value
+        const city = document.getElementById("city").value
+        const state = document.getElementById("state").value
+        const country = document.getElementById("country").value
+
+        // Create shippingAddress object
+        const shippingAddress = {
+          fullName,
+          address,
+          apartment,
+          city,
+          state,
+          country
+        };
+
+        const formData = {
+          email,
+          phone,
+          shippingAddress // Pass the shippingAddress object
+        };
+
+        try {
+            // Send the POST request along side the form's data in JSON format
+            const response = await fetch('/api/orders', {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                // The reason you need app.use(express.json()); is because your frontend JavaScript (in your EJS file) sends the form data as JSON using fetch
+                body: JSON.stringify(formData)
+            })
+
+            // Store the server's response in a variable no matter success or error (this is the advantage)
+            const data = await response.json()
+
+            if (response.ok) 
+            {
+                console.log("Response is ok: " + data.message)
+                // Redirecting happens from the FRONT END Code
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 900);
+            }
+            else {
+                console.log("Response is not ok: " + data.error)
+            }
+        }
+        catch(error) {
+            console.log(error)
+        }
+        
+    })
+});
