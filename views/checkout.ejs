@@ -150,25 +150,15 @@
                     <div class="section-content">
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label for="first-name">First Name</label>
+                          <label for="first-name">Full Name</label>
                           <input
                             class="form-control"
                             id="first-name"
                             name="first-name"
-                            placeholder="First Name*"
+                            placeholder="Full Name*"
                             required=""
                             type="text"
-                          />
-                        </div>
-                        <div class="col-md-6 form-group">
-                          <label for="last-name">Last Name</label>
-                          <input
-                            class="form-control"
-                            id="last-name"
-                            name="last-name"
-                            placeholder="Last Name*"
-                            required=""
-                            type="text"
+                            value="<%= user.name %>"
                           />
                         </div>
                       </div>
@@ -181,6 +171,7 @@
                           placeholder="Email*"
                           required=""
                           type="email"
+                          value="<%= user.email %>"
                         />
                       </div>
                       <div class="form-group">
@@ -192,6 +183,7 @@
                           placeholder="Phone Number*"
                           required=""
                           type="tel"
+                          value="<%= user.phone %>"
                         />
                       </div>
                     </div>
@@ -287,17 +279,6 @@
                         />
                         <label class="form-check-label" for="save-address">
                           Save this address for future orders
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          id="billing-same"
-                          name="billing-same"
-                          type="checkbox"
-                        />
-                        <label class="form-check-label" for="billing-same">
-                          Billing address same as shipping
                         </label>
                       </div>
                       <!-- check box for cash on delivery -->
@@ -480,6 +461,8 @@
                 </form>
               </div>
             </div>
+            <!-- To be used with displaying subtotal -->
+            <% let subtotal = 0 %>
             <div class="col-lg-5">
               <!-- Order Summary -->
               <div
@@ -490,78 +473,34 @@
               >
                 <div class="order-summary-header">
                   <h3>Order Summary</h3>
-                  <span class="item-count">2 Items</span>
+                  <span class="item-count"><%= user.cart.length %> Items</span>
                 </div>
                 <div class="order-summary-content">
+                  
                   <div class="order-items">
-                    <div class="order-item">
+                    <% if (user) { %>
+                      <% user.cart.forEach(item => { %>
+                       <div class="order-item">
                       <div class="order-item-image">
                         <img
                           alt="Product"
                           class="img-fluid"
-                          src="../img/perfumes-transparent/spicebomb-extreme.png"
+                          src="<%= item.fragrance.image[0] %>"
                         />
                       </div>
                       <div class="order-item-details">
-                        <h4>Lorem Ipsum Dolor</h4>
-                        <p class="order-item-variant">Color: Black | Size: M</p>
+                        <h4><%= item.fragrance.name %></h4>
+                        <p class="order-item-variant">Size: <%= item.size %></p>
                         <div class="order-item-price">
-                          <span class="quantity">1 ×</span>
-                          <span class="price">$89.99</span>
+                          <span class="quantity"><%= item.quantity %> ×</span>
+                          <span class="price">$<%= item.price %></span>
+                          <% subtotal += item.price * item.quantity %>
                         </div>
                       </div>
                     </div>
-                    <div class="order-item">
-                      <div class="order-item-image">
-                        <img
-                          alt="Product"
-                          class="img-fluid"
-                          src="../img/perfumes-transparent/flower-bomb.png"
-                        />
-                      </div>
-                      <div class="order-item-details">
-                        <h4>Sit Amet Consectetur</h4>
-                        <p class="order-item-variant">Color: White | Size: L</p>
-                        <div class="order-item-price">
-                          <span class="quantity">2 ×</span>
-                          <span class="price">$59.99</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="order-item">
-                      <div class="order-item-image">
-                        <img
-                          alt="Product"
-                          class="img-fluid"
-                          src="../img/perfumes-transparent/tom ford tobacco vanilla.png"
-                        />
-                      </div>
-                      <div class="order-item-details">
-                        <h4>Sit Amet Consectetur</h4>
-                        <p class="order-item-variant">Color: White | Size: L</p>
-                        <div class="order-item-price">
-                          <span class="quantity">2 ×</span>
-                          <span class="price">$59.99</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="order-item">
-                      <div class="order-item-image">
-                        <img
-                          alt="Product"
-                          class="img-fluid"
-                          src="../img/perfumes-transparent/stronger with you oud.png"
-                        />
-                      </div>
-                      <div class="order-item-details">
-                        <h4>Sit Amet Consectetur</h4>
-                        <p class="order-item-variant">Color: White | Size: L</p>
-                        <div class="order-item-price">
-                          <span class="quantity">2 ×</span>
-                          <span class="price">$59.99</span>
-                        </div>
-                      </div>
-                    </div>
+                    <% })  %>
+                      <% } %>
+                    
                   </div>
                   <div class="order-totals">
                     <!-- Add Discount Code Section -->
@@ -584,19 +523,20 @@
                     </div>
                     <div class="order-subtotal d-flex justify-content-between">
                       <span>Subtotal</span>
-                      <span>$209.97</span>
+                      <!-- Display in decimal format -->
+                      <span>$<%= subtotal.toFixed(2) %></span>
                     </div>
                     <div class="order-shipping d-flex justify-content-between">
                       <span>Shipping</span>
-                      <span>$9.99</span>
+                      <span>$<%= shippingFee.toFixed(2) %></span>
                     </div>
                     <div class="order-tax d-flex justify-content-between">
                       <span>Tax</span>
-                      <span>$21.00</span>
+                      <span>$<%= tax.toFixed(2) %></span>
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
-                      <span>$240.96</span>
+                      <span>$<%= (subtotal + shippingFee + tax).toFixed(2) %></span>
                     </div>
                     <div class="d-flex justify-content-end">
                       <div>

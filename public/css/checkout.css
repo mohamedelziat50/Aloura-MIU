@@ -620,7 +620,13 @@ color-mix(in srgb, var(--default-color), transparent 80%);
 
 .checkout .checkout-section .section-content .form-group .form-control, .checkout .checkout-section .section-content .form-group .form-select 
 {
-  color: #acacac !important; 
+  /* Value color */
+  color: #121212 !important; 
+}
+
+.checkout .checkout-section .section-content .form-group .form-control::placeholder {
+  color: #acacac !important; /* Placeholder gray */
+  opacity: 1;
 }
 
 /* Payment Method Layout */
@@ -806,4 +812,7 @@ color-mix(in srgb, var(--default-color), transparent 80%);
 
 .checkout .order-summary .order-summary-content .order-totals {
   margin-bottom: 10px !important;
+}
+.checkout .checkout-section .section-content .form-group:last-child {
+    margin-bottom: 20px !important;
 }
