@@ -166,7 +166,7 @@ export const getOrder = async (req, res) => {
 
     // If order doesn't exist
     if(!order) {
-        res.status(400).json({ message: "❌ Order not found." });
+        return res.status(400).json({ message: "❌ Order not found." });
     }
 
     // Otherwise pass the order that mtached the id and render the page
