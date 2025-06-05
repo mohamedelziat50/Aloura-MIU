@@ -109,7 +109,7 @@
       <li><a href="/our-story">Our Story</a></li>
 
       <% if (user != null && user.role =='admin') { %>
-        <li><a href="/admin/:<%= user.id %>">Admin</a></li>
+        <li><a href="/admin/<%= user.id %>">Admin</a></li>
       <% } %>
     </ul>
   </div>
