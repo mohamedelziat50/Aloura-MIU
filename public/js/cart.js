@@ -1,4 +1,3 @@
-
 function updateSubtotal() {
   const cartItems = document.querySelectorAll(".cart-item");
   let subtotal = 0;
@@ -67,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       unlock(this);
+      // Dispatch cart-updated event for checkout sync
+      window.dispatchEvent(new Event("cart-updated"));
     });
   });
 
@@ -108,6 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       unlock(this);
+      // Dispatch cart-updated event for checkout sync
+      window.dispatchEvent(new Event("cart-updated"));
     });
   });
 });
@@ -147,6 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (err) {
         console.error("Failed to remove item from cart:", err);
       }
+      // Dispatch cart-updated event for checkout sync
+      window.dispatchEvent(new Event("cart-updated"));
     });
   });
 });

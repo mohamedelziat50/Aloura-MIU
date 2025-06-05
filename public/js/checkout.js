@@ -232,3 +232,12 @@ document.addEventListener("DOMContentLoaded", function () {
         
     })
 });
+
+// ========== CART SYNC: Refresh checkout if cart is updated in this page ==========
+document.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("cart-updated", function () {
+    setTimeout(() => {
+        window.location.reload(); // Refresh to sync checkout with latest cart
+    }, 500);
+  });
+});
