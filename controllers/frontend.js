@@ -158,3 +158,17 @@ export const editUser = async (req, res) => {
 export const getaccount = async (req, res) => {
   res.render("account");
 };
+
+
+export const getOrder = async (req, res) => {
+    // Populate the order because we're about to use all the info
+    const order = await OrderModel.findById(req.params.id).populate('user items.fragrance')
+
+    // If order doesn't exist
+    if(!order) {
+        res.status(400).json({ message: "❌ Order not found." });
+    }
+
+    // Otherwise pass the order that mtached the id and render the page
+    res.render("admin/viewOrder", {order: order, moment: moment})
+}

@@ -330,4 +330,3 @@ document.addEventListener("DOMContentLoaded", () => {
     phoneInput.value = phoneInput.value.replace(/\D/g, "");
   });
 });
-

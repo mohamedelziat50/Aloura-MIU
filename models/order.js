@@ -53,10 +53,6 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
-  gift: {
-    type: Boolean,
-    required: true,
-  }
   // status: { // For later
   //   type: String,
   //   enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],

@@ -8,6 +8,7 @@ import {
   getIndex,
   getAllFragrances,
   getAdmin,
+  getOrder,
   getAddFragrance,
   editUser,
   geteditFragrance,
@@ -49,6 +50,7 @@ router.get("/nightlife-collection", getNightlifeCollectionPage);
 router.get("/account/:id", auth(["user", "admin"]), getaccount);
 router.get("/checkout", auth(["user", "admin"]),getCheckout);
 router.get("/admin/:id", auth(["admin"]), getAdmin);
+router.get("/order/:id", auth(["admin"]), getOrder);
 router.get("/editUser/:id", auth(["admin"]), editUser);
 router.get("/addFragrance", auth(["admin"]), getAddFragrance);
 router.get("/editFragrance/:id", auth(["admin"]), geteditFragrance);

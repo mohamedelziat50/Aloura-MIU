@@ -326,7 +326,7 @@
                 <td>$<%= order.totalPrice %></td>
                 <td>No</td>
                 <td class="actionlist">
-                  <a class="btn ButtonDicoration btn-sm" href="/api/orders/view/<%= order._id %>" title="View Order">
+                  <a class="btn ButtonDicoration btn-sm" href="/order/<%= order._id %>" title="View Order">
                     <i class="fa-solid fa-list"></i>
                   </a>
                   <button class="btn btn-danger btn-sm" data-order-id="<%= order._id %>" onclick="deleteOrder(this)" title="Delete Order">

@@ -112,21 +112,6 @@ export const createOrder = async (req, res) => {
     }
 };
 
-export const getOrderById = async (req, res) => {
-    // Populate the order because we're about to use all the info
-    const order = await Order.findById(req.params.id).populate('user items.fragrance')
-
-    // If order doesn't exist
-    if(!order) {
-        res.status(400).json({ message: "❌ Order not found." });
-    }
-
-    // Otherwise pass the order that mtached the id and render the page
-    res.render("admin/viewOrder", {order: order, moment: moment})
-}
-
-
-
 // Controller to validate BIN (first 6 digits of a card number)
 const binCache = {};
 
