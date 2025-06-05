@@ -227,3 +227,69 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+document.querySelector('.complete-order')?.addEventListener('click', async () => {
+  try {
+   
+
+   
+      const giftData = {
+      perfume: {
+        name: document.querySelector('.perfume-option.selected h3')?.textContent || 'Not selected',
+        price: parseFloat(document.querySelector('.perfume-option.selected .price')?.textContent) || 0,
+        image: document.querySelector('.perfume-option.selected img')?.src || ''
+      },
+      wrap: {
+        name: document.querySelector('.wrap-option.selected h4')?.textContent || 'Not selected',
+        price: parseFloat(document.querySelector('.wrap-option.selected p')?.textContent.replace('+', '')) || 0,
+        image: document.querySelector('.wrap-option.selected img')?.src || ''
+      },
+      card: {
+        name: document.querySelector('.card-option.selected h4')?.textContent || 'Not selected',
+        image: document.querySelector('.card-option.selected img')?.src || ''
+      },
+      recipientName: document.getElementById('recipient-name').value,
+      message: document.getElementById('gift-message').value,
+      totalPrice: parseFloat(document.getElementById('gift-total').textContent) || 0
+    };
+
+    const response = await fetch('/api/gifting', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // No need for Authorization header since we're using cookies
+      },
+      credentials: 'include', // Important for cookies
+      body: JSON.stringify(giftData)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Order failed');
+    }
+
+    const result = await response.json();
+    console.log('Order success:', result);
+    
+  } catch (error) {
+    console.error('Order error:', error);
+    alert(`Order failed: ${error.message}`);
+  }
+});
+
+
+
+
+// Add this to your gifting.js (if not already present)
+document.querySelectorAll('.select-perfume, .select-wrap, .select-card').forEach(button => {
+  button.addEventListener('click', (e) => {
+    // Remove 'selected' from all options in this category
+    const category = e.target.closest('.modal-step').id.replace('step-', '');
+    document.querySelectorAll(`.${category}-option`).forEach(opt => {
+      opt.classList.remove('selected');
+    });
+    // Add 'selected' to clicked option
+    e.target.closest(`.${category}-option`).classList.add('selected');
+  });
+});

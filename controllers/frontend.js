@@ -72,9 +72,23 @@ export const getFragrancesPage = async (req, res) => {
 };
 
 
-export const getGiftingPage = (req, res) => {
-  res.render("gifting");
+export const getGiftingPage = async (req, res) => {
+  const user = await UserModel.findById(req.user.id).populate('cart.fragrance')
+  console.log(user)
+await FragranceModel.find()
+    .then((fragrances) => {
+      res.render("gifting", {
+        fragrance: fragrances,
+        user: user,       // pass user here
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Server Error");
+    });
 };
+
+
 
 export const getFragranceQuizPage = (req, res) => {
   res.render("fragrance-quiz");
