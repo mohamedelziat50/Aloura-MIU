@@ -52,6 +52,10 @@ const orderSchema = new Schema({
   orderNumber: {
     type: Number,
     required: true,
+  },
+  gift: {
+    type: Boolean,
+    required: true,
   }
   // status: { // For later
   //   type: String,
