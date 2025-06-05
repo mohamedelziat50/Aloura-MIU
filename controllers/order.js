@@ -2,6 +2,7 @@
 import Order from '../models/order.js';
 import Fragrance from '../models/fragrance.js';
 import User from '../models/user.js'
+import moment from "moment";
 
 export const createOrder = async (req, res) => {
     // // req.body only contains what you send; destructuring is for checking clarity and safety.
@@ -108,6 +109,19 @@ export const createOrder = async (req, res) => {
         res.status(500).json({ error: "Failed to add order" });
     }
 };
+
+export const getOrderById = async (req, res) => {
+    // Populate the order because we're about to use all the info
+    const order = await Order.findById(req.params.id).populate('user items.fragrance')
+
+    // If order doesn't exist
+    if(!order) {
+        res.status(400).json({ message: "❌ Order not found." });
+    }
+
+    // Otherwise pass the order that mtached the id and render the page
+    res.render("admin/viewOrder", {order: order, moment: moment})
+}
 
 
 // // Get all orders

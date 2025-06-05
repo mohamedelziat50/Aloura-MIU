@@ -302,25 +302,37 @@
           <table>
             <thead>
               <tr>
-                <th>Order Number</th>
+                <th>Number</th>
                 <th>User</th>
                 <th>Products</th>
                 <th>Status</th>
                 <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
+                <th style="text-align: center;">Action</th>
               </tr>
             </thead>
             <tbody>
               <% orders.forEach(order => { %>
                <tr>
-                <td># <%= order.orderNumber %></td>
-                <td><%= order.user %></td>
-                <td><%= order.items %></td>
+                <td>#<%= order.orderNumber %></td>
+                <td><%= order.user.name %></td>
+              <td><% order.items.forEach(item => { %>
+                 <%= item.quantity %> × <%= item.fragrance.name %> <br>
+                <% }) %>
+              </td>
                 <td><span class="status delivered">Delivered</span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
                 <td>No</td>
+                <td class="actionlist">
+                  <a class="btn ButtonDicoration btn-sm" href="/api/orders/view/<%= order._id %>" title="View Order">
+                    <i class="fa-solid fa-list"></i>
+                  </a>
+                  <button class="btn btn-danger btn-sm" data-order-id="<%= order._id %>" onclick="deleteOrder(this)" title="Delete Order">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </td>
               </tr>
               <% }) %>
               
@@ -570,7 +582,7 @@
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="text-align: center;">Action</th>
                 </tr>
               </thead>
               <tbody>

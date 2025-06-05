@@ -90,7 +90,8 @@ export const getNightlifeCollectionPage = (req, res) => {
 };
 
 export const getAdmin = async (req, res) => {
-  Promise.all([UserModel.find(), FragranceModel.find(), OrderModel.find()])
+  // Populate order: both the user & items array's fragrance so we can display their data from their reference id
+  Promise.all([UserModel.find(), FragranceModel.find(), OrderModel.find().populate("user items.fragrance")])
     .then(([users, fragrances, orders]) => {
       res.render("admin/admin", {
         arr: users,
