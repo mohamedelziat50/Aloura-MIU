@@ -273,7 +273,7 @@ window.addEventListener("DOMContentLoaded", () => {
               "green"
             );
             setTimeout(() => {
-              window.location.href = "/admin/:id";
+              window.location.href = `/admin/${window.currentAdminId}`;
             }, 1000);
           } else {
             showFunToast(data.message || "❗ An error occurred.", "red");
@@ -316,7 +316,7 @@ window.addEventListener("DOMContentLoaded", () => {
               "green"
             );
             setTimeout(() => {
-              window.location.href = "/admin/:id";
+              window.location.href = `/admin/${window.currentAdminId}`;
             }, 1000);
           } else {
             showFunToast(data.message || "❗ An error occurred.", "red");
@@ -421,7 +421,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 "green"
               );
               setTimeout(() => {
-                window.location.href = "/admin/:id"; // Redirect to the user's page
+                window.location.href = `/admin/${window.currentAdminId}`; // Redirect to the user's page
               }, 1000);
             } else {
               showFunToast(data.message || "❗ An error occurred.", "red");
@@ -531,4 +531,33 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       }, 300); // ⏱ debounce delay in ms
     });
+});
+
+// Delete Orders
+window.addEventListener("DOMContentLoaded", () => {
+  window.deleteOrder = async (btn) => {
+    const order_id = btn.getAttribute("data-order-id");
+
+    try {
+      const response = await fetch(`/api/orders/delete/${order_id}`, {
+        method: "DELETE",
+      })
+
+      const data = await response.json();
+
+      if (response.ok) {
+          showFunToast(data.message || "✅ Order deleted successfully!","green");
+          setTimeout(() => {
+            window.location.href = `/admin/${window.currentAdminId}`;
+          }, 1000);
+        } else {
+          showFunToast(data.error || "❗ An error occurred.", "red");
+        }
+    } 
+    catch (error) {
+      console.log(error)
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+
+  };
 });

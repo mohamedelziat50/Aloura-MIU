@@ -177,8 +177,20 @@ export const updateFragrance = async (req, res) => {
 // Delete
 export const deleteFragrance = async (req, res) => {
   try {
+    // Check if this fragrance is in any order
+    const Order = (await import("../models/order.js")).default;
+    const ordersWithFragrance = await Order.find({
+      "items.fragrance": req.params.id,
+    }).limit(1); // Only need to know if at least one exists
+
+    if (ordersWithFragrance.length > 0) {
+      return res.status(400).json({
+        message: "❌ Cannot delete: This fragrance is part of an existing order.",
+      });
+    }
+
     await Fragrance.findByIdAndDelete(req.params.id);
-    res.json({ message: "Fragrance deleted" });
+    res.json({ message: "✅ Fragrance deleted" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
