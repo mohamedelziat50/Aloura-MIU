@@ -315,22 +315,23 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
     overflow-y: auto;
     padding: 20px 0;
   }
   
   .modal-content {
     background-color: #fff;
-    margin: 2% auto;
     padding: 30px;
-    width: 90%;
-    max-width: 500px;
+    width: 90% !important;
+    max-width: 1200px !important;
+    margin: 1rem auto !important;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba(0,0,0,0.3);
     position: relative;
     animation: modalFadeIn 0.3s ease-out;
   }
+
   
   @keyframes modalFadeIn {
     from { opacity: 0; transform: translateY(-20px); }
@@ -408,6 +409,8 @@ body {
     margin-top: 30px;
     padding-top: 20px;
     border-top: 1px solid #eee;
+    width: 100% !important;
+    text-align: center !important;
   }
   
   .next-step, .back-step, .confirm-gift, .complete-order {
@@ -717,6 +720,7 @@ body {
 
   .scroll-container {
     display: flex;
+   width: 100% !important;
     overflow-x: auto;
     overflow-y: hidden;
     gap: 20px;

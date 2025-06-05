@@ -9,6 +9,8 @@ import reviewRoutes from "./routes/review.js";
 import orderRoutes from "./routes/order.js";
 import frontendRouter from "./routes/frontend.js";
 import chatbotRoutes from "./routes/chatbot.js";
+import giftingRoutes from "./routes/gifting.js";
+
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/fragrances", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/gifting", giftingRoutes);
+
 
 app.use((req, res) => {
   res.render("404");

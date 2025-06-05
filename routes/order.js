@@ -3,7 +3,8 @@ import express from 'express';
 import auth from '../middleware/auth.js'
 import {
   createOrder,
-  getOrderById
+  getOrderById,
+  validateCardBin,
   // getAllOrders,
   // getOrderById,
   // updateOrder,
@@ -16,6 +17,9 @@ const router = express.Router();
 router.post('/', auth(["user", "admin"]), createOrder);
 // View the order inside the admin page
 router.get('/view/:id', getOrderById)
+// For card validation
+router.get("/validate-bin/:bin", validateCardBin);
+
 
 // router.get('/', getAllOrders);
 // router.get('/:id', getOrderById);
