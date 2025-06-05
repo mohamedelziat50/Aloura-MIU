@@ -2,6 +2,8 @@
 import Order from '../models/order.js';
 import Fragrance from '../models/fragrance.js';
 import User from '../models/user.js'
+import fetch from "node-fetch";
+
 
 export const createOrder = async (req, res) => {
     // // req.body only contains what you send; destructuring is for checking clarity and safety.
@@ -96,6 +98,40 @@ export const createOrder = async (req, res) => {
         res.status(500).json({ error: "Failed to add order" });
     }
 };
+
+
+
+// Controller to validate BIN (first 6 digits of a card number)
+const binCache = {};
+
+export const validateCardBin = async (req, res) => {
+  const { bin } = req.params;
+
+  if (binCache[bin]) {
+    return res.status(200).json(binCache[bin]);
+  }
+
+  try {
+    const binRes = await fetch(`https://lookup.binlist.net/${bin}`, {
+      headers: {
+        "User-Agent": "AlouraApp/1.0"
+      }
+    });
+
+    if (!binRes.ok) {
+      return res.status(400).json({ message: "Invalid BIN or unsupported card." });
+    }
+
+    const binData = await binRes.json();
+    binCache[bin] = binData; // Cache the result
+    res.status(200).json(binData);
+  } catch (err) {
+    console.error("BIN check failed:", err);
+    res.status(500).json({ message: "Server error validating card." });
+  }
+};
+
+
 
 
 // // Get all orders

@@ -65,22 +65,22 @@ document.addEventListener("DOMContentLoaded", function () {
     cardNameDisplay.textContent = cleanedName || "PREM KUMAR SHAHI";
   }
 
-function updateCardExpiry() {
-  let value = cardExpiryInput.value.replace(/\D/g, "");  // Remove non-digit characters
-  // If the value length is more than 2, insert a slash between month and year
-  if (value.length > 2) {
-    value = value.slice(0, 2) + "/" + value.slice(2, 4);
+  function updateCardExpiry() {
+    let value = cardExpiryInput.value.replace(/\D/g, ""); // Remove non-digit characters
+    // If the value length is more than 2, insert a slash between month and year
+    if (value.length > 2) {
+      value = value.slice(0, 2) + "/" + value.slice(2, 4);
+    }
+    // If the month is greater than 12, set it to 12
+    const month = parseInt(value.slice(0, 2), 10);
+    if (month > 12) {
+      value = "12" + value.slice(2); // Limit the month to 12
+    }
+    // Limit the input to 5 characters (MM/YY)
+    cardExpiryInput.value = value.slice(0, 5);
+    // Update the display with the current expiry value or default
+    cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
   }
-  // If the month is greater than 12, set it to 12
-  const month = parseInt(value.slice(0, 2), 10);
-  if (month > 12) {
-    value = "12" + value.slice(2);  // Limit the month to 12
-  }
-  // Limit the input to 5 characters (MM/YY)
-  cardExpiryInput.value = value.slice(0, 5);
-  // Update the display with the current expiry value or default
-  cardExpiryDisplay.textContent = cardExpiryInput.value || "05/28";
-}
 
   function updateCardCVV() {
     let digitsOnly = cardCVVInput.value.replace(/\D/g, "").slice(0, 3);
@@ -140,104 +140,194 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Creating an HTTP POST Request for an order happens here
 document.addEventListener("DOMContentLoaded", function () {
-  
   // Get the checkout button
   const checkoutButton = document.getElementById("checkout-button");
   // Get the form
-  const form = document.getElementById('checkoutForm')
+  const form = document.getElementById("checkoutForm");
 
   // The checkout button is outside the form, so handle it to properly submit
-  checkoutButton.addEventListener('click', function() {
-      // Use requestSubmit to trigger the submit event and allow JS handler -> not .submit( does default form submission)
-      form.requestSubmit();
+  checkoutButton.addEventListener("click", function () {
+    // Use requestSubmit to trigger the submit event and allow JS handler -> not .submit( does default form submission)
+    form.requestSubmit();
   });
 
   form.addEventListener("submit", async (event) => {
-        // Prevent default form submission => Don't do any default form stuff {MOST IMPORTANT LINE}
-        event.preventDefault();
-        
-        // Customer Information
-        const fullName = document.getElementById("first-name").value
-        const email = document.getElementById("email").value
-        const phone = document.getElementById("phoneNumber").value
+    event.preventDefault();
 
-        // Shipping Address
-        const address = document.getElementById("address").value;
-        const apartment = document.getElementById("apartment").value
-        const city = document.getElementById("city").value
-        const state = document.getElementById("state").value
-        const country = document.getElementById("country").value
+    // Trimmed inputs
+    const fullName = document.getElementById("first-name").value.trim();
+    const email = document.getElementById("emailaddress").value.trim();
+    const phone = document.getElementById("phoneNumber").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const apartment = document.getElementById("apartment").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const country = document.getElementById("country").value.trim();
 
-        // Create shippingAddress object
-        const shippingAddress = {
-          address,
-          apartment,
-          city,
-          state,
-          country
-        };
-        
-        // Payment method: Only send paid boolean, do NOT send card data  (For security reasons)
-        const codCheckbox = document.getElementById("cash");
-        const paid = codCheckbox.checked ? false : true;
+    // === Basic Field Validations ===
+    if (!fullName) return showFunToast("❌ Full name is required.", "red");
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return showFunToast("❌ Enter a valid email address.", "red");
+    }
+    if (!phone || !/^\d{8,15}$/.test(phone)) {
+      return showFunToast(
+        "❌ Enter a valid phone number (digits only).",
+        "red"
+      );
+    }
+    if (!address) return showFunToast("❌ Address is required.", "red");
+    if (!apartment) return showFunToast("❌ Apartment is required.", "red");
+    if (!city) return showFunToast("❌ City is required.", "red");
+    if (!state) return showFunToast("❌ State is required.", "red");
+    if (!country) return showFunToast("❌ Country is required.", "red");
 
-        // If not COD, validate card fields before sending and send them for backend validation
-        let cardData = undefined;
-        if (paid) {
-          const cardNumber = document.getElementById("card-number").value.trim();
-          const cardName = document.getElementById("card-name").value.trim();
-          const expiry = document.getElementById("expiry").value.trim();
-          const cvv = document.getElementById("cvv").value.trim();
+    const shippingAddress = { address, apartment, city, state, country };
 
-          cardData = { cardNumber, cardName, expiry, cvv };
+    const codCheckbox = document.getElementById("cash");
+    const paid = !codCheckbox.checked;
+
+    let cardData = undefined;
+
+    // === CARD VALIDATION SECTION ===
+    if (paid) {
+      const rawCardNumber = document.getElementById("card-number").value.trim();
+      const cardNumber = rawCardNumber.replace(/\D/g, ""); // remove spaces and non-digits
+      const cardName = document.getElementById("card-name").value.trim();
+      const expiry = document.getElementById("expiry").value.trim();
+      const cvv = document.getElementById("cvv").value.trim();
+
+      // === Field presence checks ===
+      if (!cardName) return showFunToast("❌ Card name is required.", "red");
+      if (!cardNumber)
+        return showFunToast("❌ Card number is required.", "red");
+      if (!expiry) return showFunToast("❌ Expiry date is required.", "red");
+      if (!cvv) return showFunToast("❌ CVV is required.", "red");
+
+      // === Luhn Check ===
+      function isValidCardNumber(cardNumber) {
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = cardNumber.length - 1; i >= 0; i--) {
+          let digit = parseInt(cardNumber[i]);
+          if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+          }
+          sum += digit;
+          shouldDouble = !shouldDouble;
         }
+        return sum % 10 === 0;
+      }
 
-        const formData = {
-          fullName,
-          email,
-          phone,
-          shippingAddress,
-          paid,
-          cardData 
-        };
+      if (!isValidCardNumber(cardNumber)) {
+        return showFunToast("❌ Invalid card number.", "red");
+      }
 
-        try {
-            // Send the POST request along side the form's data in JSON format
-            const response = await fetch('/api/orders', {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                // The reason you need app.use(express.json()); is because your frontend JavaScript (in your EJS file) sends the form data as JSON using fetch
-                body: JSON.stringify(formData)
-            })
+      // === CVV Check ===
+      if (!/^\d{3,4}$/.test(cvv)) {
+        return showFunToast("❌ Invalid CVV. Must be 3 or 4 digits.", "red");
+      }
 
-            // Store the server's response in a variable no matter success or error (this is the advantage)
-            const data = await response.json()
+      // === Expiry Format Check ===
+      const [monthStr, yearStr] = expiry.split("/");
+      const month = parseInt(monthStr);
+      const year = parseInt(yearStr);
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1;
+      const currentYear = parseInt(now.getFullYear().toString().slice(-2));
 
-            if (response.ok) 
-            {
-                showFunToast(data.message || "Order placed successfully!", "green");
-                setTimeout(() => {
-                    window.location.href = "/";
-                }, 900);
-            }
-            else {
-                showFunToast(data.message || "An error occurred.", "red");
-            }
+      if (
+        !monthStr ||
+        !yearStr ||
+        isNaN(month) ||
+        isNaN(year) ||
+        month < 1 ||
+        month > 12
+      ) {
+        return showFunToast("❌ Invalid expiry format (MM/YY).", "red");
+      }
+
+      if (
+        year < currentYear ||
+        (year === currentYear && month < currentMonth)
+      ) {
+        return showFunToast("❌ Card is expired.", "red");
+      }
+
+      // === BIN validation ===
+      const bin = cardNumber.slice(0, 6);
+      if (bin.length !== 6 || isNaN(bin)) {
+        showFunToast("❌ Invalid card number. Please recheck.", "red");
+        return;
+      }
+
+      try {
+        const binRes = await fetch(`/api/orders/validate-bin/${bin}`);
+        if (!binRes.ok) {
+          showFunToast(
+            "❌ Invalid card issuer. Please try another card.",
+            "red"
+          );
+          return;
         }
-        catch(error) {
-            showFunToast(error.message || "Network error.", "red");
-        }
-        
-    })
+        const binData = await binRes.json();
+        console.log("Card Info:", binData);
+      } catch (err) {
+        showFunToast("❌ Failed to verify card. Please try again.", "red");
+        return;
+      }
+
+      cardData = { cardNumber, cardName, expiry, cvv };
+    }
+
+    // ========== Final Data Object ==========
+
+    const formData = {
+      fullName,
+      email,
+      phone,
+      shippingAddress,
+      paid,
+      cardData,
+    };
+
+    // ========== Submit to backend ==========
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Order placed successfully!", "green");
+        setTimeout(() => (window.location.href = "/"), 900);
+      } else {
+        showFunToast(data.message || "❌ An error occurred.", "red");
+      }
+    } catch (error) {
+      showFunToast(error.message || "❌ Network error.", "red");
+    }
+  });
 });
 
 // ========== CART SYNC: Refresh checkout if cart is updated in this page ==========
 document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("cart-updated", function () {
     setTimeout(() => {
-        window.location.reload(); // Refresh to sync checkout with latest cart
+      window.location.reload(); // Refresh to sync checkout with latest cart
     }, 500);
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const phoneInput = document.getElementById("phoneNumber");
+
+  phoneInput.addEventListener("input", (e) => {
+    // Replace any non-digit character with empty string
+    phoneInput.value = phoneInput.value.replace(/\D/g, "");
+  });
+});
+

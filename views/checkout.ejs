@@ -102,7 +102,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Toasty CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
   <body
     class="checkout-page"
@@ -159,7 +162,6 @@
                             id="first-name"
                             name="first-name"
                             placeholder="Full Name*"
-                            
                             type="text"
                             value="<%= user.name %>"
                           />
@@ -169,10 +171,9 @@
                         <label for="email">Email Address</label>
                         <input
                           class="form-control"
-                          id="email"
+                          id="emailaddress"
                           name="email"
                           placeholder="Email*"
-                          
                           type="email"
                           value="<%= user.email %>"
                         />
@@ -184,8 +185,10 @@
                           id="phoneNumber"
                           name="phone"
                           placeholder="Phone Number*"
-                          
                           type="tel"
+                          inputmode="numeric"
+                          pattern="\d*"
+                          maxlength="15"
                           value="<%= user.phone %>"
                         />
                       </div>
@@ -205,7 +208,6 @@
                           id="address"
                           name="address"
                           placeholder="Address*"
-                          
                           type="text"
                         />
                       </div>
@@ -229,7 +231,6 @@
                             id="city"
                             name="city"
                             placeholder="City*"
-                            
                             type="text"
                           />
                         </div>
@@ -240,7 +241,6 @@
                             id="state"
                             name="state"
                             placeholder="State*"
-                            
                             type="text"
                           />
                         </div>
@@ -258,16 +258,11 @@
                       </div>
                       <div class="form-group">
                         <label for="country">Country</label>
-                        <select
-                          class="form-select"
-                          id="country"
-                          name="country"
-                          
-                        >
+                        <select class="form-select" id="country" name="country">
                           <option value="">Select Country</option>
                           <!-- Load countries dynamically from an array -->
                           <% country_list.forEach(country => { %>
-                           <option value="<%= country %>"> <%= country %> </option>
+                          <option value="<%= country %>"><%= country %></option>
                           <% }) %>
                         </select>
                       </div>
@@ -328,7 +323,6 @@
                                   id="card-number"
                                   name="card-number"
                                   placeholder="1234 5678 9012 3456*"
-                                  
                                   type="text"
                                 />
                                 <div class="card-icons">
@@ -345,7 +339,6 @@
                                   id="expiry"
                                   name="expiry"
                                   placeholder="MM/YY*"
-                                  
                                   type="text"
                                 />
                               </div>
@@ -357,7 +350,6 @@
                                     id="cvv"
                                     name="cvv"
                                     placeholder="CVV*"
-                                    
                                     type="text"
                                   />
                                   <span
@@ -379,7 +371,6 @@
                                 id="card-name"
                                 name="card-name"
                                 placeholder="Card Holder Name*"
-                                
                                 type="text"
                                 maxlength="28"
                               />
@@ -477,11 +468,9 @@
                   <span class="item-count"><%= user.cart.length %> Items</span>
                 </div>
                 <div class="order-summary-content">
-                  
                   <div class="order-items">
-                    <% if (user) { %>
-                      <% user.cart.forEach(item => { %>
-                       <div class="order-item">
+                    <% if (user) { %> <% user.cart.forEach(item => { %>
+                    <div class="order-item">
                       <div class="order-item-image">
                         <img
                           alt="Product"
@@ -499,9 +488,7 @@
                         </div>
                       </div>
                     </div>
-                    <% })  %>
-                      <% } %>
-                    
+                    <% }) %> <% } %>
                   </div>
                   <div class="order-totals">
                     <!-- Add Discount Code Section -->
@@ -537,7 +524,9 @@
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
-                      <span>$<%= (subtotal + shippingFee + tax).toFixed(2) %></span>
+                      <span
+                        >$<%= (subtotal + shippingFee + tax).toFixed(2) %></span
+                      >
                     </div>
                     <div class="d-flex justify-content-end">
                       <div>
