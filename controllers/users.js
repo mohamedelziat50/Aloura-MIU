@@ -69,6 +69,22 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+export const searchUsers = async (req, res) => {
+  const search = req.query.search || "";
+  const regex = new RegExp(search, "i");
+
+  try {
+    const users = await User.find({
+      $or: [{ name: regex }, { email: regex }],
+    }).lean();
+
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Search failed" });
+  }
+};
+
+
 export const addToCart = async (req, res) => {
   const { productId, size, price } = req.body;
 
