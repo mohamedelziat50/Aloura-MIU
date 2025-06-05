@@ -48,6 +48,10 @@ const orderSchema = new Schema({
   paid: {
     type: Boolean,
     required: true,
+  },
+  orderNumber: {
+    type: Number,
+    required: true,
   }
   // status: { // For later
   //   type: String,

@@ -72,13 +72,25 @@ export const createOrder = async (req, res) => {
     // .reduce() goes through each item in the array and keeps a sum intialized at 0 (last parameter).
     const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+    // Incase there are no orders
+    const intialOrderSequenceNumber = 1000;
+
+    // Find the latest/highest orderNumber and increment
+    // sort() takes an object as an argument, where each field to sort by is a key and the value is either 1 for ascending order or -1 for descending order.
+    // takes the objectNumber as the object to sort by, and sort it descendingly
+    const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
+
+    // Then increment the order we're currently creating
+    const orderNumber = (lastOrder && lastOrder.orderNumber)? lastOrder.orderNumber + 1 : intialOrderSequenceNumber;
+
     // Create the customer schema to add customer
     const order = new Order({
       user: user._id,
       items: cartItems,
       totalPrice,
       shippingAddress: req.body.shippingAddress,
-      paid: req.body.paid
+      paid: req.body.paid,
+      orderNumber
     });
 
      try {
