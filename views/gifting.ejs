@@ -28,9 +28,15 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
+ 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="css/gifting.css">
+
+
+
 </head>
 <body>
   <!-- Loader -->
@@ -119,77 +125,28 @@
     </section>
 
 <!-- Main Modal Container -->
-<div id="gift-modal" class="modal">
-    <div class="modal-content">
+<div id="gift-modal" class="modal" style="display: none;">
+  <div class="modal-content" style="width: 90%; max-width: 1200px; margin: 1rem auto;">
       <span class="close-modal">&times;</span>
       
       <!-- Step 1: Perfume Selection -->
       <div class="modal-step" id="step-perfume" style="display: block;">
         <h2>Select Your Perfume</h2>
-        <div class="scroll-container">
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/khamra.png" alt="Khamrah">
-                <h3>Khamrah</h3>
-                <p class="price">900 EGP</p>
+       <div class="scroll-container" style="width: 100%; overflow-x: auto;">
+
+        <% fragrance.forEach(element => { %>
+          <div class="perfume-option">
+                <img src="<%= element.image[0] %>" alt="<%= element.name %>">
+                <h3><%= element.name %></h3>
+                <p class="price"><%= element.sizeOptions[0].price %></p>
                 <button class="select-perfume">Select</button>
             </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/bleu-de-chanel.png" alt="Bleu de Chanel">
-                <h3>Bleu de Chanel</h3>
-                <p class="price">1,200 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <!-- Add 8 more perfumes -->
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/sauvauge-dior.png" alt="Sauvage">
-                <h3>Sauvage</h3>
-                <p class="price">1,100 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/burberry-her.png" alt="Burberry Her">
-                <h3>Burberry Her</h3>
-                <p class="price">950 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/flower-bomb.png" alt="Flowerbomb">
-                <h3>Flowerbomb</h3>
-                <p class="price">1,300 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/valentino-born-in-roma.png" alt="valintino">
-                <h3>Valintino Born In Roma </h3>
-                <p class="price">1,500 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/spicebomb-extreme.png" alt="Spice Bomb">
-                <h3>Spicebomb</h3>
-                <p class="price">850 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/stronger-with-you.png" alt="Stronger With You">
-                <h3>stronger with you</h3>
-                <p class="price">1,400 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/scandal.png" alt="Scandel">
-                <h3>Scandel</h3>
-                <p class="price">1,100 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
-            <div class="perfume-option">
-                <img src="img/perfumes-transparent/ultra-male.png" alt="Ultra Male">
-                <h3>Ultra Male</h3>
-                <p class="price">1,000 EGP</p>
-                <button class="select-perfume">Select</button>
-            </div>
+        <% }) %>
+           
+          
+           
         </div>
-        <div class="step-actions">
+        <div class="step-actions" style="width: 100%; text-align: center;">
             <button class="next-step" data-next="step-wrap">Next →</button>
         </div>
     </div>
@@ -370,6 +327,9 @@
   <!-- Footer -->
   <%- include('partials/footer.ejs') %>
 
+
+
+
 <script type="module" src="js/gifting.js"></script>
 <!-- Toastify cssS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -378,4 +338,9 @@
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </body>
+
+
+
+
+
 </html>
