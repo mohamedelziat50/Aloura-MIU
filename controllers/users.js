@@ -58,9 +58,19 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user
+// Delete user (prevent deletion if user has orders)
 export const deleteUser = async (req, res) => {
   try {
+    // Check first whether the user getting deleted is associated with an order
+    const Order = (await import("../models/order.js")).default;
+    const ordersWithUser = await Order.find({ user: req.params.id }).limit(1);
+    if (ordersWithUser.length > 0) {
+      return res.status(400).json({
+        message: "❌ Cannot delete: This user has existing orders.",
+      });
+    }
+
+    // If not then delete user
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json({ message: "User deleted" });
@@ -83,7 +93,6 @@ export const searchUsers = async (req, res) => {
     res.status(500).json({ error: "Search failed" });
   }
 };
-
 
 export const addToCart = async (req, res) => {
   const { productId, size, price } = req.body;
