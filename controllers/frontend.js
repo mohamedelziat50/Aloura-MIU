@@ -73,8 +73,9 @@ export const getFragrancesPage = async (req, res) => {
 
 
 export const getGiftingPage = async (req, res) => {
-  const user = await UserModel.findById(req.user.id); // Get the user from the request
-  await FragranceModel.find()
+  const user = await UserModel.findById(req.user.id).populate('cart.fragrance')
+  console.log(user)
+await FragranceModel.find()
     .then((fragrances) => {
       res.render("gifting", {
         fragrance: fragrances,
