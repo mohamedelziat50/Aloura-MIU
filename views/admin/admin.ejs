@@ -302,39 +302,28 @@
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Product</th>
+                <th>Order Number</th>
+                <th>User</th>
+                <th>Products</th>
                 <th>Status</th>
+                <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#1001</td>
-                <td>Aya</td>
-                <td>Dior Sauvage</td>
+              <% orders.forEach(order => { %>
+               <tr>
+                <td># <%= order.orderNumber %></td>
+                <td><%= order.user %></td>
+                <td><%= order.items %></td>
                 <td><span class="status delivered">Delivered</span></td>
-                <td>$120</td>
+                <td><%= (order.paid)? "Yes": "No" %></td>
+                <td>$<%= order.totalPrice %></td>
                 <td>No</td>
               </tr>
-              <tr>
-                <td>#1005</td>
-                <td>Ali</td>
-                <td>Chanel No. 5</td>
-                <td><span class="status shipped">Shipped</span></td>
-                <td>$150</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>#1008</td>
-                <td>Fatima</td>
-                <td>Spice Bomb</td>
-                <td><span class="status pending">Pending</span></td>
-                <td>$95</td>
-                <td>Yes</td>
-              </tr>
+              <% }) %>
+              
             </tbody>
           </table>
         </section>
