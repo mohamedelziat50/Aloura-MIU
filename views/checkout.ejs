@@ -265,12 +265,10 @@
                           
                         >
                           <option value="">Select Country</option>
-                          <option value="US">United States</option>
-                          <option value="CA">Canada</option>
-                          <option value="UK">United Kingdom</option>
-                          <option value="AU">Australia</option>
-                          <option value="DE">Germany</option>
-                          <option value="FR">France</option>
+                          <!-- Load countries dynamically from an array -->
+                          <% country_list.forEach(country => { %>
+                           <option value="<%= country %>"> <%= country %> </option>
+                          <% }) %>
                         </select>
                       </div>
                       <div class="form-check">

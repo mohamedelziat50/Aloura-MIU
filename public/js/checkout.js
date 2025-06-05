@@ -176,12 +176,29 @@ document.addEventListener("DOMContentLoaded", function () {
           state,
           country
         };
+        
+        // Payment method: Only send paid boolean, do NOT send card data  (For security reasons)
+        const codCheckbox = document.getElementById("cash");
+        const paid = codCheckbox.checked ? false : true;
+
+        // If not COD, validate card fields before sending and send them for backend validation
+        let cardData = undefined;
+        if (paid) {
+          const cardNumber = document.getElementById("card-number").value.trim();
+          const cardName = document.getElementById("card-name").value.trim();
+          const expiry = document.getElementById("expiry").value.trim();
+          const cvv = document.getElementById("cvv").value.trim();
+
+          cardData = { cardNumber, cardName, expiry, cvv };
+        }
 
         const formData = {
           fullName,
           email,
           phone,
-          shippingAddress // Pass the shippingAddress object
+          shippingAddress,
+          paid,
+          cardData 
         };
 
         try {

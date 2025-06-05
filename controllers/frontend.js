@@ -2,6 +2,11 @@ import FragranceModel from "../models/fragrance.js";
 import UserModel from "../models/user.js";
 import moment from "moment";
 
+// List of Arab countries close to Egypt + Egypt
+var country_list = [
+  "Egypt", "Palestine", "Syria", "Lebanon", "Saudi Arabia", "United Arab Emirates"
+];
+
 export const getIndex = (req, res) => {
   res.render("index");
 };
@@ -32,7 +37,7 @@ export const getCheckout = async (req, res) => {
     // Only render checkout when cart has items
     if(user.cart.length > 0) {
       // Render the page with the user's data to be displayed inside the ejs
-      res.render("checkout", {user: user, shippingFee: shippingFee, tax: tax});
+      res.render("checkout", {user: user, shippingFee: shippingFee, tax: tax, country_list: country_list});
     }
     else {
       // Handle if there are no items what to do - will be done next commit

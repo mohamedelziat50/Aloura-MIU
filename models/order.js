@@ -45,6 +45,10 @@ const orderSchema = new Schema({
     state: String,
     country: { type: String, required: true }
   },
+  paid: {
+    type: Boolean,
+    required: true,
+  }
   // status: { // For later
   //   type: String,
   //   enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],

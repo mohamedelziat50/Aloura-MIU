@@ -5,9 +5,9 @@ import User from '../models/user.js'
 
 export const createOrder = async (req, res) => {
     // // req.body only contains what you send; destructuring is for checking clarity and safety.
-    const { fullName, email, phone, shippingAddress } = req.body;
+    const { fullName, email, phone, shippingAddress, paid, cardData } = req.body;
 
-    // Manual validation for each field for clear error messages
+    // Customer Information Validation
     if (!fullName || fullName.toString().trim() === "") {
         return res.status(400).json({ message: "❌ Full Name is required in customer information." });
     }
@@ -17,6 +17,8 @@ export const createOrder = async (req, res) => {
     if (!phone || phone.toString().trim() === "") {
         return res.status(400).json({ message: "❌ Phone Number is required in customer information." });
     }
+
+    // Shipping Address Validation
     if (!shippingAddress.address || shippingAddress.address.toString().trim() === "") {
         return res.status(400).json({ message: "❌ Address is required in shipping address." });
     }
@@ -31,6 +33,22 @@ export const createOrder = async (req, res) => {
     }
     if (!shippingAddress.country || shippingAddress.country.toString().trim() === "") {
         return res.status(400).json({ message: "❌ Country is required in shipping address." });
+    }
+
+    // Payment Method Validation (If not COD)
+    if(paid) {
+        if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Number is required in payment method." });
+        }
+        if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Expiry is required in payment method." });
+        }
+        if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card CVV is required in payment method." });
+        }
+        if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Name is required in payment method." });
+        }
     }
 
     // Get the user's id (through the middleware - user's id from auth used to find the actual user object from his schema)
@@ -59,7 +77,8 @@ export const createOrder = async (req, res) => {
       user: user._id,
       items: cartItems,
       totalPrice,
-      shippingAddress: req.body.shippingAddress
+      shippingAddress: req.body.shippingAddress,
+      paid: req.body.paid
     });
 
      try {
