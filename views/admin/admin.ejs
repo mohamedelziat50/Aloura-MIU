@@ -302,39 +302,40 @@
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Product</th>
+                <th>Number</th>
+                <th>User</th>
+                <th>Products</th>
                 <th>Status</th>
+                <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
+                <th style="text-align: center;">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#1001</td>
-                <td>Aya</td>
-                <td>Dior Sauvage</td>
+              <% orders.forEach(order => { %>
+               <tr>
+                <td>#<%= order.orderNumber %></td>
+                <td><%= order.user.name %></td>
+              <td><% order.items.forEach(item => { %>
+                 <%= item.quantity %> × <%= item.fragrance.name %> <br>
+                <% }) %>
+              </td>
                 <td><span class="status delivered">Delivered</span></td>
-                <td>$120</td>
+                <td><%= (order.paid)? "Yes": "No" %></td>
+                <td>$<%= order.totalPrice %></td>
                 <td>No</td>
+                <td class="actionlist">
+                  <a class="btn ButtonDicoration btn-sm" href="/order/<%= order._id %>" title="View Order">
+                    <i class="fa-solid fa-list"></i>
+                  </a>
+                  <button class="btn btn-danger btn-sm" data-order-id="<%= order._id %>" onclick="deleteOrder(this)" title="Delete Order">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </td>
               </tr>
-              <tr>
-                <td>#1005</td>
-                <td>Ali</td>
-                <td>Chanel No. 5</td>
-                <td><span class="status shipped">Shipped</span></td>
-                <td>$150</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>#1008</td>
-                <td>Fatima</td>
-                <td>Spice Bomb</td>
-                <td><span class="status pending">Pending</span></td>
-                <td>$95</td>
-                <td>Yes</td>
-              </tr>
+              <% }) %>
+              
             </tbody>
           </table>
         </section>
@@ -581,7 +582,7 @@
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="text-align: center;">Action</th>
                 </tr>
               </thead>
               <tbody>
