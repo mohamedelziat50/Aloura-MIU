@@ -23,6 +23,14 @@ export const createFragrance = async (req, res) => {
       tags,
     } = req.body;
 
+    const trimmedName = name.trim();
+    const fragrance = await Fragrance.findOne({
+      name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
+    });
+    if (fragrance) {
+      return res.status(400).json({ error: "Fragrance already exists" });
+    }
+
     // Build public image paths from Multer
     const imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
 

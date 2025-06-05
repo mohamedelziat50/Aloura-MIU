@@ -1,22 +1,24 @@
 // models/Order.js
 import mongoose from 'mongoose';
 
-const orderSchema = new mongoose.Schema({
-  user: {
+const Schema = mongoose.Schema
+
+const orderSchema = new Schema({
+  
+  user: { // Reference the user who ordered {another schema}
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  items: [
+  items: [ // Array of the ordered items
     {
-      fragrance: {
+      fragrance: { // Reference the specific fragrance {another schema}
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Fragrance',
         required: true
       },
       size: {
         type: String,
-        enum: ['30ml', '50ml', '75ml', '100ml', '150ml'],
         required: true
       },
       quantity: {
@@ -37,27 +39,33 @@ const orderSchema = new mongoose.Schema({
     min: 0
   },
   shippingAddress: {
-    fullName: { type: String, required: true },
-    addressLine1: { type: String, required: true },
-    addressLine2: String,
+    address: { type: String, required: true }, // General address area
+    apartment: { type: String, required: true }, // Apartment suite, etc.
     city: { type: String, required: true },
     state: String,
-    postalCode: { type: String, required: true },
     country: { type: String, required: true }
   },
-  status: {
-    type: String,
-    enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
-    default: 'Processing'
-  },
-  paymentStatus: {
-    type: String,
-    enum: ['Pending', 'Paid', 'Failed'],
-    default: 'Pending'
+  paid: {
+    type: Boolean,
+    required: true,
   }
+  // status: { // For later
+  //   type: String,
+  //   enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
+  //   default: 'Processing'
+  // },
+  // paymentStatus: { // For later
+  //   type: String,
+  //   enum: ['Pending', 'Paid', 'Failed'],
+  //   default: 'Pending'
+  // }
 }, {
   timestamps: true
 });
 
+// The variable is used to export the model
+// The model name inside is what the table is called in the database if you open mongodb
 const Order = mongoose.model('Order', orderSchema);
+
+// Export the model as module to be required/imported
 export default Order;

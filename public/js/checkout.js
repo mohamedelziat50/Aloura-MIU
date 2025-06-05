@@ -1,3 +1,5 @@
+import showFunToast from "./toast.js";
+
 // script to remove the cerdit card payemt when chencked
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -134,4 +136,108 @@ document.addEventListener("DOMContentLoaded", function () {
         : "none";
     });
   }
+});
+
+// Creating an HTTP POST Request for an order happens here
+document.addEventListener("DOMContentLoaded", function () {
+  
+  // Get the checkout button
+  const checkoutButton = document.getElementById("checkout-button");
+  // Get the form
+  const form = document.getElementById('checkoutForm')
+
+  // The checkout button is outside the form, so handle it to properly submit
+  checkoutButton.addEventListener('click', function() {
+      // Use requestSubmit to trigger the submit event and allow JS handler -> not .submit( does default form submission)
+      form.requestSubmit();
+  });
+
+  form.addEventListener("submit", async (event) => {
+        // Prevent default form submission => Don't do any default form stuff {MOST IMPORTANT LINE}
+        event.preventDefault();
+        
+        // Customer Information
+        const fullName = document.getElementById("first-name").value
+        const email = document.getElementById("email").value
+        const phone = document.getElementById("phoneNumber").value
+
+        // Shipping Address
+        const address = document.getElementById("address").value;
+        const apartment = document.getElementById("apartment").value
+        const city = document.getElementById("city").value
+        const state = document.getElementById("state").value
+        const country = document.getElementById("country").value
+
+        // Create shippingAddress object
+        const shippingAddress = {
+          address,
+          apartment,
+          city,
+          state,
+          country
+        };
+        
+        // Payment method: Only send paid boolean, do NOT send card data  (For security reasons)
+        const codCheckbox = document.getElementById("cash");
+        const paid = codCheckbox.checked ? false : true;
+
+        // If not COD, validate card fields before sending and send them for backend validation
+        let cardData = undefined;
+        if (paid) {
+          const cardNumber = document.getElementById("card-number").value.trim();
+          const cardName = document.getElementById("card-name").value.trim();
+          const expiry = document.getElementById("expiry").value.trim();
+          const cvv = document.getElementById("cvv").value.trim();
+
+          cardData = { cardNumber, cardName, expiry, cvv };
+        }
+
+        const formData = {
+          fullName,
+          email,
+          phone,
+          shippingAddress,
+          paid,
+          cardData 
+        };
+
+        try {
+            // Send the POST request along side the form's data in JSON format
+            const response = await fetch('/api/orders', {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                // The reason you need app.use(express.json()); is because your frontend JavaScript (in your EJS file) sends the form data as JSON using fetch
+                body: JSON.stringify(formData)
+            })
+
+            // Store the server's response in a variable no matter success or error (this is the advantage)
+            const data = await response.json()
+
+            if (response.ok) 
+            {
+                showFunToast(data.message || "Order placed successfully!", "green");
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 900);
+            }
+            else {
+                showFunToast(data.message || "An error occurred.", "red");
+            }
+        }
+        catch(error) {
+            showFunToast(error.message || "Network error.", "red");
+        }
+        
+    })
+});
+
+// ========== CART SYNC: Refresh checkout if cart is updated in this page ==========
+document.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("cart-updated", function () {
+    setTimeout(() => {
+        window.location.reload(); // Refresh to sync checkout with latest cart
+    }, 500);
+  });
 });

@@ -245,61 +245,89 @@ document.querySelectorAll(".btn-add-note").forEach((btn) => {
 });
 
 import showFunToast from "/js/toast.js";
+//Delete Fragrance Confirmation
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteProduct = (btn) => {
     const fragrance_id = btn.getAttribute("data-fragrance-id");
+    const fragranceName = btn.closest('.product-card').querySelector('.product-name').textContent;
+    
+    // Show confirmation modal
+    const modal = new bootstrap.Modal(document.getElementById('deleteFragranceModal'));
+    document.getElementById('fragranceNameInModal').textContent = fragranceName;
+    modal.show();
 
-    fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
-      method: "DELETE",
-    })
-      .then(async (response) => {
-        const data = await response.json();
-
-        if (response.ok) {
-          showFunToast(
-            data.message || "✅ Fragrance deleted successfully!",
-            "green"
-          );
-          setTimeout(() => {
-            window.location.href = "/admin/:id";
-          }, 1000);
-        } else {
-          showFunToast(data.message || "❗ An error occurred.", "red");
-        }
+    // Handle confirmation
+    document.getElementById('confirmDeleteFragrance').onclick = () => {
+      fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+        method: "DELETE",
       })
-      .catch((error) => {
-        console.log(error);
-        showFunToast(error.message || "❗ An error occurred.", "red");
-      });
+        .then(async (response) => {
+          const data = await response.json();
+          
+          // Hide the modal
+          modal.hide();
+
+          if (response.ok) {
+            showFunToast(
+              data.message || "✅ Fragrance deleted successfully!",
+              "green"
+            );
+            setTimeout(() => {
+              window.location.href = "/admin/:id";
+            }, 1000);
+          } else {
+            showFunToast(data.message || "❗ An error occurred.", "red");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          modal.hide();
+          showFunToast(error.message || "❗ An error occurred.", "red");
+        });
+    };
   };
 });
 
+//Delete Users Confirmation
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteUser = (btn) => {
     const user_id = btn.getAttribute("data-user-id");
+    const userName = btn.closest('tr').querySelector('td:nth-child(2)').textContent;
 
-    fetch(`http://localhost:3000/api/users/${user_id}`, {
-      method: "DELETE",
-    })
-      .then(async (response) => {
-        const data = await response.json();
+    // Show confirmation modal
+    const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+    document.getElementById('userNameInModal').textContent = userName;
+    modal.show();
 
-        if (response.ok) {
-          showFunToast(
-            data.message || "✅ User deleted successfully!",
-            "green"
-          );
-          setTimeout(() => {
-            window.location.href = "/admin/:id";
-          }, 1000);
-        } else {
-          showFunToast(data.message || "❗ An error occurred.", "red");
-        }
+    // Handle confirmation
+    document.getElementById('confirmDeleteUser').onclick = () => {
+      fetch(`http://localhost:3000/api/users/${user_id}`, {
+        method: "DELETE",
       })
-      .catch((error) => {
-        console.log(error);
-        showFunToast(error.message || "❗ An error occurred.", "red");
-      });
+        .then(async (response) => {
+          const data = await response.json();
+          
+          // Hide the modal
+          modal.hide();
+
+          if (response.ok) {
+            showFunToast(
+              data.message || "✅ User deleted successfully!",
+              "green"
+            );
+            setTimeout(() => {
+              window.location.href = "/admin/:id";
+            }, 1000);
+          } else {
+            showFunToast(data.message || "❗ An error occurred.", "red");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          modal.hide();
+          showFunToast(error.message || "❗ An error occurred.", "red");
+        });
+    };
   };
 });
 
@@ -438,3 +466,69 @@ window.addEventListener("DOMContentLoaded", () => {
         );
       });
     
+
+        document.addEventListener("DOMContentLoaded", () => {
+    const userSearchInput = document.getElementById("userSearchInput");
+    const tableBody = document.querySelector("#section-users table tbody");
+
+    let debounceTimer;
+
+    userSearchInput.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+
+      debounceTimer = setTimeout(async () => {
+        const query = userSearchInput.value.trim();
+
+        try {
+          const res = await fetch(`/api/users/search?search=${encodeURIComponent(query)}`);
+          const users = await res.json();
+
+          tableBody.innerHTML = "";
+
+          if (users.length === 0) {
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="8" class="text-center">No users found for "${query}"</td>
+              </tr>`;
+            return;
+          }
+
+          users.forEach((user, index) => {
+            const updatedAt = moment(user.updatedAt).fromNow();
+
+            const row = `
+              <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.phone}</td>
+                <td>${user.isVerified}</td>
+                <td>${updatedAt}</td>
+                <td>${user.role}</td>
+                <td class="actionlist">
+                  <a class="btn ButtonDicoration btn-sm" href="/editUser/${user._id}">
+                    <i class="bi bi-pencil"></i>
+                  </a>                  <button 
+                    class="btn btn-danger btn-sm" 
+                    data-user-id="${user._id}"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete user"
+                    data-bs-placement="top"
+                    onclick="deleteUser(this)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>`;
+            tableBody.insertAdjacentHTML("beforeend", row);
+          });
+        } catch (error) {
+          console.error("Search error:", error);
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-danger">Error loading results</td>
+            </tr>`;
+        }
+      }, 300); // ⏱ debounce delay in ms
+    });
+});
