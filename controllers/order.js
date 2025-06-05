@@ -82,7 +82,13 @@ export const createOrder = async (req, res) => {
     });
 
      try {
+        // Save the order
         await order.save();
+        
+        // Clear the user's cart after successful order
+        user.cart = [];
+        await user.save();
+
         // Backend must send a response (success or error) for the frontend to work.
         res.status(201).json({ message: "✅ Order added successfully" });
     } catch (error) {
