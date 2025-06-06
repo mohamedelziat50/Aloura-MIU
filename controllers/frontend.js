@@ -1,11 +1,16 @@
 import FragranceModel from "../models/fragrance.js";
 import UserModel from "../models/user.js";
-import OrderModel from "../models/order.js"
+import OrderModel from "../models/order.js";
 import moment from "moment";
 
 // List of Arab countries close to Egypt + Egypt
 var country_list = [
-  "Egypt", "Palestine", "Syria", "Lebanon", "Saudi Arabia", "United Arab Emirates"
+  "Egypt",
+  "Palestine",
+  "Syria",
+  "Lebanon",
+  "Saudi Arabia",
+  "United Arab Emirates",
 ];
 
 export const getIndex = (req, res) => {
@@ -29,27 +34,30 @@ export const getAllFragrances = async (req, res) => {
 export const getCheckout = async (req, res) => {
   try {
     // Get the user's object populated with the fragrance's full details
-    const user = await UserModel.findById(req.user.id).populate("cart.fragrance");
-    
+    const user = await UserModel.findById(req.user.id).populate(
+      "cart.fragrance"
+    );
+
     //  Variable for shipping fee & tax
-    const shippingFee = 0
-    const tax = 0
+    const shippingFee = 0;
+    const tax = 0;
 
     // Only render checkout when cart has items
-    if(user.cart.length > 0) {
+    if (user.cart.length > 0) {
       // Render the page with the user's data to be displayed inside the ejs
-      res.render("checkout", {user: user, shippingFee: shippingFee, tax: tax, country_list: country_list});
-    }
-    else {
+      res.render("checkout", {
+        user: user,
+        shippingFee: shippingFee,
+        tax: tax,
+        country_list: country_list,
+      });
+    } else {
       // Handle if there are no items what to do - will be done next commit
     }
-    
+  } catch (error) {
+    console.log("Checkout Error: " + error);
+    res.status(500).send("Server Error");
   }
-  catch(error) {
-    console.log("Checkout Error: " + error)
-    res.status(500).send("Server Error")
-  }
-  
 };
 
 export const getCollectionsPage = (req, res) => {
@@ -63,7 +71,9 @@ export const getFragrancesPage = async (req, res) => {
     if (!fragrance) return res.status(404).send("fragrance not found");
 
     // Get all fragrances EXCEPT the current one
-    const allFragrances = await FragranceModel.find({ _id: { $ne: fragranceId } });
+    const allFragrances = await FragranceModel.find({
+      _id: { $ne: fragranceId },
+    });
 
     res.render("fragrances-page", { fragrance, allFragrances });
   } catch (err) {
@@ -72,15 +82,14 @@ export const getFragrancesPage = async (req, res) => {
   }
 };
 
-
 export const getGiftingPage = async (req, res) => {
-  const user = await UserModel.findById(req.user.id).populate('cart.fragrance')
-  console.log(user)
-await FragranceModel.find()
+  const user = await UserModel.findById(req.user.id).populate("cart.fragrance");
+  console.log(user);
+  await FragranceModel.find()
     .then((fragrances) => {
       res.render("gifting", {
         fragrance: fragrances,
-        user: user,       // pass user here
+        user: user, // pass user here
       });
     })
     .catch((err) => {
@@ -88,8 +97,6 @@ await FragranceModel.find()
       res.status(500).send("Server Error");
     });
 };
-
-
 
 export const getFragranceQuizPage = (req, res) => {
   res.render("fragrance-quiz");
@@ -104,20 +111,26 @@ export const getNightlifeCollectionPage = (req, res) => {
 };
 
 export const getAdmin = async (req, res) => {
-  // Populate order: both the user & items array's fragrance so we can display their data from their reference id
-  Promise.all([UserModel.find(), FragranceModel.find(), OrderModel.find().populate("user items.fragrance")])
-    .then(([users, fragrances, orders]) => {
-      res.render("admin/admin", {
-        arr: users,
-        fragrance: fragrances,
-        orders: orders,
-        moment,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Server Error");
+  try {
+    // Fetch all users, fragrances, and orders with populated references
+    const [users, fragrances, orders, subscribedUsers] = await Promise.all([
+      UserModel.find(),
+      FragranceModel.find(),
+      OrderModel.find().populate("user items.fragrance"),
+      UserModel.find({ subscriberList: true }), // <-- get users who subscribed
+    ]);
+
+    res.render("admin/admin", {
+      arr: users,
+      fragrance: fragrances,
+      orders: orders,
+      subscribedUsers,
+      moment,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 };
 
 export const getAddFragrance = (req, res) => {
@@ -159,16 +172,17 @@ export const getaccount = async (req, res) => {
   res.render("account");
 };
 
-
 export const getOrder = async (req, res) => {
-    // Populate the order because we're about to use all the info
-    const order = await OrderModel.findById(req.params.id).populate('user items.fragrance')
+  // Populate the order because we're about to use all the info
+  const order = await OrderModel.findById(req.params.id).populate(
+    "user items.fragrance"
+  );
 
-    // If order doesn't exist
-    if(!order) {
-        return res.status(400).json({ message: "❌ Order not found." });
-    }
+  // If order doesn't exist
+  if (!order) {
+    return res.status(400).json({ message: "❌ Order not found." });
+  }
 
-    // Otherwise pass the order that mtached the id and render the page
-    res.render("admin/viewOrder", {order: order, moment: moment})
-}
+  // Otherwise pass the order that mtached the id and render the page
+  res.render("admin/viewOrder", { order: order, moment: moment });
+};
