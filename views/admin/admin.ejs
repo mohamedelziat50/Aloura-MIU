@@ -307,44 +307,49 @@
           </div>
 
           <!-- Orders Table -->
+           <% if (orders.length === 0) { %>
+          <h1 style="text-align: center; position: relative; top: 80px;">No Data To Show</h1>
+          <% } else { %>
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Product</th>
+                <th>Number</th>
+                <th>User</th>
+                <th>Products</th>
                 <th>Status</th>
+                <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
+                <th style="text-align: center;">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#1001</td>
-                <td>Aya</td>
-                <td>Dior Sauvage</td>
+              <% orders.forEach(order => { %>
+               <tr>
+                <td>#<%= order.orderNumber %></td>
+                <td><%= order.user.name %></td>
+              <td><% order.items.forEach(item => { %>
+                 <%= item.quantity %> × <%= item.fragrance.name %> <br>
+                <% }) %>
+              </td>
                 <td><span class="status delivered">Delivered</span></td>
-                <td>$120</td>
+                <td><%= (order.paid)? "Yes": "No" %></td>
+                <td>$<%= order.totalPrice %></td>
                 <td>No</td>
+                <td class="actionlist">
+                  <a class="btn ButtonDicoration btn-sm" href="/order/<%= order._id %>" title="View Order">
+                    <i class="fa-solid fa-list"></i>
+                  </a>
+                  <button class="btn btn-danger btn-sm" data-order-id="<%= order._id %>" onclick="deleteOrder(this)" title="Delete Order">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </td>
               </tr>
-              <tr>
-                <td>#1005</td>
-                <td>Ali</td>
-                <td>Chanel No. 5</td>
-                <td><span class="status shipped">Shipped</span></td>
-                <td>$150</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>#1008</td>
-                <td>Fatima</td>
-                <td>Spice Bomb</td>
-                <td><span class="status pending">Pending</span></td>
-                <td>$95</td>
-                <td>Yes</td>
-              </tr>
+              <% }) %>
+              
             </tbody>
           </table>
+          <% } %>
         </section>
 
         <!-- Users Section -->
@@ -589,7 +594,7 @@
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="text-align: center;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -831,7 +836,7 @@
                   <label>Site Logo</label>
                   <div class="upload-area">
                     <img
-                      src="https://via.placeholder.com/150x50"
+                      src="https://placehold.co/150x50/FFFFFF/000000?text=Logo"
                       alt="Current Logo"
                       class="current-logo"
                     />
@@ -1031,5 +1036,9 @@ Welcome to our online store featuring the best products at competitive prices.</
     } else {
       menuToggle.style.display = "none";
     }
+  </script>
+  <!-- Passed for the delete functions to be used when their fetch API's are done for redirection -->
+  <script>
+    window.currentAdminId = "<%= user._id %>";
   </script>
 </html>

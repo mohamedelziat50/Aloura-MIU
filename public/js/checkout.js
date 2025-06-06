@@ -187,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const paid = !codCheckbox.checked;
 
     let cardData = undefined;
+    let binData = undefined; // Declare binData here
 
     // === CARD VALIDATION SECTION ===
     if (paid) {
@@ -270,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
           );
           return;
         }
-        const binData = await binRes.json();
+        binData = await binRes.json(); // Save the binData here
         console.log("Card Info:", binData);
       } catch (err) {
         showFunToast("❌ Failed to verify card. Please try again.", "red");
@@ -281,7 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ========== Final Data Object ==========
-
     const formData = {
       fullName,
       email,
@@ -289,6 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
       shippingAddress,
       paid,
       cardData,
+      binData, // Send binData to backend
     };
 
     // ========== Submit to backend ==========
@@ -330,4 +331,3 @@ document.addEventListener("DOMContentLoaded", () => {
     phoneInput.value = phoneInput.value.replace(/\D/g, "");
   });
 });
-

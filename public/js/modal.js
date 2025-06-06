@@ -119,6 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.querySelector(".menu-overlay");
   const body = document.body;
 
+  // Check if all required elements exist
+  if (!mobileMenuBtn || !links || !overlay) {
+    return; // Exit if any required element is missing
+  }
+
   function toggleMenu() {
     links.classList.toggle("active");
     overlay.classList.toggle("active");

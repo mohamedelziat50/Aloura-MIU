@@ -64,74 +64,98 @@ document.addEventListener("click", () => {
 
 // ==================== New Filter Button Code ====================
 // LITERALLY SAME CODE AS ABOVE, BUT WE CHANGE ONLY A SINGLE BUTTON'S TEXT, NOT PRICE + ML
-// Select the filter button and its container
-const filterButton = document.querySelector(".filter-button");
-const filterContainer = document.querySelector(".filter-container");
-const dropdownMenuFilter = filterContainer.querySelector(
-  ".dropdown-menu-filter"
-);
+function initializeFilterButton() {
+  // Select the filter button and its container
+  const filterButton = document.querySelector(".filter-button");
+  const filterContainer = document.querySelector(".filter-container");
 
-// Toggle dropdown menu on filter button click
-filterButton.addEventListener("click", (e) => {
-  e.stopPropagation(); // Prevent the click from bubbling up to the document
-  filterContainer.classList.toggle("active");
-
-  // Reset display to block before fade-in animation
-  if (filterContainer.classList.contains("active")) {
-    dropdownMenuFilter.style.display = "block";
+  // Exit if either element doesn't exist
+  if (!filterButton || !filterContainer) {
+    return;
   }
-});
 
-// Add click event listeners to each dropdown option
-const dropdownOptionsFilter = filterContainer.querySelectorAll(
-  ".dropdown-option-filter"
-);
-dropdownOptionsFilter.forEach((option) => {
-  option.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent the click from bubbling up to the filter container
+  const dropdownMenuFilter = filterContainer.querySelector(
+    ".dropdown-menu-filter"
+  );
+  if (!dropdownMenuFilter) {
+    return;
+  }
 
-    // Get the selected value
-    const value = option.getAttribute("data-value");
+  // Toggle dropdown menu on filter button click
+  filterButton.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up to the document
+    filterContainer.classList.toggle("active");
 
-    // Update the filter button text with the selected value
-    filterButton.textContent = `${value} ▼`;
-
-    // Hide the dropdown after selection
-    filterContainer.classList.remove("active");
+    // Reset display to block before fade-in animation
+    if (filterContainer.classList.contains("active")) {
+      dropdownMenuFilter.style.display = "block";
+    }
   });
-});
 
-// Hide dropdown after fade-out animation completes
-dropdownMenuFilter.addEventListener("animationend", (e) => {
-  if (e.animationName === "fadeOutTop") {
-    dropdownMenuFilter.style.display = "none"; // Hide the dropdown after animation
-  }
-});
+  // Add click event listeners to each dropdown option
+  const dropdownOptionsFilter = filterContainer.querySelectorAll(
+    ".dropdown-option-filter"
+  );
+  dropdownOptionsFilter.forEach((option) => {
+    option.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent the click from bubbling up to the filter container
 
-// Close dropdown when clicking outside
-document.addEventListener("click", () => {
-  if (filterContainer.classList.contains("active")) {
-    filterContainer.classList.remove("active"); // Hide the dropdown
-  }
-});
+      // Get the selected value
+      const value = option.getAttribute("data-value");
+
+      // Update the filter button text with the selected value
+      filterButton.textContent = `${value} ▼`;
+
+      // Hide the dropdown after selection
+      filterContainer.classList.remove("active");
+    });
+  });
+
+  // Hide dropdown after fade-out animation completes
+  dropdownMenuFilter.addEventListener("animationend", (e) => {
+    if (e.animationName === "fadeOutTop") {
+      dropdownMenuFilter.style.display = "none"; // Hide the dropdown after animation
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", () => {
+    if (filterContainer.classList.contains("active")) {
+      filterContainer.classList.remove("active"); // Hide the dropdown
+    }
+  });
+}
+
+// Initialize the filter button functionality
+initializeFilterButton();
 
 // =====================SEARCH BAR RELATED===================================
-const searchBox = document.getElementById("searchBox");
-const clearSearch = document.getElementById("clearSearch");
+function initializeSearchBar() {
+  const searchBox = document.getElementById("searchBox");
+  const clearSearch = document.getElementById("clearSearch");
 
-// Add an event listener for the search box to listen for input (text)
-searchBox.addEventListener("input", () => {
-  // If searchBox has a value, then we'll display the clear icon!
-  clearSearch.style.display = searchBox.value ? "block" : "none";
-});
+  // Exit if either element doesn't exist
+  if (!searchBox || !clearSearch) {
+    return;
+  }
 
-// Close icon event listener
-clearSearch.addEventListener("click", () => {
-  // Reset searchBox's value to empty
-  searchBox.value = "";
-  // Then hide the icon once again
-  clearSearch.style.display = "none";
-});
+  // Add an event listener for the search box to listen for input (text)
+  searchBox.addEventListener("input", () => {
+    // If searchBox has a value, then we'll display the clear icon!
+    clearSearch.style.display = searchBox.value ? "block" : "none";
+  });
+
+  // Close icon event listener
+  clearSearch.addEventListener("click", () => {
+    // Reset searchBox's value to empty
+    searchBox.value = "";
+    // Then hide the icon once again
+    clearSearch.style.display = "none";
+  });
+}
+
+// Initialize the search bar functionality
+initializeSearchBar();
 
 const allCards = new Set(); // Global
 let fragranceCards; // Global
