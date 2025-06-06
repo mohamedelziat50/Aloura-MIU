@@ -49,7 +49,7 @@ router.get("/fragrance-quiz",auth(["user", "admin"]), getFragranceQuizPage);
 router.get("/our-story", getOurStoryPage);
 router.get("/nightlife-collection", getNightlifeCollectionPage);
 router.get("/account/:id", auth(["user", "admin"]), getaccount);
-router.get("/user-orders", getUserOrders);
+router.get("/user-orders/:id", auth(["user", "admin"]), getUserOrders);
 router.get("/checkout", auth(["user", "admin"]),getCheckout);
 router.get("/admin/:id", auth(["admin"]), getAdmin);
 router.get("/order/:id", auth(["admin"]), getOrder);
