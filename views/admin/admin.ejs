@@ -333,7 +333,7 @@
                  <%= item.quantity %> × <%= item.fragrance.name %> <br>
                 <% }) %>
               </td>
-              <td><%= moment(user.createdAt).format('D MMMM YYYY') %></td>
+              <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
                 <td><span class="status delivered">Delivered</span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
