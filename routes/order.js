@@ -1,24 +1,26 @@
 // routes/orderRoutes.js
-import express from 'express';
-import auth from '../middleware/auth.js'
+import express from "express";
+import auth from "../middleware/auth.js";
 import {
   createOrder,
   validateCardBin,
-  deleteOrder
+  deleteOrder,
+  searchOrders,
   // getAllOrders,
   // getOrderById,
   // updateOrder,
-} from '../controllers/order.js';
+} from "../controllers/order.js";
 
 const router = express.Router();
 
 // Pass the JWT middleware so we can access the current user OR admin when creating the order
-router.post('/', auth(["user", "admin"]), createOrder);
+router.post("/", auth(["user", "admin"]), createOrder);
 // For card validation
 router.get("/validate-bin/:bin", validateCardBin);
 
-router.delete('/delete/:id', deleteOrder);
+router.delete("/delete/:id", auth(["admin"]), deleteOrder);
 
+router.get("/search", auth(["admin"]), searchOrders);
 
 // router.get('/', getAllOrders);
 // router.get('/:id', getOrderById);

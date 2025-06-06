@@ -198,6 +198,30 @@ export const deleteOrder = async (req, res) => {
   }
 };
 
+export const searchOrders = async (req, res) => {
+  const search = req.query.search?.trim() || "";
+  const regex = new RegExp(search, "i");
+
+  try {
+    // First, get all orders with populated data
+    const allOrders = await Order.find()
+      .populate("user")
+      .populate("items.fragrance");
+
+    // Now filter manually (on populated fields)
+    const filteredOrders = allOrders.filter((order) => {
+      const orderMatch = regex.test(order.orderNumber.toString());
+      const userMatch = order.user && regex.test(order.user.name);
+      return orderMatch || userMatch;
+    });
+
+    res.json(filteredOrders);
+  } catch (err) {
+    console.error("Order search error:", err);
+    res.status(500).json({ error: "Search failed" });
+  }
+};
+
 // // Get all orders
 // export const getAllOrders = async (req, res) => {
 //   try {
