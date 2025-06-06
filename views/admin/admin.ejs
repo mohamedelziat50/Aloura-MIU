@@ -204,34 +204,42 @@
                 <h3 class="product-name"><%= product.name %></h3>
                 <p class="product-email"><%= product.category %></p>
                 <p class="product-role"><%= product.gender %></p>
-                <div class="product-notes">
-                  <div class="product-header">
-                    <h4>Customer Notes</h4>
+                <div class="quantity-info">
+                  <div class="stock-header">
+                    <h4 class="stock-title">Stock Level</h4>
                   </div>
+                  <div class="size-quantities">
+                    <% 
+                    const displayedSizes = new Set();
+                    product.sizeOptions.filter(option => option.quantity > 0).forEach(option => {
+                        if (!displayedSizes.has(option.size)) {
+                          displayedSizes.add(option.size); %>
+                        <div class="quantity-badge <%= option.quantity < 5 ? 'low-stock' : '' %>">
+                          <%= option.size %>ml: <%= option.quantity %>
+                        </div>
+                    <%
+                        }
+                      });
+                    %>
+                  </div>
+                </div>
+                <div class="product-notes">
                   <div class="notes-list">
                     <div class="note">
                       <p><%= product.description %></p>
-                      <span class="product-date">
-                        <%=
-                        moment(product.releaseDate).format(("dddd,MMMMDoYYYY"))
-                        %>
-                      </span>
                     </div>
                   </div>
                 </div>
+                <div class="date-divider">
+                  <span class="product-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <%= moment(product.releaseDate).format("MMM DD, YYYY") %>
+                  </span>
+                </div>
               </div>
               <div class="product-actions">
-                <a
-                  class="product-btn edit"
-                  href="/editFragrance/<%= product._id %>"
-                  style="text-decoration: none"
-                  >Edit</a
-                >
-                <button
-                  class="product-btn delete"
-                  data-fragrance-id="<%= product._id %>"
-                  onclick="deleteProduct(this)"
-                >
+                <a class="product-btn edit" href="/editFragrance/<%= product._id %>" style="text-decoration: none">Edit</a>
+                <button class="product-btn delete" data-fragrance-id="<%= product._id %>" onclick="deleteProduct(this)">
                   Delete
                 </button>
               </div>
@@ -975,43 +983,6 @@ Welcome to our online store featuring the best products at competitive prices.</
       </div>
     </div>
   </body>
-  <!-- Delete Fragrance Confirmation Modal -->
-  <div class="modal fade" id="deleteFragranceModal" tabindex="-1" aria-labelledby="deleteFragranceModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">        <div class="modal-header">
-          <h5 class="modal-title" id="deleteFragranceModalLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete "<span id="fragranceNameInModal"></span>"? This action cannot be undone.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteFragrance">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Delete User Confirmation Modal -->
-  <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteUserModalLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete user "<span id="userNameInModal"></span>"? This action cannot be undone.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteUser">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // Mobile menu functionality
     const menuToggle = document.getElementById("menuToggle");

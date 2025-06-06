@@ -82,10 +82,10 @@ export const generateVerificationEmail = (name, userId) => {
     <a href="http://localhost:3000/api/auth/verify/${userId}" class="verify-btn">Verify Your Account</a>
 
     <div class="socials">
-      <a href="https://www.tiktok.com/@youraccount">
+      <a href="https://www.tiktok.com/@aloura.perfumes">
         <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok" />
       </a>
-      <a href="https://instagram.com/youraccount">
+      <a href="https://instagram.com/aloura.eg">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" />
       </a>
     </div>
@@ -247,7 +247,7 @@ export const generatePasswordResetEmail = (name, resetCode) => {
 
     <h1>Password Reset Request</h1>
     
-    ${name ? `<p class="greeting">Hello ${name},</p>` : ''}
+    ${name ? `<p class="greeting">Hello ${name},</p>` : ""}
 
     <p>
       We received a request to reset your password for your Aloura account. 
@@ -270,16 +270,119 @@ export const generatePasswordResetEmail = (name, resetCode) => {
     </p>
 
     <div class="socials">
-      <a href="https://www.tiktok.com/@youraccount">
+      <a href="https://www.tiktok.com/@aloura.perfumes">
         <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok" />
       </a>
-      <a href="https://instagram.com/youraccount">
+      <a href="https://instagram.com/aloura.eg">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" />
       </a>
     </div>
 
     <div class="footer-text">
       This email was sent to you because a password reset was requested for your Aloura account.<br>
+      © 2024 Aloura. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
+  `;
+};
+
+export const generateSubscriberWelcomeEmail = (name) => {
+  return `
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Our Subscriber List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      background-color: #f1f5f0;
+      color: #111;
+    }
+    .email-wrapper {
+      background-color: #f8f1ea;
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+    .highlight {
+      font-weight: 700;
+      color: #000;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+      line-height: 1.4;
+    }
+    .socials {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .socials a {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    .socials img {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <img src="https://yourdomain.com/img/ALOURA.jpg" alt="Aloura Logo" class="logo" />
+
+    <h1>Welcome to Our Subscriber List! 🎉</h1>
+
+    <p>
+      ${name ? `Hi <span class="highlight">${name}</span>,` : "Hello,"}
+    </p>
+
+    <p>
+      Thank you for joining our subscriber list! We're excited to keep you updated with exclusive offers, latest news, and personalized content.
+    </p>
+
+    <p>
+      Stay tuned for exciting updates coming your way soon.
+    </p>
+
+    <p>Cheers,<br />The Aloura Team</p>
+
+    <div class="socials">
+      <a href="https://www.tiktok.com/@aloura.perfumes">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok" />
+      </a>
+      <a href="https://instagram.com/aloura.eg">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" />
+      </a>
+    </div>
+
+    <div class="footer-text">
+      You received this email because you subscribed to the Aloura newsletter.<br />
       © 2024 Aloura. All rights reserved.
     </div>
   </div>

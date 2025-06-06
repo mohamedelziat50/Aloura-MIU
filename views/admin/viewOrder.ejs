@@ -426,38 +426,86 @@
     <div class="container fade-in">
       <div class="form-container">
         <div class="mb-4">
-          <a href="/admin/<%= user._id %>" class="btn btn-link text-dark p-0 me-3 ms-3" style="font-size: 1.5rem;">
+          <a
+            href="/admin/<%= user._id %>"
+            class="btn btn-link text-dark p-0 me-3 ms-3"
+            style="font-size: 1.5rem"
+          >
             <i class="fas fa-arrow-left"></i>
           </a>
           <span class="fs-4 fw-bold align-middle">Order Details</span>
         </div>
-        <div class="card shadow-sm border-0 mb-4" style="border-radius: 18px;">
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 18px">
           <div class="card-body p-4">
-            <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+            <div
+              class="d-flex flex-wrap align-items-center justify-content-between mb-4"
+            >
               <div class="d-flex align-items-center mb-2 mb-md-0">
                 <i class="fa fa-calendar-alt me-2 text-secondary"></i>
-                <span class="fw-semibold me-3"><%= moment(order.createdAt).format('ddd, MMM D, YYYY, h:mm A') %></span>
-                <span class="text-muted small"> Number #<%= order.orderNumber %></span>
+                <span class="fw-semibold me-3">
+                  <%= moment(order.createdAt).format('ddd, MMM D, YYYY, h:mm A')
+                  %>
+                </span>
+                <span class="text-muted small">
+                  Number #<%= order.orderNumber %>
+                </span>
               </div>
               <div>
-                <span class="badge <%= order.status === 'Delivered' ? 'bg-success' : order.status === 'Cancelled' ? 'bg-danger' : 'bg-secondary' %> px-3 py-2 fs-6"> <%= order.status || 'N/A' %> </span>
-                <span class="badge <%= order.paid ? 'bg-success' : 'bg-danger' %> px-3 py-2 fs-6 ms-2"> <%= order.paid ? 'Paid' : 'Unpaid' %> </span>
+                <span
+                  class="badge <%= order.status === 'Delivered' ? 'bg-success' : order.status === 'Cancelled' ? 'bg-danger' : 'bg-secondary' %> px-3 py-2 fs-6"
+                >
+                  <%= order.status || 'N/A' %>
+                </span>
+                <span
+                  class="badge <%= order.paid ? 'bg-success' : 'bg-danger' %> px-3 py-2 fs-6 ms-2"
+                >
+                  <%= order.paid ? 'Paid' : 'Unpaid' %>
+                </span>
               </div>
             </div>
             <div class="row g-4 mb-4">
               <div class="col-md-4">
                 <div class="border rounded-3 p-3 h-100 bg-white">
                   <div class="d-flex align-items-center mb-2">
-                    <% if(order.user && order.user.profilePicture) { %>
-                      <img src="<%= order.user.profilePicture %>" alt="User Profile Picture" class="rounded-circle me-2" style="width:30px;height:30px;object-fit:cover;border:2px solid #e0e0e0;">
+                    <% if(order.user && order.user.profilePic) { %>
+                    <img
+                      src="<%= order.user.profilePic%>"
+                      alt="User Profile Picture"
+                      class="rounded-circle me-2"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        object-fit: cover;
+                        border: 2px solid #e0e0e0;
+                      "
+                    />
                     <% } else { %>
-                      <img src="/uploads/defaultProfilePic.png" alt="User Profile Picture" class="rounded-circle me-2" style="width:30px;height:30px;object-fit:cover;border:2px solid #e0e0e0;">
+                    <img
+                      src="/uploads/defaultProfilePic.png"
+                      alt="User Profile Picture"
+                      class="rounded-circle me-2"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        object-fit: cover;
+                        border: 2px solid #e0e0e0;
+                      "
+                    />
                     <% } %>
                     <span class="fw-bold">Customer</span>
                   </div>
-                  <div class="mb-1"><span class="text-muted">Name:</span> <%= order.user.name || 'N/A' %></div>
-                  <div class="mb-1"><span class="text-muted">Email:</span> <%= order.user.email || 'N/A' %></div>
-                  <div class="mb-1"><span class="text-muted">Phone:</span> <%= order.user.phone || 'N/A' %></div>
+                  <div class="mb-1">
+                    <span class="text-muted">Name:</span> <%= order.user ?
+                    order.user.name : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Email:</span> <%= order.user ?
+                    order.user.email : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Phone:</span> <%= order.user ?
+                    order.user.phone : 'N/A' %>
+                  </div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -466,9 +514,20 @@
                     <i class="fa fa-truck fa-lg text-info me-2"></i>
                     <span class="fw-bold">Shipping</span>
                   </div>
-                  <div class="mb-1"><span class="text-muted">Shipping:</span> Standard</div>
-                  <div class="mb-1"><span class="text-muted">Payment method:</span> <%= order.paid ? 'Card' : 'Cash On Delivery' %></div>
-                  <div class="mb-1"><span class="text-muted">Gift:</span> <span class="badge <%= order.gift ? 'bg-info text-dark' : 'bg-light text-muted' %>"><%= order.gift ? 'Yes' : 'No' %></span></div>
+                  <div class="mb-1">
+                    <span class="text-muted">Shipping:</span> Standard
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Payment method:</span> <%=
+                    order.paid ? 'Card' : 'Cash On Delivery' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Gift:</span>
+                    <span
+                      class="badge <%= order.gift ? 'bg-info text-dark' : 'bg-light text-muted' %>"
+                      ><%= order.gift ? 'Yes' : 'No' %></span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -477,15 +536,30 @@
                     <i class="fa fa-map-marker-alt fa-lg text-danger me-2"></i>
                     <span class="fw-bold">Deliver to</span>
                   </div>
-                  <div class="mb-1"><span class="text-muted">City:</span> <%= order.shippingAddress?.city || 'N/A' %></div>
-                  <div class="mb-1"><span class="text-muted">Address:</span> <%= order.shippingAddress?.address || 'N/A' %></div>
-                  <div class="mb-1"><span class="text-muted">Apartment:</span> <%= order.shippingAddress?.apartment || 'N/A' %></div>
+                  <div class="mb-1">
+                    <span class="text-muted">City:</span> <%=
+                    order.shippingAddress && order.shippingAddress.city ?
+                    order.shippingAddress.city : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Address:</span> <%=
+                    order.shippingAddress && order.shippingAddress.address ?
+                    order.shippingAddress.address : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Apartment:</span> <%=
+                    order.shippingAddress && order.shippingAddress.apartment ?
+                    order.shippingAddress.apartment : 'N/A' %>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row g-4">
               <div class="col-md-8">
-                <div class="table-responsive mb-3" style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px;">
+                <div
+                  class="table-responsive mb-3"
+                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
+                >
                   <table class="table table-borderless align-middle mb-0">
                     <thead class="table-light">
                       <tr>
@@ -499,38 +573,65 @@
                     </thead>
                     <tbody>
                       <% order.items.forEach(item => { %>
-                        <tr>
-                          <td style="align-items: center;">
-                            <% if(item.fragrance && item.fragrance.image) { %>
-                              <img src="<%= item.fragrance.image[0] %>" alt="<%= item.fragrance.name %>" style="width:48px;height:48px;object-fit:cover;border-radius:8px;">
-                            <% } else { %>
-                              <span class="text-muted">N/A</span>
-                            <% } %>
-                          </td>
-                          <td><%= item.fragrance?.name || 'N/A' %></td>
-                          <td><%= item.size || '-' %></td>
-                          <td><%= item.quantity %></td>
-                          <td>$<%= item.price || 'N/A' %></td>
-                          <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
-                        </tr>
+                      <tr>
+                        <td style="align-items: center">
+                          <% if(item.fragrance && item.fragrance.image) { %>
+                          <img
+                            src="<%= item.fragrance.image[0] %>"
+                            alt="<%= item.fragrance.name %>"
+                            style="
+                              width: 48px;
+                              height: 48px;
+                              object-fit: cover;
+                              border-radius: 8px;
+                            "
+                          />
+                          <% } else { %>
+                          <span class="text-muted">N/A</span>
+                          <% } %>
+                        </td>
+                        <td><%= item.fragrance?.name || 'N/A' %></td>
+                        <td><%= item.size || '-' %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= item.price || 'N/A' %></td>
+                        <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                      </tr>
                       <% }) %>
                     </tbody>
                   </table>
                 </div>
                 <div class="d-flex flex-column align-items-end">
-                  <div class="mb-1"><span class="text-muted">Subtotal:</span> <span class="fw-semibold">$<%= order.subtotal || order.totalPrice %></span></div>
-                  <div class="mb-1"><span class="text-muted">Shipping:</span> <span class="fw-semibold">$<%= order.shipping || '0.00' %></span></div>
-                  <div class="mb-1"><span class="text-muted">Tax:</span> <span class="fw-semibold">$<%= order.tax || '0.00' %></span></div>
-                  <div class="mb-1 fs-5"><span class="fw-bold">Total:</span> <span class="fw-bold text-success">$<%= order.totalPrice %></span></div>
+                  <div class="mb-1">
+                    <span class="text-muted">Subtotal:</span>
+                    <span class="fw-semibold"
+                      >$<%= order.subtotal || order.totalPrice %></span
+                    >
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Shipping:</span>
+                    <span class="fw-semibold"
+                      >$<%= order.shipping || '0.00' %></span
+                    >
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Tax:</span>
+                    <span class="fw-semibold">$<%= order.tax || '0.00' %></span>
+                  </div>
+                  <div class="mb-1 fs-5">
+                    <span class="fw-bold">Total:</span>
+                    <span class="fw-bold text-success"
+                      >$<%= order.totalPrice %></span
+                    >
+                  </div>
                   <% if(order.paid) { %>
-                    <span class="badge bg-success mt-2">Payment made</span>
+                  <span class="badge bg-success mt-2">Payment made</span>
                   <% } %>
                 </div>
                 <% if(order.note) { %>
-                  <div class="border rounded-3 p-3 bg-light mt-4">
-                    <div class="fw-bold mb-1">Notes</div>
-                    <div><%= order.note %></div>
-                  </div>
+                <div class="border rounded-3 p-3 bg-light mt-4">
+                  <div class="fw-bold mb-1">Notes</div>
+                  <div><%= order.note %></div>
+                </div>
                 <% } %>
               </div>
               <div class="col-md-4">
@@ -540,15 +641,43 @@
                     <span class="fw-bold">Payment info</span>
                   </div>
                   <div class="mb-1">
-                    <% if(order.paid && order.cardData) { %>
-                      <i class="fa-brands fa-cc-mastercard text-danger me-2"></i>
-                      <span>Master Card **** <%= order.cardData.cardNumber ? order.cardData.cardNumber.slice(-4) : '----' %></span>
+                    <% if(order.paid && order.paymentInfo) { %>
+                    <i
+                      class="fa-brands fa-cc-<%= order.paymentInfo && order.paymentInfo.scheme === 'mastercard' ? 'mastercard' : 'visa' %> text-danger me-2"
+                    ></i>
+                    <span>
+                      <%= order.paymentInfo && order.paymentInfo.scheme ?
+                      order.paymentInfo.scheme.charAt(0).toUpperCase() +
+                      order.paymentInfo.scheme.slice(1) : 'Card' %> - <%=
+                      order.paymentInfo && order.paymentInfo.type ?
+                      order.paymentInfo.type : 'Type Unknown' %>
+                    </span>
                     <% } else { %>
-                      <span class="text-muted">Cash On Delivery</span>
+                    <span class="text-muted">Cash On Delivery</span>
                     <% } %>
                   </div>
-                  <% if(order.paid && order.cardData) { %>
-                    <div class="mb-1"><span class="text-muted">Business name:</span> <%= order.cardData.cardName || 'N/A' %></div>
+
+                  <% if(order.paid && order.paymentInfo) { %>
+                  <div class="mb-1">
+                    <span class="text-muted">Bank:</span> <%= order.paymentInfo
+                    && order.paymentInfo.bank.name ? order.paymentInfo.bank.name
+                    : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Brand:</span> <%= order.paymentInfo
+                    && order.paymentInfo.brand ? order.paymentInfo.brand : 'N/A'
+                    %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Country:</span> <%=
+                    order.paymentInfo && order.paymentInfo.country.name ?
+                    order.paymentInfo.country.name : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Currency:</span> <%=
+                    order.paymentInfo && order.paymentInfo.country.currency ?
+                    order.paymentInfo.country.currency : 'EGP' %>
+                  </div>
                   <% } %>
                 </div>
               </div>
@@ -556,7 +685,10 @@
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <a href="/admin/<%= user._id %>" class="btn btn-secondary ButtonDicoration">
+          <a
+            href="/admin/<%= user._id %>"
+            class="btn btn-secondary ButtonDicoration"
+          >
             <i class="fa fa-arrow-left"></i> Back
           </a>
         </div>
