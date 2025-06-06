@@ -178,20 +178,20 @@
   max-width: 350px;
 }
 .orders-search-btn {
-  background: #121212;
-  color: #fff;
+  background: #fff;
+  color: #121212;
   border: 1px solid #121212;
   padding: 8px 18px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s linear;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .orders-search-btn:hover {
-  background: #fff;
-  color: #000;
+  background: #121212;
+  color: #fff;
 }
 @media (max-width: 800px) {
   .order-container {
