@@ -23,7 +23,7 @@ export const createFragrance = async (req, res) => {
       tags,
     } = req.body;
 
-    const trimmedName = name.trim();
+    const trimmedName = name.trim().replace(/\s+/g, " ");
     const fragrance = await Fragrance.findOne({
       name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
     });
@@ -114,6 +114,16 @@ export const updateFragrance = async (req, res) => {
       backgroundImage1,
       backgroundImage2,
     } = req.body;
+
+    //Check for duplicate name
+    const trimmedName = name.trim().replace(/\s+/g, " ");
+    const existingFragrance = await Fragrance.findOne({
+     _id: { $ne: id }, // Exclude current fragrance
+      name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
+    });
+    if (existingFragrance) {
+      return res.status(400).json({ message: "A Fragrance with this name already exists" });
+    }
 
     // Convert notes and tags from comma-separated strings
     const top = topNotes.split(",").map((n) => n.trim());
