@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
-    subsciberList: {
+    subscriberList: {
       type: Boolean,
       default: false, // Default to not subscribed
     },

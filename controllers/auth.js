@@ -4,6 +4,7 @@ import sendEmail from "../utilities/emailService.js";
 import {
   generateVerificationEmail,
   generatePasswordResetEmail,
+  generateSubscriberWelcomeEmail,
 } from "../utilities/emailtemplates.js";
 import { JWT_SECRET } from "../config/secrets.js";
 import { JWT_EXPIRY } from "../config/secrets.js";
@@ -248,8 +249,23 @@ export const subscriberList = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    user.subsciberList = true;
+    if (user.subscriberList) {
+      return res
+        .status(400)
+        .json({ message: "This User is already subscribed." });
+    }
+
+    user.subscriberList = true;
     await user.save();
+
+    const htmlContent = generateSubscriberWelcomeEmail(user.name);
+
+    await sendEmail({
+      to: email,
+      subject: "Welcome to Our Subscriber List! 🎉",
+      text: `Thank you for subscribing to our newsletter!`,
+      html: htmlContent,
+    });
 
     return res.status(200).json({ message: "Subscribed successfully!" });
   } catch (err) {

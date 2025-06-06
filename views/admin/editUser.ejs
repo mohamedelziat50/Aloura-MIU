@@ -386,8 +386,8 @@
               <div class="mb-4">
                 <label class="form-label">Subscriber List</label>
                 <select id="user-subscriberList" class="form-select">
-                  <option value="true" <%= user.subsciberList === true ? 'selected' : '' %>>Subscribed</option>
-                  <option value="false" <%= user.subsciberList === false ? 'selected' : '' %>>Not Subscribed</option>
+                  <option value="true" <%= user.subscriberList  === true ? 'selected' : '' %>>Subscribed</option>
+                  <option value="false" <%= user.subscriberList  === false ? 'selected' : '' %>>Not Subscribed</option>
                 </select>
               </div>
             </div>
@@ -425,7 +425,7 @@
           phone: document.getElementById("user-phone")?.value || "",
           role: document.getElementById("user-role")?.value || "",
           isVerified: document.getElementById("user-isVerified")?.value || "",
-          subsciberList: document.getElementById("user-subscriberList")?.value || "",
+          subscriberList: document.getElementById("user-subscriberList")?.value || "",
           oldPassword: document.getElementById("userOldPassword")?.value || "",
           newPassword: document.getElementById("userNewPassword")?.value || "",
           profilePicture: document.getElementById("profile-picture-preview").getAttribute('src'),
@@ -455,7 +455,7 @@
           const phone = document.getElementById("user-phone")?.value || "";
           const role = document.getElementById("user-role")?.value || "";
           const isVerified = document.getElementById("user-isVerified")?.value || "";
-          const subsciberList = document.getElementById("user-subscriberList")?.value || "";
+          const subscriberList  = document.getElementById("user-subscriberList")?.value || "";
           const oldpassword = document.getElementById("userOldPassword")?.value.trim() || "";
           const newpassword = document.getElementById("userNewPassword")?.value.trim() || "";
           const profilePicture = fileInput.files[0];
@@ -468,7 +468,7 @@
             phone !== originalValues.phone ||
             role !== originalValues.role ||
             isVerified !== originalValues.isVerified ||
-            subsciberList !== originalValues.subsciberList ||
+            subscriberList  !== originalValues.subscriberList  ||
             oldpassword !== "" ||
             newpassword !== "" ||
             currentPicture !== originalValues.profilePicture;
@@ -485,7 +485,7 @@
           formData.append("name", name);
           formData.append("role", role);
           formData.append("isVerified", isVerified);
-          formData.append("subsciberList", subsciberList);
+          formData.append("subscriberList", subscriberList);
 
           // Handle profile picture
           if (profilePicture) {

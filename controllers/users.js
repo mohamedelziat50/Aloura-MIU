@@ -12,7 +12,7 @@ export const updateUser = async (req, res) => {
       isVerified,
       oldpassword,
       newpassword,
-      subsciberList,
+      subscriberList,
     } = req.body;
 
     const user = await User.findById(id);
@@ -56,8 +56,8 @@ export const updateUser = async (req, res) => {
     if (phone) user.phone = phone;
     if (role) user.role = role;
     if (typeof isVerified !== "undefined") user.isVerified = isVerified;
-    if (typeof subsciberList !== "undefined")
-      user.subsciberList = subsciberList;
+    if (typeof subscriberList !== "undefined")
+      user.subscriberList = subscriberList;
 
     await user.save();
 
