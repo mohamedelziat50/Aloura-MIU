@@ -453,7 +453,7 @@
                     <% } else { %>
                       <img src="/uploads/defaultProfilePic.png" alt="User Profile Picture" class="rounded-circle me-2" style="width:30px;height:30px;object-fit:cover;border:2px solid #e0e0e0;">
                     <% } %>
-                    <span class="fw-bold">User</span>
+                    <span class="fw-bold">Customer</span>
                   </div>
                   <div class="mb-1"><span class="text-muted">Name:</span> <%= order.user.name || 'N/A' %></div>
                   <div class="mb-1"><span class="text-muted">Email:</span> <%= order.user.email || 'N/A' %></div>
@@ -464,10 +464,10 @@
                 <div class="border rounded-3 p-3 h-100 bg-white">
                   <div class="d-flex align-items-center mb-2">
                     <i class="fa fa-truck fa-lg text-info me-2"></i>
-                    <span class="fw-bold">Shipping & Payment</span>
+                    <span class="fw-bold">Shipping</span>
                   </div>
                   <div class="mb-1"><span class="text-muted">Shipping:</span> Standard</div>
-                  <div class="mb-1"><span class="text-muted">Payment method:</span> <%= order.paid? 'Card': 'Cash On Delivery' %></div>
+                  <div class="mb-1"><span class="text-muted">Payment method:</span> <%= order.paid ? 'Card' : 'Cash On Delivery' %></div>
                   <div class="mb-1"><span class="text-muted">Gift:</span> <span class="badge <%= order.gift ? 'bg-info text-dark' : 'bg-light text-muted' %>"><%= order.gift ? 'Yes' : 'No' %></span></div>
                 </div>
               </div>
@@ -484,7 +484,7 @@
               </div>
             </div>
             <div class="row g-4">
-              <div class="col-12">
+              <div class="col-md-8">
                 <div class="table-responsive mb-3" style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px;">
                   <table class="table table-borderless align-middle mb-0">
                     <thead class="table-light">
@@ -520,7 +520,7 @@
                 <div class="d-flex flex-column align-items-end">
                   <div class="mb-1"><span class="text-muted">Subtotal:</span> <span class="fw-semibold">$<%= order.subtotal || order.totalPrice %></span></div>
                   <div class="mb-1"><span class="text-muted">Shipping:</span> <span class="fw-semibold">$<%= order.shipping || '0.00' %></span></div>
-                  <div class="mb-1"><span class="text-muted">Tax:</span> <span class="fw-semibold">$<%= order.shipping || '0.00' %></span></div>
+                  <div class="mb-1"><span class="text-muted">Tax:</span> <span class="fw-semibold">$<%= order.tax || '0.00' %></span></div>
                   <div class="mb-1 fs-5"><span class="fw-bold">Total:</span> <span class="fw-bold text-success">$<%= order.totalPrice %></span></div>
                   <% if(order.paid) { %>
                     <span class="badge bg-success mt-2">Payment made</span>
@@ -532,6 +532,25 @@
                     <div><%= order.note %></div>
                   </div>
                 <% } %>
+              </div>
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-100 bg-white">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="fa fa-credit-card fa-lg text-primary me-2"></i>
+                    <span class="fw-bold">Payment info</span>
+                  </div>
+                  <div class="mb-1">
+                    <% if(order.paid && order.cardData) { %>
+                      <i class="fa-brands fa-cc-mastercard text-danger me-2"></i>
+                      <span>Master Card **** <%= order.cardData.cardNumber ? order.cardData.cardNumber.slice(-4) : '----' %></span>
+                    <% } else { %>
+                      <span class="text-muted">Cash On Delivery</span>
+                    <% } %>
+                  </div>
+                  <% if(order.paid && order.cardData) { %>
+                    <div class="mb-1"><span class="text-muted">Business name:</span> <%= order.cardData.cardName || 'N/A' %></div>
+                  <% } %>
+                </div>
               </div>
             </div>
           </div>
