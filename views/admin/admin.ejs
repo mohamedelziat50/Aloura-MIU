@@ -338,6 +338,7 @@
                 <th>Number</th>
                 <th>User</th>
                 <th>Products</th>
+                <th>Date</th>
                 <th>Status</th>
                 <th>Paid</th>
                 <th>Total</th>
@@ -355,6 +356,12 @@
                   item.fragrance.name %> <br />
                   <% }) %>
                 </td>
+                <td>
+                  <% order.items.forEach(item => { %> <%= item.quantity %> × <%=
+                  item.fragrance.name %> <br />
+                  <% }) %>
+                </td>
+                <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
                 <td><span class="status delivered">Delivered</span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>

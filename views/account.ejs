@@ -93,8 +93,15 @@
 
       <section class="order-history">
         <h2>ORDER HISTORY</h2>
-        <p class="empty-message">You haven't placed any orders yet.</p>
-        <a class="action-button" href="/all-fragrances">START SHOPPING</a>
+        <div class="order-actions" style="margin-top:0;">
+          <% if (orderCount > 0) { %>
+            <p class="empty-message">You have placed <%= orderCount %> orders.</p>
+            <a class="action-button" href="/user-orders/<%= user._id %>">View Orders</a>
+          <% } else { %>
+            <p class="empty-message">You haven't placed any orders yet.</p>
+            <a class="action-button" href="/all-fragrances">START SHOPPING</a>
+            <% }%>
+        </div>
       </section>
 
       <section class="account-details">
