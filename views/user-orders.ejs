@@ -86,7 +86,13 @@
     <%- include('partials/dark-mode.ejs') %>
 
     <div class="order-container">
-      <h1 class="main-heading">Your Orders</h1>
+      <div class="orders-header-bar">
+        <h1 class="main-heading" style="display:inline-block; margin-bottom:0;">Your Orders</h1>
+        <form class="orders-search-form" method="GET" action="">
+          <input type="text" class="orders-search-input" placeholder="Search all orders" name="q" />
+          <button type="submit" class="orders-search-btn"><i class="fa fa-search"></i> Search Orders</button>
+        </form>
+      </div>
       <h5><%= orders.length %> Orders Placed in 2025</h5>    
 
           <!-- Orders List -->
