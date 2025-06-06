@@ -527,27 +527,33 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("<br>");
 
           const row = `
-              <tr>
-                <td>#${order.orderNumber}</td>
-                <td>${order.user.name}</td>
-                <td>${products}</td>
-                <td><span class="status delivered">Delivered</span></td>
-                <td>${order.paid ? "Yes" : "No"}</td>
-                <td>$${order.totalPrice}</td>
-                <td>No</td>
-                <td class="actionlist">
-                  <a class="btn ButtonDicoration btn-sm" href="/order/${
-                    order._id
-                  }" title="View Order">
-                    <i class="fa-solid fa-list"></i>
-                  </a>
-                  <button class="btn btn-danger btn-sm" data-order-id="${
-                    order._id
-                  }" onclick="deleteOrder(this)" title="Delete Order">
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
-                </td>
-              </tr>`;
+  <tr>
+    <td>#${order.orderNumber}</td>
+    <td>${order.user.name}</td>
+    <td>${products}</td>
+    <td>${new Date(order.createdAt).toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })}</td>
+    <td><span class="status delivered">Delivered</span></td>
+    <td>${order.paid ? "Yes" : "No"}</td>
+    <td>$${order.totalPrice}</td>
+    <td>No</td> <!-- Gift column -->
+    <td class="actionlist">
+      <a class="btn ButtonDicoration btn-sm" href="/order/${
+        order._id
+      }" title="View Order">
+        <i class="fa-solid fa-list"></i>
+      </a>
+      <button class="btn btn-danger btn-sm" data-order-id="${
+        order._id
+      }" onclick="deleteOrder(this)" title="Delete Order">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </td>
+  </tr>`;
+
           orderTableBody.insertAdjacentHTML("beforeend", row);
         });
       } catch (error) {
