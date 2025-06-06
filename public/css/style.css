@@ -428,8 +428,8 @@ box-shadow: #000;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
 }
 
-/* Quality and 3D Model Section */
-.quality-model-section {
+
+.quality-model-section {/* Quality and 3D Model Section*/
   display: grid;
   grid-template-columns: minmax(auto, 650px) minmax(auto, 650px);
   grid-template-rows: auto auto;
@@ -437,8 +437,8 @@ box-shadow: #000;
     "quality model"
     "reviews reviews";
   /* column-gap: 50px; */
-  padding: 50px 5%;
-  background: var(--color-background-gradient);
+  padding: 40px 5%;
+  background: #f8f5f2;
   justify-content: center;
 }
 
@@ -662,9 +662,9 @@ box-shadow: #000;
 /* NEW REVIEW CARDS SECTION */
 .reviews-section {
   grid-area: reviews;
-  margin-top: 5px;
+  margin-top: 1px;
   position: relative;
-  width: 100%;
+  width: 96%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -832,7 +832,7 @@ box-shadow: #000;
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background: var(--color-background-gradient);
+  background: rgb(255, 244, 224);
   text-align: center;
 }
 
