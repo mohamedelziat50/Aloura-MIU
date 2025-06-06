@@ -4,8 +4,16 @@ import bcrypt from "bcrypt";
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone, role, isVerified, oldpassword, newpassword } =
-      req.body;
+    const {
+      name,
+      email,
+      phone,
+      role,
+      isVerified,
+      oldpassword,
+      newpassword,
+      subsciberList,
+    } = req.body;
 
     const user = await User.findById(id);
     if (!user) {
@@ -48,6 +56,8 @@ export const updateUser = async (req, res) => {
     if (phone) user.phone = phone;
     if (role) user.role = role;
     if (typeof isVerified !== "undefined") user.isVerified = isVerified;
+    if (typeof subsciberList !== "undefined")
+      user.subsciberList = subsciberList;
 
     await user.save();
 

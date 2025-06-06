@@ -233,3 +233,27 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
+export const subscriberList = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ message: "Invalid email address." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    user.subsciberList = true;
+    await user.save();
+
+    return res.status(200).json({ message: "Subscribed successfully!" });
+  } catch (err) {
+    console.error("Newsletter subscription error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};

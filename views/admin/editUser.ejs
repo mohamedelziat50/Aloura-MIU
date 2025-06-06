@@ -383,6 +383,13 @@
                   <option value="false" <%= user.isVerified === false ? 'selected' : '' %>>False</option>
                 </select>
               </div>
+              <div class="mb-4">
+                <label class="form-label">Subscriber List</label>
+                <select id="user-subscriberList" class="form-select">
+                  <option value="true" <%= user.subsciberList === true ? 'selected' : '' %>>Subscribed</option>
+                  <option value="false" <%= user.subsciberList === false ? 'selected' : '' %>>Not Subscribed</option>
+                </select>
+              </div>
             </div>
             <% } %>
           </div>
@@ -398,140 +405,146 @@
 
     <script type="module">
       import showFunToast from "/js/toast.js";
+
       document.addEventListener("DOMContentLoaded", function () {
-  const fileInput = document.getElementById("profile-picture");
-  const preview = document.getElementById("profile-picture-preview");
-  const resetButton = document.getElementById("reset-profile-picture");
+        // DOM Elements
+        const fileInput = document.getElementById("profile-picture");
+        const preview = document.getElementById("profile-picture-preview");
+        const resetButton = document.getElementById("reset-profile-picture");
+        const form = document.getElementById("editUserForm");
 
-  let isDefaultPicture = false; 
-  const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
+        // Constants
+        const DEFAULT_PIC_PATH = "/uploads/defaultProfilePic.png";
+        let isDefaultPicture = false;
 
-  // Save the initial values when the page loads
-  const originalValues = {
-    id: document.getElementById("user-id").textContent.trim(),
-    name: document.getElementById("user-name").value,
-    email: document.getElementById("user-email").value,
-    phone: document.getElementById("user-phone")?.value || "",
-    role: document.getElementById("user-role")?.value || "",
-    isVerified: document.getElementById("user-isVerified")?.value || "",
-    oldPassword: document.getElementById("userOldPassword")?.value || "",
-    newPassword: document.getElementById("userNewPassword")?.value || "",
-    profilePicture: document.getElementById("profile-picture-preview").getAttribute('src'),
-  };
+        // Save the initial values when the page loads
+        const originalValues = {
+          id: document.getElementById("user-id").textContent.trim(),
+          name: document.getElementById("user-name").value,
+          email: document.getElementById("user-email").value,
+          phone: document.getElementById("user-phone")?.value || "",
+          role: document.getElementById("user-role")?.value || "",
+          isVerified: document.getElementById("user-isVerified")?.value || "",
+          subsciberList: document.getElementById("user-subscriberList")?.value || "",
+          oldPassword: document.getElementById("userOldPassword")?.value || "",
+          newPassword: document.getElementById("userNewPassword")?.value || "",
+          profilePicture: document.getElementById("profile-picture-preview").getAttribute('src'),
+        };
 
-  fileInput.addEventListener("change", function (event) {
-    const file = event.target.files[0];
+        // Event Listeners
+        fileInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            preview.src = URL.createObjectURL(file);
+          }
+        });
 
-    if (file) {
-      preview.src = URL.createObjectURL(file);
-    }
-  });
+        resetButton.addEventListener("click", function () {
+          preview.src = DEFAULT_PIC_PATH;
+          fileInput.value = "";
+          isDefaultPicture = true;
+        });
 
-  resetButton.addEventListener("click", function () {
-    preview.src = "/uploads/defaultProfilePic.png"; // Set to default picture
-    fileInput.value = ""; // Clear the file input (remove selected file)
-    isDefaultPicture = true
-  });
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-  const form = document.getElementById("editUserForm");
+          // Get form values
+          const id = document.getElementById("user-id").textContent.trim();
+          const name = document.getElementById("user-name").value;
+          const email = document.getElementById("user-email").value;
+          const phone = document.getElementById("user-phone")?.value || "";
+          const role = document.getElementById("user-role")?.value || "";
+          const isVerified = document.getElementById("user-isVerified")?.value || "";
+          const subsciberList = document.getElementById("user-subscriberList")?.value || "";
+          const oldpassword = document.getElementById("userOldPassword")?.value.trim() || "";
+          const newpassword = document.getElementById("userNewPassword")?.value.trim() || "";
+          const profilePicture = fileInput.files[0];
+          const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+          // Check if anything has changed
+          const hasChanged =
+            name !== originalValues.name ||
+            email !== originalValues.email ||
+            phone !== originalValues.phone ||
+            role !== originalValues.role ||
+            isVerified !== originalValues.isVerified ||
+            subsciberList !== originalValues.subsciberList ||
+            oldpassword !== "" ||
+            newpassword !== "" ||
+            currentPicture !== originalValues.profilePicture;
 
-    const id = document.getElementById("user-id").textContent.trim();
-    const name = document.getElementById("user-name").value;
-    const email = document.getElementById("user-email").value;
-    const phone = document.getElementById("user-phone")?.value || "";
-    const role = document.getElementById("user-role")?.value || "";
-    const isVerified = document.getElementById("user-isVerified")?.value || "";
-    const oldpassword = document.getElementById("userOldPassword")?.value.trim() || "";
-    const newpassword = document.getElementById("userNewPassword")?.value.trim() || "";
-    const profilePicture = fileInput.files[0]; // Get selected file if any
-    const currentPicture = document.getElementById("profile-picture-preview").getAttribute('src');
+          if (!hasChanged) {
+            showFunToast("ℹ️ No changes detected.", "red");
+            return;
+          }
 
-    // Check if anything has changed
-    const hasChanged =
-      name !== originalValues.name ||
-      email !== originalValues.email ||
-      phone !== originalValues.phone ||
-      role !== originalValues.role ||
-      isVerified !== originalValues.isVerified ||
-      oldpassword !== "" ||
-      newpassword !== "" ||
-      currentPicture !== originalValues.profilePicture; // Check if a new file is selected
+          // Prepare form data
+          const formData = new FormData();
+          formData.append("email", email);
+          formData.append("phone", phone);
+          formData.append("name", name);
+          formData.append("role", role);
+          formData.append("isVerified", isVerified);
+          formData.append("subsciberList", subsciberList);
 
-    if (!hasChanged) {
-      showFunToast("ℹ️ No changes detected.", "red"); // Show no changes detected message
-      return;
-    }
+          // Handle profile picture
+          if (profilePicture) {
+            formData.append("profilePicture", profilePicture);
+          } else if (isDefaultPicture) {
+            formData.append("profilePicture", DEFAULT_PIC_PATH);
+          }
 
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("name", name);
-    formData.append("role", role);
-    formData.append("isVerified", isVerified);
+          // Handle password changes
+          if (oldpassword && newpassword) {
+            formData.append("oldpassword", oldpassword);
+            formData.append("newpassword", newpassword);
+          } else if (oldpassword || newpassword) {
+            showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
+            return;
+          }
 
-    if (profilePicture) {
-        formData.append("profilePicture", profilePicture);
-      } else if (isDefaultPicture) {
-        // ❗Send path as a string for default picture
-        formData.append("profilePicture", DEFAULT_PIC_PATH);
-      }
+          try {
+            // Send update request
+            const response = await fetch(`/api/users/${id}`, {
+              method: "PUT",
+              body: formData,
+            });
 
-    if (oldpassword && newpassword) {
-      formData.append("oldpassword", oldpassword);
-      formData.append("newpassword", newpassword);
-    } else if (oldpassword || newpassword) {
-      showFunToast("⚠️ Fill BOTH old and new passwords!", "red");
-      return;
-    }
+            const data = await response.json();
 
-    try {
-      const response = await fetch(`/api/users/${id}`, {
-        method: "PUT",
-        body: formData,
+            if (response.ok) {
+              setTimeout(() => {
+                showFunToast(data.message || "✅ Updated successfully!", "green");
+                window.location.href = `/admin/${id}`;
+              }, 1500);
+            } else {
+              showFunToast(data.message || "❌ Error occurred!", "red");
+            }
+          } catch (err) {
+            console.error(err);
+            showFunToast("❌ Error occurred!", "red");
+          }
+        });
+
+        // Password toggle functionality
+        const setupPasswordToggle = (inputId, iconId) => {
+          const input = document.getElementById(inputId);
+          const icon = document.getElementById(iconId);
+
+          if (!input || !icon) return;
+
+          icon.parentElement.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+            icon.classList.toggle("fa-lock", !isPassword);
+            icon.classList.toggle("fa-lock-open", isPassword);
+          });
+        };
+
+        // Initialize password toggles
+        setupPasswordToggle("userOldPassword", "userOldPasswordIcon");
+        setupPasswordToggle("userNewPassword", "userNewPasswordIcon");
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setTimeout(() => {
-          showFunToast(data.message || "✅ Updated successfully!", "green");
-          window.location.href = `/admin/${id}`; // Fixed redirect
-        }, 1500);
-      } else {
-        showFunToast(data.message || "❌ Error occurred!", "red");
-      }
-    } catch (err) {
-      console.error(err);
-      showFunToast("❌ Error occurred!", "red");
-    }
-  });
-
-  // Password toggle functionality
-  const setupPasswordToggle = (inputId, iconId) => {
-    const input = document.getElementById(inputId);
-    const icon = document.getElementById(iconId);
-
-    if (!input || !icon) return;
-
-    icon.parentElement.addEventListener("click", () => {
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-
-      icon.classList.toggle("fa-lock", !isPassword);
-      icon.classList.toggle("fa-lock-open", isPassword);
-    });
-  };
-
-  // Apply the toggle to the old and new password fields
-  setupPasswordToggle("userOldPassword", "userOldPasswordIcon");
-  setupPasswordToggle("userNewPassword", "userNewPasswordIcon");
-});
-
-      </script>
-      
-    
+    </script>
   </body>
 </html>
