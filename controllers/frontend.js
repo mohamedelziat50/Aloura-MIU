@@ -159,6 +159,10 @@ export const getaccount = async (req, res) => {
   res.render("account");
 };
 
+export const getUserOrders = async (req, res) => {
+  res.render("user-orders");
+};
+
 
 export const getOrder = async (req, res) => {
     // Populate the order because we're about to use all the info
