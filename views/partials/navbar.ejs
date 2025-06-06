@@ -1,7 +1,9 @@
 <!-- Navbar-specific CSS -->
 <link rel="stylesheet" href="./css/navBar.css" />
 
-<script type="module" src="/js/modal.js"></script>
+<% if (!user) { %>
+  <script type="module" src="/js/modal.js"></script>
+  <% } %>
 
 <!-- Translate related -->
 <script>
