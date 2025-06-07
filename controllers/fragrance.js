@@ -131,13 +131,20 @@ export const updateFragrance = async (req, res) => {
     const base = baseNotes.split(",").map((n) => n.trim());
     const tagList = tags.split(",").map((t) => t.trim());
 
-    // Convert sizes array and build sizeOptions
+    // Convert sizes array and build sizeOptions (deduplicate by size)
     const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
-    const sizeOptions = sizeArray.map((size) => ({
-      size: parseInt(size),
-      price: parseFloat(req.body[`price${size}`] || 0),
-      quantity: parseInt(req.body[`quantity${size}`] || 0),
-    }));
+    const sizeMap = new Map();
+    sizeArray.forEach((size) => {
+      const sizeInt = parseInt(size);
+      // Always use the latest value for a given size
+      // To avoid Duplication is handled through the .set method
+      sizeMap.set(sizeInt, {
+        size: sizeInt,
+        price: parseFloat(req.body[`price${size}`] || 0),
+        quantity: parseInt(req.body[`quantity${size}`] || 0),
+      });
+    });
+    const sizeOptions = Array.from(sizeMap.values());
 
     // Find the fragrance
     const fragrance = await Fragrance.findById(id);

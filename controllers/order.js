@@ -108,6 +108,38 @@ export const createOrder = async (req, res) => {
     price: item.price,
   }));
 
+  // Find which fragrance that is and lower it's stock based on size and quanitity
+  for (const item of cartItems) {
+    const fragrance = await Fragrance.findById(item.fragrance);
+    if (fragrance) {
+      // Match the ml (size) using .find() and robust parsing for 'ml' suffix
+      const sizeOption = fragrance.sizeOptions.find((option) => {
+        // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
+        // Remove 'ml' if present and trim
+        const optionSize = String(option.size).replace(/ml/i, "").trim();
+        const itemSize = String(item.size).replace(/ml/i, "").trim();
+
+        return optionSize === itemSize;
+      });
+
+      // If no size option matches (somehow)
+      if (!sizeOption) {
+        return res.status(400).json({
+          message: `Size ${item.size} is not available for ${fragrance.name}.`,
+        });
+      }
+
+      // If the stock is lower than the requested order's quantity
+      if (sizeOption.quantity < item.quantity) {
+        return res.status(400).json({
+          message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
+        });
+      }
+      sizeOption.quantity -= item.quantity;
+      await fragrance.save();
+    }
+  }
+
   // Calculate totalPrice (no tax or shipping fee)
   // .reduce() goes through each item in the array and keeps a sum intialized at 0 (last parameter).
   const totalPrice = cartItems.reduce(

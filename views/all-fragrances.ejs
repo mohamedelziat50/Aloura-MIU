@@ -94,20 +94,31 @@
 
         <div class="card-price">
           <% if (product.sizeOptions && product.sizeOptions.length > 0) { %>
-          <span id="productPrice" productId=""  class="price"><%= product.sizeOptions[0].price %> EGP</span>
-          <span id="productMl" class="ml"><%= product.sizeOptions[0].size %>ml ▼</span>
+            <!-- Finds the first in stock option and displays it as the intial selected option -->
+            <% const firstInStock = product.sizeOptions.find(option => option.quantity > 0); %>
+            <% if (firstInStock) { %>
+              <span id="productPrice" productId="" class="price"><%= firstInStock.price %> EGP</span>
+              <span id="productMl" class="ml"><%= firstInStock.size %>ml ▼</span>
+            <% } else { %>
+              <span class="price text-danger">No stock</span>
+              <span class="ml text-danger">No sizes</span>
+            <% } %>
           <% } else { %>
-          <span class="price text-danger">N/A</span>
-          <span class="ml text-danger">No sizes</span>
+            <span class="price text-danger">N/A</span>
+            <span class="ml text-danger">No sizes</span>
           <% } %>
 
           <div class="dropdown-menu">
             <% const seen = new Set(); %>
-            <% product.sizeOptions.forEach(option => { const key = `${option.size}-${option.price}`; if (!seen.has(key)) { seen.add(key); %>
-            <div class="dropdown-option" data-price="<%= option.price %> EGP" data-ml="<%= option.size %>ml">
-              <span class="dropdown-price"><%= option.price %> EGP</span>
-              <span class="dropdown-ml"><%= option.size %>ml</span>
-            </div>
+            <% product.sizeOptions.forEach(option => { 
+            const key = `${option.size}-${option.price}`; 
+            // Basically only display options that have a quantity > 0
+            if (!seen.has(key) && option.quantity > 0) { 
+              seen.add(key); %>
+              <div class="dropdown-option" data-price="<%= option.price %> EGP" data-ml="<%= option.size %>ml">
+                <span class="dropdown-price"><%= option.price %> EGP</span>
+                <span class="dropdown-ml"><%= option.size %>ml</span>
+              </div>
             <% } }) %>
           </div>
         </div>
