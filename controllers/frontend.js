@@ -52,7 +52,8 @@ export const getCheckout = async (req, res) => {
         country_list: country_list,
       });
     } else {
-      // Handle if there are no items what to do - will be done next commit
+      // Redirect to all-fragrances if cart is empty
+      return res.redirect("/all-fragrances");
     }
   } catch (error) {
     console.log("Checkout Error: " + error);
