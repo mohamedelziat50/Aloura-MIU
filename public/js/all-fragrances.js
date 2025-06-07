@@ -552,3 +552,82 @@ function updateSubtotal() {
     subtotalElement.textContent = `${subtotal} EGP`;
   }
 }
+
+function initializeSearchFunctionality() {
+  const searchBox = document.getElementById("searchBox");
+  if (!searchBox) return;
+
+  let lastVisibleCardIds = [];
+
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.toLowerCase().trim();
+    const cards = document.querySelectorAll(".card");
+
+    // Find the new matching cards
+    const matchingCards = Array.from(cards).filter((card) => {
+      const productName = card
+        .querySelector(".card-title")
+        .textContent.toLowerCase();
+      return productName.includes(query);
+    });
+
+    // Get new visible card "IDs" (or indexes if no IDs exist)
+    const newVisibleCardIds = matchingCards.map(
+      (card, index) => card.dataset.id || index
+    );
+
+    // Compare old and new visible card sets
+    const hasChanged =
+      lastVisibleCardIds.length !== newVisibleCardIds.length ||
+      !lastVisibleCardIds.every((id, i) => id === newVisibleCardIds[i]);
+
+    if (!hasChanged) {
+      // No change: skip the hide/show animation
+      return;
+    }
+
+    // Update the lastVisibleCardIds
+    lastVisibleCardIds = newVisibleCardIds;
+
+    // Step 1: Hide all cards instantly
+    cards.forEach((card) => {
+      card.classList.add("hidden");
+      card.style.display = "none";
+    });
+
+    // Step 2: After short delay, show only matching cards
+    setTimeout(() => {
+      matchingCards.forEach((card) => {
+        card.classList.remove("hidden");
+        card.style.display = "";
+      });
+    }, 50); // You can increase this to 300ms for smoother animation
+  });
+}
+
+initializeSearchFunctionality();
+
+const clearSearch = document.getElementById("clearSearch");
+const searchBox = document.getElementById("searchBox");
+
+clearSearch.addEventListener("click", () => {
+  if (searchBox) {
+    searchBox.value = "";
+  }
+
+  const cards = document.querySelectorAll(".card");
+
+  // First, hide all cards
+  cards.forEach((card) => {
+    card.classList.add("hidden");
+    card.style.display = "none";
+  });
+
+  // After a short delay (e.g., 300ms), show all cards again
+  setTimeout(() => {
+    cards.forEach((card) => {
+      card.classList.remove("hidden");
+      card.style.display = "";
+    });
+  }, 50); // 300 milliseconds delay
+});

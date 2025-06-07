@@ -8,6 +8,7 @@ import {
   forgotPassword,
   resetPassword,
   subscriberList,
+  forgotPasswordPhone,
 } from "../controllers/auth.js";
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/verify/:id", verifyEmail);
 router.post("/forgot-password", forgotPassword);
+router.post("/forgot-password-phone", forgotPasswordPhone);
 router.post("/reset-password", resetPassword);
 router.post("/subscribe", subscriberList);
 

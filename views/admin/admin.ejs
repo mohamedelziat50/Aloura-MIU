@@ -41,9 +41,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-   <!-- moment -->
+    <!-- moment -->
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-
   </head>
 
   <body>
@@ -209,18 +208,16 @@
                     <h4 class="stock-title">Stock Level</h4>
                   </div>
                   <div class="size-quantities">
-                    <% 
-                    const displayedSizes = new Set();
-                    product.sizeOptions.filter(option => option.quantity > 0).forEach(option => {
-                        if (!displayedSizes.has(option.size)) {
-                          displayedSizes.add(option.size); %>
-                        <div class="quantity-badge <%= option.quantity < 5 ? 'low-stock' : '' %>">
-                          <%= option.size %>ml: <%= option.quantity %>
-                        </div>
-                    <%
-                        }
-                      });
-                    %>
+                    <% const displayedSizes = new Set();
+                    product.sizeOptions.filter(option => option.quantity >
+                    0).forEach(option => { if (!displayedSizes.has(option.size))
+                    { displayedSizes.add(option.size); %>
+                    <div
+                      class="quantity-badge <%= option.quantity < 5 ? 'low-stock' : '' %>"
+                    >
+                      <%= option.size %>ml: <%= option.quantity %>
+                    </div>
+                    <% } }); %>
                   </div>
                 </div>
                 <div class="product-notes">
@@ -238,8 +235,17 @@
                 </div>
               </div>
               <div class="product-actions">
-                <a class="product-btn edit" href="/editFragrance/<%= product._id %>" style="text-decoration: none">Edit</a>
-                <button class="product-btn delete" data-fragrance-id="<%= product._id %>" onclick="deleteProduct(this)">
+                <a
+                  class="product-btn edit"
+                  href="/editFragrance/<%= product._id %>"
+                  style="text-decoration: none"
+                  >Edit</a
+                >
+                <button
+                  class="product-btn delete"
+                  data-fragrance-id="<%= product._id %>"
+                  onclick="deleteProduct(this)"
+                >
                   Delete
                 </button>
               </div>
@@ -306,9 +312,25 @@
             </div>
           </div>
 
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <form class="d-flex" role="search" id="orderSearchForm">
+              <input
+                class="form-control me-2"
+                type="search"
+                name="search"
+                id="orderSearchInput"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn ButtonDicoration" type="submit">Search</button>
+            </form>
+          </div>
+
           <!-- Orders Table -->
-           <% if (orders.length === 0) { %>
-          <h1 style="text-align: center; position: relative; top: 80px;">No Data To Show</h1>
+          <% if (orders.length === 0) { %>
+          <h1 style="text-align: center; position: relative; top: 80px">
+            No Data To Show
+          </h1>
           <% } else { %>
           <table>
             <thead>
@@ -321,34 +343,43 @@
                 <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
-                <th style="text-align: center;">Action</th>
+                <th style="text-align: center">Action</th>
               </tr>
             </thead>
             <tbody>
               <% orders.forEach(order => { %>
-               <tr>
+              <tr>
                 <td>#<%= order.orderNumber %></td>
                 <td><%= order.user.name %></td>
-              <td><% order.items.forEach(item => { %>
-                 <%= item.quantity %> × <%= item.fragrance.name %> <br>
-                <% }) %>
-              </td>
-              <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
+                <td>
+                  <% order.items.forEach(item => { %> <%= item.quantity %> × <%=
+                  item.fragrance.name %> <br />
+                  <% }) %>
+                </td>
+                <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
                 <td><span class="status delivered">Delivered</span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
                 <td>No</td>
                 <td class="actionlist">
-                  <a class="btn ButtonDicoration btn-sm" href="/order/<%= order._id %>" title="View Order">
+                  <a
+                    class="btn ButtonDicoration btn-sm"
+                    href="/order/<%= order._id %>"
+                    title="View Order"
+                  >
                     <i class="fa-solid fa-list"></i>
                   </a>
-                  <button class="btn btn-danger btn-sm" data-order-id="<%= order._id %>" onclick="deleteOrder(this)" title="Delete Order">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    data-order-id="<%= order._id %>"
+                    onclick="deleteOrder(this)"
+                    title="Delete Order"
+                  >
                     <i class="fa-solid fa-xmark"></i>
                   </button>
                 </td>
               </tr>
               <% }) %>
-              
             </tbody>
           </table>
           <% } %>
@@ -596,7 +627,7 @@
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
-                  <th scope="col" style="text-align: center;">Action</th>
+                  <th scope="col" style="text-align: center">Action</th>
                 </tr>
               </thead>
               <tbody>

@@ -318,6 +318,16 @@
   transform: translateX(-3px);
 }
 
+.btn.hover-dark {
+  transition: all 0.3s ease;
+}
+
+.btn.hover-dark:hover {
+  background-color: #121212 !important;
+  color: white !important;
+  border-color: #121212 !important;
+}
+
 @media screen and (max-width: 768px) {
   /* Modal header and general layout */
   .modal-header {

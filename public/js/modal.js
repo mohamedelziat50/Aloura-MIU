@@ -57,12 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (showforgetpasswordBtn) {
     showforgetpasswordBtn.addEventListener("click", function () {
       loginForm.style.display = "none";
-      forgetpasswordForm.style.display = "block";
+      document.getElementById("resetOptionForm").style.display = "block";
       loginModalLabel.textContent = "Reset Password";
       loginModalLabel.classList.add("verification-title");
-      modalDescription.style.display = "block";
-      modalDescription.textContent =
-        "Enter your email address, a link to reset your password will be sent";
+      modalDescription.style.display = "none";
     });
   }
 
@@ -545,3 +543,169 @@ document.querySelector(".verify").addEventListener("click", async () => {
     showFunToast("❌ Server error.", "red");
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const resetOptionForm = document.getElementById("resetOptionForm");
+  const forgetpasswordPhoneForm = document.getElementById(
+    "forgetpasswordPhoneForm"
+  );
+
+  // Show Reset Options when "Forgot Password?" is clicked
+  const showforgetpasswordBtn = document.getElementById("showforgetpassword");
+  if (showforgetpasswordBtn) {
+    showforgetpasswordBtn.addEventListener("click", function () {
+      loginForm.style.display = "none";
+      resetOptionForm.style.display = "block";
+      loginModalLabel.textContent = "Reset Password";
+      modalDescription.style.display = "block";
+      modalDescription.textContent =
+        "Choose how you would like to reset your password:";
+    });
+  }
+  // Handle "Reset using Email" option
+  const chooseEmailBtn = document.getElementById("chooseEmail");
+  if (chooseEmailBtn) {
+    chooseEmailBtn.addEventListener("click", function () {
+      resetOptionForm.style.display = "none";
+      document.getElementById("forgetpasswordform").style.display = "block";
+      loginModalLabel.textContent = "Reset Password";
+      modalDescription.style.display = "block";
+      modalDescription.textContent =
+        "Enter your email address, a link to reset your password will be sent";
+    });
+  }
+
+  // Handle "Reset using Phone" option
+  const choosePhoneBtn = document.getElementById("choosePhone");
+  if (choosePhoneBtn) {
+    choosePhoneBtn.addEventListener("click", function () {
+      resetOptionForm.style.display = "none";
+      forgetpasswordPhoneForm.style.display = "block";
+      loginModalLabel.textContent = "Reset Password";
+      modalDescription.style.display = "block";
+      modalDescription.textContent =
+        "Enter your phone number, a code to reset your password will be sent";
+    });
+  }
+  // Back to Reset Options from Email Form
+  const backToResetOptionsBtn = document.getElementById("backToResetOptions");
+  if (backToResetOptionsBtn) {
+    backToResetOptionsBtn.addEventListener("click", function () {
+      document.getElementById("forgetpasswordform").style.display = "none";
+      resetOptionForm.style.display = "block";
+      modalDescription.style.display = "block";
+      modalDescription.textContent =
+        "Choose how you would like to reset your password:";
+    });
+  }
+
+  // Back to Reset Options from Phone Form
+  const backToResetOptionsPhoneBtn = document.getElementById(
+    "backToResetOptionsPhone"
+  );
+  if (backToResetOptionsPhoneBtn) {
+    backToResetOptionsPhoneBtn.addEventListener("click", function () {
+      document.getElementById("forgetpasswordPhoneForm").style.display = "none";
+      resetOptionForm.style.display = "block";
+      modalDescription.style.display = "none";
+    });
+  }
+
+  // Back to Login from Reset Options
+  const backToLoginFromOptionsBtn = document.getElementById(
+    "backToLoginFromOptions"
+  );
+  if (backToLoginFromOptionsBtn) {
+    backToLoginFromOptionsBtn.addEventListener("click", function () {
+      resetOptionForm.style.display = "none";
+      loginForm.style.display = "block";
+      loginModalLabel.textContent = "Login";
+      loginModalLabel.classList.remove("verification-title");
+      modalDescription.style.display = "block";
+      modalDescription.textContent = "Please enter your e-mail and password:";
+    });
+  }
+
+  // Handle "Have Code?" button click in phone reset form
+  document
+    .getElementById("show2faPhone")
+    .addEventListener("click", function () {
+      // Hide all other forms
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("signUpForm").style.display = "none";
+      document.getElementById("forgetpasswordPhoneForm").style.display = "none";
+      document.getElementById("resetOptionForm").style.display = "none";
+
+      // Show the 2FA form
+      document.getElementById("twofactor").style.display = "block";
+
+      // Update modal title and description
+      document.getElementById("loginModalLabel").textContent = "Verification";
+      document
+        .getElementById("loginModalLabel")
+        .classList.add("verification-title");
+      document.querySelector(".modal-description").style.display = "none";
+      document.getElementById("backToLogin").style.display = "block";
+    });
+});
+
+document
+  .getElementById("forgetpasswordPhoneForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const phoneInput = document.getElementById("forget-phone");
+    const phone = phoneInput.value.trim();
+
+    if (!phone || phone.length !== 10) {
+      showFunToast("❗ Please enter a valid 10-digit phone number.", "red");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/forgot-password-phone",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone }), // Prefix added here
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(
+          data.message || "✅ Check your phone for reset instructions!",
+          "green"
+        );
+
+        setTimeout(() => {
+          document.getElementById("loginForm").style.display = "none";
+          document.getElementById("signUpForm").style.display = "none";
+          document.getElementById("forgetpasswordPhoneForm").style.display =
+            "none";
+
+          // Show the 2FA form
+          document.getElementById("twofactor").style.display = "block";
+
+          // Update modal title and description
+          document.getElementById("loginModalLabel").textContent =
+            "Verification";
+          document
+            .getElementById("loginModalLabel")
+            .classList.add("verification-title");
+          document.querySelector(".modal-description").style.display = "none"; // Hide description
+          document.getElementById("backToLogin").style.display = "block";
+        }, 1000);
+      } else {
+        showFunToast(
+          data.message || "❌ Error: Phone number not found.",
+          "red"
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      showFunToast("❌ Server error.", "red");
+    }
+  });

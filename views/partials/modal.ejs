@@ -195,10 +195,24 @@
             <button class="btn btn-dark w-100" id="appleSignUpBtn">
               <i class="fa-brands fa-apple"></i> Sign up with Apple
             </button>
-          </div>
-        </form>
+          </div>        </form>        
 
+        <!-- Password Reset Option Selection Form -->
+        <form id="resetOptionForm" style="display: none">
+          <h6 class="modal-description text-center mb-4">Choose how you want to reset your password:</h6>
+          <div class="d-grid gap-3">            <button type="button" id="chooseEmail" class="btn btn-outline-dark bg-white text-dark hover-dark">
+              Reset using Email
+            </button>
+            <button type="button" id="choosePhone" class="btn btn-outline-dark bg-white text-dark hover-dark">
+              Reset using Phone Number
+            </button>
+            <hr class="my-4"><button type="button" id="backToLoginFromOptions" class="loginButton btn btn-primary w-100">
+              Back to Login
+            </button>
+          </div>
+        </form>        <!-- Email Reset Form -->
         <form id="forgetpasswordform" style="display: none">
+          <p class="text-dark mb-3">Enter your email address, a reset code will be sent.</p>
           <div class="mb-2">
             <label for="forget-email" class="form-label">Email address</label>
             <input
@@ -218,10 +232,44 @@
           </button>
           <button
             type="button"
-            id="showLoginForm1"
+            id="backToResetOptions"
             class="loginButton btn btn-primary w-100 mt-4"
           >
-            Back to Login
+            Back to Reset Options
+          </button>
+        </form>        <!-- Phone Reset Form -->
+        <form id="forgetpasswordPhoneForm" style="display: none">
+          <p class="text-dark mb-3">Enter your phone number, a reset code will be sent.</p>
+          <div class="mb-2">
+            <label for="forget-phone" class="form-label">Phone Number</label>
+            <div class="input-group">
+              <span class="input-group-text">+20</span>
+              <input
+                type="tel"
+                class="form-control"
+                id="forget-phone"
+                placeholder="Enter your phone number"
+                maxlength="10"
+                pattern="\d{10}"
+                inputmode="numeric"
+                oninput="this.value = this.value.replace(/\D/g, '')"
+              />
+            </div>
+          </div>
+          <div class="mb-3 text-end">
+            <button id="show2faPhone" class="btn btn-link" type="button" style="color: black;">
+              Have Code?
+            </button>
+          </div>
+          <button type="submit" class="signupButton btn btn-primary w-100">
+            Send Reset Code
+          </button>
+          <button
+            type="button"
+            id="backToResetOptionsPhone"
+            class="loginButton btn btn-primary w-100 mt-4"
+          >
+            Back to Reset Options
           </button>
         </form>
         <!-- 2fa modal -->
