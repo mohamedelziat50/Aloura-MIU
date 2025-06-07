@@ -20,7 +20,7 @@ router.get("/validate-bin/:bin", validateCardBin);
 
 router.delete("/delete/:id", auth(["admin"]), deleteOrder);
 
-router.get("/search", auth(["admin"]), searchOrders);
+router.get("/search", auth(["user", "admin"]), searchOrders);
 
 // router.get('/', getAllOrders);
 // router.get('/:id', getOrderById);
