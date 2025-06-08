@@ -274,9 +274,23 @@ export const updateOrderStatus = async (req, res) => {
     if (!order) return res.status(400).json({ error: "Order not found" });
 
     // Update status
-    if(status) order.status = status
-    else return res.status(400).json({ error: "Status not found" });
-    
+    if (!status) {
+      return res.status(400).json({ error: "Status not found" });
+    }
+    if (order.status === status) {
+      return res.status(400).json({ error: `Order is already marked as '${status}'.` });
+    }
+    // Prevent cancelling a delivered order
+    if (order.status === 'Delivered' && status === 'Cancelled') {
+      return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
+    }
+    // Prevent delivering a cancelled order
+    if (order.status === 'Cancelled' && status === 'Delivered') {
+      return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
+    }
+
+    // If we passed all these checks now change the status
+    order.status = status;
     // Save the result
     await order.save()
 

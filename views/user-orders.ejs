@@ -148,7 +148,10 @@
                   </div>
                   <div class="user-order-item-actions">
                     <a href="/fragrances-page/<%= item.fragrance._id %>""><button class="order-btn">Buy it again</button></a>
-                    <button class="order-btn">Write a Product Review</button>
+                    <% if (order.status === 'Delivered') { %>
+                     <button class="order-btn">Write a Product Review</button>
+                    <% } %>
+                    
                   </div>
                 </div>
                 <% }) %>
