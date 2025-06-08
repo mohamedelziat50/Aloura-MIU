@@ -1,3 +1,4 @@
+import showFunToast from "./toast.js";
 document.addEventListener("DOMContentLoaded", function () {
   let images = [
     document.getElementById("main-image").src,
@@ -149,6 +150,255 @@ document.addEventListener("DOMContentLoaded", function () {
         point.classList.add("active");
       }
     });
+  }
+
+  // Add to Cart Functionality
+  const addToCartButton = document.getElementById("add-to-cart-button");
+  const sizeRadios = document.querySelectorAll("input[name='size']");
+
+  addToCartButton.addEventListener("click", async function () {
+    const selectedSize = document.querySelector("input[name='size']:checked");
+
+    if (!selectedSize) {
+      showFunToast("❗ Please select a size first!", "red");
+      return;
+    }
+
+    const size = selectedSize.value;
+    const price = selectedSize.getAttribute("data-price");
+    const productId = this.getAttribute("productId");
+
+    const data = { productId, size, price };
+    console.log("Sending to backend:", data);
+
+    try {
+      const response = await fetch("/api/users/addToCart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        updateCartUI(result);
+      } else {
+        showFunToast(result.message || "❗ An error occurred.", "red");
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      showFunToast("❗ An error occurred while adding to cart.", "red");
+    }
+  });
+
+  // Function to update the UI
+  function updateCartUI(result) {
+    // Update the cart count displayed in the header
+    const cartCount = document.getElementById("cart-count");
+    if (cartCount) {
+      cartCount.textContent = result.cartCount;
+    }
+
+    // Get the cart items container
+    const cartItemsContainer = document.querySelector(".cart-items-container");
+    if (!cartItemsContainer) return;
+
+    // If cart is empty, show empty state
+    if (result.cartCount === 0) {
+      cartItemsContainer.innerHTML = `
+        <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+          <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+          <h4 class="mt-3">Your cart is empty.</h4>
+        </div>
+      `;
+      return;
+    }
+
+    // Fetch the latest cart data
+    fetch("/api/users/cart")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success && data.cart) {
+          // Clear existing items
+          cartItemsContainer.innerHTML = "";
+
+          // Add each cart item
+          data.cart.forEach((item) => {
+            const cartItemHTML = `
+              <div class="row cart-item mb-3" data-price="${item.price}">
+                <div class="col-md-3">
+                  <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
+                </div>
+                <div class="col-md-5 mt-3">
+                  <h5 class="card-title">${item.fragrance.name}</h5>
+                  <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
+                </div>
+                <div class="col-md-4 d-flex flex-column">
+                  <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="input-group" style="max-width: 180px">
+                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
+                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
+                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
+          });
+
+          // Update subtotal
+          updateSubtotal();
+
+          // Reattach event listeners for the new buttons
+          attachCartEventListeners();
+          showFunToast("✅ Item successfully added to your cart!", "green");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching cart data:", error);
+        showFunToast("❗ Error updating cart display.", "red");
+      });
+  }
+
+  // Function to attach event listeners to cart buttons
+  function attachCartEventListeners() {
+    // Attach event listeners to plus buttons
+    document.querySelectorAll(".plus-button").forEach((button) => {
+      button.addEventListener("click", async function () {
+        const fragranceId = this.getAttribute("data-fragrance-id");
+        const size = this.getAttribute("data-size");
+        const cartItem = this.closest(".cart-item");
+        const quantityInput = cartItem.querySelector(".quantity-input");
+        const originalQty = parseInt(quantityInput.value);
+
+        quantityInput.value = originalQty + 1;
+        updateSubtotal();
+
+        try {
+          const res = await fetch("/api/users/increase", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId: fragranceId, size }),
+          });
+
+          const data = await res.json();
+          if (!data.success) {
+            quantityInput.value = originalQty;
+            showFunToast(
+              data.message || "❗ Error increasing quantity.",
+              "red"
+            );
+          }
+        } catch (error) {
+          quantityInput.value = originalQty;
+          console.error("Increase error:", error);
+          showFunToast("❗ Error increasing quantity.", "red");
+        }
+      });
+    });
+
+    // Attach event listeners to minus buttons
+    document.querySelectorAll(".minus-button").forEach((button) => {
+      button.addEventListener("click", async function () {
+        const fragranceId = this.getAttribute("data-fragrance-id");
+        const size = this.getAttribute("data-size");
+        const cartItem = this.closest(".cart-item");
+        const quantityInput = cartItem.querySelector(".quantity-input");
+        const originalQty = parseInt(quantityInput.value);
+
+        if (originalQty <= 1) return;
+
+        quantityInput.value = originalQty - 1;
+        updateSubtotal();
+
+        try {
+          const res = await fetch("/api/users/decrease", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId: fragranceId, size }),
+          });
+
+          const data = await res.json();
+          if (!data.success) {
+            quantityInput.value = originalQty;
+            showFunToast(
+              data.message || "❗ Error decreasing quantity.",
+              "red"
+            );
+          }
+        } catch (error) {
+          quantityInput.value = originalQty;
+          console.error("Decrease error:", error);
+          showFunToast("❗ Error decreasing quantity.", "red");
+        }
+      });
+    });
+
+    // Attach event listeners to trash buttons
+    document.querySelectorAll(".trash-can-button").forEach((button) => {
+      button.addEventListener("click", async function () {
+        const fragranceId = this.getAttribute("data-fragrance-id");
+        const size = this.getAttribute("data-size");
+        const cartItem = this.closest(".cart-item");
+        const cartItemsContainer = document.querySelector(
+          ".cart-items-container"
+        );
+
+        try {
+          const res = await fetch("/api/users/removefromcart", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fragranceId, size }),
+          });
+
+          const data = await res.json();
+          if (data.success) {
+            cartItem.remove();
+            updateSubtotal();
+
+            // Check if this was the last item
+            const remainingItems =
+              cartItemsContainer.querySelectorAll(".cart-item");
+            if (remainingItems.length === 0) {
+              cartItemsContainer.innerHTML = `
+                <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+                  <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+                  <h4 class="mt-3">Your cart is empty.</h4>
+                </div>
+              `;
+            }
+            showFunToast("✅ Item removed from cart!", "green");
+          } else {
+            showFunToast(data.message || "❗ Error removing item.", "red");
+          }
+        } catch (err) {
+          console.error("Failed to remove item from cart:", err);
+          showFunToast("❗ Error removing item from cart.", "red");
+        }
+      });
+    });
+  }
+
+  // Function to update subtotal
+  function updateSubtotal() {
+    const cartItems = document.querySelectorAll(".cart-item");
+    let subtotal = 0;
+
+    cartItems.forEach((item) => {
+      const price = parseFloat(item.getAttribute("data-price"));
+      const quantity = parseInt(item.querySelector(".quantity-input").value);
+      subtotal += price * quantity;
+    });
+
+    const subtotalElement = document.querySelector(".cart-info-subtotal span");
+    if (subtotalElement) {
+      subtotalElement.textContent = `${subtotal} EGP`;
+    }
   }
 });
 
