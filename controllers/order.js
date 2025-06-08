@@ -284,8 +284,8 @@ export const updateOrderStatus = async (req, res) => {
     if (order.status === 'Delivered' && status === 'Cancelled') {
       return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
     }
-    // Prevent delieverying a cancelled order
-    else if (order.status === 'Cancelled' && status === 'Delivered') {
+    // Prevent delivering a cancelled order
+    if (order.status === 'Cancelled' && status === 'Delivered') {
       return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
     }
 
