@@ -624,6 +624,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
+                  <th scope="col">Subscriber</th>
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
@@ -637,7 +638,10 @@
                   <td><%= user.name %></td>
                   <td><%= user.email %></td>
                   <td><%= user.phone %></td>
-                  <td><%= user.isVerified %></td>
+                  <td>
+                    <%= user.subscriberList ? "Subscribed" : "Not Subscribed" %>
+                  </td>
+                  <td><%= user.isVerified ? "Verified" : "Not Verified" %></td>
                   <td><%= moment(user.updatedAt).fromNow() %></td>
                   <td><%= user.role %></td>
                   <td class="actionlist">
