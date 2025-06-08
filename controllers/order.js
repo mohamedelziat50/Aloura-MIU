@@ -264,3 +264,24 @@ export const searchOrders = async (req, res) => {
 //     res.status(500).json({ error: err.message });
 //   }
 // };
+
+export const updateOrderStatus = async (req, res) => {
+  const { orderId, status } = req.body;
+
+  try {
+    // Find order by id
+    const order = await Order.findById(orderId);
+    if (!order) return res.status(400).json({ error: "Order not found" });
+
+    // Update status
+    if(status) order.status = status
+    else return res.status(400).json({ error: "Status not found" });
+    
+    // Save the result
+    await order.save()
+
+    res.status(200).json({ message: `✅ Order #${order.orderNumber} status updated to ${order.status}` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
