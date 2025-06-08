@@ -1372,3 +1372,31 @@ top: 0;
   background: #f0f0f0;
   transform: translateY(-2px);
 }
+
+/* Add new rules for transition state */
+.gender.transition-active {
+  position: relative;
+  z-index: 1000;
+}
+
+.gender.transition-active .hide-during-transition {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+
+.gender.transition-active .transition-container {
+  z-index: 1001;
+}
+
+/* Transition container styles */
+.transition-container {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in;
+}
+
+.transition-container.active {
+  opacity: 1;
+  pointer-events: auto;
+}

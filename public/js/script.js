@@ -70,11 +70,46 @@ function initGenderHoverEffects() {
   const rightParagraphs = rightContainer.querySelectorAll("p");
   const leftBtn = leftContainer.querySelector(".explore-fragrances");
   const rightBtn = rightContainer.querySelector(".explore-fragrances");
-  
+  const genderContainer = document.querySelector(".gender");
+  const transitionContainer = document.querySelector(".transition-container");
+
   // Fluid canvases
   const femaleCanvas = document.getElementById("female-fluid-canvas");
   const maleCanvas = document.getElementById("male-fluid-canvas");
   
+  // Add hide-during-transition class to elements that should be hidden
+  const elementsToHide = [
+    your,
+    indulge,
+    leftBtn,
+    rightBtn,
+    forHerBtn,
+    forHimBtn,
+    ...leftParagraphs,
+    ...rightParagraphs,
+    femaleCanvas,
+    maleCanvas
+  ];
+  
+  elementsToHide.forEach(el => {
+    if (el) el.classList.add("hide-during-transition");
+  });
+
+  // Click handlers for the buttons
+  forHerBtn.addEventListener("click", () => {
+    genderContainer.classList.add("transition-active");
+    if (transitionContainer) {
+      transitionContainer.classList.add("active");
+    }
+  });
+
+  forHimBtn.addEventListener("click", () => {
+    genderContainer.classList.add("transition-active");
+    if (transitionContainer) {
+      transitionContainer.classList.add("active");
+    }
+  })
+
   // State management
   let isLeftHovered = false;
   let isRightHovered = false;
@@ -956,6 +991,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const forHerBtn = document.querySelector('.for-her');
     const forHimBtn = document.querySelector('.for-him');
     const fragranceQuiz = document.querySelector('.fragrance-quiz');
+    
 
     function handleGenderSelection(gender) {
         const imagePath = gender === 'her' ? './img/girlTestCopy.jpg' : 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg';
