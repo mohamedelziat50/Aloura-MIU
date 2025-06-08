@@ -374,7 +374,7 @@
                     class="btn btn-success btn-sm"
                     title="Mark as Delivered"
                     onclick="markOrderStatus('<%= order._id %>', 'Delivered')"
-                    <%= order.status === 'Cancelled' ? 'disabled': '' %>
+                    <%= (order.status === 'Cancelled' || order.status === 'Delivered') ? 'disabled' : '' %>
                   >
                     <i class="fa-solid fa-circle-check"></i>
                   </button>
@@ -383,7 +383,7 @@
                     class="btn btn-danger btn-sm"
                     title="Mark as Cancelled"
                     onclick="markOrderStatus('<%= order._id %>', 'Cancelled')"
-                    <%= order.status === 'Delivered' ? 'disabled': '' %>
+                    <%= (order.status === 'Delivered' || order.status === 'Cancelled') ? 'disabled' : '' %>
                   >
                     <i class="fa-solid fa-ban"></i>
                   </button>

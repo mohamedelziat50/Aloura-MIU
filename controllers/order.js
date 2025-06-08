@@ -280,6 +280,16 @@ export const updateOrderStatus = async (req, res) => {
     if (order.status === status) {
       return res.status(400).json({ error: `Order is already marked as '${status}'.` });
     }
+    // Prevent cancelling a delivered order
+    if (order.status === 'Delivered' && status === 'Cancelled') {
+      return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
+    }
+    // Prevent delieverying a cancelled order
+    else if (order.status === 'Cancelled' && status === 'Delivered') {
+      return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
+    }
+
+    // If we passed all these checks now change the status
     order.status = status;
     // Save the result
     await order.save()

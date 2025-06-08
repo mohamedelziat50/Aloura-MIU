@@ -135,7 +135,7 @@
   display: flex;
   gap: 10px;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: end;
   min-width: 170px;
   padding: 20px 0px;
 }
