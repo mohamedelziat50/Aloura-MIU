@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const giftSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   perfume: {
-    name: String,
-    price: Number,
-    image: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Fragrance",
+    required: true,
   },
   wrap: {
     name: String,
@@ -17,10 +17,10 @@ const giftSchema = new mongoose.Schema({
     image: String,
   },
   recipientName: { type: String, required: true },
-  message: { type: String, maxlength: 200 },
+  message: { type: String, maxlength: 100 },
   totalPrice: Number,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Order = mongoose.model('Gifting', giftSchema);
+const Order = mongoose.model("Gifting", giftSchema);
 export default Order;

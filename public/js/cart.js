@@ -121,7 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const fragranceId = button.getAttribute("data-fragrance-id");
       const size = button.getAttribute("data-size");
       const cartItem = button.closest(".cart-item");
-      const cartItemsContainer = document.querySelector(".cart-items-container");
+      const cartItemsContainer = document.querySelector(
+        ".cart-items-container"
+      );
 
       cartItem.remove();
       updateSubtotal();
@@ -139,7 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // ✅ Check again after removal
-        if (cartItemsContainer && cartItemsContainer.querySelectorAll(".cart-item").length === 0) {
+        if (
+          cartItemsContainer &&
+          cartItemsContainer.querySelectorAll(".cart-item").length === 0
+        ) {
           cartItemsContainer.innerHTML = `
             <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
               <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
@@ -155,5 +160,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-
