@@ -938,3 +938,71 @@ function initReviewCards() {
 }
 
 
+// For Him & For Her button functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    const forHerButton = document.querySelector('.for-her');
+    const forHimButton = document.querySelector('.for-him');
+    const genderContainer = document.querySelector('.gender');
+    const transitionContainer = document.querySelector('.transition-container');
+    const transitionImage = document.querySelector('#transition-img');
+
+    // Initialize existing elements
+    const textOverlayIndulge = document.querySelector('.text-overlay-indulge');
+    const textOverlayYour = document.querySelector('.text-overlay-your');
+    const leftContainer = document.querySelector('.left-container p');
+    const rightContainer = document.querySelector('.right-container p');
+    const exploreButtons = document.querySelectorAll('.explore-fragrances');
+    const forHerBtn = document.querySelector('.for-her');
+    const forHimBtn = document.querySelector('.for-him');
+    const fragranceQuiz = document.querySelector('.fragrance-quiz');
+
+    function handleGenderSelection(gender) {
+        const imagePath = gender === 'her' ? './img/girlTestCopy.jpg' : 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg';
+        
+        if (!genderContainer || !transitionContainer || !transitionImage) return;
+
+        // Set the transition image
+        transitionImage.src = imagePath;
+        
+        // Add transitioning class to fade out content
+        genderContainer.classList.add('transitioning');
+        
+        // After content starts fading out, show the transition image
+        setTimeout(() => {
+            transitionContainer.classList.add('active');
+        }, 100);
+        // Show transition container with overlay
+        transitionContainer.classList.add('active');
+        
+        // Set up scroll button handlers
+        const upButton = transitionContainer.querySelector('.scroll-btn.up');
+        const downButton = transitionContainer.querySelector('.scroll-btn.down');
+        
+        upButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Add scroll up functionality
+        });
+        
+        downButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Add scroll down functionality
+        });
+    }
+
+    // Event listeners for buttons
+    if (forHerButton) {
+        forHerButton.addEventListener('click', () => handleGenderSelection('her'));
+    }
+    
+    if (forHimButton) {
+        forHimButton.addEventListener('click', () => handleGenderSelection('him'));
+    }    // Remove any auto-initialization of show classes
+    // Elements will be shown on hover instead
+
+    setTimeout(() => {
+        if (fragranceQuiz) fragranceQuiz.classList.add('show');
+    }, 2500);
+});

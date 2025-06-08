@@ -64,74 +64,98 @@ document.addEventListener("click", () => {
 
 // ==================== New Filter Button Code ====================
 // LITERALLY SAME CODE AS ABOVE, BUT WE CHANGE ONLY A SINGLE BUTTON'S TEXT, NOT PRICE + ML
-// Select the filter button and its container
-const filterButton = document.querySelector(".filter-button");
-const filterContainer = document.querySelector(".filter-container");
-const dropdownMenuFilter = filterContainer.querySelector(
-  ".dropdown-menu-filter"
-);
+function initializeFilterButton() {
+  // Select the filter button and its container
+  const filterButton = document.querySelector(".filter-button");
+  const filterContainer = document.querySelector(".filter-container");
 
-// Toggle dropdown menu on filter button click
-filterButton.addEventListener("click", (e) => {
-  e.stopPropagation(); // Prevent the click from bubbling up to the document
-  filterContainer.classList.toggle("active");
-
-  // Reset display to block before fade-in animation
-  if (filterContainer.classList.contains("active")) {
-    dropdownMenuFilter.style.display = "block";
+  // Exit if either element doesn't exist
+  if (!filterButton || !filterContainer) {
+    return;
   }
-});
 
-// Add click event listeners to each dropdown option
-const dropdownOptionsFilter = filterContainer.querySelectorAll(
-  ".dropdown-option-filter"
-);
-dropdownOptionsFilter.forEach((option) => {
-  option.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent the click from bubbling up to the filter container
+  const dropdownMenuFilter = filterContainer.querySelector(
+    ".dropdown-menu-filter"
+  );
+  if (!dropdownMenuFilter) {
+    return;
+  }
 
-    // Get the selected value
-    const value = option.getAttribute("data-value");
+  // Toggle dropdown menu on filter button click
+  filterButton.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up to the document
+    filterContainer.classList.toggle("active");
 
-    // Update the filter button text with the selected value
-    filterButton.textContent = `${value} ▼`;
-
-    // Hide the dropdown after selection
-    filterContainer.classList.remove("active");
+    // Reset display to block before fade-in animation
+    if (filterContainer.classList.contains("active")) {
+      dropdownMenuFilter.style.display = "block";
+    }
   });
-});
 
-// Hide dropdown after fade-out animation completes
-dropdownMenuFilter.addEventListener("animationend", (e) => {
-  if (e.animationName === "fadeOutTop") {
-    dropdownMenuFilter.style.display = "none"; // Hide the dropdown after animation
-  }
-});
+  // Add click event listeners to each dropdown option
+  const dropdownOptionsFilter = filterContainer.querySelectorAll(
+    ".dropdown-option-filter"
+  );
+  dropdownOptionsFilter.forEach((option) => {
+    option.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent the click from bubbling up to the filter container
 
-// Close dropdown when clicking outside
-document.addEventListener("click", () => {
-  if (filterContainer.classList.contains("active")) {
-    filterContainer.classList.remove("active"); // Hide the dropdown
-  }
-});
+      // Get the selected value
+      const value = option.getAttribute("data-value");
+
+      // Update the filter button text with the selected value
+      filterButton.textContent = `${value} ▼`;
+
+      // Hide the dropdown after selection
+      filterContainer.classList.remove("active");
+    });
+  });
+
+  // Hide dropdown after fade-out animation completes
+  dropdownMenuFilter.addEventListener("animationend", (e) => {
+    if (e.animationName === "fadeOutTop") {
+      dropdownMenuFilter.style.display = "none"; // Hide the dropdown after animation
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", () => {
+    if (filterContainer.classList.contains("active")) {
+      filterContainer.classList.remove("active"); // Hide the dropdown
+    }
+  });
+}
+
+// Initialize the filter button functionality
+initializeFilterButton();
 
 // =====================SEARCH BAR RELATED===================================
-const searchBox = document.getElementById("searchBox");
-const clearSearch = document.getElementById("clearSearch");
+function initializeSearchBar() {
+  const searchBox = document.getElementById("searchBox");
+  const clearSearch = document.getElementById("clearSearch");
 
-// Add an event listener for the search box to listen for input (text)
-searchBox.addEventListener("input", () => {
-  // If searchBox has a value, then we'll display the clear icon!
-  clearSearch.style.display = searchBox.value ? "block" : "none";
-});
+  // Exit if either element doesn't exist
+  if (!searchBox || !clearSearch) {
+    return;
+  }
 
-// Close icon event listener
-clearSearch.addEventListener("click", () => {
-  // Reset searchBox's value to empty
-  searchBox.value = "";
-  // Then hide the icon once again
-  clearSearch.style.display = "none";
-});
+  // Add an event listener for the search box to listen for input (text)
+  searchBox.addEventListener("input", () => {
+    // If searchBox has a value, then we'll display the clear icon!
+    clearSearch.style.display = searchBox.value ? "block" : "none";
+  });
+
+  // Close icon event listener
+  clearSearch.addEventListener("click", () => {
+    // Reset searchBox's value to empty
+    searchBox.value = "";
+    // Then hide the icon once again
+    clearSearch.style.display = "none";
+  });
+}
+
+// Initialize the search bar functionality
+initializeSearchBar();
 
 const allCards = new Set(); // Global
 let fragranceCards; // Global
@@ -528,3 +552,82 @@ function updateSubtotal() {
     subtotalElement.textContent = `${subtotal} EGP`;
   }
 }
+
+function initializeSearchFunctionality() {
+  const searchBox = document.getElementById("searchBox");
+  if (!searchBox) return;
+
+  let lastVisibleCardIds = [];
+
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.toLowerCase().trim();
+    const cards = document.querySelectorAll(".card");
+
+    // Find the new matching cards
+    const matchingCards = Array.from(cards).filter((card) => {
+      const productName = card
+        .querySelector(".card-title")
+        .textContent.toLowerCase();
+      return productName.includes(query);
+    });
+
+    // Get new visible card "IDs" (or indexes if no IDs exist)
+    const newVisibleCardIds = matchingCards.map(
+      (card, index) => card.dataset.id || index
+    );
+
+    // Compare old and new visible card sets
+    const hasChanged =
+      lastVisibleCardIds.length !== newVisibleCardIds.length ||
+      !lastVisibleCardIds.every((id, i) => id === newVisibleCardIds[i]);
+
+    if (!hasChanged) {
+      // No change: skip the hide/show animation
+      return;
+    }
+
+    // Update the lastVisibleCardIds
+    lastVisibleCardIds = newVisibleCardIds;
+
+    // Step 1: Hide all cards instantly
+    cards.forEach((card) => {
+      card.classList.add("hidden");
+      card.style.display = "none";
+    });
+
+    // Step 2: After short delay, show only matching cards
+    setTimeout(() => {
+      matchingCards.forEach((card) => {
+        card.classList.remove("hidden");
+        card.style.display = "";
+      });
+    }, 50); // You can increase this to 300ms for smoother animation
+  });
+}
+
+initializeSearchFunctionality();
+
+const clearSearch = document.getElementById("clearSearch");
+const searchBox = document.getElementById("searchBox");
+
+clearSearch.addEventListener("click", () => {
+  if (searchBox) {
+    searchBox.value = "";
+  }
+
+  const cards = document.querySelectorAll(".card");
+
+  // First, hide all cards
+  cards.forEach((card) => {
+    card.classList.add("hidden");
+    card.style.display = "none";
+  });
+
+  // After a short delay (e.g., 300ms), show all cards again
+  setTimeout(() => {
+    cards.forEach((card) => {
+      card.classList.remove("hidden");
+      card.style.display = "";
+    });
+  }, 50); // 300 milliseconds delay
+});

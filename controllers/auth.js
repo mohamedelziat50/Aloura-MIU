@@ -4,6 +4,7 @@ import sendEmail from "../utilities/emailService.js";
 import {
   generateVerificationEmail,
   generatePasswordResetEmail,
+  generateSubscriberWelcomeEmail,
 } from "../utilities/emailtemplates.js";
 import { JWT_SECRET } from "../config/secrets.js";
 import { JWT_EXPIRY } from "../config/secrets.js";
@@ -170,20 +171,6 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordCode = verificationCode;
     user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
     await user.save();
-    // const normalizedPhone = user.phone.startsWith("+")
-    //   ? user.phone
-    //   : `+20${user.phone}`;
-
-    // await sendSMStwilio(
-    //   normalizedPhone,
-    //   `Your password reset verification code is: ${verificationCode}`
-    // );
-
-    // await sendSMS(
-    //   normalizedPhone,
-    //   `Your password reset verification code is: ${verificationCode}`
-    // );
-
     // Now send the email
     const htmlContent = generatePasswordResetEmail(user.name, verificationCode);
 
@@ -230,6 +217,97 @@ export const resetPassword = async (req, res) => {
     res.status(200).json({ message: "Password successfully updated." });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: "Server error." });
+  }
+};
+
+export const subscriberList = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ message: "Invalid email address." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    if (user.subscriberList) {
+      return res
+        .status(400)
+        .json({ message: "This User is already subscribed." });
+    }
+
+    user.subscriberList = true;
+    await user.save();
+
+    const htmlContent = generateSubscriberWelcomeEmail(user.name);
+
+    await sendEmail({
+      to: email,
+      subject: "Welcome to Our Subscriber List! 🎉",
+      text: `Thank you for subscribing to our newsletter!`,
+      html: htmlContent,
+    });
+
+    return res.status(200).json({ message: "Subscribed successfully!" });
+  } catch (err) {
+    console.error("Newsletter subscription error:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+export const forgotPasswordPhone = async (req, res) => {
+  let { phone } = req.body;
+
+  if (!phone) {
+    return res.status(400).json({ message: "Phone number is required." });
+  }
+
+  try {
+    const user = await UserModel.findOne({ phone });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "No user found with that phone number." });
+    }
+
+    // Generate 4-letter verification code
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let verificationCode = "";
+    for (let i = 0; i < 4; i++) {
+      verificationCode += letters.charAt(
+        Math.floor(Math.random() * letters.length)
+      );
+    }
+
+    // Save to user model
+    user.resetPasswordCode = verificationCode;
+    user.resetPasswordCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    await user.save();
+
+    // Send SMS
+    const normalizedPhone = user.phone.startsWith("+")
+      ? user.phone
+      : `+20${user.phone}`;
+    await sendSMS(
+      normalizedPhone,
+      `Your password reset verification code is: ${verificationCode}`
+    );
+
+    // Uncomment the line below if you want to use Twilio for sending SMS
+    // await sendSMStwilio(
+    //   normalizedPhone,
+    //   `Your password reset verification code is: ${verificationCode}`
+    // );
+
+    res.status(200).json({ message: "Verification code sent to your phone." });
+  } catch (error) {
+    console.error("❌ Error during forgot password via phone:", error);
     res.status(500).json({ message: "Server error." });
   }
 };

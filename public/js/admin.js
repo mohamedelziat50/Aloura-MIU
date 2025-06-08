@@ -245,258 +245,220 @@ document.querySelectorAll(".btn-add-note").forEach((btn) => {
 });
 
 import showFunToast from "/js/toast.js";
-//Delete Fragrance Confirmation
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteProduct = (btn) => {
     const fragrance_id = btn.getAttribute("data-fragrance-id");
-    const fragranceName = btn.closest('.product-card').querySelector('.product-name').textContent;
-    
-    // Show confirmation modal
-    const modal = new bootstrap.Modal(document.getElementById('deleteFragranceModal'));
-    document.getElementById('fragranceNameInModal').textContent = fragranceName;
-    modal.show();
 
-    // Handle confirmation
-    document.getElementById('confirmDeleteFragrance').onclick = () => {
-      fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
-        method: "DELETE",
+    fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+      method: "DELETE",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+
+        if (response.ok) {
+          showFunToast(
+            data.message || "✅ Fragrance deleted successfully!",
+            "green"
+          );
+          setTimeout(() => {
+            window.location.href = "/admin/:id";
+          }, 1000);
+        } else {
+          showFunToast(data.message || "❗ An error occurred.", "red");
+        }
       })
-        .then(async (response) => {
-          const data = await response.json();
-          
-          // Hide the modal
-          modal.hide();
-
-          if (response.ok) {
-            showFunToast(
-              data.message || "✅ Fragrance deleted successfully!",
-              "green"
-            );
-            setTimeout(() => {
-              window.location.href = "/admin/:id";
-            }, 1000);
-          } else {
-            showFunToast(data.message || "❗ An error occurred.", "red");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          modal.hide();
-          showFunToast(error.message || "❗ An error occurred.", "red");
-        });
-    };
+      .catch((error) => {
+        console.log(error);
+        showFunToast(error.message || "❗ An error occurred.", "red");
+      });
   };
 });
 
-//Delete Users Confirmation
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteUser = (btn) => {
     const user_id = btn.getAttribute("data-user-id");
-    const userName = btn.closest('tr').querySelector('td:nth-child(2)').textContent;
 
-    // Show confirmation modal
-    const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
-    document.getElementById('userNameInModal').textContent = userName;
-    modal.show();
+    fetch(`http://localhost:3000/api/users/${user_id}`, {
+      method: "DELETE",
+    })
+      .then(async (response) => {
+        const data = await response.json();
 
-    // Handle confirmation
-    document.getElementById('confirmDeleteUser').onclick = () => {
-      fetch(`http://localhost:3000/api/users/${user_id}`, {
-        method: "DELETE",
+        if (response.ok) {
+          showFunToast(
+            data.message || "✅ User deleted successfully!",
+            "green"
+          );
+          setTimeout(() => {
+            window.location.href = "/admin/:id";
+          }, 1000);
+        } else {
+          showFunToast(data.message || "❗ An error occurred.", "red");
+        }
       })
-        .then(async (response) => {
-          const data = await response.json();
-          
-          // Hide the modal
-          modal.hide();
-
-          if (response.ok) {
-            showFunToast(
-              data.message || "✅ User deleted successfully!",
-              "green"
-            );
-            setTimeout(() => {
-              window.location.href = "/admin/:id";
-            }, 1000);
-          } else {
-            showFunToast(data.message || "❗ An error occurred.", "red");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          modal.hide();
-          showFunToast(error.message || "❗ An error occurred.", "red");
-        });
-    };
+      .catch((error) => {
+        console.log(error);
+        showFunToast(error.message || "❗ An error occurred.", "red");
+      });
   };
 });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const fileInput = document.getElementById("profile-picture");
-        const preview = document.getElementById("profile-picture-preview");
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("profile-picture");
+  const preview = document.getElementById("profile-picture-preview");
 
-        fileInput.addEventListener("change", function (event) {
-          const file = event.target.files[0];
+  fileInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
 
-          if (file) {
-            preview.src = URL.createObjectURL(file);
-          }
-        });
-      });
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+    }
+  });
+});
 
-      addUserForm.addEventListener("submit", async (event) => {
-        event.preventDefault(); // Prevent form from submitting
+addUserForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent form from submitting
 
-        const name = document.getElementById("adduser-name").value.trim();
-        const email = document.getElementById("adduser-email").value.trim();
-        const phone = document.getElementById("adduser-phone").value.trim();
-        const password = document.getElementById("adduser-password").value;
-        const confirmPassword = document.getElementById(
-          "adduser-confirm-password"
-        ).value;
-        const profilePicture =
-          document.getElementById("profile-picture").files[0];
+  const name = document.getElementById("adduser-name").value.trim();
+  const email = document.getElementById("adduser-email").value.trim();
+  const phone = document.getElementById("adduser-phone").value.trim();
+  const password = document.getElementById("adduser-password").value;
+  const confirmPassword = document.getElementById(
+    "adduser-confirm-password"
+  ).value;
+  const profilePicture = document.getElementById("profile-picture").files[0];
 
-        // Validation
-        if (name === "") {
-          showFunToast("❗ Please enter your name.", "red");
-          return;
-        }
+  // Validation
+  if (name === "") {
+    showFunToast("❗ Please enter your name.", "red");
+    return;
+  }
 
-        if (name.length < 3) {
-          showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
-          return;
-        }
-        if (name.length > 50) {
-          showFunToast(
-            "📏 Whoa! Username's way too long. Keep it under 50 characters!",
-            "red"
-          );
-          return;
-        }
+  if (name.length < 3) {
+    showFunToast("👶 Too tiny! Username needs 3+ characters.", "red");
+    return;
+  }
+  if (name.length > 50) {
+    showFunToast(
+      "📏 Whoa! Username's way too long. Keep it under 50 characters!",
+      "red"
+    );
+    return;
+  }
 
-        if (email === "" || !validateEmail(email)) {
-          showFunToast("📧 Please enter a valid email address.", "red");
-          return;
-        }
+  if (email === "" || !validateEmail(email)) {
+    showFunToast("📧 Please enter a valid email address.", "red");
+    return;
+  }
 
-        if (phone === "" || !validatePhone(phone)) {
-          showFunToast("📱 Please enter a valid phone number.", "red");
-          return;
-        }
+  if (phone === "" || !validatePhone(phone)) {
+    showFunToast("📱 Please enter a valid phone number.", "red");
+    return;
+  }
 
-        if (password.length < 6) {
-          showFunToast(
-            "🔒 Password must be at least 6 characters long.",
-            "red"
-          );
-          return;
-        }
+  if (password.length < 6) {
+    showFunToast("🔒 Password must be at least 6 characters long.", "red");
+    return;
+  }
 
-        if (password !== confirmPassword) {
-          showFunToast("🔒 Passwords do not match.", "red");
-          return;
-        }
+  if (password !== confirmPassword) {
+    showFunToast("🔒 Passwords do not match.", "red");
+    return;
+  }
 
-        const formData = new FormData(); // <-- This is special, different than {}
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("phone", phone);
-        formData.append("password", password);
+  const formData = new FormData(); // <-- This is special, different than {}
+  formData.append("name", name);
+  formData.append("email", email);
+  formData.append("phone", phone);
+  formData.append("password", password);
 
-        if (profilePicture) {
-          formData.append("profilePicture", profilePicture);
-        }
+  if (profilePicture) {
+    formData.append("profilePicture", profilePicture);
+  }
 
-        fetch("http://localhost:3000/api/auth/signup", {
-          method: "POST",
-          body: formData,
-        })
-          .then(async (response) => {
-            const data = await response.json();
+  fetch("http://localhost:3000/api/auth/signup", {
+    method: "POST",
+    body: formData,
+  })
+    .then(async (response) => {
+      const data = await response.json();
 
-            if (response.ok) {
-              showFunToast(
-                data.message || "✅ User Created successfully!",
-                "green"
-              );
-              setTimeout(() => {
-                window.location.href = "/admin/:id"; // Redirect to the user's page
-              }, 1000);
-            } else {
-              showFunToast(data.message || "❗ An error occurred.", "red");
-            }
-          })
-          .catch((error) => {
-            showFunToast(error.message || "❗ An error occurred.", "red");
-          });
+      if (response.ok) {
+        showFunToast(data.message || "✅ User Created successfully!", "green");
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`; // Redirect to the user's page
+        }, 1000);
+      } else {
+        showFunToast(data.message || "❗ An error occurred.", "red");
+      }
+    })
+    .catch((error) => {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    });
 
-        function validateEmail(email) {
-          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return re.test(email);
-        }
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
 
-        function validatePhone(phone) {
-          const re = /^[0-9]{10,15}$/;
-          return re.test(phone);
-        }
-      });
+  function validatePhone(phone) {
+    const re = /^[0-9]{10,15}$/;
+    return re.test(phone);
+  }
+});
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const setupPasswordToggle = (inputId, iconId) => {
-          const input = document.getElementById(inputId);
-          const icon = document.getElementById(iconId);
+document.addEventListener("DOMContentLoaded", function () {
+  const setupPasswordToggle = (inputId, iconId) => {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
 
-          if (!input || !icon) return;
+    if (!input || !icon) return;
 
-          icon.parentElement.addEventListener("click", () => {
-            const isPassword = input.type === "password";
-            input.type = isPassword ? "text" : "password";
+    icon.parentElement.addEventListener("click", () => {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
 
-            icon.classList.toggle("fa-lock", !isPassword);
-            icon.classList.toggle("fa-lock-open", isPassword);
-          });
-        };
+      icon.classList.toggle("fa-lock", !isPassword);
+      icon.classList.toggle("fa-lock-open", isPassword);
+    });
+  };
 
+  setupPasswordToggle("adduser-password", "addUserPasswordIcon");
+  setupPasswordToggle("adduser-confirm-password", "addUserConfirmPasswordIcon");
+});
 
-        setupPasswordToggle("adduser-password", "addUserPasswordIcon");
-        setupPasswordToggle(
-          "adduser-confirm-password",
-          "addUserConfirmPasswordIcon"
+document.addEventListener("DOMContentLoaded", () => {
+  const userSearchInput = document.getElementById("userSearchInput");
+  const tableBody = document.querySelector("#section-users table tbody");
+
+  let debounceTimer;
+
+  userSearchInput.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(async () => {
+      const query = userSearchInput.value.trim();
+
+      try {
+        const res = await fetch(
+          `/api/users/search?search=${encodeURIComponent(query)}`
         );
-      });
-    
+        const users = await res.json();
 
-        document.addEventListener("DOMContentLoaded", () => {
-    const userSearchInput = document.getElementById("userSearchInput");
-    const tableBody = document.querySelector("#section-users table tbody");
+        tableBody.innerHTML = "";
 
-    let debounceTimer;
-
-    userSearchInput.addEventListener("input", () => {
-      clearTimeout(debounceTimer);
-
-      debounceTimer = setTimeout(async () => {
-        const query = userSearchInput.value.trim();
-
-        try {
-          const res = await fetch(`/api/users/search?search=${encodeURIComponent(query)}`);
-          const users = await res.json();
-
-          tableBody.innerHTML = "";
-
-          if (users.length === 0) {
-            tableBody.innerHTML = `
+        if (users.length === 0) {
+          tableBody.innerHTML = `
               <tr>
                 <td colspan="8" class="text-center">No users found for "${query}"</td>
               </tr>`;
-            return;
-          }
+          return;
+        }
 
-          users.forEach((user, index) => {
-            const updatedAt = moment(user.updatedAt).fromNow();
+        users.forEach((user, index) => {
+          const updatedAt = moment(user.updatedAt).fromNow();
 
-            const row = `
+          const row = `
               <tr>
                 <th scope="row">${index + 1}</th>
                 <td>${user.name}</td>
@@ -506,29 +468,127 @@ window.addEventListener("DOMContentLoaded", () => {
                 <td>${updatedAt}</td>
                 <td>${user.role}</td>
                 <td class="actionlist">
-                  <a class="btn ButtonDicoration btn-sm" href="/editUser/${user._id}">
+                  <a class="btn ButtonDicoration btn-sm" href="/editUser/${
+                    user._id
+                  }">
                     <i class="bi bi-pencil"></i>
-                  </a>                  <button 
-                    class="btn btn-danger btn-sm" 
-                    data-user-id="${user._id}"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="Delete user"
-                    data-bs-placement="top"
-                    onclick="deleteUser(this)"
-                  >
+                  </a>
+                  <button class="btn btn-danger btn-sm" data-user-id="${
+                    user._id
+                  }">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>
               </tr>`;
-            tableBody.insertAdjacentHTML("beforeend", row);
-          });
-        } catch (error) {
-          console.error("Search error:", error);
-          tableBody.innerHTML = `
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+      } catch (error) {
+        console.error("Search error:", error);
+        tableBody.innerHTML = `
             <tr>
               <td colspan="8" class="text-center text-danger">Error loading results</td>
             </tr>`;
+      }
+    }, 300); // ⏱ debounce delay in ms
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const orderSearchInput = document.getElementById("orderSearchInput");
+  const orderTableBody = document.querySelector("#section-orders table tbody");
+
+  let debounceTimer;
+
+  orderSearchInput.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(async () => {
+      const query = orderSearchInput.value.trim();
+
+      try {
+        const res = await fetch(
+          `/api/orders/search?search=${encodeURIComponent(query)}`
+        );
+        const orders = await res.json();
+
+        orderTableBody.innerHTML = "";
+
+        if (orders.length === 0) {
+          orderTableBody.innerHTML = `
+              <tr>
+                <td colspan="8" class="text-center">No orders found for "${query}"</td>
+              </tr>`;
+          return;
         }
-      }, 300); // ⏱ debounce delay in ms
-    });
+
+        orders.forEach((order) => {
+          const products = order.items
+            .map((item) => `${item.quantity} × ${item.fragrance.name}`)
+            .join("<br>");
+
+          const row = `
+  <tr>
+    <td>#${order.orderNumber}</td>
+    <td>${order.user.name}</td>
+    <td>${products}</td>
+    <td>${new Date(order.createdAt).toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })}</td>
+    <td><span class="status delivered">Delivered</span></td>
+    <td>${order.paid ? "Yes" : "No"}</td>
+    <td>$${order.totalPrice}</td>
+    <td>No</td> <!-- Gift column -->
+    <td class="actionlist">
+      <a class="btn ButtonDicoration btn-sm" href="/order/${
+        order._id
+      }" title="View Order">
+        <i class="fa-solid fa-list"></i>
+      </a>
+      <button class="btn btn-danger btn-sm" data-order-id="${
+        order._id
+      }" onclick="deleteOrder(this)" title="Delete Order">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </td>
+  </tr>`;
+
+          orderTableBody.insertAdjacentHTML("beforeend", row);
+        });
+      } catch (error) {
+        console.error("Order search error:", error);
+        orderTableBody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-danger">Error loading results</td>
+            </tr>`;
+      }
+    }, 200); // Debounce delay
+  });
+});
+// Delete Orders
+window.addEventListener("DOMContentLoaded", () => {
+  window.deleteOrder = async (btn) => {
+    const order_id = btn.getAttribute("data-order-id");
+
+    try {
+      const response = await fetch(`/api/orders/delete/${order_id}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ Order deleted successfully!", "green");
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`;
+        }, 1000);
+      } else {
+        showFunToast(data.error || "❗ An error occurred.", "red");
+      }
+    } catch (error) {
+      console.log(error);
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  };
 });

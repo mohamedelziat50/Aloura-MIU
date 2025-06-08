@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/img/favicons/rounded-background-favicon.ico"
+    />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/page-loader.css" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <style>
+      /* Base styles */
+      body {
+        background-color: whitesmoke;
+        color: #000000;
+        font-family: "Arial", sans-serif;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in forwards;
+        padding: 2rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Form container */
+      .form-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      /* Typography */
+      .title-container {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        position: relative;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #121212;
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #121212;
+        transition: width 0.3s ease;
+      }
+
+      h2:hover::after {
+        width: 100%;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: #121212;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      /* Form controls */
+      .form-control,
+      .form-select {
+        background-color: #ffffff;
+        color: #121212;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #121212;
+        box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.15);
+        outline: none;
+      }
+
+      /* Profile picture section */
+      .profile-picture-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .profile-picture-wrapper {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .profile-picture-wrapper:hover {
+        border-color: #121212;
+      }
+
+      .profile-picture-preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      /* Submit button */
+      .submit-button-container {
+        text-align: start;
+        margin-top: 2rem;
+      }
+
+      .ButtonDicoration {
+        color: white !important;
+        background-color: #121212 !important;
+        border: 1px solid #121212 !important;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        flex: 1;
+      }
+
+      .ButtonDicoration:hover {
+        color: #121212 !important;
+        background-color: white !important;
+      }
+
+      /* Form sections */
+      .form-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .form-section:last-child {
+        border-bottom: none;
+      }
+
+      /* Grid layout */
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+
+        .button-group {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .ButtonDicoration {
+          width: 100%;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animation classes */
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      /* Custom styles for order details */
+      .order-details-header {
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .order-details-header h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+      }
+
+      .order-details-header .order-id {
+        font-size: 0.9rem;
+        color: #777;
+      }
+
+      .order-details-header .status-badge {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 12px;
+      }
+
+      .order-details-header .status-badge.delivered {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .order-details-header .status-badge.cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .order-details-header .status-badge.pending {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      .order-details-section {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-details-section h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 1.5rem;
+      }
+
+      .order-details-section .info-item {
+        margin-bottom: 1rem;
+      }
+
+      .order-details-section .info-item span {
+        display: inline-block;
+        min-width: 120px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .order-details-section .info-item .badge {
+        font-size: 0.875rem;
+        font-weight: 400;
+        border-radius: 10px;
+      }
+
+      .order-details-section .info-item .badge.success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .order-details-section .info-item .badge.error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .order-details-section .info-item .badge.info {
+        background-color: #cce5ff;
+        color: #004085;
+      }
+
+      .order-items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+      }
+
+      .order-items-table th,
+      .order-items-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .order-items-table th {
+        background-color: #f8f9fa;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .order-items-table td {
+        color: #555;
+      }
+
+      .order-summary {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .order-summary .summary-item {
+        display: flex;
+        justify-content: space-between;
+        width: 250px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .order-summary .summary-item.total {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #000;
+      }
+
+      .payment-info {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .payment-info h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 1.5rem;
+      }
+
+      .payment-info .info-item {
+        margin-bottom: 1rem;
+      }
+
+      .payment-info .info-item span {
+        display: inline-block;
+        min-width: 120px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .notes-section {
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid #e0e0e0;
+      }
+
+      .notes-section h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .notes-section p {
+        margin: 0;
+        color: #555;
+      }
+
+      /* Button styles */
+      .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container fade-in">
+      <div class="form-container">
+        <div class="mb-4">
+          <a
+            href="/admin/<%= user._id %>"
+            class="btn btn-link text-dark p-0 me-3 ms-3"
+            style="font-size: 1.5rem"
+          >
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <span class="fs-4 fw-bold align-middle">Order Details</span>
+        </div>
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 18px">
+          <div class="card-body p-4">
+            <div
+              class="d-flex flex-wrap align-items-center justify-content-between mb-4"
+            >
+              <div class="d-flex align-items-center mb-2 mb-md-0">
+                <i class="fa fa-calendar-alt me-2 text-secondary"></i>
+                <span class="fw-semibold me-3">
+                  <%= moment(order.createdAt).format('ddd, MMM D, YYYY, h:mm A')
+                  %>
+                </span>
+                <span class="text-muted small">
+                  Number #<%= order.orderNumber %>
+                </span>
+              </div>
+              <div>
+                <span
+                  class="badge <%= order.status === 'Delivered' ? 'bg-success' : order.status === 'Cancelled' ? 'bg-danger' : 'bg-secondary' %> px-3 py-2 fs-6"
+                >
+                  <%= order.status || 'N/A' %>
+                </span>
+                <span
+                  class="badge <%= order.paid ? 'bg-success' : 'bg-danger' %> px-3 py-2 fs-6 ms-2"
+                >
+                  <%= order.paid ? 'Paid' : 'Unpaid' %>
+                </span>
+              </div>
+            </div>
+            <div class="row g-4 mb-4">
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-100 bg-white">
+                  <div class="d-flex align-items-center mb-2">
+                    <% if(order.user && order.user.profilePic) { %>
+                    <img
+                      src="<%= order.user.profilePic%>"
+                      alt="User Profile Picture"
+                      class="rounded-circle me-2"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        object-fit: cover;
+                        border: 2px solid #e0e0e0;
+                      "
+                    />
+                    <% } else { %>
+                    <img
+                      src="/uploads/defaultProfilePic.png"
+                      alt="User Profile Picture"
+                      class="rounded-circle me-2"
+                      style="
+                        width: 30px;
+                        height: 30px;
+                        object-fit: cover;
+                        border: 2px solid #e0e0e0;
+                      "
+                    />
+                    <% } %>
+                    <span class="fw-bold">Customer</span>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Name:</span> <%= order.user ?
+                    order.user.name : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Email:</span> <%= order.user ?
+                    order.user.email : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Phone:</span> <%= order.user ?
+                    order.user.phone : 'N/A' %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-100 bg-white">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="fa fa-truck fa-lg text-info me-2"></i>
+                    <span class="fw-bold">Shipping</span>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Shipping:</span> Standard
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Payment method:</span> <%=
+                    order.paid ? 'Card' : 'Cash On Delivery' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Gift:</span>
+                    <span
+                      class="badge <%= order.gift ? 'bg-info text-dark' : 'bg-light text-muted' %>"
+                      ><%= order.gift ? 'Yes' : 'No' %></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-100 bg-white">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="fa fa-map-marker-alt fa-lg text-danger me-2"></i>
+                    <span class="fw-bold">Deliver to</span>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">City:</span> <%=
+                    order.shippingAddress && order.shippingAddress.city ?
+                    order.shippingAddress.city : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Apartment:</span> <%=
+                    order.shippingAddress && order.shippingAddress.apartment ?
+                    order.shippingAddress.apartment : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Address:</span> <%=
+                    order.shippingAddress && order.shippingAddress.address ?
+                    order.shippingAddress.address : 'N/A' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-4">
+              <div class="col-md-8">
+                <div
+                  class="table-responsive mb-3"
+                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
+                >
+                  <table class="table table-borderless align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% order.items.forEach(item => { %>
+                      <tr>
+                        <td style="align-items: center">
+                          <% if(item.fragrance && item.fragrance.image) { %>
+                          <img
+                            src="<%= item.fragrance.image[0] %>"
+                            alt="<%= item.fragrance.name %>"
+                            style="
+                              width: 48px;
+                              height: 48px;
+                              object-fit: cover;
+                              border-radius: 8px;
+                            "
+                          />
+                          <% } else { %>
+                          <span class="text-muted">N/A</span>
+                          <% } %>
+                        </td>
+                        <td><%= item.fragrance?.name || 'N/A' %></td>
+                        <td><%= item.size || '-' %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= item.price || 'N/A' %></td>
+                        <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                  <div class="mb-1">
+                    <span class="text-muted">Subtotal:</span>
+                    <span class="fw-semibold"
+                      >$<%= order.subtotal || order.totalPrice %></span
+                    >
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Shipping:</span>
+                    <span class="fw-semibold"
+                      >$<%= order.shipping || '0.00' %></span
+                    >
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Tax:</span>
+                    <span class="fw-semibold">$<%= order.tax || '0.00' %></span>
+                  </div>
+                  <div class="mb-1 fs-5">
+                    <span class="fw-bold">Total:</span>
+                    <span class="fw-bold text-success"
+                      >$<%= order.totalPrice %></span
+                    >
+                  </div>
+                  <% if(order.paid) { %>
+                  <span class="badge bg-success mt-2">Payment made</span>
+                  <% } %>
+                </div>
+                <% if(order.note) { %>
+                <div class="border rounded-3 p-3 bg-light mt-4">
+                  <div class="fw-bold mb-1">Notes</div>
+                  <div><%= order.note %></div>
+                </div>
+                <% } %>
+              </div>
+              <div class="col-md-4">
+                <div class="border rounded-3 p-3 h-auto bg-white">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="fa fa-credit-card fa-lg text-primary me-2"></i>
+                    <span class="fw-bold">Payment info</span>
+                  </div>
+                  <div class="mb-1">
+                    <% if(order.paid && order.paymentInfo) { %>
+                    <i
+                      class="fa-brands fa-cc-<%= order.paymentInfo && order.paymentInfo.scheme === 'mastercard' ? 'mastercard' : 'visa' %> text-danger me-2"
+                    ></i>
+                    <span>
+                      <%= order.paymentInfo && order.paymentInfo.scheme ?
+                      order.paymentInfo.scheme.charAt(0).toUpperCase() +
+                      order.paymentInfo.scheme.slice(1) : 'Card' %> - <%=
+                      order.paymentInfo && order.paymentInfo.type ?
+                      order.paymentInfo.type : 'Type Unknown' %>
+                    </span>
+                    <% } else { %>
+                    <span class="text-muted">Cash On Delivery</span>
+                    <% } %>
+                  </div>
+
+                  <% if(order.paid && order.paymentInfo) { %>
+                  <div class="mb-1">
+                    <span class="text-muted">Bank:</span> <%= order.paymentInfo
+                    && order.paymentInfo.bank.name ? order.paymentInfo.bank.name
+                    : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Brand:</span> <%= order.paymentInfo
+                    && order.paymentInfo.brand ? order.paymentInfo.brand : 'N/A'
+                    %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Country:</span> <%=
+                    order.paymentInfo && order.paymentInfo.country.name ?
+                    order.paymentInfo.country.name : 'N/A' %>
+                  </div>
+                  <div class="mb-1">
+                    <span class="text-muted">Currency:</span> <%=
+                    order.paymentInfo && order.paymentInfo.country.currency ?
+                    order.paymentInfo.country.currency : 'EGP' %>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <a
+            href="/admin/<%= user._id %>"
+            class="btn btn-secondary ButtonDicoration"
+          >
+            <i class="fa fa-arrow-left"></i> Back
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

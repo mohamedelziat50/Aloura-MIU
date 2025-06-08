@@ -23,7 +23,7 @@ export const createFragrance = async (req, res) => {
       tags,
     } = req.body;
 
-    const trimmedName = name.trim();
+    const trimmedName = name.trim().replace(/\s+/g, " ");
     const fragrance = await Fragrance.findOne({
       name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
     });
@@ -115,19 +115,36 @@ export const updateFragrance = async (req, res) => {
       backgroundImage2,
     } = req.body;
 
+    //Check for duplicate name
+    const trimmedName = name.trim().replace(/\s+/g, " ");
+    const existingFragrance = await Fragrance.findOne({
+     _id: { $ne: id }, // Exclude current fragrance
+      name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
+    });
+    if (existingFragrance) {
+      return res.status(400).json({ message: "A Fragrance with this name already exists" });
+    }
+
     // Convert notes and tags from comma-separated strings
     const top = topNotes.split(",").map((n) => n.trim());
     const mid = middleNotes.split(",").map((n) => n.trim());
     const base = baseNotes.split(",").map((n) => n.trim());
     const tagList = tags.split(",").map((t) => t.trim());
 
-    // Convert sizes array and build sizeOptions
+    // Convert sizes array and build sizeOptions (deduplicate by size)
     const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
-    const sizeOptions = sizeArray.map((size) => ({
-      size: parseInt(size),
-      price: parseFloat(req.body[`price${size}`] || 0),
-      quantity: parseInt(req.body[`quantity${size}`] || 0),
-    }));
+    const sizeMap = new Map();
+    sizeArray.forEach((size) => {
+      const sizeInt = parseInt(size);
+      // Always use the latest value for a given size
+      // To avoid Duplication is handled through the .set method
+      sizeMap.set(sizeInt, {
+        size: sizeInt,
+        price: parseFloat(req.body[`price${size}`] || 0),
+        quantity: parseInt(req.body[`quantity${size}`] || 0),
+      });
+    });
+    const sizeOptions = Array.from(sizeMap.values());
 
     // Find the fragrance
     const fragrance = await Fragrance.findById(id);
@@ -177,8 +194,20 @@ export const updateFragrance = async (req, res) => {
 // Delete
 export const deleteFragrance = async (req, res) => {
   try {
+    // Check if this fragrance is in any order
+    const Order = (await import("../models/order.js")).default;
+    const ordersWithFragrance = await Order.find({
+      "items.fragrance": req.params.id,
+    }).limit(1); // Only need to know if at least one exists
+
+    if (ordersWithFragrance.length > 0) {
+      return res.status(400).json({
+        message: "❌ Cannot delete: This fragrance is part of an existing order.",
+      });
+    }
+
     await Fragrance.findByIdAndDelete(req.params.id);
-    res.json({ message: "Fragrance deleted" });
+    res.json({ message: "✅ Fragrance deleted" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

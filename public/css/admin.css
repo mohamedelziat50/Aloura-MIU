@@ -219,7 +219,7 @@ tr:nth-child(even) {
 }
 
 .product-btn.delete {
-  background-color: #ffffff;
+  background-color: transparent;
   color: #000000;
 }
 
@@ -1106,6 +1106,18 @@ canvas {
   padding: 8px;
   border-radius: 4px;
   margin-bottom: 8px;
+  max-height: 100px;
+  overflow-y: auto;
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.note:hover {
+  scrollbar-width: thin;  /* Firefox */
+}
+
+.note::-webkit-scrollbar {
+  width: 0px;  /* Chrome, Safari, Opera */
 }
 
 .note p {
@@ -1262,6 +1274,10 @@ canvas {
   border-radius: 12px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-height: 600px; /* Fixed height for all cards */
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .product-card:hover {
@@ -1276,6 +1292,7 @@ canvas {
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid #000000;
+  flex-shrink: 0; /* Prevent avatar from shrinking */
 }
 
 .product-avatar img {
@@ -1287,8 +1304,31 @@ canvas {
 .product-info {
   text-align: center;
   margin-bottom: 15px;
+  max-height: 300px;
+  
+  scrollbar-width: thin;
+  padding: 0 5px;
+
+}
+/*
+.product-info::-webkit-scrollbar {
+  width: 4px;
 }
 
+.product-info::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.product-info::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+.product-info::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/**/
 .product-name {
   font-size: 18px;
   color: #333;
@@ -1299,7 +1339,7 @@ canvas {
 .product-email {
   color: #666;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   word-break: break-all;
 }
 
@@ -1338,10 +1378,11 @@ canvas {
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 1px;
 }
 
 .product-btn.edit {
-  background-color: #ffffff;
+  background-color: transparent;
   color: #000000;
 }
 
@@ -1357,6 +1398,54 @@ canvas {
 .modal-dialog {
   max-height: 90vh;
   overflow-y: auto;
+}
+
+.release-date {
+  margin: 15px 0;
+  text-align: right;
+}
+
+.product-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+.product-date i {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.date-divider {
+  text-align: center;
+  margin: 15px 0;
+  position: relative;
+}
+
+.date-divider::before,
+.date-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: #e9ecef;
+}
+
+.date-divider::before {
+  left: 0;
+}
+
+.date-divider::after {
+  right: 0;
 }
 
 @media (max-width: 1024px) {
@@ -1775,4 +1864,103 @@ canvas {
   .d-flex.justify-content-between.align-items-center.mb-3 form {
     min-width: 120px;
   }
+}
+
+.quantity-info {
+  margin: 15px 0;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.stock-header h4 {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.size-quantities {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+.quantity-badge.low-stock {
+  background: #fff3f3;
+  color: #dc3545;
+  border-color: #ffcdd2;
+}
+
+.product-notes {
+  margin-top: 15px;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+.product-date i {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.date-divider {
+  text-align: center;
+  margin: 15px 0;
+  position: relative;
+}
+
+.date-divider::before,
+.date-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: #e9ecef;
+}
+
+.date-divider::before {
+  left: 0;
+}
+
+.date-divider::after {
+  right: 0;
 }

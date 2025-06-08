@@ -121,7 +121,7 @@
           <!-- Size Selection -->
           <div class="size-selection">
             <% const size30 = fragrance.sizeOptions.find(o => o.size === 30); %>
-            <% if (size30) { %>
+            <% if (size30 && size30.quantity > 0) { %>
             <input
               type="radio"
               name="size"
@@ -136,7 +136,7 @@
               >30ml (Out of Stock)</label
             >
             <% } %> <% const size50 = fragrance.sizeOptions.find(o => o.size ===
-            50); %> <% if (size50) { %>
+            50); %> <% if (size50 && size50.quantity > 0) { %>
             <input
               type="radio"
               name="size"
@@ -151,7 +151,7 @@
               >50ml (Out of Stock)</label
             >
             <% } %> <% const size100 = fragrance.sizeOptions.find(o => o.size
-            === 100); %> <% if (size100) { %>
+            === 100); %> <% if (size100 && size100.quantity > 0) { %>
             <input
               type="radio"
               name="size"

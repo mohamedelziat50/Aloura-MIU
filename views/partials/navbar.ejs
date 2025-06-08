@@ -1,7 +1,9 @@
 <!-- Navbar-specific CSS -->
 <link rel="stylesheet" href="./css/navBar.css" />
 
-<script type="module" src="/js/modal.js"></script>
+<% if (!user) { %>
+  <script type="module" src="/js/modal.js"></script>
+  <% } %>
 
 <!-- Translate related -->
 <script>
@@ -109,7 +111,7 @@
       <li><a href="/our-story">Our Story</a></li>
 
       <% if (user != null && user.role =='admin') { %>
-        <li><a href="/admin/:<%= user.id %>">Admin</a></li>
+        <li><a href="/admin/<%= user.id %>">Admin</a></li>
       <% } %>
     </ul>
   </div>

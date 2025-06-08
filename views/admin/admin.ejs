@@ -41,9 +41,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-   <!-- moment -->
+    <!-- moment -->
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-
   </head>
 
   <body>
@@ -204,20 +203,35 @@
                 <h3 class="product-name"><%= product.name %></h3>
                 <p class="product-email"><%= product.category %></p>
                 <p class="product-role"><%= product.gender %></p>
-                <div class="product-notes">
-                  <div class="product-header">
-                    <h4>Customer Notes</h4>
+                <div class="quantity-info">
+                  <div class="stock-header">
+                    <h4 class="stock-title">Stock Level</h4>
                   </div>
+                  <div class="size-quantities">
+                    <% const displayedSizes = new Set();
+                    product.sizeOptions.filter(option => option.quantity >
+                    0).forEach(option => { if (!displayedSizes.has(option.size))
+                    { displayedSizes.add(option.size); %>
+                    <div
+                      class="quantity-badge <%= option.quantity < 5 ? 'low-stock' : '' %>"
+                    >
+                      <%= option.size %>ml: <%= option.quantity %>
+                    </div>
+                    <% } }); %>
+                  </div>
+                </div>
+                <div class="product-notes">
                   <div class="notes-list">
                     <div class="note">
                       <p><%= product.description %></p>
-                      <span class="product-date">
-                        <%=
-                        moment(product.releaseDate).format(("dddd,MMMMDoYYYY"))
-                        %>
-                      </span>
                     </div>
                   </div>
+                </div>
+                <div class="date-divider">
+                  <span class="product-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <%= moment(product.releaseDate).format("MMM DD, YYYY") %>
+                  </span>
                 </div>
               </div>
               <div class="product-actions">
@@ -298,45 +312,77 @@
             </div>
           </div>
 
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <form class="d-flex" role="search" id="orderSearchForm">
+              <input
+                class="form-control me-2"
+                type="search"
+                name="search"
+                id="orderSearchInput"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn ButtonDicoration" type="submit">Search</button>
+            </form>
+          </div>
+
           <!-- Orders Table -->
+          <% if (orders.length === 0) { %>
+          <h1 style="text-align: center; position: relative; top: 80px">
+            No Data To Show
+          </h1>
+          <% } else { %>
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Product</th>
+                <th>Number</th>
+                <th>User</th>
+                <th>Products</th>
+                <th>Date</th>
                 <th>Status</th>
+                <th>Paid</th>
                 <th>Total</th>
                 <th>Gift</th>
+                <th style="text-align: center">Action</th>
               </tr>
             </thead>
             <tbody>
+              <% orders.forEach(order => { %>
               <tr>
-                <td>#1001</td>
-                <td>Aya</td>
-                <td>Dior Sauvage</td>
+                <td>#<%= order.orderNumber %></td>
+                <td><%= order.user.name %></td>
+                <td>
+                  <% order.items.forEach(item => { %> <%= item.quantity %> × <%=
+                  item.fragrance.name %> <br />
+                  <% }) %>
+                </td>
+                <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
                 <td><span class="status delivered">Delivered</span></td>
-                <td>$120</td>
+                <td><%= (order.paid)? "Yes": "No" %></td>
+                <td>$<%= order.totalPrice %></td>
                 <td>No</td>
+                <td class="actionlist">
+                  <a
+                    class="btn ButtonDicoration btn-sm"
+                    href="/order/<%= order._id %>"
+                    title="View Order"
+                  >
+                    <i class="fa-solid fa-list"></i>
+                  </a>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    data-order-id="<%= order._id %>"
+                    onclick="deleteOrder(this)"
+                    title="Delete Order"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </td>
               </tr>
-              <tr>
-                <td>#1005</td>
-                <td>Ali</td>
-                <td>Chanel No. 5</td>
-                <td><span class="status shipped">Shipped</span></td>
-                <td>$150</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>#1008</td>
-                <td>Fatima</td>
-                <td>Spice Bomb</td>
-                <td><span class="status pending">Pending</span></td>
-                <td>$95</td>
-                <td>Yes</td>
-              </tr>
+              <% }) %>
             </tbody>
           </table>
+          <% } %>
         </section>
 
         <!-- Users Section -->
@@ -581,7 +627,7 @@
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" style="text-align: center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -823,7 +869,7 @@
                   <label>Site Logo</label>
                   <div class="upload-area">
                     <img
-                      src="https://via.placeholder.com/150x50"
+                      src="https://placehold.co/150x50/FFFFFF/000000?text=Logo"
                       alt="Current Logo"
                       class="current-logo"
                     />
@@ -968,43 +1014,6 @@ Welcome to our online store featuring the best products at competitive prices.</
       </div>
     </div>
   </body>
-  <!-- Delete Fragrance Confirmation Modal -->
-  <div class="modal fade" id="deleteFragranceModal" tabindex="-1" aria-labelledby="deleteFragranceModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">        <div class="modal-header">
-          <h5 class="modal-title" id="deleteFragranceModalLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete "<span id="fragranceNameInModal"></span>"? This action cannot be undone.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteFragrance">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Delete User Confirmation Modal -->
-  <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteUserModalLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete user "<span id="userNameInModal"></span>"? This action cannot be undone.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteUser">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // Mobile menu functionality
     const menuToggle = document.getElementById("menuToggle");
@@ -1060,5 +1069,9 @@ Welcome to our online store featuring the best products at competitive prices.</
     } else {
       menuToggle.style.display = "none";
     }
+  </script>
+  <!-- Passed for the delete functions to be used when their fetch API's are done for redirection -->
+  <script>
+    window.currentAdminId = "<%= user._id %>";
   </script>
 </html>
