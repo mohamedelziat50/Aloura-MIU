@@ -168,17 +168,17 @@ tr:nth-child(even) {
 
 .status.delivered {
   background-color: #f1f1f1;
-  color: #000000;
+  color: #28a745; /* green */
 }
 
 .status.pending {
-  background-color: #ffffff;
+  background-color: #f1f1f1;
   color: #000000;
 }
 
-.status.shipped {
+.status.cancelled {
   background-color: #f1f1f1;
-  color: #000000;
+  color: #dc3545;
 }
 
 .section {

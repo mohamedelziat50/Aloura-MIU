@@ -157,6 +157,45 @@
   background: #121212;
   color: #fff;
 }
+.order-cancel-btn {
+  margin-left: 10px;
+  padding: 4px 12px;
+  background: #fff;
+  color: #b52a2a;
+  border: 1px solid #b52a2a;
+  border-radius: 4px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.order-cancel-btn:hover {
+  background: #b52a2a;
+  color: #fff;
+}
+.order-cancel-inline-btn {
+  display: inline-block;
+  margin-left: 8px;
+  background: #fff;
+  color: #000;
+  border: 1px solid #121212;
+  padding: 8px;
+  font-size: 0.7rem;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+  margin-top: 3px;
+}
+.order-cancel-inline-btn:hover {
+  background: #b52a2a;
+  color: #fff;
+  border-color: #b52a2a;
+}
 .orders-header-bar {
   display: flex;
   align-items: center;
@@ -193,6 +232,28 @@
   background: #121212;
   color: #fff;
 }
+.order-status-label {
+  display: block;
+  text-align: right;
+  margin-top: 2px;
+  font-weight: 600;
+  font-size: 1em;
+}
+.order-status-label.delivered {
+  color: #218838; /* darker green */
+}
+.order-status-label.cancelled {
+  color: #b52a2a; /* darker red */
+}
+.order-cancel-msg {
+  display: inline-block;
+  margin-left: 10px;
+  color: #888;
+  font-size: 0.97em;
+  font-style: italic;
+  vertical-align: middle;
+}
+
 @media (max-width: 800px) {
   .order-container {
     padding: 10px 2vw 30px;

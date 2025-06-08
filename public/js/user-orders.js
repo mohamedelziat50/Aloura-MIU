@@ -1,3 +1,5 @@
+import showFunToast from "/js/toast.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("orderSearchInput");
   const ordersList = document.querySelector(".user-orders-list");
@@ -106,4 +108,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 300);
   });
+
+  // User's cancel order
+  window.cancelOrder = async (orderId, status) => { 
+    try {
+      const response = await fetch(`/api/orders/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, orderId })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          showFunToast(data.message || "✅ Order cancelled successfully!", "green");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          showFunToast(data.error || "❗ Failed to cancel order status.", "red");
+        }
+    }
+    catch (error) {
+        showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  }
 });
+

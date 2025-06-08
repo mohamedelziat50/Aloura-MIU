@@ -356,8 +356,8 @@
                   item.fragrance.name %> <br />
                   <% }) %>
                 </td>
-                <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
-                <td><span class="status delivered">Delivered</span></td>
+                <td><%= moment(order.createdAt).format('LLL') %></td>
+                <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
                 <td>No</td>
@@ -369,11 +369,29 @@
                   >
                     <i class="fa-solid fa-list"></i>
                   </a>
+                  <!-- Mark as Delivered -->
+                  <button
+                    class="btn btn-success btn-sm"
+                    title="Mark as Delivered"
+                    onclick="markOrderStatus('<%= order._id %>', 'Delivered')"
+                  >
+                    <i class="fa-solid fa-circle-check"></i>
+                  </button>
+                  <!-- Mark as Cancelled -->
+                  <button
+                    class="btn btn-danger btn-sm"
+                    title="Mark as Cancelled"
+                    onclick="markOrderStatus('<%= order._id %>', 'Cancelled')"
+                  >
+                    <i class="fa-solid fa-ban"></i>
+                  </button>
+                  <!-- Delete Order button -->
                   <button
                     class="btn btn-danger btn-sm"
                     data-order-id="<%= order._id %>"
                     onclick="deleteOrder(this)"
                     title="Delete Order"
+                    style=""
                   >
                     <i class="fa-solid fa-xmark"></i>
                   </button>
@@ -624,6 +642,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
+                  <th scope="col">Subscriber</th>
                   <th scope="col">Verified</th>
                   <th scope="col">Last updated</th>
                   <th scope="col">Role</th>
@@ -637,7 +656,10 @@
                   <td><%= user.name %></td>
                   <td><%= user.email %></td>
                   <td><%= user.phone %></td>
-                  <td><%= user.isVerified %></td>
+                  <td>
+                    <%= user.subscriberList ? "Subscribed" : "Not Subscribed" %>
+                  </td>
+                  <td><%= user.isVerified ? "Verified" : "Not Verified" %></td>
                   <td><%= moment(user.updatedAt).fromNow() %></td>
                   <td><%= user.role %></td>
                   <td class="actionlist">
