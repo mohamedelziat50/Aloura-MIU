@@ -253,14 +253,6 @@
   font-style: italic;
   vertical-align: middle;
 }
-.order-status-action-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  margin-top: 2px;
-  text-align: right;
-  flex-direction: column;
-}
 
 @media (max-width: 800px) {
   .order-container {
