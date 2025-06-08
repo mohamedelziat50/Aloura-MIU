@@ -535,7 +535,13 @@ document.addEventListener("DOMContentLoaded", () => {
               <td>${order.user.name}</td>
               <td>${products}</td>
               <td>${moment(order.createdAt).format("D MMMM YYYY")}</td>
-              <td><span class="status delivered">Delivered</span></td>
+              <td><span class="status ${
+                order.status === "Delivered"
+                  ? "delivered"
+                  : order.status === "Cancelled"
+                  ? "cancelled"
+                  : "pending"
+              }">${order.status}</span></td>
               <td>${order.paid ? "Yes" : "No"}</td>
               <td>$${order.totalPrice}</td>
               <td>No</td>
@@ -545,6 +551,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 }" title="View Order">
                   <i class="fa-solid fa-list"></i>
                 </a>
+                <button class="btn btn-success btn-sm" title="Mark as Delivered" onclick="markOrderStatus('${
+                  order._id
+                }', 'Delivered')">
+                  <i class="fa-solid fa-circle-check"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" title="Mark as Cancelled" onclick="markOrderStatus('${
+                  order._id
+                }', 'Cancelled')">
+                  <i class="fa-solid fa-ban"></i>
+                </button>
                 <button class="btn btn-danger btn-sm" data-order-id="${
                   order._id
                 }" onclick="deleteOrder(this)" title="Delete Order">
@@ -593,29 +609,29 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   // Order status
-  window.markOrderStatus = async (orderId, status) => { 
+  window.markOrderStatus = async (orderId, status) => {
     try {
       const response = await fetch(`/api/orders/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status, orderId })
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, orderId }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-          showFunToast(data.message || "✅ Order status updated successfully!", "green");
-          setTimeout(() => {
-            window.location.href = `/admin/${window.currentAdminId}`;
-          }, 1000);
-        } else {
-          showFunToast(data.error || "❗ Failed to update order status.", "red");
-        }
+        showFunToast(
+          data.message || "✅ Order status updated successfully!",
+          "green"
+        );
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`;
+        }, 1000);
+      } else {
+        showFunToast(data.error || "❗ Failed to update order status.", "red");
+      }
+    } catch (error) {
+      showFunToast(error.message || "❗ An error occurred.", "red");
     }
-    catch (error) {
-        showFunToast(error.message || "❗ An error occurred.", "red");
-    }
-  }
-
+  };
 });
-
