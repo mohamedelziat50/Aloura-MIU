@@ -179,15 +179,17 @@ export const getaccount = async (req, res) => {
 
 export const getUserOrders = async (req, res) => {
   // Find all user orders by his id (passed through auth middleware) + Populate the order because we're about to use all the info
-    const orders = await OrderModel.find({ user: req.params.id }).populate('user items.fragrance')
+  const orders = await OrderModel.find({ user: req.params.id }).populate(
+    "user items.fragrance"
+  );
 
-    // If order doesn't exist
-    if(!orders) {
-        return res.status(400).json({ message: "❌ Orders not found." });
-    }
+  // If order doesn't exist
+  if (!orders) {
+    return res.status(400).json({ message: "❌ Orders not found." });
+  }
 
-    // Otherwise pass the order that mtached the id and render the page
-    res.render("user-orders", {orders: orders, moment: moment})
+  // Otherwise pass the order that mtached the id and render the page
+  res.render("user-orders", { orders: orders, moment: moment });
 };
 
 export const getOrder = async (req, res) => {

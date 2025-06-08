@@ -1,6 +1,6 @@
 // controllers/giftingController.js
-import Gift from '../models/gifting.js';
-import UserModel from '../models/user.js';
+import Gift from "../models/gifting.js";
+import UserModel from "../models/user.js";
 
 export const createGift = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ export const createGift = async (req, res) => {
       card,
       recipientName,
       message,
-      totalPrice // ✅ Make sure this is included
+      totalPrice, // ✅ Make sure this is included
     } = req.body;
 
     const gift = new Gift({
@@ -20,7 +20,7 @@ export const createGift = async (req, res) => {
       card,
       recipientName,
       message,
-      totalPrice // ✅ Store it in the database
+      totalPrice, // ✅ Store it in the database
     });
 
     await gift.save();
@@ -28,14 +28,18 @@ export const createGift = async (req, res) => {
     res.status(201).json(gift);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Something went wrong while creating the gift order' });
+    res
+      .status(500)
+      .json({ error: "Something went wrong while creating the gift order" });
   }
 };
 
 // Get all gifts for the logged-in user
 export const getAllGifts = async (req, res) => {
   try {
-    const gifts = await Gift.find({ user: req.user._id }).sort({ createdAt: -1 });
+    const gifts = await Gift.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(gifts);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -46,7 +50,7 @@ export const getAllGifts = async (req, res) => {
 export const getGiftById = async (req, res) => {
   try {
     const gift = await Gift.findOne({ _id: req.params.id, user: req.user._id });
-    if (!gift) return res.status(404).json({ error: 'Gift not found' });
+    if (!gift) return res.status(404).json({ error: "Gift not found" });
     res.status(200).json(gift);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -62,7 +66,7 @@ export const updateGift = async (req, res) => {
       { new: true }
     );
 
-    if (!gift) return res.status(404).json({ error: 'Gift not found' });
+    if (!gift) return res.status(404).json({ error: "Gift not found" });
 
     res.status(200).json(gift);
   } catch (err) {
@@ -76,12 +80,12 @@ export const deleteGift = async (req, res) => {
     const gift = await Gift.findOne({ _id: req.params.id, user: req.user._id });
 
     if (!gift) {
-      return res.status(404).json({ error: 'Gift not found' });
+      return res.status(404).json({ error: "Gift not found" });
     }
 
     await Gift.findByIdAndDelete(gift._id);
 
-    res.status(200).json({ message: 'Gift deleted successfully' });
+    res.status(200).json({ message: "Gift deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
