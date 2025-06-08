@@ -274,9 +274,13 @@ export const updateOrderStatus = async (req, res) => {
     if (!order) return res.status(400).json({ error: "Order not found" });
 
     // Update status
-    if(status) order.status = status
-    else return res.status(400).json({ error: "Status not found" });
-    
+    if (!status) {
+      return res.status(400).json({ error: "Status not found" });
+    }
+    if (order.status === status) {
+      return res.status(400).json({ error: `Order is already marked as '${status}'.` });
+    }
+    order.status = status;
     // Save the result
     await order.save()
 
