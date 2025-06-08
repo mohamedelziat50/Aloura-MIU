@@ -591,4 +591,31 @@ window.addEventListener("DOMContentLoaded", () => {
       showFunToast(error.message || "❗ An error occurred.", "red");
     }
   };
+
+  // Order status
+  window.markOrderStatus = async (orderId, status) => { 
+    try {
+      const response = await fetch(`/api/orders/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, orderId })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          showFunToast(data.message || "✅ Order status updated successfully!", "green");
+          setTimeout(() => {
+            window.location.href = `/admin/${window.currentAdminId}`;
+          }, 1000);
+        } else {
+          showFunToast(data.error || "❗ Failed to update order status.", "red");
+        }
+    }
+    catch (error) {
+        showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  }
+
 });
+

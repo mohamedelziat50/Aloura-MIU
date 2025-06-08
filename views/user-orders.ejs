@@ -123,6 +123,18 @@
                 <div class="user-order-links">
                   <div class="user-order-info order-id-info">
                   <span class="order-label" style="text-align: right;">ORDER #<%= order.orderNumber %></span>
+                  <% 
+                    const now = new Date();
+                    const created = new Date(order.createdAt);
+                    const hoursSinceOrder = (now - created) / (1000 * 60 * 60);
+                  %>
+                  <% if(order.status === 'Pending' && hoursSinceOrder < 24) { %>
+                      <button class="order-cancel-inline-btn" onclick="cancelOrder('<%= order._id %>', 'Cancelled')">Pending - Cancel Order?</button>    
+                  <% } else if(order.status === 'Pending' && hoursSinceOrder >= 24) { %>
+                  <span class="order-cancel-msg">You can only cancel within 24 hours of placing the order.</span>  
+                  <% } else if(order.status === 'Delivered' || order.status === 'Cancelled') { %>
+                    <span class="order-status-label <%= order.status === 'Delivered' ? 'delivered' : 'cancelled' %>"><%= order.status %></span>
+                  <% } %>
                 </div>
                 </div>
               </div>
@@ -150,7 +162,7 @@
     </div>
 
     <%- include('partials/footer.ejs') %>
-    <script src="/js/user-orders.js"></script>
+    <script type="module" src="/js/user-orders.js"></script>
     <!-- END OF BODY SCRIPTS -->
   </body>
 </html>
