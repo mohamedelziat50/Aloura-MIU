@@ -299,58 +299,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const addToCartButtons = document.querySelectorAll(".card-button");
-
-  addToCartButtons.forEach((button) => {
-    button.addEventListener("click", async function () {
-      const card = this.closest(".card");
-      const cardPriceContainer = card.querySelector(".card-price");
-
-      const priceText = cardPriceContainer
-        ?.querySelector(".price")
-        ?.textContent?.trim();
-      const mlText = cardPriceContainer
-        ?.querySelector(".ml")
-        ?.textContent?.trim();
-
-      if (!priceText || !mlText) {
-        alert("Missing price or size.");
-        return;
-      }
-
-      const price = parseFloat(priceText);
-      const size = mlText.replace("▼", "").trim();
-      const productId = this.getAttribute("productId");
-
-      if (!productId) {
-        alert("Missing product ID.");
-        return;
-      }
-
-      const data = { productId, size, price };
-      console.log("Sending to backend:", data);
-
-      try {
-        const response = await fetch("/api/users/addToCart", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          updateCartUI(result);
-        } else {
-          alert("Error: " + result.message);
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    });
-  });
-});
 
 // Function to update the UI (e.g., cart count, cart items list, etc.)
 function updateCartUI(result) {
@@ -364,27 +312,33 @@ function updateCartUI(result) {
   const cartItemsContainer = document.querySelector(".cart-items-container");
   if (!cartItemsContainer) return;
 
-  // If cart is empty, show empty state
-  if (result.cartCount === 0) {
-    cartItemsContainer.innerHTML = `
-      <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-        <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-        <h4 class="mt-3">Your cart is empty.</h4>
-      </div>
-    `;
-    return;
-  }
+  // Fetch the latest cart and gifts data
+  Promise.all([
+    fetch("/api/users/cart").then(res => res.json()),
+    fetch("/api/gifting").then(res => res.json())
+  ])
+    .then(([cartData, giftsData]) => {
+      const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
+      const hasGifts = giftsData && giftsData.length > 0;
+      const isEmpty = !hasCartItems && !hasGifts;
 
-  // Fetch the latest cart data
-  fetch("/api/users/cart")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success && data.cart) {
-        // Clear existing items
-        cartItemsContainer.innerHTML = "";
+      // If both cart and gifts are empty, show empty state
+      if (isEmpty) {
+        cartItemsContainer.innerHTML = `
+          <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+            <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+            <h4 class="mt-3">Your cart is empty.</h4>
+          </div>
+        `;
+        return;
+      }
 
-        // Add each cart item
-        data.cart.forEach((item) => {
+      // Clear existing items
+      cartItemsContainer.innerHTML = "";
+
+      // Add cart items
+      if (hasCartItems) {
+        cartData.cart.forEach((item) => {
           const cartItemHTML = `
             <div class="row cart-item mb-3" data-price="${item.price}">
               <div class="col-md-3">
@@ -411,21 +365,48 @@ function updateCartUI(result) {
           `;
           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
         });
-
-        // Update subtotal
-        updateSubtotal();
-
-        // Reattach event listeners for the new buttons
-        attachCartEventListeners();
-        showFunToast(
-          "✅ Item successfully added to your cart!",
-          "green",
-          "left"
-        );
       }
+
+      // Add gift items
+      if (hasGifts) {
+        giftsData.forEach((gift) => {
+          if (gift && gift.perfume) {
+            const giftItemHTML = `
+              <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
+                <div class="col-md-3">
+                  <img src="${gift.perfume.image && gift.perfume.image[0] ? gift.perfume.image[0] : '/images/default-perfume.jpg'}" 
+                       alt="${gift.perfume.name}" 
+                       class="img-fluid rounded" />
+                </div>
+                <div class="col-md-5 mt-3">
+                  <h5 class="card-title">${gift.perfume.name}</h5>
+                  <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
+                  ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
+                </div>
+                <div class="col-md-4 d-flex flex-column">
+                  <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
+          }
+        });
+      }
+
+      // Update subtotal
+      updateSubtotal();
+
+      // Reattach event listeners for the new buttons
+      attachCartEventListeners();
+      showFunToast("✅ Item successfully added to your cart!", "green", "left");
     })
     .catch((error) => {
-      console.error("Error fetching cart data:", error);
+      console.error("Error fetching cart and gifts data:", error);
     });
 }
 
@@ -498,17 +479,26 @@ function attachCartEventListeners() {
     button.addEventListener("click", async function () {
       const fragranceId = this.getAttribute("data-fragrance-id");
       const size = this.getAttribute("data-size");
+      const giftId = this.getAttribute("data-gift-id");
       const cartItem = this.closest(".cart-item");
-      const cartItemsContainer = document.querySelector(
-        ".cart-items-container"
-      );
+      const cartItemsContainer = document.querySelector(".cart-items-container");
 
       try {
-        const res = await fetch("/api/users/removefromcart", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fragranceId, size }),
-        });
+        let res;
+        if (giftId) {
+          // Handle gift removal
+          res = await fetch(`/api/gifting/${giftId}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          // Handle regular cart item removal
+          res = await fetch("/api/users/removefromcart", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fragranceId, size }),
+          });
+        }
 
         const data = await res.json();
         if (data.success) {
@@ -516,8 +506,7 @@ function attachCartEventListeners() {
           updateSubtotal();
 
           // Check if this was the last item
-          const remainingItems =
-            cartItemsContainer.querySelectorAll(".cart-item");
+          const remainingItems = cartItemsContainer.querySelectorAll(".cart-item");
           if (remainingItems.length === 0) {
             cartItemsContainer.innerHTML = `
               <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
@@ -543,8 +532,14 @@ function updateSubtotal() {
 
   cartItems.forEach((item) => {
     const price = parseFloat(item.getAttribute("data-price"));
-    const quantity = parseInt(item.querySelector(".quantity-input").value);
-    subtotal += price * quantity;
+    const quantityInput = item.querySelector(".quantity-input");
+    if (quantityInput) {
+      const quantity = parseInt(quantityInput.value);
+      subtotal += price * quantity;
+    } else {
+      // For gift items that don't have quantity
+      subtotal += price;
+    }
   });
 
   const subtotalElement = document.querySelector(".cart-info-subtotal span");
@@ -630,4 +625,72 @@ clearSearch.addEventListener("click", () => {
       card.style.display = "";
     });
   }, 50); // 300 milliseconds delay
+});
+
+// Add to cart button event listeners
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM Content Loaded - Initializing add to cart buttons");
+  const addToCartButtons = document.querySelectorAll(".card-button");
+  console.log("Found add to cart buttons:", addToCartButtons.length);
+
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", async function (e) {
+      e.preventDefault(); // Prevent any default button behavior
+      console.log("Add to cart button clicked");
+      
+      const card = this.closest(".card");
+      const cardPriceContainer = card.querySelector(".card-price");
+
+      const priceText = cardPriceContainer
+        ?.querySelector(".price")
+        ?.textContent?.trim();
+      const mlText = cardPriceContainer
+        ?.querySelector(".ml")
+        ?.textContent?.trim();
+
+      console.log("Price text:", priceText);
+      console.log("ML text:", mlText);
+
+      if (!priceText || !mlText) {
+        alert("Missing price or size.");
+        return;
+      }
+
+      const price = parseFloat(priceText);
+      const size = mlText.replace("▼", "").trim();
+      const productId = this.getAttribute("productId");
+
+      console.log("Product ID:", productId);
+      console.log("Size:", size);
+      console.log("Price:", price);
+
+      if (!productId) {
+        alert("Missing product ID.");
+        return;
+      }
+
+      const data = { productId, size, price };
+      console.log("Sending to backend:", data);
+
+      try {
+        const response = await fetch("/api/users/addToCart", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log("Backend response:", result);
+
+        if (result.success) {
+          updateCartUI(result);
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("Error adding item to cart. Please try again.");
+      }
+    });
+  });
 });
