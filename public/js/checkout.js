@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // The checkout button is outside the form, so handle it to properly submit
   checkoutButton.addEventListener("click", function () {
-    // Use requestSubmit to trigger the submit event and allow JS handler -> not .submit( does default form submission)
+    // Use requestSubmit to trigger the submit event and allow JS handler
     form.requestSubmit();
   });
 
@@ -170,10 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return showFunToast("❌ Enter a valid email address.", "red");
     }
     if (!phone || !/^\d{8,15}$/.test(phone)) {
-      return showFunToast(
-        "❌ Enter a valid phone number (digits only).",
-        "red"
-      );
+      return showFunToast("❌ Enter a valid phone number (digits only).", "red");
     }
     if (!address) return showFunToast("❌ Address is required.", "red");
     if (!apartment) return showFunToast("❌ Apartment is required.", "red");
@@ -187,20 +184,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const paid = !codCheckbox.checked;
 
     let cardData = undefined;
-    let binData = undefined; // Declare binData here
+    let binData = undefined;
 
     // === CARD VALIDATION SECTION ===
     if (paid) {
       const rawCardNumber = document.getElementById("card-number").value.trim();
-      const cardNumber = rawCardNumber.replace(/\D/g, ""); // remove spaces and non-digits
+      const cardNumber = rawCardNumber.replace(/\D/g, "");
       const cardName = document.getElementById("card-name").value.trim();
       const expiry = document.getElementById("expiry").value.trim();
       const cvv = document.getElementById("cvv").value.trim();
 
       // === Field presence checks ===
       if (!cardName) return showFunToast("❌ Card name is required.", "red");
-      if (!cardNumber)
-        return showFunToast("❌ Card number is required.", "red");
+      if (!cardNumber) return showFunToast("❌ Card number is required.", "red");
       if (!expiry) return showFunToast("❌ Expiry date is required.", "red");
       if (!cvv) return showFunToast("❌ CVV is required.", "red");
 
@@ -237,21 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const currentMonth = now.getMonth() + 1;
       const currentYear = parseInt(now.getFullYear().toString().slice(-2));
 
-      if (
-        !monthStr ||
-        !yearStr ||
-        isNaN(month) ||
-        isNaN(year) ||
-        month < 1 ||
-        month > 12
-      ) {
+      if (!monthStr || !yearStr || isNaN(month) || isNaN(year) || month < 1 || month > 12) {
         return showFunToast("❌ Invalid expiry format (MM/YY).", "red");
       }
 
-      if (
-        year < currentYear ||
-        (year === currentYear && month < currentMonth)
-      ) {
+      if (year < currentYear || (year === currentYear && month < currentMonth)) {
         return showFunToast("❌ Card is expired.", "red");
       }
 
@@ -265,13 +251,10 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const binRes = await fetch(`/api/orders/validate-bin/${bin}`);
         if (!binRes.ok) {
-          showFunToast(
-            "❌ Invalid card issuer. Please try another card.",
-            "red"
-          );
+          showFunToast("❌ Invalid card issuer. Please try another card.", "red");
           return;
         }
-        binData = await binRes.json(); // Save the binData here
+        binData = await binRes.json();
         console.log("Card Info:", binData);
       } catch (err) {
         showFunToast("❌ Failed to verify card. Please try again.", "red");
@@ -281,19 +264,34 @@ document.addEventListener("DOMContentLoaded", function () {
       cardData = { cardNumber, cardName, expiry, cvv };
     }
 
-    // ========== Final Data Object ==========
-    const formData = {
-      fullName,
-      email,
-      phone,
-      shippingAddress,
-      paid,
-      cardData,
-      binData, // Send binData to backend
-    };
-
-    // ========== Submit to backend ==========
     try {
+      // Fetch gifts before submitting the order
+      const giftsResponse = await fetch('/api/gifting', {
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!giftsResponse.ok) {
+        throw new Error('Failed to fetch gifts');
+      }
+
+      const gifts = await giftsResponse.json();
+
+      // ========== Final Data Object ==========
+      const formData = {
+        fullName,
+        email,
+        phone,
+        shippingAddress,
+        paid,
+        cardData,
+        binData,
+        gifts: gifts.map(gift => gift._id) // Include gift IDs in the order
+      };
+
+      // ========== Submit to backend ==========
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

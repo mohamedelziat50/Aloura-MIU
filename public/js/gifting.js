@@ -228,11 +228,96 @@ document.addEventListener("DOMContentLoaded", function () {
   // Complete order button
   const completeOrderBtn = document.querySelector(".complete-order");
   if (completeOrderBtn) {
-    completeOrderBtn.addEventListener("click", function () {
-      // Here you would typically submit the order
-      showFunToast("Order completed!", "green");
-      giftModal.style.display = "none";
-      document.body.style.overflow = "auto";
+    completeOrderBtn.addEventListener("click", async () => {
+      try {
+        // Get the selected elements
+        const selectedPerfume = document.querySelector(".perfume-option.selected");
+        const selectedWrap = document.querySelector(".wrap-option.selected");
+        const selectedCard = document.querySelector(".card-option.selected");
+
+        // Validate selections
+        if (!selectedPerfume || !selectedWrap || !selectedCard) {
+          throw new Error("Please select all gift items before proceeding");
+        }
+
+        // Get and clean the price values
+        const perfumePrice = selectedPerfume.querySelector(".price")?.textContent;
+        const wrapPrice = selectedWrap.querySelector("p")?.textContent;
+        
+        const cleanPerfumePrice = perfumePrice ? parseFloat(perfumePrice.replace(/[^0-9.]/g, "")) : 0;
+        const cleanWrapPrice = wrapPrice ? parseFloat(wrapPrice.replace(/[^0-9.]/g, "")) : 0;
+        const totalPrice = parseFloat(document.getElementById("gift-total").textContent) || 0;
+
+        const giftData = {
+          perfume: {
+            name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
+            price: cleanPerfumePrice
+          },
+          wrap: {
+            name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
+            price: cleanWrapPrice
+          },
+          card: {
+            name: selectedCard.querySelector("h4")?.textContent.trim() || "Not selected"
+          },
+          recipientName: document.getElementById("recipient-name").value.trim(),
+          message: document.getElementById("gift-message").value.trim(),
+          totalPrice: totalPrice
+        };
+
+        // Log the data being sent
+        console.log("Sending gift data:", giftData);
+
+        // Validate required fields
+        if (!giftData.recipientName) {
+          throw new Error("Please enter the recipient's name");
+        }
+
+        if (!giftData.perfume.name || !giftData.wrap.name || !giftData.card.name) {
+          throw new Error("Please select all gift items");
+        }
+
+        const response = await fetch("/api/gifting", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(giftData),
+        });
+
+        const responseData = await response.json();
+        
+        if (!response.ok) {
+          console.error("Server response:", responseData);
+          if (response.status === 401) {
+            throw new Error("Please log in to create a gift order");
+          }
+          throw new Error(responseData.details?.[0] || responseData.error || "Order failed");
+        }
+
+        showFunToast("Order completed successfully!", "green");
+        
+        // Close the modal
+        const giftModal = document.getElementById("gift-modal");
+        if (giftModal) {
+          giftModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+
+        // Refresh the cart if we're on the cart page
+        if (typeof fetchAndDisplayGifts === 'function') {
+          fetchAndDisplayGifts();
+        }
+
+        // Reset the form
+        resetSelections();
+        document.getElementById("recipient-name").value = "";
+        document.getElementById("gift-message").value = "";
+      } catch (error) {
+        console.error("Order error:", error);
+        showFunToast(`Order failed: ${error.message}`, "red");
+      }
     });
   }
 
@@ -243,71 +328,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = "auto";
     }
   });
+
+  // Fetch and display gifts if we're on the cart or checkout page
+  if (document.querySelector('.cart-items') || document.querySelector('.checkout-items')) {
+    fetchAndDisplayGifts();
+  }
 });
-
-document
-  .querySelector(".complete-order")
-  ?.addEventListener("click", async () => {
-    try {
-      const giftData = {
-        perfume: {
-          name:
-            document.querySelector(".perfume-option.selected h3")
-              ?.textContent || "Not selected",
-          price:
-            parseFloat(
-              document.querySelector(".perfume-option.selected .price")
-                ?.textContent
-            ) || 0,
-          image:
-            document.querySelector(".perfume-option.selected img")?.src || "",
-        },
-        wrap: {
-          name:
-            document.querySelector(".wrap-option.selected h4")?.textContent ||
-            "Not selected",
-          price:
-            parseFloat(
-              document
-                .querySelector(".wrap-option.selected p")
-                ?.textContent.replace("+", "")
-            ) || 0,
-          image: document.querySelector(".wrap-option.selected img")?.src || "",
-        },
-        card: {
-          name:
-            document.querySelector(".card-option.selected h4")?.textContent ||
-            "Not selected",
-          image: document.querySelector(".card-option.selected img")?.src || "",
-        },
-        recipientName: document.getElementById("recipient-name").value,
-        message: document.getElementById("gift-message").value,
-        totalPrice:
-          parseFloat(document.getElementById("gift-total").textContent) || 0,
-      };
-
-      const response = await fetch("/api/gifting", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // No need for Authorization header since we're using cookies
-        },
-        credentials: "include", // Important for cookies
-        body: JSON.stringify(giftData),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Order failed");
-      }
-
-      const result = await response.json();
-      console.log("Order success:", result);
-    } catch (error) {
-      console.error("Order error:", error);
-      alert(`Order failed: ${error.message}`);
-    }
-  });
 
 // Add this to your gifting.js (if not already present)
 document
@@ -323,3 +349,98 @@ document
       e.target.closest(`.${category}-option`).classList.add("selected");
     });
   });
+
+// Function to fetch and display gifts
+async function fetchAndDisplayGifts() {
+  try {
+    const response = await fetch('/api/gifting', {
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch gifts');
+    }
+
+    const gifts = await response.json();
+    displayGiftsInCart(gifts);
+    displayGiftsInCheckout(gifts);
+  } catch (error) {
+    console.error('Error fetching gifts:', error);
+    showFunToast('Failed to load gifts', 'red');
+  }
+}
+
+// Function to display gifts in cart
+function displayGiftsInCart(gifts) {
+  const cartContainer = document.querySelector('.cart-items');
+  if (!cartContainer) return;
+
+  const giftItems = gifts.map(gift => `
+    <div class="cart-item gift-item">
+      <div class="item-details">
+        <h4>Gift Package</h4>
+        <p><strong>Perfume:</strong> ${gift.perfume.name}</p>
+        <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
+        <p><strong>Card:</strong> ${gift.card.name}</p>
+        <p><strong>To:</strong> ${gift.recipientName}</p>
+        ${gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ''}
+        <p><strong>Total:</strong> $${gift.totalPrice.toFixed(2)}</p>
+      </div>
+      <button class="remove-gift" data-gift-id="${gift._id}">Remove</button>
+    </div>
+  `).join('');
+
+  cartContainer.innerHTML = giftItems;
+
+  // Add event listeners for remove buttons
+  document.querySelectorAll('.remove-gift').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const giftId = e.target.dataset.giftId;
+      try {
+        const response = await fetch(`/api/gifting/${giftId}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to remove gift');
+        }
+
+        showFunToast('Gift removed successfully', 'green');
+        fetchAndDisplayGifts(); // Refresh the display
+      } catch (error) {
+        console.error('Error removing gift:', error);
+        showFunToast('Failed to remove gift', 'red');
+      }
+    });
+  });
+}
+
+// Function to display gifts in checkout
+function displayGiftsInCheckout(gifts) {
+  const checkoutContainer = document.querySelector('.checkout-items');
+  if (!checkoutContainer) return;
+
+  const giftItems = gifts.map(gift => `
+    <div class="checkout-item gift-item">
+      <div class="item-details">
+        <h4>Gift Package</h4>
+        <p><strong>Perfume:</strong> ${gift.perfume.name}</p>
+        <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
+        <p><strong>Card:</strong> ${gift.card.name}</p>
+        <p><strong>To:</strong> ${gift.recipientName}</p>
+        ${gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ''}
+        <p><strong>Price:</strong> $${gift.totalPrice.toFixed(2)}</p>
+      </div>
+    </div>
+  `).join('');
+
+  checkoutContainer.innerHTML = giftItems;
+
+  // Update total price
+  const totalPrice = gifts.reduce((sum, gift) => sum + gift.totalPrice, 0);
+  const totalElement = document.querySelector('.checkout-total');
+  if (totalElement) {
+    totalElement.textContent = `$${totalPrice.toFixed(2)}`;
+  }
+}

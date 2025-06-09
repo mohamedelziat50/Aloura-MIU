@@ -14,14 +14,10 @@ const orderSchema = new Schema(
     items: [
       // Array of the ordered items
       {
-        fragrance: {
-          // Reference the specific fragrance {another schema}
+        product: {
+          // Reference the specific product {another schema}
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Fragrance",
-          required: true,
-        },
-        size: {
-          type: String,
+          ref: "Product",
           required: true,
         },
         quantity: {
@@ -32,31 +28,72 @@ const orderSchema = new Schema(
         price: {
           type: Number,
           required: true,
-          min: 0,
+        },
+      },
+    ],
+    gifts: [
+      {
+        gift: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Gift",
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
         },
       },
     ],
     totalPrice: {
       type: Number,
       required: true,
-      min: 0,
     },
     shippingAddress: {
-      address: { type: String, required: true }, // General address area
-      apartment: { type: String, required: true }, // Apartment suite, etc.
-      city: { type: String, required: true },
-      state: String,
-      country: { type: String, required: true },
+      address: {
+        type: String,
+        required: true,
+      },
+      apartment: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      state: {
+        type: String,
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
     },
-    paid: {
-      type: Boolean,
+    paymentMethod: {
+      type: String,
+      enum: ["card", "cash"],
       required: true,
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["paid", "pending", "failed"],
+      default: "pending",
+    },
+    orderStatus: {
+      type: String,
+      enum: ["pending", "processing", "shipped", "delivered", "cancelled"],
+      default: "pending",
+    },
+    cardInfo: {
+      last4: String,
+      brand: String,
+      country: String,
     },
     orderNumber: {
       type: Number,
       required: true,
     },
-
     paymentInfo: {
       // ✅ New field for BIN data
       type: Object,
@@ -67,11 +104,6 @@ const orderSchema = new Schema(
       enum: ['Pending', 'Delivered', 'Cancelled'],
       default: 'Pending'
     },
-    // paymentStatus: { // For later
-    //   type: String,
-    //   enum: ['Pending', 'Paid', 'Failed'],
-    //   default: 'Pending'
-    // }
   },
   {
     timestamps: true,

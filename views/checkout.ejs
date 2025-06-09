@@ -465,30 +465,36 @@
               >
                 <div class="order-summary-header">
                   <h3>Order Summary</h3>
-                  <span class="item-count"><%= user.cart.length %> Items</span>
+                  <span class="item-count" id="total-items">Loading...</span>
                 </div>
                 <div class="order-summary-content">
                   <div class="order-items">
-                    <% if (user) { %> <% user.cart.forEach(item => { %>
-                    <div class="order-item">
-                      <div class="order-item-image">
-                        <img
-                          alt="Product"
-                          class="img-fluid"
-                          src="<%= item.fragrance.image[0] %>"
-                        />
-                      </div>
-                      <div class="order-item-details">
-                        <h4><%= item.fragrance.name %></h4>
-                        <p class="order-item-variant">Size: <%= item.size %></p>
-                        <div class="order-item-price">
-                          <span class="quantity"><%= item.quantity %> ×</span>
-                          <span class="price">$<%= item.price %></span>
-                          <% subtotal += item.price * item.quantity %>
+                    <!-- Regular items -->
+                    <% if (user && user.cart && user.cart.length > 0) { %>
+                      <% user.cart.forEach(item => { %>
+                        <div class="order-item">
+                          <div class="order-item-image">
+                            <img
+                              alt="Product"
+                              class="img-fluid"
+                              src="<%= item.fragrance.image[0] %>"
+                            />
+                          </div>
+                          <div class="order-item-details">
+                            <h4><%= item.fragrance.name %></h4>
+                            <p class="order-item-variant">Size: <%= item.size %></p>
+                            <div class="order-item-price">
+                              <span class="quantity"><%= item.quantity %> ×</span>
+                              <span class="price">$<%= item.price %></span>
+                              <% subtotal += item.price * item.quantity %>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <% }) %> <% } %>
+                      <% }) %>
+                    <% } %>
+                    
+                    <!-- Gift items will be loaded here -->
+                    <div id="gift-items-container"></div>
                   </div>
                   <div class="order-totals">
                     <!-- Add Discount Code Section -->
@@ -511,8 +517,7 @@
                     </div>
                     <div class="order-subtotal d-flex justify-content-between">
                       <span>Subtotal</span>
-                      <!-- Display in decimal format -->
-                      <span>$<%= subtotal.toFixed(2) %></span>
+                      <span id="subtotal">$<%= subtotal.toFixed(2) %></span>
                     </div>
                     <div class="order-shipping d-flex justify-content-between">
                       <span>Shipping</span>
@@ -524,9 +529,7 @@
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
-                      <span
-                        >$<%= (subtotal + shippingFee + tax).toFixed(2) %></span
-                      >
+                      <span id="total">$<%= (subtotal + shippingFee + tax).toFixed(2) %></span>
                     </div>
                     <div class="d-flex justify-content-end">
                       <div>
@@ -534,7 +537,7 @@
                           id="checkout-button"
                           class="btn btn-outline-primary mt-4"
                         >
-                          Checkout
+                          Place Order
                         </button>
                       </div>
                     </div>
@@ -679,5 +682,94 @@
     <!-- Removing the problematic main.js file -->
     <!-- Toasty JS -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Checkout Items Container -->
+    <div class="checkout-container">
+      <h2>Order Summary</h2>
+      <div class="checkout-items">
+        <!-- Gift items will be inserted here -->
+      </div>
+      <div class="checkout-total">
+        <!-- Total price will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Include required scripts -->
+    <script src="/js/toast.js"></script>
+    <script src="/js/cart.js"></script>
+    <script>
+      // Function to update the order summary with gifts
+      async function updateOrderSummary() {
+        try {
+          const response = await fetch('/api/gifting', {
+            credentials: 'include',
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch gifts');
+          }
+
+          const gifts = await response.json();
+          const giftContainer = document.getElementById('gift-items-container');
+          const totalItemsElement = document.getElementById('total-items');
+          const subtotalElement = document.getElementById('subtotal');
+          const totalElement = document.getElementById('total');
+          
+          // Clear existing gift items
+          giftContainer.innerHTML = '';
+          
+          // Add gift items to the container
+          let giftSubtotal = 0;
+          gifts.forEach(gift => {
+            const giftItem = document.createElement('div');
+            giftItem.className = 'order-item';
+            giftItem.innerHTML = `
+              <div class="order-item-image">
+                <img alt="${gift.perfume.name}" class="img-fluid" src="${gift.perfume.image[0]}" />
+              </div>
+              <div class="order-item-details">
+                <h4>Gift Package</h4>
+                <p class="order-item-variant">
+                  Perfume: ${gift.perfume.name} | Wrap: ${gift.wrap.name} | Card: ${gift.card.name}
+                </p>
+                <p class="order-item-variant">To: ${gift.recipientName}</p>
+                <div class="order-item-price">
+                  <span class="quantity">1 ×</span>
+                  <span class="price">$${gift.totalPrice}</span>
+                </div>
+              </div>
+            `;
+            giftContainer.appendChild(giftItem);
+            giftSubtotal += gift.totalPrice;
+          });
+
+          // Update total items count
+          const regularItemsCount = document.querySelectorAll('.order-item:not(.gift-item)').length;
+          const totalItems = regularItemsCount + gifts.length;
+          totalItemsElement.textContent = `${totalItems} Items`;
+
+          // Update subtotal and total
+          const regularSubtotal = parseFloat(document.getElementById('subtotal').textContent.replace('$', ''));
+          const newSubtotal = regularSubtotal + giftSubtotal;
+          const shippingFee = parseFloat(document.querySelector('.order-shipping span:last-child').textContent.replace('$', ''));
+          const tax = parseFloat(document.querySelector('.order-tax span:last-child').textContent.replace('$', ''));
+          const newTotal = newSubtotal + shippingFee + tax;
+          
+          subtotalElement.textContent = `$${newSubtotal.toFixed(2)}`;
+          totalElement.textContent = `$${newTotal.toFixed(2)}`;
+        } catch (error) {
+          console.error('Error updating order summary:', error);
+        }
+      }
+
+      // Update order summary when page loads
+      document.addEventListener('DOMContentLoaded', updateOrderSummary);
+
+      // Update order summary when cart is updated
+      window.addEventListener('cart-updated', updateOrderSummary);
+    </script>
   </body>
 </html>
