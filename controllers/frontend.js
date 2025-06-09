@@ -119,9 +119,15 @@ export const getAdmin = async (req, res) => {
     const [users, fragrances, orders, subscribedUsers] = await Promise.all([
       UserModel.find(),
       FragranceModel.find(),
-      OrderModel.find().populate("user items.fragrance"),
-      UserModel.find({ subscriberList: true }), // <-- get users who subscribed
+      OrderModel.find().populate({
+        path: 'user',
+        select: 'name email'
+      }),
+      UserModel.find({ subscriberList: true })
     ]);
+
+    // Get the current admin user
+    const user = await UserModel.findById(req.user.id);
 
     res.render("admin/admin", {
       arr: users,
@@ -129,6 +135,7 @@ export const getAdmin = async (req, res) => {
       orders: orders,
       subscribedUsers,
       moment,
+      user
     });
   } catch (err) {
     console.error(err);

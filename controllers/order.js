@@ -1,195 +1,167 @@
-// controllers/orderController.js
+// controllers/order.js
 import Order from "../models/order.js";
 import Fragrance from "../models/fragrance.js";
 import User from "../models/user.js";
+import Gift from "../models/gifting.js";
 import moment from "moment";
 import fetch from "node-fetch";
 
+// Cache for BIN validation
+const binCache = {};
+
 export const createOrder = async (req, res) => {
-  // // req.body only contains what you send; destructuring is for checking clarity and safety.
-  const { fullName, email, phone, shippingAddress, paid, cardData, binData } =
-    req.body;
-
-  // Customer Information Validation
-  if (!fullName || fullName.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ Full Name is required in customer information." });
-  }
-  if (!email || email.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ Email is required in customer information." });
-  }
-  if (!phone || phone.toString().trim() === "") {
-    return res.status(400).json({
-      message: "❌ Phone Number is required in customer information.",
-    });
-  }
-
-  // Shipping Address Validation
-  if (
-    !shippingAddress.address ||
-    shippingAddress.address.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Address is required in shipping address." });
-  }
-  if (
-    !shippingAddress.apartment ||
-    shippingAddress.apartment.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Apartment is required in shipping address." });
-  }
-  if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ City is required in shipping address." });
-  }
-  if (
-    !shippingAddress.state ||
-    shippingAddress.state.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ State is required in shipping address." });
-  }
-  if (
-    !shippingAddress.country ||
-    shippingAddress.country.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Country is required in shipping address." });
-  }
-
-  // Payment Method Validation (If not COD)
-  if (paid) {
-    if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Number is required in payment method." });
-    }
-    if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Expiry is required in payment method." });
-    }
-    if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card CVV is required in payment method." });
-    }
-    if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Name is required in payment method." });
-    }
-  }
-
-  // Get the user's id (through the middleware - user's id from auth used to find the actual user object from his schema)
-  const user = await User.findById(req.user.id);
-
-  // Defensive: check if user and user.cart exist
-  if (!user || !Array.isArray(user.cart)) {
-    return res.status(400).json({ error: "User cart is missing or invalid." });
-  }
-
-  // Get the item's array (through the middle - user's cart)
-  // .map() => method that creates a new array by copying objects (Because cart & order's schema dont match)
-  const cartItems = user.cart.map((item) => ({
-    //
-    fragrance: item.fragrance, // The fragrance id (not the entire object -> not populated)
-    size: item.size,
-    quantity: item.quantity,
-    price: item.price,
-  }));
-
-  // Find which fragrance that is and lower it's stock based on size and quanitity
-  for (const item of cartItems) {
-    const fragrance = await Fragrance.findById(item.fragrance);
-    if (fragrance) {
-      // Match the ml (size) using .find() and robust parsing for 'ml' suffix
-      const sizeOption = fragrance.sizeOptions.find((option) => {
-        // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
-        // Remove 'ml' if present and trim
-        const optionSize = String(option.size).replace(/ml/i, "").trim();
-        const itemSize = String(item.size).replace(/ml/i, "").trim();
-
-        return optionSize === itemSize;
-      });
-
-      // If no size option matches (somehow)
-      if (!sizeOption) {
-        return res.status(400).json({
-          message: `Size ${item.size} is not available for ${fragrance.name}.`,
-        });
-      }
-
-      // If the stock is lower than the requested order's quantity
-      if (sizeOption.quantity < item.quantity) {
-        return res.status(400).json({
-          message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
-        });
-      }
-      sizeOption.quantity -= item.quantity;
-      await fragrance.save();
-    }
-  }
-
-  // Calculate totalPrice (no tax or shipping fee)
-  // .reduce() goes through each item in the array and keeps a sum intialized at 0 (last parameter).
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  // Incase there are no orders
-  const intialOrderSequenceNumber = 1000;
-
-  // Find the latest/highest orderNumber and increment
-  // sort() takes an object as an argument, where each field to sort by is a key and the value is either 1 for ascending order or -1 for descending order.
-  // takes the objectNumber as the object to sort by, and sort it descendingly
-  const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
-
-  // Then increment the order we're currently creating
-  const orderNumber =
-    lastOrder && lastOrder.orderNumber
-      ? lastOrder.orderNumber + 1
-      : intialOrderSequenceNumber;
-
-  // Create the customer schema to add customer
-  const order = new Order({
-    user: user._id,
-    items: cartItems,
-    totalPrice,
-    shippingAddress: req.body.shippingAddress,
-    paid: req.body.paid,
-    orderNumber,
-    paymentInfo: binData || null,
-  });
-
   try {
-    // Save the order
+    const {
+      fullName,
+      email,
+      phone,
+      shippingAddress,
+      paid,
+      cardData,
+      binData,
+      gifts,
+    } = req.body;
+
+    // Customer Information Validation
+    if (!fullName || fullName.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Full Name is required in customer information." });
+    }
+    if (!email || email.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Email is required in customer information." });
+    }
+    if (!phone || phone.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Phone Number is required in customer information." });
+    }
+
+    // Shipping Address Validation
+    if (!shippingAddress.address || shippingAddress.address.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Address is required in shipping address." });
+    }
+    if (!shippingAddress.apartment || shippingAddress.apartment.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Apartment is required in shipping address." });
+    }
+    if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ City is required in shipping address." });
+    }
+    if (!shippingAddress.state || shippingAddress.state.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ State is required in shipping address." });
+    }
+    if (!shippingAddress.country || shippingAddress.country.toString().trim() === "") {
+      return res.status(400).json({ message: "❌ Country is required in shipping address." });
+    }
+
+    // Payment Method Validation (If not COD)
+    if (paid) {
+      if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Number is required in payment method." });
+      }
+      if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Expiry is required in payment method." });
+      }
+      if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card CVV is required in payment method." });
+      }
+      if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
+        return res.status(400).json({ message: "❌ Card Name is required in payment method." });
+      }
+    }
+
+    // Get user and validate cart
+    const user = await User.findById(req.user.id);
+    if (!user || !Array.isArray(user.cart)) {
+      return res.status(400).json({ error: "User cart is missing or invalid." });
+    }
+
+    // Get gift items if any
+    let giftItems = [];
+    if (gifts && gifts.length > 0) {
+      giftItems = await Gift.find({ _id: { $in: gifts } });
+    }
+
+    // Process cart items and update stock
+    const cartItems = user.cart.map((item) => ({
+      fragrance: item.fragrance,
+      size: item.size,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+
+    // Update fragrance stock
+    for (const item of cartItems) {
+      const fragrance = await Fragrance.findById(item.fragrance);
+      if (fragrance) {
+        const sizeOption = fragrance.sizeOptions.find((option) => {
+          const optionSize = String(option.size).replace(/ml/i, "").trim();
+          const itemSize = String(item.size).replace(/ml/i, "").trim();
+          return optionSize === itemSize;
+        });
+
+        if (!sizeOption) {
+          return res.status(400).json({
+            message: `Size ${item.size} is not available for ${fragrance.name}.`,
+          });
+        }
+
+        if (sizeOption.quantity < item.quantity) {
+          return res.status(400).json({
+            message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
+          });
+        }
+        sizeOption.quantity -= item.quantity;
+        await fragrance.save();
+      }
+    }
+
+    // Calculate total price including gifts
+    const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const giftsTotal = giftItems.reduce((total, gift) => total + gift.totalPrice, 0);
+    const totalPrice = cartTotal + giftsTotal;
+
+    // Generate order number
+    const initialOrderSequenceNumber = 1000;
+    const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
+    const orderNumber = lastOrder && lastOrder.orderNumber ? lastOrder.orderNumber + 1 : initialOrderSequenceNumber;
+
+    // Create order
+    const order = new Order({
+      user: user._id,
+      items: cartItems,
+      gifts: giftItems.map((gift) => ({
+        gift: gift._id,
+        price: gift.totalPrice,
+      })),
+      totalPrice,
+      shippingAddress,
+      orderNumber,
+      paymentMethod: paid ? "card" : "cash",
+      paymentStatus: paid ? "paid" : "pending",
+      orderStatus: "pending",
+      cardInfo: cardData ? {
+        last4: cardData.cardNumber.slice(-4),
+        brand: binData?.scheme || "unknown",
+        country: binData?.country?.name || "unknown",
+      } : undefined,
+    });
+
+    // Save order
     await order.save();
 
-    // Clear the user's cart after successful order
+    // Clear user's cart and remove gifts
     user.cart = [];
+    if (gifts && gifts.length > 0) {
+      user.gifts = user.gifts.filter((giftId) => !gifts.includes(giftId.toString()));
+    }
     await user.save();
 
-    // Backend must send a response (success or error) for the frontend to work.
-    res.status(201).json({ message: "✅ Order added successfully" });
+    res.status(201).json({
+      message: "✅ Order created successfully",
+      order,
+    });
   } catch (error) {
-    console.log(`Order Data Save Error: ${error}`);
-    res.status(500).json({ error: "Failed to add order" });
+    console.error("Error creating order:", error);
+    res.status(500).json({ message: "Error creating order" });
   }
 };
-
-// Controller to validate BIN (first 6 digits of a card number)
-const binCache = {};
 
 export const validateCardBin = async (req, res) => {
   const { bin } = req.params;
@@ -206,9 +178,7 @@ export const validateCardBin = async (req, res) => {
     });
 
     if (!binRes.ok) {
-      return res
-        .status(400)
-        .json({ message: "Invalid BIN or unsupported card." });
+      return res.status(400).json({ message: "Invalid BIN or unsupported card." });
     }
 
     const binData = await binRes.json();
@@ -239,6 +209,7 @@ export const searchOrders = async (req, res) => {
     if (!searchTerm) {
       const orders = await Order.find()
         .populate("items.fragrance")
+        .populate("gifts.gift")
         .populate("user")
         .sort({ createdAt: -1 })
         .lean();
@@ -249,84 +220,49 @@ export const searchOrders = async (req, res) => {
     const orderNumber = parseInt(searchTerm);
     const isOrderNumber = !isNaN(orderNumber);
 
-    // Create the search query
-    const query = {
-      $or: [],
-    };
+    // Build search query
+    const query = isOrderNumber
+      ? { orderNumber }
+      : {
+          $or: [
+            { "shippingAddress.fullName": { $regex: searchTerm, $options: "i" } },
+            { "shippingAddress.email": { $regex: searchTerm, $options: "i" } },
+            { "shippingAddress.phone": { $regex: searchTerm, $options: "i" } },
+          ],
+        };
 
-    // Add order number search if the search term is a number
-    if (isOrderNumber) {
-      query.$or.push({ orderNumber: orderNumber });
-    }
-
-    // Add user name search
-    const users = await User.find({
-      name: { $regex: searchTerm, $options: "i" },
-    }).select("_id");
-
-    if (users.length > 0) {
-      query.$or.push({ user: { $in: users.map((user) => user._id) } });
-    }
-
-    // If no valid search criteria, return empty array
-    if (query.$or.length === 0) {
-      return res.status(200).json([]);
-    }
-
-    // Execute the search
     const orders = await Order.find(query)
       .populate("items.fragrance")
+      .populate("gifts.gift")
       .populate("user")
       .sort({ createdAt: -1 })
       .lean();
 
     res.status(200).json(orders);
   } catch (error) {
-    console.error("Search Orders Error:", error);
-    res.status(500).json({ error: "Failed to fetch orders" });
+    console.error("Error searching orders:", error);
+    res.status(500).json({ error: "Error searching orders" });
   }
 };
 
-//     // Delete the order after stock is restored
-//     await Order.findByIdAndDelete(req.params.id);
-
-//     res.status(200).json({ message: 'Order deleted and stock restored successfully' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
 export const updateOrderStatus = async (req, res) => {
-  const { orderId, status } = req.body;
-
   try {
-    // Find order by id
-    const order = await Order.findById(orderId);
-    if (!order) return res.status(400).json({ error: "Order not found" });
+    const { status } = req.body;
+    const order = await Order.findById(req.params.id);
 
-    // Update status
-    if (!status) {
-      return res.status(400).json({ error: "Status not found" });
-    }
-    if (order.status === status) {
-      return res.status(400).json({ error: `Order is already marked as '${status}'.` });
-    }
-    // Prevent cancelling a delivered order
-    if (order.status === 'Delivered' && status === 'Cancelled') {
-      return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
-    }
-    // Prevent delivering a cancelled order
-    if (order.status === 'Cancelled' && status === 'Delivered') {
-      return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
     }
 
-    // If we passed all these checks now change the status
-    order.status = status;
-    // Save the result
-    await order.save()
+    order.orderStatus = status;
+    await order.save();
 
-    res.status(200).json({ message: `✅ Order #${order.orderNumber} status updated to ${order.status}` });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({
+      message: `Order status updated to ${status}`,
+      order,
+    });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).json({ error: "Error updating order status" });
   }
-}
+};

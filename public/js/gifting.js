@@ -231,7 +231,9 @@ document.addEventListener("DOMContentLoaded", function () {
     completeOrderBtn.addEventListener("click", async () => {
       try {
         // Get the selected elements
-        const selectedPerfume = document.querySelector(".perfume-option.selected");
+        const selectedPerfume = document.querySelector(
+          ".perfume-option.selected"
+        );
         const selectedWrap = document.querySelector(".wrap-option.selected");
         const selectedCard = document.querySelector(".card-option.selected");
 
@@ -241,28 +243,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Get and clean the price values
-        const perfumePrice = selectedPerfume.querySelector(".price")?.textContent;
+        const perfumePrice =
+          selectedPerfume.querySelector(".price")?.textContent;
         const wrapPrice = selectedWrap.querySelector("p")?.textContent;
-        
-        const cleanPerfumePrice = perfumePrice ? parseFloat(perfumePrice.replace(/[^0-9.]/g, "")) : 0;
-        const cleanWrapPrice = wrapPrice ? parseFloat(wrapPrice.replace(/[^0-9.]/g, "")) : 0;
-        const totalPrice = parseFloat(document.getElementById("gift-total").textContent) || 0;
+
+        const cleanPerfumePrice = perfumePrice
+          ? parseFloat(perfumePrice.replace(/[^0-9.]/g, ""))
+          : 0;
+        const cleanWrapPrice = wrapPrice
+          ? parseFloat(wrapPrice.replace(/[^0-9.]/g, ""))
+          : 0;
+        const totalPrice =
+          parseFloat(document.getElementById("gift-total").textContent) || 0;
 
         const giftData = {
           perfume: {
-            name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
-            price: cleanPerfumePrice
+            name:
+              selectedPerfume.querySelector("h3")?.textContent.trim() ||
+              "Not selected",
+            price: cleanPerfumePrice,
           },
           wrap: {
-            name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
-            price: cleanWrapPrice
+            name:
+              selectedWrap.querySelector("h4")?.textContent.trim() ||
+              "Not selected",
+            price: cleanWrapPrice,
           },
           card: {
-            name: selectedCard.querySelector("h4")?.textContent.trim() || "Not selected"
+            name:
+              selectedCard.querySelector("h4")?.textContent.trim() ||
+              "Not selected",
           },
           recipientName: document.getElementById("recipient-name").value.trim(),
           message: document.getElementById("gift-message").value.trim(),
-          totalPrice: totalPrice
+          totalPrice: totalPrice,
         };
 
         // Log the data being sent
@@ -273,7 +287,11 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error("Please enter the recipient's name");
         }
 
-        if (!giftData.perfume.name || !giftData.wrap.name || !giftData.card.name) {
+        if (
+          !giftData.perfume.name ||
+          !giftData.wrap.name ||
+          !giftData.card.name
+        ) {
           throw new Error("Please select all gift items");
         }
 
@@ -287,17 +305,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const responseData = await response.json();
-        
+
         if (!response.ok) {
           console.error("Server response:", responseData);
           if (response.status === 401) {
             throw new Error("Please log in to create a gift order");
           }
-          throw new Error(responseData.details?.[0] || responseData.error || "Order failed");
+          throw new Error(
+            responseData.details?.[0] || responseData.error || "Order failed"
+          );
         }
 
         showFunToast("Order completed successfully!", "green");
-        
+
         // Close the modal
         const giftModal = document.getElementById("gift-modal");
         if (giftModal) {
@@ -305,8 +325,11 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.style.overflow = "auto";
         }
 
+        // Dispatch cart update event
+        window.dispatchEvent(new Event("cart-updated"));
+
         // Refresh the cart if we're on the cart page
-        if (typeof fetchAndDisplayGifts === 'function') {
+        if (typeof fetchAndDisplayGifts === "function") {
           fetchAndDisplayGifts();
         }
 
@@ -330,7 +353,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Fetch and display gifts if we're on the cart or checkout page
-  if (document.querySelector('.cart-items') || document.querySelector('.checkout-items')) {
+  if (
+    document.querySelector(".cart-items") ||
+    document.querySelector(".checkout-items")
+  ) {
     fetchAndDisplayGifts();
   }
 });
@@ -353,29 +379,31 @@ document
 // Function to fetch and display gifts
 async function fetchAndDisplayGifts() {
   try {
-    const response = await fetch('/api/gifting', {
-      credentials: 'include'
+    const response = await fetch("/api/gifting", {
+      credentials: "include",
     });
-    
+
     if (!response.ok) {
-      throw new Error('Failed to fetch gifts');
+      throw new Error("Failed to fetch gifts");
     }
 
     const gifts = await response.json();
     displayGiftsInCart(gifts);
     displayGiftsInCheckout(gifts);
   } catch (error) {
-    console.error('Error fetching gifts:', error);
-    showFunToast('Failed to load gifts', 'red');
+    console.error("Error fetching gifts:", error);
+    showFunToast("Failed to load gifts", "red");
   }
 }
 
 // Function to display gifts in cart
 function displayGiftsInCart(gifts) {
-  const cartContainer = document.querySelector('.cart-items');
+  const cartContainer = document.querySelector(".cart-items");
   if (!cartContainer) return;
 
-  const giftItems = gifts.map(gift => `
+  const giftItems = gifts
+    .map(
+      (gift) => `
     <div class="cart-item gift-item">
       <div class="item-details">
         <h4>Gift Package</h4>
@@ -383,34 +411,38 @@ function displayGiftsInCart(gifts) {
         <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
         <p><strong>Card:</strong> ${gift.card.name}</p>
         <p><strong>To:</strong> ${gift.recipientName}</p>
-        ${gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ''}
+        ${
+          gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ""
+        }
         <p><strong>Total:</strong> $${gift.totalPrice.toFixed(2)}</p>
       </div>
       <button class="remove-gift" data-gift-id="${gift._id}">Remove</button>
     </div>
-  `).join('');
+  `
+    )
+    .join("");
 
   cartContainer.innerHTML = giftItems;
 
   // Add event listeners for remove buttons
-  document.querySelectorAll('.remove-gift').forEach(button => {
-    button.addEventListener('click', async (e) => {
+  document.querySelectorAll(".remove-gift").forEach((button) => {
+    button.addEventListener("click", async (e) => {
       const giftId = e.target.dataset.giftId;
       try {
         const response = await fetch(`/api/gifting/${giftId}`, {
-          method: 'DELETE',
-          credentials: 'include'
+          method: "DELETE",
+          credentials: "include",
         });
 
         if (!response.ok) {
-          throw new Error('Failed to remove gift');
+          throw new Error("Failed to remove gift");
         }
 
-        showFunToast('Gift removed successfully', 'green');
+        showFunToast("Gift removed successfully", "green");
         fetchAndDisplayGifts(); // Refresh the display
       } catch (error) {
-        console.error('Error removing gift:', error);
-        showFunToast('Failed to remove gift', 'red');
+        console.error("Error removing gift:", error);
+        showFunToast("Failed to remove gift", "red");
       }
     });
   });
@@ -418,10 +450,12 @@ function displayGiftsInCart(gifts) {
 
 // Function to display gifts in checkout
 function displayGiftsInCheckout(gifts) {
-  const checkoutContainer = document.querySelector('.checkout-items');
+  const checkoutContainer = document.querySelector(".checkout-items");
   if (!checkoutContainer) return;
 
-  const giftItems = gifts.map(gift => `
+  const giftItems = gifts
+    .map(
+      (gift) => `
     <div class="checkout-item gift-item">
       <div class="item-details">
         <h4>Gift Package</h4>
@@ -429,17 +463,21 @@ function displayGiftsInCheckout(gifts) {
         <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
         <p><strong>Card:</strong> ${gift.card.name}</p>
         <p><strong>To:</strong> ${gift.recipientName}</p>
-        ${gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ''}
+g        ${
+        gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ""
+      }
         <p><strong>Price:</strong> $${gift.totalPrice.toFixed(2)}</p>
       </div>
     </div>
-  `).join('');
+  `
+    )
+    .join("");
 
   checkoutContainer.innerHTML = giftItems;
 
   // Update total price
   const totalPrice = gifts.reduce((sum, gift) => sum + gift.totalPrice, 0);
-  const totalElement = document.querySelector('.checkout-total');
+  const totalElement = document.querySelector(".checkout-total");
   if (totalElement) {
     totalElement.textContent = `$${totalPrice.toFixed(2)}`;
   }

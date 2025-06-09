@@ -170,7 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return showFunToast("❌ Enter a valid email address.", "red");
     }
     if (!phone || !/^\d{8,15}$/.test(phone)) {
-      return showFunToast("❌ Enter a valid phone number (digits only).", "red");
+      return showFunToast(
+        "❌ Enter a valid phone number (digits only).",
+        "red"
+      );
     }
     if (!address) return showFunToast("❌ Address is required.", "red");
     if (!apartment) return showFunToast("❌ Apartment is required.", "red");
@@ -196,7 +199,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // === Field presence checks ===
       if (!cardName) return showFunToast("❌ Card name is required.", "red");
-      if (!cardNumber) return showFunToast("❌ Card number is required.", "red");
+      if (!cardNumber)
+        return showFunToast("❌ Card number is required.", "red");
       if (!expiry) return showFunToast("❌ Expiry date is required.", "red");
       if (!cvv) return showFunToast("❌ CVV is required.", "red");
 
@@ -233,11 +237,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const currentMonth = now.getMonth() + 1;
       const currentYear = parseInt(now.getFullYear().toString().slice(-2));
 
-      if (!monthStr || !yearStr || isNaN(month) || isNaN(year) || month < 1 || month > 12) {
+      if (
+        !monthStr ||
+        !yearStr ||
+        isNaN(month) ||
+        isNaN(year) ||
+        month < 1 ||
+        month > 12
+      ) {
         return showFunToast("❌ Invalid expiry format (MM/YY).", "red");
       }
 
-      if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      if (
+        year < currentYear ||
+        (year === currentYear && month < currentMonth)
+      ) {
         return showFunToast("❌ Card is expired.", "red");
       }
 
@@ -251,7 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const binRes = await fetch(`/api/orders/validate-bin/${bin}`);
         if (!binRes.ok) {
-          showFunToast("❌ Invalid card issuer. Please try another card.", "red");
+          showFunToast(
+            "❌ Invalid card issuer. Please try another card.",
+            "red"
+          );
           return;
         }
         binData = await binRes.json();
@@ -266,15 +283,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       // Fetch gifts before submitting the order
-      const giftsResponse = await fetch('/api/gifting', {
-        credentials: 'include',
+      const giftsResponse = await fetch("/api/gifting", {
+        credentials: "include",
         headers: {
-          'Accept': 'application/json'
-        }
+          Accept: "application/json",
+        },
       });
 
       if (!giftsResponse.ok) {
-        throw new Error('Failed to fetch gifts');
+        throw new Error("Failed to fetch gifts");
       }
 
       const gifts = await giftsResponse.json();
@@ -288,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
         paid,
         cardData,
         binData,
-        gifts: gifts.map(gift => gift._id) // Include gift IDs in the order
+        gifts: gifts.map((gift) => gift._id), // Include gift IDs in the order
       };
 
       // ========== Submit to backend ==========

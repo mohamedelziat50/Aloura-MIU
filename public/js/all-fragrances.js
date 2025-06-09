@@ -377,13 +377,13 @@ function updateCartUI(result) {
 
   // Fetch both cart items and gifts
   Promise.all([
-    fetch("/api/users/cart").then(response => response.json()),
+    fetch("/api/users/cart").then((response) => response.json()),
     fetch("/api/gifting", {
-      credentials: 'include',
+      credentials: "include",
       headers: {
-        'Accept': 'application/json'
-      }
-    }).then(response => response.json())
+        Accept: "application/json",
+      },
+    }).then((response) => response.json()),
   ])
     .then(([cartData, giftsData]) => {
       if (cartData.success && cartData.cart) {
@@ -421,7 +421,7 @@ function updateCartUI(result) {
 
         // Add gifts if any exist
         if (giftsData && giftsData.length > 0) {
-          giftsData.forEach(gift => {
+          giftsData.forEach((gift) => {
             const giftItemHTML = `
               <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
                 <div class="col-md-3">
