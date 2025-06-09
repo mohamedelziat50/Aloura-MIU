@@ -77,6 +77,12 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    gifts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Gifting",
+      },
+    ],
   },
   { timestamps: true }
 );
