@@ -592,3 +592,223 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 });
+
+// Email Campaigns Management
+document.addEventListener('DOMContentLoaded', function() {
+    // Create Campaign Form Submission
+    const createCampaignForm = document.getElementById('createCampaignForm');
+    if (createCampaignForm) {
+        createCampaignForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = {
+                title: document.getElementById('emailTitle').value,
+                subject: document.getElementById('subjectLine').value,
+                mailchimpId: document.getElementById('mailchimpId').value
+            };
+            
+            // Here you would typically make an API call to save the campaign
+            console.log('Creating campaign:', formData);
+            
+            // Close modal and reset form
+            const modal = bootstrap.Modal.getInstance(document.getElementById('createCampaignModal'));
+            modal.hide();
+            createCampaignForm.reset();
+            
+            // Refresh campaigns list
+            loadCampaigns();
+        });
+    }
+
+    // Edit Campaign Form Submission
+    const editCampaignForm = document.getElementById('editCampaignForm');
+    if (editCampaignForm) {
+        editCampaignForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = {
+                title: document.getElementById('editEmailTitle').value,
+                subject: document.getElementById('editSubjectLine').value,
+                mailchimpId: document.getElementById('editMailchimpId').value
+            };
+            
+            // Here you would typically make an API call to update the campaign
+            console.log('Updating campaign:', formData);
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editCampaignModal'));
+            modal.hide();
+            
+            // Refresh campaigns list
+            loadCampaigns();
+        });
+    }
+});
+
+// Function to load campaigns into the view all modal
+function loadCampaigns() {
+    // Here you would typically make an API call to get the campaigns
+    const campaigns = [
+        // This is example data - replace with actual API call
+        {
+            id: 1,
+            title: 'Welcome New Customers',
+            subject: 'Welcome to our store!',
+            mailchimpId: 'mc-xyz123'
+        }
+        // Add more campaigns as needed
+    ];
+    
+    const campaignsList = document.querySelector('.campaigns-list');
+    if (campaignsList) {
+        campaignsList.innerHTML = campaigns.map(campaign => `
+            <div class="campaign-item">
+                <div class="campaign-info">
+                    <h6>${campaign.title}</h6>
+                    <p>Subject: ${campaign.subject}</p>
+                    <small class="text-muted">ID: ${campaign.mailchimpId}</small>
+                </div>
+                <div class="campaign-actions">
+                    <button class="btn ButtonDicoration btn-sm" onclick="editCampaign(${campaign.id})">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteCampaign(${campaign.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// Function to edit a campaign
+function editCampaign(id) {
+    // Here you would typically make an API call to get the campaign details
+    const campaign = {
+        id: id,
+        title: 'Welcome New Customers',
+        subject: 'Welcome to our store!',
+        mailchimpId: 'mc-xyz123'
+    };
+    
+    // Populate edit form
+    document.getElementById('editEmailTitle').value = campaign.title;
+    document.getElementById('editSubjectLine').value = campaign.subject;
+    document.getElementById('editMailchimpId').value = campaign.mailchimpId;
+    
+    // Close view all modal and open edit modal
+    const viewModal = bootstrap.Modal.getInstance(document.getElementById('viewCampaignsModal'));
+    viewModal.hide();
+    
+    const editModal = new bootstrap.Modal(document.getElementById('editCampaignModal'));
+    editModal.show();
+}
+
+// Function to delete a campaign
+function deleteCampaign(id) {
+    if (confirm('Are you sure you want to delete this campaign?')) {
+        // Here you would typically make an API call to delete the campaign
+        console.log('Deleting campaign:', id);
+        
+        // Refresh campaigns list
+        loadCampaigns();
+    }
+}
+
+// Load campaigns when viewing all
+document.getElementById('viewCampaignsModal')?.addEventListener('show.bs.modal', loadCampaigns);
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial dummy data for campaigns
+    let campaigns = [
+        {
+            id: 1,
+            title: 'Welcome New Customers',
+            subject: 'Welcome to our perfume family!',
+            mailchimpId: 'mc-xyz123'
+        },
+        {
+            id: 2,
+            title: 'Summer Collection Launch',
+            subject: 'Discover our new summer fragrances',
+            mailchimpId: 'mc-abc456'
+        }
+    ];
+
+    // Function to load campaigns into the view all modal
+    function loadCampaigns() {
+        const campaignsList = document.querySelector('.campaigns-list');
+        if (!campaignsList) return;
+
+        campaignsList.innerHTML = campaigns.map(campaign => `
+            <div class="campaign-item" data-id="${campaign.id}">
+                <div class="campaign-info">
+                    <h6>${campaign.title}</h6>
+                    <p>Subject: ${campaign.subject}</p>
+                    <small class="text-muted">ID: ${campaign.mailchimpId}</small>
+                </div>
+                <div class="campaign-actions">
+                    <button class="btn ButtonDicoration btn-sm edit-campaign-btn" onclick="editCampaign(${campaign.id})">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteCampaign(${campaign.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Function to handle edit campaign
+    window.editCampaign = function(id) {
+        const campaign = campaigns.find(c => c.id === id);
+        if (!campaign) return;
+
+        // Close view all modal
+        const viewModal = bootstrap.Modal.getInstance(document.getElementById('viewCampaignsModal'));
+        viewModal.hide();
+
+        // Populate edit form
+        document.getElementById('editEmailTitle').value = campaign.title;
+        document.getElementById('editSubjectLine').value = campaign.subject;
+        document.getElementById('editMailchimpId').value = campaign.mailchimpId;
+
+        // Store campaign ID for saving
+        document.getElementById('editCampaignForm').dataset.campaignId = campaign.id;
+
+        // Show edit modal
+        const editModal = new bootstrap.Modal(document.getElementById('editCampaignModal'));
+        editModal.show();
+    };
+
+    // Handle edit form submission
+    document.getElementById('editCampaignForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const id = parseInt(this.dataset.campaignId);
+        const campaign = campaigns.find(c => c.id === id);
+        
+        if (campaign) {
+            campaign.title = document.getElementById('editEmailTitle').value;
+            campaign.subject = document.getElementById('editSubjectLine').value;
+            
+            // Close edit modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editCampaignModal'));
+            modal.hide();
+            
+            // Refresh campaigns list and show view all modal
+            loadCampaigns();
+            const viewModal = new bootstrap.Modal(document.getElementById('viewCampaignsModal'));
+            viewModal.show();
+        }
+    });
+
+    // Handle delete campaign
+    window.deleteCampaign = function(id) {
+        if (confirm('Are you sure you want to delete this campaign?')) {
+            campaigns = campaigns.filter(c => c.id !== id);
+            loadCampaigns();
+        }
+    };
+
+    // Load campaigns when viewing all
+    document.getElementById('viewCampaignsModal')?.addEventListener('show.bs.modal', loadCampaigns);
+});
