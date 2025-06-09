@@ -168,44 +168,48 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function to fetch and display gifts
 async function fetchAndDisplayGifts() {
   console.log("Fetching gifts..."); // Debug log
-  
-  const cartItemsContainer = document.querySelector('.cart-items-container');
+
+  const cartItemsContainer = document.querySelector(".cart-items-container");
   if (!cartItemsContainer) {
     console.log("Cart container not found"); // Debug log
     return;
   }
 
   // Don't show empty state while loading
-  const existingEmptyState = cartItemsContainer.querySelector('.d-flex.flex-column.justify-content-center');
+  const existingEmptyState = cartItemsContainer.querySelector(
+    ".d-flex.flex-column.justify-content-center"
+  );
   if (existingEmptyState) {
     existingEmptyState.remove();
   }
 
   try {
     console.log("Making fetch request to /api/gifting"); // Debug log
-    const response = await fetch('/api/gifting', {
-      credentials: 'include',
+    const response = await fetch("/api/gifting", {
+      credentials: "include",
       headers: {
-        'Accept': 'application/json'
-      }
+        Accept: "application/json",
+      },
     });
-    
+
     console.log("Response status:", response.status); // Debug log
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch gifts: ${response.status}`);
     }
 
     const gifts = await response.json();
     console.log("Received gifts:", gifts); // Debug log
-    
+
     if (gifts.length === 0) {
       console.log("No gifts found"); // Debug log
       return;
     }
 
     // Create gift items HTML
-    const giftItems = gifts.map(gift => `
+    const giftItems = gifts
+      .map(
+        (gift) => `
       <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
         <div class="col-md-3">
           <img
@@ -245,45 +249,47 @@ async function fetchAndDisplayGifts() {
           </div>
         </div>
       </div>
-    `).join('');
+    `
+      )
+      .join("");
 
     // Append gifts to the cart container
-    cartItemsContainer.insertAdjacentHTML('beforeend', giftItems);
+    cartItemsContainer.insertAdjacentHTML("beforeend", giftItems);
 
     // Add event listeners for gift remove buttons
-    document.querySelectorAll('.remove-gift').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const giftId = e.target.closest('.remove-gift').dataset.giftId;
-        const giftItem = e.target.closest('.cart-item');
-        
+    document.querySelectorAll(".remove-gift").forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        const giftId = e.target.closest(".remove-gift").dataset.giftId;
+        const giftItem = e.target.closest(".cart-item");
+
         try {
           // Show loading state
-          giftItem.style.opacity = '0.5';
+          giftItem.style.opacity = "0.5";
           e.target.disabled = true;
-          
+
           const response = await fetch(`/api/gifting/${giftId}`, {
-            method: 'DELETE',
-            credentials: 'include'
+            method: "DELETE",
+            credentials: "include",
           });
 
           if (!response.ok) {
-            throw new Error('Failed to remove gift');
+            throw new Error("Failed to remove gift");
           }
 
           // Remove the item with animation
-          giftItem.style.transition = 'all 0.3s ease';
-          giftItem.style.height = '0';
-          giftItem.style.margin = '0';
-          giftItem.style.padding = '0';
-          giftItem.style.overflow = 'hidden';
-          
+          giftItem.style.transition = "all 0.3s ease";
+          giftItem.style.height = "0";
+          giftItem.style.margin = "0";
+          giftItem.style.padding = "0";
+          giftItem.style.overflow = "hidden";
+
           setTimeout(() => {
             giftItem.remove();
-            showFunToast('Gift removed successfully', 'green');
+            showFunToast("Gift removed successfully", "green");
             updateSubtotal();
-            
+
             // Check if cart is empty
-            const remainingItems = document.querySelectorAll('.cart-item');
+            const remainingItems = document.querySelectorAll(".cart-item");
             if (remainingItems.length === 0) {
               cartItemsContainer.innerHTML = `
                 <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
@@ -294,11 +300,11 @@ async function fetchAndDisplayGifts() {
             }
           }, 300);
         } catch (error) {
-          console.error('Error removing gift:', error);
-          showFunToast('Failed to remove gift', 'red');
-          
+          console.error("Error removing gift:", error);
+          showFunToast("Failed to remove gift", "red");
+
           // Reset button state
-          giftItem.style.opacity = '1';
+          giftItem.style.opacity = "1";
           e.target.disabled = false;
         }
       });
@@ -307,19 +313,19 @@ async function fetchAndDisplayGifts() {
     // Update subtotal to include gifts
     updateSubtotal();
   } catch (error) {
-    console.error('Error fetching gifts:', error);
-    showFunToast('Failed to load gifts', 'red');
+    console.error("Error fetching gifts:", error);
+    showFunToast("Failed to load gifts", "red");
   }
 }
 
 // Initialize when the page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded"); // Debug log
   fetchAndDisplayGifts();
 });
 
 // Listen for cart updates
-window.addEventListener('cart-updated', function() {
-  console.log('Cart updated, refreshing gifts...');
+window.addEventListener("cart-updated", function () {
+  console.log("Cart updated, refreshing gifts...");
   fetchAndDisplayGifts();
 });

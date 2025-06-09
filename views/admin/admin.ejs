@@ -73,7 +73,7 @@
       <!-- Main Content -->
       <div class="main">
         <header>
-          <h1>Welcome, <%= user.name %></h1>
+          <h1>Welcome, <%= locals.user.name %></h1>
           <div class="admin-info">Aloura Dashboard</div>
         </header>
 
@@ -352,15 +352,20 @@
                 <td>#<%= order.orderNumber %></td>
                 <td><%= order.user.name %></td>
                 <td>
-                  <% order.items.forEach(item => { %> <%= item.quantity %> × <%=
-                  item.fragrance.name %> <br />
-                  <% }) %>
+                  <% order.items.forEach(item => { %>
+                <% if (item.fragrance) { %>
+                  <%= item.fragrance.name %> (<%= item.size %>) x <%= item.quantity %><br>
+                <% } else { %>
+                  Unknown Fragrance (<%= item.size %>) x <%= item.quantity %><br>
+                <% } %>
+              <% }) %>
+
                 </td>
                 <td><%= moment(order.createdAt).format('LLL') %></td>
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
-                <td>No</td>
+                <td><%= order.gifts && order.gifts.length > 0 ? "Yes" : "No" %></td>
                 <td class="actionlist">
                   <a
                     class="btn ButtonDicoration btn-sm"

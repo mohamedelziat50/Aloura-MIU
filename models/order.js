@@ -14,10 +14,13 @@ const orderSchema = new Schema(
     items: [
       // Array of the ordered items
       {
-        product: {
-          // Reference the specific product {another schema}
+        fragrance: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
+          ref: "Fragrance",
+          required: true,
+        },
+        size: {
+          type: String,
           required: true,
         },
         quantity: {
@@ -101,8 +104,8 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Delivered', 'Cancelled'],
-      default: 'Pending'
+      enum: ["Pending", "Delivered", "Cancelled"],
+      default: "Pending",
     },
   },
   {

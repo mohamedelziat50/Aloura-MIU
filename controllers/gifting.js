@@ -4,14 +4,8 @@ import UserModel from "../models/user.js";
 
 export const createGift = async (req, res) => {
   try {
-    const {
-      perfume,
-      wrap,
-      card,
-      recipientName,
-      message,
-      totalPrice,
-    } = req.body;
+    const { perfume, wrap, card, recipientName, message, totalPrice } =
+      req.body;
 
     // Log the incoming data
     console.log("Received gift data:", req.body);
@@ -21,14 +15,14 @@ export const createGift = async (req, res) => {
     if (!perfume?.name || !wrap?.name || !card?.name) {
       return res.status(400).json({
         error: "Missing required fields",
-        details: ["Perfume, wrap, and card names are required"]
+        details: ["Perfume, wrap, and card names are required"],
       });
     }
 
     if (!recipientName) {
       return res.status(400).json({
         error: "Missing required fields",
-        details: ["Recipient name is required"]
+        details: ["Recipient name is required"],
       });
     }
 
@@ -43,18 +37,18 @@ export const createGift = async (req, res) => {
       perfume: {
         name: perfume.name,
         price: perfumePrice,
-        image: perfume.image
+        image: perfume.image,
       },
       wrap: {
         name: wrap.name,
-        price: wrapPrice
+        price: wrapPrice,
       },
       card: {
-        name: card.name
+        name: card.name,
       },
       recipientName,
       message: message || "",
-      totalPrice: finalTotalPrice
+      totalPrice: finalTotalPrice,
     });
 
     // Log the gift object before saving
@@ -69,33 +63,33 @@ export const createGift = async (req, res) => {
       req.user.id,
       { $push: { gifts: savedGift._id } },
       { new: true }
-    ).populate('gifts');
+    ).populate("gifts");
 
     console.log("Updated user with gifts:", updatedUser);
 
     res.status(201).json(savedGift);
   } catch (err) {
     console.error("Gift creation error:", err);
-    
-    if (err.name === 'ValidationError') {
-      const validationErrors = Object.values(err.errors).map(e => e.message);
+
+    if (err.name === "ValidationError") {
+      const validationErrors = Object.values(err.errors).map((e) => e.message);
       console.error("Validation errors:", validationErrors);
-      return res.status(400).json({ 
-        error: "Invalid gift data", 
-        details: validationErrors
+      return res.status(400).json({
+        error: "Invalid gift data",
+        details: validationErrors,
       });
     }
 
-    if (err.name === 'CastError') {
+    if (err.name === "CastError") {
       return res.status(400).json({
         error: "Invalid data format",
-        details: [err.message]
+        details: [err.message],
       });
     }
 
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Something went wrong while creating the gift order",
-      details: [err.message]
+      details: [err.message],
     });
   }
 };
@@ -104,20 +98,20 @@ export const createGift = async (req, res) => {
 export const getAllGifts = async (req, res) => {
   try {
     console.log("Fetching gifts for user:", req.user.id);
-    
+
     // First get the user with populated gifts
-    const user = await UserModel.findById(req.user.id).populate('gifts');
-    
+    const user = await UserModel.findById(req.user.id).populate("gifts");
+
     if (!user) {
       console.log("User not found:", req.user.id);
       return res.status(404).json({ error: "User not found" });
     }
 
     console.log("Found user with gifts:", user.gifts);
-    
+
     // Sort gifts by creation date
     const sortedGifts = user.gifts.sort((a, b) => b.createdAt - a.createdAt);
-    
+
     res.status(200).json(sortedGifts);
   } catch (err) {
     console.error("Error fetching gifts:", err);
@@ -165,10 +159,9 @@ export const deleteGift = async (req, res) => {
     await Gift.findByIdAndDelete(gift._id);
 
     // Remove gift from user's gifts array
-    await UserModel.findByIdAndUpdate(
-      req.user.id,
-      { $pull: { gifts: gift._id } }
-    );
+    await UserModel.findByIdAndUpdate(req.user.id, {
+      $pull: { gifts: gift._id },
+    });
 
     res.status(200).json({ message: "Gift deleted successfully" });
   } catch (err) {
