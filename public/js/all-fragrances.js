@@ -375,16 +375,23 @@ function updateCartUI(result) {
     return;
   }
 
-  // Fetch the latest cart data
-  fetch("/api/users/cart")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success && data.cart) {
+  // Fetch both cart items and gifts
+  Promise.all([
+    fetch("/api/users/cart").then(response => response.json()),
+    fetch("/api/gifting", {
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => response.json())
+  ])
+    .then(([cartData, giftsData]) => {
+      if (cartData.success && cartData.cart) {
         // Clear existing items
         cartItemsContainer.innerHTML = "";
 
         // Add each cart item
-        data.cart.forEach((item) => {
+        cartData.cart.forEach((item) => {
           const cartItemHTML = `
             <div class="row cart-item mb-3" data-price="${item.price}">
               <div class="col-md-3">
@@ -411,6 +418,54 @@ function updateCartUI(result) {
           `;
           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
         });
+
+        // Add gifts if any exist
+        if (giftsData && giftsData.length > 0) {
+          giftsData.forEach(gift => {
+            const giftItemHTML = `
+              <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
+                <div class="col-md-3">
+                  <img
+                    src="/images/gift-package.jpg"
+                    alt="Gift Package"
+                    class="img-fluid rounded"
+                  />
+                </div>
+                <div class="col-md-5 mt-3">
+                  <h5 class="card-title">Gift Package</h5>
+                  <p class="text-muted">
+                    Perfume: ${gift.perfume.name} | Wrap: ${gift.wrap.name} | Card: ${gift.card.name}
+                  </p>
+                  <p class="text-muted">
+                    To: ${gift.recipientName}
+                  </p>
+                </div>
+                <div class="col-md-4 d-flex flex-column">
+                  <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="input-group" style="max-width: 180px">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm text-center quantity-input"
+                        value="1"
+                        min="0"
+                        readonly
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-danger trash-can-button remove-gift ms-2"
+                      data-gift-id="${gift._id}"
+                    >
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
+          });
+        }
 
         // Update subtotal
         updateSubtotal();

@@ -93,6 +93,7 @@ export const getGiftingPage = async (req, res) => {
         fragrance: fragrances,
         user: user, // pass user here
       });
+      console.log(user.gifts);
     })
     .catch((err) => {
       console.log(err);
