@@ -464,7 +464,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${user.phone}</td>
-                <td>${user.isVerified}</td>
+                <td>${
+                  user.subscriberList ? "Subscribed" : "Not Subscribed"
+                }</td>
+                <td>${user.isVerified ? "Verified" : "Not Verified"}</td>
                 <td>${updatedAt}</td>
                 <td>${user.role}</td>
                 <td class="actionlist">
@@ -515,9 +518,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (orders.length === 0) {
           orderTableBody.innerHTML = `
-              <tr>
-                <td colspan="8" class="text-center">No orders found for "${query}"</td>
-              </tr>`;
+            <tr>
+              <td colspan="9" class="text-center">No orders found for "${query}"</td>
+            </tr>`;
           return;
         }
 
@@ -527,45 +530,58 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("<br>");
 
           const row = `
-  <tr>
-    <td>#${order.orderNumber}</td>
-    <td>${order.user.name}</td>
-    <td>${products}</td>
-    <td>${new Date(order.createdAt).toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    })}</td>
-    <td><span class="status delivered">Delivered</span></td>
-    <td>${order.paid ? "Yes" : "No"}</td>
-    <td>$${order.totalPrice}</td>
-    <td>No</td> <!-- Gift column -->
-    <td class="actionlist">
-      <a class="btn ButtonDicoration btn-sm" href="/order/${
-        order._id
-      }" title="View Order">
-        <i class="fa-solid fa-list"></i>
-      </a>
-      <button class="btn btn-danger btn-sm" data-order-id="${
-        order._id
-      }" onclick="deleteOrder(this)" title="Delete Order">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </td>
-  </tr>`;
+            <tr>
+              <td>#${order.orderNumber}</td>
+              <td>${order.user.name}</td>
+              <td>${products}</td>
+              <td>${moment(order.createdAt).format("D MMMM YYYY")}</td>
+              <td><span class="status ${
+                order.status === "Delivered"
+                  ? "delivered"
+                  : order.status === "Cancelled"
+                  ? "cancelled"
+                  : "pending"
+              }">${order.status}</span></td>
+              <td>${order.paid ? "Yes" : "No"}</td>
+              <td>$${order.totalPrice}</td>
+              <td>No</td>
+              <td class="actionlist">
+                <a class="btn ButtonDicoration btn-sm" href="/order/${
+                  order._id
+                }" title="View Order">
+                  <i class="fa-solid fa-list"></i>
+                </a>
+                <button class="btn btn-success btn-sm" title="Mark as Delivered" onclick="markOrderStatus('${
+                  order._id
+                }', 'Delivered')">
+                  <i class="fa-solid fa-circle-check"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" title="Mark as Cancelled" onclick="markOrderStatus('${
+                  order._id
+                }', 'Cancelled')">
+                  <i class="fa-solid fa-ban"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" data-order-id="${
+                  order._id
+                }" onclick="deleteOrder(this)" title="Delete Order">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </td>
+            </tr>`;
 
           orderTableBody.insertAdjacentHTML("beforeend", row);
         });
       } catch (error) {
         console.error("Order search error:", error);
         orderTableBody.innerHTML = `
-            <tr>
-              <td colspan="8" class="text-center text-danger">Error loading results</td>
-            </tr>`;
+          <tr>
+            <td colspan="9" class="text-center text-danger">Error loading results</td>
+          </tr>`;
       }
-    }, 200); // Debounce delay
+    }, 300); // Debounce delay
   });
 });
+
 // Delete Orders
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteOrder = async (btn) => {
@@ -588,6 +604,33 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.log(error);
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  };
+
+  // Order status
+  window.markOrderStatus = async (orderId, status) => {
+    try {
+      const response = await fetch(`/api/orders/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, orderId }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showFunToast(
+          data.message || "✅ Order status updated successfully!",
+          "green"
+        );
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`;
+        }, 1000);
+      } else {
+        showFunToast(data.error || "❗ Failed to update order status.", "red");
+      }
+    } catch (error) {
       showFunToast(error.message || "❗ An error occurred.", "red");
     }
   };
