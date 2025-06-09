@@ -6,6 +6,7 @@ import {
   validateCardBin,
   deleteOrder,
   searchOrders,
+  updateOrderStatus
   // getAllOrders,
   // getOrderById,
   // updateOrder,
@@ -21,6 +22,8 @@ router.get("/validate-bin/:bin", validateCardBin);
 router.delete("/delete/:id", auth(["admin"]), deleteOrder);
 
 router.get("/search", auth(["user", "admin"]), searchOrders);
+
+router.put("/status", auth(["user", "admin"]), updateOrderStatus);
 
 // router.get('/', getAllOrders);
 // router.get('/:id', getOrderById);

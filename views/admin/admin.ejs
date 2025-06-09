@@ -356,8 +356,8 @@
                   item.fragrance.name %> <br />
                   <% }) %>
                 </td>
-                <td><%= moment(order.createdAt).format('D MMMM YYYY') %></td>
-                <td><span class="status delivered">Delivered</span></td>
+                <td><%= moment(order.createdAt).format('LLL') %></td>
+                <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
                 <td>No</td>
@@ -369,6 +369,25 @@
                   >
                     <i class="fa-solid fa-list"></i>
                   </a>
+                  <!-- Mark as Delivered -->
+                  <button
+                    class="btn btn-success btn-sm"
+                    title="Mark as Delivered"
+                    onclick="markOrderStatus('<%= order._id %>', 'Delivered')"
+                    <%= (order.status === 'Cancelled' || order.status === 'Delivered') ? 'disabled' : '' %>
+                  >
+                    <i class="fa-solid fa-circle-check"></i>
+                  </button>
+                  <!-- Mark as Cancelled -->
+                  <button
+                    class="btn btn-danger btn-sm"
+                    title="Mark as Cancelled"
+                    onclick="markOrderStatus('<%= order._id %>', 'Cancelled')"
+                    <%= (order.status === 'Delivered' || order.status === 'Cancelled') ? 'disabled' : '' %>
+                  >
+                    <i class="fa-solid fa-ban"></i>
+                  </button>
+                  <!-- Delete Order button -->
                   <button
                     class="btn btn-danger btn-sm"
                     data-order-id="<%= order._id %>"

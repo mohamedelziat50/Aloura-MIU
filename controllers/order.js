@@ -231,22 +231,53 @@ export const deleteOrder = async (req, res) => {
 };
 
 export const searchOrders = async (req, res) => {
-  const { _id: userId } = req.user;
-  const { q = "" } = req.query;
-  const regex = new RegExp(q, "i");
-
-  const isNumeric = !isNaN(q);
-  const orderNumberQuery = isNumeric ? parseInt(q) : null;
+  const { search = "" } = req.query;
+  const searchTerm = search.trim();
 
   try {
-    const orders = await Order.find({
-      user: userId,
-      $or: [
-        ...(isNumeric ? [{ orderNumber: orderNumberQuery }] : []),
-        { "items.fragrance.name": regex },
-      ],
-    })
+    // If search term is empty, return all orders
+    if (!searchTerm) {
+      const orders = await Order.find()
+        .populate("items.fragrance")
+        .populate("user")
+        .sort({ createdAt: -1 })
+        .lean();
+      return res.status(200).json(orders);
+    }
+
+    // Try to parse the search term as a number for order number search
+    const orderNumber = parseInt(searchTerm);
+    const isOrderNumber = !isNaN(orderNumber);
+
+    // Create the search query
+    const query = {
+      $or: [],
+    };
+
+    // Add order number search if the search term is a number
+    if (isOrderNumber) {
+      query.$or.push({ orderNumber: orderNumber });
+    }
+
+    // Add user name search
+    const users = await User.find({
+      name: { $regex: searchTerm, $options: "i" },
+    }).select("_id");
+
+    if (users.length > 0) {
+      query.$or.push({ user: { $in: users.map((user) => user._id) } });
+    }
+
+    // If no valid search criteria, return empty array
+    if (query.$or.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    // Execute the search
+    const orders = await Order.find(query)
       .populate("items.fragrance")
+      .populate("user")
+      .sort({ createdAt: -1 })
       .lean();
 
     res.status(200).json(orders);
@@ -264,3 +295,38 @@ export const searchOrders = async (req, res) => {
 //     res.status(500).json({ error: err.message });
 //   }
 // };
+
+export const updateOrderStatus = async (req, res) => {
+  const { orderId, status } = req.body;
+
+  try {
+    // Find order by id
+    const order = await Order.findById(orderId);
+    if (!order) return res.status(400).json({ error: "Order not found" });
+
+    // Update status
+    if (!status) {
+      return res.status(400).json({ error: "Status not found" });
+    }
+    if (order.status === status) {
+      return res.status(400).json({ error: `Order is already marked as '${status}'.` });
+    }
+    // Prevent cancelling a delivered order
+    if (order.status === 'Delivered' && status === 'Cancelled') {
+      return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
+    }
+    // Prevent delivering a cancelled order
+    if (order.status === 'Cancelled' && status === 'Delivered') {
+      return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
+    }
+
+    // If we passed all these checks now change the status
+    order.status = status;
+    // Save the result
+    await order.save()
+
+    res.status(200).json({ message: `✅ Order #${order.orderNumber} status updated to ${order.status}` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
