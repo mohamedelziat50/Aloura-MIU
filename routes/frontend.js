@@ -20,7 +20,8 @@ import {
   getNightlifeCollectionPage,
   getCheckout,
   getaccount,
-  getUserOrders
+  getUserOrders,
+  getUserReviews
 } from "../controllers/frontend.js"; // Import the getAdmin function
 const router = express.Router();
 router.use(async (req, res, next) => {
@@ -50,6 +51,7 @@ router.get("/our-story", getOurStoryPage);
 router.get("/nightlife-collection", getNightlifeCollectionPage);
 router.get("/account/:id", auth(["user", "admin"]), getaccount);
 router.get("/user-orders/:id", auth(["user", "admin"]), getUserOrders);
+router.get("/user-reviews", getUserReviews);
 router.get("/checkout", auth(["user", "admin"]),getCheckout);
 router.get("/admin/:id", auth(["admin"]), getAdmin);
 router.get("/order/:id", auth(["admin"]), getOrder);

@@ -192,6 +192,10 @@ export const getUserOrders = async (req, res) => {
   res.render("user-orders", { orders: orders, moment: moment });
 };
 
+export const getUserReviews = async (req, res) => {
+  res.render("user-reviews");
+};
+
 export const getOrder = async (req, res) => {
   // Populate the order because we're about to use all the info
   const order = await OrderModel.findById(req.params.id).populate(

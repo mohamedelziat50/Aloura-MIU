@@ -147,9 +147,9 @@
                     <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP</div>
                   </div>
                   <div class="user-order-item-actions">
-                    <a href="/fragrances-page/<%= item.fragrance._id %>""><button class="order-btn">Buy it again</button></a>
+                    <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
                     <% if (order.status === 'Delivered') { %>
-                     <button class="order-btn">Write a Product Review</button>
+                     <a href="/user-reviews"><button class="order-btn">Write a Product Review</button></a>
                     <% } %>
                     
                   </div>
