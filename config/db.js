@@ -1,3 +1,4 @@
+// Connect database here
 import mongoose from "mongoose";
 import { MONGO_DB_URI } from "./secrets.js";
 
