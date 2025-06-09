@@ -414,16 +414,33 @@
               <h3>New Users (30d)</h3>
               <div class="metric-value">142</div>
               <div class="metric-change up">▲ 12% from last month</div>
-            </div>
-            <div class="analytics-card">
+            </div>            <div class="analytics-card">
               <h3>Active Users</h3>
               <div class="metric-value">864</div>
               <div class="metric-change">Logged in past 30d</div>
             </div>
-            <div class="analytics-card">
-              <h3>Avg. Spend</h3>
-              <div class="metric-value">$87</div>
-              <div class="metric-change down">▼ 5% from last quarter</div>
+            <div class="analytics-card email-campaigns">
+              <h3>Email Campaigns</h3>
+              <div class="email-list-wrapper">
+                <div class="email-list">
+                  <div class="email-item">
+                    <span class="email-title">Welcome New Customers</span>
+                    <button class="btn ButtonDicoration btn-sm send-btn">Send</button>
+                  </div>
+                  <div class="email-item">
+                    <span class="email-title">Summer Collection Launch</span>
+                    <button class="btn ButtonDicoration btn-sm send-btn">Send</button>
+                  </div>
+                  <div class="email-item">
+                    <span class="email-title">Special Discount - 20% Off</span>
+                    <button class="btn ButtonDicoration btn-sm send-btn">Send</button>
+                  </div>
+                </div>
+              </div>
+              <div class="email-actions">
+                <button class="btn ButtonDicoration btn-sm" data-bs-toggle="modal" data-bs-target="#createCampaignModal">Create</button>
+                <button class="btn ButtonDicoration btn-sm" data-bs-toggle="modal" data-bs-target="#viewCampaignsModal">View All</button>
+              </div>
             </div>
           </div>
 
@@ -1036,65 +1053,162 @@ Welcome to our online store featuring the best products at competitive prices.</
         </section>
       </div>
     </div>
+
+    <!-- Create Campaign Modal -->
+    <div class="modal fade" id="createCampaignModal" tabindex="-1" aria-labelledby="createCampaignModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createCampaignModalLabel">Create Email Campaign</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="createCampaignForm">
+              <div class="mb-3">
+                <label for="emailTitle" class="form-label">Email Title</label>
+                <input type="text" class="form-control" id="emailTitle" required>
+              </div>
+              <div class="mb-3">
+                <label for="subjectLine" class="form-label">Subject Line</label>
+                <input type="text" class="form-control" id="subjectLine" required>
+              </div>
+              <div class="mb-3">
+                <label for="mailchimpId" class="form-label">Mailchimp ID</label>
+                <input type="text" class="form-control" id="mailchimpId" required>
+              </div>
+            </form>
+          </div>            <div class="modal-footer">
+            <button type="button" class="btn ButtonDicoration" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="createCampaignForm" class="btn ButtonDicoration">Create Campaign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All Campaigns Modal -->
+    <div class="modal fade" id="viewCampaignsModal" tabindex="-1" aria-labelledby="viewCampaignsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewCampaignsModalLabel">All Email Campaigns</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="campaigns-list">
+              <!-- Campaign Item Template -->
+              <div class="campaign-item">
+                <div class="campaign-info">
+                  <h6>Welcome New Customers</h6>
+                  <p>Subject: Welcome to our store!</p>
+                  <small class="text-muted">ID: mc-xyz123</small>
+                </div>
+                <div class="campaign-actions">
+                  <button class="btn ButtonDicoration btn-sm" onclick="editCampaign(1)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteCampaign(1)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- More campaign items will be added dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Campaign Modal -->
+    <div class="modal fade" id="editCampaignModal" tabindex="-1" aria-labelledby="editCampaignModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editCampaignModalLabel">Edit Email Campaign</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editCampaignForm">
+              <div class="mb-3">
+                <label for="editEmailTitle" class="form-label">Email Title</label>
+                <input type="text" class="form-control" id="editEmailTitle" required>
+              </div>
+              <div class="mb-3">
+                <label for="editSubjectLine" class="form-label">Subject Line</label>
+                <input type="text" class="form-control" id="editSubjectLine" required>
+              </div>
+              <div class="mb-3">
+                <label for="editMailchimpId" class="form-label">Mailchimp ID</label>
+                <input type="text" class="form-control disabled-input" id="editMailchimpId" readonly style="background-color: #e9ecef; cursor: not-allowed;">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn ButtonDicoration" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" form="editCampaignForm" class="btn ButtonDicoration">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu functionality
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebarOverlay");
+      const main = document.querySelector(".main");
+
+      function toggleSidebar() {
+        sidebar.classList.toggle("active");
+        sidebarOverlay.classList.toggle("active");
+        document.body.style.overflow = sidebar.classList.contains("active")
+          ? "hidden"
+          : "";
+
+        // Toggle menu button visibility
+        if (sidebar.classList.contains("active")) {
+          menuToggle.style.display = "none";
+        } else {
+          menuToggle.style.display = "block";
+        }
+      }
+
+      menuToggle.addEventListener("click", toggleSidebar);
+      sidebarOverlay.addEventListener("click", toggleSidebar);
+
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener("click", (e) => {
+        if (
+          window.innerWidth <= 768 &&
+          !sidebar.contains(e.target) &&
+          !menuToggle.contains(e.target) &&
+          sidebar.classList.contains("active")
+        ) {
+          toggleSidebar();
+        }
+      });
+
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+          sidebar.classList.remove("active");
+          sidebarOverlay.classList.remove("active");
+          document.body.style.overflow = "";
+          menuToggle.style.display = "none";
+        } else {
+          menuToggle.style.display = "block";
+        }
+      });
+
+      // Initial check for screen size
+      if (window.innerWidth <= 768) {
+        menuToggle.style.display = "block";
+      } else {
+        menuToggle.style.display = "none";
+      }
+    </script>
+    <!-- Passed for the delete functions to be used when their fetch API's are done for redirection -->
+    <script>
+      window.currentAdminId = "<%= user._id %>";
+    </script>
   </body>
-  <script>
-    // Mobile menu functionality
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
-    const main = document.querySelector(".main");
-
-    function toggleSidebar() {
-      sidebar.classList.toggle("active");
-      sidebarOverlay.classList.toggle("active");
-      document.body.style.overflow = sidebar.classList.contains("active")
-        ? "hidden"
-        : "";
-
-      // Toggle menu button visibility
-      if (sidebar.classList.contains("active")) {
-        menuToggle.style.display = "none";
-      } else {
-        menuToggle.style.display = "block";
-      }
-    }
-
-    menuToggle.addEventListener("click", toggleSidebar);
-    sidebarOverlay.addEventListener("click", toggleSidebar);
-
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener("click", (e) => {
-      if (
-        window.innerWidth <= 768 &&
-        !sidebar.contains(e.target) &&
-        !menuToggle.contains(e.target) &&
-        sidebar.classList.contains("active")
-      ) {
-        toggleSidebar();
-      }
-    });
-
-    // Handle window resize
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 768) {
-        sidebar.classList.remove("active");
-        sidebarOverlay.classList.remove("active");
-        document.body.style.overflow = "";
-        menuToggle.style.display = "none";
-      } else {
-        menuToggle.style.display = "block";
-      }
-    });
-
-    // Initial check for screen size
-    if (window.innerWidth <= 768) {
-      menuToggle.style.display = "block";
-    } else {
-      menuToggle.style.display = "none";
-    }
-  </script>
-  <!-- Passed for the delete functions to be used when their fetch API's are done for redirection -->
-  <script>
-    window.currentAdminId = "<%= user._id %>";
-  </script>
 </html>
