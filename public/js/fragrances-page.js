@@ -203,27 +203,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartItemsContainer = document.querySelector(".cart-items-container");
     if (!cartItemsContainer) return;
 
-    // If cart is empty, show empty state
-    if (result.cartCount === 0) {
-      cartItemsContainer.innerHTML = `
-        <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-          <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-          <h4 class="mt-3">Your cart is empty.</h4>
-        </div>
-      `;
-      return;
-    }
+    // Show success message immediately when item is added
+    showFunToast("✅ Item successfully added to your cart!", "green", "left");
 
-    // Fetch the latest cart data
-    fetch("/api/users/cart")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success && data.cart) {
-          // Clear existing items
-          cartItemsContainer.innerHTML = "";
+    // Fetch the latest cart and gifts data
+    Promise.all([
+      fetch("/api/users/cart").then(res => res.json()),
+      fetch("/api/gifting").then(res => res.json()).catch(() => []) // Return empty array if gifts fetch fails
+    ])
+      .then(([cartData, giftsData]) => {
+        const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
+        const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
+        const isEmpty = !hasCartItems && !hasGifts;
 
-          // Add each cart item
-          data.cart.forEach((item) => {
+        // If both cart and gifts are empty, show empty state
+        if (isEmpty) {
+          cartItemsContainer.innerHTML = `
+            <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+              <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+              <h4 class="mt-3">Your cart is empty.</h4>
+            </div>
+          `;
+          return;
+        }
+
+        // Clear existing items
+        cartItemsContainer.innerHTML = "";
+
+        // Add cart items
+        if (hasCartItems) {
+          cartData.cart.forEach((item) => {
             const cartItemHTML = `
               <div class="row cart-item mb-3" data-price="${item.price}">
                 <div class="col-md-3">
@@ -250,18 +259,51 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
           });
-
-          // Update subtotal
-          updateSubtotal();
-
-          // Reattach event listeners for the new buttons
-          attachCartEventListeners();
-          showFunToast("✅ Item successfully added to your cart!", "green");
         }
+
+        // Add gift items
+        if (hasGifts) {
+          giftsData.forEach((gift) => {
+            if (gift && gift.perfume) {
+              const giftItemHTML = `
+                <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
+                  <div class="col-md-3">
+                    <img src="${gift.perfume.image && gift.perfume.image[0] ? gift.perfume.image[0] : '/images/default-perfume.jpg'}" 
+                         alt="${gift.perfume.name}" 
+                         class="img-fluid rounded" />
+                  </div>
+                  <div class="col-md-5 mt-3">
+                    <h5 class="card-title">${gift.perfume.name}</h5>
+                    <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
+                    ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
+                  </div>
+                  <div class="col-md-4 d-flex flex-column">
+                    <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
+              cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
+            }
+          });
+        }
+
+        // Update subtotal
+        updateSubtotal();
+
+        // Reattach event listeners for the new buttons
+        attachCartEventListeners();
       })
       .catch((error) => {
         console.error("Error fetching cart data:", error);
-        showFunToast("❗ Error updating cart display.", "red");
+        // Only show error toast if cart update failed
+        if (!result.success) {
+          showFunToast("❗ An error occurred while updating the cart.", "red");
+        }
       });
   }
 
