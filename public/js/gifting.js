@@ -256,42 +256,31 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalPrice =
           parseFloat(document.getElementById("gift-total").textContent) || 0;
 
+        // Create a minimal gift data object
         const giftData = {
           perfume: {
-            name:
-              selectedPerfume.querySelector("h3")?.textContent.trim() ||
-              "Not selected",
+            name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
             price: cleanPerfumePrice,
+            image: selectedPerfume.querySelector("img")?.src || ""
           },
           wrap: {
-            name:
-              selectedWrap.querySelector("h4")?.textContent.trim() ||
-              "Not selected",
-            price: cleanWrapPrice,
+            name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
+            price: cleanWrapPrice
           },
           card: {
-            name:
-              selectedCard.querySelector("h4")?.textContent.trim() ||
-              "Not selected",
+            name: selectedCard.querySelector("h4")?.textContent.trim() || "Not selected"
           },
           recipientName: document.getElementById("recipient-name").value.trim(),
           message: document.getElementById("gift-message").value.trim(),
-          totalPrice: totalPrice,
+          totalPrice: totalPrice
         };
-
-        // Log the data being sent
-        console.log("Sending gift data:", giftData);
 
         // Validate required fields
         if (!giftData.recipientName) {
           throw new Error("Please enter the recipient's name");
         }
 
-        if (
-          !giftData.perfume.name ||
-          !giftData.wrap.name ||
-          !giftData.card.name
-        ) {
+        if (!giftData.perfume.name || !giftData.wrap.name || !giftData.card.name) {
           throw new Error("Please select all gift items");
         }
 
@@ -316,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        showFunToast("Order completed successfully!", "green");
+        showFunToast("✅ Gift added successfully to your cart!", "green", "left");
 
         // Close the modal
         const giftModal = document.getElementById("gift-modal");
@@ -325,12 +314,69 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.style.overflow = "auto";
         }
 
-        // Dispatch cart update event
-        window.dispatchEvent(new Event("cart-updated"));
+        // Update the cart UI
+        const cartItemsContainer = document.querySelector(".cart-items-container");
+        if (cartItemsContainer) {
+          try {
+            // Fetch gifts data
+            const giftsResponse = await fetch("/api/gifting", {
+              credentials: "include"
+            });
+            const giftsData = await giftsResponse.json();
 
-        // Refresh the cart if we're on the cart page
-        if (typeof fetchAndDisplayGifts === "function") {
-          fetchAndDisplayGifts();
+            // Add gift items to cart
+            if (Array.isArray(giftsData) && giftsData.length > 0) {
+              giftsData.forEach((gift) => {
+                if (gift && gift.perfume) {
+                  const giftItemHTML = `
+                    <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
+                      <div class="col-md-3">
+                        <img src="${gift.perfume.image || '/images/default-perfume.jpg'}" 
+                             alt="${gift.perfume.name}" 
+                             class="img-fluid rounded" />
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <h5 class="card-title">${gift.perfume.name}</h5>
+                        <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
+                        ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
+                      </div>
+                      <div class="col-md-4 d-flex flex-column">
+                        <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
+                        <div class="d-flex justify-content-end">
+                          <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                  cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
+                }
+              });
+
+              // Update subtotal
+              const subtotalElement = document.querySelector(".cart-info-subtotal span");
+              if (subtotalElement) {
+                let subtotal = 0;
+                document.querySelectorAll(".cart-item").forEach((item) => {
+                  const price = parseFloat(item.getAttribute("data-price"));
+                  const quantityInput = item.querySelector(".quantity-input");
+                  if (quantityInput) {
+                    const quantity = parseInt(quantityInput.value);
+                    subtotal += price * quantity;
+                  } else {
+                    subtotal += price;
+                  }
+                });
+                subtotalElement.textContent = `${subtotal} EGP`;
+              }
+
+              // Reattach event listeners
+              attachCartEventListeners();
+            }
+          } catch (error) {
+            console.error("Error updating cart:", error);
+          }
         }
 
         // Reset the form
@@ -482,3 +528,108 @@ g        ${
     totalElement.textContent = `$${totalPrice.toFixed(2)}`;
   }
 }
+
+// Function to attach event listeners to cart buttons
+function attachCartEventListeners() {
+  // Attach event listeners to trash buttons
+  document.querySelectorAll(".trash-can-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const giftId = this.getAttribute("data-gift-id");
+      const cartItem = this.closest(".cart-item");
+
+      if (giftId) {
+        try {
+          const res = await fetch(`/api/gifting/${giftId}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const data = await res.json();
+          if (data.success) {
+            cartItem.remove();
+            updateSubtotal();
+            showFunToast("Gift removed successfully", "green");
+          } else {
+            showFunToast("Error removing gift. Please try again.", "red");
+          }
+        } catch (err) {
+          console.error("Failed to remove gift:", err);
+          showFunToast("Error removing gift. Please try again.", "red");
+        }
+      }
+    });
+  });
+}
+
+// Function to update subtotal
+function updateSubtotal() {
+  const cartItems = document.querySelectorAll(".cart-item");
+  let subtotal = 0;
+
+  cartItems.forEach((item) => {
+    const price = parseFloat(item.getAttribute("data-price"));
+    const quantityInput = item.querySelector(".quantity-input");
+    if (quantityInput) {
+      const quantity = parseInt(quantityInput.value);
+      subtotal += price * quantity;
+    } else {
+      subtotal += price;
+    }
+  });
+
+  const subtotalElement = document.querySelector(".cart-info-subtotal span");
+  if (subtotalElement) {
+    subtotalElement.textContent = `${subtotal} EGP`;
+  }
+}
+
+// Initialize cart on page load
+document.addEventListener("DOMContentLoaded", async () => {
+  const cartItemsContainer = document.querySelector(".cart-items-container");
+  if (cartItemsContainer) {
+    try {
+      const giftsResponse = await fetch("/api/gifting", {
+        credentials: "include"
+      });
+      const giftsData = await giftsResponse.json();
+
+      if (Array.isArray(giftsData) && giftsData.length > 0) {
+        giftsData.forEach((gift) => {
+          if (gift && gift.perfume) {
+            const giftItemHTML = `
+              <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
+                <div class="col-md-3">
+                  <img src="${gift.perfume.image || '/images/default-perfume.jpg'}" 
+                       alt="${gift.perfume.name}" 
+                       class="img-fluid rounded" />
+                </div>
+                <div class="col-md-5 mt-3">
+                  <h5 class="card-title">${gift.perfume.name}</h5>
+                  <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
+                  ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
+                </div>
+                <div class="col-md-4 d-flex flex-column">
+                  <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
+          }
+        });
+
+        // Update subtotal
+        updateSubtotal();
+
+        // Attach event listeners
+        attachCartEventListeners();
+      }
+    } catch (error) {
+      console.error("Error loading gifts:", error);
+    }
+  }
+});

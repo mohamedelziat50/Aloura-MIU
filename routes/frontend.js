@@ -33,8 +33,10 @@ router.use(async (req, res, next) => {
     }
     const decoded = jwt.verify(token,JWT_SECRET);
 
-    // Populate cart.fragrance
-    res.locals.user = await UserModel.findById(decoded.id).populate("cart.fragrance");
+    // Populate both cart.fragrance and gifts
+    res.locals.user = await UserModel.findById(decoded.id)
+      .populate("cart.fragrance")
+      .populate("gifts");
     next();
   } catch (error) {
     next();
