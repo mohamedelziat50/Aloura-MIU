@@ -244,10 +244,6 @@ box-shadow: #000;
   transform: translateY(0);
 }
 
-.full-width {
-  width: 100%; /*Expands selected image to full width */
-}
-
 .hidden {
   opacity: 0;
   visibility: hidden;
@@ -370,24 +366,6 @@ box-shadow: #000;
 .gender:hover .female,
 .gender:hover .male {
   filter: brightness(1);
-}
-
-.title {
-  width: 470px;
-  height: 300px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  text-transform: uppercase;
-  position: absolute;
-  z-index: 3;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  top: 300px;
-  left: 200px;
-}
-
-.title h1 {
-  font-size: 100px;
 }
 
 /* Initial states for text overlays */
@@ -569,101 +547,6 @@ box-shadow: #000;
   font-size: 14px;
   color: #777;
   font-style: italic;
-}
-
-/* Review Bubble Section */
-.review-bubble-container {
-  margin-top: 80px;
-  position: relative;
-}
-
-.review-bubble {
-  background: #f8f8f8;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  border-left: 4px solid #000;
-}
-
-.review-bubble:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* Added fade transition styles */
-.review-bubble-content {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
-.review-bubble-content.fade-out {
-  opacity: 0;
-}
-
-.review-stars {
-  color: gold;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.review-text {
-  font-style: italic;
-  margin-bottom: 15px;
-  line-height: 1.6;
-  color: #333;
-}
-
-.reviewer-info {
-  display: flex;
-  align-items: center;
-}
-
-.reviewer-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 12px;
-}
-
-.reviewer-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.reviewer-name {
-  font-weight: 600;
-  color: #000;
-  font-size: 14px;
-}
-
-.reviewer-location {
-  font-size: 12px;
-  color: #666;
-}
-
-.review-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.review-dot {
-  width: 10px;
-  height: 10px;
-  background-color: #ddd;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.review-dot.active {
-  background-color: #000;
 }
 
 /* NEW REVIEW CARDS SECTION */
@@ -1248,11 +1131,9 @@ top: 0;
 /* Fragrance overlay styles in transition container */
 .fragrance-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7) 50%, transparent);
-  padding: 2rem;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.7) 90%, transparent 100%);
+  padding: 2.2rem 2rem 2.5rem 2rem;
   color: white;
   z-index: 10000;
   pointer-events: auto;
@@ -1289,7 +1170,7 @@ top: 0;
   gap: 0.5rem;
 }
 
-.scroll-btn {
+.scroll-btn, .switch-gender-btn, .rewind-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1305,8 +1186,16 @@ top: 0;
   pointer-events: auto;
 }
 
-.scroll-btn:hover {
+.scroll-btn:hover, .switch-gender-btn:hover, .rewind-btn:hover {
   background: rgba(128, 128, 128, 0.5);
+}
+
+.switch-gender-btn i {
+  font-size: 1.2em;
+}
+
+.rewind-btn i {
+  font-size: 1.2em;
 }
 
 .divider {
