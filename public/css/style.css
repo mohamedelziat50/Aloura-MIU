@@ -1131,11 +1131,9 @@ top: 0;
 /* Fragrance overlay styles in transition container */
 .fragrance-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7) 50%, transparent);
-  padding: 2rem;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.7) 90%, transparent 100%);
+  padding: 2.2rem 2rem 2.5rem 2rem;
   color: white;
   z-index: 10000;
   pointer-events: auto;
@@ -1172,7 +1170,7 @@ top: 0;
   gap: 0.5rem;
 }
 
-.scroll-btn, .switch-gender-btn {
+.scroll-btn, .switch-gender-btn, .rewind-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1188,11 +1186,15 @@ top: 0;
   pointer-events: auto;
 }
 
-.scroll-btn:hover, .switch-gender-btn:hover {
+.scroll-btn:hover, .switch-gender-btn:hover, .rewind-btn:hover {
   background: rgba(128, 128, 128, 0.5);
 }
 
 .switch-gender-btn i {
+  font-size: 1.2em;
+}
+
+.rewind-btn i {
   font-size: 1.2em;
 }
 

@@ -217,6 +217,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     }
+    // Rewind button (back to gender selection)
+    const rewindBtn = overlay.querySelector('.rewind-btn');
+    if (rewindBtn) {
+      // Remove previous event listener by replacing node
+      const rewindBtnClone = rewindBtn.cloneNode(true);
+      rewindBtn.parentNode.replaceChild(rewindBtnClone, rewindBtn);
+      rewindBtnClone.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Hide transition container, show gender container
+        transitionContainer.classList.remove('active');
+        genderContainer.classList.remove('transitioning');
+        genderContainer.classList.remove('transition-active');
+        // Optionally reset state
+        currentGender = null;
+        currentImageIndex = 0;
+      });
+    }
   }
 
   if (forHerButton) {
