@@ -1,5 +1,5 @@
-/* User Orders Page Styles */
-.order-container {
+/* User Reviews Page Styles */
+.review-container {
   max-width: 95rem;
   margin: 0 auto;
   padding: 40px 20px 80px;
@@ -14,47 +14,18 @@
   font-weight: 600;
 }
 
-/* Updated edit link with animated underline */
-.view-link {
-  font-size: 14px;
-  color: #666;
-  cursor: pointer;
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.view-link::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: #000;
-  transition: width 0.5s ease;
-}
-
-.view-link:hover {
-  color: black;
-}
-
-.view-link:hover::after {
-  width: 20%;
-}
-
-.user-orders-list {
+.user-reviews-list {
   padding: 0px;
 }
 
-.user-order-card {
+.user-review-card {
   display: flex;
   border: 1px solid #e5e5e5;
   background: #fff;
   margin-bottom: 32px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
-.user-order-summary {
+.user-review-summary {
   display: flex;
   gap: 32px;
   align-items: center;
@@ -65,50 +36,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.user-order-info {
-  display: flex;
-  flex-direction: column;
-  min-width: 140px;
-  font-size: 0.98rem;
-  color: #444;
-}
-.order-label {
-  color: #888;
-  font-weight: 500;
-  font-size: 0.93rem;
-}
-.order-value {
-  color: #222;
-  font-weight: 600;
-  font-size: 1.05rem;
-}
-.order-id-info {
-  min-width: 200px;
-}
-.user-order-links {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.user-order-link {
-  color: #007185;
-  font-size: 0.98rem;
-  text-decoration: none;
-  margin-bottom: 2px;
-  transition: color 0.2s;
-}
-.user-order-link:hover {
-  color: #c45500;
-  text-decoration: underline;
-}
-.user-order-items {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 18px 22px;
-}
-.user-order-item {
+.user-review-item {
   display: flex;
   gap: 18px;
   padding-bottom: 15px;
@@ -116,27 +44,27 @@
   justify-content: space-between;
   align-items: center;
 }
-.user-order-item-img {
+.user-review-item-img {
   width: 7rem;
   height: 7rem;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid #eee;
 }
-.user-order-item-details {
+.user-review-item-details {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.user-order-item-title {
+.user-review-item-title {
   font-size: 1.1rem;
   font-weight: 600;
   color: #222;
   margin-bottom: 6px;
   text-align: center;
 }
-.user-order-item-meta {
+.user-review-item-meta {
   font-size: 0.97rem;
   color: #666;
   text-align: center;
@@ -168,60 +96,6 @@
   resize: vertical;
 }
 .submit-review-btn {
-
-
-   background: #fff;
-    color: #000;
-    border: 1px solid #121212;
-    padding: 8px;
-    font-size: 0.7rem;
-    font-family: "Poppins", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s linear;
-    text-align: center;
-}
-.submit-review-btn:hover {
-  background: #121212;
-  color: #fff;
-}
-.order-btn {
-    background: #fff;
-    color: #000;
-    border: 1px solid #121212;
-    padding: 8px;
-    font-size: 0.7rem;
-    font-family: "Poppins", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s linear;
-    text-align: center;
-}
-.order-btn:hover {
-  background: #121212;
-  color: #fff;
-}
-.order-cancel-btn {
-  margin-left: 10px;
-  padding: 4px 12px;
-  background: #fff;
-  color: #b52a2a;
-  border: 1px solid #b52a2a;
-  border-radius: 4px;
-  font-size: 0.95em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.order-cancel-btn:hover {
-  background: #b52a2a;
-  color: #fff;
-}
-.order-cancel-inline-btn {
-  display: inline-block;
-  margin-left: 8px;
   background: #fff;
   color: #000;
   border: 1px solid #121212;
@@ -233,71 +107,16 @@
   cursor: pointer;
   transition: all 0.2s linear;
   text-align: center;
-  vertical-align: middle;
-  line-height: 1.2;
-  margin-top: 3px;
 }
-.order-cancel-inline-btn:hover {
-  background: #b52a2a;
+.submit-review-btn:hover {
+  background: #121212;
   color: #fff;
-  border-color: #b52a2a;
 }
-.orders-header-bar {
+.reviews-header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
-}
-.orders-search-form {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.orders-search-input {
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px;
-  outline: none;
-  min-width: 260px;
-  max-width: 350px;
-}
-.orders-search-btn {
-  background: #fff;
-  color: #121212;
-  border: 1px solid #121212;
-  padding: 8px 18px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s linear;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.orders-search-btn:hover {
-  background: #121212;
-  color: #fff;
-}
-.order-status-label {
-  display: block;
-  text-align: right;
-  margin-top: 2px;
-  font-weight: 600;
-  font-size: 1em;
-}
-.order-status-label.delivered {
-  color: #218838; /* darker green */
-}
-.order-status-label.cancelled {
-  color: #b52a2a; /* darker red */
-}
-.order-cancel-msg {
-  display: inline-block;
-  margin-left: 10px;
-  color: #888;
-  font-size: 0.97em;
-  font-style: italic;
-  vertical-align: middle;
 }
 .review-form-label {
   font-size: 1.08rem;
@@ -310,55 +129,32 @@
 }
 
 @media (max-width: 800px) {
-  .order-container {
+  .review-container {
     padding: 10px 2vw 30px;
   }
-  .user-order-summary {
-    flex-direction: column;
+  .user-review-summary {
     gap: 10px;
     align-items: flex-start;
+    width: 100%;
   }
-  .user-order-items {
-    padding: 12px 8px;
+  .user-review-card {
+    flex-direction: column;
   }
-  .user-order-item {
+  .user-review-item {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
   }
-  .user-order-item-img {
+  .user-review-item-img {
     width: 100%;
     max-width: 120px;
     height: 70px;
     margin: 0 auto;
   }
-  .user-order-item-actions {
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: flex-start;
-    min-width: 0;
-    margin-top: 8px;
-  }
-  .order-btn {
-    width: 100%;
-  }
-  .orders-header-bar {
+  .reviews-header-bar {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-  }
-  .orders-search-form {
-    width: 100%;
-  }
-  .orders-search-input {
-    min-width: 0;
-    width: 100%;
-    border-radius: 4px 4px 0 0;
-  }
-  .orders-search-btn {
-    border-radius: 0 0 4px 4px;
-    width: 100%;
-    justify-content: center;
   }
 }
 
