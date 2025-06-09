@@ -465,30 +465,64 @@
               >
                 <div class="order-summary-header">
                   <h3>Order Summary</h3>
-                  <span class="item-count"><%= user.cart.length %> Items</span>
+                  <span class="item-count">
+                    <%= (user.cart ? user.cart.length : 0) + (user.gifts ? user.gifts.length : 0) %> Items
+                  </span>
                 </div>
                 <div class="order-summary-content">
                   <div class="order-items">
-                    <% if (user) { %> <% user.cart.forEach(item => { %>
-                    <div class="order-item">
-                      <div class="order-item-image">
-                        <img
-                          alt="Product"
-                          class="img-fluid"
-                          src="<%= item.fragrance.image[0] %>"
-                        />
-                      </div>
-                      <div class="order-item-details">
-                        <h4><%= item.fragrance.name %></h4>
-                        <p class="order-item-variant">Size: <%= item.size %></p>
-                        <div class="order-item-price">
-                          <span class="quantity"><%= item.quantity %> ×</span>
-                          <span class="price">$<%= item.price %></span>
-                          <% subtotal += item.price * item.quantity %>
-                        </div>
-                      </div>
-                    </div>
-                    <% }) %> <% } %>
+                    <% if (user) { %>
+                      <!-- Regular Cart Items -->
+                      <% if (user.cart && user.cart.length > 0) { %>
+                        <% user.cart.forEach(item => { %>
+                          <div class="order-item">
+                            <div class="order-item-image">
+                              <img
+                                alt="Product"
+                                class="img-fluid"
+                                src="<%= item.fragrance.image[0] %>"
+                              />
+                            </div>
+                            <div class="order-item-details">
+                              <h4><%= item.fragrance.name %></h4>
+                              <p class="order-item-variant">Size: <%= item.size %></p>
+                              <div class="order-item-price">
+                                <span class="quantity"><%= item.quantity %> ×</span>
+                                <span class="price">$<%= item.price %></span>
+                                <% subtotal += item.price * item.quantity %>
+                              </div>
+                            </div>
+                          </div>
+                        <% }) %>
+                      <% } %>
+
+                      <!-- Gift Items -->
+                      <% if (user.gifts && user.gifts.length > 0) { %>
+                        <% user.gifts.forEach(gift => { %>
+                          <div class="order-item">
+                            <div class="order-item-image">
+                              <img
+                                alt="Gift"
+                                class="img-fluid"
+                                src="<%= gift.perfume.image && gift.perfume.image[0] ? gift.perfume.image[0] : '/images/default-perfume.jpg' %>"
+                              />
+                            </div>
+                            <div class="order-item-details">
+                              <h4><%= gift.perfume.name %></h4>
+                              <p class="order-item-variant">Gift for: <%= gift.recipientName %></p>
+                              <p class="order-item-variant">Wrap: <%= gift.wrap.name %></p>
+                              <% if (gift.message) { %>
+                                <p class="order-item-variant small">Message: <%= gift.message %></p>
+                              <% } %>
+                              <div class="order-item-price">
+                                <span class="price">$<%= gift.totalPrice %></span>
+                                <% subtotal += gift.totalPrice %>
+                              </div>
+                            </div>
+                          </div>
+                        <% }) %>
+                      <% } %>
+                    <% } %>
                   </div>
                   <div class="order-totals">
                     <!-- Add Discount Code Section -->
@@ -524,9 +558,7 @@
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
-                      <span
-                        >$<%= (subtotal + shippingFee + tax).toFixed(2) %></span
-                      >
+                      <span>$<%= (subtotal + shippingFee + tax).toFixed(2) %></span>
                     </div>
                     <div class="d-flex justify-content-end">
                       <div>
