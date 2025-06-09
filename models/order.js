@@ -36,6 +36,27 @@ const orderSchema = new Schema(
         },
       },
     ],
+    gifts: [
+      // Array of gifts in the order
+      {
+        perfume: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Fragrance",
+          required: true,
+        },
+        wrap: {
+          name: { type: String, required: true },
+          price: { type: Number, required: true },
+        },
+        card: {
+          name: { type: String, required: true },
+          price: { type: Number, required: true },
+        },
+        recipientName: { type: String, required: true },
+        message: String,
+        totalPrice: { type: Number, required: true },
+      },
+    ],
     totalPrice: {
       type: Number,
       required: true,
