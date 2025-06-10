@@ -16,6 +16,13 @@ import passport from "./config/passport.js";
 const app = express();
 
 // middlewares
+
+app.use(express.urlencoded({ extended: true })); //read the req.body
+app.use(express.json({ limit: '2mb' })); // read the req.body with a 2MB size limit
+app.use(cookieParser()); // read the cookies
+app.use(express.static("public")); // serve static files from public directory
+app.set("view engine", "ejs"); // set the view engine to ejs
+  
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
