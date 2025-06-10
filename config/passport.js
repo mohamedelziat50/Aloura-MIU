@@ -1,8 +1,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import UserModel from "../models/user.js";
-import DOMAIN from "./secrets.js";
-
+import { DOMAIN } from "./secrets.js";
 import { generateToken } from "../controllers/auth.js";
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
