@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <th scope="row">${index + 1}</th>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
-                <td>${user.phone}</td>
+                <td>${user.phone ? user.phone : "No phone number"}</td>
                 <td>${
                   user.subscriberList ? "Subscribed" : "Not Subscribed"
                 }</td>

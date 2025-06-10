@@ -32,7 +32,11 @@ passport.use(
             password: Math.random().toString(36).slice(-8), // Generate random password
             phone: "", // Default phone number
             isVerified: true, // Google accounts are pre-verified
-            profilePic: profile.photos[0].value,
+            profilePic: profile.photos[0].value.includes(
+              "ACg8ocItOXyY60QacSybAdj-ux7cCNvJBW4kkTFdifz-tQXWLMUKtw"
+            )
+              ? `/uploads/defaultProfilePic.png`
+              : profile.photos[0].value,
           });
         }
 
