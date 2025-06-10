@@ -11,8 +11,9 @@ import { JWT_EXPIRY } from "../config/secrets.js";
 import ms from "ms";
 import sendSMS from "../utilities/smsService.js";
 import sendSMStwilio from "../utilities/twilio.js";
+import passport from "passport";
 
-const generateToken = (id, role) => {
+export const generateToken = (id, role) => {
   return jwt.sign({ id, role }, JWT_SECRET, {
     expiresIn: JWT_EXPIRY,
   });
@@ -310,4 +311,39 @@ export const forgotPasswordPhone = async (req, res) => {
     console.error("❌ Error during forgot password via phone:", error);
     res.status(500).json({ message: "Server error." });
   }
+};
+
+export const googleAuth = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export const googleCallback = (req, res) => {
+  passport.authenticate("google", { session: false }, async (err, user) => {
+    if (err) {
+      console.error("Google callback error:", err);
+      return res.redirect("/?authError=true");
+    }
+
+    try {
+      // Generate token using the same logic as regular login
+      const token = generateToken(user.id, user.role);
+
+      // Set cookie using the same options as regular login
+      res.cookie("jwt", token, cookieOptions);
+
+      // Return the same response as regular login
+      res.status(200).json({
+        message: "Login successful!",
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.error("Error in Google callback:", error);
+      res.redirect("/?authError=true");
+    }
+  })(req, res);
 };
