@@ -700,3 +700,15 @@ document
       showFunToast("❌ Server error.", "red");
     }
   });
+
+// Google Sign In
+document.getElementById("googleSignInBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.location.href = "/api/auth/google";
+});
+
+// Google Sign Up
+document.getElementById("googleSignUpBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.location.href = "/api/auth/google";
+});
