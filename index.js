@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
@@ -10,7 +11,7 @@ import orderRoutes from "./routes/order.js";
 import frontendRouter from "./routes/frontend.js";
 import chatbotRoutes from "./routes/chatbot.js";
 import giftingRoutes from "./routes/gifting.js";
-
+import passport from "./config/passport.js";
 
 const app = express();
 
@@ -22,18 +23,24 @@ app.use(cookieParser()); // read the cookies
 app.use(express.static("public")); // serve static files from public directory
 app.set("view engine", "ejs"); // set the view engine to ejs
   
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.use(passport.initialize());
+
 connectDB();
 
 //routes
 app.use(frontendRouter);
 app.use("/api/chatbot", chatbotRoutes);
-app.use("/api/auth",authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/fragrances", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/gifting", giftingRoutes);
-
 
 app.use((req, res) => {
   res.render("404");

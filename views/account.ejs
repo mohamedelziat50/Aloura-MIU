@@ -125,7 +125,13 @@
             </div>
             <div class="info-row">
               <div class="info-label">Contact</div>
-              <div class="info-value"><%= user.phone %></div>
+              <div pla class="info-value">
+                <% if (user.phone === "" || user.phone === undefined || user.phone === null) { %>
+                  Enter number
+                <% } else { %>
+                  <%= user.phone %>
+                <% } %>
+              </div>
             </div>
             <div class="info-row">
               <div class="info-label">Email</div>
@@ -238,6 +244,9 @@
                     aria-describedby="phone"
                     value="<%= user.phone %>"
                     maxlength="10"
+                    <% if (user.phone === "" || user.phone === undefined || user.phone === null) { %>
+                      placeholder="Enter phone number"
+                    <% } %>
                   />
                 </div>
               </div>

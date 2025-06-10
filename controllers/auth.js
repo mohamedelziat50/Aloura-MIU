@@ -11,8 +11,9 @@ import { JWT_EXPIRY } from "../config/secrets.js";
 import ms from "ms";
 import sendSMS from "../utilities/smsService.js";
 import sendSMStwilio from "../utilities/twilio.js";
+import passport from "passport";
 
-const generateToken = (id, role) => {
+export const generateToken = (id, role) => {
   return jwt.sign({ id, role }, JWT_SECRET, {
     expiresIn: JWT_EXPIRY,
   });
@@ -75,7 +76,7 @@ export const signup = async (req, res) => {
     sendEmail({
       to: email,
       subject: "Verify your email!",
-      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`, // this will show if the user do not support html email
+      text: `Hello ${name}, please verify your email by clicking this link: /api/auth/verify/${newUser._id}`, // this will show if the user do not support html email
       html: htmlContent,
     });
 
@@ -310,4 +311,35 @@ export const forgotPasswordPhone = async (req, res) => {
     console.error("❌ Error during forgot password via phone:", error);
     res.status(500).json({ message: "Server error." });
   }
+};
+
+export const googleAuth = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export const googleCallback = (req, res) => {
+  passport.authenticate("google", { session: false }, async (err, user) => {
+    if (err) {
+      console.error("Google callback error:", err);
+      return res.redirect("/?authError=true");
+    }
+
+    try {
+      // Generate token using the same logic as regular login
+      const token = generateToken(user.id, user.role);
+
+      // Set cookie using the same options as regular login
+      res.cookie("jwt", token, cookieOptions);
+
+      // Redirect to index page after successful login
+      if (user.role === "admin") {
+        res.redirect(`/admin/${user._id}`);
+      } else {
+        res.redirect("/");
+      }
+    } catch (error) {
+      console.error("Error in Google callback:", error);
+      res.redirect("/?authError=true");
+    }
+  })(req, res);
 };
