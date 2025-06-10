@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import UserModel from "../models/user.js";
 import { DOMAIN } from "./secrets.js";
+
 import { generateToken } from "../controllers/auth.js";
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
@@ -16,7 +17,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://16.171.18.83:3000/api/auth/google/callback`,
+      callbackURL: `http://localhost:3000/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

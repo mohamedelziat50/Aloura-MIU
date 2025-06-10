@@ -25,19 +25,16 @@ app.use(passport.initialize());
 
 connectDB();
 
-// API routes first
-app.use("/api/auth", authRoutes);
+//routes
+app.use(frontendRouter);
 app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/fragrances", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/gifting", giftingRoutes);
 
-// Frontend routes last
-app.use(frontendRouter);
-
-// 404 handler
 app.use((req, res) => {
   res.render("404");
 });
