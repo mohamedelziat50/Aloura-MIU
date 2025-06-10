@@ -75,7 +75,7 @@ export const signup = async (req, res) => {
     sendEmail({
       to: email,
       subject: "Verify your email!",
-      text: `Hello ${name}, please verify your email by clicking this link: http://localhost:3000/api/auth/verify/${newUser._id}`, // this will show if the user do not support html email
+      text: `Hello ${name}, please verify your email by clicking this link: /api/auth/verify/${newUser._id}`, // this will show if the user do not support html email
       html: htmlContent,
     });
 
