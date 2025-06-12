@@ -193,7 +193,19 @@ export const getUserOrders = async (req, res) => {
 };
 
 export const getUserReviews = async (req, res) => {
-  res.render("user-reviews");
+  try {
+    const fragranceId = req.params.id;
+
+    const fragrance = await FragranceModel.findById(fragranceId);
+    if (!fragrance) {
+      return res.status(404).send("Fragrance not found");
+    }
+
+    res.render("user-reviews", {fragrance: fragrance});
+  } catch (err) {
+    console.error("Error fetching fragrance:", err);
+    res.status(500).send("Internal Server Error");
+  }  
 };
 
 export const getOrder = async (req, res) => {
