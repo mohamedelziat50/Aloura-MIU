@@ -2,6 +2,7 @@ import FragranceModel from "../models/fragrance.js";
 import UserModel from "../models/user.js";
 import OrderModel from "../models/order.js";
 import GiftingModel from "../models/gifting.js";
+import ReviewModel from "../models/review.js";
 import moment from "moment";
 
 // List of Arab countries close to Egypt + Egypt
@@ -115,11 +116,12 @@ export const getNightlifeCollectionPage = (req, res) => {
 export const getAdmin = async (req, res) => {
   try {
     // Fetch all users, fragrances, and orders with populated references
-    const [users, fragrances, orders, subscribedUsers] = await Promise.all([
+    const [users, fragrances, orders, subscribedUsers, reviews] = await Promise.all([
       UserModel.find(),
       FragranceModel.find(),
       OrderModel.find().populate("user items.fragrance"),
       UserModel.find({ subscriberList: true }), // <-- get users who subscribed
+      ReviewModel.find().populate("user fragrance")
     ]);
 
     res.render("admin/admin", {
@@ -127,7 +129,8 @@ export const getAdmin = async (req, res) => {
       fragrance: fragrances,
       orders: orders,
       subscribedUsers,
-      moment,
+      reviews: reviews,
+      moment
     });
   } catch (err) {
     console.error(err);

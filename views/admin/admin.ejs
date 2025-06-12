@@ -332,6 +332,8 @@
             No Data To Show
           </h1>
           <% } else { %>
+
+
           <table>
             <thead>
               <tr>
@@ -767,20 +769,35 @@
               <button class="btn-bulk-delete">Delete Selected</button>
             </div>
           </div>
-
-          <!-- Reviews List -->
+          
+          
           <div class="reviews-container">
+             <!-- Reviews List -->
+          <% if (reviews.length === 0) { %>
+          <h1 style="text-align: center; position: relative; top: 80px">
+            No Data To Show
+          </h1>
+          <% } else { %> 
             <!-- Review Cards -->
-            <div class="review-card">
+           
+            <% reviews.forEach(review => { %>
+              <div class="review-card">
               <div class="review-header">
-                <span class="review-author">John D.</span>
-                <span class="review-rating">★★★★☆</span>
-                <span class="review-date">2023-10-15</span>
+                <span class="review-author"><%= review.user.name %></span>
+                <span class="review-rating">
+                  <% for(let i = 1; i <= 5; i++) { %>
+                    <% if(i <= review.rating) { %>
+                      ★
+                    <% } else { %>
+                      ☆
+                    <% } %>
+                  <% } %>
+                </span>
+                <span class="review-date"><%= moment(review.createdAt).format('lll') %></span>
               </div>
               <div class="review-content">
                 <p>
-                  Great product! Works exactly as described. The delivery was a
-                  bit slow but worth the wait.
+                  <%= review.comment %> 
                 </p>
               </div>
               <div class="review-actions">
@@ -788,44 +805,11 @@
                 <button class="btn-delete">Delete</button>
               </div>
             </div>
+            <% }) %>
 
-            <div class="review-card">
-              <div class="review-header">
-                <span class="review-author">Sarah M.</span>
-                <span class="review-rating">★☆☆☆☆</span>
-                <span class="review-date">2023-10-18</span>
-              </div>
-              <div class="review-content">
-                <p>
-                  Very disappointed with my purchase. The item arrived damaged
-                  and customer service hasn't responded.
-                </p>
-              </div>
-              <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
-              </div>
-            </div>
+           
 
-            <div class="review-card">
-              <div class="review-header">
-                <span class="review-author">Alex T.</span>
-                <span class="review-rating">★★★★★</span>
-                <span class="review-date">2023-10-20</span>
-              </div>
-              <div class="review-content">
-                <p>
-                  Absolutely love it! Better than I expected. Will definitely
-                  buy from this store again.
-                </p>
-              </div>
-              <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
-              </div>
-            </div>
-
-            <div class="review-card flagged">
+            <!-- <div class="review-card flagged">
               <div class="review-meta">
                 <span class="review-product">Chanel No. 5</span>
                 <span class="review-rating">★☆☆☆☆</span>
@@ -842,10 +826,15 @@
                 <button class="btn-reply">Reply Privately</button>
                 <button class="btn-delete">Delete</button>
               </div>
-            </div>
+            </div> -->
+
+
+            <% }  %>
           </div>
         </section>
 
+           
+           
         <!-- Settings Section -->
         <section id="section-settings" class="section">
           <h2>Site Settings</h2>
