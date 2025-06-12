@@ -249,7 +249,7 @@ window.addEventListener("DOMContentLoaded", () => {
   window.deleteProduct = (btn) => {
     const fragrance_id = btn.getAttribute("data-fragrance-id");
 
-    fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+    fetch(`/api/fragrances/${fragrance_id}`, {
       method: "DELETE",
     })
       .then(async (response) => {
@@ -278,7 +278,7 @@ window.addEventListener("DOMContentLoaded", () => {
   window.deleteUser = (btn) => {
     const user_id = btn.getAttribute("data-user-id");
 
-    fetch(`http://localhost:3000/api/users/${user_id}`, {
+    fetch(`/api/users/${user_id}`, {
       method: "DELETE",
     })
       .then(async (response) => {
@@ -376,7 +376,7 @@ addUserForm.addEventListener("submit", async (event) => {
     formData.append("profilePicture", profilePicture);
   }
 
-  fetch("http://localhost:3000/api/auth/signup", {
+  fetch("/api/auth/signup", {
     method: "POST",
     body: formData,
   })
@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <th scope="row">${index + 1}</th>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
-                <td>${user.phone}</td>
+                <td>${user.phone ? user.phone : "No phone number"}</td>
                 <td>${
                   user.subscriberList ? "Subscribed" : "Not Subscribed"
                 }</td>

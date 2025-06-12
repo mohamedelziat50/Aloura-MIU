@@ -104,7 +104,7 @@
               <div class="row cart-item mb-3" data-price="<%= gift.totalPrice %>">
                 <div class="col-md-3">
                   <img
-                    src="<%= gift.perfume.image && gift.perfume.image[0] ? gift.perfume.image[0] : '/images/default-perfume.jpg' %>"
+                    src="<%= gift.perfume.image[0]%>"
                     alt="<%= gift.perfume.name %>"
                     class="img-fluid rounded"
                   />

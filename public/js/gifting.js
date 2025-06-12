@@ -260,7 +260,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const giftData = {
           perfume: {
             name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
-            price: cleanPerfumePrice
+            price: cleanPerfumePrice,
+            image: selectedPerfume.querySelector("img")?.src || ""  
           },
           wrap: {
             name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
