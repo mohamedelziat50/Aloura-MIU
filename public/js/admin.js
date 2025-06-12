@@ -582,6 +582,66 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+// Review approval and deletion
+window.addEventListener("DOMContentLoaded", () => {
+
+  //Deletion of review
+  window.deleteReview = async (btn) => {
+    const review_id = btn.getAttribute("data-review-id");
+
+    try {
+      const response = await fetch(`/api/reviews/delete/${review_id}`, {
+        method: "DELETE",
+      });
+
+      console.log("deleted the review");
+      const data = await response.json();
+      console.log("deleted the review?????????");
+
+      if (response.ok) {
+        showFunToast(data.message || "✅ review deleted successfully!", "green");
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`;
+        }, 1000);
+      } else {
+        showFunToast(data.error || "❗ An error occurred.", "red");
+      }
+    } catch (error) {
+      console.log(error);
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  };
+
+  // Review approval, aka add it to the landing page review section.
+  // window.markOrderStatus = async (orderId, status) => {
+  //   try {
+  //     const response = await fetch(`/api/orders/status`, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ status, orderId }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (response.ok) {
+  //       showFunToast(
+  //         data.message || "✅ Order status updated successfully!",
+  //         "green"
+  //       );
+  //       setTimeout(() => {
+  //         window.location.href = `/admin/${window.currentAdminId}`;
+  //       }, 1000);
+  //     } else {
+  //       showFunToast(data.error || "❗ Failed to update order status.", "red");
+  //     }
+  //   } catch (error) {
+  //     showFunToast(error.message || "❗ An error occurred.", "red");
+  //   }
+  // };
+});
+
+
 // Delete Orders
 window.addEventListener("DOMContentLoaded", () => {
   window.deleteOrder = async (btn) => {

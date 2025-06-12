@@ -803,33 +803,21 @@
               </div>
               <span class="fragrance-name"><%= review.fragrance.name %></span>
               <div class="review-actions">
+
+                <!-- APPROVE REVIEW BUTTON --> 
                 <button class="btn-approve">Approve</button>
-                <button class="btn-delete">Delete</button>
+
+                <!-- DELETE REVIEW BUTTON --> 
+                <button class="btn-delete" 
+                    data-review-id="<%= review._id %>"
+                    onclick="deleteReview(this)"
+                    title="Delete review">
+                    Delete
+                  </button>
+
               </div>
             </div>
             <% }) %>
-
-           
-
-            <!-- <div class="review-card flagged">
-              <div class="review-meta">
-                <span class="review-product">Chanel No. 5</span>
-                <span class="review-rating">★☆☆☆☆</span>
-                <span class="review-date">Today</span>
-                <span class="flag-badge">⚠️ Flagged</span>
-              </div>
-              <div class="review-content">
-                <p>
-                  "This smells nothing like the original! Suspect counterfeit."
-                </p>
-              </div>
-              <div class="review-actions">
-                <button class="btn-approve">Approve</button>
-                <button class="btn-reply">Reply Privately</button>
-                <button class="btn-delete">Delete</button>
-              </div>
-            </div> -->
-
 
             <% }  %>
           </div>

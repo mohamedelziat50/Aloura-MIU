@@ -46,6 +46,17 @@ export const createReview = async (req, res) => {
 
 }
 
+
+export const deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findByIdAndDelete(req.params.id);
+    if (!review) return res.status(404).json({ error: "review not found" });
+    res.status(200).json({ message: `✅ review deleted successfully` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 //   try {
 //     const { fragrance, rating, comment } = req.body;
 
