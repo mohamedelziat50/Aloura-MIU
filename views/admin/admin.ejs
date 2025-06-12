@@ -779,9 +779,8 @@
           </h1>
           <% } else { %> 
             <!-- Review Cards -->
-           
-            <% reviews.forEach(review => { %>
-              <div class="review-card">
+             <% reviews.forEach(review => { %>
+              <div class="review-card <%= review.rating === 1 ? 'flagged' : '' %>">
               <div class="review-header">
                 <span class="review-author"><%= review.user.name %></span>
                 <span class="review-rating">
@@ -794,12 +793,15 @@
                   <% } %>
                 </span>
                 <span class="review-date"><%= moment(review.createdAt).format('lll') %></span>
+                <% if(review.rating === 1) { %>
+                <% } %>
               </div>
               <div class="review-content">
                 <p>
                   <%= review.comment %> 
                 </p>
               </div>
+              <span class="fragrance-name"><%= review.fragrance.name %></span>
               <div class="review-actions">
                 <button class="btn-approve">Approve</button>
                 <button class="btn-delete">Delete</button>
