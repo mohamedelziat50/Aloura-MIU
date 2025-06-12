@@ -198,118 +198,107 @@ document.addEventListener("DOMContentLoaded", function () {
       const cvv = document.getElementById("cvv").value.trim();
 
       // === Field presence checks ===
+      if (!cardNumber) return showFunToast("❌ Card number is required.", "red");
       if (!cardName) return showFunToast("❌ Card name is required.", "red");
-      if (!cardNumber)
-        return showFunToast("❌ Card number is required.", "red");
       if (!expiry) return showFunToast("❌ Expiry date is required.", "red");
       if (!cvv) return showFunToast("❌ CVV is required.", "red");
 
-      // === Luhn Check ===
-      function isValidCardNumber(cardNumber) {
-        let sum = 0;
-        let shouldDouble = false;
-        for (let i = cardNumber.length - 1; i >= 0; i--) {
-          let digit = parseInt(cardNumber[i]);
-          if (shouldDouble) {
-            digit *= 2;
-            if (digit > 9) digit -= 9;
-          }
-          sum += digit;
-          shouldDouble = !shouldDouble;
-        }
-        return sum % 10 === 0;
-      }
-
+      // === Card number validation ===
       if (!isValidCardNumber(cardNumber)) {
         return showFunToast("❌ Invalid card number.", "red");
       }
 
-      // === CVV Check ===
+      // === Expiry date validation ===
+      const [month, year] = expiry.split("/");
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear() % 100; // Get last 2 digits
+      const currentMonth = currentDate.getMonth() + 1; // getMonth() returns 0-11
+
+      if (
+        parseInt(month) < 1 ||
+        parseInt(month) > 12 ||
+        parseInt(year) < currentYear ||
+        (parseInt(year) === currentYear && parseInt(month) < currentMonth)
+      ) {
+        return showFunToast("❌ Card has expired.", "red");
+      }
+
+      // === CVV validation ===
       if (!/^\d{3,4}$/.test(cvv)) {
-        return showFunToast("❌ Invalid CVV. Must be 3 or 4 digits.", "red");
-      }
-
-      // === Expiry Format Check ===
-      const [monthStr, yearStr] = expiry.split("/");
-      const month = parseInt(monthStr);
-      const year = parseInt(yearStr);
-      const now = new Date();
-      const currentMonth = now.getMonth() + 1;
-      const currentYear = parseInt(now.getFullYear().toString().slice(-2));
-
-      if (
-        !monthStr ||
-        !yearStr ||
-        isNaN(month) ||
-        isNaN(year) ||
-        month < 1 ||
-        month > 12
-      ) {
-        return showFunToast("❌ Invalid expiry format (MM/YY).", "red");
-      }
-
-      if (
-        year < currentYear ||
-        (year === currentYear && month < currentMonth)
-      ) {
-        return showFunToast("❌ Card is expired.", "red");
-      }
-
-      // === BIN validation ===
-      const bin = cardNumber.slice(0, 6);
-      if (bin.length !== 6 || isNaN(bin)) {
-        showFunToast("❌ Invalid card number. Please recheck.", "red");
-        return;
-      }
-
-      try {
-        const binRes = await fetch(`/api/orders/validate-bin/${bin}`);
-        if (!binRes.ok) {
-          showFunToast(
-            "❌ Invalid card issuer. Please try another card.",
-            "red"
-          );
-          return;
-        }
-        binData = await binRes.json(); // Save the binData here
-        console.log("Card Info:", binData);
-      } catch (err) {
-        showFunToast("❌ Failed to verify card. Please try again.", "red");
-        return;
+        return showFunToast("❌ Invalid CVV.", "red");
       }
 
       cardData = { cardNumber, cardName, expiry, cvv };
+
+      // Get BIN data
+      try {
+        const bin = cardNumber.substring(0, 6);
+        const binResponse = await fetch(`/api/orders/bin/${bin}`);
+        if (binResponse.ok) {
+          binData = await binResponse.json();
+        }
+      } catch (error) {
+        console.error("Error fetching BIN data:", error);
+      }
     }
 
-    // ========== Final Data Object ==========
-    const formData = {
-      fullName,
-      email,
-      phone,
-      shippingAddress,
-      paid,
-      cardData,
-      binData, // Send binData to backend
-    };
-
-    // ========== Submit to backend ==========
+    // Fetch cart and gifts data
     try {
+      const [cartResponse, giftsResponse] = await Promise.all([
+        fetch("/api/users/cart", { credentials: "include" }),
+        fetch("/api/gifting", { credentials: "include" })
+      ]);
+
+      const cartData = await cartResponse.json();
+      const giftsData = await giftsResponse.json();
+
+      const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
+      const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
+
+      if (!hasCartItems && !hasGifts) {
+        return showFunToast("❌ Your cart is empty.", "red");
+      }
+
+      // ========== Final Data Object ==========
+      const formData = {
+        fullName,
+        email,
+        phone,
+        shippingAddress,
+        paid,
+        cardData,
+        binData,
+        gifts: hasGifts ? giftsData : [],
+        cartItems: hasCartItems ? cartData.cart : []
+      };
+
+      // ========== Submit to backend ==========
       const response = await fetch("/api/orders", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
+        credentials: "include"
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        showFunToast(data.message || "✅ Order placed successfully!", "green");
-        setTimeout(() => (window.location.href = "/"), 900);
+        showFunToast("✅ Order placed successfully!", "green");
+        // Clear both cart and gifts after successful order
+        await Promise.all([
+          fetch("/api/users/clearcart", { method: "POST", credentials: "include" }),
+          fetch("/api/gifting/clear", { method: "POST", credentials: "include" })
+        ]);
+        // Redirect to success page or orders page
+        window.location.href = "/user-orders";
       } else {
-        showFunToast(data.message || "❌ An error occurred.", "red");
+        showFunToast(`❌ ${data.message || "Failed to place order."}`, "red");
       }
     } catch (error) {
-      showFunToast(error.message || "❌ Network error.", "red");
+      console.error("Error:", error);
+      showFunToast("❌ An error occurred. Please try again.", "red");
     }
   });
 });

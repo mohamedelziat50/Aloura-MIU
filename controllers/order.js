@@ -7,7 +7,7 @@ import fetch from "node-fetch";
 
 export const createOrder = async (req, res) => {
   // // req.body only contains what you send; destructuring is for checking clarity and safety.
-  const { fullName, email, phone, shippingAddress, paid, cardData, binData } =
+  const { fullName, email, phone, shippingAddress, paid, cardData, binData, gifts } =
     req.body;
 
   // Customer Information Validation
@@ -101,7 +101,6 @@ export const createOrder = async (req, res) => {
   // Get the item's array (through the middle - user's cart)
   // .map() => method that creates a new array by copying objects (Because cart & order's schema dont match)
   const cartItems = user.cart.map((item) => ({
-    //
     fragrance: item.fragrance, // The fragrance id (not the entire object -> not populated)
     size: item.size,
     quantity: item.quantity,
@@ -142,10 +141,15 @@ export const createOrder = async (req, res) => {
 
   // Calculate totalPrice (no tax or shipping fee)
   // .reduce() goes through each item in the array and keeps a sum intialized at 0 (last parameter).
-  const totalPrice = cartItems.reduce(
+  let totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  // Add gift prices to total if gifts exist
+  if (gifts && Array.isArray(gifts)) {
+    totalPrice += gifts.reduce((sum, gift) => sum + (gift.totalPrice || 0), 0);
+  }
 
   // Incase there are no orders
   const intialOrderSequenceNumber = 1000;
@@ -165,6 +169,7 @@ export const createOrder = async (req, res) => {
   const order = new Order({
     user: user._id,
     items: cartItems,
+    gifts: gifts || [], // Add gifts to the order
     totalPrice,
     shippingAddress: req.body.shippingAddress,
     paid: req.body.paid,
@@ -176,8 +181,9 @@ export const createOrder = async (req, res) => {
     // Save the order
     await order.save();
 
-    // Clear the user's cart after successful order
+    // Clear the user's cart and gifts after successful order
     user.cart = [];
+    user.gifts = [];
     await user.save();
 
     // Backend must send a response (success or error) for the frontend to work.
