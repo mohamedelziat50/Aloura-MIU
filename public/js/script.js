@@ -122,9 +122,37 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentImageIndex = 0;
   let currentGender = null;
 
-  function updateFragranceDisplay(gender, index) {
+  function updateFragranceDisplay(gender, index, direction = 'down') {
     const fragrance = gender === 'her' ? herFragrances[index] : himFragrances[index];
-    transitionImage.src = fragrance.image;
+    const container = transitionImage.parentElement;
+    // Remove any old transition images
+    Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+    // Clone current image for slide out
+    const oldImg = transitionImage.cloneNode(true);
+    oldImg.removeAttribute('id');
+    container.appendChild(oldImg);
+    // Animate old image out
+    if (direction === 'up') {
+      oldImg.classList.add('transition-img-slide-out-up');
+    } else {
+      oldImg.classList.add('transition-img-slide-out-down');
+    }
+    // Prepare new image for slide in
+    const newImg = transitionImage.cloneNode(true);
+    newImg.removeAttribute('id');
+    newImg.src = fragrance.image;
+    if (direction === 'up') {
+      newImg.classList.add('transition-img-slide-in-up');
+    } else {
+      newImg.classList.add('transition-img-slide-in-down');
+    }
+    container.appendChild(newImg);
+    // After animation, set main image src and clean up
+    setTimeout(() => {
+      transitionImage.src = fragrance.image;
+      oldImg.remove();
+      newImg.remove();
+    }, 500);
     // Update the visible overlay elements
     const overlay = transitionContainer.querySelector('.fragrance-overlay');
     if (overlay) {
@@ -176,10 +204,10 @@ document.addEventListener("DOMContentLoaded", function () {
       e.stopPropagation();
       if (currentGender === 'her') {
         currentImageIndex = (currentImageIndex - 1 + herFragrances.length) % herFragrances.length;
-        updateFragranceDisplay('her', currentImageIndex);
+        updateFragranceDisplay('her', currentImageIndex, 'up');
       } else {
         currentImageIndex = (currentImageIndex - 1 + himFragrances.length) % himFragrances.length;
-        updateFragranceDisplay('him', currentImageIndex);
+        updateFragranceDisplay('him', currentImageIndex, 'up');
       }
     });
     downButtonClone.addEventListener('click', (e) => {
@@ -187,10 +215,10 @@ document.addEventListener("DOMContentLoaded", function () {
       e.stopPropagation();
       if (currentGender === 'her') {
         currentImageIndex = (currentImageIndex + 1) % herFragrances.length;
-        updateFragranceDisplay('her', currentImageIndex);
+        updateFragranceDisplay('her', currentImageIndex, 'down');
       } else {
         currentImageIndex = (currentImageIndex + 1) % himFragrances.length;
-        updateFragranceDisplay('him', currentImageIndex);
+        updateFragranceDisplay('him', currentImageIndex, 'down');
       }
     });
     // Switch gender button
@@ -226,13 +254,26 @@ document.addEventListener("DOMContentLoaded", function () {
       rewindBtnClone.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        // Hide transition container, show gender container
-        transitionContainer.classList.remove('active');
-        genderContainer.classList.remove('transitioning');
-        genderContainer.classList.remove('transition-active');
-        // Optionally reset state
-        currentGender = null;
-        currentImageIndex = 0;
+        // Animate image out (slide down)
+        const container = transitionImage.parentElement;
+        Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+        const oldImg = transitionImage.cloneNode(true);
+        oldImg.removeAttribute('id');
+        container.appendChild(oldImg);
+        oldImg.classList.add('transition-img-slide-out-down');
+        // Fade out overlay content
+        overlay.classList.add('fragrance-overlay-fade-out');
+        setTimeout(() => {
+          // Hide transition container, show gender container
+          transitionContainer.classList.remove('active');
+          genderContainer.classList.remove('transitioning');
+          genderContainer.classList.remove('transition-active');
+          currentGender = null;
+          currentImageIndex = 0;
+          oldImg.remove();
+          // Reset overlay fade for next time
+          overlay.classList.remove('fragrance-overlay-fade-out');
+        }, 500);
       });
     }
   }
@@ -245,9 +286,71 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-/**
- * Initializes all page entrance animations
- */
+// Mobile detection utility
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+const isMobile = isMobileDevice();
+document.body && document.body.setAttribute('data-mobile', isMobile);
+
+// Lazy-load fluid effect scripts only when needed
+function loadFluidEffectsIfNeeded() {
+  if (isMobile) return; // Don't load on mobile
+  if (window.fluidEffectsLoaded) return;
+  window.fluidEffectsLoaded = true;
+  // Dynamically load scripts
+  const jqueryScript = document.createElement('script');
+  jqueryScript.src = '/js/fluidEffect/jquery.min.js';
+  document.body.appendChild(jqueryScript);
+  jqueryScript.onload = () => {
+    const fluidScript = document.createElement('script');
+    fluidScript.src = '/js/fluidEffect/fluid.min.js';
+    document.body.appendChild(fluidScript);
+    fluidScript.onload = () => {
+      // Now load the app scripts
+      const femaleApp = document.createElement('script');
+      femaleApp.src = './js/fluidEffect/female-app.js';
+      document.body.appendChild(femaleApp);
+      const maleApp = document.createElement('script');
+      maleApp.src = './js/fluidEffect/male-app.js';
+      document.body.appendChild(maleApp);
+    };
+  };
+}
+
+// Only load fluid effects when gender container is hovered or interacted
+const genderContainer = document.querySelector('.gender');
+if (genderContainer && !isMobile) {
+  genderContainer.addEventListener('mouseenter', loadFluidEffectsIfNeeded, { once: true });
+  genderContainer.addEventListener('touchstart', loadFluidEffectsIfNeeded, { once: true });
+}
+
+// Hide or disable fluid canvases on mobile
+if (isMobile) {
+  const femaleCanvas = document.getElementById('female-fluid-canvas');
+  const maleCanvas = document.getElementById('male-fluid-canvas');
+  if (femaleCanvas) femaleCanvas.style.display = 'none';
+  if (maleCanvas) maleCanvas.style.display = 'none';
+}
+
+// Reduce canvas resolution on mobile (in fluid effect scripts, but as a fallback here):
+function setFluidCanvasResolution() {
+  if (!isMobile) return;
+  const femaleCanvas = document.getElementById('female-fluid-canvas');
+  const maleCanvas = document.getElementById('male-fluid-canvas');
+  if (femaleCanvas) {
+    femaleCanvas.width = 320;
+    femaleCanvas.height = 320;
+  }
+  if (maleCanvas) {
+    maleCanvas.width = 320;
+    maleCanvas.height = 320;
+  }
+}
+setFluidCanvasResolution();
+
+// Stagger entrance animations to avoid animating everything at once
 function initPageAnimations() {
   // Fetch all elements that need transitions
   const femaleImg = document.querySelector(".female img");
@@ -258,28 +361,35 @@ function initPageAnimations() {
   const yourText = document.querySelector(".text-overlay-your");
   const journeyText = document.querySelector(".fragrance-quiz");
 
-  // Start image transitions
+  // Start image transitions staggered
   setTimeout(() => {
-    if (femaleImg) femaleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the female image.
-    if (maleImg) maleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the male image.
-  }, 100); // Delays execution by 100ms to allow images to load
+    if (femaleImg) femaleImg.classList.add("loaded");
+  }, 100);
+  setTimeout(() => {
+    if (maleImg) maleImg.classList.add("loaded");
+  }, 300);
 
   // Start text transitions after images finish loading
   setTimeout(() => {
     if (indulgeText) indulgeText.classList.add("show");
+  }, 500);
+  setTimeout(() => {
     if (yourText) yourText.classList.add("show");
+  }, 700);
 
-    // Add slight delay for buttons to appear after the text
-    setTimeout(() => {
-      if (forHimBtn) forHimBtn.classList.add("show");
-      if (forHerBtn) forHerBtn.classList.add("show");
+  // Add slight delay for buttons to appear after the text
+  setTimeout(() => {
+    if (forHimBtn) forHimBtn.classList.add("show");
+  }, 900);
+  setTimeout(() => {
+    if (forHerBtn) forHerBtn.classList.add("show");
+  }, 1100);
 
-      // Show journey text at the same time as buttons
-      if (journeyText) journeyText.classList.add("show");
-    }, 130); // Delayed button appearance
-  }, 200); // Delays text transition slightly
+  // Show journey text at the same time as buttons
+  setTimeout(() => {
+    if (journeyText) journeyText.classList.add("show");
+  }, 1200);
 }
-
 
 function initGenderHoverEffects() {
   const leftContainer = document.querySelector(".left-container");

@@ -80,7 +80,7 @@
     />
   </head>
 
-  <body>
+  <body data-mobile="false">
     <!-- Loader -->
     <%- include('partials/loader.ejs') %>
 
@@ -169,6 +169,8 @@
         <img
           id="female-img"
           src="./img/girlTestCopy.jpg"
+          srcset="./img/girlTestCopy-480.jpg 480w, ./img/girlTestCopy-800.jpg 800w, ./img/girlTestCopy.jpg 1200w"
+          sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
           alt="For Her Fragrances"
         />
       </div>
@@ -181,6 +183,8 @@
         <img
           id="male-img"
           src="./img/guyTestCopy.png"
+          srcset="./img/guyTestCopy-480.png 480w, ./img/guyTestCopy-800.png 800w, ./img/guyTestCopy.png 1200w"
+          sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
           alt="For Him Fragrances"
         />
       </div>
@@ -192,7 +196,9 @@
         </div>
       </div>      <!-- Transition Image -->
       <div class="transition-container">
-        <img id="transition-img" src="" alt="Transition Image" />
+        <div class="transition-img-container">
+          <img id="transition-img" src="" alt="Transition Image" />
+        </div>
         <div class="fragrance-overlay">
           <div class="fragrance-header">
             <div class="fragrance-title">
