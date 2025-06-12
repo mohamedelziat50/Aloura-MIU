@@ -198,52 +198,103 @@ document.addEventListener("DOMContentLoaded", function () {
       const cvv = document.getElementById("cvv").value.trim();
 
       // === Field presence checks ===
-      if (!cardNumber) return showFunToast("❌ Card number is required.", "red");
       if (!cardName) return showFunToast("❌ Card name is required.", "red");
+      if (!cardNumber)
+        return showFunToast("❌ Card number is required.", "red");
       if (!expiry) return showFunToast("❌ Expiry date is required.", "red");
       if (!cvv) return showFunToast("❌ CVV is required.", "red");
 
-      // === Card number validation ===
+      // === Luhn Check ===
+      function isValidCardNumber(cardNumber) {
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = cardNumber.length - 1; i >= 0; i--) {
+          let digit = parseInt(cardNumber[i]);
+          if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+          }
+          sum += digit;
+          shouldDouble = !shouldDouble;
+        }
+        return sum % 10 === 0;
+      }
+
       if (!isValidCardNumber(cardNumber)) {
         return showFunToast("❌ Invalid card number.", "red");
       }
 
-      // === Expiry date validation ===
-      const [month, year] = expiry.split("/");
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear() % 100; // Get last 2 digits
-      const currentMonth = currentDate.getMonth() + 1; // getMonth() returns 0-11
-
-      if (
-        parseInt(month) < 1 ||
-        parseInt(month) > 12 ||
-        parseInt(year) < currentYear ||
-        (parseInt(year) === currentYear && parseInt(month) < currentMonth)
-      ) {
-        return showFunToast("❌ Card has expired.", "red");
+      // === CVV Check ===
+      if (!/^\d{3,4}$/.test(cvv)) {
+        return showFunToast("❌ Invalid CVV. Must be 3 or 4 digits.", "red");
       }
 
-      // === CVV validation ===
-      if (!/^\d{3,4}$/.test(cvv)) {
-        return showFunToast("❌ Invalid CVV.", "red");
+      // === Expiry Format Check ===
+      const [monthStr, yearStr] = expiry.split("/");
+      const month = parseInt(monthStr);
+      const year = parseInt(yearStr);
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1;
+      const currentYear = parseInt(now.getFullYear().toString().slice(-2));
+
+      if (
+        !monthStr ||
+        !yearStr ||
+        isNaN(month) ||
+        isNaN(year) ||
+        month < 1 ||
+        month > 12
+      ) {
+        return showFunToast("❌ Invalid expiry format (MM/YY).", "red");
+      }
+
+      if (
+        year < currentYear ||
+        (year === currentYear && month < currentMonth)
+      ) {
+        return showFunToast("❌ Card is expired.", "red");
+      }
+
+      // === BIN validation ===
+      const bin = cardNumber.slice(0, 6);
+      if (bin.length !== 6 || isNaN(bin)) {
+        showFunToast("❌ Invalid card number. Please recheck.", "red");
+        return;
+      }
+
+      try {
+        const binRes = await fetch(`/api/orders/validate-bin/${bin}`);
+        if (!binRes.ok) {
+          showFunToast(
+            "❌ Invalid card issuer. Please try another card.",
+            "red"
+          );
+          return;
+        }
+        binData = await binRes.json(); // Save the binData here
+        console.log("Card Info:", binData);
+      } catch (err) {
+        showFunToast("❌ Failed to verify card. Please try again.", "red");
+        return;
       }
 
       cardData = { cardNumber, cardName, expiry, cvv };
-
-      // Get BIN data
-      try {
-        const bin = cardNumber.substring(0, 6);
-        const binResponse = await fetch(`/api/orders/bin/${bin}`);
-        if (binResponse.ok) {
-          binData = await binResponse.json();
-        }
-      } catch (error) {
-        console.error("Error fetching BIN data:", error);
-      }
     }
 
-    // Fetch cart and gifts data
+    // ========== Final Data Object ==========
+    const formData = {
+      fullName,
+      email,
+      phone,
+      shippingAddress,
+      paid,
+      cardData,
+      binData, // Send binData to backend
+    };
+
+    // ========== Submit to backend ==========
     try {
+      // Fetch both cart and gifts data
       const [cartResponse, giftsResponse] = await Promise.all([
         fetch("/api/users/cart", { credentials: "include" }),
         fetch("/api/gifting", { credentials: "include" })
@@ -252,6 +303,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const cartData = await cartResponse.json();
       const giftsData = await giftsResponse.json();
 
+      console.log("Raw gifts data:", giftsData); // Debug log
+
       const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
       const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
 
@@ -259,7 +312,55 @@ document.addEventListener("DOMContentLoaded", function () {
         return showFunToast("❌ Your cart is empty.", "red");
       }
 
-      // ========== Final Data Object ==========
+      // Format gifts data according to the order model schema
+      const formattedGifts = hasGifts ? giftsData.map(gift => {
+        try {
+          console.log("Processing gift:", gift); // Debug log
+
+          // Ensure perfume ID is properly formatted
+          let perfumeId;
+          if (typeof gift.perfume === 'object' && gift.perfume._id) {
+            perfumeId = gift.perfume._id;
+          } else if (typeof gift.perfume === 'string') {
+            perfumeId = gift.perfume;
+          } else {
+            console.error("Invalid perfume data:", gift.perfume);
+            return null;
+          }
+
+          // Create base gift object
+          const formattedGift = {
+            perfume: perfumeId,
+            wrap: {
+              name: gift.wrap.name,
+              price: gift.wrap.price
+            },
+            recipientName: gift.recipientName,
+            message: gift.message || "",
+            totalPrice: gift.totalPrice
+          };
+
+          // Only add card if it exists and has required fields
+          if (gift.card && typeof gift.card === 'object') {
+            if (gift.card.name && typeof gift.card.price === 'number') {
+              formattedGift.card = {
+                name: gift.card.name,
+                price: gift.card.price
+              };
+            }
+          }
+
+          console.log("Formatted gift:", formattedGift); // Debug log
+          return formattedGift;
+        } catch (err) {
+          console.error("Error formatting gift:", err, gift);
+          return null;
+        }
+      }).filter(gift => gift !== null) : [];
+
+      console.log("Final formatted gifts:", formattedGifts); // Debug log
+
+      // Add cart and gifts to formData
       const formData = {
         fullName,
         email,
@@ -268,16 +369,15 @@ document.addEventListener("DOMContentLoaded", function () {
         paid,
         cardData,
         binData,
-        gifts: hasGifts ? giftsData : [],
-        cartItems: hasCartItems ? cartData.cart : []
+        items: hasCartItems ? cartData.cart : [],
+        gifts: formattedGifts
       };
 
-      // ========== Submit to backend ==========
+      console.log("Sending order data:", formData); // Debug log
+
       const response = await fetch("/api/orders", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
         credentials: "include"
       });
@@ -285,20 +385,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (response.ok) {
-        showFunToast("✅ Order placed successfully!", "green");
-        // Clear both cart and gifts after successful order
-        await Promise.all([
-          fetch("/api/users/clearcart", { method: "POST", credentials: "include" }),
-          fetch("/api/gifting/clear", { method: "POST", credentials: "include" })
-        ]);
-        // Redirect to success page or orders page
-        window.location.href = "/user-orders";
+        showFunToast(data.message || "✅ Order placed successfully!", "green");
+        setTimeout(() => (window.location.href = "/"), 900);
       } else {
-        showFunToast(`❌ ${data.message || "Failed to place order."}`, "red");
+        showFunToast(data.message || "❌ An error occurred.", "red");
       }
     } catch (error) {
-      console.error("Error:", error);
-      showFunToast("❌ An error occurred. Please try again.", "red");
+      showFunToast(error.message || "❌ Network error.", "red");
     }
   });
 });

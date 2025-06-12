@@ -189,8 +189,21 @@ export const createOrder = async (req, res) => {
     // Backend must send a response (success or error) for the frontend to work.
     res.status(201).json({ message: "✅ Order added successfully" });
   } catch (error) {
-    console.log(`Order Data Save Error: ${error}`);
-    res.status(500).json({ error: "Failed to add order" });
+    console.error("Order Creation Error Details:", {
+      error: error.message,
+      stack: error.stack,
+      orderData: {
+        user: user._id,
+        itemsCount: cartItems.length,
+        giftsCount: gifts ? gifts.length : 0,
+        totalPrice,
+        orderNumber
+      }
+    });
+    res.status(500).json({ 
+      message: "Failed to add order",
+      error: error.message 
+    });
   }
 };
 
