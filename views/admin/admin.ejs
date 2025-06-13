@@ -82,19 +82,29 @@
           <div class="cards">
             <div class="card">
               <h3>Total Sales</h3>
-              <p>$14,200</p>
+              <p>
+                $<%= orders.reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
+              </p>
             </div>
             <div class="card">
-              <h3>New Orders</h3>
-              <p>23</p>
+              <h3>New Orders (Last Month)</h3>
+              <p>
+                <%= orders.filter(order => {
+                  const now = new Date();
+                  const created = new Date(order.createdAt);
+                  return (now - created) / (1000 * 60 * 60 * 24) <= 30;
+                }).length %>
+            </p>
             </div>
             <div class="card">
-              <h3>Low Stock</h3>
-              <p>5 items</p>
+              <h3>Products Low On Stock</h3>
+              <p>
+                <%= fragrance.filter(product => product.sizeOptions && product.sizeOptions.some(option => option.quantity <= 5)).length %>
+              </p>
             </div>
             <div class="card">
               <h3>Users</h3>
-              <p>1,239</p>
+              <p><%= arr.length %></p>
             </div>
           </div>
 
