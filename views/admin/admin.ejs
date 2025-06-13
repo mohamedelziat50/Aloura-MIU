@@ -114,19 +114,46 @@
             <div class="metrics-grid">
               <div class="metric-card">
                 <h3>Today's Sales</h3>
-                <p>$1,240 <span class="metric-change up">▲ 12%</span></p>
+                <p>
+                  <% 
+                    const today = new Date();
+                    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                    const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+                    const todaySales = orders.filter(order => {
+                      const created = new Date(order.createdAt);
+                      return created >= startOfToday && created < endOfToday;
+                    }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
+                  %>
+                  <!-- .toLocaleString() means comma seperated -->
+                  $<%= todaySales.toLocaleString() %>
+                </p>
               </div>
               <div class="metric-card">
-                <h3>New Customers</h3>
-                <p>24 <span class="metric-change down">▼ 3%</span></p>
+                <h3>New Users (Last 30 Days)</h3>
+                <p>
+                  <% 
+                    const now = new Date();
+                    const usersLast30 = arr.filter(user => {
+                      const created = new Date(user.createdAt);
+                      return (now - created) / (1000 * 60 * 60 * 24) <= 30;
+                    }).length;
+                  %>
+                  <%= usersLast30 %>
+                </p>
               </div>
               <div class="metric-card">
-                <h3>Avg. Order</h3>
-                <p>$87 <span class="metric-change up">▲ 5%</span></p>
-              </div>
-              <div class="metric-card">
-                <h3>Conversion</h3>
-                <p>3.2% <span class="metric-change">→</span></p>
+                <h3>Avg. Order Price (Last 30 Days)</h3>
+                <p>
+                  <% 
+                    const ordersLast30 = orders.filter(order => {
+                      const created = new Date(order.createdAt);
+                      return (now - created) / (1000 * 60 * 60 * 24) <= 30;
+                    });
+                    const avgOrder = ordersLast30.length > 0 ? (ordersLast30.reduce((sum, order) => sum + (order.totalPrice || 0), 0) / ordersLast30.length) : 0;
+                  %>
+                  <!-- .toLocaleString() means comma seperated --><!-- .toLocaleString() means comma seperated -->
+                  $<%= avgOrder.toLocaleString(undefined, {maximumFractionDigits: 2}) %>
+                </p>
               </div>
             </div>
 
@@ -136,21 +163,33 @@
               <div class="chart-card">
                 <h3>Monthly Sales</h3>
                 <div class="chart-data">
+                  <% const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                  <% for(let i = 3; i > 0; i--) { 
+                    const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
+                    const monthName = months[monthDate.getMonth()];
+                    const monthSales = orders.filter(order => {
+                      const created = new Date(order.createdAt);
+                      // Return the condition the filter function will do based on
+                      return created >= monthDate && created < nextMonthDate;
+                    }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
+                  %>
                   <div class="data-row">
-                    <span>January</span>
-                    <span>$1,250</span>
+                    <span><%= monthName %></span>
+                    <span>$<%= monthSales.toLocaleString() %></span>
                   </div>
-                  <div class="data-row">
-                    <span>February</span>
-                    <span>$1,900</span>
-                  </div>
-                  <div class="data-row">
-                    <span>March</span>
-                    <span>$2,100</span>
-                  </div>
+                  <% } %>
+                  <% // Current month row %>
+                  <% const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1); %>
+                  <% const startOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1); %>
+                  <% const currentMonthName = months[now.getMonth()]; %>
+                  <% const currentMonthSales = orders.filter(order => {
+                    const created = new Date(order.createdAt);
+                    return created >= startOfCurrentMonth && created < startOfNextMonth;
+                  }).reduce((sum, order) => sum + (order.totalPrice || 0), 0); %>
                   <div class="data-row highlight">
-                    <span>Current Month</span>
-                    <span>$2,400</span>
+                    <span><%= currentMonthName %> (Current Month)</span>
+                    <span>$<%= currentMonthSales.toLocaleString() %></span>
                   </div>
                 </div>
               </div>
