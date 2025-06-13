@@ -18,17 +18,26 @@ var country_list = [
 
 export const getIndex = async (req, res) => {
   try {
-    // getting only the approvef reviews from the DB
+    // getting only the approved reviews from the DB
     const approvedReviews = await ReviewModel.find({ status: true })
       .populate("user", "name profilePic")
       .populate("fragrance", "name")
       .limit(12) // only getting 12 reviews, 4 pages, 3 reviews
       .sort({ createdAt: -1 }); // -1 makes the newest reviews get displayed first, 1 for old.
 
+    // getting fragrances marked for landing page slider
+    const sliderFragrances = await FragranceModel.find({ previewLanding: true })
+      .sort({ createdAt: -1 })
+      .limit(10); // limit to 10 fragrances max for the slider
+      
     // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
+    console.log("Found slider fragrances:", sliderFragrances.length); // debugging
     
-    // passing the reviews to the landing page
-    res.render("index", { reviews: approvedReviews });
+    // passing the reviews and slider fragrances to the landing page
+    res.render("index", { 
+      reviews: approvedReviews,
+      sliderFragrances: sliderFragrances
+    });
   } catch (error) {
     console.log("Error fetching reviews:", error);
     res.status(500).send("Server Error");

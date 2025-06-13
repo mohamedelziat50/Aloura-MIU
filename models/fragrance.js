@@ -78,6 +78,10 @@ const fragranceSchema = new mongoose.Schema(
       type: Date,
     },
     tags: [String],
+    previewLanding:{
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
