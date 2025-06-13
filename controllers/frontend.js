@@ -1,6 +1,8 @@
 ;
 import UserModel from "../models/user.js";
 import OrderModel from "../models/order.js";
+
+import ReviewModel from "../models/review.js";
 import moment from "moment";
 import FragranceModel from "../models/fragrance.js";
 
@@ -14,8 +16,23 @@ var country_list = [
   "United Arab Emirates",
 ];
 
-export const getIndex = (req, res) => {
-  res.render("index");
+export const getIndex = async (req, res) => {
+  try {
+    // getting only the approvef reviews from the DB
+    const approvedReviews = await ReviewModel.find({ status: true })
+      .populate("user", "name profilePic")
+      .populate("fragrance", "name")
+      .limit(12) // only getting 12 reviews, 4 pages, 3 reviews
+      .sort({ createdAt: -1 }); // -1 makes the newest reviews get displayed first, 1 for old.
+
+    // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
+    
+    // passing the reviews to the landing page
+    res.render("index", { reviews: approvedReviews });
+  } catch (error) {
+    console.log("Error fetching reviews:", error);
+    res.render("index", { reviews: [] });
+  }
 };
 
 export const getAllFragrances = async (req, res) => {
@@ -115,11 +132,12 @@ export const getNightlifeCollectionPage = (req, res) => {
 export const getAdmin = async (req, res) => {
   try {
     // Fetch all users, fragrances, and orders with populated references
-    const [users, fragrances, orders, subscribedUsers] = await Promise.all([
+    const [users, fragrances, orders, subscribedUsers, reviews] = await Promise.all([
       UserModel.find(),
       FragranceModel.find(),
       OrderModel.find().populate("user items.fragrance"),
       UserModel.find({ subscriberList: true }), // <-- get users who subscribed
+      ReviewModel.find().populate("user fragrance")
     ]);
 
     res.render("admin/admin", {
@@ -127,7 +145,8 @@ export const getAdmin = async (req, res) => {
       fragrance: fragrances,
       orders: orders,
       subscribedUsers,
-      moment,
+      reviews: reviews,
+      moment
     });
   } catch (err) {
     console.error(err);
@@ -193,7 +212,19 @@ export const getUserOrders = async (req, res) => {
 };
 
 export const getUserReviews = async (req, res) => {
-  res.render("user-reviews");
+  try {
+    const fragranceId = req.params.id;
+
+    const fragrance = await FragranceModel.findById(fragranceId);
+    if (!fragrance) {
+      return res.status(404).send("Fragrance not found");
+    }
+
+    res.render("user-reviews", {fragrance: fragrance});
+  } catch (err) {
+    console.error("Error fetching fragrance:", err);
+    res.status(500).send("Internal Server Error");
+  }  
 };
 
 export const getOrder = async (req, res) => {

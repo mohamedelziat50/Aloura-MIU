@@ -36,9 +36,9 @@
         <div class="user-review-card">
           <div class="user-review-summary">
             <div class="user-review-item">
-              <img src="/img/perfumes-transparent/khamrah.png" alt="Fragrance Name" class="user-review-item-img" />
+              <img src="<%= fragrance.image[0] %>" alt="Fragrance Name" class="user-review-item-img" />
               <div class="user-review-item-details">
-                <div class="user-review-item-title">Khamrah</div>
+                <div class="user-review-item-title"><%= fragrance.name %></div>
                 <div class="user-review-item-meta">Ordered At: 9 June 2025</div>
                 <div class="user-review-item-meta">Size: 100ml | Unit Price: 1200 EGP</div>
                 <div class="user-review-item-meta">Top: Saffron, Oud | Mid: Rose, Amber | Base: Musk, Vanilla</div>
@@ -55,8 +55,8 @@
               <span class="review-star" data-value="5"><i class="fa fa-star"></i></span>
               <input type="hidden" id="review-rating" name="rating" value="0" />
             </div>
-            <textarea class="review-comment-box" name="comment" placeholder="Write your review here..."></textarea>
-            <button type="submit" class="submit-review-btn">Submit Review</button>
+            <textarea class="review-comment-box" id="review-box" name="comment" placeholder="Write your review here... Maximum 200 characters" maxlength="200"></textarea>
+            <button type="submit" class="submit-review-btn" id="submit-form-button" fragrance-id="<%= fragrance._id %>">Submit Review</button>
           </form>
         </div>
       </div>

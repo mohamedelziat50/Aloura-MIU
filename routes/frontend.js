@@ -53,7 +53,7 @@ router.get("/our-story", getOurStoryPage);
 router.get("/nightlife-collection", getNightlifeCollectionPage);
 router.get("/account/:id", auth(["user", "admin"]), getaccount);
 router.get("/user-orders/:id", auth(["user", "admin"]), getUserOrders);
-router.get("/user-reviews", getUserReviews);
+router.get("/user-reviews/:id", getUserReviews);
 router.get("/checkout", auth(["user", "admin"]), getCheckout);
 router.get("/admin/:id", auth(["admin"]), getAdmin);
 router.get("/order/:id", auth(["admin"]), getOrder);
