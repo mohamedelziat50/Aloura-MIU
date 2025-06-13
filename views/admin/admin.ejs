@@ -198,21 +198,37 @@
               <div class="chart-card">
                 <h3>Top Fragrances</h3>
                 <div class="chart-data">
-                  <div class="data-row">
-                    <span>1. Chanel No.5</span>
-                    <span>85 sold</span>
-                  </div>
-                  <div class="data-row">
-                    <span>2. Dior Sauvage</span>
-                    <span>72 sold</span>
-                  </div>
-                  <div class="data-row">
-                    <span>3. Khamrah</span>
-                    <span>58 sold</span>
-                  </div>
-                  <div class="data-row highlight">
+                  <% 
+                    // Count sales for each fragrance
+                    const salesMap = {};
+                    orders.forEach(order => {
+                      order.items.forEach(item => {
+                        if (item.fragrance && item.fragrance._id) {
+                          const id = item.fragrance._id.toString();
+                          if (!salesMap[id]) {
+                            salesMap[id] = {
+                              name: item.fragrance.name,
+                              count: 0
+                            };
+                          }
+                          salesMap[id].count += item.quantity;
+                        }
+                      });
+                    });
+                    // Convert to array and sort
+                    const topFragrances = Object.values(salesMap)
+                      .sort((a, b) => b.count - a.count)
+                      .slice(0, 3); // Top 3
+                  %>
+                  <% topFragrances.forEach((fragrance, idx) => { %>
+                    <div class="data-row">
+                      <span><%= idx + 1 %>. <%= fragrance.name %></span>
+                      <span><%= fragrance.count %> sold</span>
+                    </div>
+                  <% }) %>
+                   <div class="data-row highlight">
                     <span>Bestseller</span>
-                    <span>Chanel No.5</span>
+                    <span><%= topFragrances[0].name %></span>
                   </div>
                 </div>
               </div>
