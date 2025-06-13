@@ -45,17 +45,25 @@ document.addEventListener('DOMContentLoaded', function () {
       const comment = reviewCommentBox ? reviewCommentBox.value : '';
       // Get the fragrance id from the submit button
       const fragranceId = document.getElementById('submit-form-button').getAttribute('fragrance-id');
+      // Get the fragrance id from the submit button
+      const orderId = document.getElementById('submit-form-button').getAttribute('order-id');
+      // Get the fragrance id from the submit button
+      const itemIndex = document.getElementById('submit-form-button').getAttribute('item-index');
 
       // Validate
       if (!rating || rating == 0) return showFunToast("❌ Rating is required.", "red");
       if (!comment || comment.trim() == '') return showFunToast("❌ Review's comment is required.", "red");
       if (!fragranceId) return showFunToast("❌ Fragrance ID not found, Try again.", "red");
+      if (!orderId) return showFunToast("❌ Order ID not found, Try again.", "red");
+      if (!itemIndex) return showFunToast("❌ Item Index not found, Try again.", "red");
 
       // ========== Final Data Object ==========
       const formData = {
         rating,
         comment,
-        fragranceId
+        fragranceId,
+        orderId,
+        itemIndex
       };
       
       // ========== Submit to backend ==========
