@@ -51,6 +51,7 @@
           <p class="fw-bold mb-2 text-end"><%= item.price %> EGP</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="input-group" style="max-width: 180px">
+              <% if (item.category !== "gift") { %>
               <button
                 type="button"
                 class="btn btn-outline-secondary btn-sm minus-button"
@@ -59,12 +60,17 @@
               >
                 -
               </button>
+            <% } %>
+
               <input
                 type="text"
                 class="form-control form-control-sm text-center quantity-input"
                 value="<%= item.quantity %>"
-                min="0"
+                min="1"
+                <%= item.category === "gift" ? "readonly disabled value='1'" : "" %>
               />
+
+             <% if (item.category !== "gift") { %>
               <button
                 type="button"
                 class="btn btn-outline-secondary btn-sm plus-button"
@@ -73,6 +79,8 @@
               >
                 +
               </button>
+            <% } %>
+
             </div>
 
             <button

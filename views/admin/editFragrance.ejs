@@ -227,6 +227,14 @@
         transition: all 0.3s ease;
       }
 
+      .form-section-last {
+        margin-top: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: center;
+        
+      }
+
       .btn-outline-danger:hover {
         background-color: #dc3545;
         color: white;
@@ -246,6 +254,12 @@
       /* Grid layout */
       .form-grid {
         display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .form-grid-last {
+        display: inline-grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 1.5rem;
       }
@@ -602,8 +616,8 @@
           
           
 
-          <div class="form-section">
-            <div class="form-grid">
+          <div class="form-section-last">
+            <div class="form-grid-last">
               <div class="mb-4">
                 <label class="form-label">Release Date</label>
                 <input
@@ -617,7 +631,7 @@
             </div>
           
             <!-- Tags -->
-            <div class="form-grid">
+            <div class="form-grid-last">
               <div class="mb-4">
                 <label class="form-label">Tags (comma-separated)</label>
                 <input

@@ -87,37 +87,39 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Toggle selection function
-  function toggleSelection(element, selectedItem, itemType) {
-    const allButtons = element.parentElement.querySelectorAll(
-      `.select-${itemType}`
-    );
+function toggleSelection(button, selectedItem, itemType) {
+  const parentContainer = button.closest(".scroll-container");
+  const allButtons = parentContainer.querySelectorAll(`.select-${itemType}`);
 
-    // Reset all buttons in this group
-    allButtons.forEach((btn) => {
-      btn.textContent = "Select";
-      btn.style.backgroundColor = "";
-    });
+  // Deselect all buttons
+  allButtons.forEach((btn) => {
+    btn.textContent = "Select";
+    btn.style.backgroundColor = "";
+    btn.closest(`.${itemType}-option`).classList.remove("selected");
+  });
 
-    // If clicking the already selected item, deselect it
-    if (selectedItem && selectedItem.element === element) {
-      return null;
-    }
-
-    // Select the new item
-    element.textContent = "Selected ✓";
-    element.style.backgroundColor = "#4CAF50";
-
-    return {
-      element: element,
-      name: element.closest(`.${itemType}-option`).querySelector("h3, h4")
-        .textContent,
-      price:
-        element
-          .closest(`.${itemType}-option`)
-          .querySelector(".price, p:nth-of-type(1)")?.textContent || "",
-      image: element.closest(`.${itemType}-option`).querySelector("img").src,
-    };
+  // If clicking the same selected item, return null (to deselect)
+  if (selectedItem && selectedItem.element === button) {
+    return null;
   }
+
+  // Select the new item
+  button.textContent = "Selected ✓";
+  button.style.backgroundColor = "#4CAF50";
+  button.closest(`.${itemType}-option`).classList.add("selected");
+
+  return {
+    element: button,
+    name: button.closest(`.${itemType}-option`).querySelector("h3, h4")
+      .textContent,
+    price:
+      button
+        .closest(`.${itemType}-option`)
+        .querySelector(".price, p:nth-of-type(1)")?.textContent || "",
+    image: button.closest(`.${itemType}-option`).querySelector("img").src,
+  };
+}
+
 
   // Perfume selection
   document.querySelectorAll(".select-perfume").forEach((button) => {
@@ -389,41 +391,69 @@ function updateCartUI(result) {
       if (data.success && data.cart) {
         cartItemsContainer.innerHTML = "";
 
+        let subtotal = 0;
+
         data.cart.forEach((item) => {
-          const isRegular = item.category === "regular";
+          const isGift = item.category === "gift";
+          subtotal += item.price * item.quantity;
 
           const cartItemHTML = `
             <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
               <div class="col-md-3">
                 <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
               </div>
+
               <div class="col-md-5 mt-3">
                 <h5 class="card-title">${item.fragrance.name}</h5>
                 <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
               </div>
+
               <div class="col-md-4 d-flex flex-column">
                 <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
                 <div class="d-flex justify-content-between align-items-center">
-                  ${
-                    isRegular
-                      ? `
-                    <div class="input-group" style="max-width: 180px">
-                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
-                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
-                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
-                    </div>
-                  `
-                      : `<p class="text-center fw-medium mb-0">Quantity: ${item.quantity}</p>`
-                  }
-                  <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
+                  <div class="input-group" style="max-width: 180px">
+                    ${
+                      !isGift
+                        ? `<button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>`
+                        : ""
+                    }
+
+                    <input
+                      type="text"
+                      class="form-control form-control-sm text-center quantity-input"
+                      value="${item.quantity}"
+                      min="1"
+                      ${isGift ? "readonly disabled value='1'" : ""}
+                    />
+
+                    ${
+                      !isGift
+                        ? `<button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>`
+                        : ""
+                    }
+                  </div>
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger trash-can-button ms-2"
+                    data-size="${item.size}"
+                    data-fragrance-id="${item.fragrance._id}"
+                  >
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
                 </div>
               </div>
             </div>
           `;
+
           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
         });
+
+        // Optionally update subtotal on the page if you use dynamic subtotal rendering
+        const subtotalEl = document.querySelector(".cart-info-subtotal span");
+        if (subtotalEl) {
+          subtotalEl.textContent = `${subtotal} EGP`;
+        }
 
         updateSubtotal();
         attachCartEventListeners();
@@ -434,6 +464,7 @@ function updateCartUI(result) {
       console.error("Error fetching cart data:", error);
     });
 }
+
 
 
 

@@ -556,86 +556,94 @@
             </div>
             <div class="row g-4">
               <div class="col-md-8">
-                <div
-                  class="table-responsive mb-3"
-                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
-                >
-                  <table class="table table-borderless align-middle mb-0">
-                    <thead class="table-light">
-                      <tr>
-                        <th>Image</th>
-                        <th>Product</th>
-                        <th>Size</th>
-                        <th>Quantity</th>
-                        <th>Category</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% order.items.forEach(item => { %>
-                      <tr>
-                        <td style="align-items: center">
-                          <% if(item.fragrance && item.fragrance.image) { %>
-                          <img
-                            src="<%= item.fragrance.image[0] %>"
-                            alt="<%= item.fragrance.name %>"
-                            style="
-                              width: 48px;
-                              height: 48px;
-                              object-fit: cover;
-                              border-radius: 8px;
-                            "
-                          />
-                          <% } else { %>
-                          <span class="text-muted">N/A</span>
-                          <% } %>
-                        </td>
-                        <td><%= item.fragrance?.name || 'N/A' %></td>
-                        <td><%= item.size || '-' %></td>
-                        <td><%= item.quantity %></td>
-                        <td><%= item.category === 'gift' ? 'Gift' : 'Regular' %></td>
-                        <td>$<%= item.price || 'N/A' %></td>
-                        <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
-                      </tr>
-                      <% }) %>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="d-flex flex-column align-items-end">
-                  <div class="mb-1">
-                    <span class="text-muted">Subtotal:</span>
-                    <span class="fw-semibold"
-                      >$<%= order.subtotal || order.totalPrice %></span
-                    >
-                  </div>
-                  <div class="mb-1">
-                    <span class="text-muted">Shipping:</span>
-                    <span class="fw-semibold"
-                      >$<%= order.shipping || '0.00' %></span
-                    >
-                  </div>
-                  <div class="mb-1">
-                    <span class="text-muted">Tax:</span>
-                    <span class="fw-semibold">$<%= order.tax || '0.00' %></span>
-                  </div>
-                  <div class="mb-1 fs-5">
-                    <span class="fw-bold">Total:</span>
-                    <span class="fw-bold text-success"
-                      >$<%= order.totalPrice %></span
-                    >
-                  </div>
-                  <% if(order.paid) { %>
-                  <span class="badge bg-success mt-2">Payment made</span>
-                  <% } %>
-                </div>
-                <% if(order.note) { %>
-                <div class="border rounded-3 p-3 bg-light mt-4">
-                  <div class="fw-bold mb-1">Notes</div>
-                  <div><%= order.note %></div>
-                </div>
-                <% } %>
-              </div>
+  <div
+    class="table-responsive mb-3"
+    style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
+  >
+    <table class="table table-borderless align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Size</th>
+          <th>Quantity</th>
+          <th>Category</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+          <th>Wrap</th>
+          <th>Card</th>
+          <th>Recipient Name</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% order.items.forEach(item => { %>
+        <tr>
+          <td style="align-items: center">
+            <% if(item.fragrance && item.fragrance.image) { %>
+              <img
+                src="<%= item.fragrance.image[0] %>"
+                alt="<%= item.fragrance.name %>"
+                style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px;"
+              />
+            <% } else { %>
+              <span class="text-muted">N/A</span>
+            <% } %>
+          </td>
+          <td><%= item.fragrance?.name || 'N/A' %></td>
+          <td><%= item.size || '-' %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.category === 'gift' ? 'Gift' : 'Regular' %></td>
+          <td>$<%= item.price || 'N/A' %></td>
+          <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+
+          <% if(item.category === 'gift') { %>
+            <td><%= item.wrap.name || 'N/A' %></td>
+            <td><%= item.card.name || 'N/A' %></td>
+            <td><%= item.recipientName || 'N/A' %></td>
+            <td><%= item.message || 'N/A' %></td>
+          <% } else { %>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          <% } %>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex flex-column align-items-end">
+    <div class="mb-1">
+      <span class="text-muted">Subtotal:</span>
+      <span class="fw-semibold">$<%= order.subtotal || order.totalPrice %></span>
+    </div>
+    <div class="mb-1">
+      <span class="text-muted">Shipping:</span>
+      <span class="fw-semibold">$<%= order.shipping || '0.00' %></span>
+    </div>
+    <div class="mb-1">
+      <span class="text-muted">Tax:</span>
+      <span class="fw-semibold">$<%= order.tax || '0.00' %></span>
+    </div>
+    <div class="mb-1 fs-5">
+      <span class="fw-bold">Total:</span>
+      <span class="fw-bold text-success">$<%= order.totalPrice %></span>
+    </div>
+    <% if(order.paid) { %>
+      <span class="badge bg-success mt-2">Payment made</span>
+    <% } %>
+  </div>
+
+  <% if(order.note) { %>
+    <div class="border rounded-3 p-3 bg-light mt-4">
+      <div class="fw-bold mb-1">Notes</div>
+      <div><%= order.note %></div>
+    </div>
+  <% } %>
+</div>
+
               <div class="col-md-4">
                 <div class="border rounded-3 p-3 h-auto bg-white">
                   <div class="d-flex align-items-center mb-2">

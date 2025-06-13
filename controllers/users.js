@@ -125,28 +125,30 @@ export const addToCart = async (req, res) => {
     }
 
     // Check if item with same productId + size already exists in cart
-    const existingCartItem = user.cart.find(
-      (item) => item.fragrance.toString() === productId && item.size === size
-    );
+const existingCartItem = user.cart.find(
+  (item) =>
+    item.fragrance.toString() === productId &&
+    item.size === size &&
+    item.category !== "gift"
+);
 
-    if (existingCartItem) {
-      existingCartItem.quantity += 1; // Just increase quantity
-    } else {
-      
+if (existingCartItem) {
+  existingCartItem.quantity += 1; // Just increase quantity
+} else {
+  // Add new cart item with price if needed
+  user.cart.push({
+    fragrance: productId,
+    size,
+    quantity: 1,
+    price, // If you store price per unit in the cart
+    wrap: null, // Assuming wrap is optional
+    card: null, // Assuming card is optional
+    recipientName: null, // Assuming recipientName is optional
+    message: null, // Assuming message is optional
+    category: "regular", // Assuming category is fragrance
+  });
+}
 
-      // Add new cart item with price if needed
-      user.cart.push({
-        fragrance: productId,
-        size,
-        quantity: 1,
-         price, // If you store price per unit in the cart
-         wrap: null, // Assuming wrap is optional
-        card: null, // Assuming card is optional
-        recipientName: null, // Assuming recipientName is optional
-        message: null, // Assuming message is optional
-        category:"regular", // Assuming category is fragrance
-      });
-    }
 
     /*  fragrance: foundPerfume._id, // now using ID from name lookup
       size: size || null,
