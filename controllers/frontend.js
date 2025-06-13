@@ -34,17 +34,17 @@ export const getAllFragrances = async (req, res) => {
 // Handle the GET Request for the checkout page
 export const getCheckout = async (req, res) => {
   try {
-    // Get the user's object populated with both cart items and gifts
-    const user = await UserModel.findById(req.user.id)
-      .populate("cart.fragrance")
-      .populate("gifts");
+    // Get the user's object populated with the fragrance's full details
+    const user = await UserModel.findById(req.user.id).populate(
+      "cart.fragrance"
+    );
 
     //  Variable for shipping fee & tax
     const shippingFee = 0;
     const tax = 0;
 
-    // Only render checkout when cart has items or gifts
-    if (user.cart.length > 0 || (user.gifts && user.gifts.length > 0)) {
+    // Only render checkout when cart has items
+    if (user.cart.length > 0) {
       // Render the page with the user's data to be displayed inside the ejs
       res.render("checkout", {
         user: user,
@@ -53,7 +53,7 @@ export const getCheckout = async (req, res) => {
         country_list: country_list,
       });
     } else {
-      // Redirect to all-fragrances if both cart and gifts are empty
+      // Redirect to all-fragrances if cart is empty
       return res.redirect("/all-fragrances");
     }
   } catch (error) {
