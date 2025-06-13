@@ -39,11 +39,8 @@ export const getIndex = async (req, res) => {
       sliderFragrances: sliderFragrances
     });
   } catch (error) {
-    console.log("Error fetching data:", error);
-    res.render("index", { 
-      reviews: [],
-      sliderFragrances: []
-    });
+    console.log("Error fetching reviews:", error);
+    res.status(500).send("Server Error");
   }
 };
 
