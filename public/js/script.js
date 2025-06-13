@@ -19,11 +19,338 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Initialize the review cards
   initReviewCards();
+
+  // --- GENDER TRANSITION LOGIC ---
+  const forHerButton = document.querySelector('.for-her');
+  const forHimButton = document.querySelector('.for-him');
+  const genderContainer = document.querySelector('.gender');
+  const transitionContainer = document.querySelector('.transition-container');
+  const transitionImage = document.querySelector('#transition-img');
+
+  const herFragrances = [
+    {
+      image: 'https://cdn.prod.website-files.com/64fff659cb19102a6a74dc5e/66b080f27a31f17abfadfaf5_GUCCI_FLORA_MAIN.webp',
+      name: 'Flora Gorgeous',
+      parfum: 'GUCCI',
+      description: 'A luminous and modern floral fragrance that captures the essence of optimism and beauty.',
+      notes: {
+        top: 'Pear, Mandarin',
+        middle: 'Gardenia, Jasmine',
+        base: 'Patchouli, Musks'
+      }
+    },
+    {
+      image: 'https://www.perfumestars.com/wp-content/uploads/2024/07/burberry-goddess-intense-elevating-the-vanilla-experience-to-new-heights-2024-1024x559.jpg',
+      name: 'Goddess Intense',
+      parfum: 'BURBERRY',
+      description: 'An intoxicating vanilla-based fragrance that embodies modern femininity and power.',
+      notes: {
+        top: 'Lavender',
+        middle: 'Vanilla Absolute',
+        base: 'Amber, Sandalwood'
+      }
+    },
+    {
+      image: 'https://ifragranceofficial.com/wp-content/uploads/2023/11/eilish-no-3.png',
+      name: 'Eilish No.3',
+      parfum: 'EILISH',
+      description: 'A sultry and sophisticated scent that combines warmth with ethereal freshness.',
+      notes: {
+        top: 'Black Pepper',
+        middle: 'Rose, Saffron',
+        base: 'Vanilla, Musk'
+      }
+    },
+    {
+      image: 'https://i.ytimg.com/vi/vdQsvlcy7hE/maxresdefault.jpg',
+      name: 'Vanilla Sex',
+      parfum: 'Tom Ford',
+      description: 'A delicate and feminine fragrance that embodies youthful elegance.',
+      notes: {
+        top: 'Bitter Almond',
+        middle: 'Vanilla, Floral Notes',
+        base: 'Tonka Bean, Vanilla Absolute , Sandalwood'
+      }
+    }
+  ];
+  const himFragrances = [
+    {
+      image: 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg',
+      name: 'Aventus',
+      parfum: 'Creed',
+      description: 'A luxurious leather fragrance that captures raw sensuality and sophistication.',
+      notes: {
+        top: 'Cardamom',
+        middle: 'Leather, Jasmine',
+        base: 'Moss, Amber'
+      }
+    },
+    {
+      image: 'https://cdn.shopify.com/s/files/1/0524/6733/5333/files/Versace_Eros-5_480x480.jpg?v=1609687512',
+      name: 'Eros',
+      parfum: 'VERSACE',
+      description: 'A bold and passionate fragrance inspired by Greek mythology.',
+      notes: {
+        top: 'Mint, Green Apple',
+        middle: 'Tonka Bean',
+        base: 'Vanilla, Vetiver'
+      }
+    },
+    {
+      image: 'https://www.perfumestars.com/wp-content/uploads/2025/03/fragrance-for-men-lattafa-perfumes-khamrah-dukhan-768x419.jpg',
+      name: 'Khamrah',
+      parfum: 'LATTAFA',
+      description: 'An intense and mysterious oriental fragrance with remarkable longevity.',
+      notes: {
+        top: 'Saffron, Oud',
+        middle: 'Rose, Amber',
+        base: 'Musk, Vanilla'
+      }
+    },
+    {
+      image: 'https://www.yslbeauty.com/dw/image/v2/BDCR_PRD/on/demandware.static/-/Sites-NGYSL-ILM-Library/default/dw5b0e71d0/pdp/images/WW-51020YSL/ysl_dmi_fraw_libre_le-parfum-22_digital-life-still_packshot-on-black&white-marble_landscape.jpg?sw=1920&sh=1080&sm=cut&q=85',
+      name: 'Y Le Parfum',
+      parfum: 'YVES SAINT LAURENT',
+      description: 'A sophisticated and intense fragrance for the modern man.',
+      notes: {
+        top: 'Ginger',
+        middle: 'Geranium, Lavender',
+        base: 'Vanilla, Tonka Bean'
+      }
+    }
+  ];
+  let currentImageIndex = 0;
+  let currentGender = null;
+
+  function updateFragranceDisplay(gender, index, direction = 'down') {
+    const fragrance = gender === 'her' ? herFragrances[index] : himFragrances[index];
+    const container = transitionImage.parentElement;
+    // Remove any old transition images
+    Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+    // Clone current image for slide out
+    const oldImg = transitionImage.cloneNode(true);
+    oldImg.removeAttribute('id');
+    container.appendChild(oldImg);
+    // Animate old image out
+    if (direction === 'up') {
+      oldImg.classList.add('transition-img-slide-out-up');
+    } else {
+      oldImg.classList.add('transition-img-slide-out-down');
+    }
+    // Prepare new image for slide in
+    const newImg = transitionImage.cloneNode(true);
+    newImg.removeAttribute('id');
+    newImg.src = fragrance.image;
+    if (direction === 'up') {
+      newImg.classList.add('transition-img-slide-in-up');
+    } else {
+      newImg.classList.add('transition-img-slide-in-down');
+    }
+    container.appendChild(newImg);
+    // After animation, set main image src and clean up
+    setTimeout(() => {
+      transitionImage.src = fragrance.image;
+      oldImg.remove();
+      newImg.remove();
+    }, 500);
+    // Update the visible overlay elements
+    const overlay = transitionContainer.querySelector('.fragrance-overlay');
+    if (overlay) {
+      const nameEl = overlay.querySelector('.fragrance-name');
+      if (nameEl) nameEl.textContent = fragrance.name;
+      // Parfum/Type (try both class names for robustness)
+      const parfumEl = overlay.querySelector('.fragrance-parfum') || overlay.querySelector('.fragrance-type');
+      if (parfumEl) parfumEl.textContent = fragrance.parfum;
+      // Description
+      const descEl = overlay.querySelector('.fragrance-description p');
+      if (descEl) descEl.textContent = fragrance.description;
+      // Notes
+      const noteTexts = overlay.querySelectorAll('.note-group .note-text');
+      if (noteTexts.length === 3) {
+        noteTexts[0].textContent = fragrance.notes.top;
+        noteTexts[1].textContent = fragrance.notes.middle;
+        noteTexts[2].textContent = fragrance.notes.base;
+      }
+      // Update switch gender button icon
+      const switchBtn = overlay.querySelector('.switch-gender-btn');
+      if (switchBtn) {
+        switchBtn.innerHTML = gender === 'her'
+          ? '<i class="fas fa-mars"></i>'
+          : '<i class="fas fa-venus"></i>';
+        switchBtn.title = gender === 'her' ? 'Switch to Him' : 'Switch to Her';
+        switchBtn.classList.add('circular-gender-btn');
+      }
+    }
+  }
+
+  function handleGenderSelection(gender) {
+    if (!genderContainer || !transitionContainer || !transitionImage) return;
+    currentGender = gender;
+    currentImageIndex = 0;
+    updateFragranceDisplay(gender, currentImageIndex);
+    genderContainer.classList.add('transitioning');
+    setTimeout(() => {
+      transitionContainer.classList.add('active');
+    }, 100);
+    transitionContainer.classList.add('active');
+    const upButton = transitionContainer.querySelector('.scroll-btn.up');
+    const downButton = transitionContainer.querySelector('.scroll-btn.down');
+    const upButtonClone = upButton.cloneNode(true);
+    const downButtonClone = downButton.cloneNode(true);
+    upButton.parentNode.replaceChild(upButtonClone, upButton);
+    downButton.parentNode.replaceChild(downButtonClone, downButton);
+    upButtonClone.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (currentGender === 'her') {
+        currentImageIndex = (currentImageIndex - 1 + herFragrances.length) % herFragrances.length;
+        updateFragranceDisplay('her', currentImageIndex, 'up');
+      } else {
+        currentImageIndex = (currentImageIndex - 1 + himFragrances.length) % himFragrances.length;
+        updateFragranceDisplay('him', currentImageIndex, 'up');
+      }
+    });
+    downButtonClone.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (currentGender === 'her') {
+        currentImageIndex = (currentImageIndex + 1) % herFragrances.length;
+        updateFragranceDisplay('her', currentImageIndex, 'down');
+      } else {
+        currentImageIndex = (currentImageIndex + 1) % himFragrances.length;
+        updateFragranceDisplay('him', currentImageIndex, 'down');
+      }
+    });
+    // Switch gender button
+    const overlay = transitionContainer.querySelector('.fragrance-overlay');
+    if (overlay) {
+      const switchBtn = overlay.querySelector('.switch-gender-btn');
+      if (switchBtn) {
+        // Remove previous event listener by replacing node
+        const switchBtnClone = switchBtn.cloneNode(true);
+        switchBtn.parentNode.replaceChild(switchBtnClone, switchBtn);
+        switchBtnClone.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          // Switch gender and reset to first fragrance
+          if (currentGender === 'her') {
+            currentGender = 'him';
+            currentImageIndex = 0;
+            updateFragranceDisplay('him', currentImageIndex);
+          } else {
+            currentGender = 'her';
+            currentImageIndex = 0;
+            updateFragranceDisplay('her', currentImageIndex);
+          }
+        });
+      }
+    }
+    // Rewind button (back to gender selection)
+    const rewindBtn = overlay.querySelector('.rewind-btn');
+    if (rewindBtn) {
+      // Remove previous event listener by replacing node
+      const rewindBtnClone = rewindBtn.cloneNode(true);
+      rewindBtn.parentNode.replaceChild(rewindBtnClone, rewindBtn);
+      rewindBtnClone.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Animate image out (slide down)
+        const container = transitionImage.parentElement;
+        Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+        const oldImg = transitionImage.cloneNode(true);
+        oldImg.removeAttribute('id');
+        container.appendChild(oldImg);
+        oldImg.classList.add('transition-img-slide-out-down');
+        // Fade out overlay content
+        overlay.classList.add('fragrance-overlay-fade-out');
+        setTimeout(() => {
+          // Hide transition container, show gender container
+          transitionContainer.classList.remove('active');
+          genderContainer.classList.remove('transitioning');
+          genderContainer.classList.remove('transition-active');
+          currentGender = null;
+          currentImageIndex = 0;
+          oldImg.remove();
+          // Reset overlay fade for next time
+          overlay.classList.remove('fragrance-overlay-fade-out');
+        }, 500);
+      });
+    }
+  }
+
+  if (forHerButton) {
+    forHerButton.addEventListener('click', () => handleGenderSelection('her'));
+  }
+  if (forHimButton) {
+    forHimButton.addEventListener('click', () => handleGenderSelection('him'));
+  }
 });
 
-/**
- * Initializes all page entrance animations
- */
+// Mobile detection utility
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+const isMobile = isMobileDevice();
+document.body && document.body.setAttribute('data-mobile', isMobile);
+
+// Lazy-load fluid effect scripts only when needed
+function loadFluidEffectsIfNeeded() {
+  if (isMobile) return; // Don't load on mobile
+  if (window.fluidEffectsLoaded) return;
+  window.fluidEffectsLoaded = true;
+  // Dynamically load scripts
+  const jqueryScript = document.createElement('script');
+  jqueryScript.src = '/js/fluidEffect/jquery.min.js';
+  document.body.appendChild(jqueryScript);
+  jqueryScript.onload = () => {
+    const fluidScript = document.createElement('script');
+    fluidScript.src = '/js/fluidEffect/fluid.min.js';
+    document.body.appendChild(fluidScript);
+    fluidScript.onload = () => {
+      // Now load the app scripts
+      const femaleApp = document.createElement('script');
+      femaleApp.src = './js/fluidEffect/female-app.js';
+      document.body.appendChild(femaleApp);
+      const maleApp = document.createElement('script');
+      maleApp.src = './js/fluidEffect/male-app.js';
+      document.body.appendChild(maleApp);
+    };
+  };
+}
+
+// Only load fluid effects when gender container is hovered or interacted
+const genderContainer = document.querySelector('.gender');
+if (genderContainer && !isMobile) {
+  genderContainer.addEventListener('mouseenter', loadFluidEffectsIfNeeded, { once: true });
+  genderContainer.addEventListener('touchstart', loadFluidEffectsIfNeeded, { once: true });
+}
+
+// Hide or disable fluid canvases on mobile
+if (isMobile) {
+  const femaleCanvas = document.getElementById('female-fluid-canvas');
+  const maleCanvas = document.getElementById('male-fluid-canvas');
+  if (femaleCanvas) femaleCanvas.style.display = 'none';
+  if (maleCanvas) maleCanvas.style.display = 'none';
+}
+
+// Reduce canvas resolution on mobile (in fluid effect scripts, but as a fallback here):
+function setFluidCanvasResolution() {
+  if (!isMobile) return;
+  const femaleCanvas = document.getElementById('female-fluid-canvas');
+  const maleCanvas = document.getElementById('male-fluid-canvas');
+  if (femaleCanvas) {
+    femaleCanvas.width = 320;
+    femaleCanvas.height = 320;
+  }
+  if (maleCanvas) {
+    maleCanvas.width = 320;
+    maleCanvas.height = 320;
+  }
+}
+setFluidCanvasResolution();
+
+// Stagger entrance animations to avoid animating everything at once
 function initPageAnimations() {
   // Fetch all elements that need transitions
   const femaleImg = document.querySelector(".female img");
@@ -34,28 +361,35 @@ function initPageAnimations() {
   const yourText = document.querySelector(".text-overlay-your");
   const journeyText = document.querySelector(".fragrance-quiz");
 
-  // Start image transitions
+  // Start image transitions staggered
   setTimeout(() => {
-    if (femaleImg) femaleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the female image.
-    if (maleImg) maleImg.classList.add("loaded"); // Adds the 'loaded' class (CSS transition class) to the male image.
-  }, 100); // Delays execution by 100ms to allow images to load
+    if (femaleImg) femaleImg.classList.add("loaded");
+  }, 100);
+  setTimeout(() => {
+    if (maleImg) maleImg.classList.add("loaded");
+  }, 300);
 
   // Start text transitions after images finish loading
   setTimeout(() => {
     if (indulgeText) indulgeText.classList.add("show");
+  }, 500);
+  setTimeout(() => {
     if (yourText) yourText.classList.add("show");
+  }, 700);
 
-    // Add slight delay for buttons to appear after the text
-    setTimeout(() => {
-      if (forHimBtn) forHimBtn.classList.add("show");
-      if (forHerBtn) forHerBtn.classList.add("show");
+  // Add slight delay for buttons to appear after the text
+  setTimeout(() => {
+    if (forHimBtn) forHimBtn.classList.add("show");
+  }, 900);
+  setTimeout(() => {
+    if (forHerBtn) forHerBtn.classList.add("show");
+  }, 1100);
 
-      // Show journey text at the same time as buttons
-      if (journeyText) journeyText.classList.add("show");
-    }, 130); // Delayed button appearance
-  }, 200); // Delays text transition slightly
+  // Show journey text at the same time as buttons
+  setTimeout(() => {
+    if (journeyText) journeyText.classList.add("show");
+  }, 1200);
 }
-
 
 function initGenderHoverEffects() {
   const leftContainer = document.querySelector(".left-container");
@@ -72,6 +406,7 @@ function initGenderHoverEffects() {
   const rightBtn = rightContainer.querySelector(".explore-fragrances");
   const genderContainer = document.querySelector(".gender");
   const transitionContainer = document.querySelector(".transition-container");
+  const transitionImage = document.querySelector('#transition-img');
 
   // Fluid canvases
   const femaleCanvas = document.getElementById("female-fluid-canvas");

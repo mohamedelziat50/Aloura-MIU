@@ -362,7 +362,21 @@
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
-                <td>No</td>
+                 <%
+                  let type = "Unknown";
+                  if (order.items && Array.isArray(order.items)) {
+                    let categories = order.items.map(p => p.category);
+                    let uniqueCategories = [...new Set(categories)];
+
+                    if (uniqueCategories.length === 1) {
+                      type = uniqueCategories[0] === "gift" ? "Yes" : "No";
+                    } else if (uniqueCategories.includes("gift") && uniqueCategories.includes("regular")) {
+                      type = "Hybrid";
+                    }
+                  }
+                %>
+                <td><%= type %></td>
+
                 <td class="actionlist">
                   <a
                     class="btn ButtonDicoration btn-sm"
@@ -675,7 +689,11 @@
                   <th scope="row"><%= index + 1 %></th>
                   <td><%= user.name %></td>
                   <td><%= user.email %></td>
-                  <td><%= user.phone %></td>
+                  <td><% if (user.phone) { %>
+                     <%= user.phone %>
+                   <% } else { %>
+                     No phone number
+                   <% } %></td>
                   <td>
                     <%= user.subscriberList ? "Subscribed" : "Not Subscribed" %>
                   </td>
@@ -1137,7 +1155,7 @@ Welcome to our online store featuring the best products at competitive prices.</
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn ButtonDicoration" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" form="editCampaignForm" class="btn ButtonDicoration">Save Changes</button>
           </div>
         </div>

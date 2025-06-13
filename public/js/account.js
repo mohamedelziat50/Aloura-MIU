@@ -71,10 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-       if (phone.length > 10) {
-        showFunToast("⚠️ Phone number must be exactly 10 digits.", "red");
-        return;
-      }
+    if (phone.length > 10) {
+      showFunToast("⚠️ Phone number must be exactly 10 digits.", "red");
+      return;
+    }
 
     // Password validation block
     if (oldpassword || newpassword || confirmpassword) {
@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
         showFunToast("⚠️ New passwords do not match!", "red");
         return;
       }
-
     }
 
     const formData = new FormData();
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const id = document.getElementById("profile-form").dataset.userId; // EJS injects this into the script
-      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+      const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         body: formData,
       });

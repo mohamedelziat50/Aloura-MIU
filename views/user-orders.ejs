@@ -106,7 +106,7 @@
                 </div>
                 <div class="user-order-info">
                   <span class="order-label">TOTAL</span>
-                  <span class="order-value">EGP <%= order.totalPrice.toFixed(2) %></span>
+                  <span class="order-value">EGP <%= order.totalPrice %></span>
                 </div>
                 <div class="user-order-info">
                   <span class="order-label">City</span>
@@ -119,6 +119,23 @@
                 <div class="user-order-info">
                   <span class="order-label">Apartment</span>
                   <span class="order-value"><%= order.shippingAddress.apartment %></span>
+                </div>
+                <div class="user-order-info">
+                  <span class="order-label">Category</span>
+                  <%
+                  let type = "Unknown";
+                  if (order.items && Array.isArray(order.items)) {
+                    let categories = order.items.map(p => p.category);
+                    let uniqueCategories = [...new Set(categories)];
+
+                    if (uniqueCategories.length === 1) {
+                      type = uniqueCategories[0] === "gift" ? "Yes" : "No";
+                    } else if (uniqueCategories.includes("gift") && uniqueCategories.includes("regular")) {
+                      type = "Hybrid";
+                    }
+                  }
+                %>
+                 <span class="order-value"><%= type %></span>
                 </div>
                 <div class="user-order-links">
                   <div class="user-order-info order-id-info">
@@ -144,16 +161,16 @@
                   <img src="<%= item.fragrance.image[0] %>" alt="<%= item.fragrance.name %>" class="user-order-item-img" />
                   <div class="user-order-item-details">
                     <div class="user-order-item-title"><%= item.fragrance.name %></div>
-                    <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP</div>
+                    <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP | Category: <%= item.category %></div>
                   </div>
                   <div class="user-order-item-actions">
                     <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
-                    <% if (order.status === 'Delivered') { %>
+                    <% if (order.status === 'Delivered' && item.category=="regular") { %>
                      <a href="/user-reviews/<%= item.fragrance._id %>"><button class="order-btn">Write a Product Review</button></a>
                     <% } %>
-                    
+                    </div>
                   </div>
-                </div>
+                
                 <% }) %>
               </div>
             </div>

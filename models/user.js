@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, "Phone number is required"],
       match: [/^\d{10}$/, "Phone number must be exactly 10 digits"],
     },
     password: {
@@ -60,23 +59,49 @@ const userSchema = new mongoose.Schema(
     cart: [
       {
         fragrance: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Fragrance", // Reference to the Fragrance model
-        },
-        size: {
-          type: String, // Store the selected size
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          default: 1, // Default quantity is 1
-        },
-        price: {
-          type: Number,
-          required: true,
-        },
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: "Fragrance",
+                  required: true,
+                },
+                size: {
+                  type: String,
+                 
+                },
+                quantity: {
+                  type: Number,
+                  min: 1,
+                  
+                },
+                price: {
+                  type: Number,
+                  min: 0,
+                  required: true,
+                },
+                 wrap: {
+              name: String,
+              price: Number,
+              image: String,
+            },
+            card: {
+              name: String,
+              image: String,
+            },
+            recipientName: {
+              type: String,
+            },
+            message: {
+              type: String,
+              maxlength: 100,
+            },
+            category: {
+              type: String,
+              enum: ["regular", "gift"],
+              required: true,
+            },
       },
     ],
+
+    
   },
   { timestamps: true }
 );

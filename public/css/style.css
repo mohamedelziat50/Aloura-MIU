@@ -40,6 +40,12 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   /* height: 100px; */
   overflow-x: hidden;
@@ -55,11 +61,11 @@ body {
 /*~~FOR HIM & FOR HER~~*/
 
 .gender {
-  display: flex; /* Makes this container be a FlexBox in order to align its child elements (.male & .female) side by side */
-  width: 100vw; /* Full screen Width (100% of the viewport width) */
-  height: 100vh; /* Full screen Heigh (100% of the viewport height) */
-  overflow: hidden; /* Makes content disappear/hidden if they spill outside the container */
-  position: relative; /* Makes sure any child element with absolute position is placed relative to this container */
+  display: flex;
+  width: 100%; /* Changed from 100vw to 100% */
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
 .left-container,
@@ -244,10 +250,6 @@ box-shadow: #000;
   transform: translateY(0);
 }
 
-.full-width {
-  width: 100%; /*Expands selected image to full width */
-}
-
 .hidden {
   opacity: 0;
   visibility: hidden;
@@ -372,24 +374,6 @@ box-shadow: #000;
   filter: brightness(1);
 }
 
-.title {
-  width: 470px;
-  height: 300px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  text-transform: uppercase;
-  position: absolute;
-  z-index: 3;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  top: 300px;
-  left: 200px;
-}
-
-.title h1 {
-  font-size: 100px;
-}
-
 /* Initial states for text overlays */
 .text-overlay-indulge,
 .text-overlay-your {
@@ -447,13 +431,15 @@ box-shadow: #000;
   padding: 90px 5%;
   background: var(--color-background-gradient);
   justify-content: center;
+  gap: 40px;
 }
 
 /* Quality Assurance Text */
 .quality-assurance {
   grid-area: quality;
-  /* padding-right: 40px;
-  max-width: 600px; */
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .quality-assurance h2 {
@@ -569,101 +555,6 @@ box-shadow: #000;
   font-size: 14px;
   color: #777;
   font-style: italic;
-}
-
-/* Review Bubble Section */
-.review-bubble-container {
-  margin-top: 80px;
-  position: relative;
-}
-
-.review-bubble {
-  background: #f8f8f8;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  border-left: 4px solid #000;
-}
-
-.review-bubble:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* Added fade transition styles */
-.review-bubble-content {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
-.review-bubble-content.fade-out {
-  opacity: 0;
-}
-
-.review-stars {
-  color: gold;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.review-text {
-  font-style: italic;
-  margin-bottom: 15px;
-  line-height: 1.6;
-  color: #333;
-}
-
-.reviewer-info {
-  display: flex;
-  align-items: center;
-}
-
-.reviewer-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 12px;
-}
-
-.reviewer-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.reviewer-name {
-  font-weight: 600;
-  color: #000;
-  font-size: 14px;
-}
-
-.reviewer-location {
-  font-size: 12px;
-  color: #666;
-}
-
-.review-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.review-dot {
-  width: 10px;
-  height: 10px;
-  background-color: #ddd;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.review-dot.active {
-  background-color: #000;
 }
 
 /* NEW REVIEW CARDS SECTION */
@@ -820,19 +711,154 @@ box-shadow: #000;
 }
 
 /* Responsive adjustments */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .quality-model-section {
-    flex-direction: column;
-    padding: 60px 5%;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "quality"
+      "model"
+      "reviews";
+    padding: 40px 2vw;
+    gap: 32px;
   }
-
-  .quality-assurance {
-    padding-right: 0;
-    margin-bottom: 50px;
-  }
-
-  .model-container {
+  .quality-assurance, .model-container, .reviews-section {
     max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 800px) {
+  .quality-model-section {
+    padding: 20px 0.5rem;
+    gap: 18px;
+  }
+  .quality-assurance, .model-container, .reviews-section {
+    padding: 0 0.5rem;
+  }
+  .model-container {
+    width: 100%;
+    min-width: 0;
+  }
+  #model-viewer {
+    height: 250px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .quality-model-section {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "quality"
+      "model"
+      "reviews";
+    padding: 30px 1.5rem;
+    gap: 24px;
+  }
+  .quality-assurance, .model-container, .reviews-section {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+  }
+  .quality-assurance h2 {
+    font-size: 2rem;
+  }
+  .quality-assurance p {
+    font-size: 1.05rem;
+  }
+  .model-container {
+    width: 100%;
+    min-width: 0;
+  }
+  #model-viewer {
+    height: 300px;
+  }
+  .reviews-title {
+    font-size: 1.3rem;
+  }
+  .reviews-container {
+    gap: 16px;
+  }
+  .review-card {
+    font-size: 1rem;
+    padding: 18px;
+    height: auto;
+  }
+  .review-card-avatar {
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+  }
+  .review-card-text {
+    font-size: 1rem;
+  }
+  .review-card-name {
+    font-size: 1.05rem;
+  }
+  .review-card-location {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .quality-model-section {
+    padding: 10px 0.2rem;
+    gap: 10px;
+  }
+  .quality-assurance, .model-container, .reviews-section {
+    padding: 0 0.2rem;
+  }
+  .quality-assurance h2 {
+    font-size: 1.5rem;
+  }
+  .quality-assurance p {
+    font-size: 0.95rem;
+  }
+  .model-container {
+    width: 100%;
+    min-width: 0;
+  }
+  #model-viewer {
+    height: 140px;
+  }
+  .reviews-title {
+    font-size: 1.1rem;
+  }
+  .reviews-section {
+    padding: 1rem 0.2rem;
+  }
+  .reviews-container {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 0;
+  }
+  .review-card {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    font-size: 0.95rem;
+    height: auto;
+  }
+  .review-card-avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  .review-card-text {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+  .review-card-name {
+    font-size: 0.98rem;
+  }
+  .review-card-location {
+    font-size: 0.85rem;
+  }
+  .reviews-navigation {
+    margin-top: 10px;
+    gap: 5px;
   }
 }
 
@@ -1100,7 +1126,7 @@ box-shadow: #000;
     gap: 2rem;
     padding: 3rem;
     width: 100%;
-    max-width: 1400px;
+    max-width: none;
     margin: 0 auto;
     place-items: center;
 }
@@ -1118,61 +1144,72 @@ box-shadow: #000;
     filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
 }
 
-@media (max-width: 1200px) {
-    .perfume-sequence-container {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0rem;
-        padding: 2rem;
-    }
-    
-}
 
-@media (max-width: 1100px) {
-    .perfume-sequence-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        padding: 1.5rem;
-    }
-    
-    
+
+
+
+/* --- NEW: Responsive horizontal scroll for perfume sequence --- */
+@media (max-width: 1024px) {
+  .perfume-sequence-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
+    max-width: 100%;
+    width: 100%;
+    place-items: unset;
+    scroll-snap-type: x mandatory;
+  }
+  .perfume-sequence-container img {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    height: 14rem;
+    width: auto;
+    max-width: 70vw;
+  }
 }
 
 @media (max-width: 900px) {
-    .perfume-sequence-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 1rem;
-    }
-}
-
-/* Added these new media queries for smaller screens */
-@media (max-width: 700px) {
   .perfume-sequence-container {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.8rem;
-      padding: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1.2rem;
+    padding: 1rem 0.5rem 1rem 1rem;
+    max-width: 100%;
+    width: 100%;
+    scroll-snap-type: x mandatory;
   }
-  
   .perfume-sequence-container img {
-      height: 15rem;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    height: 12rem;
+    width: auto;
+    max-width: 80vw;
   }
 }
-
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .perfume-sequence-container {
-      grid-template-columns: repeat(1, 1fr);
-      gap: 1.5rem;
-      padding: 1.5rem 2rem;
+    gap: 0.7rem;
+    padding: 0.5rem 0.2rem 0.5rem 0.5rem;
   }
-  
   .perfume-sequence-container img {
-      height: 18rem;
-      max-width: 100%;
+    height: 9rem;
+    max-width: 90vw;
+  }
+}
+@media (max-width: 400px) {
+  .perfume-sequence-container img {
+    height: 7rem;
+    max-width: 95vw;
   }
 }
 
- /* FLUID */
- #female-fluid-canvas {
+/* FLUID */
+#female-fluid-canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -1250,11 +1287,9 @@ top: 0;
 /* Fragrance overlay styles in transition container */
 .fragrance-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7) 50%, transparent);
-  padding: 2rem;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.7) 90%, transparent 100%);
+  padding: 2.2rem 2rem 2.5rem 2rem;
   color: white;
   z-index: 10000;
   pointer-events: auto;
@@ -1291,7 +1326,7 @@ top: 0;
   gap: 0.5rem;
 }
 
-.scroll-btn {
+.scroll-btn, .switch-gender-btn, .rewind-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1307,8 +1342,16 @@ top: 0;
   pointer-events: auto;
 }
 
-.scroll-btn:hover {
+.scroll-btn:hover, .switch-gender-btn:hover, .rewind-btn:hover {
   background: rgba(128, 128, 128, 0.5);
+}
+
+.switch-gender-btn i {
+  font-size: 1.2em;
+}
+
+.rewind-btn i {
+  font-size: 1.2em;
 }
 
 .divider {
@@ -1401,4 +1444,81 @@ top: 0;
 .transition-container.active {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Fragrance transition image fade effect */
+#transition-img.fragrance-img-transition {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+#transition-img {
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+#transition-img.fragrance-img-transition-up {
+  opacity: 0;
+  transform: translateY(-60px) scale(0.98);
+}
+
+#transition-img.fragrance-img-transition-down {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+}
+
+#transition-img.fragrance-img-appear-up {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: none;
+}
+
+#transition-img.fragrance-img-appear-down {
+  opacity: 0;
+  transform: translateY(-60px) scale(0.98);
+  transition: none;
+}
+
+/* Seamless slide transition styles for fragrance image */
+.transition-img-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.transition-img-container img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  left: 0; top: 0;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  z-index: 1;
+}
+.transition-img-slide-out-up {
+  transform: translateY(-100%);
+  z-index: 2;
+}
+.transition-img-slide-out-down {
+  transform: translateY(100%);
+  z-index: 2;
+}
+.transition-img-slide-in-up {
+  transform: translateY(100%);
+  animation: slideInUp 0.5s forwards cubic-bezier(0.4,0,0.2,1);
+  z-index: 3;
+}
+.transition-img-slide-in-down {
+  transform: translateY(-100%);
+  animation: slideInDown 0.5s forwards cubic-bezier(0.4,0,0.2,1);
+  z-index: 3;
+}
+@keyframes slideInUp {
+  to { transform: translateY(0); }
+}
+@keyframes slideInDown {
+  to { transform: translateY(0); }
+}
+
+.fragrance-overlay-fade-out {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
 }

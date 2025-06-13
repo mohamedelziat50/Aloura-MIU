@@ -292,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
       binData, // Send binData to backend
     };
 
+console.log("Order Data being sent:", formData); // ✅ This is valid
     // ========== Submit to backend ==========
     try {
       const response = await fetch("/api/orders", {
@@ -299,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
+console.log("Order Data being sent:", formData); // ✅ This is valid
       const data = await response.json();
 
       if (response.ok) {

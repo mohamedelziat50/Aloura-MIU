@@ -249,7 +249,7 @@ window.addEventListener("DOMContentLoaded", () => {
   window.deleteProduct = (btn) => {
     const fragrance_id = btn.getAttribute("data-fragrance-id");
 
-    fetch(`http://localhost:3000/api/fragrances/${fragrance_id}`, {
+    fetch(`/api/fragrances/${fragrance_id}`, {
       method: "DELETE",
     })
       .then(async (response) => {
@@ -278,7 +278,7 @@ window.addEventListener("DOMContentLoaded", () => {
   window.deleteUser = (btn) => {
     const user_id = btn.getAttribute("data-user-id");
 
-    fetch(`http://localhost:3000/api/users/${user_id}`, {
+    fetch(`/api/users/${user_id}`, {
       method: "DELETE",
     })
       .then(async (response) => {
@@ -376,7 +376,7 @@ addUserForm.addEventListener("submit", async (event) => {
     formData.append("profilePicture", profilePicture);
   }
 
-  fetch("http://localhost:3000/api/auth/signup", {
+  fetch("/api/auth/signup", {
     method: "POST",
     body: formData,
   })
@@ -427,74 +427,64 @@ document.addEventListener("DOMContentLoaded", function () {
   setupPasswordToggle("adduser-confirm-password", "addUserConfirmPasswordIcon");
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const userSearchInput = document.getElementById("userSearchInput");
-  const tableBody = document.querySelector("#section-users table tbody");
+userSearchInput.addEventListener("input", () => {
+  clearTimeout(debounceTimer);
 
-  let debounceTimer;
+  debounceTimer = setTimeout(async () => {
+    const query = userSearchInput.value.trim();
 
-  userSearchInput.addEventListener("input", () => {
-    clearTimeout(debounceTimer);
+    try {
+      const url = query === ""
+        ? "/api/users" // fetch all users if input is empty
+        : `/api/users/search?search=${encodeURIComponent(query)}`;
 
-    debounceTimer = setTimeout(async () => {
-      const query = userSearchInput.value.trim();
+      const res = await fetch(url);
+      const users = await res.json();
 
-      try {
-        const res = await fetch(
-          `/api/users/search?search=${encodeURIComponent(query)}`
-        );
-        const users = await res.json();
+      tableBody.innerHTML = "";
 
-        tableBody.innerHTML = "";
-
-        if (users.length === 0) {
-          tableBody.innerHTML = `
-              <tr>
-                <td colspan="8" class="text-center">No users found for "${query}"</td>
-              </tr>`;
-          return;
-        }
-
-        users.forEach((user, index) => {
-          const updatedAt = moment(user.updatedAt).fromNow();
-
-          const row = `
-              <tr>
-                <th scope="row">${index + 1}</th>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-                <td>${user.phone}</td>
-                <td>${
-                  user.subscriberList ? "Subscribed" : "Not Subscribed"
-                }</td>
-                <td>${user.isVerified ? "Verified" : "Not Verified"}</td>
-                <td>${updatedAt}</td>
-                <td>${user.role}</td>
-                <td class="actionlist">
-                  <a class="btn ButtonDicoration btn-sm" href="/editUser/${
-                    user._id
-                  }">
-                    <i class="bi bi-pencil"></i>
-                  </a>
-                  <button class="btn btn-danger btn-sm" data-user-id="${
-                    user._id
-                  }">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>`;
-          tableBody.insertAdjacentHTML("beforeend", row);
-        });
-      } catch (error) {
-        console.error("Search error:", error);
+      if (users.length === 0) {
         tableBody.innerHTML = `
             <tr>
-              <td colspan="8" class="text-center text-danger">Error loading results</td>
+              <td colspan="8" class="text-center">No users found${query ? ` for "${query}"` : ""}</td>
             </tr>`;
+        return;
       }
-    }, 300); // ⏱ debounce delay in ms
-  });
+
+      users.forEach((user, index) => {
+        const updatedAt = moment(user.updatedAt).fromNow();
+
+        const row = `
+            <tr>
+              <th scope="row">${index + 1}</th>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${user.phone ? user.phone : "No phone number"}</td>
+              <td>${user.subscriberList ? "Subscribed" : "Not Subscribed"}</td>
+              <td>${user.isVerified ? "Verified" : "Not Verified"}</td>
+              <td>${updatedAt}</td>
+              <td>${user.role}</td>
+              <td class="actionlist">
+                <a class="btn ButtonDicoration btn-sm" href="/editUser/${user._id}">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button class="btn btn-danger btn-sm" data-user-id="${user._id}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>`;
+        tableBody.insertAdjacentHTML("beforeend", row);
+      });
+    } catch (error) {
+      console.error("Search error:", error);
+      tableBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center text-danger">Error loading results</td>
+          </tr>`;
+    }
+  }, 300);
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const orderSearchInput = document.getElementById("orderSearchInput");
@@ -544,7 +534,22 @@ document.addEventListener("DOMContentLoaded", () => {
               }">${order.status || "Pending"}</span></td>
               <td>${order.paid ? "Yes" : "No"}</td>
               <td>$${order.totalPrice}</td>
-              <td>No</td>
+              <td>${
+  (() => {
+    const categories = order.items?.map(item => item.category) || [];
+    const uniqueCategories = [...new Set(categories)];
+    if (uniqueCategories.length === 1 && uniqueCategories[0] === "gift") {
+      return "Yes";
+    } else if (uniqueCategories.length === 1 && uniqueCategories[0] === "regular") {
+      return "No";
+    } else if (uniqueCategories.length > 1) {
+      return "Hybrid";
+    } else {
+      return "Unknown";
+    }
+  })()
+}</td>
+
               <td class="actionlist">
                 <a class="btn ButtonDicoration btn-sm" href="/order/${
                   order._id
