@@ -595,9 +595,7 @@ window.addEventListener("DOMContentLoaded", () => {
         method: "DELETE",
       });
 
-      console.log("deleted the review");
       const data = await response.json();
-      console.log("deleted the review?????????");
 
       if (response.ok) {
         showFunToast(data.message || "✅ review deleted successfully!", "green");
@@ -614,31 +612,31 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   // Review approval, aka add it to the landing page review section.
-  // window.markOrderStatus = async (orderId, status) => {
-  //   try {
-  //     const response = await fetch(`/api/orders/status`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ status, orderId }),
-  //     });
+  window.markReviewStatus = async (reviewId, status) => {
+    try {
+      const response = await fetch(`/api/reviews/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, reviewId }),
+      });
 
-  //     const data = await response.json();
+      const data = await response.json();
 
-  //     if (response.ok) {
-  //       showFunToast(
-  //         data.message || "✅ Order status updated successfully!",
-  //         "green"
-  //       );
-  //       setTimeout(() => {
-  //         window.location.href = `/admin/${window.currentAdminId}`;
-  //       }, 1000);
-  //     } else {
-  //       showFunToast(data.error || "❗ Failed to update order status.", "red");
-  //     }
-  //   } catch (error) {
-  //     showFunToast(error.message || "❗ An error occurred.", "red");
-  //   }
-  // };
+      if (response.ok) {
+        showFunToast(
+          data.message || "✅ review status updated successfully!",
+          "green"
+        );
+        setTimeout(() => {
+          window.location.href = `/admin/${window.currentAdminId}`;
+        }, 1000);
+      } else {
+        showFunToast(data.error || "❗ Failed to update review status.", "red");
+      }
+    } catch (error) {
+      showFunToast(error.message || "❗ An error occurred.", "red");
+    }
+  };
 });
 
 

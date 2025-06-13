@@ -793,6 +793,7 @@
                   <% } %>
                 </span>
                 <span class="review-date"><%= moment(review.createdAt).format('lll') %></span>
+                <span class="review-date"><%= review.status %></span>
                 <% if(review.rating === 1) { %>
                 <% } %>
               </div>
@@ -805,15 +806,28 @@
               <div class="review-actions">
 
                 <!-- APPROVE REVIEW BUTTON --> 
-                <button class="btn-approve">Approve</button>
+                <% if(review.status === false) { %>
+                  <button class="btn-approve"
+                      onclick="markReviewStatus('<%= review._id %>', true)"
+                      >
+                      Approve
+                  </button>
+                  <% } else { %>
+                    <button class="btn-approve"
+                      onclick="markReviewStatus('<%= review._id %>', false)"
+                      >
+                      Disapprove
+                  </button>
+                    <% } %>
+                  
+                
 
                 <!-- DELETE REVIEW BUTTON --> 
                 <button class="btn-delete" 
                     data-review-id="<%= review._id %>"
-                    onclick="deleteReview(this)"
-                    title="Delete review">
+                    onclick="deleteReview(this)">
                     Delete
-                  </button>
+                </button>
 
               </div>
             </div>

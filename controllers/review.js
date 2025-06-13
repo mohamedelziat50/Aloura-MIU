@@ -57,6 +57,34 @@ export const deleteReview = async (req, res) => {
   }
 };
 
+
+export const markReviewStatus = async (req, res) => {
+  const { reviewId, status } = req.body;
+
+  try {
+    // Find review by id
+    const review = await Review.findById(reviewId);
+    if (!review) return res.status(400).json({ error: "review not found" });
+
+    // // Update status
+    // if (!status) {
+    //   return res.status(400).json({ error: "Status not found" });
+    // }
+    if (review.status === status) {
+      return res.status(400).json({ error: `review is already marked as '${status}'.` });
+    }
+
+    // If we passed all these checks now change the status
+    review.status = status;
+    // Save the result
+    await review.save()
+
+    res.status(200).json({ message: `✅ review is updated to ${review.status}` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 //   try {
 //     const { fragrance, rating, comment } = req.body;
 

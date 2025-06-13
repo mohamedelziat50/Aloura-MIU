@@ -19,7 +19,12 @@ const reviewSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 200
+  },
+  status: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true
