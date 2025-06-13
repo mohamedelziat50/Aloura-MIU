@@ -223,13 +223,25 @@ export const getUserOrders = async (req, res) => {
 export const getUserReviews = async (req, res) => {
   try {
     const fragranceId = req.params.id;
+    const orderId = req.params.orderId;
+    const itemIndex = req.params.itemIndex;
 
     const fragrance = await FragranceModel.findById(fragranceId);
     if (!fragrance) {
       return res.status(404).send("Fragrance not found");
     }
 
-    res.render("user-reviews", {fragrance: fragrance});
+    const order = await OrderModel.findById(orderId);
+    if (!order) {
+      return res.status(404).send("Order not found");
+    }
+
+    const orderItem = order.items[itemIndex];
+    if (!orderItem) {
+      return res.status(404).send("Order item not found");
+    }
+
+    res.render("user-reviews", { fragrance, order, orderItem, moment });
   } catch (err) {
     console.error("Error fetching fragrance:", err);
     res.status(500).send("Internal Server Error");
