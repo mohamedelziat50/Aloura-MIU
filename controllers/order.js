@@ -193,7 +193,6 @@ console.log("Order created:", order);
 
     // Clear user cart
     user.cart = [];
-    user.gifts = [];
     await user.save();
 
     console.log("Order created successfully:", order._id);
