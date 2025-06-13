@@ -113,57 +113,83 @@ export const updateFragrance = async (req, res) => {
       image,
       backgroundImage1,
       backgroundImage2,
+      previewLanding,
     } = req.body;
 
-    //Check for duplicate name
-    const trimmedName = name.trim().replace(/\s+/g, " ");
-    const existingFragrance = await Fragrance.findOne({
-     _id: { $ne: id }, // Exclude current fragrance
-      name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
-    });
-    if (existingFragrance) {
-      return res.status(400).json({ message: "A Fragrance with this name already exists" });
-    }
-
-    // Convert notes and tags from comma-separated strings
-    const top = topNotes.split(",").map((n) => n.trim());
-    const mid = middleNotes.split(",").map((n) => n.trim());
-    const base = baseNotes.split(",").map((n) => n.trim());
-    const tagList = tags.split(",").map((t) => t.trim());
-
-    // Convert sizes array and build sizeOptions (deduplicate by size)
-    const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
-    const sizeMap = new Map();
-    sizeArray.forEach((size) => {
-      const sizeInt = parseInt(size);
-      // Always use the latest value for a given size
-      // To avoid Duplication is handled through the .set method
-      sizeMap.set(sizeInt, {
-        size: sizeInt,
-        price: parseFloat(req.body[`price${size}`] || 0),
-        quantity: parseInt(req.body[`quantity${size}`] || 0),
-      });
-    });
-    const sizeOptions = Array.from(sizeMap.values());
-
-    // Find the fragrance
+    // Find the fragrance first
     const fragrance = await Fragrance.findById(id);
     if (!fragrance) {
       return res.status(404).json({ message: "Fragrance not found" });
     }
 
-    // Update basic info
-    fragrance.name = name;
-    fragrance.brand = brand;
-    fragrance.gender = gender;
-    fragrance.category = category;
-    fragrance.topNotes = top;
-    fragrance.middleNotes = mid;
-    fragrance.baseNotes = base;
-    fragrance.description = description;
-    fragrance.releaseDate = releaseDate;
-    fragrance.tags = tagList;
-    fragrance.sizeOptions = sizeOptions;
+    // If only updating previewLanding (from admin toggle)
+    if (previewLanding !== undefined && !name) {
+      fragrance.previewLanding = previewLanding;
+      await fragrance.save();
+      return res.json({ 
+        message: `Fragrance ${previewLanding ? 'added to' : 'removed from'} landing slider successfully`,
+        fragrance: {
+          _id: fragrance._id,
+          name: fragrance.name,
+          previewLanding: fragrance.previewLanding
+        }
+      });
+    }
+
+    // Check for duplicate name (only if name is being updated)
+    if (name) {
+      const trimmedName = name.trim().replace(/\s+/g, " ");
+      const existingFragrance = await Fragrance.findOne({
+       _id: { $ne: id }, // Exclude current fragrance
+        name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
+      });
+      if (existingFragrance) {
+        return res.status(400).json({ message: "A Fragrance with this name already exists" });
+      }    }
+
+    // Convert notes and tags from comma-separated strings (only if provided)
+    let top, mid, base, tagList, sizeOptions;
+    
+    if (topNotes && middleNotes && baseNotes && tags) {
+      top = topNotes.split(",").map((n) => n.trim());
+      mid = middleNotes.split(",").map((n) => n.trim());
+      base = baseNotes.split(",").map((n) => n.trim());
+      tagList = tags.split(",").map((t) => t.trim());
+    }
+
+    // Convert sizes array and build sizeOptions (only if provided)
+    if (sizes) {
+      const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
+      const sizeMap = new Map();
+      sizeArray.forEach((size) => {
+        const sizeInt = parseInt(size);
+        // Always use the latest value for a given size
+        // To avoid Duplication is handled through the .set method
+        sizeMap.set(sizeInt, {
+          size: sizeInt,
+          price: parseFloat(req.body[`price${size}`] || 0),
+          quantity: parseInt(req.body[`quantity${size}`] || 0),
+        });
+      });      sizeOptions = Array.from(sizeMap.values());
+    }
+
+    // Update basic info (only if provided)
+    if (name) fragrance.name = name;
+    if (brand) fragrance.brand = brand;
+    if (gender) fragrance.gender = gender;
+    if (category) fragrance.category = category;
+    if (top) fragrance.topNotes = top;
+    if (mid) fragrance.middleNotes = mid;
+    if (base) fragrance.baseNotes = base;
+    if (description) fragrance.description = description;
+    if (releaseDate) fragrance.releaseDate = releaseDate;
+    if (tagList) fragrance.tags = tagList;
+    if (sizeOptions) fragrance.sizeOptions = sizeOptions;
+
+    // Update previewLanding if provided
+    if (previewLanding !== undefined) {
+      fragrance.previewLanding = previewLanding;
+    }
 
     // Update images if values provided
     if (image || backgroundImage1 || backgroundImage2) {

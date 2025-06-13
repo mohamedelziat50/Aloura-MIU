@@ -23,7 +23,7 @@ const cookieOptions = {
   httpOnly: true,
   maxAge: ms(JWT_EXPIRY), // 1 hour
   sameSite: "lax", // important!
-  secure: false, // only true when using HTTPS
+  secure: true, // only true when using HTTPS
 };
 
 export const signup = async (req, res) => {

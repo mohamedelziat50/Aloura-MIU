@@ -39,9 +39,9 @@
               <img src="<%= fragrance.image[0] %>" alt="Fragrance Name" class="user-review-item-img" />
               <div class="user-review-item-details">
                 <div class="user-review-item-title"><%= fragrance.name %></div>
-                <div class="user-review-item-meta">Ordered At: 9 June 2025</div>
-                <div class="user-review-item-meta">Size: 100ml | Unit Price: 1200 EGP</div>
-                <div class="user-review-item-meta">Top: Saffron, Oud | Mid: Rose, Amber | Base: Musk, Vanilla</div>
+                <div class="user-review-item-meta">Ordered At: <%= moment(order.createdAt).format('LL') %></div>
+                <div class="user-review-item-meta">Size: <%= orderItem.size %> | Unit Price: <%= orderItem.price %> EGP</div>
+                <div class="user-review-item-meta">Top: <%= fragrance.topNotes %> | Mid: <%= fragrance.middleNotes %> | Base: <%= fragrance.baseNotes %></div>
               </div>
             </div>
           </div>

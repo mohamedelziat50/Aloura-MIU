@@ -170,7 +170,7 @@
                       <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
                     <% } %>                    
                     <% if (order.status === 'Delivered' && item.category=="regular") { %>
-                     <a href="/user-reviews/<%= item.fragrance._id %>"><button class="order-btn">Write a Product Review</button></a>
+                     <a href="/user-reviews/<%= item.fragrance._id %>/<%= order._id %>/<%= order.items.indexOf(item) %>"><button class="order-btn">Write a Product Review</button></a>
                     <% } %>
                     </div>
                   </div>

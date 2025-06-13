@@ -849,8 +849,8 @@
             if (response.ok) {
               setTimeout(() => {
                 showFunToast(data.message || "✅ Fragrance updated successfully!", "green");
-                window.location.href = "/admin/fragrances"; // Redirect after successful update
-              }, 1500);
+                window.location.href = `/admin/${window.currentAdminId}`; // Redirect after successful update
+              }, 900);
             } else {
               showFunToast(data.message || "❌ Error occurred while updating fragrance!", "red");
             }
@@ -862,11 +862,8 @@
       });
     </script>
     
-    
-    
-    
-    
-    
-    
+    <script>
+      window.currentAdminId = "<%= user._id %>";
+    </script>
   </body>
 </html>

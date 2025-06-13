@@ -18,20 +18,29 @@ var country_list = [
 
 export const getIndex = async (req, res) => {
   try {
-    // getting only the approvef reviews from the DB
+    // getting only the approved reviews from the DB
     const approvedReviews = await ReviewModel.find({ status: true })
       .populate("user", "name profilePic")
       .populate("fragrance", "name")
       .limit(12) // only getting 12 reviews, 4 pages, 3 reviews
       .sort({ createdAt: -1 }); // -1 makes the newest reviews get displayed first, 1 for old.
 
+    // getting fragrances marked for landing page slider
+    const sliderFragrances = await FragranceModel.find({ previewLanding: true })
+      .sort({ createdAt: -1 })
+      .limit(10); // limit to 10 fragrances max for the slider
+      
     // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
+    console.log("Found slider fragrances:", sliderFragrances.length); // debugging
     
-    // passing the reviews to the landing page
-    res.render("index", { reviews: approvedReviews });
+    // passing the reviews and slider fragrances to the landing page
+    res.render("index", { 
+      reviews: approvedReviews,
+      sliderFragrances: sliderFragrances
+    });
   } catch (error) {
     console.log("Error fetching reviews:", error);
-    res.render("index", { reviews: [] });
+    res.status(500).send("Server Error");
   }
 };
 
@@ -214,13 +223,25 @@ export const getUserOrders = async (req, res) => {
 export const getUserReviews = async (req, res) => {
   try {
     const fragranceId = req.params.id;
+    const orderId = req.params.orderId;
+    const itemIndex = req.params.itemIndex;
 
     const fragrance = await FragranceModel.findById(fragranceId);
     if (!fragrance) {
       return res.status(404).send("Fragrance not found");
     }
 
-    res.render("user-reviews", {fragrance: fragrance});
+    const order = await OrderModel.findById(orderId);
+    if (!order) {
+      return res.status(404).send("Order not found");
+    }
+
+    const orderItem = order.items[itemIndex];
+    if (!orderItem) {
+      return res.status(404).send("Order item not found");
+    }
+
+    res.render("user-reviews", { fragrance, order, orderItem, moment });
   } catch (err) {
     console.error("Error fetching fragrance:", err);
     res.status(500).send("Internal Server Error");

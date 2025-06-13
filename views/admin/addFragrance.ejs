@@ -797,7 +797,7 @@
           if (response.ok) {
             showFunToast("✅ Fragrance added successfully!", "green");
             setTimeout(() => {
-              window.location.href = "/admin/:id";
+              window.location.href = `/admin/${window.currentAdminId}`;
             }, 900);
             form.reset();
             [
@@ -822,6 +822,10 @@
           );
         }
       });
+    </script>
+    <!-- Passed for the delete functions to be used when their fetch API's are done for redirection -->
+    <script>
+      window.currentAdminId = "<%= user._id %>";
     </script>
   </body>
 </html>
