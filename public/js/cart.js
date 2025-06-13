@@ -4,14 +4,8 @@ function updateSubtotal() {
 
   cartItems.forEach((item) => {
     const price = parseFloat(item.getAttribute("data-price"));
-    const quantityInput = item.querySelector(".quantity-input");
-    if (quantityInput) {
-      const quantity = parseInt(quantityInput.value);
-      subtotal += price * quantity;
-    } else {
-      // For gift items that don't have quantity
-      subtotal += price;
-    }
+    const quantity = parseInt(item.querySelector(".quantity-input").value);
+    subtotal += price * quantity;
   });
 
   const subtotalElement = document.querySelector(".cart-info-subtotal span");
@@ -126,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", async () => {
       const fragranceId = button.getAttribute("data-fragrance-id");
       const size = button.getAttribute("data-size");
-      const giftId = button.getAttribute("data-gift-id");
       const cartItem = button.closest(".cart-item");
       const cartItemsContainer = document.querySelector(
         ".cart-items-container"
@@ -136,21 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
       updateSubtotal();
 
       try {
-        let res;
-        if (giftId) {
-          // Handle gift removal
-          res = await fetch(`/api/gifting/${giftId}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-          });
-        } else {
-          // Handle regular cart item removal
-          res = await fetch("/api/users/removefromcart", {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fragranceId, size }),
-          });
-        }
+        const res = await fetch("/api/users/removefromcart", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fragranceId, size }),
+        });
 
         const data = await res.json();
         if (!data.success) {

@@ -292,96 +292,15 @@ document.addEventListener("DOMContentLoaded", function () {
       binData, // Send binData to backend
     };
 
+console.log("Order Data being sent:", formData); // ✅ This is valid
     // ========== Submit to backend ==========
     try {
-      // Fetch both cart and gifts data
-      const [cartResponse, giftsResponse] = await Promise.all([
-        fetch("/api/users/cart", { credentials: "include" }),
-        fetch("/api/gifting", { credentials: "include" })
-      ]);
-
-      const cartData = await cartResponse.json();
-      const giftsData = await giftsResponse.json();
-
-      console.log("Raw gifts data:", giftsData); // Debug log
-
-      const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
-      const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
-
-      if (!hasCartItems && !hasGifts) {
-        return showFunToast("❌ Your cart is empty.", "red");
-      }
-
-      // Format gifts data according to the order model schema
-      const formattedGifts = hasGifts ? giftsData.map(gift => {
-        try {
-          console.log("Processing gift:", gift); // Debug log
-
-          // Ensure perfume ID is properly formatted
-          let perfumeId;
-          if (typeof gift.perfume === 'object' && gift.perfume._id) {
-            perfumeId = gift.perfume._id;
-          } else if (typeof gift.perfume === 'string') {
-            perfumeId = gift.perfume;
-          } else {
-            console.error("Invalid perfume data:", gift.perfume);
-            return null;
-          }
-
-          // Create base gift object
-          const formattedGift = {
-            perfume: perfumeId,
-            wrap: {
-              name: gift.wrap.name,
-              price: gift.wrap.price
-            },
-            recipientName: gift.recipientName,
-            message: gift.message || "",
-            totalPrice: gift.totalPrice
-          };
-
-          // Only add card if it exists and has required fields
-          if (gift.card && typeof gift.card === 'object') {
-            if (gift.card.name && typeof gift.card.price === 'number') {
-              formattedGift.card = {
-                name: gift.card.name,
-                price: gift.card.price
-              };
-            }
-          }
-
-          console.log("Formatted gift:", formattedGift); // Debug log
-          return formattedGift;
-        } catch (err) {
-          console.error("Error formatting gift:", err, gift);
-          return null;
-        }
-      }).filter(gift => gift !== null) : [];
-
-      console.log("Final formatted gifts:", formattedGifts); // Debug log
-
-      // Add cart and gifts to formData
-      const formData = {
-        fullName,
-        email,
-        phone,
-        shippingAddress,
-        paid,
-        cardData,
-        binData,
-        items: hasCartItems ? cartData.cart : [],
-        gifts: formattedGifts
-      };
-
-      console.log("Sending order data:", formData); // Debug log
-
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-        credentials: "include"
       });
-
+console.log("Order Data being sent:", formData); // ✅ This is valid
       const data = await response.json();
 
       if (response.ok) {

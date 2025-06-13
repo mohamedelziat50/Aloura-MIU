@@ -261,37 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
 
-        // Add gift items
-        if (hasGifts) {
-          giftsData.forEach((gift) => {
-            if (gift && gift.perfume) {
-              const giftItemHTML = `
-                <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
-                  <div class="col-md-3">
-                    <img src="${gift.perfume.image && gift.perfume.image[0] ? gift.perfume.image[0] : '/images/default-perfume.jpg'}" 
-                         alt="${gift.perfume.name}" 
-                         class="img-fluid rounded" />
-                  </div>
-                  <div class="col-md-5 mt-3">
-                    <h5 class="card-title">${gift.perfume.name}</h5>
-                    <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
-                    ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
-                  </div>
-                  <div class="col-md-4 d-flex flex-column">
-                    <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
-                    <div class="d-flex justify-content-end">
-                      <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
-                        <i class="fa-solid fa-trash-can"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              `;
-              cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
-            }
-          });
-        }
-
         // Update subtotal
         updateSubtotal();
 

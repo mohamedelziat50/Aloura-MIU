@@ -1,98 +1,72 @@
 // controllers/giftingController.js
-import Gift from "../models/gifting.js";
+import Order from "../models/order.js";
 import UserModel from "../models/user.js";
+import mongoose from "mongoose";
+import fragranceModel from "../models/fragrance.js";
+
 
 export const createGift = async (req, res) => {
   try {
-    const { perfume, wrap, card, recipientName, message, totalPrice } =
-      req.body;
-
-    // Log the incoming data
-    console.log("Received gift data:", req.body);
-    console.log("User from request:", req.user);
-
-    // Validate required fields
-    if (!perfume?.name || !wrap?.name || !card?.name) {
-      return res.status(400).json({
-        error: "Missing required fields",
-        details: ["Perfume, wrap, and card names are required"],
-      });
+    const user = await UserModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
 
-    if (!recipientName) {
-      return res.status(400).json({
-        error: "Missing required fields",
-        details: ["Recipient name is required"],
-      });
-    }
-
-    // Ensure prices are numbers
-    const perfumePrice = Number(perfume.price) || 0;
-    const wrapPrice = Number(wrap.price) || 0;
-    const finalTotalPrice = Number(totalPrice) || 0;
-
-    // Create the gift
-    const gift = new Gift({
-      user: req.user.id,
-      perfume: {
-        name: perfume.name,
-        price: perfumePrice,
-        image: perfume.image,
-      },
-      wrap: {
-        name: wrap.name,
-        price: wrapPrice,
-      },
-      card: {
-        name: card.name,
-      },
+    const {
+      perfume, // this will be the name now
+      wrap,
+      card,
       recipientName,
-      message: message || "",
-      totalPrice: finalTotalPrice,
+      message,
+      price,
+      size,
+      quantity = 1,
+    } = req.body;
+
+    // ✅ 1. Find perfume by name
+    const foundPerfume = await fragranceModel.findOne({ name: perfume.name });
+    if (!foundPerfume) {
+      return res.status(404).json({ error: "Perfume not found by name" });
+    }
+
+    // ✅ 2. Validate values
+    const priceNum = Number(price);
+    const quantityNum = Number(quantity);
+
+    if (isNaN(priceNum) || priceNum < 0) {
+      return res.status(400).json({ error: "Price must be a non-negative number." });
+    }
+    if (isNaN(quantityNum) || quantityNum < 1) {
+      return res.status(400).json({ error: "Quantity must be at least 1." });
+    }
+
+    // ✅ 3. Push gift to cart
+    user.cart.push({
+      fragrance: foundPerfume._id, // now using ID from name lookup
+      size: size || "30ml",
+      quantity: quantityNum,
+      price: priceNum,
+      wrap,
+      card,
+      recipientName,
+      message: message || null,
+      category: "gift",
     });
 
-    // Log the gift object before saving
-    console.log("Creating gift:", gift);
+    await user.save();
 
-    // Save the gift
-    const savedGift = await gift.save();
-    console.log("Saved gift:", savedGift);
+    
 
-    // Add gift to user's gifts array
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      req.user.id,
-      { $push: { gifts: savedGift._id } },
-      { new: true }
-    ).populate("gifts");
-
-    console.log("Updated user with gifts:", updatedUser);
-
-    res.status(201).json(savedGift);
+    res.status(201).json({ message: "Gift added to cart" });
   } catch (err) {
-    console.error("Gift creation error:", err);
-
-    if (err.name === "ValidationError") {
-      const validationErrors = Object.values(err.errors).map((e) => e.message);
-      console.error("Validation errors:", validationErrors);
-      return res.status(400).json({
-        error: "Invalid gift data",
-        details: validationErrors,
-      });
-    }
-
-    if (err.name === "CastError") {
-      return res.status(400).json({
-        error: "Invalid data format",
-        details: [err.message],
-      });
-    }
-
+    console.error("❌ Error in createGift:", err);
     res.status(500).json({
       error: "Something went wrong while creating the gift order",
-      details: [err.message],
     });
   }
 };
+
+
 
 // Get all gifts for the logged-in user
 export const getAllGifts = async (req, res) => {

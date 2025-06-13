@@ -6,206 +6,205 @@ import moment from "moment";
 import fetch from "node-fetch";
 
 export const createOrder = async (req, res) => {
-  // // req.body only contains what you send; destructuring is for checking clarity and safety.
-  const { fullName, email, phone, shippingAddress, paid, cardData, binData, gifts } =
-    req.body;
+  try {
+    console.log("Request body:", req.body);
+    console.log("User ID:", req.user?.id);
 
-  // Customer Information Validation
-  if (!fullName || fullName.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ Full Name is required in customer information." });
-  }
-  if (!email || email.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ Email is required in customer information." });
-  }
-  if (!phone || phone.toString().trim() === "") {
-    return res.status(400).json({
-      message: "❌ Phone Number is required in customer information.",
-    });
-  }
+    
+    // Destructure required fields from request body
+    const {
+      fullName,
+      email,
+      phone,
+      shippingAddress,
+      paid,
+      cardData,
+      binData,
+    } = req.body;
 
-  // Shipping Address Validation
-  if (
-    !shippingAddress.address ||
-    shippingAddress.address.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Address is required in shipping address." });
-  }
-  if (
-    !shippingAddress.apartment ||
-    shippingAddress.apartment.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Apartment is required in shipping address." });
-  }
-  if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
-    return res
-      .status(400)
-      .json({ message: "❌ City is required in shipping address." });
-  }
-  if (
-    !shippingAddress.state ||
-    shippingAddress.state.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ State is required in shipping address." });
-  }
-  if (
-    !shippingAddress.country ||
-    shippingAddress.country.toString().trim() === ""
-  ) {
-    return res
-      .status(400)
-      .json({ message: "❌ Country is required in shipping address." });
-  }
-
-  // Payment Method Validation (If not COD)
-  if (paid) {
-    if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Number is required in payment method." });
+    // Validate Customer Information
+    if (!fullName || fullName.toString().trim() === "") {
+      console.log("Validation failed: fullName missing or empty");
+      return res.status(400).json({ message: "❌ Full Name is required in customer information." });
     }
-    if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Expiry is required in payment method." });
+    if (!email || email.toString().trim() === "") {
+      console.log("Validation failed: email missing or empty");
+      return res.status(400).json({ message: "❌ Email is required in customer information." });
     }
-    if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card CVV is required in payment method." });
+    if (!phone || phone.toString().trim() === "") {
+      console.log("Validation failed: phone missing or empty");
+      return res.status(400).json({ message: "❌ Phone Number is required in customer information." });
     }
-    if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "❌ Card Name is required in payment method." });
+
+    // Validate Shipping Address (note: state is optional in your schema)
+    if (!shippingAddress) {
+      console.log("Validation failed: shippingAddress missing");
+      return res.status(400).json({ message: "❌ Shipping address is required." });
     }
-  }
+    if (!shippingAddress.address || shippingAddress.address.toString().trim() === "") {
+      console.log("Validation failed: shippingAddress.address missing or empty");
+      return res.status(400).json({ message: "❌ Address is required in shipping address." });
+    }
+    if (!shippingAddress.apartment || shippingAddress.apartment.toString().trim() === "") {
+      console.log("Validation failed: shippingAddress.apartment missing or empty");
+      return res.status(400).json({ message: "❌ Apartment is required in shipping address." });
+    }
+    if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
+      console.log("Validation failed: shippingAddress.city missing or empty");
+      return res.status(400).json({ message: "❌ City is required in shipping address." });
+    }
+    // state is optional, no check here
+    if (!shippingAddress.country || shippingAddress.country.toString().trim() === "") {
+      console.log("Validation failed: shippingAddress.country missing or empty");
+      return res.status(400).json({ message: "❌ Country is required in shipping address." });
+    }
 
-  // Get the user's id (through the middleware - user's id from auth used to find the actual user object from his schema)
-  const user = await User.findById(req.user.id);
+    // Payment method validation (only if paid = true)
+    if (paid) {
+      if (!cardData) {
+        console.log("Validation failed: cardData missing");
+        return res.status(400).json({ message: "❌ Payment card data is required if order is paid." });
+      }
+      if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
+        console.log("Validation failed: cardData.cardNumber missing or empty");
+        return res.status(400).json({ message: "❌ Card Number is required in payment method." });
+      }
+      if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
+        console.log("Validation failed: cardData.expiry missing or empty");
+        return res.status(400).json({ message: "❌ Card Expiry is required in payment method." });
+      }
+      if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
+        console.log("Validation failed: cardData.cvv missing or empty");
+        return res.status(400).json({ message: "❌ Card CVV is required in payment method." });
+      }
+      if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
+        console.log("Validation failed: cardData.cardName missing or empty");
+        return res.status(400).json({ message: "❌ Card Name is required in payment method." });
+      }
+    }
 
-  // Defensive: check if user and user.cart exist
-  if (!user || !Array.isArray(user.cart)) {
-    return res.status(400).json({ error: "User cart is missing or invalid." });
-  }
+    // Find user and check cart
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      console.log("User not found with id:", req.user.id);
+      return res.status(400).json({ message: "User not found." });
+    }
+    if (!Array.isArray(user.cart) || user.cart.length === 0) {
+      console.log("User cart missing or empty");
+      return res.status(400).json({ message: "User cart is missing or empty." });
+    }
 
-  // Get the item's array (through the middle - user's cart)
-  // .map() => method that creates a new array by copying objects (Because cart & order's schema dont match)
+    // Map cart items to order items
   const cartItems = user.cart.map((item) => ({
-    fragrance: item.fragrance, // The fragrance id (not the entire object -> not populated)
-    size: item.size,
-    quantity: item.quantity,
-    price: item.price,
-  }));
+  fragrance: item.fragrance,
+  size: item.size || "30ml",  // <-- default size if not provided
+  quantity: item.quantity || 1,
+  price: item.price,
+ wrap: {
+  name: item.wrap?.name || "",
+  price: item.wrap?.price || 0,
+},
+card: {
+  name: item.card?.name || "",
+},
+  recipientName: item.recipientName || null,
+  message: item.message || null,
+  category: item.category || "regular",
+}));
 
-  // Find which fragrance that is and lower it's stock based on size and quanitity
-  for (const item of cartItems) {
-    const fragrance = await Fragrance.findById(item.fragrance);
-    if (fragrance) {
-      // Match the ml (size) using .find() and robust parsing for 'ml' suffix
+
+    // Check stock and update fragrance quantities
+    for (const item of cartItems) {
+      const fragrance = await Fragrance.findById(item.fragrance);
+      if (!fragrance) {
+        console.log("Fragrance not found for id:", item.fragrance);
+        return res.status(400).json({ message: `Fragrance not found for id: ${item.fragrance}` });
+      }
+      console.log("Looking for fragrance:", item.fragrance);
+
+
+      // Find size option and check quantity
       const sizeOption = fragrance.sizeOptions.find((option) => {
-        // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
+              // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
         // Remove 'ml' if present and trim
         const optionSize = String(option.size).replace(/ml/i, "").trim();
         const itemSize = String(item.size).replace(/ml/i, "").trim();
-
         return optionSize === itemSize;
       });
 
-      // If no size option matches (somehow)
       if (!sizeOption) {
-        return res.status(400).json({
-          message: `Size ${item.size} is not available for ${fragrance.name}.`,
-        });
+        console.log(`Size ${item.size} not available for fragrance ${fragrance.name}`);
+        return res.status(400).json({ message: `Size ${item.size} is not available for ${fragrance.name}.` });
       }
 
-      // If the stock is lower than the requested order's quantity
       if (sizeOption.quantity < item.quantity) {
+        console.log(`Insufficient stock for ${fragrance.name}, size ${item.size}: requested ${item.quantity}, available ${sizeOption.quantity}`);
         return res.status(400).json({
           message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
         });
       }
+
+      // Decrement stock
       sizeOption.quantity -= item.quantity;
       await fragrance.save();
     }
-  }
 
-  // Calculate totalPrice (no tax or shipping fee)
-  // .reduce() goes through each item in the array and keeps a sum intialized at 0 (last parameter).
-  let totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+    // Calculate total price
+    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Add gift prices to total if gifts exist
-  if (gifts && Array.isArray(gifts)) {
-    totalPrice += gifts.reduce((sum, gift) => sum + (gift.totalPrice || 0), 0);
-  }
+    // Generate order number
+    const initialOrderSequenceNumber = 1000;
+    const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
+    const orderNumber = lastOrder?.orderNumber ? lastOrder.orderNumber + 1 : initialOrderSequenceNumber;
 
-  // Incase there are no orders
-  const intialOrderSequenceNumber = 1000;
+   console.log("Order number generated:", orderNumber);
+  const cleanedItems = cartItems.map((item) => ({
+  fragrance: item.fragrance,
+  size: item.size || "30ml",
+  quantity: item.quantity,
+  price: item.price,
+  wrap: {
+  name: item.wrap?.name || "",
+  price: item.wrap?.price || 0,
+},
+card: {
+  name: item.card?.name || "",
+},
+  recipientName: item.recipientName || undefined,
+  message: item.message || undefined,
+  category: item.category || "regular",
+}));
 
-  // Find the latest/highest orderNumber and increment
-  // sort() takes an object as an argument, where each field to sort by is a key and the value is either 1 for ascending order or -1 for descending order.
-  // takes the objectNumber as the object to sort by, and sort it descendingly
-  const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
+console.log("Cleaned items:", cleanedItems);
 
-  // Then increment the order we're currently creating
-  const orderNumber =
-    lastOrder && lastOrder.orderNumber
-      ? lastOrder.orderNumber + 1
-      : intialOrderSequenceNumber;
-
-  // Create the customer schema to add customer
+    // Create and save order
   const order = new Order({
-    user: user._id,
-    items: cartItems,
-    gifts: gifts || [], // Add gifts to the order
-    totalPrice,
-    shippingAddress: req.body.shippingAddress,
-    paid: req.body.paid,
-    orderNumber,
-    paymentInfo: binData || null,
-  });
+  user: req.user.id,
+  items: cleanedItems,
+  shippingAddress,
+  paid,
+  orderNumber,
+  paymentInfo: binData || null,
+  totalPrice: totalPrice,
+});
+console.log("Order created:", order);
 
-  try {
-    // Save the order
-    await order.save();
+     await order.save();
 
-    // Clear the user's cart and gifts after successful order
+    // Clear user cart
     user.cart = [];
     user.gifts = [];
     await user.save();
 
-    // Backend must send a response (success or error) for the frontend to work.
-    res.status(201).json({ message: "✅ Order added successfully" });
+    console.log("Order created successfully:", order._id);
+    return res.status(201).json({ message: "✅ Order added successfully", orderId: order._id });
+
   } catch (error) {
-    console.error("Order Creation Error Details:", {
-      error: error.message,
-      stack: error.stack,
-      orderData: {
-        user: user._id,
-        itemsCount: cartItems.length,
-        giftsCount: gifts ? gifts.length : 0,
-        totalPrice,
-        orderNumber
-      }
-    });
-    res.status(500).json({ 
-      message: "Failed to add order",
-      error: error.message 
-    });
+    console.error("Error creating order:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 // Controller to validate BIN (first 6 digits of a card number)
 const binCache = {};

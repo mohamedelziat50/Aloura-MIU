@@ -260,9 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const giftData = {
           perfume: {
             name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
-            price: cleanPerfumePrice,
-            image: selectedPerfume.querySelector("img")?.src || ""  
-          },
+           },
           wrap: {
             name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
             price: cleanWrapPrice
@@ -272,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           recipientName: document.getElementById("recipient-name").value.trim(),
           message: document.getElementById("gift-message").value.trim(),
-          totalPrice: totalPrice
+          price: totalPrice
         };
 
         // Validate required fields
@@ -305,114 +303,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const responseData = await response.json();
 
         showFunToast("✅ Gift added successfully to your cart!", "green", "left");
+        // Update the cart UI
+        updateCartUI(responseData);
 
         // Close the modal
         const giftModal = document.getElementById("gift-modal");
         if (giftModal) {
           giftModal.style.display = "none";
           document.body.style.overflow = "auto";
-        }
-
-        // Update the cart UI
-        const cartItemsContainer = document.querySelector(".cart-items-container");
-        if (cartItemsContainer) {
-          try {
-            // Fetch both cart items and gifts
-            const [cartResponse, giftsResponse] = await Promise.all([
-              fetch("/api/users/cart", { credentials: "include" }),
-              fetch("/api/gifting", { credentials: "include" })
-            ]);
-
-            const cartData = await cartResponse.json();
-            const giftsData = await giftsResponse.json();
-
-            const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
-            const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
-            const isEmpty = !hasCartItems && !hasGifts;
-
-            // Clear existing items
-            cartItemsContainer.innerHTML = "";
-
-            // If both cart and gifts are empty, show empty state
-            if (isEmpty) {
-              cartItemsContainer.innerHTML = `
-                <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-                  <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-                  <h4 class="mt-3">Your cart is empty.</h4>
-                </div>
-              `;
-            } else {
-              // Add cart items if they exist
-              if (hasCartItems) {
-                cartData.cart.forEach((item) => {
-                  const cartItemHTML = `
-                    <div class="row cart-item mb-3" data-price="${item.price}">
-                      <div class="col-md-3">
-                        <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
-                      </div>
-                      <div class="col-md-5 mt-3">
-                        <h5 class="card-title">${item.fragrance.name}</h5>
-                        <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
-                      </div>
-                      <div class="col-md-4 d-flex flex-column">
-                        <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="input-group" style="max-width: 180px">
-                            <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
-                            <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
-                            <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
-                          </div>
-                          <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
-                            <i class="fa-solid fa-trash-can"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  `;
-                  cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
-                });
-              }
-
-              // Add gift items if they exist
-              if (hasGifts) {
-                giftsData.forEach((gift) => {
-                  if (gift && gift.perfume) {
-                    const giftItemHTML = `
-                      <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
-                        <div class="col-md-3">
-                          <img src="${gift.perfume.image || '/images/default-perfume.jpg'}" 
-                               alt="${gift.perfume.name}" 
-                               class="img-fluid rounded" />
-                        </div>
-                        <div class="col-md-5 mt-3">
-                          <h5 class="card-title">${gift.perfume.name}</h5>
-                          <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
-                          ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
-                        </div>
-                        <div class="col-md-4 d-flex flex-column">
-                          <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
-                          <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    `;
-                    cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
-                  }
-                });
-              }
-            }
-
-            // Update subtotal
-            updateSubtotal();
-
-            // Reattach event listeners
-            attachCartEventListeners();
-          } catch (error) {
-            console.error("Error updating cart:", error);
-          }
         }
 
         // Reset the form
@@ -423,6 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Order error:", error);
         showFunToast(`Order failed: ${error.message}`, "red");
       }
+      
     });
   }
 
@@ -458,237 +357,43 @@ document
     });
   });
 
-// Function to fetch and display gifts
-async function fetchAndDisplayGifts() {
-  try {
-    const response = await fetch("/api/gifting", {
-      credentials: "include",
-    });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch gifts");
-    }
 
-    const gifts = await response.json();
-    displayGiftsInCart(gifts);
-    displayGiftsInCheckout(gifts);
-  } catch (error) {
-    console.error("Error fetching gifts:", error);
-    showFunToast("Failed to load gifts", "red");
+
+
+
+
+
+function updateCartUI(result) {
+  const cartCount = document.getElementById("cart-count");
+  if (cartCount) {
+    cartCount.textContent = result.cartCount;
   }
-}
 
-// Function to display gifts in cart
-function displayGiftsInCart(gifts) {
-  const cartContainer = document.querySelector(".cart-items");
-  if (!cartContainer) return;
-
-  const giftItems = gifts
-    .map(
-      (gift) => `
-    <div class="cart-item gift-item">
-      <div class="item-details">
-        <h4>Gift Package</h4>
-        <p><strong>Perfume:</strong> ${gift.perfume.name}</p>
-        <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
-        <p><strong>Card:</strong> ${gift.card.name}</p>
-        <p><strong>To:</strong> ${gift.recipientName}</p>
-        ${
-          gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ""
-        }
-        <p><strong>Total:</strong> $${gift.totalPrice.toFixed(2)}</p>
-      </div>
-      <button class="remove-gift" data-gift-id="${gift._id}">Remove</button>
-    </div>
-  `
-    )
-    .join("");
-
-  cartContainer.innerHTML = giftItems;
-
-  // Add event listeners for remove buttons
-  document.querySelectorAll(".remove-gift").forEach((button) => {
-    button.addEventListener("click", async (e) => {
-      const giftId = e.target.dataset.giftId;
-      try {
-        const response = await fetch(`/api/gifting/${giftId}`, {
-          method: "DELETE",
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to remove gift");
-        }
-
-        showFunToast("Gift removed successfully", "green");
-        fetchAndDisplayGifts(); // Refresh the display
-      } catch (error) {
-        console.error("Error removing gift:", error);
-        showFunToast("Failed to remove gift", "red");
-      }
-    });
-  });
-}
-
-// Function to display gifts in checkout
-function displayGiftsInCheckout(gifts) {
-  const checkoutContainer = document.querySelector(".checkout-items");
-  if (!checkoutContainer) return;
-
-  const giftItems = gifts
-    .map(
-      (gift) => `
-    <div class="checkout-item gift-item">
-      <div class="item-details">
-        <h4>Gift Package</h4>
-        <p><strong>Perfume:</strong> ${gift.perfume.name}</p>
-        <p><strong>Wrap:</strong> ${gift.wrap.name}</p>
-        <p><strong>Card:</strong> ${gift.card.name}</p>
-        <p><strong>To:</strong> ${gift.recipientName}</p>
-g        ${
-        gift.message ? `<p><strong>Message:</strong> ${gift.message}</p>` : ""
-      }
-        <p><strong>Price:</strong> $${gift.totalPrice.toFixed(2)}</p>
-      </div>
-    </div>
-  `
-    )
-    .join("");
-
-  checkoutContainer.innerHTML = giftItems;
-
-  // Update total price
-  const totalPrice = gifts.reduce((sum, gift) => sum + gift.totalPrice, 0);
-  const totalElement = document.querySelector(".checkout-total");
-  if (totalElement) {
-    totalElement.textContent = `$${totalPrice.toFixed(2)}`;
-  }
-}
-
-// Function to attach event listeners to cart buttons
-function attachCartEventListeners() {
-  // Attach event listeners to trash buttons
-  document.querySelectorAll(".trash-can-button").forEach((button) => {
-    button.addEventListener("click", async function () {
-      const giftId = this.getAttribute("data-gift-id");
-      const fragranceId = this.getAttribute("data-fragrance-id");
-      const size = this.getAttribute("data-size");
-      const cartItem = this.closest(".cart-item");
-      const cartItemsContainer = document.querySelector(".cart-items-container");
-
-      try {
-        let res;
-        if (giftId) {
-          // Handle gift removal
-          res = await fetch(`/api/gifting/${giftId}`, {
-            method: "DELETE",
-            headers: { 
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            credentials: "include"
-          });
-        } else {
-          // Handle regular cart item removal
-          res = await fetch("/api/users/removefromcart", {
-            method: "DELETE",
-            headers: { 
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ fragranceId, size })
-          });
-        }
-
-        const data = await res.json();
-
-        // Check for successful deletion - consider 200 status as success even without specific message
-        if (res.ok) {
-          cartItem.remove();
-          updateSubtotal();
-
-          // Check if this was the last item
-          const remainingItems = cartItemsContainer.querySelectorAll(".cart-item");
-          if (remainingItems.length === 0) {
-            cartItemsContainer.innerHTML = `
-              <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-                <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-                <h4 class="mt-3">Your cart is empty.</h4>
-              </div>
-            `;
-          }
-          showFunToast("Item removed successfully", "green");
-        } else {
-          throw new Error(data.message || data.error || "Failed to remove item");
-        }
-      } catch (err) {
-        console.error("Error in delete operation:", err);
-        showFunToast(err.message || "Error removing item. Please try again.", "red");
-      }
-    });
-  });
-}
-
-// Function to update subtotal
-function updateSubtotal() {
-  const cartItems = document.querySelectorAll(".cart-item");
-  let subtotal = 0;
-
-  cartItems.forEach((item) => {
-    const price = parseFloat(item.getAttribute("data-price"));
-    const quantityInput = item.querySelector(".quantity-input");
-    if (quantityInput) {
-      const quantity = parseInt(quantityInput.value);
-      subtotal += price * quantity;
-    } else {
-      subtotal += price;
-    }
-  });
-
-  const subtotalElement = document.querySelector(".cart-info-subtotal span");
-  if (subtotalElement) {
-    subtotalElement.textContent = `${subtotal} EGP`;
-  }
-}
-
-// Initialize cart on page load
-document.addEventListener("DOMContentLoaded", async () => {
   const cartItemsContainer = document.querySelector(".cart-items-container");
-  if (cartItemsContainer) {
-    try {
-      // Fetch both cart items and gifts
-      const [cartResponse, giftsResponse] = await Promise.all([
-        fetch("/api/users/cart", { credentials: "include" }),
-        fetch("/api/gifting", { credentials: "include" })
-      ]);
+  if (!cartItemsContainer) return;
 
-      const cartData = await cartResponse.json();
-      const giftsData = await giftsResponse.json();
+  if (result.cartCount === 0) {
+    cartItemsContainer.innerHTML = `
+      <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+        <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+        <h4 class="mt-3">Your cart is empty.</h4>
+      </div>
+    `;
+    return;
+  }
 
-      const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
-      const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
-      const isEmpty = !hasCartItems && !hasGifts;
+  fetch("/api/users/cart")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success && data.cart) {
+        cartItemsContainer.innerHTML = "";
 
-      // If both cart and gifts are empty, show empty state
-      if (isEmpty) {
-        cartItemsContainer.innerHTML = `
-          <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-            <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-            <h4 class="mt-3">Your cart is empty.</h4>
-          </div>
-        `;
-        return;
-      }
+        data.cart.forEach((item) => {
+          const isRegular = item.category === "regular";
 
-      // Clear existing items
-      cartItemsContainer.innerHTML = "";
-
-      // Add cart items if they exist
-      if (hasCartItems) {
-        cartData.cart.forEach((item) => {
           const cartItemHTML = `
-            <div class="row cart-item mb-3" data-price="${item.price}">
+            <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
               <div class="col-md-3">
                 <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
               </div>
@@ -699,11 +404,17 @@ document.addEventListener("DOMContentLoaded", async () => {
               <div class="col-md-4 d-flex flex-column">
                 <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="input-group" style="max-width: 180px">
-                    <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
-                    <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
-                    <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
-                  </div>
+                  ${
+                    isRegular
+                      ? `
+                    <div class="input-group" style="max-width: 180px">
+                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
+                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
+                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
+                    </div>
+                  `
+                      : `<p class="text-center fw-medium mb-0">Quantity: ${item.quantity}</p>`
+                  }
                   <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
@@ -713,46 +424,63 @@ document.addEventListener("DOMContentLoaded", async () => {
           `;
           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
         });
-      }
 
-      // Add gift items if they exist
-      if (hasGifts) {
-        giftsData.forEach((gift) => {
-          if (gift && gift.perfume) {
-            const giftItemHTML = `
-              <div class="row cart-item mb-3" data-price="${gift.totalPrice}">
-                <div class="col-md-3">
-                  <img src="${gift.perfume.image || '/images/default-perfume.jpg'}" 
-                       alt="${gift.perfume.name}" 
-                       class="img-fluid rounded" />
-                </div>
-                <div class="col-md-5 mt-3">
-                  <h5 class="card-title">${gift.perfume.name}</h5>
-                  <p class="text-muted">Gift for: ${gift.recipientName} | Wrap: ${gift.wrap.name}</p>
-                  ${gift.message ? `<p class="text-muted small">Message: ${gift.message}</p>` : ''}
-                </div>
-                <div class="col-md-4 d-flex flex-column">
-                  <p class="fw-bold mb-2 text-end">${gift.totalPrice} EGP</p>
-                  <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-sm btn-outline-danger trash-can-button" data-gift-id="${gift._id}">
-                      <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                  </div>
-                </div>
+        updateSubtotal();
+        attachCartEventListeners();
+        showFunToast("✅ Item successfully added to your cart!", "green", "left");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching cart data:", error);
+    });
+}
+
+
+
+
+
+function attachCartEventListeners() {
+ 
+
+  // Attach event listeners to trash buttons
+  document.querySelectorAll(".trash-can-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const fragranceId = this.getAttribute("data-fragrance-id");
+      const size = this.getAttribute("data-size");
+      const cartItem = this.closest(".cart-item");
+      const cartItemsContainer = document.querySelector(
+        ".cart-items-container"
+      );
+
+      try {
+        const res = await fetch("/api/users/removefromcart", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fragranceId, size }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          cartItem.remove();
+          updateSubtotal();
+
+          // Check if this was the last item
+          const remainingItems =
+            cartItemsContainer.querySelectorAll(".cart-item");
+          if (remainingItems.length === 0) {
+            cartItemsContainer.innerHTML = `
+              <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+                <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+                <h4 class="mt-3">Your cart is empty.</h4>
               </div>
             `;
-            cartItemsContainer.insertAdjacentHTML("beforeend", giftItemHTML);
           }
-        });
+        } else {
+          alert("Error removing item. Please try again.");
+        }
+      } catch (err) {
+        console.error("Failed to remove item from cart:", err);
       }
-
-      // Update subtotal
-      updateSubtotal();
-
-      // Attach event listeners
-      attachCartEventListeners();
-    } catch (error) {
-      console.error("Error loading cart:", error);
-    }
-  }
-});
+    });
+  });
+}
