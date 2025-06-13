@@ -643,42 +643,53 @@
                     <span class="fw-bold">Payment info</span>
                   </div>
                   <div class="mb-1">
-                    <% if(order.paid && order.paymentInfo) { %>
+                    <% if(order.paid && order.paymentInfo) { %> <%
+                    if(order.paymentInfo.scheme) { %>
                     <i
-                      class="fa-brands fa-cc-<%= order.paymentInfo && order.paymentInfo.scheme === 'mastercard' ? 'mastercard' : 'visa' %> text-danger me-2"
+                      class="fa-brands fa-cc-<%= order.paymentInfo.scheme === 'mastercard' ? 'mastercard' : 'visa' %> text-danger me-2"
                     ></i>
                     <span>
-                      <%= order.paymentInfo && order.paymentInfo.scheme ?
-                      order.paymentInfo.scheme.charAt(0).toUpperCase() +
-                      order.paymentInfo.scheme.slice(1) : 'Card' %> - <%=
-                      order.paymentInfo && order.paymentInfo.type ?
-                      order.paymentInfo.type : 'Type Unknown' %>
+                      <%= order.paymentInfo.scheme.charAt(0).toUpperCase() +
+                      order.paymentInfo.scheme.slice(1) %> - <%=
+                      order.paymentInfo.type || 'Type Unknown' %>
                     </span>
                     <% } else { %>
+                    <span class="text-muted">Not Supported Card</span>
+                    <% } %> <% } else { %>
                     <span class="text-muted">Cash On Delivery</span>
                     <% } %>
                   </div>
 
                   <% if(order.paid && order.paymentInfo) { %>
                   <div class="mb-1">
-                    <span class="text-muted">Bank:</span> <%= order.paymentInfo
-                    && order.paymentInfo.bank.name ? order.paymentInfo.bank.name
-                    : 'N/A' %>
+                    <span class="text-muted">Bank:</span>
+                    <% if(order.paymentInfo.bank && order.paymentInfo.bank.name)
+                    { %> <%= order.paymentInfo.bank.name %> <% } else { %>
+                    <span class="text-muted">Not Supported</span>
+                    <% } %>
                   </div>
                   <div class="mb-1">
-                    <span class="text-muted">Brand:</span> <%= order.paymentInfo
-                    && order.paymentInfo.brand ? order.paymentInfo.brand : 'N/A'
-                    %>
+                    <span class="text-muted">Brand:</span>
+                    <% if(order.paymentInfo.brand) { %> <%=
+                    order.paymentInfo.brand %> <% } else { %>
+                    <span class="text-muted">Not Supported</span>
+                    <% } %>
                   </div>
                   <div class="mb-1">
-                    <span class="text-muted">Country:</span> <%=
-                    order.paymentInfo && order.paymentInfo.country.name ?
-                    order.paymentInfo.country.name : 'N/A' %>
+                    <span class="text-muted">Country:</span>
+                    <% if(order.paymentInfo.country &&
+                    order.paymentInfo.country.name) { %> <%=
+                    order.paymentInfo.country.name %> <% } else { %>
+                    <span class="text-muted">Not Supported</span>
+                    <% } %>
                   </div>
                   <div class="mb-1">
-                    <span class="text-muted">Currency:</span> <%=
-                    order.paymentInfo && order.paymentInfo.country.currency ?
-                    order.paymentInfo.country.currency : 'EGP' %>
+                    <span class="text-muted">Currency:</span>
+                    <% if(order.paymentInfo.country &&
+                    order.paymentInfo.country.currency) { %> <%=
+                    order.paymentInfo.country.currency %> <% } else { %>
+                    <span class="text-muted">Not Supported</span>
+                    <% } %>
                   </div>
                   <% } %>
                 </div>

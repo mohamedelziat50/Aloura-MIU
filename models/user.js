@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, "Phone number is required"],
       match: [/^\d{10}$/, "Phone number must be exactly 10 digits"],
     },
     password: {
@@ -99,6 +98,12 @@ const userSchema = new mongoose.Schema(
               enum: ["regular", "gift"],
               required: true,
             },
+      },
+    ],
+    gifts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Gifting",
       },
     ],
   },

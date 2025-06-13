@@ -71,11 +71,24 @@ export const createGift = async (req, res) => {
 // Get all gifts for the logged-in user
 export const getAllGifts = async (req, res) => {
   try {
-    const gifts = await Gift.find({ user: req.user._id }).sort({
-      createdAt: -1,
-    });
-    res.status(200).json(gifts);
+    console.log("Fetching gifts for user:", req.user.id);
+
+    // First get the user with populated gifts
+    const user = await UserModel.findById(req.user.id).populate("gifts");
+
+    if (!user) {
+      console.log("User not found:", req.user.id);
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    console.log("Found user with gifts:", user.gifts);
+
+    // Sort gifts by creation date
+    const sortedGifts = user.gifts.sort((a, b) => b.createdAt - a.createdAt);
+
+    res.status(200).json(sortedGifts);
   } catch (err) {
+    console.error("Error fetching gifts:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -83,7 +96,7 @@ export const getAllGifts = async (req, res) => {
 // Get a specific gift by ID
 export const getGiftById = async (req, res) => {
   try {
-    const gift = await Gift.findOne({ _id: req.params.id, user: req.user._id });
+    const gift = await Gift.findOne({ _id: req.params.id, user: req.user.id });
     if (!gift) return res.status(404).json({ error: "Gift not found" });
     res.status(200).json(gift);
   } catch (err) {
@@ -95,7 +108,7 @@ export const getGiftById = async (req, res) => {
 export const updateGift = async (req, res) => {
   try {
     const gift = await Gift.findOneAndUpdate(
-      { _id: req.params.id, user: req.user._id },
+      { _id: req.params.id, user: req.user.id },
       req.body,
       { new: true }
     );
@@ -111,13 +124,18 @@ export const updateGift = async (req, res) => {
 // Delete a gift
 export const deleteGift = async (req, res) => {
   try {
-    const gift = await Gift.findOne({ _id: req.params.id, user: req.user._id });
+    const gift = await Gift.findOne({ _id: req.params.id, user: req.user.id });
 
     if (!gift) {
       return res.status(404).json({ error: "Gift not found" });
     }
 
     await Gift.findByIdAndDelete(gift._id);
+
+    // Remove gift from user's gifts array
+    await UserModel.findByIdAndUpdate(req.user.id, {
+      $pull: { gifts: gift._id },
+    });
 
     res.status(200).json({ message: "Gift deleted successfully" });
   } catch (err) {

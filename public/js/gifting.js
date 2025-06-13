@@ -484,4 +484,3 @@ function attachCartEventListeners() {
     });
   });
 }
-

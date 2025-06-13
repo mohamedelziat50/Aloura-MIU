@@ -79,7 +79,7 @@ export const generateVerificationEmail = (name, userId) => {
       exclusive offers, personalized recommendations, and more..
     </p>
 
-    <a href="http://localhost:3000/api/auth/verify/${userId}" class="verify-btn">Verify Your Account</a>
+    <a href="/api/auth/verify/${userId}" class="verify-btn">Verify Your Account</a>
 
     <div class="socials">
       <a href="https://www.tiktok.com/@aloura.perfumes">

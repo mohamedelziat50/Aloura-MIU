@@ -223,6 +223,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }, 3000);
     }
+
+    // Set canvas resolution lower on mobile
+    function isMobileDevice() {
+      return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    if (isMobileDevice()) {
+      const canvas = document.getElementById('female-fluid-canvas');
+      if (canvas) {
+        canvas.width = 320;
+        canvas.height = 320;
+      }
+    }
   });
 
   // FLUID SIMULATION

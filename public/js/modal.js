@@ -286,7 +286,7 @@ signUpForm.addEventListener("submit", async (event) => {
     password,
   };
 
-  fetch("http://localhost:3000/api/auth/signup", {
+  fetch("/api/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -338,7 +338,7 @@ loginForm.addEventListener("submit", async (event) => {
     password,
   };
 
-  fetch("http://localhost:3000/api/auth/login", {
+  fetch("/api/auth/login", {
     method: "POST",
     credentials: "include", // ← important!
     headers: {
@@ -409,14 +409,11 @@ document
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/auth/forgot-password",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -516,14 +513,11 @@ document.querySelector(".verify").addEventListener("click", async () => {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/auth/reset-password",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, newPassword }),
-      }
-    );
+    const response = await fetch("/api/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code, newPassword }),
+    });
 
     const data = await response.json();
 
@@ -663,14 +657,11 @@ document
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/auth/forgot-password-phone",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone }), // Prefix added here
-        }
-      );
+      const response = await fetch("/api/auth/forgot-password-phone", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone }), // Prefix added here
+      });
 
       const data = await response.json();
 
@@ -709,3 +700,15 @@ document
       showFunToast("❌ Server error.", "red");
     }
   });
+
+// Google Sign In
+document.getElementById("googleSignInBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.location.href = "/api/auth/google";
+});
+
+// Google Sign Up
+document.getElementById("googleSignUpBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.location.href = "/api/auth/google";
+});

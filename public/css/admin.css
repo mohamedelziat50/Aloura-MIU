@@ -1405,6 +1405,62 @@ canvas {
   text-align: right;
 }
 
+.quantity-info {
+  margin: 15px 0;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.stock-header h4 {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.size-quantities {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+.quantity-badge.low-stock {
+  background: #fff3f3;
+  color: #dc3545;
+  border-color: #ffcdd2;
+}
+
+.product-notes {
+  margin-top: 15px;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .product-date {
   display: inline-flex;
   align-items: center;
