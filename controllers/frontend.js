@@ -31,7 +31,7 @@ export const getIndex = async (req, res) => {
     res.render("index", { reviews: approvedReviews });
   } catch (error) {
     console.log("Error fetching reviews:", error);
-    res.render("index", { reviews: [] });
+    res.status(500).send("Server Error");
   }
 };
 
