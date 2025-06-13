@@ -15,8 +15,23 @@ var country_list = [
   "United Arab Emirates",
 ];
 
-export const getIndex = (req, res) => {
-  res.render("index");
+export const getIndex = async (req, res) => {
+  try {
+    // getting only the approvef reviews from the DB
+    const approvedReviews = await ReviewModel.find({ status: true })
+      .populate("user", "name profilePic")
+      .populate("fragrance", "name")
+      .limit(12) // only getting 12 reviews, 4 pages, 3 reviews
+      .sort({ createdAt: -1 }); // -1 makes the newest reviews get displayed first, 1 for old.
+
+    // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
+    
+    // passing the reviews to the landing page
+    res.render("index", { reviews: approvedReviews });
+  } catch (error) {
+    console.log("Error fetching reviews:", error);
+    res.render("index", { reviews: [] });
+  }
 };
 
 export const getAllFragrances = async (req, res) => {

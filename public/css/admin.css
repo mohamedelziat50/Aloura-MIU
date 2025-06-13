@@ -237,7 +237,7 @@ tr:nth-child(even) {
 
 .review-card {
   background: white;
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   margin-bottom: 15px;
@@ -257,7 +257,7 @@ tr:nth-child(even) {
 }
 
 .review-rating {
-  color: #000000;
+  color: #ffc107;
   font-size: 1.1em;
 }
 
@@ -1227,8 +1227,8 @@ canvas {
 
 /* Review Cards */
 .review-card.flagged {
-  border-left: 3px solid #ffcccc;
-  background: #fff9f9;
+  border-top: 2px solid #f38b89;
+  background: #fbecec;
 }
 
 .flag-badge {

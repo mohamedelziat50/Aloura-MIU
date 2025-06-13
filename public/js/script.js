@@ -789,188 +789,85 @@ function initReviewCards() {
   
   if (!reviewsContainer || navDots.length === 0) return;
   
-  // All review card data - we'll use these to rotate new content into the cards
-  const allReviews = [
-    // First set (already displayed)
-    {
-      text: '"Absolutely stunning fragrance that lasted all day. The quality is evident from the first spray - complex, sophisticated, and truly unique."',
-      name: 'Sarah Johnson',
-      location: 'New York, USA',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-      stars: 5
-    },
-    {
-      text: '"I\'ve tried many luxury fragrances over the years, but Aloura stands out for its exceptional longevity and silage. Worth every penny!"',
-      name: 'Michael Reynolds',
-      location: 'London, UK',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      stars: 5
-    },
-    {
-      text: '"The attention to detail in these fragrances is remarkable. Each note unfolds beautifully throughout the day, receiving compliments wherever I go."',
-      name: 'Emma Chen',
-      location: 'Toronto, Canada',
-      avatar: 'https://randomuser.me/api/portraits/women/63.jpg',
-      stars: 4
-    },
-    // Second set
-    {
-      text: '"I bought this as a gift for my husband, and he absolutely loves it. The scent is masculine but not overwhelming, perfect for daily wear."',
-      name: 'Jennifer Thompson',
-      location: 'Sydney, Australia',
-      avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
-      stars: 5
-    },
-    {
-      text: '"The packaging alone speaks volumes about the quality. When I opened the box, I knew I was in for something special. The fragrance did not disappoint!"',
-      name: 'David Miller',
-      location: 'Chicago, USA',
-      avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
-      stars: 5
-    },
-    {
-      text: '"As someone who is very particular about fragrances, I can confidently say that Aloura stands among the best I\'ve ever tried. Worth the investment."',
-      name: 'Sophie Martin',
-      location: 'Paris, France',
-      avatar: 'https://randomuser.me/api/portraits/women/90.jpg',
-      stars: 4
-    },
-    // Third set
-    {
-      text: '"The versatility of this fragrance is impressive. Works perfectly from office meetings to evening events. I get compliments every time I wear it."',
-      name: 'James Wilson',
-      location: 'Berlin, Germany',
-      avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-      stars: 5
-    },
-    {
-      text: '"I\'ve been using this fragrance for 3 months now and it still smells as amazing as the first day. The bottle design is also a beautiful addition to my vanity."',
-      name: 'Aisha Khan',
-      location: 'Dubai, UAE',
-      avatar: 'https://randomuser.me/api/portraits/women/36.jpg',
-      stars: 5
-    },
-    {
-      text: '"I was hesitant about ordering a fragrance online without smelling it first, but the reviews convinced me. So glad I took the chance - it\'s absolutely divine!"',
-      name: 'Robert Lee',
-      location: 'Singapore',
-      avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-      stars: 5
-    },
-    // Fourth set
-    {
-      text: '"Purchased this after a friend recommended it, and I\'m blown away by how well it lasts. Even after a full day, the scent remains elegant and pronounced."',
-      name: 'Elena Gonzalez',
-      location: 'Madrid, Spain',
-      avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-      stars: 5
-    },
-    {
-      text: '"The customer service was exceptional when I had questions about the fragrance notes. The perfume itself exceeded my expectations - rich and sophisticated."',
-      name: 'Omar Hassan',
-      location: 'Cairo, Egypt',
-      avatar: 'https://randomuser.me/api/portraits/men/74.jpg',
-      stars: 4
-    },
-    {
-      text: '"I love how this fragrance evolves throughout the day. The initial notes are bright and fresh, while the dry down is warm and comforting. Perfect complexity!"',
-      name: 'Mia Anderson',
-      location: 'Stockholm, Sweden',
-      avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
-      stars: 5
-    }
-  ];
-  
-  // Get all review cards
+  // Get all review cards (these are now generated from real database data)
   const reviewCards = Array.from(document.querySelectorAll('.review-card'));
   
-  // Keep track of which set we're displaying (0-3)
-  let currentSetIndex = 0;
+  // If we have no review cards, nothing to initialize
+  if (reviewCards.length === 0) return;
   
-  // Keep track of which card is currently being updated (0-2)
-  let currentCardIndex = 0;
+  // Calculate how many pages we have (3 reviews per page)
+  const totalReviews = reviewCards.length;
+  const reviewsPerPage = 3;
+  const totalPages = Math.ceil(totalReviews / reviewsPerPage);
+  
+  // If we only have one page or less, no need for carousel
+  if (totalPages <= 1) return;
+  
+  // Keep track of current page (0-based)
+  let currentPageIndex = 0;
   
   // Flag to prevent multiple transitions
   let isTransitioning = false;
   
-  // Function to update a specific card with new content
-  function updateCard(cardIndex, reviewData) {
-    const card = reviewCards[cardIndex];
-    
-    // Start fade out
-    card.classList.add('fading-out');
-    card.classList.remove('fading-in');
-    
-    // After fade out, update content and fade back in
-    setTimeout(() => {
-      // Update stars
-      const starsContainer = card.querySelector('.review-card-stars');
-      starsContainer.innerHTML = Array(5).fill('').map((_, i) => 
-        i < reviewData.stars 
-          ? '<i class="fa-solid fa-star"></i>' 
-          : '<i class="fa-regular fa-star"></i>'
-      ).join('');
-      
-      // Update text
-      card.querySelector('.review-card-text').textContent = reviewData.text;
-      
-      // Update reviewer info
-      card.querySelector('.review-card-avatar img').src = reviewData.avatar;
-      card.querySelector('.review-card-avatar img').alt = reviewData.name;
-      card.querySelector('.review-card-name').textContent = reviewData.name;
-      card.querySelector('.review-card-location').textContent = reviewData.location;
-      
-      // Fade back in
-      setTimeout(() => {
-        card.classList.remove('fading-out');
-        card.classList.add('fading-in');
-        
-        // If this is the last card in the rotation, we're done transitioning
-        if (cardIndex === 2) {
-          setTimeout(() => {
-            isTransitioning = false;
-          }, 300);
-        }
-      }, 30);
-    }, 300);
-  }
-  
-  // Function to update all cards in the set
-  function updateCardsSet(setIndex) {
+  // Function to show a specific page of reviews
+  function showPage(pageIndex) {
     if (isTransitioning) return;
     isTransitioning = true;
-    
+
     // Update active navigation dot
     navDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === setIndex);
+      dot.classList.toggle('active', i === pageIndex);
+    });
+
+    // Hide all cards first with fade out
+    reviewCards.forEach(card => {
+      card.classList.add('fading-out');
+      card.classList.remove('fading-in');
     });
     
-    // Get the starting index for the reviews in this set
-    const startReviewIndex = setIndex * 3;
-    
-    // Start cycling through each card with a delay between them
-    setTimeout(() => updateCard(0, allReviews[startReviewIndex]), 0);
-    setTimeout(() => updateCard(1, allReviews[startReviewIndex + 1]), 400);
-    setTimeout(() => updateCard(2, allReviews[startReviewIndex + 2]), 800);
+    // After fade out, show the cards for the current page
+    setTimeout(() => {
+      reviewCards.forEach((card, index) => {
+        const cardPageIndex = Math.floor(index / reviewsPerPage);
+        if (cardPageIndex === pageIndex) {
+          card.style.display = 'block';
+          setTimeout(() => {
+            card.classList.remove('fading-out');
+            card.classList.add('fading-in');
+          }, 30);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 300);
+    }, 300);
   }
+
+  // Initialize: show first page and set up nav dots
+  showPage(0);
   
   // Add click event listeners to nav dots
-  navDots.forEach((dot) => {
-    dot.addEventListener('click', function() {
-      const newSetIndex = parseInt(this.dataset.index);
-      if (newSetIndex === currentSetIndex || isTransitioning) return;
-      currentSetIndex = newSetIndex;
-      updateCardsSet(currentSetIndex);
-    });
+  navDots.forEach((dot, index) => {
+    if (index < totalPages) {
+      dot.addEventListener('click', function() {
+        if (index === currentPageIndex || isTransitioning) return;
+        currentPageIndex = index;
+        showPage(currentPageIndex);
+      });
+    }
   });
   
-  // Auto rotate through sets every 10 seconds (reduced from 15 seconds)
-  setInterval(() => {
-    if (isTransitioning) return;
-    currentSetIndex = (currentSetIndex + 1) % 4; // We have 4 sets
-    updateCardsSet(currentSetIndex);
-  }, 10000);
-}
+  // Auto rotate through pages every 8 seconds (only if we have multiple pages)
+  if (totalPages > 1) {
+    setInterval(() => {
+      if (isTransitioning) return;
+      currentPageIndex = (currentPageIndex + 1) % totalPages;
+      showPage(currentPageIndex);
+    }, 8000);
+  }
+
 
 
 // For Him & For Her button functionality
@@ -1041,4 +938,5 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         if (fragranceQuiz) fragranceQuiz.classList.add('show');
     }, 2500);
-});
+})
+};

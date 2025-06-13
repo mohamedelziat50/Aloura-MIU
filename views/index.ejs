@@ -265,98 +265,75 @@
       <!-- New Reviews Section -->
       <div class="reviews-section">
         <h3 class="reviews-title">Customer Reviews</h3>
-
         <div class="reviews-container" id="reviews-container">
-          <!-- Review Card 1 -->
-          <div class="review-card fading-in" data-index="0">
-            <div class="review-card-stars">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div class="review-card-text">
-              "Absolutely stunning fragrance that lasted all day. The quality is
-              evident from the first spray - complex, sophisticated, and truly
-              unique."
-            </div>
-            <div class="review-card-footer">
-              <div class="review-card-avatar">
-                <img
-                  src="https://randomuser.me/api/portraits/women/44.jpg"
-                  alt="Sarah Johnson"
-                />
+          <% if (reviews && reviews.length > 0) { %>
+            <% reviews.forEach((review, index) => { %>
+              <!-- review Card <%= index + 1 %>  debugging -->
+              <div class="review-card fading-in" data-index="<%= index %>">
+                <div class="review-card-stars">
+                  <% for(let i = 1; i <= 5; i++) { %>
+                    <% if(i <= review.rating) { %>
+                      <i class="fa-solid fa-star"></i>
+                    <% } else { %>
+                      <i class="fa-regular fa-star"></i>
+                    <% } %>
+                  <% } %>
+                </div>
+                <div class="review-card-text">
+                  "<%= review.comment %>"
+                </div>
+                <div class="review-card-footer">
+                  <div class="review-card-avatar">
+                    <img
+                      src="<%= review.user.profilePic || '/uploads/defaultProfilePic.png' %>"
+                      alt="<%= review.user.name %>"
+                    />
+                  </div>
+                  <div class="review-card-info">
+                    <p class="review-card-name"><%= review.user.name %></p>
+                    <p class="review-card-location"><%= review.fragrance.name %></p>
+                  </div>
+                </div>
               </div>
-              <div class="review-card-info">
-                <p class="review-card-name">Sarah Johnson</p>
-                <p class="review-card-location">New York, USA</p>
+            <% }) %>
+          <% } else { %>
+            <!-- Fallback if no reviews -->
+            <div class="review-card fading-in" data-index="0">
+              <div class="review-card-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
               </div>
-            </div>
-          </div>
-
-          <!-- Review Card 2 -->
-          <div class="review-card fading-in" data-index="1">
-            <div class="review-card-stars">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div class="review-card-text">
-              "I've tried many luxury fragrances over the years, but Aloura
-              stands out for its exceptional longevity and silage. Worth every
-              penny!"
-            </div>
-            <div class="review-card-footer">
-              <div class="review-card-avatar">
-                <img
-                  src="https://randomuser.me/api/portraits/men/32.jpg"
-                  alt="Michael Reynolds"
-                />
+              <div class="review-card-text">
+                "No customer reviews available yet. Be the first to leave a review!"
               </div>
-              <div class="review-card-info">
-                <p class="review-card-name">Michael Reynolds</p>
-                <p class="review-card-location">London, UK</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review Card 3 -->
-          <div class="review-card fading-in" data-index="2">
-            <div class="review-card-stars">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-            </div>
-            <div class="review-card-text">
-              "The attention to detail in these fragrances is remarkable. Each
-              note unfolds beautifully throughout the day, receiving compliments
-              wherever I go."
-            </div>
-            <div class="review-card-footer">
-              <div class="review-card-avatar">
-                <img
-                  src="https://randomuser.me/api/portraits/women/63.jpg"
-                  alt="Emma Chen"
-                />
-              </div>
-              <div class="review-card-info">
-                <p class="review-card-name">Emma Chen</p>
-                <p class="review-card-location">Toronto, Canada</p>
+              <div class="review-card-footer">
+                <div class="review-card-avatar">
+                  <img
+                    src="/uploads/defaultProfilePic.png"
+                    alt="Aloura Team"
+                  />
+                </div>
+                <div class="review-card-info">
+                  <p class="review-card-name">Aloura Team</p>
+                  <p class="review-card-location">Coming Soon</p>
+                </div>
               </div>
             </div>
-          </div>
+          <% } %>
         </div>
 
         <div class="reviews-navigation">
-          <span class="reviews-nav-dot active" data-index="0"></span>
-          <span class="reviews-nav-dot" data-index="1"></span>
-          <span class="reviews-nav-dot" data-index="2"></span>
-          <span class="reviews-nav-dot" data-index="3"></span>
+          <% if (reviews && reviews.length > 3) { %>
+            <% const totalPages = Math.ceil(reviews.length / 3); %>
+            <% for(let i = 0; i < totalPages; i++) { %>
+              <span class="reviews-nav-dot <%= i === 0 ? 'active' : '' %>" data-index="<%= i %>"></span>
+            <% } %>
+          <% } else { %>
+            <span class="reviews-nav-dot active" data-index="0"></span>
+          <% } %>
         </div>
       </div>
     </div>
