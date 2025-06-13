@@ -360,7 +360,21 @@
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
                 <td>$<%= order.totalPrice %></td>
-                <td>No</td>
+                 <%
+                  let type = "Unknown";
+                  if (order.items && Array.isArray(order.items)) {
+                    let categories = order.items.map(p => p.category);
+                    let uniqueCategories = [...new Set(categories)];
+
+                    if (uniqueCategories.length === 1) {
+                      type = uniqueCategories[0] === "gift" ? "Yes" : "No";
+                    } else if (uniqueCategories.includes("gift") && uniqueCategories.includes("regular")) {
+                      type = "Hybrid";
+                    }
+                  }
+                %>
+                <td><%= type %></td>
+
                 <td class="actionlist">
                   <a
                     class="btn ButtonDicoration btn-sm"

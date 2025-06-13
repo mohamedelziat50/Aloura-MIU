@@ -10,11 +10,7 @@ export const createOrder = async (req, res) => {
     console.log("Request body:", req.body);
     console.log("User ID:", req.user?.id);
 
-    if (!req.user || !req.user.id) {
-      console.log("Unauthorized: User ID missing");
-      return res.status(401).json({ message: "Unauthorized: User ID missing" });
-    }
-
+    
     // Destructure required fields from request body
     const {
       fullName,
@@ -129,6 +125,8 @@ card: {
 
       // Find size option and check quantity
       const sizeOption = fragrance.sizeOptions.find((option) => {
+              // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
+        // Remove 'ml' if present and trim
         const optionSize = String(option.size).replace(/ml/i, "").trim();
         const itemSize = String(item.size).replace(/ml/i, "").trim();
         return optionSize === itemSize;
