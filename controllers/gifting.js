@@ -1,38 +1,72 @@
 // controllers/giftingController.js
-import Gift from "../models/gifting.js";
+import Order from "../models/order.js";
 import UserModel from "../models/user.js";
+import mongoose from "mongoose";
+import fragranceModel from "../models/fragrance.js";
+
 
 export const createGift = async (req, res) => {
   try {
+    const user = await UserModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     const {
-      perfume,
+      perfume, // this will be the name now
       wrap,
       card,
       recipientName,
       message,
-      totalPrice, // ✅ Make sure this is included
+      price,
+      size,
+      quantity = 1,
     } = req.body;
 
-    const gift = new Gift({
-      user: req.user._id,
-      perfume,
+    // ✅ 1. Find perfume by name
+    const foundPerfume = await fragranceModel.findOne({ name: perfume.name });
+    if (!foundPerfume) {
+      return res.status(404).json({ error: "Perfume not found by name" });
+    }
+
+    // ✅ 2. Validate values
+    const priceNum = Number(price);
+    const quantityNum = Number(quantity);
+
+    if (isNaN(priceNum) || priceNum < 0) {
+      return res.status(400).json({ error: "Price must be a non-negative number." });
+    }
+    if (isNaN(quantityNum) || quantityNum < 1) {
+      return res.status(400).json({ error: "Quantity must be at least 1." });
+    }
+
+    // ✅ 3. Push gift to cart
+    user.cart.push({
+      fragrance: foundPerfume._id, // now using ID from name lookup
+      size: size || "30ml",
+      quantity: quantityNum,
+      price: priceNum,
       wrap,
       card,
       recipientName,
-      message,
-      totalPrice, // ✅ Store it in the database
+      message: message || null,
+      category: "gift",
     });
 
-    await gift.save();
+    await user.save();
 
-    res.status(201).json(gift);
+    
+
+    res.status(201).json({ message: "Gift added to cart" });
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json({ error: "Something went wrong while creating the gift order" });
+    console.error("❌ Error in createGift:", err);
+    res.status(500).json({
+      error: "Something went wrong while creating the gift order",
+    });
   }
 };
+
+
 
 // Get all gifts for the logged-in user
 export const getAllGifts = async (req, res) => {

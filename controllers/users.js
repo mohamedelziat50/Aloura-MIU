@@ -132,14 +132,31 @@ export const addToCart = async (req, res) => {
     if (existingCartItem) {
       existingCartItem.quantity += 1; // Just increase quantity
     } else {
+      
+
       // Add new cart item with price if needed
       user.cart.push({
         fragrance: productId,
         size,
-        price, // If you store price per unit in the cart
         quantity: 1,
+         price, // If you store price per unit in the cart
+         wrap: null, // Assuming wrap is optional
+        card: null, // Assuming card is optional
+        recipientName: null, // Assuming recipientName is optional
+        message: null, // Assuming message is optional
+        category:"regular", // Assuming category is fragrance
       });
     }
+
+    /*  fragrance: foundPerfume._id, // now using ID from name lookup
+      size: size || null,
+      quantity: quantityNum,
+      price: priceNum,
+      wrap,
+      card,
+      recipientName,
+      message: message || null,
+      category: "gift", */
 
     await user.save();
 
@@ -247,12 +264,12 @@ export const decreaseCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { fragranceId, size } = req.body;
+    const { fragranceId, size, giftId } = req.body;
 
-    if (!fragranceId) {
+    if (!fragranceId && !giftId) {
       return res.status(400).json({
         success: false,
-        message: "Missing fragranceId.",
+        message: "Missing item identifier (fragranceId or giftId).",
       });
     }
 
@@ -264,16 +281,20 @@ export const removeFromCart = async (req, res) => {
       });
     }
 
+    let pullCondition = {};
+
+    if (giftId) {
+      pullCondition = { gift: giftId };
+    } else if (fragranceId) {
+      pullCondition = {
+        fragrance: fragranceId,
+        ...(size ? { size } : {}),
+      };
+    }
+
     await User.updateOne(
       { _id: userId },
-      {
-        $pull: {
-          cart: {
-            fragrance: fragranceId,
-            ...(size ? { size } : {}), // only match size if provided
-          },
-        },
-      }
+      { $pull: { cart: pullCondition } }
     );
 
     return res.json({
@@ -288,6 +309,7 @@ export const removeFromCart = async (req, res) => {
     });
   }
 };
+
 
 export const getCart = async (req, res) => {
   try {

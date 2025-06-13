@@ -228,11 +228,100 @@ document.addEventListener("DOMContentLoaded", function () {
   // Complete order button
   const completeOrderBtn = document.querySelector(".complete-order");
   if (completeOrderBtn) {
-    completeOrderBtn.addEventListener("click", function () {
-      // Here you would typically submit the order
-      showFunToast("Order completed!", "green");
-      giftModal.style.display = "none";
-      document.body.style.overflow = "auto";
+    completeOrderBtn.addEventListener("click", async () => {
+      try {
+        // Get the selected elements
+        const selectedPerfume = document.querySelector(
+          ".perfume-option.selected"
+        );
+        const selectedWrap = document.querySelector(".wrap-option.selected");
+        const selectedCard = document.querySelector(".card-option.selected");
+
+        // Validate selections
+        if (!selectedPerfume || !selectedWrap || !selectedCard) {
+          throw new Error("Please select all gift items before proceeding");
+        }
+
+        // Get and clean the price values
+        const perfumePrice =
+          selectedPerfume.querySelector(".price")?.textContent;
+        const wrapPrice = selectedWrap.querySelector("p")?.textContent;
+
+        const cleanPerfumePrice = perfumePrice
+          ? parseFloat(perfumePrice.replace(/[^0-9.]/g, ""))
+          : 0;
+        const cleanWrapPrice = wrapPrice
+          ? parseFloat(wrapPrice.replace(/[^0-9.]/g, ""))
+          : 0;
+        const totalPrice =
+          parseFloat(document.getElementById("gift-total").textContent) || 0;
+
+        // Create a minimal gift data object with only necessary fields
+        const giftData = {
+          perfume: {
+            name: selectedPerfume.querySelector("h3")?.textContent.trim() || "Not selected",
+           },
+          wrap: {
+            name: selectedWrap.querySelector("h4")?.textContent.trim() || "Not selected",
+            price: cleanWrapPrice
+          },
+          card: {
+            name: selectedCard.querySelector("h4")?.textContent.trim() || "Not selected"
+          },
+          recipientName: document.getElementById("recipient-name").value.trim(),
+          message: document.getElementById("gift-message").value.trim(),
+          price: totalPrice
+        };
+
+        // Validate required fields
+        if (!giftData.recipientName) {
+          throw new Error("Please enter the recipient's name");
+        }
+
+        if (!giftData.perfume.name || !giftData.wrap.name || !giftData.card.name) {
+          throw new Error("Please select all gift items");
+        }
+
+        const response = await fetch("/api/gifting", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify(giftData)
+        });
+
+        if (!response.ok) {
+          if (response.status === 413) {
+            throw new Error("The gift data is too large. Please try again with less data.");
+          }
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || `Server error: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+
+        showFunToast("✅ Gift added successfully to your cart!", "green", "left");
+        // Update the cart UI
+        updateCartUI(responseData);
+
+        // Close the modal
+        const giftModal = document.getElementById("gift-modal");
+        if (giftModal) {
+          giftModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+
+        // Reset the form
+        resetSelections();
+        document.getElementById("recipient-name").value = "";
+        document.getElementById("gift-message").value = "";
+      } catch (error) {
+        console.error("Order error:", error);
+        showFunToast(`Order failed: ${error.message}`, "red");
+      }
+      
     });
   }
 
@@ -243,71 +332,15 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflow = "auto";
     }
   });
+
+  // Fetch and display gifts if we're on the cart or checkout page
+  if (
+    document.querySelector(".cart-items") ||
+    document.querySelector(".checkout-items")
+  ) {
+    fetchAndDisplayGifts();
+  }
 });
-
-document
-  .querySelector(".complete-order")
-  ?.addEventListener("click", async () => {
-    try {
-      const giftData = {
-        perfume: {
-          name:
-            document.querySelector(".perfume-option.selected h3")
-              ?.textContent || "Not selected",
-          price:
-            parseFloat(
-              document.querySelector(".perfume-option.selected .price")
-                ?.textContent
-            ) || 0,
-          image:
-            document.querySelector(".perfume-option.selected img")?.src || "",
-        },
-        wrap: {
-          name:
-            document.querySelector(".wrap-option.selected h4")?.textContent ||
-            "Not selected",
-          price:
-            parseFloat(
-              document
-                .querySelector(".wrap-option.selected p")
-                ?.textContent.replace("+", "")
-            ) || 0,
-          image: document.querySelector(".wrap-option.selected img")?.src || "",
-        },
-        card: {
-          name:
-            document.querySelector(".card-option.selected h4")?.textContent ||
-            "Not selected",
-          image: document.querySelector(".card-option.selected img")?.src || "",
-        },
-        recipientName: document.getElementById("recipient-name").value,
-        message: document.getElementById("gift-message").value,
-        totalPrice:
-          parseFloat(document.getElementById("gift-total").textContent) || 0,
-      };
-
-      const response = await fetch("/api/gifting", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // No need for Authorization header since we're using cookies
-        },
-        credentials: "include", // Important for cookies
-        body: JSON.stringify(giftData),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Order failed");
-      }
-
-      const result = await response.json();
-      console.log("Order success:", result);
-    } catch (error) {
-      console.error("Order error:", error);
-      alert(`Order failed: ${error.message}`);
-    }
-  });
 
 // Add this to your gifting.js (if not already present)
 document
@@ -323,3 +356,132 @@ document
       e.target.closest(`.${category}-option`).classList.add("selected");
     });
   });
+
+
+
+
+
+
+
+
+function updateCartUI(result) {
+  const cartCount = document.getElementById("cart-count");
+  if (cartCount) {
+    cartCount.textContent = result.cartCount;
+  }
+
+  const cartItemsContainer = document.querySelector(".cart-items-container");
+  if (!cartItemsContainer) return;
+
+  if (result.cartCount === 0) {
+    cartItemsContainer.innerHTML = `
+      <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+        <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+        <h4 class="mt-3">Your cart is empty.</h4>
+      </div>
+    `;
+    return;
+  }
+
+  fetch("/api/users/cart")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success && data.cart) {
+        cartItemsContainer.innerHTML = "";
+
+        data.cart.forEach((item) => {
+          const isRegular = item.category === "regular";
+
+          const cartItemHTML = `
+            <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
+              <div class="col-md-3">
+                <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
+              </div>
+              <div class="col-md-5 mt-3">
+                <h5 class="card-title">${item.fragrance.name}</h5>
+                <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
+              </div>
+              <div class="col-md-4 d-flex flex-column">
+                <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  ${
+                    isRegular
+                      ? `
+                    <div class="input-group" style="max-width: 180px">
+                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
+                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
+                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
+                    </div>
+                  `
+                      : `<p class="text-center fw-medium mb-0">Quantity: ${item.quantity}</p>`
+                  }
+                  <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
+        });
+
+        updateSubtotal();
+        attachCartEventListeners();
+        showFunToast("✅ Item successfully added to your cart!", "green", "left");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching cart data:", error);
+    });
+}
+
+
+
+
+
+function attachCartEventListeners() {
+ 
+
+  // Attach event listeners to trash buttons
+  document.querySelectorAll(".trash-can-button").forEach((button) => {
+    button.addEventListener("click", async function () {
+      const fragranceId = this.getAttribute("data-fragrance-id");
+      const size = this.getAttribute("data-size");
+      const cartItem = this.closest(".cart-item");
+      const cartItemsContainer = document.querySelector(
+        ".cart-items-container"
+      );
+
+      try {
+        const res = await fetch("/api/users/removefromcart", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fragranceId, size }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          cartItem.remove();
+          updateSubtotal();
+
+          // Check if this was the last item
+          const remainingItems =
+            cartItemsContainer.querySelectorAll(".cart-item");
+          if (remainingItems.length === 0) {
+            cartItemsContainer.innerHTML = `
+              <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+                <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+                <h4 class="mt-3">Your cart is empty.</h4>
+              </div>
+            `;
+          }
+        } else {
+          alert("Error removing item. Please try again.");
+        }
+      } catch (err) {
+        console.error("Failed to remove item from cart:", err);
+      }
+    });
+  });
+}
+

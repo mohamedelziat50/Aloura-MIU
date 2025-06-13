@@ -567,6 +567,7 @@
                         <th>Product</th>
                         <th>Size</th>
                         <th>Quantity</th>
+                        <th>Category</th>
                         <th>Unit Price</th>
                         <th>Total</th>
                       </tr>
@@ -593,6 +594,7 @@
                         <td><%= item.fragrance?.name || 'N/A' %></td>
                         <td><%= item.size || '-' %></td>
                         <td><%= item.quantity %></td>
+                        <td><%= item.category === 'gift' ? 'Gift' : 'Regular' %></td>
                         <td>$<%= item.price || 'N/A' %></td>
                         <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
                       </tr>

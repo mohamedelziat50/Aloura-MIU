@@ -322,13 +322,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const price = parseFloat(priceText);
       const size = mlText.replace("▼", "").trim();
       const productId = this.getAttribute("productId");
+      const category="regular"; // Assuming category is always "regular" for this case
 
       if (!productId) {
         alert("Missing product ID.");
         return;
       }
 
-      const data = { productId, size, price };
+      const data = { productId, size, price ,category};
       console.log("Sending to backend:", data);
 
       try {
@@ -354,17 +355,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to update the UI (e.g., cart count, cart items list, etc.)
 function updateCartUI(result) {
-  // Update the cart count displayed in the header
   const cartCount = document.getElementById("cart-count");
   if (cartCount) {
     cartCount.textContent = result.cartCount;
   }
 
-  // Get the cart items container
   const cartItemsContainer = document.querySelector(".cart-items-container");
   if (!cartItemsContainer) return;
 
-  // If cart is empty, show empty state
   if (result.cartCount === 0) {
     cartItemsContainer.innerHTML = `
       <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
@@ -375,18 +373,17 @@ function updateCartUI(result) {
     return;
   }
 
-  // Fetch the latest cart data
   fetch("/api/users/cart")
     .then((response) => response.json())
     .then((data) => {
       if (data.success && data.cart) {
-        // Clear existing items
         cartItemsContainer.innerHTML = "";
 
-        // Add each cart item
         data.cart.forEach((item) => {
+          const isRegular = item.category === "regular";
+
           const cartItemHTML = `
-            <div class="row cart-item mb-3" data-price="${item.price}">
+            <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
               <div class="col-md-3">
                 <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
               </div>
@@ -397,11 +394,17 @@ function updateCartUI(result) {
               <div class="col-md-4 d-flex flex-column">
                 <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="input-group" style="max-width: 180px">
-                    <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
-                    <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
-                    <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
-                  </div>
+                  ${
+                    isRegular
+                      ? `
+                    <div class="input-group" style="max-width: 180px">
+                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
+                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
+                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
+                    </div>
+                  `
+                      : `<p class="text-center fw-medium mb-0">Quantity: ${item.quantity}</p>`
+                  }
                   <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
@@ -412,22 +415,17 @@ function updateCartUI(result) {
           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
         });
 
-        // Update subtotal
         updateSubtotal();
-
-        // Reattach event listeners for the new buttons
         attachCartEventListeners();
-        showFunToast(
-          "✅ Item successfully added to your cart!",
-          "green",
-          "left"
-        );
+        showFunToast("✅ Item successfully added to your cart!", "green", "left");
       }
     })
     .catch((error) => {
       console.error("Error fetching cart data:", error);
     });
 }
+
+
 
 // Function to attach event listeners to cart buttons
 function attachCartEventListeners() {
