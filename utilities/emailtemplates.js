@@ -70,7 +70,6 @@ export const generateVerificationEmail = (name, userId) => {
 </head>
 <body>
   <div class="email-wrapper">
-    <img src="https://yourdomain.com/img/ALOURA.jpg" alt="Aloura Logo" class="logo" />
 
     <h1>Your Journey With Aloura <br />Begins Here!</h1>
 
@@ -243,8 +242,6 @@ export const generatePasswordResetEmail = (name, resetCode) => {
 </head>
 <body>
   <div class="email-wrapper">
-    <img src="https://yourdomain.com/img/ALOURA.jpg" alt="Aloura Logo" class="logo" />
-
     <h1>Password Reset Request</h1>
     
     ${name ? `<p class="greeting">Hello ${name},</p>` : ""}
@@ -354,7 +351,6 @@ export const generateSubscriberWelcomeEmail = (name) => {
 </head>
 <body>
   <div class="email-wrapper">
-    <img src="https://yourdomain.com/img/ALOURA.jpg" alt="Aloura Logo" class="logo" />
 
     <h1>Welcome to Our Subscriber List! 🎉</h1>
 
