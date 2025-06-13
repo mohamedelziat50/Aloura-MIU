@@ -164,7 +164,11 @@
                     <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP | Category: <%= item.category %></div>
                   </div>
                   <div class="user-order-item-actions">
-                    <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
+                    <% if (item.category === "gift") { %>
+                      <a href="/gifting"><button class="order-btn">Buy it again</button></a>
+                    <% } else { %>
+                      <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
+                    <% } %>                    
                     <% if (order.status === 'Delivered' && item.category=="regular") { %>
                      <a href="/user-reviews/<%= item.fragrance._id %>/<%= order._id %>/<%= order.items.indexOf(item) %>"><button class="order-btn">Write a Product Review</button></a>
                     <% } %>
