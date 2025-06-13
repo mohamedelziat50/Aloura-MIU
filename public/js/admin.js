@@ -949,3 +949,83 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("viewCampaignsModal")
     ?.addEventListener("show.bs.modal", loadCampaigns);
 });
+
+// Toggle Slider Status Function
+window.toggleSliderStatus = async function(button) {
+  try {
+    const fragranceId = button.getAttribute('data-fragrance-id');
+    const currentStatus = button.getAttribute('data-current-status') === 'true';
+    const newStatus = !currentStatus;
+
+    // Show loading state
+    const originalText = button.textContent;
+    button.textContent = 'Updating...';
+    button.disabled = true;    // Make API call to update database
+    const response = await fetch(`/api/fragrances/${fragranceId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        previewLanding: newStatus 
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Update button appearance and data
+      button.setAttribute('data-current-status', newStatus);
+      button.textContent = newStatus ? 'Remove from Slider' : 'Add to Slider';
+      button.className = `product-btn slider-toggle ${newStatus ? 'remove-slider' : 'add-slider'}`;
+      
+      // Update status label
+      const card = button.closest('.product-card');
+      const statusLabel = card.querySelector('.slider-status-label');
+      
+      if (newStatus) {
+        statusLabel.textContent = 'IN SLIDER';
+        statusLabel.className = 'slider-status-label in-slider';
+      } else {
+        statusLabel.textContent = 'NOT IN SLIDER';
+        statusLabel.className = 'slider-status-label not-in-slider';
+      }
+
+      // Update stats
+      const inSliderCountElement = document.querySelector('.product-stats .stat-card:nth-child(2) p');
+      if (inSliderCountElement) {
+        let currentCount = parseInt(inSliderCountElement.textContent);
+        inSliderCountElement.textContent = newStatus ? currentCount + 1 : currentCount - 1;
+      }
+
+      // Show success message
+      if (typeof Toastify !== 'undefined') {
+        Toastify({
+          text: data.message || `Fragrance ${newStatus ? 'added to' : 'removed from'} landing slider!`,
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: newStatus ? "#4CAF50" : "#ff6b6b",
+        }).showToast();
+      }
+    } else {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error toggling slider status:', error);
+    button.textContent = originalText;
+    button.disabled = false;
+    
+    if (typeof Toastify !== 'undefined') {
+      Toastify({
+        text: "Error updating slider status. Please try again.",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#ff6b6b",
+      }).showToast();
+    }
+  } finally {
+    button.disabled = false;
+  }
+};

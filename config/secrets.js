@@ -1,6 +1,6 @@
 // secrets.js
 import dotenv from "dotenv";
-import { TrustProductsChannelEndpointAssignmentInstance } from "twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment";
+// import { TrustProductsChannelEndpointAssignmentInstance } from "twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment";
 dotenv.config();
 
 export const PORT = process.env.PORT;
