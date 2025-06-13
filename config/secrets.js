@@ -1,5 +1,6 @@
 // secrets.js
 import dotenv from "dotenv";
+import { TrustProductsChannelEndpointAssignmentInstance } from "twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment";
 dotenv.config();
 
 export const PORT = process.env.PORT;
@@ -19,7 +20,9 @@ export const GENAI = process.env.genAI;
 export const APIKEY = process.env.apiKey;
 export const APISECRET = process.env.apiSecret;
 
-
 export const ACCOUNTSID = process.env.accountSid;
 export const AUTHTOKEN = process.env.authToken;
 export const FRONUMBER = process.env.fromNumber;
+
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
