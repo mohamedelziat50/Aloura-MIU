@@ -241,7 +241,7 @@ export const getUserReviews = async (req, res) => {
       return res.status(404).send("Order item not found");
     }
 
-    res.render("user-reviews", { fragrance, order, orderItem, moment });
+    res.render("user-reviews", { fragrance, order, orderItem, itemIndex, moment });
   } catch (err) {
     console.error("Error fetching fragrance:", err);
     res.status(500).send("Internal Server Error");

@@ -220,6 +220,7 @@
                       .sort((a, b) => b.count - a.count)
                       .slice(0, 3); // Top 3
                   %>
+                  <% if(topFragrances.length > 0) {%>
                   <% topFragrances.forEach((fragrance, idx) => { %>
                     <div class="data-row">
                       <span><%= idx + 1 %>. <%= fragrance.name %></span>
@@ -230,6 +231,11 @@
                     <span>Bestseller</span>
                     <span><%= topFragrances[0].name %></span>
                   </div>
+                  <% } else { %>
+                    <div class="data-row highlight">
+                    <span>No Fragrances to show</span>
+                  </div>
+                  <% } %>
                 </div>
               </div>
 

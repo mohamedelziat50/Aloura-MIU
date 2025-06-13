@@ -1,9 +1,10 @@
 import Review from '../models/review.js';
 import Fragrance from '../models/fragrance.js';
+import Order from '../models/order.js';
 
 // Create review
 export const createReview = async (req, res) => {
-    const { rating, comment, fragranceId } = req.body;
+    const { rating, comment, fragranceId, orderId, itemIndex } = req.body;
 
     // Validation
     if (!rating || rating == 0) {
@@ -36,6 +37,15 @@ export const createReview = async (req, res) => {
     try {
         // Save the review
         await review.save();
+
+        // Mark the order item as reviewed
+        if (orderId && itemIndex !== undefined) {
+            const order = await Order.findById(orderId);
+            if (order && order.items[itemIndex]) {
+                order.items[itemIndex].isReviewed = true;
+                await order.save();
+            }
+        }
 
         // Backend must send a response (success or error) for the frontend to work.
         res.status(201).json({ message: "✅ Review added successfully" });
