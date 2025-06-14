@@ -192,89 +192,128 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Function to update the UI
-  function updateCartUI(result) {
-    // Update the cart count displayed in the header
-    const cartCount = document.getElementById("cart-count");
-    if (cartCount) {
-      cartCount.textContent = result.cartCount;
-    }
-
-    // Get the cart items container
-    const cartItemsContainer = document.querySelector(".cart-items-container");
-    if (!cartItemsContainer) return;
-
-    // Show success message immediately when item is added
-    showFunToast("✅ Item successfully added to your cart!", "green", "left");
-
-    // Fetch the latest cart and gifts data
-    Promise.all([
-      fetch("/api/users/cart").then(res => res.json()),
-      fetch("/api/gifting").then(res => res.json()).catch(() => []) // Return empty array if gifts fetch fails
-    ])
-      .then(([cartData, giftsData]) => {
-        const hasCartItems = cartData.success && cartData.cart && cartData.cart.length > 0;
-        const hasGifts = Array.isArray(giftsData) && giftsData.length > 0;
-        const isEmpty = !hasCartItems && !hasGifts;
-
-        // If both cart and gifts are empty, show empty state
-        if (isEmpty) {
-          cartItemsContainer.innerHTML = `
-            <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-              <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-              <h4 class="mt-3">Your cart is empty.</h4>
-            </div>
-          `;
-          return;
-        }
-
-        // Clear existing items
-        cartItemsContainer.innerHTML = "";
-
-        // Add cart items
-        if (hasCartItems) {
-          cartData.cart.forEach((item) => {
-            const cartItemHTML = `
-              <div class="row cart-item mb-3" data-price="${item.price}">
-                <div class="col-md-3">
-                  <img src="${item.fragrance.image[0]}" alt="${item.fragrance.name}" class="img-fluid rounded" />
-                </div>
-                <div class="col-md-5 mt-3">
-                  <h5 class="card-title">${item.fragrance.name}</h5>
-                  <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
-                </div>
-                <div class="col-md-4 d-flex flex-column">
-                  <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="input-group" style="max-width: 180px">
-                      <button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>
-                      <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="0" />
-                      <button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>
-                    </div>
-                    <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}">
-                      <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-            cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
-          });
-        }
-
-        // Update subtotal
-        updateSubtotal();
-
-        // Reattach event listeners for the new buttons
-        attachCartEventListeners();
-      })
-      .catch((error) => {
-        console.error("Error fetching cart data:", error);
-        // Only show error toast if cart update failed
-        if (!result.success) {
-          showFunToast("❗ An error occurred while updating the cart.", "red");
-        }
-      });
-  }
+ function updateCartUI(result) {
+   const cartCount = document.getElementById("cart-count");
+   if (cartCount) {
+     cartCount.textContent = result.cartCount;
+   }
+ 
+   const cartItemsContainer = document.querySelector(".cart-items-container");
+   if (!cartItemsContainer) return;
+ 
+   if (result.cartCount === 0) {
+     cartItemsContainer.innerHTML = `
+       <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+         <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+         <h4 class="mt-3">Your cart is empty.</h4>
+       </div>
+     `;
+     return;
+   }
+ 
+   // Define image maps (same as in EJS)
+   const wrapImageMap = {
+     "Silk Ribbon Wrap": "/img/wraps/silk-wrapper.webp",
+     "Premium Gift Box": "/img/wraps/gift-box.jpg",
+     "Velvet Box": "/img/wraps/gift-wrap.jpeg",
+     "Leather Case": "/img/wraps/leather-case.jpg",
+     "Gold Foil Wrap": "/img/wraps/gold-wrap.jpg",
+     "Silver Foil Wrap": "/img/wraps/silver-wrap.jpg",
+     "Floral Pattern Box": "/img/wraps/floral-box.jpeg",
+     "Luxury Gift Bag": "/img/wraps/luxury-box.jpg",
+     "Holiday Special": "/img/wraps/holiday-box.jpg"
+   };
+ 
+   const cardImageMap = {
+     "Spray A Little Happiness": "/img/cards/love-card.jpg",
+     "Scent With Love": "/img/cards/gift-card1.png",
+     "Christmas Special": "/img/cards/christmas-card.webp",
+     "Birthday Wishes": "/img/cards/birthday-card.webp",
+     "Anniversary": "/img/cards/anniversary-card.webp",
+     "Thank You": "/img/cards/thank-you-card.jpg",
+     "Valentine Special": "/img/cards/valentine-card.png",
+     "Gold Luxury": "/img/cards/luxury-card.avif",
+     "Floral Design": "/img/cards/floral-card.jpg"
+   };
+ 
+   fetch("/api/users/cart")
+     .then((response) => response.json())
+     .then((data) => {
+       if (data.success && data.cart) {
+         cartItemsContainer.innerHTML = "";
+ 
+         let subtotal = 0;
+ 
+         data.cart.forEach((item) => {
+           const isGift = item.category === "gift";
+           subtotal += item.price * item.quantity;
+ 
+           // Get images
+           const perfumeImage = item.fragrance.image[0];
+           const wrapImage = wrapImageMap[item.wrap?.name];
+           const cardImage = cardImageMap[item.card?.name];
+ 
+           let collageHTML = "";
+ 
+           if (isGift) {
+             collageHTML = `
+               <div class="gift-collage d-flex flex-column align-items-center">
+                 <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px;">
+                   ${perfumeImage ? `<img src="${perfumeImage}" alt="Perfume" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
+                   ${cardImage ? `<img src="${cardImage}" alt="Card" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
+                 </div>
+                 <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px; margin-top: 6px;">
+                   ${wrapImage ? `<img src="${wrapImage}" alt="Wrap" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
+                 </div>
+               </div>
+             `;
+           }
+ 
+           const cartItemHTML = `
+             <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
+               <div class="col-md-3">
+                 ${isGift ? collageHTML : `<img src="${perfumeImage}" alt="${item.fragrance.name}" class="img-fluid rounded" />`}
+               </div>
+ 
+               <div class="col-md-5 mt-3">
+                 <h5 class="card-title">${item.fragrance.name}</h5>
+                 <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
+               </div>
+ 
+               <div class="col-md-4 d-flex flex-column">
+                 <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
+                 <div class="d-flex justify-content-between align-items-center">
+                   <div class="input-group" style="max-width: 180px">
+                     ${!isGift ? `<button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>` : ""}
+                     <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="1" ${isGift ? "readonly disabled value='1'" : ""} />
+                     ${!isGift ? `<button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>` : ""}
+                   </div>
+                   <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}" ${item.gift ? `data-gift-id="${item.gift}"` : ""}>
+                     <i class="fa-solid fa-trash-can"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+           `;
+ 
+           cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
+         });
+ 
+         // Update subtotal
+         const subtotalEl = document.querySelector(".cart-info-subtotal span");
+         if (subtotalEl) {
+           subtotalEl.textContent = `${subtotal} EGP`;
+         }
+ 
+         updateSubtotal();
+         attachCartEventListeners();
+         showFunToast("✅ Item successfully added to your cart!", "green", "left");
+       }
+     })
+     .catch((error) => {
+       console.error("Error fetching cart data:", error);
+     });
+ }
 
   // Function to attach event listeners to cart buttons
   function attachCartEventListeners() {

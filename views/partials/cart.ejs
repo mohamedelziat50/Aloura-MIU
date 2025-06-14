@@ -32,13 +32,65 @@
       <% if (user && user.cart.length > 0) { %> <% user.cart.forEach((item) => {
       %>
       <div class="row cart-item mb-3" data-price="<%= item.price %>">
-        <div class="col-md-3">
-          <img
-            src="<%= item.fragrance.image[0] %>"
-            alt="<%= item.fragrance.name %>"
-            class="img-fluid rounded"
-          />
-        </div>
+        
+        <%
+  const wrapImageMap = {
+    "Silk Ribbon Wrap": "/img/wraps/silk-wrapper.webp",
+    "Premium Gift Box": "/img/wraps/gift-box.jpg",
+    "Velvet Box": "/img/wraps/gift-wrap.jpeg",
+    "Leather Case": "/img/wraps/leather-case.jpg",
+    "Gold Foil Wrap": "/img/wraps/gold-wrap.jpg",
+    "Silver Foil Wrap": "/img/wraps/silver-wrap.jpg",
+    "Floral Pattern Box": "/img/wraps/floral-box.jpeg",
+    "Luxury Gift Bag": "/img/wraps/luxury-box.jpg",
+    "Holiday Special": "/img/wraps/holiday-box.jpg"
+  };
+
+  const cardImageMap = {
+    "Spray A Little Happiness": "/img/cards/love-card.jpg",
+    "Scent With Love": "/img/cards/gift-card1.png",
+    "Christmas Special": "/img/cards/christmas-card.webp",
+    "Birthday Wishes": "/img/cards/birthday-card.webp",
+    "Anniversary": "/img/cards/anniversary-card.webp",
+    "Thank You": "/img/cards/thank-you-card.jpg",
+    "Valentine Special": "/img/cards/valentine-card.png",
+    "Gold Luxury": "/img/cards/luxury-card.avif",
+    "Floral Design": "/img/cards/floral-card.jpg"
+  };
+%>
+
+
+
+      <div class="col-md-3">
+  <% if (item.category === "gift") { %>
+    <div class="gift-collage d-flex flex-column align-items-center">
+      <div class="gift-collage-images d-flex flex-wrap justify-content-center">
+        <% if (item.fragrance.image && item.fragrance.image[0]) { %>
+          <img src="<%= item.fragrance.image[0] %>" alt="Perfume" class="gift-collage-img" />
+        <% } %>
+
+        
+
+        <% const cardImage = cardImageMap[item.card.name]; %>
+        <% if (cardImage) { %>
+          <img src="<%= cardImage %>" alt="<%= item.card %>" class="gift-collage-img" />
+        <% } %>
+
+        <% const wrapImage = wrapImageMap[item.wrap.name]; %>
+        <% if (wrapImage) { %>
+          <img src="<%= wrapImage %>" alt="<%= item.wrap.name %>" class="gift-collage-img" />
+        <% } %>
+      </div>
+    </div>
+  <% } else { %>
+    <img
+      src="<%= item.fragrance.image[0] %>"
+      alt="<%= item.fragrance.name %>"
+      class="img-fluid rounded"
+    />
+  <% } %>
+</div>
+
 
         <div class="col-md-5 mt-3">
           <h5 class="card-title"><%= item.fragrance.name %></h5>
