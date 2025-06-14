@@ -283,21 +283,35 @@ export const removeFromCart = async (req, res) => {
       });
     }
 
-    let pullCondition = {};
+    let updatedCart = [...user.cart];
+
+    let indexToRemove = -1;
 
     if (giftId) {
-      pullCondition = { gift: giftId };
-    } else if (fragranceId) {
-      pullCondition = {
-        fragrance: fragranceId,
-        ...(size ? { size } : {}),
-      };
+      // Match gift by its ID
+      indexToRemove = updatedCart.findIndex(
+        (item) => item.gift?.toString() === giftId
+      );
+    } else {
+      // Match only ONE regular fragrance (not a gift)
+      indexToRemove = updatedCart.findIndex(
+        (item) =>
+          item.fragrance?.toString() === fragranceId &&
+          (!item.gift || item.gift === null) &&
+          (!size || item.size === size)
+      );
     }
 
-    await User.updateOne(
-      { _id: userId },
-      { $pull: { cart: pullCondition } }
-    );
+    if (indexToRemove === -1) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found in cart.",
+      });
+    }
+
+    updatedCart.splice(indexToRemove, 1); // remove one exact item
+
+    await User.updateOne({ _id: userId }, { cart: updatedCart });
 
     return res.json({
       success: true,
@@ -311,6 +325,8 @@ export const removeFromCart = async (req, res) => {
     });
   }
 };
+
+
 
 
 export const getCart = async (req, res) => {

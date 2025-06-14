@@ -93,6 +93,21 @@
     background-color: #121212 !important;
 }
 
+
+
+.gift-collage-images {
+  gap: 4px;
+  max-width: 100%;
+  
+}
+
+.gift-collage-img {
+  width: 60px;
+  height: 60px;
+  object-fit:contain;
+  
+}
+
 /* Cart Info Section Styles */
 .cart-info-section {
   text-align: left;
