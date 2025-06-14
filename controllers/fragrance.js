@@ -126,13 +126,15 @@ export const updateFragrance = async (req, res) => {
     if (previewLanding !== undefined && !name) {
       fragrance.previewLanding = previewLanding;
       await fragrance.save();
-      return res.json({ 
-        message: `Fragrance ${previewLanding ? 'added to' : 'removed from'} landing slider successfully`,
+      return res.json({
+        message: `Fragrance ${
+          previewLanding ? "added to" : "removed from"
+        } landing slider successfully`,
         fragrance: {
           _id: fragrance._id,
           name: fragrance.name,
-          previewLanding: fragrance.previewLanding
-        }
+          previewLanding: fragrance.previewLanding,
+        },
       });
     }
 
@@ -140,16 +142,19 @@ export const updateFragrance = async (req, res) => {
     if (name) {
       const trimmedName = name.trim().replace(/\s+/g, " ");
       const existingFragrance = await Fragrance.findOne({
-       _id: { $ne: id }, // Exclude current fragrance
+        _id: { $ne: id }, // Exclude current fragrance
         name: { $regex: new RegExp(`^${trimmedName}$`, "i") },
       });
       if (existingFragrance) {
-        return res.status(400).json({ message: "A Fragrance with this name already exists" });
-      }    }
+        return res
+          .status(400)
+          .json({ message: "A Fragrance with this name already exists" });
+      }
+    }
 
     // Convert notes and tags from comma-separated strings (only if provided)
     let top, mid, base, tagList, sizeOptions;
-    
+
     if (topNotes && middleNotes && baseNotes && tags) {
       top = topNotes.split(",").map((n) => n.trim());
       mid = middleNotes.split(",").map((n) => n.trim());
@@ -170,7 +175,8 @@ export const updateFragrance = async (req, res) => {
           price: parseFloat(req.body[`price${size}`] || 0),
           quantity: parseInt(req.body[`quantity${size}`] || 0),
         });
-      });      sizeOptions = Array.from(sizeMap.values());
+      });
+      sizeOptions = Array.from(sizeMap.values());
     }
 
     // Update basic info (only if provided)
@@ -228,7 +234,8 @@ export const deleteFragrance = async (req, res) => {
 
     if (ordersWithFragrance.length > 0) {
       return res.status(400).json({
-        message: "❌ Cannot delete: This fragrance is part of an existing order.",
+        message:
+          "❌ Cannot delete: This fragrance is part of an existing order.",
       });
     }
 

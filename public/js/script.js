@@ -9,142 +9,161 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize product slider
   initProductSlider();
-  
+
   // Initialize popup with 5 second delay
   initPopup();
-  
+
   // Initialize smooth section scrolling
   // COMMENTED OUT BECAUSE ITS NOT CONSISTENT, UNCOMMENT FOR SMOOTH SCROLLING
-  // initSmoothSectionScrolling(); 
-  
+  // initSmoothSectionScrolling();
+
   // Initialize the review cards
   initReviewCards();
 
   // --- GENDER TRANSITION LOGIC ---
-  const forHerButton = document.querySelector('.for-her');
-  const forHimButton = document.querySelector('.for-him');
-  const genderContainer = document.querySelector('.gender');
-  const transitionContainer = document.querySelector('.transition-container');
-  const transitionImage = document.querySelector('#transition-img');
+  const forHerButton = document.querySelector(".for-her");
+  const forHimButton = document.querySelector(".for-him");
+  const genderContainer = document.querySelector(".gender");
+  const transitionContainer = document.querySelector(".transition-container");
+  const transitionImage = document.querySelector("#transition-img");
 
   const herFragrances = [
     {
-      image: 'https://cdn.prod.website-files.com/64fff659cb19102a6a74dc5e/66b080f27a31f17abfadfaf5_GUCCI_FLORA_MAIN.webp',
-      name: 'Flora Gorgeous',
-      parfum: 'GUCCI',
-      description: 'A luminous and modern floral fragrance that captures the essence of optimism and beauty.',
+      image:
+        "https://cdn.prod.website-files.com/64fff659cb19102a6a74dc5e/66b080f27a31f17abfadfaf5_GUCCI_FLORA_MAIN.webp",
+      name: "Flora Gorgeous",
+      parfum: "GUCCI",
+      description:
+        "A luminous and modern floral fragrance that captures the essence of optimism and beauty.",
       notes: {
-        top: 'Pear, Mandarin',
-        middle: 'Gardenia, Jasmine',
-        base: 'Patchouli, Musks'
-      }
+        top: "Pear, Mandarin",
+        middle: "Gardenia, Jasmine",
+        base: "Patchouli, Musks",
+      },
     },
     {
-      image: 'https://www.perfumestars.com/wp-content/uploads/2024/07/burberry-goddess-intense-elevating-the-vanilla-experience-to-new-heights-2024-1024x559.jpg',
-      name: 'Goddess Intense',
-      parfum: 'BURBERRY',
-      description: 'An intoxicating vanilla-based fragrance that embodies modern femininity and power.',
+      image:
+        "https://www.perfumestars.com/wp-content/uploads/2024/07/burberry-goddess-intense-elevating-the-vanilla-experience-to-new-heights-2024-1024x559.jpg",
+      name: "Goddess Intense",
+      parfum: "BURBERRY",
+      description:
+        "An intoxicating vanilla-based fragrance that embodies modern femininity and power.",
       notes: {
-        top: 'Lavender',
-        middle: 'Vanilla Absolute',
-        base: 'Amber, Sandalwood'
-      }
+        top: "Lavender",
+        middle: "Vanilla Absolute",
+        base: "Amber, Sandalwood",
+      },
     },
     {
-      image: 'https://ifragranceofficial.com/wp-content/uploads/2023/11/eilish-no-3.png',
-      name: 'Eilish No.3',
-      parfum: 'EILISH',
-      description: 'A sultry and sophisticated scent that combines warmth with ethereal freshness.',
+      image:
+        "https://ifragranceofficial.com/wp-content/uploads/2023/11/eilish-no-3.png",
+      name: "Eilish No.3",
+      parfum: "EILISH",
+      description:
+        "A sultry and sophisticated scent that combines warmth with ethereal freshness.",
       notes: {
-        top: 'Black Pepper',
-        middle: 'Rose, Saffron',
-        base: 'Vanilla, Musk'
-      }
+        top: "Black Pepper",
+        middle: "Rose, Saffron",
+        base: "Vanilla, Musk",
+      },
     },
     {
-      image: 'https://i.ytimg.com/vi/vdQsvlcy7hE/maxresdefault.jpg',
-      name: 'Vanilla Sex',
-      parfum: 'Tom Ford',
-      description: 'A delicate and feminine fragrance that embodies youthful elegance.',
+      image: "https://i.ytimg.com/vi/vdQsvlcy7hE/maxresdefault.jpg",
+      name: "Vanilla Sex",
+      parfum: "Tom Ford",
+      description:
+        "A delicate and feminine fragrance that embodies youthful elegance.",
       notes: {
-        top: 'Bitter Almond',
-        middle: 'Vanilla, Floral Notes',
-        base: 'Tonka Bean, Vanilla Absolute , Sandalwood'
-      }
-    }
+        top: "Bitter Almond",
+        middle: "Vanilla, Floral Notes",
+        base: "Tonka Bean, Vanilla Absolute , Sandalwood",
+      },
+    },
   ];
   const himFragrances = [
     {
-      image: 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg',
-      name: 'Aventus',
-      parfum: 'Creed',
-      description: 'A luxurious leather fragrance that captures raw sensuality and sophistication.',
+      image:
+        "https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg",
+      name: "Aventus",
+      parfum: "Creed",
+      description:
+        "A luxurious leather fragrance that captures raw sensuality and sophistication.",
       notes: {
-        top: 'Cardamom',
-        middle: 'Leather, Jasmine',
-        base: 'Moss, Amber'
-      }
+        top: "Cardamom",
+        middle: "Leather, Jasmine",
+        base: "Moss, Amber",
+      },
     },
     {
-      image: 'https://cdn.shopify.com/s/files/1/0524/6733/5333/files/Versace_Eros-5_480x480.jpg?v=1609687512',
-      name: 'Eros',
-      parfum: 'VERSACE',
-      description: 'A bold and passionate fragrance inspired by Greek mythology.',
+      image:
+        "https://cdn.shopify.com/s/files/1/0524/6733/5333/files/Versace_Eros-5_480x480.jpg?v=1609687512",
+      name: "Eros",
+      parfum: "VERSACE",
+      description:
+        "A bold and passionate fragrance inspired by Greek mythology.",
       notes: {
-        top: 'Mint, Green Apple',
-        middle: 'Tonka Bean',
-        base: 'Vanilla, Vetiver'
-      }
+        top: "Mint, Green Apple",
+        middle: "Tonka Bean",
+        base: "Vanilla, Vetiver",
+      },
     },
     {
-      image: 'https://www.perfumestars.com/wp-content/uploads/2025/03/fragrance-for-men-lattafa-perfumes-khamrah-dukhan-768x419.jpg',
-      name: 'Khamrah',
-      parfum: 'LATTAFA',
-      description: 'An intense and mysterious oriental fragrance with remarkable longevity.',
+      image:
+        "https://www.perfumestars.com/wp-content/uploads/2025/03/fragrance-for-men-lattafa-perfumes-khamrah-dukhan-768x419.jpg",
+      name: "Khamrah",
+      parfum: "LATTAFA",
+      description:
+        "An intense and mysterious oriental fragrance with remarkable longevity.",
       notes: {
-        top: 'Saffron, Oud',
-        middle: 'Rose, Amber',
-        base: 'Musk, Vanilla'
-      }
+        top: "Saffron, Oud",
+        middle: "Rose, Amber",
+        base: "Musk, Vanilla",
+      },
     },
     {
-      image: 'https://www.yslbeauty.com/dw/image/v2/BDCR_PRD/on/demandware.static/-/Sites-NGYSL-ILM-Library/default/dw5b0e71d0/pdp/images/WW-51020YSL/ysl_dmi_fraw_libre_le-parfum-22_digital-life-still_packshot-on-black&white-marble_landscape.jpg?sw=1920&sh=1080&sm=cut&q=85',
-      name: 'Y Le Parfum',
-      parfum: 'YVES SAINT LAURENT',
-      description: 'A sophisticated and intense fragrance for the modern man.',
+      image:
+        "https://www.yslbeauty.com/dw/image/v2/BDCR_PRD/on/demandware.static/-/Sites-NGYSL-ILM-Library/default/dw5b0e71d0/pdp/images/WW-51020YSL/ysl_dmi_fraw_libre_le-parfum-22_digital-life-still_packshot-on-black&white-marble_landscape.jpg?sw=1920&sh=1080&sm=cut&q=85",
+      name: "Y Le Parfum",
+      parfum: "YVES SAINT LAURENT",
+      description: "A sophisticated and intense fragrance for the modern man.",
       notes: {
-        top: 'Ginger',
-        middle: 'Geranium, Lavender',
-        base: 'Vanilla, Tonka Bean'
-      }
-    }
+        top: "Ginger",
+        middle: "Geranium, Lavender",
+        base: "Vanilla, Tonka Bean",
+      },
+    },
   ];
   let currentImageIndex = 0;
   let currentGender = null;
 
-  function updateFragranceDisplay(gender, index, direction = 'down') {
-    const fragrance = gender === 'her' ? herFragrances[index] : himFragrances[index];
+  function updateFragranceDisplay(gender, index, direction = "down") {
+    const fragrance =
+      gender === "her" ? herFragrances[index] : himFragrances[index];
     const container = transitionImage.parentElement;
     // Remove any old transition images
-    Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+    Array.from(
+      container.querySelectorAll(
+        ".transition-img-slide-out-up, .transition-img-slide-out-down"
+      )
+    ).forEach((img) => img.remove());
     // Clone current image for slide out
     const oldImg = transitionImage.cloneNode(true);
-    oldImg.removeAttribute('id');
+    oldImg.removeAttribute("id");
     container.appendChild(oldImg);
     // Animate old image out
-    if (direction === 'up') {
-      oldImg.classList.add('transition-img-slide-out-up');
+    if (direction === "up") {
+      oldImg.classList.add("transition-img-slide-out-up");
     } else {
-      oldImg.classList.add('transition-img-slide-out-down');
+      oldImg.classList.add("transition-img-slide-out-down");
     }
     // Prepare new image for slide in
     const newImg = transitionImage.cloneNode(true);
-    newImg.removeAttribute('id');
+    newImg.removeAttribute("id");
     newImg.src = fragrance.image;
-    if (direction === 'up') {
-      newImg.classList.add('transition-img-slide-in-up');
+    if (direction === "up") {
+      newImg.classList.add("transition-img-slide-in-up");
     } else {
-      newImg.classList.add('transition-img-slide-in-down');
+      newImg.classList.add("transition-img-slide-in-down");
     }
     container.appendChild(newImg);
     // After animation, set main image src and clean up
@@ -154,31 +173,34 @@ document.addEventListener("DOMContentLoaded", function () {
       newImg.remove();
     }, 500);
     // Update the visible overlay elements
-    const overlay = transitionContainer.querySelector('.fragrance-overlay');
+    const overlay = transitionContainer.querySelector(".fragrance-overlay");
     if (overlay) {
-      const nameEl = overlay.querySelector('.fragrance-name');
+      const nameEl = overlay.querySelector(".fragrance-name");
       if (nameEl) nameEl.textContent = fragrance.name;
       // Parfum/Type (try both class names for robustness)
-      const parfumEl = overlay.querySelector('.fragrance-parfum') || overlay.querySelector('.fragrance-type');
+      const parfumEl =
+        overlay.querySelector(".fragrance-parfum") ||
+        overlay.querySelector(".fragrance-type");
       if (parfumEl) parfumEl.textContent = fragrance.parfum;
       // Description
-      const descEl = overlay.querySelector('.fragrance-description p');
+      const descEl = overlay.querySelector(".fragrance-description p");
       if (descEl) descEl.textContent = fragrance.description;
       // Notes
-      const noteTexts = overlay.querySelectorAll('.note-group .note-text');
+      const noteTexts = overlay.querySelectorAll(".note-group .note-text");
       if (noteTexts.length === 3) {
         noteTexts[0].textContent = fragrance.notes.top;
         noteTexts[1].textContent = fragrance.notes.middle;
         noteTexts[2].textContent = fragrance.notes.base;
       }
       // Update switch gender button icon
-      const switchBtn = overlay.querySelector('.switch-gender-btn');
+      const switchBtn = overlay.querySelector(".switch-gender-btn");
       if (switchBtn) {
-        switchBtn.innerHTML = gender === 'her'
-          ? '<i class="fas fa-mars"></i>'
-          : '<i class="fas fa-venus"></i>';
-        switchBtn.title = gender === 'her' ? 'Switch to Him' : 'Switch to Her';
-        switchBtn.classList.add('circular-gender-btn');
+        switchBtn.innerHTML =
+          gender === "her"
+            ? '<i class="fas fa-mars"></i>'
+            : '<i class="fas fa-venus"></i>';
+        switchBtn.title = gender === "her" ? "Switch to Him" : "Switch to Her";
+        switchBtn.classList.add("circular-gender-btn");
       }
     }
   }
@@ -188,111 +210,119 @@ document.addEventListener("DOMContentLoaded", function () {
     currentGender = gender;
     currentImageIndex = 0;
     updateFragranceDisplay(gender, currentImageIndex);
-    genderContainer.classList.add('transitioning');
+    genderContainer.classList.add("transitioning");
     setTimeout(() => {
-      transitionContainer.classList.add('active');
+      transitionContainer.classList.add("active");
     }, 100);
-    transitionContainer.classList.add('active');
-    const upButton = transitionContainer.querySelector('.scroll-btn.up');
-    const downButton = transitionContainer.querySelector('.scroll-btn.down');
+    transitionContainer.classList.add("active");
+    const upButton = transitionContainer.querySelector(".scroll-btn.up");
+    const downButton = transitionContainer.querySelector(".scroll-btn.down");
     const upButtonClone = upButton.cloneNode(true);
     const downButtonClone = downButton.cloneNode(true);
     upButton.parentNode.replaceChild(upButtonClone, upButton);
     downButton.parentNode.replaceChild(downButtonClone, downButton);
-    upButtonClone.addEventListener('click', (e) => {
+    upButtonClone.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (currentGender === 'her') {
-        currentImageIndex = (currentImageIndex - 1 + herFragrances.length) % herFragrances.length;
-        updateFragranceDisplay('her', currentImageIndex, 'up');
+      if (currentGender === "her") {
+        currentImageIndex =
+          (currentImageIndex - 1 + herFragrances.length) % herFragrances.length;
+        updateFragranceDisplay("her", currentImageIndex, "up");
       } else {
-        currentImageIndex = (currentImageIndex - 1 + himFragrances.length) % himFragrances.length;
-        updateFragranceDisplay('him', currentImageIndex, 'up');
+        currentImageIndex =
+          (currentImageIndex - 1 + himFragrances.length) % himFragrances.length;
+        updateFragranceDisplay("him", currentImageIndex, "up");
       }
     });
-    downButtonClone.addEventListener('click', (e) => {
+    downButtonClone.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (currentGender === 'her') {
+      if (currentGender === "her") {
         currentImageIndex = (currentImageIndex + 1) % herFragrances.length;
-        updateFragranceDisplay('her', currentImageIndex, 'down');
+        updateFragranceDisplay("her", currentImageIndex, "down");
       } else {
         currentImageIndex = (currentImageIndex + 1) % himFragrances.length;
-        updateFragranceDisplay('him', currentImageIndex, 'down');
+        updateFragranceDisplay("him", currentImageIndex, "down");
       }
     });
     // Switch gender button
-    const overlay = transitionContainer.querySelector('.fragrance-overlay');
+    const overlay = transitionContainer.querySelector(".fragrance-overlay");
     if (overlay) {
-      const switchBtn = overlay.querySelector('.switch-gender-btn');
+      const switchBtn = overlay.querySelector(".switch-gender-btn");
       if (switchBtn) {
         // Remove previous event listener by replacing node
         const switchBtnClone = switchBtn.cloneNode(true);
         switchBtn.parentNode.replaceChild(switchBtnClone, switchBtn);
-        switchBtnClone.addEventListener('click', (e) => {
+        switchBtnClone.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
           // Switch gender and reset to first fragrance
-          if (currentGender === 'her') {
-            currentGender = 'him';
+          if (currentGender === "her") {
+            currentGender = "him";
             currentImageIndex = 0;
-            updateFragranceDisplay('him', currentImageIndex);
+            updateFragranceDisplay("him", currentImageIndex);
           } else {
-            currentGender = 'her';
+            currentGender = "her";
             currentImageIndex = 0;
-            updateFragranceDisplay('her', currentImageIndex);
+            updateFragranceDisplay("her", currentImageIndex);
           }
         });
       }
     }
     // Rewind button (back to gender selection)
-    const rewindBtn = overlay.querySelector('.rewind-btn');
+    const rewindBtn = overlay.querySelector(".rewind-btn");
     if (rewindBtn) {
       // Remove previous event listener by replacing node
       const rewindBtnClone = rewindBtn.cloneNode(true);
       rewindBtn.parentNode.replaceChild(rewindBtnClone, rewindBtn);
-      rewindBtnClone.addEventListener('click', (e) => {
+      rewindBtnClone.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         // Animate image out (slide down)
         const container = transitionImage.parentElement;
-        Array.from(container.querySelectorAll('.transition-img-slide-out-up, .transition-img-slide-out-down')).forEach(img => img.remove());
+        Array.from(
+          container.querySelectorAll(
+            ".transition-img-slide-out-up, .transition-img-slide-out-down"
+          )
+        ).forEach((img) => img.remove());
         const oldImg = transitionImage.cloneNode(true);
-        oldImg.removeAttribute('id');
+        oldImg.removeAttribute("id");
         container.appendChild(oldImg);
-        oldImg.classList.add('transition-img-slide-out-down');
+        oldImg.classList.add("transition-img-slide-out-down");
         // Fade out overlay content
-        overlay.classList.add('fragrance-overlay-fade-out');
+        overlay.classList.add("fragrance-overlay-fade-out");
         setTimeout(() => {
           // Hide transition container, show gender container
-          transitionContainer.classList.remove('active');
-          genderContainer.classList.remove('transitioning');
-          genderContainer.classList.remove('transition-active');
+          transitionContainer.classList.remove("active");
+          genderContainer.classList.remove("transitioning");
+          genderContainer.classList.remove("transition-active");
           currentGender = null;
           currentImageIndex = 0;
           oldImg.remove();
           // Reset overlay fade for next time
-          overlay.classList.remove('fragrance-overlay-fade-out');
+          overlay.classList.remove("fragrance-overlay-fade-out");
         }, 500);
       });
     }
   }
 
   if (forHerButton) {
-    forHerButton.addEventListener('click', () => handleGenderSelection('her'));
+    forHerButton.addEventListener("click", () => handleGenderSelection("her"));
   }
   if (forHimButton) {
-    forHimButton.addEventListener('click', () => handleGenderSelection('him'));
+    forHimButton.addEventListener("click", () => handleGenderSelection("him"));
   }
 });
 
 // Mobile detection utility
 function isMobileDevice() {
-  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
 }
 
 const isMobile = isMobileDevice();
-document.body && document.body.setAttribute('data-mobile', isMobile);
+document.body && document.body.setAttribute("data-mobile", isMobile);
 
 // Lazy-load fluid effect scripts only when needed
 function loadFluidEffectsIfNeeded() {
@@ -300,45 +330,49 @@ function loadFluidEffectsIfNeeded() {
   if (window.fluidEffectsLoaded) return;
   window.fluidEffectsLoaded = true;
   // Dynamically load scripts
-  const jqueryScript = document.createElement('script');
-  jqueryScript.src = '/js/fluidEffect/jquery.min.js';
+  const jqueryScript = document.createElement("script");
+  jqueryScript.src = "/js/fluidEffect/jquery.min.js";
   document.body.appendChild(jqueryScript);
   jqueryScript.onload = () => {
-    const fluidScript = document.createElement('script');
-    fluidScript.src = '/js/fluidEffect/fluid.min.js';
+    const fluidScript = document.createElement("script");
+    fluidScript.src = "/js/fluidEffect/fluid.min.js";
     document.body.appendChild(fluidScript);
     fluidScript.onload = () => {
       // Now load the app scripts
-      const femaleApp = document.createElement('script');
-      femaleApp.src = './js/fluidEffect/female-app.js';
+      const femaleApp = document.createElement("script");
+      femaleApp.src = "./js/fluidEffect/female-app.js";
       document.body.appendChild(femaleApp);
-      const maleApp = document.createElement('script');
-      maleApp.src = './js/fluidEffect/male-app.js';
+      const maleApp = document.createElement("script");
+      maleApp.src = "./js/fluidEffect/male-app.js";
       document.body.appendChild(maleApp);
     };
   };
 }
 
 // Only load fluid effects when gender container is hovered or interacted
-const genderContainer = document.querySelector('.gender');
+const genderContainer = document.querySelector(".gender");
 if (genderContainer && !isMobile) {
-  genderContainer.addEventListener('mouseenter', loadFluidEffectsIfNeeded, { once: true });
-  genderContainer.addEventListener('touchstart', loadFluidEffectsIfNeeded, { once: true });
+  genderContainer.addEventListener("mouseenter", loadFluidEffectsIfNeeded, {
+    once: true,
+  });
+  genderContainer.addEventListener("touchstart", loadFluidEffectsIfNeeded, {
+    once: true,
+  });
 }
 
 // Hide or disable fluid canvases on mobile
 if (isMobile) {
-  const femaleCanvas = document.getElementById('female-fluid-canvas');
-  const maleCanvas = document.getElementById('male-fluid-canvas');
-  if (femaleCanvas) femaleCanvas.style.display = 'none';
-  if (maleCanvas) maleCanvas.style.display = 'none';
+  const femaleCanvas = document.getElementById("female-fluid-canvas");
+  const maleCanvas = document.getElementById("male-fluid-canvas");
+  if (femaleCanvas) femaleCanvas.style.display = "none";
+  if (maleCanvas) maleCanvas.style.display = "none";
 }
 
 // Reduce canvas resolution on mobile (in fluid effect scripts, but as a fallback here):
 function setFluidCanvasResolution() {
   if (!isMobile) return;
-  const femaleCanvas = document.getElementById('female-fluid-canvas');
-  const maleCanvas = document.getElementById('male-fluid-canvas');
+  const femaleCanvas = document.getElementById("female-fluid-canvas");
+  const maleCanvas = document.getElementById("male-fluid-canvas");
   if (femaleCanvas) {
     femaleCanvas.width = 320;
     femaleCanvas.height = 320;
@@ -397,7 +431,7 @@ function initGenderHoverEffects() {
   const forHerBtn = document.querySelector(".for-her");
   const forHimBtn = document.querySelector(".for-him");
   const femaleDiv = document.querySelector(".female"); // Select the PARENT div for flex
-  const maleDiv = document.querySelector(".male");     // Select the PARENT div for flex
+  const maleDiv = document.querySelector(".male"); // Select the PARENT div for flex
   const your = document.querySelector(".text-overlay-your");
   const indulge = document.querySelector(".text-overlay-indulge");
   const leftParagraphs = leftContainer.querySelectorAll("p");
@@ -406,12 +440,12 @@ function initGenderHoverEffects() {
   const rightBtn = rightContainer.querySelector(".explore-fragrances");
   const genderContainer = document.querySelector(".gender");
   const transitionContainer = document.querySelector(".transition-container");
-  const transitionImage = document.querySelector('#transition-img');
+  const transitionImage = document.querySelector("#transition-img");
 
   // Fluid canvases
   const femaleCanvas = document.getElementById("female-fluid-canvas");
   const maleCanvas = document.getElementById("male-fluid-canvas");
-  
+
   // Add hide-during-transition class to elements that should be hidden
   const elementsToHide = [
     your,
@@ -423,10 +457,10 @@ function initGenderHoverEffects() {
     ...leftParagraphs,
     ...rightParagraphs,
     femaleCanvas,
-    maleCanvas
+    maleCanvas,
   ];
-  
-  elementsToHide.forEach(el => {
+
+  elementsToHide.forEach((el) => {
     if (el) el.classList.add("hide-during-transition");
   });
 
@@ -443,7 +477,7 @@ function initGenderHoverEffects() {
     if (transitionContainer) {
       transitionContainer.classList.add("active");
     }
-  })
+  });
 
   // State management
   let isLeftHovered = false;
@@ -454,13 +488,13 @@ function initGenderHoverEffects() {
   // Left container hover effect (hovering over female side)
   leftContainer.addEventListener("mouseenter", () => {
     isLeftHovered = true;
-    
+
     // UI changes
     forHimBtn.classList.add("hide");
     your.classList.add("hide");
     indulge.classList.add("hide");
     leftBtn.classList.add("show");
-    leftParagraphs.forEach(p => p.classList.add("show"));
+    leftParagraphs.forEach((p) => p.classList.add("show"));
     femaleDiv.style.flexGrow = "1.5";
     maleDiv.style.flexGrow = "0.5";
     maleDiv.style.filter = "brightness(0.5)";
@@ -472,7 +506,7 @@ function initGenderHoverEffects() {
     // Hide male fluid canvas immediately
     maleCanvas.style.opacity = "0";
     maleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
-    
+
     // Clear any pending timers - This prevents race conditions by canceling any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
     if (maleFluidTimer) clearTimeout(maleFluidTimer);
@@ -480,13 +514,13 @@ function initGenderHoverEffects() {
 
   leftContainer.addEventListener("mouseleave", () => {
     isLeftHovered = false;
-    
+
     // UI changes
     forHimBtn.classList.remove("hide");
     your.classList.remove("hide");
     indulge.classList.remove("hide");
     leftBtn.classList.remove("show");
-    leftParagraphs.forEach(p => p.classList.remove("show"));
+    leftParagraphs.forEach((p) => p.classList.remove("show"));
     femaleDiv.style.flexGrow = "";
     maleDiv.style.flexGrow = "";
     maleDiv.style.filter = "";
@@ -496,13 +530,13 @@ function initGenderHoverEffects() {
       // Clear any pending timers
       if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
       if (maleFluidTimer) clearTimeout(maleFluidTimer);
-      
+
       // Fade in female fluid canvas after delay
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
         femaleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
       }, 2000);
-      
+
       // Ensure male fluid is visible too (in case it was hidden before)
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
@@ -514,15 +548,15 @@ function initGenderHoverEffects() {
   // Right container hover effect (hovering over male side)
   rightContainer.addEventListener("mouseenter", () => {
     isRightHovered = true;
-    
+
     // UI changes
     forHerBtn.classList.add("hide");
     your.classList.add("hide");
     indulge.classList.add("hide");
     rightBtn.classList.add("show");
-    rightParagraphs.forEach(p => p.classList.add("show"));
-    maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
-    femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
+    rightParagraphs.forEach((p) => p.classList.add("show"));
+    maleDiv.style.flexGrow = "1.5"; // Increase the size of the male DIV
+    femaleDiv.style.flexGrow = "0.5"; // Decrease the size of the female DIV
     femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
 
     // Hide male fluid canvas immediately
@@ -532,7 +566,7 @@ function initGenderHoverEffects() {
     // Hide female fluid canvas immediately
     femaleCanvas.style.opacity = "0";
     femaleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
-    
+
     // Clear any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
     if (maleFluidTimer) clearTimeout(maleFluidTimer);
@@ -540,13 +574,13 @@ function initGenderHoverEffects() {
 
   rightContainer.addEventListener("mouseleave", () => {
     isRightHovered = false;
-    
+
     // UI changes
     forHerBtn.classList.remove("hide");
     your.classList.remove("hide");
     indulge.classList.remove("hide");
     rightBtn.classList.remove("show");
-    rightParagraphs.forEach(p => p.classList.remove("show"));
+    rightParagraphs.forEach((p) => p.classList.remove("show"));
     maleDiv.style.flexGrow = "";
     femaleDiv.style.flexGrow = "";
     femaleDiv.style.filter = "";
@@ -556,13 +590,13 @@ function initGenderHoverEffects() {
       // Clear any pending timers
       if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
       if (maleFluidTimer) clearTimeout(maleFluidTimer);
-      
+
       // Fade in male fluid canvas after delay
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
         maleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
       }, 2000);
-      
+
       // Ensure female fluid is visible too (in case it was hidden before)
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
@@ -576,14 +610,15 @@ function initGenderHoverEffects() {
  * Initializes the product slider with circular looping
  */
 
-  function initProductSlider() {
+function initProductSlider() {
   const slider = document.querySelector(".product-slider");
   const prevBtn = document.querySelector(".prev-btn");
   const nextBtn = document.querySelector(".next-btn");
   const productDetails = document.getElementById("product-details");
   let cards = Array.from(document.querySelectorAll(".product-card"));
 
-  if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails) return;
+  if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails)
+    return;
 
   const visibleCards = 3;
   const cardMargin = 160;
@@ -591,8 +626,12 @@ function initGenderHoverEffects() {
   const cardWidth = slider.offsetWidth / visibleCards - cardMargin * 2;
 
   // Duplicate first and last few cards for seamless looping
-  const firstClones = cards.slice(0, visibleCards).map((card) => card.cloneNode(true));
-  const lastClones = cards.slice(-visibleCards).map((card) => card.cloneNode(true));
+  const firstClones = cards
+    .slice(0, visibleCards)
+    .map((card) => card.cloneNode(true));
+  const lastClones = cards
+    .slice(-visibleCards)
+    .map((card) => card.cloneNode(true));
 
   // Append clones
   firstClones.forEach((clone) => slider.appendChild(clone));
@@ -615,7 +654,8 @@ function initGenderHoverEffects() {
     const price = activeCard.dataset.price;
 
     productDetails.querySelector(".product-name").textContent = name;
-    productDetails.querySelector(".product-description").textContent = description;
+    productDetails.querySelector(".product-description").textContent =
+      description;
     productDetails.querySelector(".rating-score").textContent = rating;
     productDetails.querySelector(".product-size").textContent = size;
     productDetails.querySelector(".product-price").textContent = price;
@@ -697,7 +737,6 @@ function initGenderHoverEffects() {
 // Initialize the slider
 initProductSlider();
 
-
 /**
  * Handles gender selection animation and transition
  * @param {string} gender - 'male' or 'female'
@@ -714,7 +753,7 @@ function changeImages(gender) {
     ".text-overlay-indulge, .text-overlay-your"
   );
   textOverlays.forEach((overlay) => overlay.classList.add("hidden"));
-  
+
   // Also hide journey text
   const journeyText = document.querySelector(".journey-text");
   if (journeyText) {
@@ -766,60 +805,62 @@ document.addEventListener("DOMContentLoaded", function () {
  * Initialize popup functionality
  */
 function initPopup() {
-  const popupOverlay = document.querySelector('.popup-overlay');
-  const popupClose = document.querySelector('.popup-close');
-  const popupBtn = document.querySelector('.popup-btn');
-  
+  const popupOverlay = document.querySelector(".popup-overlay");
+  const popupClose = document.querySelector(".popup-close");
+  const popupBtn = document.querySelector(".popup-btn");
+
   if (!popupOverlay || !popupClose || !popupBtn) return;
-  
+
   // Show popup after 5 seconds (5000ms)
   setTimeout(() => {
     // Store current scroll position
     const scrollY = window.scrollY;
-    
+
     // Add active class to show the popup
-    popupOverlay.classList.add('active');
-    document.body.classList.add('popup-active');
-    
+    popupOverlay.classList.add("active");
+    document.body.classList.add("popup-active");
+
     // Disable scrolling while keeping the same visual position
-    document.body.style.position = 'fixed';
+    document.body.style.position = "fixed";
     document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
+    document.body.style.width = "100%";
   }, 5000);
-  
+
   // Function to close popup and restore page functionality
   function closePopup() {
     // Remove active classes
-    popupOverlay.classList.remove('active');
-    document.body.classList.remove('popup-active');
-    
+    popupOverlay.classList.remove("active");
+    document.body.classList.remove("popup-active");
+
     // Re-enable scrolling and restore position
-    const scrollY = parseInt(document.body.style.top || '0') * -1;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    
+    const scrollY = parseInt(document.body.style.top || "0") * -1;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+
     // Don't manually scroll, browser will maintain position naturally
   }
-  
+
   // Close popup when X is clicked
-  popupClose.addEventListener('click', (e) => {
+  popupClose.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent default behavior that might cause page to scroll
     closePopup();
   });
-  
+
   // Close popup when button is clicked and open login modal
-  popupBtn.addEventListener('click', (e) => {
+  popupBtn.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent default behavior that might cause page to scroll
     closePopup();
-    
+
     // Open the login modal using Bootstrap's modal API
-    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    const loginModal = new bootstrap.Modal(
+      document.getElementById("loginModal")
+    );
     loginModal.show();
   });
-  
+
   // Close popup when clicking outside the popup container
-  popupOverlay.addEventListener('click', (e) => {
+  popupOverlay.addEventListener("click", (e) => {
     if (e.target === popupOverlay) {
       closePopup();
     }
@@ -832,17 +873,17 @@ function initPopup() {
 function initSmoothSectionScrolling() {
   // Identify all main sections to include in scroll snapping in correct order
   const sections = [
-    document.querySelector('.gender'),
-    document.querySelector('.quality-model-section'),
-    document.querySelector('.product-slider-section'),
-    document.querySelector('footer')
+    document.querySelector(".gender"),
+    document.querySelector(".quality-model-section"),
+    document.querySelector(".product-slider-section"),
+    document.querySelector("footer"),
   ];
-  
+
   // Filter out any null sections (in case they don't exist)
-  const validSections = sections.filter(section => section !== null);
-  
+  const validSections = sections.filter((section) => section !== null);
+
   if (validSections.length < 2) return; // Need at least 2 sections for this to work
-  
+
   // Current section index
   let currentSectionIndex = 0;
   let isScrolling = false;
@@ -852,152 +893,161 @@ function initSmoothSectionScrolling() {
   let lastScrollTime = 0;
   let scrollThrottleTime = 800; // Reduced from 1200ms for more responsive feeling
   let scrollAnimationDuration = 600; // Duration of the smooth scroll animation
-  
+
   // Get the 3D model viewer container
-  const modelViewer = document.getElementById('model-viewer');
-  
+  const modelViewer = document.getElementById("model-viewer");
+
   // Set initial section heights to viewport height for proper scrolling
-  validSections.forEach(section => {
-    section.style.minHeight = '100vh';
-    section.style.scrollMarginTop = '0';
+  validSections.forEach((section) => {
+    section.style.minHeight = "100vh";
+    section.style.scrollMarginTop = "0";
   });
-  
+
   // Add event listeners for mouse over/out of model viewer
   if (modelViewer) {
     // Disable smooth scrolling when mouse is over the model viewer
-    modelViewer.addEventListener('mouseenter', () => {
+    modelViewer.addEventListener("mouseenter", () => {
       isOverModelViewer = true;
     });
-    
+
     // Re-enable smooth scrolling when mouse leaves the model viewer
-    modelViewer.addEventListener('mouseleave', () => {
+    modelViewer.addEventListener("mouseleave", () => {
       isOverModelViewer = false;
     });
-    
+
     // Also track touch events for mobile
-    modelViewer.addEventListener('touchstart', () => {
+    modelViewer.addEventListener("touchstart", () => {
       isOverModelViewer = true;
     });
-    
-    modelViewer.addEventListener('touchend', () => {
+
+    modelViewer.addEventListener("touchend", () => {
       // Add a slight delay before disabling to allow for interaction
       setTimeout(() => {
         isOverModelViewer = false;
       }, 500);
     });
   }
-  
+
   // Find the current section based on scroll position
   function getCurrentSection() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
-    
+
     // Check if we're near the top of the page
     if (scrollPosition < windowHeight / 2) {
       return 0; // First section
     }
-    
+
     // Check if we're near the bottom of the page
     if (scrollPosition + windowHeight >= document.body.scrollHeight - 100) {
       return validSections.length - 1; // Last section
     }
-    
+
     // Find which section's center point we're closest to
     let closestSection = 0;
     let closestDistance = Infinity;
-    
+
     for (let i = 0; i < validSections.length; i++) {
       const section = validSections[i];
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      const sectionCenter = sectionTop + (sectionHeight / 2);
-      const distanceToCenter = Math.abs(scrollPosition + (windowHeight / 2) - sectionCenter);
-      
+      const sectionCenter = sectionTop + sectionHeight / 2;
+      const distanceToCenter = Math.abs(
+        scrollPosition + windowHeight / 2 - sectionCenter
+      );
+
       if (distanceToCenter < closestDistance) {
         closestDistance = distanceToCenter;
         closestSection = i;
       }
     }
-    
+
     return closestSection;
   }
-  
+
   // Scroll to a specific section
   function scrollToSection(index) {
     if (index < 0) index = 0;
     if (index >= validSections.length) index = validSections.length - 1;
-    
+
     // Don't scroll if we're already at this section
     if (index === currentSectionIndex && !isScrolling) return;
-    
+
     // Set scrolling state immediately for better responsiveness
     isScrolling = true;
-    
+
     // Update currentSectionIndex immediately
     currentSectionIndex = index;
-    
+
     // Immediately apply a visual cue to indicate scroll is happening (optional)
     // This could be a small indicator dot that appears instantly while scrolling starts
-    
+
     // Scroll to the target section - this is the actual scroll action
     validSections[index].scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+      behavior: "smooth",
+      block: "start",
     });
-    
+
     // Reset isScrolling after animation completes
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       isScrolling = false;
     }, scrollAnimationDuration); // Use animation duration instead of throttle time
   }
-  
+
   // Handle wheel events for smooth scrolling with minimal delay
-  window.addEventListener('wheel', function(e) {
-    // Skip if scrolling animation is in progress, smooth scrolling is disabled,
-    // popup is active, or mouse is over the 3D model viewer
-    if (isScrolling || !smoothScrollingEnabled || 
-        document.body.classList.contains('popup-active') || 
-        isOverModelViewer) {
-      e.preventDefault(); // Still prevent default to avoid jumpy behavior
-      return;
-    }
-    
-    // Apply throttling, but with reduced time for better responsiveness
-    const now = Date.now();
-    if (now - lastScrollTime < scrollThrottleTime) {
+  window.addEventListener(
+    "wheel",
+    function (e) {
+      // Skip if scrolling animation is in progress, smooth scrolling is disabled,
+      // popup is active, or mouse is over the 3D model viewer
+      if (
+        isScrolling ||
+        !smoothScrollingEnabled ||
+        document.body.classList.contains("popup-active") ||
+        isOverModelViewer
+      ) {
+        e.preventDefault(); // Still prevent default to avoid jumpy behavior
+        return;
+      }
+
+      // Apply throttling, but with reduced time for better responsiveness
+      const now = Date.now();
+      if (now - lastScrollTime < scrollThrottleTime) {
+        e.preventDefault();
+        return;
+      }
+
+      // Update last scroll time immediately
+      lastScrollTime = now;
+
+      // Prevent default to take control of scrolling
       e.preventDefault();
-      return;
-    }
-    
-    // Update last scroll time immediately
-    lastScrollTime = now;
-    
-    // Prevent default to take control of scrolling
-    e.preventDefault();
-    
-    // Get direction and respond immediately
-    const direction = e.deltaY > 0 ? 1 : -1;
-    currentSectionIndex = getCurrentSection();
-    
-    // Start scrolling to next section immediately
-    requestAnimationFrame(() => {
-      scrollToSection(currentSectionIndex + direction);
-    });
-    
-  }, { passive: false });
-  
+
+      // Get direction and respond immediately
+      const direction = e.deltaY > 0 ? 1 : -1;
+      currentSectionIndex = getCurrentSection();
+
+      // Start scrolling to next section immediately
+      requestAnimationFrame(() => {
+        scrollToSection(currentSectionIndex + direction);
+      });
+    },
+    { passive: false }
+  );
+
   // Completely prevent normal scrolling to avoid interference
-  window.addEventListener('scroll', function(e) {
+  window.addEventListener("scroll", function (e) {
     if (isScrolling) return; // Allow programmatic scrolling
-    
+
     // If not currently in a programmatic scroll, snap to nearest section
-    if (smoothScrollingEnabled && 
-        !document.body.classList.contains('popup-active') && 
-        !isOverModelViewer) {
-      
+    if (
+      smoothScrollingEnabled &&
+      !document.body.classList.contains("popup-active") &&
+      !isOverModelViewer
+    ) {
       const currentSection = getCurrentSection();
-      
+
       // Only update if we've changed sections and not currently scrolling
       if (currentSection !== currentSectionIndex && !isScrolling) {
         // Use requestAnimationFrame for better performance
@@ -1007,31 +1057,34 @@ function initSmoothSectionScrolling() {
       }
     }
   });
-  
+
   // Handle key navigation (arrow keys)
-  window.addEventListener('keydown', function(e) {
+  window.addEventListener("keydown", function (e) {
     // Skip if scrolling animation is in progress, smooth scrolling is disabled,
     // popup is active, or focus is on the 3D model viewer
-    if (isScrolling || !smoothScrollingEnabled || 
-        document.body.classList.contains('popup-active') || 
-        isOverModelViewer) {
+    if (
+      isScrolling ||
+      !smoothScrollingEnabled ||
+      document.body.classList.contains("popup-active") ||
+      isOverModelViewer
+    ) {
       return;
     }
-    
+
     // Throttle key events, but less aggressively
     const now = Date.now();
     if (now - lastScrollTime < scrollThrottleTime) {
       e.preventDefault();
       return;
     }
-    
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+
+    if (e.key === "ArrowDown" || e.key === "PageDown") {
       e.preventDefault();
       lastScrollTime = now;
       requestAnimationFrame(() => {
         scrollToSection(currentSectionIndex + 1);
       });
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    } else if (e.key === "ArrowUp" || e.key === "PageUp") {
       e.preventDefault();
       lastScrollTime = now;
       requestAnimationFrame(() => {
@@ -1039,75 +1092,91 @@ function initSmoothSectionScrolling() {
       });
     }
   });
-  
+
   // Handle touch events for mobile
   let touchStartY = 0;
   let touchEndY = 0;
   const minSwipeDistance = 50; // Minimum distance to consider a swipe
-  
-  window.addEventListener('touchstart', function(e) {
-    if (isOverModelViewer || isScrolling || !smoothScrollingEnabled || 
-        document.body.classList.contains('popup-active')) {
-      return;
-    }
-    touchStartY = e.changedTouches[0].screenY;
-  }, { passive: true });
-  
-  window.addEventListener('touchend', function(e) {
-    if (isOverModelViewer || isScrolling || !smoothScrollingEnabled || 
-        document.body.classList.contains('popup-active')) {
-      return;
-    }
-    
-    // Apply throttling, but with reduced time
-    const now = Date.now();
-    if (now - lastScrollTime < scrollThrottleTime) {
-      return;
-    }
-    
-    touchEndY = e.changedTouches[0].screenY;
-    const touchDistance = touchEndY - touchStartY;
-    
-    // If the touch moved far enough, consider it a swipe
-    if (Math.abs(touchDistance) >= minSwipeDistance) {
-      e.preventDefault();
-      lastScrollTime = now;
-      
-      // Get current section
-      currentSectionIndex = getCurrentSection();
-      
-      // Determine direction (negative = swipe up = next section)
-      const direction = touchDistance < 0 ? 1 : -1;
-      
-      // Use requestAnimationFrame for better performance
-      requestAnimationFrame(() => {
-        scrollToSection(currentSectionIndex + direction);
-      });
-    }
-  }, { passive: false });
-  
+
+  window.addEventListener(
+    "touchstart",
+    function (e) {
+      if (
+        isOverModelViewer ||
+        isScrolling ||
+        !smoothScrollingEnabled ||
+        document.body.classList.contains("popup-active")
+      ) {
+        return;
+      }
+      touchStartY = e.changedTouches[0].screenY;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "touchend",
+    function (e) {
+      if (
+        isOverModelViewer ||
+        isScrolling ||
+        !smoothScrollingEnabled ||
+        document.body.classList.contains("popup-active")
+      ) {
+        return;
+      }
+
+      // Apply throttling, but with reduced time
+      const now = Date.now();
+      if (now - lastScrollTime < scrollThrottleTime) {
+        return;
+      }
+
+      touchEndY = e.changedTouches[0].screenY;
+      const touchDistance = touchEndY - touchStartY;
+
+      // If the touch moved far enough, consider it a swipe
+      if (Math.abs(touchDistance) >= minSwipeDistance) {
+        e.preventDefault();
+        lastScrollTime = now;
+
+        // Get current section
+        currentSectionIndex = getCurrentSection();
+
+        // Determine direction (negative = swipe up = next section)
+        const direction = touchDistance < 0 ? 1 : -1;
+
+        // Use requestAnimationFrame for better performance
+        requestAnimationFrame(() => {
+          scrollToSection(currentSectionIndex + direction);
+        });
+      }
+    },
+    { passive: false }
+  );
+
   // Toggle smooth scrolling when popup is shown/hidden
-  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupOverlay = document.querySelector(".popup-overlay");
   if (popupOverlay) {
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.attributeName === 'class') {
-          const isActive = popupOverlay.classList.contains('active');
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.attributeName === "class") {
+          const isActive = popupOverlay.classList.contains("active");
           smoothScrollingEnabled = !isActive;
         }
       });
     });
-    
+
     observer.observe(popupOverlay, { attributes: true });
   }
-  
+
   // Add section identifiers for easier debugging
   validSections.forEach((section, index) => {
     section.dataset.sectionIndex = index;
   });
-  
+
   // Set initial section based on page load position
-  window.addEventListener('load', function() {
+  window.addEventListener("load", function () {
     setTimeout(() => {
       currentSectionIndex = getCurrentSection();
       scrollToSection(currentSectionIndex);
@@ -1119,31 +1188,31 @@ function initSmoothSectionScrolling() {
  * Initialize the new review cards section with rotating content
  */
 function initReviewCards() {
-  const reviewsContainer = document.getElementById('reviews-container');
-  const navDots = document.querySelectorAll('.reviews-nav-dot');
-  
+  const reviewsContainer = document.getElementById("reviews-container");
+  const navDots = document.querySelectorAll(".reviews-nav-dot");
+
   if (!reviewsContainer || navDots.length === 0) return;
-  
+
   // Get all review cards (these are now generated from real database data)
-  const reviewCards = Array.from(document.querySelectorAll('.review-card'));
-  
+  const reviewCards = Array.from(document.querySelectorAll(".review-card"));
+
   // If we have no review cards, nothing to initialize
   if (reviewCards.length === 0) return;
-  
+
   // Calculate how many pages we have (3 reviews per page)
   const totalReviews = reviewCards.length;
   const reviewsPerPage = 3;
   const totalPages = Math.ceil(totalReviews / reviewsPerPage);
-  
+
   // If we only have one page or less, no need for carousel
   if (totalPages <= 1) return;
-  
+
   // Keep track of current page (0-based)
   let currentPageIndex = 0;
-  
+
   // Flag to prevent multiple transitions
   let isTransitioning = false;
-  
+
   // Function to show a specific page of reviews
   function showPage(pageIndex) {
     if (isTransitioning) return;
@@ -1151,27 +1220,27 @@ function initReviewCards() {
 
     // Update active navigation dot
     navDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === pageIndex);
+      dot.classList.toggle("active", i === pageIndex);
     });
 
     // Hide all cards first with fade out
-    reviewCards.forEach(card => {
-      card.classList.add('fading-out');
-      card.classList.remove('fading-in');
+    reviewCards.forEach((card) => {
+      card.classList.add("fading-out");
+      card.classList.remove("fading-in");
     });
-    
+
     // After fade out, show the cards for the current page
     setTimeout(() => {
       reviewCards.forEach((card, index) => {
         const cardPageIndex = Math.floor(index / reviewsPerPage);
         if (cardPageIndex === pageIndex) {
-          card.style.display = 'block';
+          card.style.display = "block";
           setTimeout(() => {
-            card.classList.remove('fading-out');
-            card.classList.add('fading-in');
+            card.classList.remove("fading-out");
+            card.classList.add("fading-in");
           }, 30);
         } else {
-          card.style.display = 'none';
+          card.style.display = "none";
         }
       });
       setTimeout(() => {
@@ -1182,18 +1251,18 @@ function initReviewCards() {
 
   // Initialize: show first page and set up nav dots
   showPage(0);
-  
+
   // Add click event listeners to nav dots
   navDots.forEach((dot, index) => {
     if (index < totalPages) {
-      dot.addEventListener('click', function() {
+      dot.addEventListener("click", function () {
         if (index === currentPageIndex || isTransitioning) return;
         currentPageIndex = index;
         showPage(currentPageIndex);
       });
     }
   });
-  
+
   // Auto rotate through pages every 8 seconds (only if we have multiple pages)
   if (totalPages > 1) {
     setInterval(() => {
@@ -1203,75 +1272,79 @@ function initReviewCards() {
     }, 8000);
   }
 
+  // For Him & For Her button functionality
 
-
-// For Him & For Her button functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    const forHerButton = document.querySelector('.for-her');
-    const forHimButton = document.querySelector('.for-him');
-    const genderContainer = document.querySelector('.gender');
-    const transitionContainer = document.querySelector('.transition-container');
-    const transitionImage = document.querySelector('#transition-img');
+  document.addEventListener("DOMContentLoaded", function () {
+    const forHerButton = document.querySelector(".for-her");
+    const forHimButton = document.querySelector(".for-him");
+    const genderContainer = document.querySelector(".gender");
+    const transitionContainer = document.querySelector(".transition-container");
+    const transitionImage = document.querySelector("#transition-img");
 
     // Initialize existing elements
-    const textOverlayIndulge = document.querySelector('.text-overlay-indulge');
-    const textOverlayYour = document.querySelector('.text-overlay-your');
-    const leftContainer = document.querySelector('.left-container p');
-    const rightContainer = document.querySelector('.right-container p');
-    const exploreButtons = document.querySelectorAll('.explore-fragrances');
-    const forHerBtn = document.querySelector('.for-her');
-    const forHimBtn = document.querySelector('.for-him');
-    const fragranceQuiz = document.querySelector('.fragrance-quiz');
-    
+    const textOverlayIndulge = document.querySelector(".text-overlay-indulge");
+    const textOverlayYour = document.querySelector(".text-overlay-your");
+    const leftContainer = document.querySelector(".left-container p");
+    const rightContainer = document.querySelector(".right-container p");
+    const exploreButtons = document.querySelectorAll(".explore-fragrances");
+    const forHerBtn = document.querySelector(".for-her");
+    const forHimBtn = document.querySelector(".for-him");
+    const fragranceQuiz = document.querySelector(".fragrance-quiz");
 
     function handleGenderSelection(gender) {
-        const imagePath = gender === 'her' ? './img/girlTestCopy.jpg' : 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg';
-        
-        if (!genderContainer || !transitionContainer || !transitionImage) return;
+      const imagePath =
+        gender === "her"
+          ? "./img/girlTestCopy.jpg"
+          : "https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg";
 
-        // Set the transition image
-        transitionImage.src = imagePath;
-        
-        // Add transitioning class to fade out content
-        genderContainer.classList.add('transitioning');
-        
-        // After content starts fading out, show the transition image
-        setTimeout(() => {
-            transitionContainer.classList.add('active');
-        }, 100);
-        // Show transition container with overlay
-        transitionContainer.classList.add('active');
-        
-        // Set up scroll button handlers
-        const upButton = transitionContainer.querySelector('.scroll-btn.up');
-        const downButton = transitionContainer.querySelector('.scroll-btn.down');
-        
-        upButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // Add scroll up functionality
-        });
-        
-        downButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // Add scroll down functionality
-        });
+      if (!genderContainer || !transitionContainer || !transitionImage) return;
+
+      // Set the transition image
+      transitionImage.src = imagePath;
+
+      // Add transitioning class to fade out content
+      genderContainer.classList.add("transitioning");
+
+      // After content starts fading out, show the transition image
+      setTimeout(() => {
+        transitionContainer.classList.add("active");
+      }, 100);
+      // Show transition container with overlay
+      transitionContainer.classList.add("active");
+
+      // Set up scroll button handlers
+      const upButton = transitionContainer.querySelector(".scroll-btn.up");
+      const downButton = transitionContainer.querySelector(".scroll-btn.down");
+
+      upButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Add scroll up functionality
+      });
+
+      downButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Add scroll down functionality
+      });
     }
 
     // Event listeners for buttons
     if (forHerButton) {
-        forHerButton.addEventListener('click', () => handleGenderSelection('her'));
+      forHerButton.addEventListener("click", () =>
+        handleGenderSelection("her")
+      );
     }
-    
+
     if (forHimButton) {
-        forHimButton.addEventListener('click', () => handleGenderSelection('him'));
-    }    // Remove any auto-initialization of show classes
+      forHimButton.addEventListener("click", () =>
+        handleGenderSelection("him")
+      );
+    } // Remove any auto-initialization of show classes
     // Elements will be shown on hover instead
 
     setTimeout(() => {
-        if (fragranceQuiz) fragranceQuiz.classList.add('show');
+      if (fragranceQuiz) fragranceQuiz.classList.add("show");
     }, 2500);
-})
-};
+  });
+}

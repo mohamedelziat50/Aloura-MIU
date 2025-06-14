@@ -55,7 +55,7 @@ const products = [
 ];
 
 export const handleMessage = async (req, res) => {
-  const { message , pageUrl  } = req.body;
+  const { message, pageUrl } = req.body;
 
   // Format product info for the prompt
   const productInfo = products
