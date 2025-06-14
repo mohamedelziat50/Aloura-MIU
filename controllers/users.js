@@ -125,30 +125,29 @@ export const addToCart = async (req, res) => {
     }
 
     // Check if item with same productId + size already exists in cart
-const existingCartItem = user.cart.find(
-  (item) =>
-    item.fragrance.toString() === productId &&
-    item.size === size &&
-    item.category !== "gift"
-);
+    const existingCartItem = user.cart.find(
+      (item) =>
+        item.fragrance.toString() === productId &&
+        item.size === size &&
+        item.category !== "gift"
+    );
 
-if (existingCartItem) {
-  existingCartItem.quantity += 1; // Just increase quantity
-} else {
-  // Add new cart item with price if needed
-  user.cart.push({
-    fragrance: productId,
-    size,
-    quantity: 1,
-    price, // If you store price per unit in the cart
-    wrap: null, // Assuming wrap is optional
-    card: null, // Assuming card is optional
-    recipientName: null, // Assuming recipientName is optional
-    message: null, // Assuming message is optional
-    category: "regular", // Assuming category is fragrance
-  });
-}
-
+    if (existingCartItem) {
+      existingCartItem.quantity += 1; // Just increase quantity
+    } else {
+      // Add new cart item with price if needed
+      user.cart.push({
+        fragrance: productId,
+        size,
+        quantity: 1,
+        price, // If you store price per unit in the cart
+        wrap: null, // Assuming wrap is optional
+        card: null, // Assuming card is optional
+        recipientName: null, // Assuming recipientName is optional
+        message: null, // Assuming message is optional
+        category: "regular", // Assuming category is fragrance
+      });
+    }
 
     /*  fragrance: foundPerfume._id, // now using ID from name lookup
       size: size || null,
@@ -266,9 +265,9 @@ export const decreaseCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { fragranceId, size, giftId } = req.body;
+    const { fragranceId, size, category, cardName, wrapName } = req.body;
 
-    if (!fragranceId && !giftId) {
+    if (!fragranceId) {
       return res.status(400).json({
         success: false,
         message: "Missing item identifier (fragranceId or giftId).",
@@ -283,21 +282,38 @@ export const removeFromCart = async (req, res) => {
       });
     }
 
-    let pullCondition = {};
+    let updatedCart = [...user.cart];
 
-    if (giftId) {
-      pullCondition = { gift: giftId };
-    } else if (fragranceId) {
-      pullCondition = {
-        fragrance: fragranceId,
-        ...(size ? { size } : {}),
-      };
+    let indexToRemove = -1;
+
+    if (category === "gift") {
+      // Match gift by its ID
+      indexToRemove = updatedCart.findIndex(
+        (item) =>
+          item.fragrance?.toString() === fragranceId &&
+          item.card.name?.toString() === cardName &&
+          item.wrap.name?.toString() === wrapName
+      );
+    } else {
+      // Match only ONE regular fragrance (not a gift)
+      indexToRemove = updatedCart.findIndex(
+        (item) =>
+          item.fragrance?.toString() === fragranceId &&
+          item.category !== "gift" &&
+          (!size || item.size === size)
+      );
     }
 
-    await User.updateOne(
-      { _id: userId },
-      { $pull: { cart: pullCondition } }
-    );
+    if (indexToRemove === -1) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found in cart.",
+      });
+    }
+
+    updatedCart.splice(indexToRemove, 1); // remove one exact item
+
+    await User.updateOne({ _id: userId }, { cart: updatedCart });
 
     return res.json({
       success: true,
@@ -311,7 +327,6 @@ export const removeFromCart = async (req, res) => {
     });
   }
 };
-
 
 export const getCart = async (req, res) => {
   try {

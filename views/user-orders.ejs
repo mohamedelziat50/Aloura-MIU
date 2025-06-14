@@ -156,10 +156,57 @@
                 </div>
               </div>
               <div class="user-order-items">
+                
+        <%
+  const wrapImageMap = {
+    "Silk Ribbon Wrap": "/img/wraps/silk-wrapper.webp",
+    "Premium Gift Box": "/img/wraps/gift-box.jpg",
+    "Velvet Box": "/img/wraps/gift-wrap.jpeg",
+    "Leather Case": "/img/wraps/leather-case.jpg",
+    "Gold Foil Wrap": "/img/wraps/gold-wrap.jpg",
+    "Silver Foil Wrap": "/img/wraps/silver-wrap.jpg",
+    "Floral Pattern Box": "/img/wraps/floral-box.jpeg",
+    "Luxury Gift Bag": "/img/wraps/luxury-box.jpg",
+    "Holiday Special": "/img/wraps/holiday-box.jpg"
+  };
+
+  const cardImageMap = {
+    "Spray A Little Happiness": "/img/cards/love-card.jpg",
+    "Scent With Love": "/img/cards/gift-card1.png",
+    "Christmas Special": "/img/cards/christmas-card.webp",
+    "Birthday Wishes": "/img/cards/birthday-card.webp",
+    "Anniversary": "/img/cards/anniversary-card.webp",
+    "Thank You": "/img/cards/thank-you-card.jpg",
+    "Valentine Special": "/img/cards/valentine-card.png",
+    "Gold Luxury": "/img/cards/luxury-card.avif",
+    "Floral Design": "/img/cards/floral-card.jpg"
+  };
+%>
                 <% order.items.forEach(item => { %>
                  <div class="user-order-item">
-                  <img src="<%= item.fragrance.image[0] %>" alt="<%= item.fragrance.name %>" class="user-order-item-img" />
-                  <div class="user-order-item-details">
+
+  <% if (item.category === "gift") { %>
+    <div class="gift-collage d-flex flex-column align-items-center">
+      <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px;">
+        <% if (item.fragrance.image && item.fragrance.image[0]) { %>
+          <img src="<%= item.fragrance.image[0] %>" alt="Perfume" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+        <% } %>
+        <% const cardImage = cardImageMap[item.card.name]; %>
+        <% if (cardImage) { %>
+          <img src="<%= cardImage %>" alt="<%= item.card %>" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+        <% } %>
+      </div>
+      <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px; margin-top: 6px;">
+        <% const wrapImage = wrapImageMap[item.wrap.name]; %>
+        <% if (wrapImage) { %>
+          <img src="<%= wrapImage %>" alt="<%= item.wrap.name %>" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+        <% } %>
+      </div>
+    </div>
+    <% } else { %>
+      <img src="<%= item.fragrance.image[0] %>" alt="<%= item.fragrance.name %>" class="user-order-item-img" />
+    <% } %>
+                    <div class="user-order-item-details">
                     <div class="user-order-item-title"><%= item.fragrance.name %></div>
                     <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP | Category: <%= item.category %></div>
                   </div>

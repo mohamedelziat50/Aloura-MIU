@@ -10,8 +10,6 @@ const orderSchema = new Schema(
       required: true,
     },
 
-    
-
     // Array of purchased items (used in both regular and gift orders)
     items: [
       {
@@ -22,7 +20,6 @@ const orderSchema = new Schema(
         },
         size: {
           type: String,
-         
         },
         quantity: {
           type: Number,
@@ -36,42 +33,38 @@ const orderSchema = new Schema(
         wrap: {
           name: {
             type: String,
-            default: "",       // ✅ default to empty string
+            default: "", // ✅ default to empty string
           },
           price: {
             type: Number,
-            default: 0,        // ✅ default to 0
+            default: 0, // ✅ default to 0
           },
         },
 
         card: {
           name: {
             type: String,
-            default: "",       // ✅ default to empty string
+            default: "", // ✅ default to empty string
           },
         },
-    recipientName: {
-      type: String,
-    },
-    message: {
-      type: String,
-      maxlength: 100,
-    },
-    category: {
-      type: String,
-      enum: ["regular", "gift"],
-      required: true,
-    },
-    isReviewed: {
-      type: Boolean,
-      default: false
-    }
-
+        recipientName: {
+          type: String,
+        },
+        message: {
+          type: String,
+          maxlength: 100,
+        },
+        category: {
+          type: String,
+          enum: ["regular", "gift"],
+          required: true,
+        },
+        isReviewed: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
-
-    
-   
 
     shippingAddress: {
       address: { type: String, required: true },
@@ -86,7 +79,6 @@ const orderSchema = new Schema(
       required: true,
     },
 
-   
     orderNumber: {
       type: Number,
       required: true,
@@ -102,7 +94,7 @@ const orderSchema = new Schema(
       enum: ["Pending", "Delivered", "Cancelled"],
       default: "Pending",
     },
-     totalPrice: {
+    totalPrice: {
       type: Number,
       required: true,
       min: 0,

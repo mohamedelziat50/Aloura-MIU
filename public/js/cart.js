@@ -121,36 +121,45 @@ document.addEventListener("DOMContentLoaded", () => {
       const fragranceId = button.getAttribute("data-fragrance-id");
       const size = button.getAttribute("data-size");
       const cartItem = button.closest(".cart-item");
+      const category = cartItem.getAttribute("data-category") || "regular";
+      const cardName = cartItem.getAttribute("data-card-name");
+      const wrapName = cartItem.getAttribute("data-wrap-name");
       const cartItemsContainer = document.querySelector(
         ".cart-items-container"
       );
-
-      cartItem.remove();
-      updateSubtotal();
 
       try {
         const res = await fetch("/api/users/removefromcart", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fragranceId, size }),
+          body: JSON.stringify({
+            fragranceId,
+            size,
+            category,
+            cardName,
+            wrapName,
+          }),
         });
 
         const data = await res.json();
-        if (!data.success) {
-          alert("Error removing item. Please try again.");
-        }
+        if (data.success) {
+          cartItem.remove();
+          updateSubtotal();
 
-        // ✅ Check again after removal
-        if (
-          cartItemsContainer &&
-          cartItemsContainer.querySelectorAll(".cart-item").length === 0
-        ) {
-          cartItemsContainer.innerHTML = `
-            <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
-              <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
-              <h4 class="mt-3">Your cart is empty.</h4>
-            </div>
-          `;
+          // Check if this was the last item
+          if (
+            cartItemsContainer &&
+            cartItemsContainer.querySelectorAll(".cart-item").length === 0
+          ) {
+            cartItemsContainer.innerHTML = `
+              <div class="d-flex flex-column justify-content-center align-items-center text-muted mt-3" style="min-height: 300px">
+                <i class="bi bi-cart-x" style="font-size: 2.5rem"></i>
+                <h4 class="mt-3">Your cart is empty.</h4>
+              </div>
+            `;
+          }
+        } else {
+          alert("Error removing item. Please try again.");
         }
       } catch (err) {
         console.error("Failed to remove item from cart:", err);

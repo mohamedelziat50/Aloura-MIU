@@ -140,6 +140,25 @@
   padding: 20px 0px;
 }
 
+.gift-collage-images {
+  gap: 4px;
+  max-width: 100%;
+  border: 1px solid #eee;
+  padding: 1px;
+  
+}
+
+.gift-collage-img {
+  width: 60px;
+  height: 60px;
+  object-fit:contain;
+  padding: 1px;
+  
+}
+
+
+
+
 .order-btn {
     background: #fff;
     color: #000;
