@@ -4,7 +4,6 @@ import UserModel from "../models/user.js";
 import mongoose from "mongoose";
 import fragranceModel from "../models/fragrance.js";
 
-
 export const createGift = async (req, res) => {
   try {
     const user = await UserModel.findById(req.user.id);
@@ -34,7 +33,9 @@ export const createGift = async (req, res) => {
     const quantityNum = Number(quantity);
 
     if (isNaN(priceNum) || priceNum < 0) {
-      return res.status(400).json({ error: "Price must be a non-negative number." });
+      return res
+        .status(400)
+        .json({ error: "Price must be a non-negative number." });
     }
     if (isNaN(quantityNum) || quantityNum < 1) {
       return res.status(400).json({ error: "Quantity must be at least 1." });
@@ -55,8 +56,6 @@ export const createGift = async (req, res) => {
 
     await user.save();
 
-    
-
     res.status(201).json({ message: "Gift added to cart" });
   } catch (err) {
     console.error("❌ Error in createGift:", err);
@@ -65,8 +64,6 @@ export const createGift = async (req, res) => {
     });
   }
 };
-
-
 
 // Get all gifts for the logged-in user
 export const getAllGifts = async (req, res) => {

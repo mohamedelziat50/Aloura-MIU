@@ -1,64 +1,60 @@
-import Review from '../models/review.js';
-import Fragrance from '../models/fragrance.js';
-import Order from '../models/order.js';
+import Review from "../models/review.js";
+import Fragrance from "../models/fragrance.js";
+import Order from "../models/order.js";
 
 // Create review
 export const createReview = async (req, res) => {
-    const { rating, comment, fragranceId, orderId, itemIndex } = req.body;
+  const { rating, comment, fragranceId, orderId, itemIndex } = req.body;
 
-    // Validation
-    if (!rating || rating == 0) {
-        return res
-        .status(400)
-        .json({ message: "❌ Rating is required." });
-    }
-    if (!comment || comment.toString().trim() === "") {
-        return res
-        .status(400)
-        .json({ message: "❌ Review's comment is required." });
-    }
+  // Validation
+  if (!rating || rating == 0) {
+    return res.status(400).json({ message: "❌ Rating is required." });
+  }
+  if (!comment || comment.toString().trim() === "") {
+    return res
+      .status(400)
+      .json({ message: "❌ Review's comment is required." });
+  }
 
-    // Get the fragrance's id and validate
-    const fragrance = await Fragrance.findById(fragranceId);
-    if (!fragrance) {
-        return res
-        .status(400)
-        .json({ message: "❌ Fragrance not found." });
-    }
+  // Get the fragrance's id and validate
+  const fragrance = await Fragrance.findById(fragranceId);
+  if (!fragrance) {
+    return res.status(400).json({ message: "❌ Fragrance not found." });
+  }
 
-    // Create the review
-    const review = new Review({
-        fragrance: fragrance._id,
-        user: req.user.id,
-        rating,
-        comment
-    });
+  // Create the review
+  const review = new Review({
+    fragrance: fragrance._id,
+    user: req.user.id,
+    rating,
+    comment,
+  });
 
-    try {
-        // Save the review
-        await review.save();
+  try {
+    // Save the review
+    await review.save();
 
-        // Mark the order item as reviewed
-        if (orderId && itemIndex !== undefined) {
-            const order = await Order.findById(orderId);
-            if (order && order.items[itemIndex]) {
-                if (order.items[itemIndex].isReviewed) {
-                      return res.status(400).json({ message: "This item has already been reviewed" });
-                }
-                order.items[itemIndex].isReviewed = true;
-                await order.save();
-            }
+    // Mark the order item as reviewed
+    if (orderId && itemIndex !== undefined) {
+      const order = await Order.findById(orderId);
+      if (order && order.items[itemIndex]) {
+        if (order.items[itemIndex].isReviewed) {
+          return res
+            .status(400)
+            .json({ message: "This item has already been reviewed" });
         }
-
-        // Backend must send a response (success or error) for the frontend to work.
-        res.status(201).json({ message: "✅ Review added successfully" });
-    } catch (error) {
-        console.log(`Review Data Save Error: ${error}`);
-        res.status(500).json({ error: "Failed to add review" });
+        order.items[itemIndex].isReviewed = true;
+        await order.save();
+      }
     }
 
-}
-
+    // Backend must send a response (success or error) for the frontend to work.
+    res.status(201).json({ message: "✅ Review added successfully" });
+  } catch (error) {
+    console.log(`Review Data Save Error: ${error}`);
+    res.status(500).json({ error: "Failed to add review" });
+  }
+};
 
 export const deleteReview = async (req, res) => {
   try {
@@ -69,7 +65,6 @@ export const deleteReview = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 export const markReviewStatus = async (req, res) => {
   const { reviewId, status } = req.body;
@@ -84,19 +79,23 @@ export const markReviewStatus = async (req, res) => {
     //   return res.status(400).json({ error: "Status not found" });
     // }
     if (review.status === status) {
-      return res.status(400).json({ error: `review is already marked as '${status}'.` });
+      return res
+        .status(400)
+        .json({ error: `review is already marked as '${status}'.` });
     }
 
     // If we passed all these checks now change the status
     review.status = status;
     // Save the result
-    await review.save()
+    await review.save();
 
-    res.status(200).json({ message: `✅ review is updated to ${review.status}` });
+    res
+      .status(200)
+      .json({ message: `✅ review is updated to ${review.status}` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 //   try {
 //     const { fragrance, rating, comment } = req.body;
