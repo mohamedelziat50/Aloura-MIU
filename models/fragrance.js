@@ -78,7 +78,7 @@ const fragranceSchema = new mongoose.Schema(
       type: Date,
     },
     tags: [String],
-    previewLanding:{
+    previewLanding: {
       type: Boolean,
       default: false,
     },
@@ -88,5 +88,6 @@ const fragranceSchema = new mongoose.Schema(
   }
 );
 
-const Fragrance =  mongoose.models.Fragrance || mongoose.model('Fragrance', fragranceSchema);
+const Fragrance =
+  mongoose.models.Fragrance || mongoose.model("Fragrance", fragranceSchema);
 export default Fragrance;
