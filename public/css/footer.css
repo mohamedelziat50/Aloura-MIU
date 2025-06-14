@@ -1,429 +1,507 @@
+/* Import Jost font */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Professional Footer Styles */
+.professional-footer {
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.professional-footer * {
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Original Top Section Styles */
 footer .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 100px;
-    margin-inline: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 100px;
+  margin-inline: 100px;
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+footer .top .ccard {
+  text-align: center;
+}
+
+footer .top .ccard .img {
+  width: 100px;
+  margin: 0 auto 10px;
+}
+
+footer .top .ccard .text p:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: 'Jost', sans-serif;
+}
+
+footer .top .ccard .text p:last-child {
+  font-size: 10px;
+  color: #777;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+}
+
+footer .top .ccard .img img {
+  width: auto;
+}
+
+/* Original Middle Section Styles */
+footer .middle {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../img/footer-icons/background.png");
+  position: relative;
+  height: auto;
+  padding: 50px 20px;
+  font-family: 'Jost', sans-serif;
+}
+
+footer .middle .cccard {
+  background-color: white;
+  text-align: center;
+  padding: 50px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #666;
+  font-weight: 600;
+  font-family: 'Jost', sans-serif;
+}
+
+.c-title {
+  font-size: 24px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.c-title em {
+  font-style: italic;
+  font-family: 'Jost', sans-serif;
+}
+
+footer .middle input {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  border-radius: 4px;
+  text-align: center;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+}
+
+.card-buuton {
+  width: 100%;
+  padding: 12px;
+  background: #121212;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  border: 1px solid #121212;
+  transition: all 0.2s linear;
+}
+
+.card-buuton:hover {
+  color: #121212;
+  background-color: white;
+}
+
+/* Main Footer Content */
+.footer-main {
+  background: #0A0A0A;
+  padding: 80px 0 60px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
+  gap: 60px;
+}
+
+.footer-column h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 32px;
+  color: white;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.footer-column h4::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(135deg, rgb(212, 194, 166), rgb(237, 220, 191));
+  border-radius: 2px;
+}
+
+/* Company Info Column */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.footer-logo h3 {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.company-description {
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  margin: 0 0 32px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgb(241, 228, 205);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(35, 35, 35);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgb(237, 220, 191);
+}
+
+.social-link:hover {
+  background: rgb(212, 194, 166);
+  color: rgb(35, 35, 35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 194, 166, 0.4);
+}
+
+.social-link i {
+  font-size: 20px;
+}
+
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, rgb(212, 194, 166), rgb(237, 220, 191));
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+  transform: translateX(8px);
+}
+
+.footer-links a:hover::before {
+  width: 100%;
+}
+
+/* Contact Info */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.contact-item i {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, rgb(212, 194, 166), rgb(237, 220, 191));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(35, 35, 35);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 4px;
+  
+}
+
+.contact-item div span {
+  font-size: 12px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.contact-item div a,
+.contact-item div p {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.contact-item div a:hover {
+  color: white;
+  transform: translateX(6px);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  padding: 32px 0;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright p {
+  font-size: 14px;
+  color: rgb(190, 190, 190);
+  margin: 0;
+  font-weight: 400;
+}
+
+.payment-methods {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.payment-methods span {
+  font-size: 14px;
+  color: rgb(190, 190, 190);
+  font-weight: 500;
+}
+
+.payment-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.payment-icons i {
+  font-size: 28px;
+  color: rgb(190, 190, 190);
+  transition: color 0.3s ease;
+}
+
+.payment-icons i:hover {
+  color: rgb(241, 228, 205);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
   }
   
-  footer .top .ccard {
+  .footer-column:first-child {
+    grid-column: 1 / -1;
+  }
+  
+  .newsletter-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .service-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .newsletter-content {
+    padding: 0 20px;
+  }
+  
+  .newsletter-text h3 {
+    font-size: 32px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  
+  .footer-column:first-child {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 20px;
     text-align: center;
   }
   
-  footer .top .ccard .img {
-    width: 100px;
-    margin: 0 auto 10px;
+  .payment-methods {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
   }
   
-  footer .top .ccard .text p:first-child {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    white-space: nowrap;
+  .footer-services {
+    padding: 40px 0;
   }
   
-  footer .top .ccard .text p:last-child {
-    font-size: 10px;
-  
-    color: #777;
+  .footer-newsletter {
+    padding: 60px 0;
   }
   
-  footer .top .ccard .img img {
-    width: auto;
+  .newsletter-text h3 {
+    font-size: 28px;
   }
   
-  footer .middle {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("../img/footer-icons/background.png");
-    position: relative;
-    height: auto; /* Allow height to adjust based on content */
-    padding: 50px 20px; /* Add padding for smaller screens */
-  }
-  
-  footer .middle .cccard {
-    background-color: white;
-    text-align: center;
-    padding: 50px;
-    width: 100%; /* Default to full width */
-    max-width: 400px; /* Limit maximum width */
-    position: relative;
-    margin: 0 auto; /* Center the card */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  footer .wrapper > * {
-    flex: 0 0 auto;
-  }
-  
-  footer a {
-    text-decoration: none;
-    background-color: transparent;
-  }
-  
-  footer .py-8 {
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
-    background-color: #000;
-  }
-  
-  footer .footer-link-01 li + li {
-    padding-top: 0.8rem;
-  }
-  
-  footer .footer-title-01 {
+  .newsletter-text p {
     font-size: 16px;
-    margin: 0 0 20px;
-    font-weight: 600;
   }
   
-  footer .footer-title-01 {
-    font-size: 16px;
-    margin: 0 0 20px;
-    font-weight: 600;
-  }
-  
-  footer .footer-link-01 li + li {
-    padding-top: 0.8rem;
-  }
-  
-  @media (max-width: 991.98px) {
-    footer .footer-link-01 li + li {
-      padding-top: 0.6rem;
-    }
-  }
-  
-  footer.footer-link-01 a {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-  }
-  
-  footer .footer-link-01 a:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: auto;
-    right: 0;
-    width: 0;
-    height: 1px;
-    transition: ease all 0.35s;
-    background: currentColor;
-  }
-  
-  .middle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    background: url("your-background-image.jp") center/cover no-repeat;
-  }
-  
-  .cccard {
-    background: white;
-    padding: 40px;
-    text-align: center;
-    max-width: 400px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .newsletter {
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #666;
-    font-weight: bold;
-  }
-  
-  .c-title {
-    font-size: 24px;
-    font-family: "Georgia", serif;
-    font-weight: normal;
-    line-height: 1.4;
-  }
-  
-  .c-title em {
-    font-style: italic;
-  }
-  
-  footer input {
-    width: 100%;
-    padding: 10px;
-    margin: 15px 0;
-    border: none; /* Remove all borders */
-    border-bottom: 1px solid #000; /* Add only bottom border */
-    outline: none; /* Remove focus outline */
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .card-buuton {
-    width: 100%;
+  .input-group {
+    flex-direction: column;
+    gap: 12px;
     padding: 12px;
-    background: #121212;
-    color: white;
-    border: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 2px;
-    cursor: pointer;
-    padding-top: 10px;
-    border: 1px solid black;
-    font-family: "Poppins", sans-serif !important;
-    border: 1px solid #121212 !important;
-    transition: all 0.2s linear !important;
   }
   
-  .card-buuton:hover {
-    color: #121212 !important;
-    background-color: white !important;
-  }
-  
-  .news-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .news-item img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .news-text small {
-    display: block;
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 12px;
-  }
-  
-  .news-text h6 {
-    margin: 0;
-  }
-  
-  .news-text h6 a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  /* Popup Styles */
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
+  .newsletter-btn {
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    width: 100%;
   }
   
-  .popup-overlay.active {
-    opacity: 1;
-    visibility: visible;
+  .footer-main {
+    padding: 60px 0 40px;
   }
   
-  .popup-container {
-    position: relative;
-    max-width: 500px;
-    width: 90%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-    transform: scale(0.9);
-    opacity: 0;
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .footer-column:first-child {
+    grid-column: 1;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+}
+
+/* Smooth animations */
+@media (prefers-reduced-motion: no-preference) {
+  .professional-footer * {
     transition: all 0.3s ease;
   }
-  
-  .popup-overlay.active .popup-container {
-    transform: scale(1);
-    opacity: 1;
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  .professional-footer {
+    background: #0a0a0a;
+  }
+}
+
+/* Print styles */
+@media print {
+  .professional-footer {
+    background: white !important;
+    color: black !important;
   }
   
-  .popup-image {
-    width: 100%;
-    height: auto;
-    display: block;
+  .professional-footer * {
+    background: transparent !important;
+    color: black !important;
   }
-  
-  .popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.7);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    z-index: 10;
-  }
-  
-  .popup-close:hover {
-    background: rgba(255, 255, 255, 0.9);
-  }
-  
-  .popup-btn {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    padding: 8px 20px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background 0.2s ease;
-    border-radius: 4px;
-  }
-  
-  .popup-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-  }
-  
-  /* When popup is active, disable interactions with background content */
-  body.popup-active {
-    overflow: hidden;
-    /* Preserve scroll position visually */
-    width: 100%;
-    height: 100%;
-  }
-  
-  body.popup-active > *:not(.popup-overlay) {
-    filter: brightness(0.3);
-    transition: filter 0.3s ease;
-    pointer-events: none; /* Disable interactions with background elements */
-  }
-  
-  /* Basic smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-  
- 
-  
-  /* Footer responsive styles */
-  @media screen and (max-width: 1200px) {
-    footer .top {
-      gap: 50px;
-      margin-inline: 50px;
-    }
-  }
-  
-  @media screen and (max-width: 992px) {
-    footer .top {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-inline: 20px;
-    }
-  
-    footer .top .ccard {
-      flex: 0 0 calc(50% - 30px);
-      max-width: 300px;
-    }
-  
-    footer .middle .cccard {
-      width: 80%; /* Adjust width for medium screens */
-      padding: 30px;
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    footer .top {
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-  
-    footer .top .ccard {
-      flex: 0 0 100%;
-      max-width: 250px;
-    }
-  
-    footer .middle .cccard {
-      width: 90%; /* Adjust width for smaller screens */
-      padding: 25px;
-    }
-  
-    .c-title {
-      font-size: 20px;
-    }
-  }
-  
-  @media screen and (max-width: 576px) {
-    footer .top {
-      margin-inline: 15px;
-    }
-  
-    footer .top .ccard .img {
-      width: 80px;
-    }
-  
-    footer .top .ccard .text p:first-child {
-      font-size: 12px;
-    }
-  
-    footer .top .ccard .text p:last-child {
-      font-size: 9px;
-    }
-  
-    footer .middle .cccard {
-      width: 95%; /* Adjust width for extra small screens */
-      padding: 20px;
-    }
-  
-    .newsletter {
-      font-size: 10px;
-    }
-  
-    .c-title {
-      font-size: 18px;
-    }
-  
-    footer input {
-      padding: 8px;
-      font-size: 14px;
-    }
-  
-    .card-buuton {
-      padding: 10px;
-      font-size: 12px;
-    }
-  }
-  
-  /* Define the font faces */
-  @font-face {
-    font-family: 'Proxima Nova';
-    src: url('../fonts/proxima_nova_alt_regular-webfont.woff2') format('woff2'),
-         url('../fonts/proxima_nova_alt_regular-webfont.woff') format('woff');
-    font-weight: 400; /* Normal */
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Proxima Nova';
-    src: url('../fonts/proxima_nova_alt_regular-webfont.woff2') format('woff2'),
-         url('../fonts/proxima_nova_alt_regular-webfont.woff') format('woff');
-    font-weight: 700; /* Bold */
-    font-style: normal;
-  }
+}
