@@ -1,18 +1,20 @@
-window.addEventListener('load', function() {  // Triggers when page fully loads
-    const loader = document.querySelector('.fullpage-loader');  // Loader container
-    const bar = document.querySelector('.loading-bar');  // Progress bar
-  
-    // Force smooth completion:
-    bar.style.animation = 'none';  // Stops infinite loop
-    bar.style.transition = 'width 0.4s linear';  // Matches CSS transition
-    bar.style.width = '100%';  // Instantly triggers fill animation
-  
-    // Timing control:
-    setTimeout(() => {  // Waits for bar to fill (500ms)
-      loader.style.opacity = '0';  // Starts fade-out
-      setTimeout(() => loader.remove(), 300);  // Removes after fade completes -> .remove() built-in function deletes an HTML element From the DOM
-    }, 500);  // Matches transition duration
-  });
+window.addEventListener("load", function () {
+  // Triggers when page fully loads
+  const loader = document.querySelector(".fullpage-loader"); // Loader container
+  const bar = document.querySelector(".loading-bar"); // Progress bar
+
+  // Force smooth completion:
+  bar.style.animation = "none"; // Stops infinite loop
+  bar.style.transition = "width 0.4s linear"; // Matches CSS transition
+  bar.style.width = "100%"; // Instantly triggers fill animation
+
+  // Timing control:
+  setTimeout(() => {
+    // Waits for bar to fill (500ms)
+    loader.style.opacity = "0"; // Starts fade-out
+    setTimeout(() => loader.remove(), 300); // Removes after fade completes -> .remove() built-in function deletes an HTML element From the DOM
+  }, 500); // Matches transition duration
+});
 
 /* EXPLAINATION & FLOW
 
