@@ -62,6 +62,10 @@ const orderSchema = new Schema(
       enum: ["regular", "gift"],
       required: true,
     },
+    isReviewed: {
+      type: Boolean,
+      default: false
+    }
 
       },
     ],

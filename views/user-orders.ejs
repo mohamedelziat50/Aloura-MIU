@@ -216,9 +216,11 @@
                     <% } else { %>
                       <a href="/fragrances-page/<%= item.fragrance._id %>"><button class="order-btn">Buy it again</button></a>
                     <% } %>                    
-                    <% if (order.status === 'Delivered' && item.category=="regular") { %>
+                    <% if (order.status === 'Delivered' && item.category=="regular" && item.isReviewed == false) { %>
                      <a href="/user-reviews/<%= item.fragrance._id %>/<%= order._id %>/<%= order.items.indexOf(item) %>"><button class="order-btn">Write a Product Review</button></a>
-                    <% } %>
+                    <% } else if (order.status === 'Delivered' && item.category=="regular" && item.isReviewed == true) { %>
+                      <button class="order-btn-reviewed">Reviewed <i class="fa fa-check-circle" style="color: white; background: transparent; border-radius: 50%;"></i></button>
+                      <% }%>
                     </div>
                   </div>
                 

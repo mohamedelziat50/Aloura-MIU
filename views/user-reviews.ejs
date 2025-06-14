@@ -56,7 +56,7 @@
               <input type="hidden" id="review-rating" name="rating" value="0" />
             </div>
             <textarea class="review-comment-box" id="review-box" name="comment" placeholder="Write your review here... Maximum 200 characters" maxlength="200"></textarea>
-            <button type="submit" class="submit-review-btn" id="submit-form-button" fragrance-id="<%= fragrance._id %>">Submit Review</button>
+            <button type="submit" class="submit-review-btn" id="submit-form-button" fragrance-id="<%= fragrance._id %>" order-id="<%= order._id %>" item-index="<%= itemIndex %>">Submit Review</button>
           </form>
         </div>
       </div>
