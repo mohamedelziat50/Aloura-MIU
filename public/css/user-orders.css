@@ -157,6 +157,21 @@
   background: #121212;
   color: #fff;
 }
+
+.order-btn-reviewed {
+    background: #121212;
+    color: #fff;
+    border: 1px solid #121212;
+    padding: 8px;
+    font-size: 0.7rem;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: not-allowed !important;
+    transition: all 0.2s linear;
+    text-align: center;
+}
+
 .order-cancel-btn {
   margin-left: 10px;
   padding: 4px 12px;

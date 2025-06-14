@@ -42,6 +42,9 @@ export const createReview = async (req, res) => {
         if (orderId && itemIndex !== undefined) {
             const order = await Order.findById(orderId);
             if (order && order.items[itemIndex]) {
+                if (order.items[itemIndex].isReviewed) {
+                      return res.status(400).json({ message: "This item has already been reviewed" });
+                }
                 order.items[itemIndex].isReviewed = true;
                 await order.save();
             }
