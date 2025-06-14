@@ -395,6 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fragranceId = this.getAttribute("data-fragrance-id");
         const size = this.getAttribute("data-size");
         const cartItem = this.closest(".cart-item");
+        const category = this.getAttribute("data-category");
         const cartItemsContainer = document.querySelector(
           ".cart-items-container"
         );
@@ -403,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const res = await fetch("/api/users/removefromcart", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fragranceId, size }),
+            body: JSON.stringify({ fragranceId, size, category }),
           });
 
           const data = await res.json();

@@ -266,9 +266,9 @@ export const decreaseCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { fragranceId, size, giftId } = req.body;
+    const { fragranceId, size, category, cardName, wrapName } = req.body;
 
-    if (!fragranceId && !giftId) {
+    if (!fragranceId) {
       return res.status(400).json({
         success: false,
         message: "Missing item identifier (fragranceId or giftId).",
@@ -287,17 +287,19 @@ export const removeFromCart = async (req, res) => {
 
     let indexToRemove = -1;
 
-    if (giftId) {
+    if (category === "gift") {
       // Match gift by its ID
       indexToRemove = updatedCart.findIndex(
-        (item) => item.gift?.toString() === giftId
+        (item) => item.fragrance?.toString() === fragranceId &&
+        item.card.name?.toString() === cardName &&
+        item.wrap.name?.toString() === wrapName
       );
     } else {
       // Match only ONE regular fragrance (not a gift)
       indexToRemove = updatedCart.findIndex(
         (item) =>
           item.fragrance?.toString() === fragranceId &&
-          (!item.gift || item.gift === null) &&
+          item.category !== "gift" &&
           (!size || item.size === size)
       );
     }
