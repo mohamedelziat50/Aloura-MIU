@@ -1522,3 +1522,83 @@ top: 0;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
 }
+
+/* Media Queries for Gender Segment */
+@media (max-width: 768px) {
+  .gender {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .female,
+  .male {
+    flex: none;
+    height: 50vh;
+    min-height: 300px;
+    position: relative;
+  }
+
+  .text-overlay-indulge,
+  .text-overlay-your,
+  .left-container p,
+  .right-container p,
+  .explore-fragrances {
+    display: none !important;
+  }
+
+  .left-container,
+  .right-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: none;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Update text overlay positioning for mobile */
+  .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+
+  .for-her,
+  .for-him {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .for-her{
+    right: 80px;
+    top: 300px;
+  }
+
+  .for-him{
+    right: 80px;
+    top: 700px;
+  }
+
+  /* Disable hover effects on mobile */
+  .female:hover,
+  .male:hover {
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .female img,
+  .male img {
+    transform: none !important;
+    transition: none !important;
+  }
+}
