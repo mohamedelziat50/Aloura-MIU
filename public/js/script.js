@@ -430,8 +430,13 @@ function initGenderHoverEffects() {
   const rightContainer = document.querySelector(".right-container");
   const forHerBtn = document.querySelector(".for-her");
   const forHimBtn = document.querySelector(".for-him");
+<<<<<<< HEAD
   const femaleDiv = document.querySelector(".female");
   const maleDiv = document.querySelector(".male");
+=======
+  const femaleDiv = document.querySelector(".female"); // Select the PARENT div for flex
+  const maleDiv = document.querySelector(".male"); // Select the PARENT div for flex
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
   const your = document.querySelector(".text-overlay-your");
   const indulge = document.querySelector(".text-overlay-indulge");
   const leftParagraphs = leftContainer.querySelectorAll("p");
@@ -442,10 +447,15 @@ function initGenderHoverEffects() {
   const transitionContainer = document.querySelector(".transition-container");
   const transitionImage = document.querySelector("#transition-img");
 
+<<<<<<< HEAD
+  // Check if device is mobile
+  const isMobile = window.innerWidth <= 768;
+=======
   // Fluid canvases
   const femaleCanvas = document.getElementById("female-fluid-canvas");
   const maleCanvas = document.getElementById("male-fluid-canvas");
-  
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
+
   // Add hide-during-transition class to elements that should be hidden
   const elementsToHide = [
     your,
@@ -453,9 +463,13 @@ function initGenderHoverEffects() {
     leftBtn,
     rightBtn,
     ...leftParagraphs,
+<<<<<<< HEAD
+    ...rightParagraphs
+=======
     ...rightParagraphs,
     femaleCanvas,
-    maleCanvas
+    maleCanvas,
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
   ];
 
   elementsToHide.forEach((el) => {
@@ -471,29 +485,107 @@ function initGenderHoverEffects() {
     handleGenderSelection(gender);
   };
 
+<<<<<<< HEAD
+  // Add click handlers for both buttons and containers
+  if (forHerBtn) {
+    forHerBtn.addEventListener("click", () => handleGenderClick('her'));
+  }
+  if (forHimBtn) {
+    forHimBtn.addEventListener("click", () => handleGenderClick('him'));
+  }
+=======
   forHimBtn.addEventListener("click", () => {
     genderContainer.classList.add("transition-active");
     if (transitionContainer) {
       transitionContainer.classList.add("active");
     }
-  })
+  });
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
 
-  // State management
-  let isLeftHovered = false;
-  let isRightHovered = false;
-  let femaleFluidTimer = null;
-  let maleFluidTimer = null;
+  // Add click handlers for the containers on mobile
+  if (isMobile) {
+    femaleDiv.addEventListener("click", () => handleGenderClick('her'));
+    maleDiv.addEventListener("click", () => handleGenderClick('him'));
+  }
 
+<<<<<<< HEAD
+  // Only add hover effects if not on mobile
+  if (!isMobile) {
+    // State management
+    let isLeftHovered = false;
+    let isRightHovered = false;
+    let femaleFluidTimer = null;
+    let maleFluidTimer = null;
+
+    // Left container hover effect (hovering over female side)
+    leftContainer.addEventListener("mouseenter", () => {
+      isLeftHovered = true;
+      
+      // UI changes
+      forHimBtn.classList.add("hide");
+      your.classList.add("hide");
+      indulge.classList.add("hide");
+      leftBtn.classList.add("show");
+      leftParagraphs.forEach(p => p.classList.add("show"));
+      femaleDiv.style.flexGrow = "1.5";
+      maleDiv.style.flexGrow = "0.5";
+      maleDiv.style.filter = "brightness(0.5)";
+    });
+
+    leftContainer.addEventListener("mouseleave", () => {
+      isLeftHovered = false;
+      
+      // UI changes
+      forHimBtn.classList.remove("hide");
+      your.classList.remove("hide");
+      indulge.classList.remove("hide");
+      leftBtn.classList.remove("show");
+      leftParagraphs.forEach(p => p.classList.remove("show"));
+      femaleDiv.style.flexGrow = "";
+      maleDiv.style.flexGrow = "";
+      maleDiv.style.filter = "";
+    });
+
+    // Right container hover effect (hovering over male side)
+    rightContainer.addEventListener("mouseenter", () => {
+      isRightHovered = true;
+      
+      // UI changes
+      forHerBtn.classList.add("hide");
+      your.classList.add("hide");
+      indulge.classList.add("hide");
+      rightBtn.classList.add("show");
+      rightParagraphs.forEach(p => p.classList.add("show"));
+      maleDiv.style.flexGrow = "1.5";
+      femaleDiv.style.flexGrow = "0.5";
+      femaleDiv.style.filter = "brightness(0.5)";
+    });
+
+    rightContainer.addEventListener("mouseleave", () => {
+      isRightHovered = false;
+      
+      // UI changes
+      forHerBtn.classList.remove("hide");
+      your.classList.remove("hide");
+      indulge.classList.remove("hide");
+      rightBtn.classList.remove("show");
+      rightParagraphs.forEach(p => p.classList.remove("show"));
+      maleDiv.style.flexGrow = "";
+      femaleDiv.style.flexGrow = "";
+      femaleDiv.style.filter = "";
+    });
+  }
+=======
   // Left container hover effect (hovering over female side)
   leftContainer.addEventListener("mouseenter", () => {
     isLeftHovered = true;
-    
+
     // UI changes
     forHimBtn.classList.add("hide");
     your.classList.add("hide");
     indulge.classList.add("hide");
     leftBtn.classList.add("show");
-    leftParagraphs.forEach(p => p.classList.add("show"));
+    leftParagraphs.forEach((p) => p.classList.add("show"));
     femaleDiv.style.flexGrow = "1.5";
     maleDiv.style.flexGrow = "0.5";
     maleDiv.style.filter = "brightness(0.5)";
@@ -505,7 +597,7 @@ function initGenderHoverEffects() {
     // Hide male fluid canvas immediately
     maleCanvas.style.opacity = "0";
     maleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
-    
+
     // Clear any pending timers - This prevents race conditions by canceling any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
     if (maleFluidTimer) clearTimeout(maleFluidTimer);
@@ -513,13 +605,13 @@ function initGenderHoverEffects() {
 
   leftContainer.addEventListener("mouseleave", () => {
     isLeftHovered = false;
-    
+
     // UI changes
     forHimBtn.classList.remove("hide");
     your.classList.remove("hide");
     indulge.classList.remove("hide");
     leftBtn.classList.remove("show");
-    leftParagraphs.forEach(p => p.classList.remove("show"));
+    leftParagraphs.forEach((p) => p.classList.remove("show"));
     femaleDiv.style.flexGrow = "";
     maleDiv.style.flexGrow = "";
     maleDiv.style.filter = "";
@@ -529,13 +621,13 @@ function initGenderHoverEffects() {
       // Clear any pending timers
       if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
       if (maleFluidTimer) clearTimeout(maleFluidTimer);
-      
+
       // Fade in female fluid canvas after delay
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
         femaleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
       }, 2000);
-      
+
       // Ensure male fluid is visible too (in case it was hidden before)
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
@@ -547,15 +639,15 @@ function initGenderHoverEffects() {
   // Right container hover effect (hovering over male side)
   rightContainer.addEventListener("mouseenter", () => {
     isRightHovered = true;
-    
+
     // UI changes
     forHerBtn.classList.add("hide");
     your.classList.add("hide");
     indulge.classList.add("hide");
     rightBtn.classList.add("show");
-    rightParagraphs.forEach(p => p.classList.add("show"));
-    maleDiv.style.flexGrow = "1.5";    // Increase the size of the male DIV
-    femaleDiv.style.flexGrow = "0.5";  // Decrease the size of the female DIV
+    rightParagraphs.forEach((p) => p.classList.add("show"));
+    maleDiv.style.flexGrow = "1.5"; // Increase the size of the male DIV
+    femaleDiv.style.flexGrow = "0.5"; // Decrease the size of the female DIV
     femaleDiv.style.filter = "brightness(0.5)"; // Decrease brightness of female IMG
 
     // Hide male fluid canvas immediately
@@ -565,7 +657,7 @@ function initGenderHoverEffects() {
     // Hide female fluid canvas immediately
     femaleCanvas.style.opacity = "0";
     femaleCanvas.style.pointerEvents = "none"; // Disable pointer events to prevent interaction
-    
+
     // Clear any pending timers
     if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
     if (maleFluidTimer) clearTimeout(maleFluidTimer);
@@ -573,13 +665,13 @@ function initGenderHoverEffects() {
 
   rightContainer.addEventListener("mouseleave", () => {
     isRightHovered = false;
-    
+
     // UI changes
     forHerBtn.classList.remove("hide");
     your.classList.remove("hide");
     indulge.classList.remove("hide");
     rightBtn.classList.remove("show");
-    rightParagraphs.forEach(p => p.classList.remove("show"));
+    rightParagraphs.forEach((p) => p.classList.remove("show"));
     maleDiv.style.flexGrow = "";
     femaleDiv.style.flexGrow = "";
     femaleDiv.style.filter = "";
@@ -589,13 +681,13 @@ function initGenderHoverEffects() {
       // Clear any pending timers
       if (femaleFluidTimer) clearTimeout(femaleFluidTimer);
       if (maleFluidTimer) clearTimeout(maleFluidTimer);
-      
+
       // Fade in male fluid canvas after delay
       maleFluidTimer = setTimeout(() => {
         maleCanvas.style.opacity = "1"; // Match CSS opacity
         maleCanvas.style.pointerEvents = "auto"; // Add this line to restore pointer events
       }, 2000);
-      
+
       // Ensure female fluid is visible too (in case it was hidden before)
       femaleFluidTimer = setTimeout(() => {
         femaleCanvas.style.opacity = "1"; // Match CSS opacity
@@ -603,6 +695,7 @@ function initGenderHoverEffects() {
       }, 2000);
     }
   });
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
 }
 
 /**
@@ -1270,76 +1363,84 @@ function initReviewCards() {
       showPage(currentPageIndex);
     }, 8000);
   }
+<<<<<<< HEAD
+}
+=======
 
+  // For Him & For Her button functionality
 
-
-// For Him & For Her button functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    const forHerButton = document.querySelector('.for-her');
-    const forHimButton = document.querySelector('.for-him');
-    const genderContainer = document.querySelector('.gender');
-    const transitionContainer = document.querySelector('.transition-container');
-    const transitionImage = document.querySelector('#transition-img');
+  document.addEventListener("DOMContentLoaded", function () {
+    const forHerButton = document.querySelector(".for-her");
+    const forHimButton = document.querySelector(".for-him");
+    const genderContainer = document.querySelector(".gender");
+    const transitionContainer = document.querySelector(".transition-container");
+    const transitionImage = document.querySelector("#transition-img");
 
     // Initialize existing elements
-    const textOverlayIndulge = document.querySelector('.text-overlay-indulge');
-    const textOverlayYour = document.querySelector('.text-overlay-your');
-    const leftContainer = document.querySelector('.left-container p');
-    const rightContainer = document.querySelector('.right-container p');
-    const exploreButtons = document.querySelectorAll('.explore-fragrances');
-    const forHerBtn = document.querySelector('.for-her');
-    const forHimBtn = document.querySelector('.for-him');
-    const fragranceQuiz = document.querySelector('.fragrance-quiz');
-    
+    const textOverlayIndulge = document.querySelector(".text-overlay-indulge");
+    const textOverlayYour = document.querySelector(".text-overlay-your");
+    const leftContainer = document.querySelector(".left-container p");
+    const rightContainer = document.querySelector(".right-container p");
+    const exploreButtons = document.querySelectorAll(".explore-fragrances");
+    const forHerBtn = document.querySelector(".for-her");
+    const forHimBtn = document.querySelector(".for-him");
+    const fragranceQuiz = document.querySelector(".fragrance-quiz");
 
     function handleGenderSelection(gender) {
-        const imagePath = gender === 'her' ? './img/girlTestCopy.jpg' : 'https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg';
-        
-        if (!genderContainer || !transitionContainer || !transitionImage) return;
+      const imagePath =
+        gender === "her"
+          ? "./img/girlTestCopy.jpg"
+          : "https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg";
 
-        // Set the transition image
-        transitionImage.src = imagePath;
-        
-        // Add transitioning class to fade out content
-        genderContainer.classList.add('transitioning');
-        
-        // After content starts fading out, show the transition image
-        setTimeout(() => {
-            transitionContainer.classList.add('active');
-        }, 100);
-        // Show transition container with overlay
-        transitionContainer.classList.add('active');
-        
-        // Set up scroll button handlers
-        const upButton = transitionContainer.querySelector('.scroll-btn.up');
-        const downButton = transitionContainer.querySelector('.scroll-btn.down');
-        
-        upButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // Add scroll up functionality
-        });
-        
-        downButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // Add scroll down functionality
-        });
+      if (!genderContainer || !transitionContainer || !transitionImage) return;
+
+      // Set the transition image
+      transitionImage.src = imagePath;
+
+      // Add transitioning class to fade out content
+      genderContainer.classList.add("transitioning");
+
+      // After content starts fading out, show the transition image
+      setTimeout(() => {
+        transitionContainer.classList.add("active");
+      }, 100);
+      // Show transition container with overlay
+      transitionContainer.classList.add("active");
+
+      // Set up scroll button handlers
+      const upButton = transitionContainer.querySelector(".scroll-btn.up");
+      const downButton = transitionContainer.querySelector(".scroll-btn.down");
+
+      upButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Add scroll up functionality
+      });
+
+      downButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Add scroll down functionality
+      });
     }
 
     // Event listeners for buttons
     if (forHerButton) {
-        forHerButton.addEventListener('click', () => handleGenderSelection('her'));
+      forHerButton.addEventListener("click", () =>
+        handleGenderSelection("her")
+      );
     }
-    
+
     if (forHimButton) {
-        forHimButton.addEventListener('click', () => handleGenderSelection('him'));
-    }    // Remove any auto-initialization of show classes
+      forHimButton.addEventListener("click", () =>
+        handleGenderSelection("him")
+      );
+    } // Remove any auto-initialization of show classes
     // Elements will be shown on hover instead
 
     setTimeout(() => {
-        if (fragranceQuiz) fragranceQuiz.classList.add('show');
+      if (fragranceQuiz) fragranceQuiz.classList.add("show");
     }, 2500);
-})
-};
+  });
+}
+>>>>>>> 03c79a8c67fc4a78dae4aa25cfb94c86f8b74fd8
