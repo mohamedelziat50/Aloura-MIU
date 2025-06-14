@@ -31,7 +31,7 @@
     <div class="cart-items-container flex-grow-1">
       <% if (user && user.cart.length > 0) { %> <% user.cart.forEach((item) => {
       %>
-      <div class="row cart-item mb-3" data-price="<%= item.price %>">
+      <div class="row cart-item mb-3" data-price="<%= item.price %>" data-category="<%= item.category %>" data-card-name="<%= item.card?.name || '' %>" data-wrap-name="<%= item.wrap?.name || '' %>">
         
         <%
   const wrapImageMap = {
