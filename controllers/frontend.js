@@ -16,31 +16,46 @@ var country_list = [
 ];
 
 export const getIndex = async (req, res) => {
+  console.log("Entered getIndex controller");
+  let reviews = [];
+  let sliderFragrances = [];
+
+  // Fetch approved reviews
+  console.log("Reached Before try/catch of Reviews Model (reviews)");
   try {
-    // getting only the approved reviews from the DB
-    const approvedReviews = await ReviewModel.find({ status: true })
+    console.log("Enter try/catch of Reviews Model");
+    reviews = await ReviewModel.find({ status: true })
       .populate("user", "name profilePic")
       .populate("fragrance", "name")
-      .limit(12) // only getting 12 reviews, 4 pages, 3 reviews
-      .sort({ createdAt: -1 }); // -1 makes the newest reviews get displayed first, 1 for old.
-
-    // getting fragrances marked for landing page slider
-    const sliderFragrances = await FragranceModel.find({ previewLanding: true })
-      .sort({ createdAt: -1 })
-      .limit(10); // limit to 10 fragrances max for the slider
-
-    // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
-    console.log("Found slider fragrances:", sliderFragrances.length); // debugging
-
-    // passing the reviews and slider fragrances to the landing page
-    res.render("index", {
-      reviews: approvedReviews,
-      sliderFragrances: sliderFragrances,
-    });
+      .limit(12)
+      .sort({ createdAt: -1 });
+    console.log("Review Model Find passed succesfully");
   } catch (error) {
-    console.log("Error fetching reviews:", error);
-    res.status(500).send("Server Error");
+    console.log("Error fetching approved reviews:", error);
+    reviews = [];
   }
+
+  // Fetch slider fragrances
+  console.log("Reached Before try/catch of Fragrance Model (sliderFragrances)");
+  try {
+    console.log("Enter try/catch of Fragrance Model");
+    sliderFragrances = await FragranceModel.find({ previewLanding: true })
+      .sort({ createdAt: -1 })
+      .limit(10);
+    console.log("Found slider fragrances:", sliderFragrances.length); // debugging
+  } catch (error) {
+    console.log("Error fetching slider fragrances:", error);
+    sliderFragrances = [];
+  }
+
+  console.log("reviews: ", reviews);
+  console.log("sliderFragrances: ", sliderFragrances);
+
+  // Render the landing page with both datasets (empty if error)
+  res.render("index", {
+    reviews: reviews,
+    sliderFragrances: sliderFragrances,
+  });
 };
 
 export const getAllFragrances = async (req, res) => {

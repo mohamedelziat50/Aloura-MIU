@@ -54,12 +54,6 @@ const fragranceSchema = new mongoose.Schema(
       max: 5,
       default: 0,
     },
-    reviews: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Review",
-      },
-    ],
     image: {
       type: [String],
       validate: {
