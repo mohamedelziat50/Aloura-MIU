@@ -10,76 +10,119 @@ export const createOrder = async (req, res) => {
     console.log("Request body:", req.body);
     console.log("User ID:", req.user?.id);
 
-    
     // Destructure required fields from request body
-    const {
-      fullName,
-      email,
-      phone,
-      shippingAddress,
-      paid,
-      cardData,
-      binData,
-    } = req.body;
+    const { fullName, email, phone, shippingAddress, paid, cardData, binData } =
+      req.body;
 
     // Validate Customer Information
     if (!fullName || fullName.toString().trim() === "") {
       console.log("Validation failed: fullName missing or empty");
-      return res.status(400).json({ message: "❌ Full Name is required in customer information." });
+      return res
+        .status(400)
+        .json({ message: "❌ Full Name is required in customer information." });
     }
     if (!email || email.toString().trim() === "") {
       console.log("Validation failed: email missing or empty");
-      return res.status(400).json({ message: "❌ Email is required in customer information." });
+      return res
+        .status(400)
+        .json({ message: "❌ Email is required in customer information." });
     }
     if (!phone || phone.toString().trim() === "") {
       console.log("Validation failed: phone missing or empty");
-      return res.status(400).json({ message: "❌ Phone Number is required in customer information." });
+      return res
+        .status(400)
+        .json({
+          message: "❌ Phone Number is required in customer information.",
+        });
     }
 
     // Validate Shipping Address (note: state is optional in your schema)
     if (!shippingAddress) {
       console.log("Validation failed: shippingAddress missing");
-      return res.status(400).json({ message: "❌ Shipping address is required." });
+      return res
+        .status(400)
+        .json({ message: "❌ Shipping address is required." });
     }
-    if (!shippingAddress.address || shippingAddress.address.toString().trim() === "") {
-      console.log("Validation failed: shippingAddress.address missing or empty");
-      return res.status(400).json({ message: "❌ Address is required in shipping address." });
+    if (
+      !shippingAddress.address ||
+      shippingAddress.address.toString().trim() === ""
+    ) {
+      console.log(
+        "Validation failed: shippingAddress.address missing or empty"
+      );
+      return res
+        .status(400)
+        .json({ message: "❌ Address is required in shipping address." });
     }
-    if (!shippingAddress.apartment || shippingAddress.apartment.toString().trim() === "") {
-      console.log("Validation failed: shippingAddress.apartment missing or empty");
-      return res.status(400).json({ message: "❌ Apartment is required in shipping address." });
+    if (
+      !shippingAddress.apartment ||
+      shippingAddress.apartment.toString().trim() === ""
+    ) {
+      console.log(
+        "Validation failed: shippingAddress.apartment missing or empty"
+      );
+      return res
+        .status(400)
+        .json({ message: "❌ Apartment is required in shipping address." });
     }
-    if (!shippingAddress.city || shippingAddress.city.toString().trim() === "") {
+    if (
+      !shippingAddress.city ||
+      shippingAddress.city.toString().trim() === ""
+    ) {
       console.log("Validation failed: shippingAddress.city missing or empty");
-      return res.status(400).json({ message: "❌ City is required in shipping address." });
+      return res
+        .status(400)
+        .json({ message: "❌ City is required in shipping address." });
     }
     // state is optional, no check here
-    if (!shippingAddress.country || shippingAddress.country.toString().trim() === "") {
-      console.log("Validation failed: shippingAddress.country missing or empty");
-      return res.status(400).json({ message: "❌ Country is required in shipping address." });
+    if (
+      !shippingAddress.country ||
+      shippingAddress.country.toString().trim() === ""
+    ) {
+      console.log(
+        "Validation failed: shippingAddress.country missing or empty"
+      );
+      return res
+        .status(400)
+        .json({ message: "❌ Country is required in shipping address." });
     }
 
     // Payment method validation (only if paid = true)
     if (paid) {
       if (!cardData) {
         console.log("Validation failed: cardData missing");
-        return res.status(400).json({ message: "❌ Payment card data is required if order is paid." });
+        return res
+          .status(400)
+          .json({
+            message: "❌ Payment card data is required if order is paid.",
+          });
       }
-      if (!cardData.cardNumber || cardData.cardNumber.toString().trim() === "") {
+      if (
+        !cardData.cardNumber ||
+        cardData.cardNumber.toString().trim() === ""
+      ) {
         console.log("Validation failed: cardData.cardNumber missing or empty");
-        return res.status(400).json({ message: "❌ Card Number is required in payment method." });
+        return res
+          .status(400)
+          .json({ message: "❌ Card Number is required in payment method." });
       }
       if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
         console.log("Validation failed: cardData.expiry missing or empty");
-        return res.status(400).json({ message: "❌ Card Expiry is required in payment method." });
+        return res
+          .status(400)
+          .json({ message: "❌ Card Expiry is required in payment method." });
       }
       if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
         console.log("Validation failed: cardData.cvv missing or empty");
-        return res.status(400).json({ message: "❌ Card CVV is required in payment method." });
+        return res
+          .status(400)
+          .json({ message: "❌ Card CVV is required in payment method." });
       }
       if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
         console.log("Validation failed: cardData.cardName missing or empty");
-        return res.status(400).json({ message: "❌ Card Name is required in payment method." });
+        return res
+          .status(400)
+          .json({ message: "❌ Card Name is required in payment method." });
       }
     }
 
@@ -91,41 +134,43 @@ export const createOrder = async (req, res) => {
     }
     if (!Array.isArray(user.cart) || user.cart.length === 0) {
       console.log("User cart missing or empty");
-      return res.status(400).json({ message: "User cart is missing or empty." });
+      return res
+        .status(400)
+        .json({ message: "User cart is missing or empty." });
     }
 
     // Map cart items to order items
-  const cartItems = user.cart.map((item) => ({
-  fragrance: item.fragrance,
-  size: item.size || "30ml",  // <-- default size if not provided
-  quantity: item.quantity || 1,
-  price: item.price,
- wrap: {
-  name: item.wrap?.name || "",
-  price: item.wrap?.price || 0,
-},
-card: {
-  name: item.card?.name || "",
-},
-  recipientName: item.recipientName || null,
-  message: item.message || null,
-  category: item.category || "regular",
-}));
-
+    const cartItems = user.cart.map((item) => ({
+      fragrance: item.fragrance,
+      size: item.size || "30ml", // <-- default size if not provided
+      quantity: item.quantity || 1,
+      price: item.price,
+      wrap: {
+        name: item.wrap?.name || "",
+        price: item.wrap?.price || 0,
+      },
+      card: {
+        name: item.card?.name || "",
+      },
+      recipientName: item.recipientName || null,
+      message: item.message || null,
+      category: item.category || "regular",
+    }));
 
     // Check stock and update fragrance quantities
     for (const item of cartItems) {
       const fragrance = await Fragrance.findById(item.fragrance);
       if (!fragrance) {
         console.log("Fragrance not found for id:", item.fragrance);
-        return res.status(400).json({ message: `Fragrance not found for id: ${item.fragrance}` });
+        return res
+          .status(400)
+          .json({ message: `Fragrance not found for id: ${item.fragrance}` });
       }
       console.log("Looking for fragrance:", item.fragrance);
 
-
       // Find size option and check quantity
       const sizeOption = fragrance.sizeOptions.find((option) => {
-              // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
+        // We're comparing the fragrance's '30' to the user's cart item '30ml' so we trim it (model structure difference)
         // Remove 'ml' if present and trim
         const optionSize = String(option.size).replace(/ml/i, "").trim();
         const itemSize = String(item.size).replace(/ml/i, "").trim();
@@ -133,12 +178,20 @@ card: {
       });
 
       if (!sizeOption) {
-        console.log(`Size ${item.size} not available for fragrance ${fragrance.name}`);
-        return res.status(400).json({ message: `Size ${item.size} is not available for ${fragrance.name}.` });
+        console.log(
+          `Size ${item.size} not available for fragrance ${fragrance.name}`
+        );
+        return res
+          .status(400)
+          .json({
+            message: `Size ${item.size} is not available for ${fragrance.name}.`,
+          });
       }
 
       if (sizeOption.quantity < item.quantity) {
-        console.log(`Insufficient stock for ${fragrance.name}, size ${item.size}: requested ${item.quantity}, available ${sizeOption.quantity}`);
+        console.log(
+          `Insufficient stock for ${fragrance.name}, size ${item.size}: requested ${item.quantity}, available ${sizeOption.quantity}`
+        );
         return res.status(400).json({
           message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
         });
@@ -150,60 +203,65 @@ card: {
     }
 
     // Calculate total price
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalPrice = cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
 
     // Generate order number
     const initialOrderSequenceNumber = 1000;
     const lastOrder = await Order.findOne().sort({ orderNumber: -1 });
-    const orderNumber = lastOrder?.orderNumber ? lastOrder.orderNumber + 1 : initialOrderSequenceNumber;
+    const orderNumber = lastOrder?.orderNumber
+      ? lastOrder.orderNumber + 1
+      : initialOrderSequenceNumber;
 
-   console.log("Order number generated:", orderNumber);
-  const cleanedItems = cartItems.map((item) => ({
-  fragrance: item.fragrance,
-  size: item.size || "30ml",
-  quantity: item.quantity,
-  price: item.price,
-  wrap: {
-  name: item.wrap?.name || "",
-  price: item.wrap?.price || 0,
-},
-card: {
-  name: item.card?.name || "",
-},
-  recipientName: item.recipientName || undefined,
-  message: item.message || undefined,
-  category: item.category || "regular",
-}));
+    console.log("Order number generated:", orderNumber);
+    const cleanedItems = cartItems.map((item) => ({
+      fragrance: item.fragrance,
+      size: item.size || "30ml",
+      quantity: item.quantity,
+      price: item.price,
+      wrap: {
+        name: item.wrap?.name || "",
+        price: item.wrap?.price || 0,
+      },
+      card: {
+        name: item.card?.name || "",
+      },
+      recipientName: item.recipientName || undefined,
+      message: item.message || undefined,
+      category: item.category || "regular",
+    }));
 
-console.log("Cleaned items:", cleanedItems);
+    console.log("Cleaned items:", cleanedItems);
 
     // Create and save order
-  const order = new Order({
-  user: req.user.id,
-  items: cleanedItems,
-  shippingAddress,
-  paid,
-  orderNumber,
-  paymentInfo: binData || null,
-  totalPrice: totalPrice,
-});
-console.log("Order created:", order);
+    const order = new Order({
+      user: req.user.id,
+      items: cleanedItems,
+      shippingAddress,
+      paid,
+      orderNumber,
+      paymentInfo: binData || null,
+      totalPrice: totalPrice,
+    });
+    console.log("Order created:", order);
 
-     await order.save();
+    await order.save();
 
     // Clear user cart
     user.cart = [];
     await user.save();
 
     console.log("Order created successfully:", order._id);
-    return res.status(201).json({ message: "✅ Order added successfully", orderId: order._id });
-
+    return res
+      .status(201)
+      .json({ message: "✅ Order added successfully", orderId: order._id });
   } catch (error) {
     console.error("Error creating order:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 // Controller to validate BIN (first 6 digits of a card number)
 const binCache = {};
@@ -326,24 +384,34 @@ export const updateOrderStatus = async (req, res) => {
       return res.status(400).json({ error: "Status not found" });
     }
     if (order.status === status) {
-      return res.status(400).json({ error: `Order is already marked as '${status}'.` });
+      return res
+        .status(400)
+        .json({ error: `Order is already marked as '${status}'.` });
     }
     // Prevent cancelling a delivered order
-    if (order.status === 'Delivered' && status === 'Cancelled') {
-      return res.status(400).json({ error: "Delivered orders cannot be cancelled." });
+    if (order.status === "Delivered" && status === "Cancelled") {
+      return res
+        .status(400)
+        .json({ error: "Delivered orders cannot be cancelled." });
     }
     // Prevent delivering a cancelled order
-    if (order.status === 'Cancelled' && status === 'Delivered') {
-      return res.status(400).json({ error: "Cancelled orders cannot be delivered." });
+    if (order.status === "Cancelled" && status === "Delivered") {
+      return res
+        .status(400)
+        .json({ error: "Cancelled orders cannot be delivered." });
     }
 
     // If we passed all these checks now change the status
     order.status = status;
     // Save the result
-    await order.save()
+    await order.save();
 
-    res.status(200).json({ message: `✅ Order #${order.orderNumber} status updated to ${order.status}` });
+    res
+      .status(200)
+      .json({
+        message: `✅ Order #${order.orderNumber} status updated to ${order.status}`,
+      });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};

@@ -132,12 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch("/api/users/removefromcart", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            fragranceId, 
-            size, 
+          body: JSON.stringify({
+            fragranceId,
+            size,
             category,
             cardName,
-            wrapName
+            wrapName,
           }),
         });
 

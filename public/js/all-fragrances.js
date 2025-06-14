@@ -322,14 +322,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const price = parseFloat(priceText);
       const size = mlText.replace("▼", "").trim();
       const productId = this.getAttribute("productId");
-      const category="regular"; // Assuming category is always "regular" for this case
+      const category = "regular"; // Assuming category is always "regular" for this case
 
       if (!productId) {
         alert("Missing product ID.");
         return;
       }
 
-      const data = { productId, size, price ,category};
+      const data = { productId, size, price, category };
       console.log("Sending to backend:", data);
 
       try {
@@ -383,7 +383,7 @@ function updateCartUI(result) {
     "Silver Foil Wrap": "/img/wraps/silver-wrap.jpg",
     "Floral Pattern Box": "/img/wraps/floral-box.jpeg",
     "Luxury Gift Bag": "/img/wraps/luxury-box.jpg",
-    "Holiday Special": "/img/wraps/holiday-box.jpg"
+    "Holiday Special": "/img/wraps/holiday-box.jpg",
   };
 
   const cardImageMap = {
@@ -391,11 +391,11 @@ function updateCartUI(result) {
     "Scent With Love": "/img/cards/gift-card1.png",
     "Christmas Special": "/img/cards/christmas-card.webp",
     "Birthday Wishes": "/img/cards/birthday-card.webp",
-    "Anniversary": "/img/cards/anniversary-card.webp",
+    Anniversary: "/img/cards/anniversary-card.webp",
     "Thank You": "/img/cards/thank-you-card.jpg",
     "Valentine Special": "/img/cards/valentine-card.png",
     "Gold Luxury": "/img/cards/luxury-card.avif",
-    "Floral Design": "/img/cards/floral-card.jpg"
+    "Floral Design": "/img/cards/floral-card.jpg",
   };
 
   fetch("/api/users/cart")
@@ -421,36 +421,70 @@ function updateCartUI(result) {
             collageHTML = `
               <div class="gift-collage d-flex flex-column align-items-center">
                 <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px;">
-                  ${perfumeImage ? `<img src="${perfumeImage}" alt="Perfume" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
-                  ${cardImage ? `<img src="${cardImage}" alt="Card" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
+                  ${
+                    perfumeImage
+                      ? `<img src="${perfumeImage}" alt="Perfume" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />`
+                      : ""
+                  }
+                  ${
+                    cardImage
+                      ? `<img src="${cardImage}" alt="Card" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />`
+                      : ""
+                  }
                 </div>
                 <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px; margin-top: 6px;">
-                  ${wrapImage ? `<img src="${wrapImage}" alt="Wrap" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />` : ""}
+                  ${
+                    wrapImage
+                      ? `<img src="${wrapImage}" alt="Wrap" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />`
+                      : ""
+                  }
                 </div>
               </div>
             `;
           }
 
           const cartItemHTML = `
-            <div class="row cart-item mb-3" data-price="${item.price}" data-category="${item.category}">
+            <div class="row cart-item mb-3" data-price="${
+              item.price
+            }" data-category="${item.category}">
               <div class="col-md-3">
-                ${isGift ? collageHTML : `<img src="${perfumeImage}" alt="${item.fragrance.name}" class="img-fluid rounded" />`}
+                ${
+                  isGift
+                    ? collageHTML
+                    : `<img src="${perfumeImage}" alt="${item.fragrance.name}" class="img-fluid rounded" />`
+                }
               </div>
 
               <div class="col-md-5 mt-3">
                 <h5 class="card-title">${item.fragrance.name}</h5>
-                <p class="text-muted">Gender: ${item.fragrance.gender} | Size: ${item.size}</p>
+                <p class="text-muted">Gender: ${
+                  item.fragrance.gender
+                } | Size: ${item.size}</p>
               </div>
 
               <div class="col-md-4 d-flex flex-column">
                 <p class="fw-bold mb-2 text-end">${item.price} EGP</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="input-group" style="max-width: 180px">
-                    ${!isGift ? `<button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>` : ""}
-                    <input type="text" class="form-control form-control-sm text-center quantity-input" value="${item.quantity}" min="1" ${isGift ? "readonly disabled value='1'" : ""} />
-                    ${!isGift ? `<button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>` : ""}
+                    ${
+                      !isGift
+                        ? `<button type="button" class="btn btn-outline-secondary btn-sm minus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">-</button>`
+                        : ""
+                    }
+                    <input type="text" class="form-control form-control-sm text-center quantity-input" value="${
+                      item.quantity
+                    }" min="1" ${isGift ? "readonly disabled value='1'" : ""} />
+                    ${
+                      !isGift
+                        ? `<button type="button" class="btn btn-outline-secondary btn-sm plus-button" data-fragrance-id="${item.fragrance._id}" data-size="${item.size}">+</button>`
+                        : ""
+                    }
                   </div>
-                  <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${item.size}" data-fragrance-id="${item.fragrance._id}" ${item.gift ? `data-gift-id="${item.gift}"` : ""}>
+                  <button type="button" class="btn btn-sm btn-outline-danger trash-can-button ms-2" data-size="${
+                    item.size
+                  }" data-fragrance-id="${item.fragrance._id}" ${
+            item.gift ? `data-gift-id="${item.gift}"` : ""
+          }>
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
                 </div>
@@ -469,16 +503,17 @@ function updateCartUI(result) {
 
         updateSubtotal();
         attachCartEventListeners();
-        showFunToast("✅ Item successfully added to your cart!", "green", "left");
+        showFunToast(
+          "✅ Item successfully added to your cart!",
+          "green",
+          "left"
+        );
       }
     })
     .catch((error) => {
       console.error("Error fetching cart data:", error);
     });
 }
-
-
-
 
 // Function to attach event listeners to cart buttons
 function attachCartEventListeners() {
@@ -561,7 +596,13 @@ function attachCartEventListeners() {
         const res = await fetch("/api/users/removefromcart", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fragranceId, size, category, cardName, wrapName }),
+          body: JSON.stringify({
+            fragranceId,
+            size,
+            category,
+            cardName,
+            wrapName,
+          }),
         });
 
         const data = await res.json();

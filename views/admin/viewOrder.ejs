@@ -60,7 +60,7 @@
 
       /* Form container */
       .form-container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
         padding: 0;
       }
@@ -556,31 +556,37 @@
             </div>
             <div class="row g-4">
               <div class="col-md-8">
-  <div
-    class="table-responsive mb-3"
-    style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
-  >
-    <table class="table table-borderless align-middle mb-0">
-      <thead class="table-light">
-        <tr>
-          <th>Image</th>
-          <th>Product</th>
-          <th>Size</th>
-          <th>Quantity</th>
-          <th>Category</th>
-          <th>Unit Price</th>
-          <th>Total</th>
+  <% const hasGift = order.items.some(item => item.category === "gift"); %>
+
+<div
+  class="table-responsive mb-3"
+  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 35px"
+>
+  <table class="table table-borderless align-middle mb-0">
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+
+        <% if (hasGift) { %>
           <th>Wrap</th>
           <th>Card</th>
           <th>Recipient Name</th>
           <th>Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% order.items.forEach(item => { %>
+        <% } %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% order.items.forEach(item => { %>
         <tr>
           <td style="align-items: center">
-            <% if(item.fragrance && item.fragrance.image) { %>
+            <% if (item.fragrance && item.fragrance.image) { %>
               <img
                 src="<%= item.fragrance.image[0] %>"
                 alt="<%= item.fragrance.name %>"
@@ -597,22 +603,25 @@
           <td>$<%= item.price || 'N/A' %></td>
           <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
 
-          <% if(item.category === 'gift') { %>
-            <td><%= item.wrap.name || 'N/A' %></td>
-            <td><%= item.card.name || 'N/A' %></td>
-            <td><%= item.recipientName || 'N/A' %></td>
-            <td><%= item.message || 'N/A' %></td>
-          <% } else { %>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+          <% if (hasGift) { %>
+            <% if (item.category === 'gift') { %>
+              <td><%= item.wrap?.name || 'N/A' %></td>
+              <td><%= item.card?.name || 'N/A' %></td>
+              <td><%= item.recipientName || 'N/A' %></td>
+              <td><%= item.message || 'N/A' %></td>
+            <% } else { %>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            <% } %>
           <% } %>
         </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </div>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
 
   <div class="d-flex flex-column align-items-end">
     <div class="mb-1">

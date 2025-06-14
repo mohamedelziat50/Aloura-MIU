@@ -6,7 +6,7 @@ import {
   validateCardBin,
   deleteOrder,
   searchOrders,
-  updateOrderStatus
+  updateOrderStatus,
   // getAllOrders,
   // getOrderById,
   // updateOrder,

@@ -250,7 +250,7 @@
 
       .form-grid-last {
         display: inline-grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
         gap: 1.5rem;
       }
 
@@ -306,6 +306,18 @@
         .form-grid-2,
         .form-grid-3 {
           grid-template-columns: 1fr;
+        }
+
+        .form-grid-last {
+          grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .form-grid-last {
+          grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+          width: 100%;
         }
       }
 

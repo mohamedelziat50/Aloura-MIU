@@ -28,7 +28,7 @@ class ToggleFancyShapeTheme extends ThemeInterface {
     <input id="darkmode-toggle" type="checkbox">
     <label for="darkmode-toggle"></label>
   </div>`;
-  
+
   style = `
   #${this.defaultId} *,
   #${this.defaultId} *:before, 
@@ -233,11 +233,10 @@ class ToggleAction {
   constructor(doubleRotatedElements) {
     this.history = new ToggleHistoryManager();
 
-    this.rotatedElementsSelectors = [...new Set([
-      "html",
-      ...doubleRotatedElements,
-    ])];
-  
+    this.rotatedElementsSelectors = [
+      ...new Set(["html", ...doubleRotatedElements]),
+    ];
+
     this.isHue = true;
     this.cssRotateCode = `filter: invert(1)${
       this.isHue ? " hue-rotate(180deg)" : ""
@@ -268,19 +267,19 @@ class ToggleAction {
   }
 
   toggleButtonPosition(isChecked) {
-    const toggleElm = document.getElementById('adm-toggle');
+    const toggleElm = document.getElementById("adm-toggle");
     if (!toggleElm) return;
 
     if (isChecked) {
       // Dark mode - button on left side
-      toggleElm.classList.remove('dark-mode-right');
-      toggleElm.classList.add('dark-mode-left');
-      this.history.savePosition('left');
+      toggleElm.classList.remove("dark-mode-right");
+      toggleElm.classList.add("dark-mode-left");
+      this.history.savePosition("left");
     } else {
       // Light mode - button on right side
-      toggleElm.classList.remove('dark-mode-left');
-      toggleElm.classList.add('dark-mode-right');
-      this.history.savePosition('right');
+      toggleElm.classList.remove("dark-mode-left");
+      toggleElm.classList.add("dark-mode-right");
+      this.history.savePosition("right");
     }
   }
 
@@ -307,13 +306,13 @@ class AutoDarkMode {
 
     // Set initial position based on saved state
     const savedPosition = history.readPosition();
-    const toggleElm = document.getElementById('adm-toggle');
-    
+    const toggleElm = document.getElementById("adm-toggle");
+
     if (toggleElm) {
-      if (savedPosition === 'left') {
-        toggleElm.classList.add('dark-mode-left');
+      if (savedPosition === "left") {
+        toggleElm.classList.add("dark-mode-left");
       } else {
-        toggleElm.classList.add('dark-mode-right');
+        toggleElm.classList.add("dark-mode-right");
       }
     }
 
@@ -325,16 +324,31 @@ class AutoDarkMode {
 if (typeof exports != "undefined") module.exports = AutoDarkMode;
 
 // Script to initialize the dark mode toggle
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const theme = null;
-  const doubleRotatedElements = ['.avoid-dark-mode', // Anything after is partials related
-     'nav .logo', 'footer', '.logo-reveal', '.chat-logo', // Partials Related - Anything after is pages
-    '.product-img', '.img-fluid', '.review-card-avatar img', '.perfume-sequence-container', // index.ejs related
-    '.card-image', // all-fragrances.ejs related
-    '.subimage', '.suggested-image',  // fragrances-page.ejs related
-    '.grey-section', // our story related
-    '.image-container', '.hero-image-container', '.note-front img', '.note-overlay', // collections related
-    '.gift-image', '.feature-icon', '.perfume-option img', '.wrap-option img', '.card-option img'// gifting related
-  ]; 
+  const doubleRotatedElements = [
+    ".avoid-dark-mode", // Anything after is partials related
+    "nav .logo",
+    "footer",
+    ".logo-reveal",
+    ".chat-logo", // Partials Related - Anything after is pages
+    ".product-img",
+    ".img-fluid",
+    ".review-card-avatar img",
+    ".perfume-sequence-container", // index.ejs related
+    ".card-image", // all-fragrances.ejs related
+    ".subimage",
+    ".suggested-image", // fragrances-page.ejs related
+    ".grey-section", // our story related
+    ".image-container",
+    ".hero-image-container",
+    ".note-front img",
+    ".note-overlay", // collections related
+    ".gift-image",
+    ".feature-icon",
+    ".perfume-option img",
+    ".wrap-option img",
+    ".card-option img", // gifting related
+  ];
   new AutoDarkMode(theme, doubleRotatedElements);
 });

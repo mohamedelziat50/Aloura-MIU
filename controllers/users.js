@@ -125,30 +125,29 @@ export const addToCart = async (req, res) => {
     }
 
     // Check if item with same productId + size already exists in cart
-const existingCartItem = user.cart.find(
-  (item) =>
-    item.fragrance.toString() === productId &&
-    item.size === size &&
-    item.category !== "gift"
-);
+    const existingCartItem = user.cart.find(
+      (item) =>
+        item.fragrance.toString() === productId &&
+        item.size === size &&
+        item.category !== "gift"
+    );
 
-if (existingCartItem) {
-  existingCartItem.quantity += 1; // Just increase quantity
-} else {
-  // Add new cart item with price if needed
-  user.cart.push({
-    fragrance: productId,
-    size,
-    quantity: 1,
-    price, // If you store price per unit in the cart
-    wrap: null, // Assuming wrap is optional
-    card: null, // Assuming card is optional
-    recipientName: null, // Assuming recipientName is optional
-    message: null, // Assuming message is optional
-    category: "regular", // Assuming category is fragrance
-  });
-}
-
+    if (existingCartItem) {
+      existingCartItem.quantity += 1; // Just increase quantity
+    } else {
+      // Add new cart item with price if needed
+      user.cart.push({
+        fragrance: productId,
+        size,
+        quantity: 1,
+        price, // If you store price per unit in the cart
+        wrap: null, // Assuming wrap is optional
+        card: null, // Assuming card is optional
+        recipientName: null, // Assuming recipientName is optional
+        message: null, // Assuming message is optional
+        category: "regular", // Assuming category is fragrance
+      });
+    }
 
     /*  fragrance: foundPerfume._id, // now using ID from name lookup
       size: size || null,
@@ -290,9 +289,10 @@ export const removeFromCart = async (req, res) => {
     if (category === "gift") {
       // Match gift by its ID
       indexToRemove = updatedCart.findIndex(
-        (item) => item.fragrance?.toString() === fragranceId &&
-        item.card.name?.toString() === cardName &&
-        item.wrap.name?.toString() === wrapName
+        (item) =>
+          item.fragrance?.toString() === fragranceId &&
+          item.card.name?.toString() === cardName &&
+          item.wrap.name?.toString() === wrapName
       );
     } else {
       // Match only ONE regular fragrance (not a gift)
@@ -327,9 +327,6 @@ export const removeFromCart = async (req, res) => {
     });
   }
 };
-
-
-
 
 export const getCart = async (req, res) => {
   try {

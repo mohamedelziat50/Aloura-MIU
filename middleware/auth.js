@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import {JWT_SECRET} from "../config/secrets.js"
-
+import { JWT_SECRET } from "../config/secrets.js";
 
 const auth = (allowedRoles = []) => {
   return async (req, res, next) => {
@@ -10,7 +9,7 @@ const auth = (allowedRoles = []) => {
       if (!token) {
         return res.redirect("/?authError=true");
       }
-      const decoded = jwt.verify(token,JWT_SECRET);
+      const decoded = jwt.verify(token, JWT_SECRET);
 
       req.user = decoded; // { id, role }
 

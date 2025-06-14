@@ -1,4 +1,3 @@
-;
 import UserModel from "../models/user.js";
 import OrderModel from "../models/order.js";
 
@@ -29,14 +28,14 @@ export const getIndex = async (req, res) => {
     const sliderFragrances = await FragranceModel.find({ previewLanding: true })
       .sort({ createdAt: -1 })
       .limit(10); // limit to 10 fragrances max for the slider
-      
+
     // console.log("Found approved reviews:", approvedReviews.length); debugging purposes
     console.log("Found slider fragrances:", sliderFragrances.length); // debugging
-    
+
     // passing the reviews and slider fragrances to the landing page
-    res.render("index", { 
+    res.render("index", {
       reviews: approvedReviews,
-      sliderFragrances: sliderFragrances
+      sliderFragrances: sliderFragrances,
     });
   } catch (error) {
     console.log("Error fetching reviews:", error);
@@ -141,13 +140,14 @@ export const getNightlifeCollectionPage = (req, res) => {
 export const getAdmin = async (req, res) => {
   try {
     // Fetch all users, fragrances, and orders with populated references
-    const [users, fragrances, orders, subscribedUsers, reviews] = await Promise.all([
-      UserModel.find(),
-      FragranceModel.find(),
-      OrderModel.find().populate("user items.fragrance"),
-      UserModel.find({ subscriberList: true }), // <-- get users who subscribed
-      ReviewModel.find().populate("user fragrance")
-    ]);
+    const [users, fragrances, orders, subscribedUsers, reviews] =
+      await Promise.all([
+        UserModel.find(),
+        FragranceModel.find(),
+        OrderModel.find().populate("user items.fragrance"),
+        UserModel.find({ subscriberList: true }), // <-- get users who subscribed
+        ReviewModel.find().populate("user fragrance"),
+      ]);
 
     res.render("admin/admin", {
       arr: users,
@@ -155,7 +155,7 @@ export const getAdmin = async (req, res) => {
       orders: orders,
       subscribedUsers,
       reviews: reviews,
-      moment
+      moment,
     });
   } catch (err) {
     console.error(err);
@@ -241,11 +241,17 @@ export const getUserReviews = async (req, res) => {
       return res.status(404).send("Order item not found");
     }
 
-    res.render("user-reviews", { fragrance, order, orderItem, itemIndex, moment });
+    res.render("user-reviews", {
+      fragrance,
+      order,
+      orderItem,
+      itemIndex,
+      moment,
+    });
   } catch (err) {
     console.error("Error fetching fragrance:", err);
     res.status(500).send("Internal Server Error");
-  }  
+  }
 };
 
 export const getOrder = async (req, res) => {

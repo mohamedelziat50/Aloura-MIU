@@ -434,9 +434,10 @@ userSearchInput.addEventListener("input", () => {
     const query = userSearchInput.value.trim();
 
     try {
-      const url = query === ""
-        ? "/api/users" // fetch all users if input is empty
-        : `/api/users/search?search=${encodeURIComponent(query)}`;
+      const url =
+        query === ""
+          ? "/api/users" // fetch all users if input is empty
+          : `/api/users/search?search=${encodeURIComponent(query)}`;
 
       const res = await fetch(url);
       const users = await res.json();
@@ -446,7 +447,9 @@ userSearchInput.addEventListener("input", () => {
       if (users.length === 0) {
         tableBody.innerHTML = `
             <tr>
-              <td colspan="8" class="text-center">No users found${query ? ` for "${query}"` : ""}</td>
+              <td colspan="8" class="text-center">No users found${
+                query ? ` for "${query}"` : ""
+              }</td>
             </tr>`;
         return;
       }
@@ -465,10 +468,14 @@ userSearchInput.addEventListener("input", () => {
               <td>${updatedAt}</td>
               <td>${user.role}</td>
               <td class="actionlist">
-                <a class="btn ButtonDicoration btn-sm" href="/editUser/${user._id}">
+                <a class="btn ButtonDicoration btn-sm" href="/editUser/${
+                  user._id
+                }">
                   <i class="bi bi-pencil"></i>
                 </a>
-                <button class="btn btn-danger btn-sm" data-user-id="${user._id}">
+                <button class="btn btn-danger btn-sm" data-user-id="${
+                  user._id
+                }">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
@@ -484,7 +491,6 @@ userSearchInput.addEventListener("input", () => {
     }
   }, 300);
 });
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const orderSearchInput = document.getElementById("orderSearchInput");
@@ -534,21 +540,26 @@ document.addEventListener("DOMContentLoaded", () => {
               }">${order.status || "Pending"}</span></td>
               <td>${order.paid ? "Yes" : "No"}</td>
               <td>$${order.totalPrice}</td>
-              <td>${
-  (() => {
-    const categories = order.items?.map(item => item.category) || [];
-    const uniqueCategories = [...new Set(categories)];
-    if (uniqueCategories.length === 1 && uniqueCategories[0] === "gift") {
-      return "Yes";
-    } else if (uniqueCategories.length === 1 && uniqueCategories[0] === "regular") {
-      return "No";
-    } else if (uniqueCategories.length > 1) {
-      return "Hybrid";
-    } else {
-      return "Unknown";
-    }
-  })()
-}</td>
+              <td>${(() => {
+                const categories =
+                  order.items?.map((item) => item.category) || [];
+                const uniqueCategories = [...new Set(categories)];
+                if (
+                  uniqueCategories.length === 1 &&
+                  uniqueCategories[0] === "gift"
+                ) {
+                  return "Yes";
+                } else if (
+                  uniqueCategories.length === 1 &&
+                  uniqueCategories[0] === "regular"
+                ) {
+                  return "No";
+                } else if (uniqueCategories.length > 1) {
+                  return "Hybrid";
+                } else {
+                  return "Unknown";
+                }
+              })()}</td>
 
               <td class="actionlist">
                 <a class="btn ButtonDicoration btn-sm" href="/order/${
@@ -587,10 +598,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 // Review approval and deletion
 window.addEventListener("DOMContentLoaded", () => {
-
   //Deletion of review
   window.deleteReview = async (btn) => {
     const review_id = btn.getAttribute("data-review-id");
@@ -603,7 +612,10 @@ window.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
 
       if (response.ok) {
-        showFunToast(data.message || "✅ review deleted successfully!", "green");
+        showFunToast(
+          data.message || "✅ review deleted successfully!",
+          "green"
+        );
         setTimeout(() => {
           window.location.href = `/admin/${window.currentAdminId}`;
         }, 1000);
@@ -643,7 +655,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 });
-
 
 // Delete Orders
 window.addEventListener("DOMContentLoaded", () => {
@@ -951,57 +962,67 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Toggle Slider Status Function
-window.toggleSliderStatus = async function(button) {
+window.toggleSliderStatus = async function (button) {
   try {
-    const fragranceId = button.getAttribute('data-fragrance-id');
-    const currentStatus = button.getAttribute('data-current-status') === 'true';
+    const fragranceId = button.getAttribute("data-fragrance-id");
+    const currentStatus = button.getAttribute("data-current-status") === "true";
     const newStatus = !currentStatus;
 
     // Show loading state
     const originalText = button.textContent;
-    button.textContent = 'Updating...';
-    button.disabled = true;    // Make API call to update database
+    button.textContent = "Updating...";
+    button.disabled = true; // Make API call to update database
     const response = await fetch(`/api/fragrances/${fragranceId}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
-        previewLanding: newStatus 
-      })
+      body: JSON.stringify({
+        previewLanding: newStatus,
+      }),
     });
 
     if (response.ok) {
       const data = await response.json();
-      
+
       // Update button appearance and data
-      button.setAttribute('data-current-status', newStatus);
-      button.textContent = newStatus ? 'Remove from Slider' : 'Add to Slider';
-      button.className = `product-btn slider-toggle ${newStatus ? 'remove-slider' : 'add-slider'}`;
-      
+      button.setAttribute("data-current-status", newStatus);
+      button.textContent = newStatus ? "Remove from Slider" : "Add to Slider";
+      button.className = `product-btn slider-toggle ${
+        newStatus ? "remove-slider" : "add-slider"
+      }`;
+
       // Update status label
-      const card = button.closest('.product-card');
-      const statusLabel = card.querySelector('.slider-status-label');
-      
+      const card = button.closest(".product-card");
+      const statusLabel = card.querySelector(".slider-status-label");
+
       if (newStatus) {
-        statusLabel.textContent = 'IN SLIDER';
-        statusLabel.className = 'slider-status-label in-slider';
+        statusLabel.textContent = "IN SLIDER";
+        statusLabel.className = "slider-status-label in-slider";
       } else {
-        statusLabel.textContent = 'NOT IN SLIDER';
-        statusLabel.className = 'slider-status-label not-in-slider';
+        statusLabel.textContent = "NOT IN SLIDER";
+        statusLabel.className = "slider-status-label not-in-slider";
       }
 
       // Update stats
-      const inSliderCountElement = document.querySelector('.product-stats .stat-card:nth-child(2) p');
+      const inSliderCountElement = document.querySelector(
+        ".product-stats .stat-card:nth-child(2) p"
+      );
       if (inSliderCountElement) {
         let currentCount = parseInt(inSliderCountElement.textContent);
-        inSliderCountElement.textContent = newStatus ? currentCount + 1 : currentCount - 1;
+        inSliderCountElement.textContent = newStatus
+          ? currentCount + 1
+          : currentCount - 1;
       }
 
       // Show success message
-      if (typeof Toastify !== 'undefined') {
+      if (typeof Toastify !== "undefined") {
         Toastify({
-          text: data.message || `Fragrance ${newStatus ? 'added to' : 'removed from'} landing slider!`,
+          text:
+            data.message ||
+            `Fragrance ${
+              newStatus ? "added to" : "removed from"
+            } landing slider!`,
           duration: 3000,
           gravity: "top",
           position: "right",
@@ -1012,11 +1033,11 @@ window.toggleSliderStatus = async function(button) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
   } catch (error) {
-    console.error('Error toggling slider status:', error);
+    console.error("Error toggling slider status:", error);
     button.textContent = originalText;
     button.disabled = false;
-    
-    if (typeof Toastify !== 'undefined') {
+
+    if (typeof Toastify !== "undefined") {
       Toastify({
         text: "Error updating slider status. Please try again.",
         duration: 3000,
