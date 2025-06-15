@@ -324,6 +324,13 @@ box-shadow: #000;
   object-fit: cover;
 }
 
+/* Responsive: Make transition image fill and fit mobile/tablet viewport exactly */
+@media (max-width: 1024px) {
+  .transition-container img {
+object-fit: contain !important; /* Ensure the image fits within the viewport without cropping */
+  }
+}
+
 .transition-container.active {
   opacity: 1;
   visibility: visible;
@@ -1062,6 +1069,62 @@ box-shadow: #000;
   transform: translateY(-2px); /* Slight lift on hover */
 }
 
+
+/* Tablet: Show 2 cards, reduce margin */
+@media (max-width: 1024px) {
+  .product-card {
+    flex: 0 0 calc(50% - 40px);
+    margin: 0 20px;
+    max-width: 90vw;
+  }
+  .product-img {
+    width: 160px;
+    height: 280px;
+  }
+}
+
+/* Mobile: Show 1 card, reduce margin and image size */
+@media (max-width: 600px) {
+  .product-card {
+    flex: 0 0 95vw;
+    margin: 0 2vw;
+    max-width: 98vw;
+  }
+  .product-img {
+    width: 120px;
+    height: 180px;
+  }
+  .slider-nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+  .prev-btn {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 10px !important;
+    top: auto !important;
+  }
+  .next-btn{
+    right: 2px !important;
+    bottom: 10px !important;
+    top: auto !important;
+  }
+}
+
+/* Extra small screens: further reduce image size */
+@media (max-width: 400px) {
+  .product-card {
+    flex: 0 0 98vw;
+    margin: 0 1vw;
+    max-width: 99vw;
+  }
+  .product-img {
+    width: 90px;
+    height: 120px;
+  }
+}
+
 /* Find Your Scent Section */
 .find-your-scent-section {
   text-align: center;
@@ -1144,10 +1207,6 @@ box-shadow: #000;
     filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
 }
 
-
-
-
-
 /* --- NEW: Responsive horizontal scroll for perfume sequence --- */
 @media (max-width: 1024px) {
   .perfume-sequence-container {
@@ -1207,6 +1266,67 @@ box-shadow: #000;
     max-width: 95vw;
   }
 }
+
+
+
+
+@media (max-width: 1024px) {
+  .gender {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .female, .male {
+    flex: none;
+    height: 50vh;
+    width: 100%;
+  }
+
+  .female img, .male img {
+    height: 100%;
+    object-fit: cover;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .left-container, .right-container,
+  .text-overlay-indulge, .text-overlay-your,
+  .explore-fragrances,
+  .left-container p, .right-container p,
+  .fragrance-quiz-container {
+    display: none !important;
+  }
+
+  .text-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .text-overlay button {
+    font-size: 2.2rem;
+    padding: 10px 20px;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 8px;
+  }
+
+  .female .text-overlay button {
+    top: 100px;
+  }
+
+  .male .text-overlay button{
+    left: 100px
+  }
+
+  .female, .male {
+    filter: brightness(1) !important; /* Disable dimming on click */
+  }
+}
+
+
+
 
 /* FLUID */
 #female-fluid-canvas {

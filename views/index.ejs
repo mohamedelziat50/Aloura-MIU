@@ -364,7 +364,7 @@
                 <div
                   class="product-card <%= index === 0 ? 'active' : '' %>"
                   data-name="<%= fragrance.name %>"
-                  data-description="<%= fragrance.description || 'A captivating fragrance' %>"
+                  data-description="<%= fragrance.tags || 'A captivating fragrance' %>"
                   data-rating="<%= fragrance.rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)"
                   data-size="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].size + 'ml' : 'Various sizes' %>"
                   data-price="$<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %>.00"
