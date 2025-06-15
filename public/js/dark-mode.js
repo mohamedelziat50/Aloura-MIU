@@ -349,6 +349,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ".perfume-option img",
     ".wrap-option img",
     ".card-option img", // gifting related
+    ".user-order-item-img",
+    ".gift-collage", // user-orders related
+    ".user-review-item-img" // user-reviews related
   ];
   new AutoDarkMode(theme, doubleRotatedElements);
 });

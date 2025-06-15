@@ -1016,19 +1016,11 @@ window.toggleSliderStatus = async function (button) {
       }
 
       // Show success message
-      if (typeof Toastify !== "undefined") {
-        Toastify({
-          text:
-            data.message ||
-            `Fragrance ${
-              newStatus ? "added to" : "removed from"
-            } landing slider!`,
-          duration: 3000,
-          gravity: "top",
-          position: "right",
-          backgroundColor: newStatus ? "#4CAF50" : "#ff6b6b",
-        }).showToast();
-      }
+      showFunToast(
+            data.message || `Fragrance ${newStatus ? "added to" : "removed from"} landing slider!`,
+            "green"
+          );
+
     } else {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -1037,15 +1029,11 @@ window.toggleSliderStatus = async function (button) {
     button.textContent = originalText;
     button.disabled = false;
 
-    if (typeof Toastify !== "undefined") {
-      Toastify({
-        text: "Error updating slider status. Please try again.",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "#ff6b6b",
-      }).showToast();
-    }
+    showFunToast(
+            `Error updating slider status. Please try again.`,
+            "red"
+          );
+
   } finally {
     button.disabled = false;
   }
