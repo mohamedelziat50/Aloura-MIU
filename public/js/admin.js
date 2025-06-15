@@ -427,69 +427,71 @@ document.addEventListener("DOMContentLoaded", function () {
   setupPasswordToggle("adduser-confirm-password", "addUserConfirmPasswordIcon");
 });
 
-userSearchInput.addEventListener("input", () => {
-  clearTimeout(debounceTimer);
+document.addEventListener("DOMContentLoaded", () => {
+  const userSearchInput = document.getElementById("userSearchInput");
+  const tableBody = document.querySelector("#section-users table tbody");
 
-  debounceTimer = setTimeout(async () => {
-    const query = userSearchInput.value.trim();
+  let debounceTimer;
 
-    try {
-      const url =
-        query === ""
-          ? "/api/users" // fetch all users if input is empty
-          : `/api/users/search?search=${encodeURIComponent(query)}`;
+  userSearchInput.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
 
-      const res = await fetch(url);
-      const users = await res.json();
+    debounceTimer = setTimeout(async () => {
+      const query = userSearchInput.value.trim();
 
-      tableBody.innerHTML = "";
+      try {
+        const res = await fetch(
+          `/api/users/search?search=${encodeURIComponent(query)}`
+        );
+        const users = await res.json();
 
-      if (users.length === 0) {
+        tableBody.innerHTML = "";
+
+        if (users.length === 0) {
+          tableBody.innerHTML = `
+              <tr>
+                <td colspan="8" class="text-center">No users found for "${query}"</td>
+              </tr>`;
+          return;
+        }
+
+        users.forEach((user, index) => {
+          const updatedAt = moment(user.updatedAt).fromNow();
+
+          const row = `
+              <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.phone}</td>
+                <td>${user.subscriberList}</td>
+                <td>${user.isVerified}</td>
+                <td>${updatedAt}</td>
+                <td>${user.role}</td>
+                <td class="actionlist">
+                  <a class="btn ButtonDicoration btn-sm" href="/editUser/${
+                    user._id
+                  }">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button class="btn btn-danger btn-sm" data-user-id="${
+                    user._id
+                  }">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>`;
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+      } catch (error) {
+        console.error("Search error:", error);
         tableBody.innerHTML = `
             <tr>
-              <td colspan="8" class="text-center">No users found${
-                query ? ` for "${query}"` : ""
-              }</td>
+              <td colspan="8" class="text-center text-danger">Error loading results</td>
             </tr>`;
-        return;
       }
-
-      users.forEach((user, index) => {
-        const updatedAt = moment(user.updatedAt).fromNow();
-
-        const row = `
-            <tr>
-              <th scope="row">${index + 1}</th>
-              <td>${user.name}</td>
-              <td>${user.email}</td>
-              <td>${user.phone ? user.phone : "No phone number"}</td>
-              <td>${user.subscriberList ? "Subscribed" : "Not Subscribed"}</td>
-              <td>${user.isVerified ? "Verified" : "Not Verified"}</td>
-              <td>${updatedAt}</td>
-              <td>${user.role}</td>
-              <td class="actionlist">
-                <a class="btn ButtonDicoration btn-sm" href="/editUser/${
-                  user._id
-                }">
-                  <i class="bi bi-pencil"></i>
-                </a>
-                <button class="btn btn-danger btn-sm" data-user-id="${
-                  user._id
-                }">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>`;
-        tableBody.insertAdjacentHTML("beforeend", row);
-      });
-    } catch (error) {
-      console.error("Search error:", error);
-      tableBody.innerHTML = `
-          <tr>
-            <td colspan="8" class="text-center text-danger">Error loading results</td>
-          </tr>`;
-    }
-  }, 300);
+    }, 300); // ⏱ debounce delay in ms
+  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
