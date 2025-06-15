@@ -565,10 +565,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function showResults() {
-    // Analyze answers and generate recommendation
-    const recommendation = generateRecommendation(userAnswers);
-
+  async function showResults() {
+    // Send answers to backend for real recommendation
+    let recommendation = null;
+    try {
+      const response = await fetch("/api/quiz/recommend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userAnswers),
+      });
+      if (response.ok) {
+        recommendation = await response.json();
+      }
+    } catch (e) {
+      // fallback to static
+    }
+    if (!recommendation) {
+      recommendation = generateRecommendation(userAnswers);
+    }
     // Update UI with recommendation
     const quizContainer = document.querySelector(".quiz-container");
     quizContainer.innerHTML = `
@@ -578,15 +592,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <h2>${recommendation.name}</h2>
                     <p>${recommendation.description}</p>
                     <p class="price">${recommendation.price}</p>
-                    <button onclick="window.location.href='${recommendation.link}'" class="shop-now-btn">Shop Now</button>
                 </div>
-            </div>
-        `;
-
-    // Show recommendation modal
-    if (typeof showRecModal === "function") {
-      showRecModal(recommendation);
-    }
+            </div>`;
   }
 
   function generateRecommendation(answers) {
@@ -701,11 +708,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Intercept form submit to show modal
   if (recForm) {
-    recForm.addEventListener("submit", function (e) {
+    recForm.addEventListener("submit", async function (e) {
       e.preventDefault();
-      // Use the same logic as showResults to get recommendation
-      const recommendation =
-        typeof generateRecommendation === "function"
+      let recommendation = null;
+      try {
+        const response = await fetch("/api/quiz/recommend", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(window.userAnswers || {}),
+        });
+        if (response.ok) {
+          recommendation = await response.json();
+        }
+      } catch (e) {}
+      if (!recommendation) {
+        recommendation = typeof generateRecommendation === "function"
           ? generateRecommendation(window.userAnswers || {})
           : {
               image: "../img/perfumes-transparent/valentino-born-in-roma.png",
@@ -715,6 +732,11 @@ document.addEventListener("DOMContentLoaded", function () {
               price: "€220",
               link: "all-fragrances.html",
             };
+      }
+      // Ensure recommendation.link points to the correct fragrance page if not set by backend.
+      if (!recommendation.link && recommendation.id) {
+        recommendation.link = `/fragrances-page/${recommendation.id}`;
+      }
       showRecModal(recommendation);
     });
   }

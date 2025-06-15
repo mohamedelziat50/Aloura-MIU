@@ -1037,7 +1037,7 @@ box-shadow: #000;
   }
 }
 
-.add-to-cart-btn {
+  .add-to-cart-btn {
   cursor: pointer;
   /* transition: background-color 0.3s, transform 0.2s; */
   margin-top: 35px; /* Space above the button */

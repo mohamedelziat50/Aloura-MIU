@@ -245,3 +245,31 @@ export const deleteFragrance = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// POST /api/quiz/recommend
+export const getQuizRecommendation = async (req, res) => {
+  try {
+    const { gender, scentFamily, desiredFeeling } = req.body;
+    // Build a query based on quiz answers
+    const query = {};
+    if (gender && gender !== "neutral") query.gender = new RegExp(gender, "i");
+    if (scentFamily && scentFamily.length > 0) query.tags = { $in: scentFamily };
+    // Optionally use desiredFeeling to filter or sort (e.g., by tags or popularity)
+    // For demo, just use tags and gender
+    let fragrance = await Fragrance.findOne(query);
+    // If no match, fallback to any fragrance
+    if (!fragrance) fragrance = await Fragrance.findOne();
+    if (!fragrance) return res.status(404).json({ error: "No fragrance found" });
+    // Return minimal info for frontend
+    res.json({
+      name: fragrance.name,
+      description: fragrance.description,
+      price: fragrance.sizeOptions?.[0]?.price || 0,
+      image: fragrance.image?.[0] || "",
+      id: fragrance._id,
+      link: `/fragrances-page/${fragrance._id}`,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
