@@ -351,11 +351,9 @@ body {
 /* Card Image */
 .card-image {
   /* POSITIONING */
-  width: auto; /* Changed from 100% to auto */
-  height: auto; /* Changed from 100% to auto */
-  max-width: 90%; /* Reduced from 100% to give more space on sides */
-  max-height: 90%; /* Reduced from 100% to give more space top/bottom */
-  object-fit: contain; /* Changed to contain to show full image */
+  max-height: 100%;
+  object-fit: contain;
+  aspect-ratio: 16 / 9;
 
   /* DISPLAY */
   background-color: transparent;
@@ -627,36 +625,6 @@ body {
 }
 
 /* END OF BACK TO TOP BUTTON RELATED */
-
-/* Image scaling RELATED */
-#stronger-with-you img {
-  scale: 0.9;
-}
-
-#ultra-male img {
-  scale: 1.1;
-}
-
-#spicebomb-extreme img {
-  scale: 1.15;
-}
-
-#bleu-de-chanel img {
-  scale: 0.8;
-}
-
-#versace-eros-flame img {
-  scale: 1.1;
-}
-
-#valentino-born-in-roma img {
-  scale: 0.75;
-}
-
-#xerjoff-alexandria-2 img {
-  scale: 0.9;
-}
-/* End of Image scaling Related */
 
 /* KEYFRAMES RELATED */
 
