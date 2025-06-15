@@ -312,6 +312,26 @@ document.addEventListener("DOMContentLoaded", function () {
   if (forHimButton) {
     forHimButton.addEventListener("click", () => handleGenderSelection("him"));
   }
+
+  // Responsive: clicking female/male image triggers gender selection on <=1024px
+  if (window.innerWidth <= 1024) {
+    const femaleImg = document.querySelector('.female img');
+    const maleImg = document.querySelector('.male img');
+    const forHerButton = document.querySelector('.for-her');
+    const forHimButton = document.querySelector('.for-him');
+    if (femaleImg && forHerButton) {
+      femaleImg.addEventListener('click', function (e) {
+        e.preventDefault();
+        forHerButton.click();
+      });
+    }
+    if (maleImg && forHimButton) {
+      maleImg.addEventListener('click', function (e) {
+        e.preventDefault();
+        forHimButton.click();
+      });
+    }
+  }
 });
 
 // Mobile detection utility
@@ -383,6 +403,10 @@ function setFluidCanvasResolution() {
   }
 }
 setFluidCanvasResolution();
+
+
+
+
 
 // Stagger entrance animations to avoid animating everything at once
 function initPageAnimations() {
