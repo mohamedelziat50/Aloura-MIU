@@ -533,5 +533,30 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
     <script src="./js/3dmodel.js"></script>
     <script type="module" src="/js/all-fragrances.js"></script>
+
+    <!-- Fragrance Details Modal (Carousel Pop-up) -->
+    <div id="fragrance-modal" class="fragrance-modal-overlay" style="display:none;">
+      <div class="fragrance-modal-card">
+        <button class="fragrance-modal-close" aria-label="Close">&times;</button>
+        <div class="fragrance-modal-img-wrap">
+          <img id="fragrance-modal-img" src="<%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].image[0] : '' %>" alt="Fragrance Image" />
+        </div>
+        <div class="fragrance-modal-content">
+          <h3 id="fragrance-modal-name"><%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].name : '' %></h3>
+          <div class="fragrance-modal-notes">
+            <div><strong>Top Notes:</strong> <span id="fragrance-modal-top"></span></div>
+            <div><strong>Middle Notes:</strong> <span id="fragrance-modal-middle"></span></div>
+            <div><strong>Base Notes:</strong> <span id="fragrance-modal-base"></span></div>
+          </div>
+          <div class="fragrance-modal-sizes" id="fragrance-modal-sizes">
+            <!-- Size buttons will be injected here -->
+          </div>
+          <div class="fragrance-modal-price">
+            <span id="fragrance-modal-price"></span>
+          </div>
+          <button id="fragrance-modal-add-to-cart" class="add-to-cart-btn" disabled>Add to Cart</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

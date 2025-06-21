@@ -1020,10 +1020,11 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   color: #444;
 }
 
-/* Media queries for responsiveness */
+/*
+/* Media queries for responsiveness 
 @media (max-width: 768px) {
   .product-card {
-    flex: 0 0 calc(50% - 20px); /* Show 2 items on medium screens */
+    flex: 0 0 calc(50% - 20px); /* Show 2 items on medium screens 
   }
 
   .product-card.active {
@@ -1035,7 +1036,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
 
 @media (max-width: 480px) {
   .product-card {
-    flex: 0 0 calc(100% - 20px); /* Show 1 item on small screens */
+    flex: 0 0 calc(100% - 20px); /* Show 1 item on small screens 
   }
 
   .slider-nav-btn {
@@ -1043,6 +1044,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
     height: 30px;
   }
 }
+*/
 
 .add-to-cart-btn {
   cursor: pointer;
@@ -1642,3 +1644,167 @@ top: 0;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
 }
+
+/* --- Fragrance Modal Styles --- */
+.fragrance-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.55);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+.fragrance-modal-card {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 400px;
+  width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: modalIn 0.25s cubic-bezier(.4,2,.6,1) 1;
+}
+@keyframes modalIn {
+  from { transform: scale(0.92) translateY(40px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+.fragrance-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  z-index: 2;
+}
+.fragrance-modal-img-wrap {
+  width: 120px;
+  height: 160px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fragrance-modal-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.fragrance-modal-content {
+  width: 100%;
+  text-align: center;
+}
+.fragrance-modal-content h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+.fragrance-modal-notes {
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+  color: #444;
+  text-align: left;
+}
+.fragrance-modal-sizes {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+}
+.fragrance-size-btn {
+  border: 1.5px solid #121212;
+  background: #fff;
+  color: #121212;
+  border-radius: 6px;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  outline: none;
+  position: relative;
+}
+.fragrance-size-btn.selected {
+  background: #121212;
+  color: #fff;
+  border-color: #121212;
+}
+.fragrance-size-btn:disabled {
+  background: #eee;
+  color: #aaa;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+.fragrance-size-btn.out-of-stock::after {
+  content: 'Out of Stock';
+  position: absolute;
+  left: 50%;
+  top: -1.7rem;
+  transform: translateX(-50%);
+  background: #c00;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  z-index: 10;
+}
+.fragrance-size-btn.out-of-stock:hover::after {
+  opacity: 1;
+}
+.fragrance-modal-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #121212;
+}
+#fragrance-modal-add-to-cart {
+  width: 100%;
+  padding: 0.7rem 0;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  background: #121212;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+#fragrance-modal-add-to-cart:disabled {
+  background: #bbb;
+  color: #fff;
+  cursor: not-allowed;
+}
+@media (max-width: 600px) {
+  .fragrance-modal-card {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+  }
+  .fragrance-modal-img-wrap {
+    width: 90px;
+    height: 110px;
+  }
+  .fragrance-modal-content h3 {
+    font-size: 1.1rem;
+  }
+  .fragrance-modal-price {
+    font-size: 1rem;
+  }
+}
+/* --- End Fragrance Modal Styles --- */
