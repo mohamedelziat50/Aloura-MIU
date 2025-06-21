@@ -690,6 +690,42 @@ function initProductSlider() {
       const isActive = index === cardIndex + 1;
       card.classList.toggle("active", isActive);
     });
+    // --- Add click listeners to adjacent cards ---
+    // Remove previous listeners by cloning
+    cards.forEach((card, idx) => {
+      if (card._adjacentClickHandler) {
+        card.removeEventListener('click', card._adjacentClickHandler);
+        card._adjacentClickHandler = null;
+      }
+    });
+    // Left adjacent
+    const leftIdx = cardIndex;
+    if (cards[leftIdx]) {
+      const leftHandler = function(e) {
+        e.preventDefault();
+        prevBtn.click();
+      };
+      cards[leftIdx].addEventListener('click', leftHandler);
+      cards[leftIdx]._adjacentClickHandler = leftHandler;
+      cards[leftIdx].style.cursor = 'pointer';
+    }
+    // Right adjacent
+    const rightIdx = cardIndex + 2;
+    if (cards[rightIdx]) {
+      const rightHandler = function(e) {
+        e.preventDefault();
+        nextBtn.click();
+      };
+      cards[rightIdx].addEventListener('click', rightHandler);
+      cards[rightIdx]._adjacentClickHandler = rightHandler;
+      cards[rightIdx].style.cursor = 'pointer';
+    }
+    // Remove pointer from non-adjacent
+    cards.forEach((card, idx) => {
+      if (idx !== leftIdx && idx !== rightIdx && card.style) {
+        card.style.cursor = '';
+      }
+    });
   }
 
   function updateSlider() {
@@ -757,9 +793,6 @@ function initProductSlider() {
   window.addEventListener("resize", updateSlider);
   updateSlider(); // Initial render
 }
-
-// Initialize the slider
-initProductSlider();
 
 /**
  * Handles gender selection animation and transition
@@ -1372,3 +1405,138 @@ function initReviewCards() {
     }, 2500);
   });
 }
+
+// --- Fragrance Modal Logic for Carousel ---
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("fragrance-modal");
+  const modalClose = document.querySelector(".fragrance-modal-close");
+  const modalImg = document.getElementById("fragrance-modal-img");
+  const modalName = document.getElementById("fragrance-modal-name");
+  const modalTop = document.getElementById("fragrance-modal-top");
+  const modalMiddle = document.getElementById("fragrance-modal-middle");
+  const modalBase = document.getElementById("fragrance-modal-base");
+  const modalSizes = document.getElementById("fragrance-modal-sizes");
+  const modalPrice = document.getElementById("fragrance-modal-price");
+  const addToCartBtn = document.getElementById("fragrance-modal-add-to-cart");
+
+  // Helper: Open modal
+  function openModal() {
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+  // Helper: Close modal
+  function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+    modalSizes.innerHTML = "";
+    modalTop.textContent = "";
+    modalMiddle.textContent = "";
+    modalBase.textContent = "";
+    modalPrice.textContent = "";
+    addToCartBtn.disabled = true;
+    addToCartBtn.dataset.size = "";
+    addToCartBtn.dataset.fragranceId = "";
+  }
+  if (modalClose) modalClose.addEventListener("click", closeModal);
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Listen for click on active product card image only
+  document.querySelectorAll(".product-card").forEach(card => {
+    const imgEl = card.querySelector("img");
+    if (!imgEl) return;
+    imgEl.addEventListener("click", function (e) {
+      // Only trigger for the active card
+      if (!card.classList.contains("active")) return;
+      e.stopPropagation(); // Prevent bubbling to card click
+      const fragranceId = card.getAttribute("data-fragrance-id");
+      if (!fragranceId) return;
+      // Set EJS-rendered name and image
+      modalName.textContent = card.getAttribute("data-name") || "";
+      modalImg.src = imgEl.src;
+      // Fetch fragrance details from backend
+      fetch(`/fragrance/details/${fragranceId}`)
+        .then(res => res.json())
+        .then(data => {
+          // Notes
+          modalTop.textContent = data.notes?.top || "-";
+          modalMiddle.textContent = data.notes?.middle || "-";
+          modalBase.textContent = data.notes?.base || "-";
+          // Sizes
+          modalSizes.innerHTML = "";
+          let firstAvailable = null;
+          data.sizes.forEach((sizeObj, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "fragrance-size-btn";
+            btn.textContent = `${sizeObj.size}ml`;
+            btn.dataset.price = sizeObj.price;
+            btn.dataset.size = sizeObj.size;
+            btn.type = "button";
+            if (!sizeObj.inStock) {
+              btn.disabled = true;
+              btn.classList.add("out-of-stock");
+            } else if (!firstAvailable) {
+              firstAvailable = btn;
+            }
+            btn.addEventListener("click", function () {
+              if (btn.disabled) return;
+              // Deselect all
+              modalSizes.querySelectorAll(".fragrance-size-btn").forEach(b => b.classList.remove("selected"));
+              btn.classList.add("selected");
+              modalPrice.textContent = `$${Number(btn.dataset.price).toFixed(2)}`;
+              addToCartBtn.disabled = false;
+              addToCartBtn.dataset.size = btn.dataset.size;
+              addToCartBtn.dataset.fragranceId = fragranceId;
+            });
+            modalSizes.appendChild(btn);
+          });
+          // Auto-select first available size
+          if (firstAvailable) {
+            firstAvailable.click();
+          } else {
+            modalPrice.textContent = "Out of Stock";
+            addToCartBtn.disabled = true;
+          }
+          openModal();
+        })
+        .catch(() => {
+          modalTop.textContent = modalMiddle.textContent = modalBase.textContent = "Error loading details.";
+          modalSizes.innerHTML = "";
+          modalPrice.textContent = "Unavailable";
+          addToCartBtn.disabled = true;
+          openModal();
+        });
+    });
+  });
+
+  // Add to Cart functionality
+  addToCartBtn.addEventListener("click", function () {
+    const fragranceId = addToCartBtn.dataset.fragranceId;
+    const size = addToCartBtn.dataset.size;
+    if (!fragranceId || !size) return;
+    addToCartBtn.disabled = true;
+    addToCartBtn.textContent = "Adding...";
+    fetch("/cart/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fragranceId, size })
+    })
+      .then(res => res.json())
+      .then(result => {
+        addToCartBtn.textContent = "Added!";
+        setTimeout(() => {
+          closeModal();
+          addToCartBtn.textContent = "Add to Cart";
+        }, 900);
+        // Optionally update cart UI here
+      })
+      .catch(() => {
+        addToCartBtn.textContent = "Error";
+        setTimeout(() => {
+          addToCartBtn.textContent = "Add to Cart";
+          addToCartBtn.disabled = false;
+        }, 1200);
+      });
+  });
+});
