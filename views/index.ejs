@@ -430,7 +430,14 @@
             <span class="product-size"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].size + 'ml' : 'Various sizes' %></span>
             <span class="product-price">$<%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %>.00</span>
           </div>
-          <button class="add-to-cart-btn" data-fragrance-id="<%= sliderFragrances[0]._id %>">ADD TO CART</button>
+          <div class="shop-favorites-btns">
+            <button class="add-to-cart-btn" onclick="window.location.href='/all-fragrances'">Shop All</button>
+            <% if (!user) { %>
+              <button class="add-to-cart-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Buy As A Gift?</button>
+            <% } else { %>
+              <button class="add-to-cart-btn" onclick="window.location.href='/gifting'">Buy As A Gift?</button>
+            <% } %>
+          </div>
         <% } else { %>
           <h3 class="product-name">Coming Soon</h3>
           <p class="product-description">New fragrances will be available soon</p>
@@ -448,7 +455,14 @@
             <span class="product-size">Various sizes</span>
             <span class="product-price">$0.00</span>
           </div>
-          <button class="add-to-cart-btn" disabled style="opacity: 0.5;">COMING SOON</button>
+          <div class="shop-favorites-btns">
+            <button class="add-to-cart-btn" onclick="window.location.href='/fragrances-page'">Shop All</button>
+            <% if (!user) { %>
+              <button class="add-to-cart-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Buy As A Gift?</button>
+            <% } else { %>
+              <button class="add-to-cart-btn" onclick="window.location.href='/gifting'">Buy As A Gift?</button>
+            <% } %>
+          </div>
         <% } %>
       </div>
     </div>
