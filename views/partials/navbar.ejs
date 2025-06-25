@@ -1,10 +1,6 @@
 <!-- Navbar-specific CSS -->
 <link rel="stylesheet" href="./css/navBar.css" />
 
-<% if (!user) { %>
-  <script type="module" src="/js/modal.js"></script>
-  <% } %>
-
 <!-- Translate related -->
 <script>
   window.gtranslateSettings = {
@@ -115,4 +111,8 @@
       <% } %>
     </ul>
   </div>
+
+  <div class="menu-overlay"></div>
 </nav>
+
+<script type="module" src="/js/modal.js"></script>
