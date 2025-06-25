@@ -330,7 +330,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = { productId, size, price, category };
-      console.log("Sending to backend:", data);
 
       try {
         const response = await fetch("/api/users/addToCart", {
@@ -347,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert("Error: " + result.message);
         }
       } catch (err) {
-        console.error("Fetch error:", err);
+        showFunToast("🔐 Please login to add items to your cart", "red");
       }
     });
   });
