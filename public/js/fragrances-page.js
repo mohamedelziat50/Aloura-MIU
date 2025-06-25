@@ -169,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const productId = this.getAttribute("productId");
 
     const data = { productId, size, price };
-    console.log("Sending to backend:", data);
 
     try {
       const response = await fetch("/api/users/addToCart", {
@@ -186,8 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showFunToast(result.message || "❗ An error occurred.", "red");
       }
     } catch (err) {
-      console.error("Fetch error:", err);
-      showFunToast("❗ An error occurred while adding to cart.", "red");
+      showFunToast("🔐 Please login to add items to your cart", "red");
     }
   });
 
