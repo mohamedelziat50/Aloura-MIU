@@ -13,6 +13,7 @@ import chatbotRoutes from "./routes/chatbot.js";
 import giftingRoutes from "./routes/gifting.js";
 import cors from "cors";
 import passport from "./config/passport.js";
+import quizRoutes from "./routes/quiz.js";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/fragrances", fragranceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/gifting", giftingRoutes);
+app.use("/api/quiz", quizRoutes);
 
 app.use((req, res) => {
   res.render("404");
