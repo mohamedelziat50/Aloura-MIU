@@ -197,7 +197,7 @@
       </div>      <!-- Transition Image -->
       <div class="transition-container">
         <div class="transition-img-container">
-          <img id="transition-img" src="" alt="Transition Image" />
+          <img id="transition-img" src="" alt="Transition Image"  loading="lazy"/>
         </div>
         <div class="fragrance-overlay">
           <div class="fragrance-header">
@@ -297,6 +297,7 @@
                     <img
                       src="<%= review.user.profilePic || '/uploads/defaultProfilePic.png' %>"
                       alt="<%= review.user.name %>"
+                      loading="lazy"
                     />
                   </div>
                   <div class="review-card-info">
@@ -324,6 +325,7 @@
                   <img
                     src="/uploads/defaultProfilePic.png"
                     alt="Aloura Team"
+                    loading="lazy"
                   />
                 </div>
                 <div class="review-card-info">
@@ -374,6 +376,7 @@
                     <img
                       src="<%= fragrance.image[0] %>"
                       alt="<%= fragrance.name %>"
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -393,6 +396,7 @@
                     src="/img/logo.png"
                     alt="Coming Soon"
                     style="opacity: 0.5;"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -482,21 +486,24 @@
 
       <!-- Perfume Sequence Section -->
       <div class="perfume-sequence-container">
-        <img src="img/perfumes-transparent/khamrah.png" alt="Bleu de Chanel" />
+        <img src="img/perfumes-transparent/khamrah.png" alt="Bleu de Chanel" loading="lazy"/>
         <img
           src="img/perfumes-transparent/sauvauge-dior.png"
           alt="Sauvage Dior"
           style="scale: 1.15"
+          loading="lazy"
         />
-        <img src="img/perfumes-transparent/ysl.png" alt="Tom Ford Vanilla" />
+        <img src="img/perfumes-transparent/ysl.png" alt="Tom Ford Vanilla"  loading="lazy"/>
         <img
           src="img/perfumes-transparent/versace-eros.png"
           alt="Versace Eros"
+          loading="lazy"
         />
         <img
           src="img/perfumes-transparent/xerjoff-alexandria-2.png"
           alt="Xerjoff Alexandria"
           style="scale: 0.9; padding-bottom: 10px"
+          loading="lazy"
         />
         <img
           src="img/perfumes-transparent/scandal.png"
@@ -507,12 +514,14 @@
           src="img/perfumes-transparent/burberry-her.png"
           alt="Burberry Her"
           style="scale: 0.8; padding-top: 10px"
+          loading="lazy"
         />
         <img
           src="img/perfumes-transparent/stronger-with-you.png"
           id="stronger-with-you"
           alt="Stronger With You"
           style="scale: 0.9; padding-top: 15px"
+          loading="lazy"
         />
       </div>
     </div>
@@ -553,7 +562,7 @@
       <div class="fragrance-modal-card">
         <button class="fragrance-modal-close" aria-label="Close">&times;</button>
         <div class="fragrance-modal-img-wrap">
-          <img id="fragrance-modal-img" src="<%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].image[0] : '' %>" alt="Fragrance Image" />
+          <img id="fragrance-modal-img" src="<%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].image[0] : '' %>" alt="Fragrance Image" loading="lazy"/>
         </div>
         <div class="fragrance-modal-content">
           <h3 id="fragrance-modal-name"><%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].name : '' %></h3>
