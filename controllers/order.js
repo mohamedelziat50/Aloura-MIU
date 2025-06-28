@@ -7,28 +7,22 @@ import fetch from "node-fetch";
 
 export const createOrder = async (req, res) => {
   try {
-    console.log("Request body:", req.body);
-    console.log("User ID:", req.user?.id);
-
     // Destructure required fields from request body
     const { fullName, email, phone, shippingAddress, paid, cardData, binData } =
       req.body;
 
     // Validate Customer Information
     if (!fullName || fullName.toString().trim() === "") {
-      console.log("Validation failed: fullName missing or empty");
       return res
         .status(400)
         .json({ message: "❌ Full Name is required in customer information." });
     }
     if (!email || email.toString().trim() === "") {
-      console.log("Validation failed: email missing or empty");
       return res
         .status(400)
         .json({ message: "❌ Email is required in customer information." });
     }
     if (!phone || phone.toString().trim() === "") {
-      console.log("Validation failed: phone missing or empty");
       return res
         .status(400)
         .json({
@@ -38,7 +32,6 @@ export const createOrder = async (req, res) => {
 
     // Validate Shipping Address (note: state is optional in your schema)
     if (!shippingAddress) {
-      console.log("Validation failed: shippingAddress missing");
       return res
         .status(400)
         .json({ message: "❌ Shipping address is required." });
@@ -47,9 +40,6 @@ export const createOrder = async (req, res) => {
       !shippingAddress.address ||
       shippingAddress.address.toString().trim() === ""
     ) {
-      console.log(
-        "Validation failed: shippingAddress.address missing or empty"
-      );
       return res
         .status(400)
         .json({ message: "❌ Address is required in shipping address." });
@@ -58,9 +48,6 @@ export const createOrder = async (req, res) => {
       !shippingAddress.apartment ||
       shippingAddress.apartment.toString().trim() === ""
     ) {
-      console.log(
-        "Validation failed: shippingAddress.apartment missing or empty"
-      );
       return res
         .status(400)
         .json({ message: "❌ Apartment is required in shipping address." });
@@ -69,7 +56,6 @@ export const createOrder = async (req, res) => {
       !shippingAddress.city ||
       shippingAddress.city.toString().trim() === ""
     ) {
-      console.log("Validation failed: shippingAddress.city missing or empty");
       return res
         .status(400)
         .json({ message: "❌ City is required in shipping address." });
@@ -79,9 +65,6 @@ export const createOrder = async (req, res) => {
       !shippingAddress.country ||
       shippingAddress.country.toString().trim() === ""
     ) {
-      console.log(
-        "Validation failed: shippingAddress.country missing or empty"
-      );
       return res
         .status(400)
         .json({ message: "❌ Country is required in shipping address." });
@@ -90,7 +73,6 @@ export const createOrder = async (req, res) => {
     // Payment method validation (only if paid = true)
     if (paid) {
       if (!cardData) {
-        console.log("Validation failed: cardData missing");
         return res
           .status(400)
           .json({
@@ -101,25 +83,21 @@ export const createOrder = async (req, res) => {
         !cardData.cardNumber ||
         cardData.cardNumber.toString().trim() === ""
       ) {
-        console.log("Validation failed: cardData.cardNumber missing or empty");
         return res
           .status(400)
           .json({ message: "❌ Card Number is required in payment method." });
       }
       if (!cardData.expiry || cardData.expiry.toString().trim() === "") {
-        console.log("Validation failed: cardData.expiry missing or empty");
         return res
           .status(400)
           .json({ message: "❌ Card Expiry is required in payment method." });
       }
       if (!cardData.cvv || cardData.cvv.toString().trim() === "") {
-        console.log("Validation failed: cardData.cvv missing or empty");
         return res
           .status(400)
           .json({ message: "❌ Card CVV is required in payment method." });
       }
       if (!cardData.cardName || cardData.cardName.toString().trim() === "") {
-        console.log("Validation failed: cardData.cardName missing or empty");
         return res
           .status(400)
           .json({ message: "❌ Card Name is required in payment method." });
@@ -129,11 +107,9 @@ export const createOrder = async (req, res) => {
     // Find user and check cart
     const user = await User.findById(req.user.id);
     if (!user) {
-      console.log("User not found with id:", req.user.id);
       return res.status(400).json({ message: "User not found." });
     }
     if (!Array.isArray(user.cart) || user.cart.length === 0) {
-      console.log("User cart missing or empty");
       return res
         .status(400)
         .json({ message: "User cart is missing or empty." });
@@ -161,12 +137,10 @@ export const createOrder = async (req, res) => {
     for (const item of cartItems) {
       const fragrance = await Fragrance.findById(item.fragrance);
       if (!fragrance) {
-        console.log("Fragrance not found for id:", item.fragrance);
         return res
           .status(400)
           .json({ message: `Fragrance not found for id: ${item.fragrance}` });
       }
-      console.log("Looking for fragrance:", item.fragrance);
 
       // Find size option and check quantity
       const sizeOption = fragrance.sizeOptions.find((option) => {
@@ -178,9 +152,6 @@ export const createOrder = async (req, res) => {
       });
 
       if (!sizeOption) {
-        console.log(
-          `Size ${item.size} not available for fragrance ${fragrance.name}`
-        );
         return res
           .status(400)
           .json({
@@ -189,9 +160,6 @@ export const createOrder = async (req, res) => {
       }
 
       if (sizeOption.quantity < item.quantity) {
-        console.log(
-          `Insufficient stock for ${fragrance.name}, size ${item.size}: requested ${item.quantity}, available ${sizeOption.quantity}`
-        );
         return res.status(400).json({
           message: `Only ${sizeOption.quantity} left in stock for size ${item.size} of ${fragrance.name}.`,
         });
@@ -233,8 +201,6 @@ export const createOrder = async (req, res) => {
       category: item.category || "regular",
     }));
 
-    console.log("Cleaned items:", cleanedItems);
-
     // Create and save order
     const order = new Order({
       user: req.user.id,
@@ -245,7 +211,6 @@ export const createOrder = async (req, res) => {
       paymentInfo: binData || null,
       totalPrice: totalPrice,
     });
-    console.log("Order created:", order);
 
     await order.save();
 
@@ -253,7 +218,6 @@ export const createOrder = async (req, res) => {
     user.cart = [];
     await user.save();
 
-    console.log("Order created successfully:", order._id);
     return res
       .status(201)
       .json({ message: "✅ Order added successfully", orderId: order._id });
