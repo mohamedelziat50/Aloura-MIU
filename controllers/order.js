@@ -220,7 +220,7 @@ export const createOrder = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "✅ Order added successfully", orderId: order._id });
+      .json({ message: "✅ Order added successfully", orderId: order._id, userId: user._id });
   } catch (error) {
     console.error("Error creating order:", error);
     return res.status(500).json({ message: "Internal Server Error" });

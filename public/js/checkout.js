@@ -292,7 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
       binData, // Send binData to backend
     };
 
-    console.log("Order Data being sent:", formData); // ✅ This is valid
     // ========== Submit to backend ==========
     try {
       const response = await fetch("/api/orders", {
@@ -300,12 +299,11 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      console.log("Order Data being sent:", formData); // ✅ This is valid
       const data = await response.json();
 
       if (response.ok) {
         showFunToast(data.message || "✅ Order placed successfully!", "green");
-        setTimeout(() => (window.location.href = "/"), 900);
+        setTimeout(() => (window.location.href = `/account/${data.userId}`), 900);
       } else {
         showFunToast(data.message || "❌ An error occurred.", "red");
       }
