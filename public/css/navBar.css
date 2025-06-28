@@ -619,3 +619,18 @@ nav.user-logged-in .actions ul li .profile {
 nav .actions ul li a#logoutLink {
   text-decoration: none !important;
 }
+
+/* Ensure all navbar icons are black, regardless of parent */
+nav .actions ul li i {
+  color: #000 !important;
+}
+
+/* Also, make sure buttons don't override the color */
+nav .actions ul li button,
+nav .actions ul li button:active,
+nav .actions ul li button:focus {
+  color: #000 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
