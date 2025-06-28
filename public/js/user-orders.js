@@ -65,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                   <div class="user-order-info">
                     <span class="order-label">TOTAL</span>
-                    <span class="order-value">EGP ${order.totalPrice.toFixed(
+                    <span class="order-value">${order.totalPrice.toFixed(
                       2
-                    )}</span>
+                    )} EGP</span>
                   </div>
                   <div class="user-order-info">
                     <span class="order-label">City</span>

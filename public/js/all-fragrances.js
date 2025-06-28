@@ -304,6 +304,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", async function () {
+      // Check if button is disabled (out of stock)
+      if (this.disabled) {
+        showFunToast("❗ This item is currently out of stock!", "red");
+        return;
+      }
+
       const card = this.closest(".card");
       const cardPriceContainer = card.querySelector(".card-price");
 
@@ -724,4 +730,30 @@ clearSearch.addEventListener("click", () => {
       card.style.display = "";
     });
   }, 50); // 300 milliseconds delay
+});
+
+// Function to check and handle out of stock items
+function checkOutOfStockItems() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    const cardPriceContainer = card.querySelector(".card-price");
+    const addToCartButton = card.querySelector(".card-button");
+    const dropdownOptions = cardPriceContainer?.querySelectorAll(".dropdown-option");
+
+    // Check if there are any available dropdown options (price/ml combinations)
+    if (!dropdownOptions || dropdownOptions.length === 0) {
+      // No options available - mark as out of stock
+      if (addToCartButton) {
+        addToCartButton.textContent = "Out of Stock";
+        addToCartButton.disabled = true;
+        addToCartButton.style.cursor = "not-allowed";
+      }
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Check for out of stock items when page loads
+  checkOutOfStockItems();
 });

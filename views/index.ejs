@@ -371,7 +371,7 @@
                   data-description="<%= fragrance.tags || 'A captivating fragrance' %>"
                   data-rating="<%= fragrance.rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)"
                   data-size="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].size + 'ml' : 'Various sizes' %>"
-                  data-price="$<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %>.00"
+                  data-price="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %> EGP"
                   data-fragrance-id="<%= fragrance._id %>"
                 >
                   <div class="product-img">
@@ -391,7 +391,7 @@
                 data-description="New fragrances will be available soon"
                 data-rating="0"
                 data-size="Various sizes"
-                data-price="$0.00"
+                data-price="0.00 EGP"
               >
                 <div class="product-img">
                   <img
@@ -434,7 +434,7 @@
           </div>
           <div class="product-info">
             <span class="product-size"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].size + 'ml' : 'Various sizes' %></span>
-            <span class="product-price">$<%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %>.00</span>
+            <span class="product-price"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %> EGP</span>
           </div>
           <div class="shop-favorites-btns">
             <button class="add-to-cart-btn" onclick="window.location.href='/all-fragrances'">Shop All</button>
@@ -459,7 +459,7 @@
           </div>
           <div class="product-info">
             <span class="product-size">Various sizes</span>
-            <span class="product-price">$0.00</span>
+            <span class="product-price">0.00 EGP</span>
           </div>
           <div class="shop-favorites-btns">
             <button class="add-to-cart-btn" onclick="window.location.href='/all-fragrances'">Shop All</button>
