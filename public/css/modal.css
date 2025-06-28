@@ -368,7 +368,7 @@
   .form-control {
     padding: 0.5rem .75rem !important;
     font-size: 13px !important;
-    height: auto !important;
+    height: 35.5 !important;
   }
   
   .password-toggle {
@@ -623,5 +623,35 @@
 }
 
 .input-group {
-  padding-top: 0 !important;
+display: flex !important;
+flex-wrap: nowrap !important;
+align-items: stretch !important;
+width: 100% !important;
+}
+
+.input-group .form-control {
+flex: 1 1 0% !important;
+min-width: 0 !important;
+width: 100% !important;
+height: 40px !important;
+box-sizing: border-box !important;
+}
+
+  .input-group .input-group-text,
+  .input-group .password-toggle {
+  height: 35.5px !important;
+  min-width: 40px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  }
+@media screen and (max-width: 480px) {
+.input-group {
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding: 0px 0px 10px 0px !important;
+  
+}
 }
