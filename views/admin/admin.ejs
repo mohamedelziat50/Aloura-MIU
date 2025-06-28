@@ -83,7 +83,8 @@
             <div class="card">
               <h3>Total Sales</h3>
               <p>
-                $<%= orders.reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
+                <!-- Calculate Only Delievered Orders -->
+                $<%= orders.filter(order => order.status === 'Delivered').reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
               </p>
             </div>
             <div class="card">
@@ -121,7 +122,7 @@
                     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
                     const todaySales = orders.filter(order => {
                       const created = new Date(order.createdAt);
-                      return created >= startOfToday && created < endOfToday;
+                      return created >= startOfToday && created < endOfToday && order.status === 'Delivered';
                     }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
                   %>
                   <!-- .toLocaleString() means comma seperated -->
@@ -147,7 +148,7 @@
                   <% 
                     const ordersLast30 = orders.filter(order => {
                       const created = new Date(order.createdAt);
-                      return (now - created) / (1000 * 60 * 60 * 24) <= 30;
+                      return (now - created) / (1000 * 60 * 60 * 24) <= 30 && order.status === 'Delivered';
                     });
                     const avgOrder = ordersLast30.length > 0 ? (ordersLast30.reduce((sum, order) => sum + (order.totalPrice || 0), 0) / ordersLast30.length) : 0;
                   %>
@@ -171,7 +172,7 @@
                     const monthSales = orders.filter(order => {
                       const created = new Date(order.createdAt);
                       // Return the condition the filter function will do based on
-                      return created >= monthDate && created < nextMonthDate;
+                      return created >= monthDate && created < nextMonthDate && order.status === 'Delivered';
                     }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
                   %>
                   <div class="data-row">
@@ -185,7 +186,7 @@
                   <% const currentMonthName = months[now.getMonth()]; %>
                   <% const currentMonthSales = orders.filter(order => {
                     const created = new Date(order.createdAt);
-                    return created >= startOfCurrentMonth && created < startOfNextMonth;
+                    return created >= startOfCurrentMonth && created < startOfNextMonth && order.status === 'Delivered';
                   }).reduce((sum, order) => sum + (order.totalPrice || 0), 0); %>
                   <div class="data-row highlight">
                     <span><%= currentMonthName %> (Current Month)</span>
@@ -201,7 +202,7 @@
                   <% 
                     // Count sales for each fragrance
                     const salesMap = {};
-                    orders.forEach(order => {
+                    orders.filter(order => order.status === 'Delivered').forEach(order => {
                       order.items.forEach(item => {
                         if (item.fragrance && item.fragrance._id) {
                           const id = item.fragrance._id.toString();
