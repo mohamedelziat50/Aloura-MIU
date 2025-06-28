@@ -111,6 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // User's cancel order
   window.cancelOrder = async (orderId, status) => {
+    // Security check: Users should only be able to cancel orders
+    if (status !== "Cancelled") {
+      showFunToast("❌ Security Alert: Invalid operation detected! Cancelling Order.", "red");
+      return;
+    }
+    
     try {
       const response = await fetch(`/api/orders/status`, {
         method: "PUT",
