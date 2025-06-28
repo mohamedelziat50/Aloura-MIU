@@ -84,7 +84,7 @@
               <h3>Total Sales</h3>
               <p>
                 <!-- Calculate Only Delievered Orders -->
-                $<%= orders.filter(order => order.status === 'Delivered').reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
+                <%= orders.filter(order => order.status === 'Delivered').reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %> EGP
               </p>
             </div>
             <div class="card">
@@ -126,7 +126,7 @@
                     }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
                   %>
                   <!-- .toLocaleString() means comma seperated -->
-                  $<%= todaySales.toLocaleString() %>
+                  <%= todaySales.toLocaleString() %> EGP
                 </p>
               </div>
               <div class="metric-card">
@@ -153,7 +153,7 @@
                     const avgOrder = ordersLast30.length > 0 ? (ordersLast30.reduce((sum, order) => sum + (order.totalPrice || 0), 0) / ordersLast30.length) : 0;
                   %>
                   <!-- .toLocaleString() means comma seperated --><!-- .toLocaleString() means comma seperated -->
-                  $<%= avgOrder.toLocaleString(undefined, {maximumFractionDigits: 2}) %>
+                  <%= avgOrder.toLocaleString(undefined, {maximumFractionDigits: 2}) %> EGP
                 </p>
               </div>
             </div>
@@ -177,7 +177,7 @@
                   %>
                   <div class="data-row">
                     <span><%= monthName %></span>
-                    <span>$<%= monthSales.toLocaleString() %></span>
+                    <span><%= monthSales.toLocaleString() %> EGP</span>
                   </div>
                   <% } %>
                   <% // Current month row %>
@@ -190,7 +190,7 @@
                   }).reduce((sum, order) => sum + (order.totalPrice || 0), 0); %>
                   <div class="data-row highlight">
                     <span><%= currentMonthName %> (Current Month)</span>
-                    <span>$<%= currentMonthSales.toLocaleString() %></span>
+                    <span><%= currentMonthSales.toLocaleString() %> EGP</span>
                   </div>
                 </div>
               </div>
@@ -428,7 +428,7 @@
                 <td><%= moment(order.createdAt).format('LLL') %></td>
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
-                <td>$<%= order.totalPrice %></td>
+                <td><%= order.totalPrice %> EGP</td>
                  <%
                   let type = "Unknown";
                   if (order.items && Array.isArray(order.items)) {
