@@ -49,7 +49,7 @@ export const createReview = async (req, res) => {
     }
 
     // Backend must send a response (success or error) for the frontend to work.
-    res.status(201).json({ message: "✅ Review added successfully" });
+    res.status(201).json({ message: "✅ Review added successfully", userId: req.user.id });
   } catch (error) {
     console.log(`Review Data Save Error: ${error}`);
     res.status(500).json({ error: "Failed to add review" });
