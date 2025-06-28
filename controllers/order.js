@@ -401,6 +401,38 @@ export const updateOrderStatus = async (req, res) => {
         .json({ error: "Cancelled orders cannot be delivered." });
     }
 
+    // If changing status to "Cancelled", restore stock
+    if (status === "Cancelled" && order.status !== "Cancelled") {
+      console.log("Restoring stock for cancelled order:", order.orderNumber);
+      
+      for (const item of order.items) {
+        // Use the fragrance ID directly (more efficient)
+        const fragrance = await Fragrance.findById(item.fragrance);
+        
+        if (fragrance) {
+          // Find the size option that matches the ordered item
+          const sizeOption = fragrance.sizeOptions.find((option) => {
+            const optionSize = String(option.size).replace(/ml/i, "").trim();
+            const itemSize = String(item.size).replace(/ml/i, "").trim();
+            return optionSize === itemSize;
+          });
+
+          // Console Logs Because the user can also do the operations like the admin! (No need for user to know stock was returned)
+
+          if (sizeOption) {
+            // Restore the quantity back to stock
+            sizeOption.quantity += item.quantity;
+            await fragrance.save();
+            console.log(`Restored ${item.quantity} units of ${fragrance.name} (${item.size}) to stock [Category: ${item.category || 'regular'}]`);
+          } else {
+            console.log(`Warning: Size ${item.size} not found for fragrance ${fragrance.name} during stock restoration`);
+          }
+        } else {
+          console.log(`Warning: Fragrance not found with ID ${item.fragrance} during stock restoration`);
+        }
+      }
+    }
+
     // If we passed all these checks now change the status
     order.status = status;
     // Save the result
