@@ -409,27 +409,31 @@ export const updateOrderStatus = async (req, res) => {
         // Use the fragrance ID directly (more efficient)
         const fragrance = await Fragrance.findById(item.fragrance);
         
-        if (fragrance) {
-          // Find the size option that matches the ordered item
-          const sizeOption = fragrance.sizeOptions.find((option) => {
-            const optionSize = String(option.size).replace(/ml/i, "").trim();
-            const itemSize = String(item.size).replace(/ml/i, "").trim();
-            return optionSize === itemSize;
+        if (!fragrance) {
+          console.log(`Error: Fragrance not found with ID ${item.fragrance} during stock restoration`);
+          return res.status(500).json({ 
+            error: `Failed to restore stock: Fragrance not found for item in order #${order.orderNumber}` 
           });
-
-          // Console Logs Because the user can also do the operations like the admin! (No need for user to know stock was returned)
-
-          if (sizeOption) {
-            // Restore the quantity back to stock
-            sizeOption.quantity += item.quantity;
-            await fragrance.save();
-            console.log(`Restored ${item.quantity} units of ${fragrance.name} (${item.size}) to stock [Category: ${item.category || 'regular'}]`);
-          } else {
-            console.log(`Warning: Size ${item.size} not found for fragrance ${fragrance.name} during stock restoration`);
-          }
-        } else {
-          console.log(`Warning: Fragrance not found with ID ${item.fragrance} during stock restoration`);
         }
+
+        // Find the size option that matches the ordered item
+        const sizeOption = fragrance.sizeOptions.find((option) => {
+          const optionSize = String(option.size).replace(/ml/i, "").trim();
+          const itemSize = String(item.size).replace(/ml/i, "").trim();
+          return optionSize === itemSize;
+        });
+
+        if (!sizeOption) {
+          console.log(`Error: Size ${item.size} not found for fragrance ${fragrance.name} during stock restoration`);
+          return res.status(500).json({ 
+            error: `Failed to restore stock: Size ${item.size} not found for ${fragrance.name} in order #${order.orderNumber}` 
+          });
+        }
+
+        // Restore the quantity back to stock
+        sizeOption.quantity += item.quantity;
+        await fragrance.save();
+        console.log(`Restored ${item.quantity} units of ${fragrance.name} (${item.size}) to stock [Category: ${item.category || 'regular'}]`);
       }
     }
 
