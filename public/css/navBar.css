@@ -498,6 +498,7 @@ nav .mobile-logo img {
 
   nav .actions ul li:nth-child(2) {
     padding-right: 8px;
+    padding-left: 8px;
   }
 
   .mobile-menu-btn {
