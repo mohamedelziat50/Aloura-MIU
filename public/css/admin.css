@@ -1653,6 +1653,41 @@ canvas {
 }
 
 @media (max-width: 480px) {
+  .btn.ButtonDicoration[data-bs-target="#addUserModal"] {
+    min-width: 100px;
+    max-width: 100px;
+    height: 40px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    text-align: center;
+    color: transparent !important;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn.ButtonDicoration[data-bs-target="#addUserModal"]::after {
+    content: "Add";
+    display: inline;
+    color: #fff !important;
+    background: none;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    line-height: 40px;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 480px) {
   .main {
     padding: 60px 10px 10px;
   }
