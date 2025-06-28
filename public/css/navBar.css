@@ -1,4 +1,4 @@
-        nav {
+nav {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
@@ -92,14 +92,14 @@ nav .left-container-nav {
 .quiz-navbar-progress-bar-track {
   width: 88%;
   height: 3.5px;
-  background: #D4C2A6;
+  background: #d4c2a6;
   border-radius: 0px;
   position: relative;
 }
 
 .circle-number {
   color: white;
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
   display: flex;
@@ -121,7 +121,7 @@ nav .left-container-nav {
   transform: translateX(-50%);
   margin-top: 2px;
   color: black;
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
   font-size: 12px;
   font-weight: 400;
   /* letter-spacing: 0.2px; */
@@ -138,7 +138,7 @@ nav .left-container-nav {
   top: 0;
   width: 20px;
   height: 20px;
-  background: #D4C2A6;
+  background: #d4c2a6;
   border-radius: 50%;
   z-index: 10;
   box-shadow: 0 2px 8px #d4c2a655;
@@ -361,7 +361,7 @@ nav .mobile-logo img {
 .navbar-progress-bar {
   height: 100%;
   width: 0%;
-  background: #D4C2A6;
+  background: #d4c2a6;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 2px;
 }
@@ -565,8 +565,7 @@ nav .actions ul li a:visited {
   color: #000;
 }
 
-.fa-magnifying-glass
-{
+.fa-magnifying-glass {
   /* Hide it since search isn't used in navbar */
   display: none;
 }
@@ -575,8 +574,6 @@ nav .actions ul li:nth-child(2) {
   /* Remove padding from the bar beside translate */
   padding-right: 0px;
 }
-
-
 
 nav .profile {
   width: 30px;
@@ -596,7 +593,29 @@ nav .profile img,
 .profile-img {
   width: 40px;
   height: 40px;
-  object-fit: cover;   /* Makes the picture stay centered and not stretched */
-  border-radius: 50%;  /* Makes it perfectly circular */
+  object-fit: cover; /* Makes the picture stay centered and not stretched */
+  border-radius: 50%; /* Makes it perfectly circular */
   border: 2px solid #000; /* Optional: adds a nice black border */
+}
+
+nav.user-logged-in .actions ul {
+  display: flex;
+  align-items: center;
+}
+nav.user-logged-in .actions ul li {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+nav.user-logged-in .actions ul li .gtranslate_wrapper,
+nav.user-logged-in .actions ul li .fa-cart-shopping,
+nav.user-logged-in .actions ul li .fa-right-from-bracket,
+nav.user-logged-in .actions ul li .profile {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+nav .actions ul li a#logoutLink {
+  text-decoration: none !important;
 }
