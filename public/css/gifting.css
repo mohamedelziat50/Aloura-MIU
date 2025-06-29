@@ -759,8 +759,8 @@ body {
 .perfume-option, 
 .wrap-option, 
 .card-option {
-    display: inline-block;
-    width: 220px;
+    display: flex;
+    width: 230px;
     vertical-align: top;
     border: 1px solid #eee;
     padding: 20px;
@@ -769,7 +769,9 @@ body {
     background: white;
     white-space: normal;
     scroll-snap-align: start;
-    flex: 0 0 auto; /* Prevent flex items from shrinking */
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .perfume-option:hover, 
