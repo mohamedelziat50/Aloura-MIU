@@ -40,7 +40,9 @@
                 <div class="user-review-item-title"><%= fragrance.name %></div>
                 <div class="user-review-item-meta">Ordered At: <%= moment(order.createdAt).format('LL') %></div>
                 <div class="user-review-item-meta">Size: <%= orderItem.size %> | Unit Price: <%= orderItem.price %> EGP</div>
-                <div class="user-review-item-meta">Top: <%= fragrance.topNotes %> | Mid: <%= fragrance.middleNotes %> | Base: <%= fragrance.baseNotes %></div>
+                <div class="user-review-item-meta">Top: <%= fragrance.topNotes %></div>
+                <div class="user-review-item-meta">Mid: <%= fragrance.middleNotes %></div>
+                <div class="user-review-item-meta">Base: <%= fragrance.baseNotes %></div>
               </div>
             </div>
           </div>

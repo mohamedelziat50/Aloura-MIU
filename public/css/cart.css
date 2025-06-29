@@ -9,12 +9,17 @@
     padding: 15px;
 }
 
-.card-title {
+.card-title-cart {
     font-family: "Times New Roman", Times, serif !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
     color: #121212 !important;
+     /* Handle long text */
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
 }
 
 .offcanvas-title {

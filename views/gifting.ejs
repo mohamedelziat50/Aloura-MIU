@@ -121,8 +121,15 @@
         <% fragrance.forEach(element => { %>
           <div class="perfume-option">
                 <img src="<%= element.image[0] %>" alt="<%= element.name %>" loading="lazy">
-                <h3><%= element.name %></h3>
-                <p class="price"><%= element.sizeOptions[0].price %></p>
+                <h3 style="
+                    font-size: 1.5rem !important;
+                    word-wrap: break-word !important;
+                    word-break: break-word !important;
+                    hyphens: auto !important;
+                    max-width: 100% !important;         
+                ">
+                <%= element.name %></h3>
+                <p class="price"><%= element.sizeOptions[0].price %> EGP</p>
                 <button class="select-perfume">Select</button>
             </div>
         <% }) %>
