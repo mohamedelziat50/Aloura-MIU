@@ -184,20 +184,20 @@
                  <div class="user-order-item">
 
   <% if (item.category === "gift") { %>
-    <div class="gift-collage d-flex flex-column align-items-center">
+    <div class="gift-collage">
       <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px;">
         <% if (item.fragrance.image && item.fragrance.image[0]) { %>
-          <img src="<%= item.fragrance.image[0] %>" alt="Perfume" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+          <img src="<%= item.fragrance.image[0] %>" alt="Perfume" class="gift-collage-img" />
         <% } %>
         <% const cardImage = cardImageMap[item.card.name]; %>
         <% if (cardImage) { %>
-          <img src="<%= cardImage %>" alt="<%= item.card %>" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+          <img src="<%= cardImage %>" alt="<%= item.card %>" class="gift-collage-img" />
         <% } %>
       </div>
       <div class="gift-collage-row d-flex flex-row justify-content-center align-items-center" style="gap: 6px; margin-top: 6px;">
         <% const wrapImage = wrapImageMap[item.wrap.name]; %>
         <% if (wrapImage) { %>
-          <img src="<%= wrapImage %>" alt="<%= item.wrap.name %>" class="gift-collage-img" style="width: 56px; height: 56px; object-fit: cover;" />
+          <img src="<%= wrapImage %>" alt="<%= item.wrap.name %>" class="gift-collage-img" />
         <% } %>
       </div>
     </div>
