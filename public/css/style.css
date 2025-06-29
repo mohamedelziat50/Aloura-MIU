@@ -889,7 +889,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
    -------------------- */
 .product-slider-section {
   padding: 60px 0;
-  background: rgb(255, 244, 224);
+  background: blue;
   text-align: center;
 }
 
