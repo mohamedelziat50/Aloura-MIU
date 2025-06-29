@@ -157,6 +157,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const sizeRadios = document.querySelectorAll("input[name='size']");
 
   addToCartButton.addEventListener("click", async function () {
+    // Check if button is disabled (out of stock)
+    if (this.disabled) {
+      showFunToast("❗ This item is currently out of stock!", "red");
+      return;
+    }
+
     const selectedSize = document.querySelector("input[name='size']:checked");
 
     if (!selectedSize) {
@@ -589,12 +595,22 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", () => {
   const priceDisplay = document.getElementById("price");
   const sizeRadios = document.querySelectorAll("input[name='size']");
+  const addToCartButton = document.getElementById("add-to-cart-button");
 
   function updatePriceFromChecked() {
     const selected = document.querySelector("input[name='size']:checked");
+    const enabledRadios = document.querySelectorAll("input[name='size']:not(:disabled)");
+    
     if (selected) {
-      const price = selected.getAttribute("data-price"); // ← this line
-      priceDisplay.textContent = `${price} LE`;
+      const price = selected.getAttribute("data-price");
+      priceDisplay.textContent = `${price} EGP`;
+    } else if (enabledRadios.length === 0) {
+      // All sizes are out of stock
+      if (addToCartButton) {
+        addToCartButton.textContent = "Out of Stock";
+        addToCartButton.disabled = true;
+        addToCartButton.style.cursor = "not-allowed";
+      }
     }
   }
 

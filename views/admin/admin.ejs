@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfume Store Admin</title>
+    <meta name="keywords" content="admin dashboard, store management, inventory management, Aloura admin" />
+    <meta name="description" content="Aloura Admin Dashboard - Manage fragrance inventory, orders, and store operations." />
+    <title>Admin Dashboard - Aloura</title>
+    <meta name="robots" content="noindex, nofollow" />
 
     <!-- Favicon -->
     <link
@@ -83,7 +86,8 @@
             <div class="card">
               <h3>Total Sales</h3>
               <p>
-                $<%= orders.reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
+                <!-- Calculate Only Delievered Orders -->
+                <%= orders.filter(order => order.status === 'Delivered').reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %> EGP
               </p>
             </div>
             <div class="card">
@@ -121,11 +125,11 @@
                     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
                     const todaySales = orders.filter(order => {
                       const created = new Date(order.createdAt);
-                      return created >= startOfToday && created < endOfToday;
+                      return created >= startOfToday && created < endOfToday && order.status === 'Delivered';
                     }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
                   %>
                   <!-- .toLocaleString() means comma seperated -->
-                  $<%= todaySales.toLocaleString() %>
+                  <%= todaySales.toLocaleString() %> EGP
                 </p>
               </div>
               <div class="metric-card">
@@ -147,12 +151,12 @@
                   <% 
                     const ordersLast30 = orders.filter(order => {
                       const created = new Date(order.createdAt);
-                      return (now - created) / (1000 * 60 * 60 * 24) <= 30;
+                      return (now - created) / (1000 * 60 * 60 * 24) <= 30 && order.status === 'Delivered';
                     });
                     const avgOrder = ordersLast30.length > 0 ? (ordersLast30.reduce((sum, order) => sum + (order.totalPrice || 0), 0) / ordersLast30.length) : 0;
                   %>
                   <!-- .toLocaleString() means comma seperated --><!-- .toLocaleString() means comma seperated -->
-                  $<%= avgOrder.toLocaleString(undefined, {maximumFractionDigits: 2}) %>
+                  <%= avgOrder.toLocaleString(undefined, {maximumFractionDigits: 2}) %> EGP
                 </p>
               </div>
             </div>
@@ -171,12 +175,12 @@
                     const monthSales = orders.filter(order => {
                       const created = new Date(order.createdAt);
                       // Return the condition the filter function will do based on
-                      return created >= monthDate && created < nextMonthDate;
+                      return created >= monthDate && created < nextMonthDate && order.status === 'Delivered';
                     }).reduce((sum, order) => sum + (order.totalPrice || 0), 0);
                   %>
                   <div class="data-row">
                     <span><%= monthName %></span>
-                    <span>$<%= monthSales.toLocaleString() %></span>
+                    <span><%= monthSales.toLocaleString() %> EGP</span>
                   </div>
                   <% } %>
                   <% // Current month row %>
@@ -185,11 +189,11 @@
                   <% const currentMonthName = months[now.getMonth()]; %>
                   <% const currentMonthSales = orders.filter(order => {
                     const created = new Date(order.createdAt);
-                    return created >= startOfCurrentMonth && created < startOfNextMonth;
+                    return created >= startOfCurrentMonth && created < startOfNextMonth && order.status === 'Delivered';
                   }).reduce((sum, order) => sum + (order.totalPrice || 0), 0); %>
                   <div class="data-row highlight">
                     <span><%= currentMonthName %> (Current Month)</span>
-                    <span>$<%= currentMonthSales.toLocaleString() %></span>
+                    <span><%= currentMonthSales.toLocaleString() %> EGP</span>
                   </div>
                 </div>
               </div>
@@ -201,7 +205,7 @@
                   <% 
                     // Count sales for each fragrance
                     const salesMap = {};
-                    orders.forEach(order => {
+                    orders.filter(order => order.status === 'Delivered').forEach(order => {
                       order.items.forEach(item => {
                         if (item.fragrance && item.fragrance._id) {
                           const id = item.fragrance._id.toString();
@@ -427,7 +431,7 @@
                 <td><%= moment(order.createdAt).format('LLL') %></td>
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
-                <td>$<%= order.totalPrice %></td>
+                <td><%= order.totalPrice %> EGP</td>
                  <%
                   let type = "Unknown";
                   if (order.items && Array.isArray(order.items)) {

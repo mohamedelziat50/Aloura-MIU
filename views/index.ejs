@@ -5,22 +5,22 @@
     <!-- Define type of characters used in our website -->
     <meta charset="UTF-8" />
     <!-- Keywords for search engine:  useful when publishing -->
-    <meta name="keywords" content="Perfumes, Fragrances, Aloura" />
+    <meta name="keywords" content="luxury perfumes, premium fragrances, Aloura Egypt, fragrance quiz, designer perfumes, niche scents" />
     <!--  Different devices with different resolutions-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Description displayed in search engine -->
     <meta
       name="description"
-      content="Aloura: Unlock the Power of Scent. Discover high-quality fragrances at catchy prices. Your perfect fragrance journey starts here."
+      content="Discover luxury fragrances at Aloura Egypt. Premium perfumes, AI-powered fragrance quiz, and exclusive scent collections."
     />
-    <title>Aloura</title>
+    <title>Aloura - Luxury Fragrances & Perfumes</title>
     <!-- END OF META DATA -->
 
     <!-- Tab Logo / 'Favicon' -->
     <link
       rel="icon"
       type="image/x-icon"
-      href="./img/favicons/rounded-background-favicon.ico"
+      href="/img/favicons/rounded-background-favicon.ico"
     />
 
     <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="/css/style.css" />
 
     <!-- JS Links (Connecting the JS file to this file) -->
-    <script src="./js/script.js"></script>
+    <script src="/js/script.js"></script>
 
     <!-- FLUID EFFECT RELATED -->
     <script src="/js/fluidEffect/jquery.min.js"></script>
@@ -122,6 +122,7 @@
         <!--Explore Fragrances Button-->
         <button
           class="explore-fragrances"
+          onclick="window.location.href='all-fragrances'"
         >
           Explore Fragrances
         </button>
@@ -147,6 +148,7 @@
         <!--Explore Fragrances Button-->
         <button
           class="explore-fragrances"
+          onclick="window.location.href='all-fragrances'"
         >
           Explore Fragrances
         </button>
@@ -168,7 +170,7 @@
         <!-- Female Image -->
         <img
           id="female-img"
-          src="./img/girlTestCopy.jpg"
+          src="/img/girlTestCopy.jpg"
           srcset="./img/girlTestCopy-480.jpg 480w, ./img/girlTestCopy-800.jpg 800w, ./img/girlTestCopy.jpg 1200w"
           sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
           alt="For Her Fragrances"
@@ -182,7 +184,7 @@
         <!-- Male Image -->
         <img
           id="male-img"
-          src="./img/guyTestCopy.png"
+          src="/img/guyTestCopy.png"
           srcset="./img/guyTestCopy-480.png 480w, ./img/guyTestCopy-800.png 800w, ./img/guyTestCopy.png 1200w"
           sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
           alt="For Him Fragrances"
@@ -369,7 +371,7 @@
                   data-description="<%= fragrance.tags || 'A captivating fragrance' %>"
                   data-rating="<%= fragrance.rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)"
                   data-size="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].size + 'ml' : 'Various sizes' %>"
-                  data-price="$<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %>.00"
+                  data-price="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %> EGP"
                   data-fragrance-id="<%= fragrance._id %>"
                 >
                   <div class="product-img">
@@ -389,7 +391,7 @@
                 data-description="New fragrances will be available soon"
                 data-rating="0"
                 data-size="Various sizes"
-                data-price="$0.00"
+                data-price="0.00 EGP"
               >
                 <div class="product-img">
                   <img
@@ -417,22 +419,15 @@
           </p>
           <div class="product-rating">
             <span class="stars">
-              <% const rating = sliderFragrances[0].rating || 0; %>
               <% for (let i = 1; i <= 5; i++) { %>
-                <% if (i <= Math.floor(rating)) { %>
-                  <i class="fa-solid fa-star"></i>
-                <% } else if (i - 0.5 <= rating) { %>
-                  <i class="fa-solid fa-star-half-stroke"></i>
-                <% } else { %>
-                  <i class="fa-regular fa-star"></i>
-                <% } %>
+                  <i class="fa-solid fa-star" style="color: gold;"></i>
               <% } %>
             </span>
-            <span class="rating-score"><%= sliderFragrances[0].rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)</span>
+            <span class="rating-score">(<%= Math.floor(Math.random() * 1000) + 100 %>)</span>
           </div>
-          <div class="product-info">
+          <div class="product-info" style="display: none">
             <span class="product-size"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].size + 'ml' : 'Various sizes' %></span>
-            <span class="product-price">$<%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %>.00</span>
+            <span class="product-price"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %> EGP</span>
           </div>
           <div class="shop-favorites-btns">
             <button class="add-to-cart-btn" onclick="window.location.href='/all-fragrances'">Shop All</button>
@@ -457,7 +452,7 @@
           </div>
           <div class="product-info">
             <span class="product-size">Various sizes</span>
-            <span class="product-price">$0.00</span>
+            <span class="product-price">0.00 EGP</span>
           </div>
           <div class="shop-favorites-btns">
             <button class="add-to-cart-btn" onclick="window.location.href='/all-fragrances'">Shop All</button>
@@ -486,38 +481,38 @@
 
       <!-- Perfume Sequence Section -->
       <div class="perfume-sequence-container">
-        <img src="img/perfumes-transparent/khamrah.png" alt="Bleu de Chanel" loading="lazy"/>
+        <img src="/img/perfumes-transparent/khamrah.png" alt="Bleu de Chanel" loading="lazy"/>
         <img
-          src="img/perfumes-transparent/sauvauge-dior.png"
+          src="/img/perfumes-transparent/sauvauge-dior.png"
           alt="Sauvage Dior"
           style="scale: 1.15"
           loading="lazy"
         />
-        <img src="img/perfumes-transparent/ysl.png" alt="Tom Ford Vanilla"  loading="lazy"/>
+        <img src="/img/perfumes-transparent/ysl.png" alt="Tom Ford Vanilla"  loading="lazy"/>
         <img
-          src="img/perfumes-transparent/versace-eros.png"
+          src="/img/perfumes-transparent/versace-eros.png"
           alt="Versace Eros"
           loading="lazy"
         />
         <img
-          src="img/perfumes-transparent/xerjoff-alexandria-2.png"
+          src="/img/perfumes-transparent/xerjoff-alexandria-2.png"
           alt="Xerjoff Alexandria"
           style="scale: 0.9; padding-bottom: 10px"
           loading="lazy"
         />
         <img
-          src="img/perfumes-transparent/scandal.png"
+          src="/img/perfumes-transparent/scandal.png"
           alt="Scandal"
           style="scale: 0.9; padding-bottom: 10px"
         />
         <img
-          src="img/perfumes-transparent/burberry-her.png"
+          src="/img/perfumes-transparent/burberry-her.png"
           alt="Burberry Her"
           style="scale: 0.8; padding-top: 10px"
           loading="lazy"
         />
         <img
-          src="img/perfumes-transparent/stronger-with-you.png"
+          src="/img/perfumes-transparent/stronger-with-you.png"
           id="stronger-with-you"
           alt="Stronger With You"
           style="scale: 0.9; padding-top: 15px"
@@ -533,7 +528,7 @@
             <i class="fa-solid fa-times"></i>
           </div>
           <img
-            src="./img/ALOURA.jpg"
+            src="/img/ALOURA.jpg"
             alt="Special Offer"
             class="popup-image"
           />
@@ -546,15 +541,15 @@
     <%- include('partials/footer.ejs') %>
 
     <!-- FLUID - Female -->
-    <script src="./js/fluidEffect/female-app.js"></script>
+    <script src="/js/fluidEffect/female-app.js"></script>
     <!-- FLUID - Male -->
-    <script src="./js/fluidEffect/male-app.js"></script>
+    <script src="/js/fluidEffect/male-app.js"></script>
 
     <!-- Three.js for 3D model viewer -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
-    <script src="./js/3dmodel.js"></script>
+    <script src="/js/3dmodel.js"></script>
     <script type="module" src="/js/all-fragrances.js"></script>
 
     <!-- Fragrance Details Modal (Carousel Pop-up) -->
