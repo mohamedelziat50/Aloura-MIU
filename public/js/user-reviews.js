@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data.message || "✅ Review placed successfully!",
             "green"
           );
-          setTimeout(() => (window.location.href = "/"), 900);
+          setTimeout(() => (window.location.href = `/user-orders/${data.userId}`), 900);
         } else {
           showFunToast(data.error || "❌ An error occurred.", "red");
         }

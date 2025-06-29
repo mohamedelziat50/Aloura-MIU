@@ -1484,7 +1484,7 @@ document.addEventListener("DOMContentLoaded", function () {
               // Deselect all
               modalSizes.querySelectorAll(".fragrance-size-btn").forEach(b => b.classList.remove("selected"));
               btn.classList.add("selected");
-              modalPrice.textContent = `$${Number(btn.dataset.price).toFixed(2)}`;
+              modalPrice.textContent = `${Number(btn.dataset.price).toFixed(2)} EGP`;
               addToCartBtn.disabled = false;
               addToCartBtn.dataset.size = btn.dataset.size;
               addToCartBtn.dataset.fragranceId = fragranceId;
