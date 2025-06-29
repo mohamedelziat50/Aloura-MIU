@@ -127,7 +127,7 @@
                     let uniqueCategories = [...new Set(categories)];
 
                     if (uniqueCategories.length === 1) {
-                      type = uniqueCategories[0] === "gift" ? "Yes" : "No";
+                      type = uniqueCategories[0] === "gift" ? "Gift" : "Regular";
                     } else if (uniqueCategories.includes("gift") && uniqueCategories.includes("regular")) {
                       type = "Hybrid";
                     }
@@ -206,7 +206,7 @@
     <% } %>
                     <div class="user-order-item-details">
                     <div class="user-order-item-title"><%= item.fragrance.name %></div>
-                    <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP | Category: <%= item.category %></div>
+                    <div class="user-order-item-meta">Size: <%= item.size %> | Quantity: <%= item.quantity %> | Unit Price: <%= item.price %> EGP | Total Price: <%= (item.price * item.quantity) %> EGP | Category: <%= item.category.charAt(0).toUpperCase() + item.category.slice(1) %></div>
                   </div>
                   <div class="user-order-item-actions">
                     <% if (item.category === "gift") { %>
