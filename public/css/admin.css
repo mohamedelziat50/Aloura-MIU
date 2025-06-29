@@ -1278,6 +1278,7 @@ canvas {
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: space-evenly;
 }
 
 .product-card:hover {
@@ -1378,7 +1379,8 @@ canvas {
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-top: 42px;
+  margin-top: 5px;
+  align-items: center;
 }
 
 .product-btn.edit {
