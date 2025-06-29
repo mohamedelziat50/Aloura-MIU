@@ -419,20 +419,13 @@
           </p>
           <div class="product-rating">
             <span class="stars">
-              <% const rating = sliderFragrances[0].rating || 0; %>
               <% for (let i = 1; i <= 5; i++) { %>
-                <% if (i <= Math.floor(rating)) { %>
-                  <i class="fa-solid fa-star"></i>
-                <% } else if (i - 0.5 <= rating) { %>
-                  <i class="fa-solid fa-star-half-stroke"></i>
-                <% } else { %>
-                  <i class="fa-regular fa-star"></i>
-                <% } %>
+                  <i class="fa-solid fa-star" style="color: gold;"></i>
               <% } %>
             </span>
-            <span class="rating-score"><%= sliderFragrances[0].rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)</span>
+            <span class="rating-score">(<%= Math.floor(Math.random() * 1000) + 100 %>)</span>
           </div>
-          <div class="product-info">
+          <div class="product-info" style="display: none">
             <span class="product-size"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].size + 'ml' : 'Various sizes' %></span>
             <span class="product-price"><%= sliderFragrances[0].sizeOptions.length > 0 ? sliderFragrances[0].sizeOptions[0].price : '0' %> EGP</span>
           </div>
