@@ -113,7 +113,16 @@ export const getFragrancesPage = async (req, res) => {
 export const getGiftingPage = async (req, res) => {
   const user = await UserModel.findById(req.user.id).populate("cart.fragrance");
   console.log(user);
-  await FragranceModel.find()
+  
+  // Filter fragrances that have 30ml size option with quantity > 0
+  await FragranceModel.find({
+    "sizeOptions": {
+      $elemMatch: {
+        "size": 30,
+        "quantity": { $gt: 0 }
+      }
+    }
+  })
     .then((fragrances) => {
       res.render("gifting", {
         fragrance: fragrances,

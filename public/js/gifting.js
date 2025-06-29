@@ -467,7 +467,11 @@ function updateCartUI(result) {
           const cartItemHTML = `
             <div class="row cart-item mb-3" data-price="${
               item.price
-            }" data-category="${item.category}">
+            }" data-category="${item.category}" ${
+            isGift
+              ? `data-card-name="${item.card?.name || ''}" data-wrap-name="${item.wrap?.name || ''}"`
+              : ""
+          }>
               <div class="col-md-3">
                 ${
                   isGift
