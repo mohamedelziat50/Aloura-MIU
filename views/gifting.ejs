@@ -129,7 +129,7 @@
                     max-width: 100% !important;         
                 ">
                 <%= element.name %></h3>
-                <p class="price"><%= element.sizeOptions[0].price %> EGP</p>
+                <p class="price"><%= element.sizeOptions.find(option => option.size === 30)?.price || element.sizeOptions[0].price %> EGP</p>
                 <button class="select-perfume">Select</button>
             </div>
         <% }) %>
