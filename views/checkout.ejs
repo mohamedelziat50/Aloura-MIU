@@ -483,8 +483,7 @@
                       </div>
                       <div class="order-item-details">
                         <h4><%= item.fragrance.name %></h4>
-                        <p class="order-item-variant">Size: <%= item.size %></p>
-                        <p class="order-item-variant">Category: <%= item.category %></p>
+                        <p class="order-item-variant">Size: <%= item.size %> | Category: <%= item.category.charAt(0).toUpperCase() + item.category.slice(1) %></p>
                         <div class="order-item-price">
                           <span class="quantity"><%= item.quantity %> ×</span>
                           <span class="price"><%= item.price %> EGP</span>
