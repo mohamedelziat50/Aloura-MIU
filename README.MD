@@ -113,50 +113,74 @@ Curated fragrance collections with thematic organization, visual storytelling, a
 
 ---
 
-### 🧠 **AI-Powered Fragrance Quiz**
-*📸 Screenshots: `screenshots/quiz-interface.png` | 🎥 Video: `videos/quiz-demo.mp4`*
+### 🧠 **Fragrance Quiz**
+*📸 Screenshots:
 
-Interactive questionnaire using Google Generative AI to provide personalized fragrance recommendations. Smart algorithm analyzes preferences and suggests perfect matches with detailed explanations.
+![Image](https://github.com/user-attachments/assets/b92a7f72-6eb8-4e8c-8b49-af4273303ef8)
+
+![Image](https://github.com/user-attachments/assets/cf2e0b0b-47ec-4713-bc31-ad3e283c50bf)
+
+![Image](https://github.com/user-attachments/assets/6ad43a77-8887-452e-971e-b63993ba2d90)
+
+![Image](https://github.com/user-attachments/assets/199556b6-80ea-4032-a6c9-9b9f1130ae6b)
+
+![Image](https://github.com/user-attachments/assets/6b213e4b-99f9-48ac-a684-187479c37369)
+
+Interactive questionnaire with a smart algorithm that analyzes preferences and suggests perfect matches with detailed explanations.
 
 ---
 
 ### � **Our Story Page**
-*📸 Screenshots: `screenshots/our-story.png` | 🎥 Video: `videos/story-demo.mp4`*
+
+https://github.com/user-attachments/assets/7a23bc34-026c-4068-ad06-ab3ff6f69bf8
 
 Brand narrative showcase with visual storytelling, company values, and mission statement. Features engaging animations and responsive design for brand connection.
 
 ---
 
 ### � **User Authentication Modals**
-*📸 Screenshots: `screenshots/auth-modals.png` | 🎥 Video: `videos/auth-demo.mp4`*
+
+https://github.com/user-attachments/assets/a6cb2475-9cac-4523-b3ab-39e1858f6f4d
 
 Comprehensive authentication system with login, signup, and password reset functionality. Features Google OAuth integration, SMS/Email verification, and secure form validation with real-time feedback.
 
 ---
 
 ### �️ **Cart & Checkout System**
-*📸 Screenshots: `screenshots/checkout-flow.png` | 🎥 Video: `videos/checkout-demo.mp4`*
+*📸 Screenshot:
+
+![Image](https://github.com/user-attachments/assets/80c61a37-8f4f-46e7-b4f1-aca184b0ec9e)
+
+![Image](https://github.com/user-attachments/assets/42c2b8f4-e4e0-49e4-9634-d551f50e8ba2)
+
+![Image](https://github.com/user-attachments/assets/686e5939-31ec-43e6-ba40-633a7cb09a3e)
 
 Streamlined shopping cart with persistent storage and secure checkout process. Features real credit card validation with BIN verification, multiple payment options, and order confirmation system.
 
 ---
 
 ### � **User Account & Orders**
-*📸 Screenshots: `screenshots/user-account.png` | 🎥 Video: `videos/account-demo.mp4`*
+
+![Image](https://github.com/user-attachments/assets/a4fd6ddd-2250-4619-9f11-31ae5894291a)
+
+https://github.com/user-attachments/assets/0fa1dfb0-4443-4fb2-9a6a-9fb641a90d47
 
 Complete user profile management with order history, tracking, and reorder functionality. Features profile customization, notification preferences, and order status updates.
 
 ---
 
 ### 📊 **Admin Dashboard Suite**
-*📸 Screenshots: `screenshots/admin-dashboard.png` | 🎥 Video: `videos/admin-demo.mp4`*
+
+https://github.com/user-attachments/assets/24774780-ab84-4f77-8c78-e2a9a5af0a77
 
 Comprehensive admin control panel with analytics, product management, user administration, and order processing. Features real-time data visualization, bulk operations, and advanced reporting tools.
 
 ---
 
 ### ⭐ **User Reviews System**
-*📸 Screenshots: `screenshots/reviews-page.png` | 🎥 Video: `videos/reviews-demo.mp4`*
+*📸 Screenshot:
+
+![Image](https://github.com/user-attachments/assets/3ae133a2-64db-439b-abe8-87b0f2640f74)
 
 Interactive review and rating system with moderation tools, detailed feedback forms, and review analytics. Features verified purchase validation and helpful review sorting.
 
