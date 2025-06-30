@@ -1,7 +1,7 @@
 # 🌸 Aloura - Premium Fragrance E-Commerce Platform
 
 <div align="center">
-  <img src="public/img/ALOURA.jpg" alt="Aloura Logo" width="200"/>
+  <img src="public/img/logo.png" alt="Aloura Logo" width="200"/>
   
   [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
   [![Node.js](https://img.shields.io/badge/node.js-v16.0+-green.svg)](https://nodejs.org/)
@@ -10,27 +10,6 @@
   
   🌐 **Instagram**: [@aloura.eg](https://www.instagram.com/aloura.eg/)
 </div>
-
----
-
-## 📖 Project Overview
-
-**Aloura** is a sophisticated full-stack fragrance e-commerce platform developed as part of a comprehensive Web Development course. This project demonstrates modern web development practices, creating a real-world startup experience for luxury fragrance retail.
-
-### 🎯 **Purpose & Vision**
-- **Target Audience**: Fragrance enthusiasts, gift buyers, and luxury product consumers
-- **Value Proposition**: Curated premium fragrances with personalized recommendations and seamless shopping experience
-- **Business Model**: B2C e-commerce with admin management system
-
-### ✨ **Key Highlights**
-- **Real-World Startup**: Fully functional e-commerce platform for Aloura fragrance business
-- **Advanced Authentication**: Google OAuth, SMS/Email verification, secure JWT implementation
-- **AI-Powered Features**: Intelligent chatbot assistance and personalized fragrance quiz recommendations
-- **Premium User Experience**: Dark mode, fluid cursor animations, multi-language support
-- **Secure Commerce**: Real credit card validation with BIN verification and encrypted checkout
-- **Business Intelligence**: Comprehensive admin dashboard with subscriber management and analytics
-- **Gift Solutions**: Complete gifting system with personalized cards and wrapping options
-- **Modern Tech Stack**: Full-stack JavaScript with MongoDB, Express.js, and AWS deployment
 
 ---
 
@@ -47,6 +26,27 @@
   - [📁 Project Structure](#-project-structure)
   - [🤝 Contributing](#-contributing)
   - [📄 License](#-license)
+
+---
+
+## 📖 Project Overview
+
+**Aloura** is a feature-rich fragrance e-commerce platform developed as part of a comprehensive Web Development course & for a real-world startup. This project demonstrates modern web development practices, creating a real-world experience for luxury fragrance retail.
+
+### 🎯 **Purpose & Vision**
+- **Target Audience**: Fragrance enthusiasts, gift buyers, and luxury product consumers
+- **Value Proposition**: Curated premium fragrances with personalized recommendations and seamless shopping experience
+- **Business Model**: B2C e-commerce with admin management system
+
+### ✨ **Key Highlights**
+- **Real-World Startup**: Fully functional e-commerce platform for Aloura fragrance business
+- **Advanced Authentication**: Google OAuth, SMS/Email verification, secure JWT implementation
+- **AI-Powered Features**: Intelligent chatbot assistance and personalized fragrance quiz recommendations
+- **Premium User Experience**: Dark mode, fluid cursor animations, multi-language support
+- **Secure Commerce**: Real credit card validation with BIN verification and encrypted checkout
+- **Business Intelligence**: Comprehensive admin dashboard with subscriber management and analytics
+- **Gift Solutions**: Complete gifting system with personalized cards and wrapping options
+- **Modern Tech Stack**: Full-stack JavaScript with NodeJS, MongoDB, Express.js, and AWS deployment
 
 ---
 
@@ -188,7 +188,7 @@ Interactive review and rating system with moderation tools, detailed feedback fo
 
 ## 🚀 Advanced Features
 
-### � **SMS & Email Integration**
+### **SMS & Email Integration**
 📸 Screenshots:
 
 ![Image](https://github.com/user-attachments/assets/8c1ce950-e231-4f33-8953-825d2cfeae29)
@@ -284,7 +284,7 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
 
 ---
 
-## � Team Members
+## Team Members
 
 **Aloura Development Team**
 - **Mohamed Hesham** - [@mohamedelziat50](https://github.com/mohamedelziat50)
