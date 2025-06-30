@@ -82,28 +82,32 @@ Immersive homepage experience featuring dynamic hero carousel, featured fragranc
 ---
 
 ### 🛒 **All Fragrances Catalog**
-*📸 Screenshots: `screenshots/catalog-view.png` | 🎥 Video: `videos/catalog-demo.mp4`*
+
+https://github.com/user-attachments/assets/3e97ddcc-9bd7-40f5-b74a-a86399a8757c
 
 Comprehensive product browsing with advanced filtering, search functionality, and responsive grid layouts. Real-time search suggestions and intelligent product recommendations enhance the shopping experience.
 
 ---
 
 ### 📱 **Product Detail Page**
-*📸 Screenshots: `screenshots/product-detail.png` | 🎥 Video: `videos/product-demo.mp4`*
+
+https://github.com/user-attachments/assets/f867d71c-599e-4322-a7f8-c9ef0a0c2c4c
 
 Rich product showcase with high-resolution image galleries, detailed fragrance notes, size selection, and customer reviews. Features dynamic pricing and stock validation with add-to-cart functionality.
 
 ---
 
 ### 🎁 **Gifting Experience**
-*📸 Screenshots: `screenshots/gifting-page.png` | 🎥 Video: `videos/gifting-demo.mp4`*
+
+https://github.com/user-attachments/assets/cf5d0f30-5b0f-49af-9a29-f982a41bd6c8
 
 Complete gifting solution with personalized greeting cards, gift wrapping options, recipient management, and special delivery scheduling. Custom pricing for gift packages with preview functionality.
 
 ---
 
 ### 🌟 **Collections Gallery**
-*📸 Screenshots: `screenshots/collections.png` | 🎥 Video: `videos/collections-demo.mp4`*
+
+https://github.com/user-attachments/assets/046f148e-8465-4231-96b1-ecc02a08d669
 
 Curated fragrance collections with thematic organization, visual storytelling, and interactive browsing experience. Features collection-specific filtering and recommendations.
 
