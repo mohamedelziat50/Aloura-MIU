@@ -3,7 +3,7 @@
 <div align="center">
   <img src="public/img/ALOURA.jpg" alt="Aloura Logo" width="200"/>
   
-  [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
+  [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
   [![Node.js](https://img.shields.io/badge/node.js-v16.0+-green.svg)](https://nodejs.org/)
   [![MongoDB](https://img.shields.io/badge/database-MongoDB-green.svg)](https://www.mongodb.com/)
   [![Express.js](https://img.shields.io/badge/framework-Express.js-lightgrey.svg)](https://expressjs.com/)
@@ -189,42 +189,51 @@ Interactive review and rating system with moderation tools, detailed feedback fo
 ## 🚀 Advanced Features
 
 ### � **SMS & Email Integration**
-*📸 Screenshots: `screenshots/communication.png`*
+📸 Screenshots:
+
+![Image](https://github.com/user-attachments/assets/8c1ce950-e231-4f33-8953-825d2cfeae29)
+
+![Image](https://github.com/user-attachments/assets/dcad72c0-c21b-48c8-a9ea-93701fd0e2b3)
+
 
 Automated communication system with Twilio SMS and Nodemailer email services for order confirmations, password resets, and marketing campaigns.
 
 ### 🤖 **AI Chatbot Assistant**
-*📸 Screenshots: `screenshots/chatbot.png`*
+📸 Screenshot:
+
+![Image](https://github.com/user-attachments/assets/3d06bff5-98e4-4167-a30d-2a2ccacda244)
 
 Google Generative AI-powered chatbot providing intelligent customer support, product recommendations, and order assistance with natural language processing.
 
 ### 🌙 **Dark Mode & Theming**
-*📸 Screenshots: `screenshots/dark-mode.png`*
+
+https://github.com/user-attachments/assets/aab745f8-84cb-4316-96f0-adf0ed7aaeb2
 
 Dynamic theme switching with dark mode support, preserving user preferences across sessions with smooth transitions and optimal contrast ratios.
 
 ### 🌍 **Multi-language Support**
-*📸 Screenshots: `screenshots/language-toggle.png`*
+📸 Screenshot:
+
+![Image](https://github.com/user-attachments/assets/1cc8fb9d-0c8a-4ef8-8c9e-602e230a7380)
 
 Internationalization features supporting multiple languages with dynamic content translation and localized user experiences.
 
 ### 📬 **Subscriber Management**
-*📸 Screenshots: `screenshots/newsletter.png`*
+📸 Screenshot:
+
+![Image](https://github.com/user-attachments/assets/11acc0a9-0c08-4bee-9401-00ccc8403c68)
 
 Advanced newsletter subscription system with automated welcome sequences, segmentation, and unsubscribe management for marketing campaigns.
 
 ### ☁️ **AWS Cloud Deployment**
-*📸 Screenshots: `screenshots/deployment.png`*
 
-Professional cloud deployment on AWS infrastructure with scalable architecture, load balancing, and automated backups for enterprise-grade reliability.
+Professional cloud deployment (EC2) on AWS infrastructure with scalable architecture, load balancing, and automated backups for enterprise-grade reliability.
 
 ### 💳 **Secure Payment Validation**
-*📸 Screenshots: `screenshots/card-validation.png`*
 
 Advanced credit card validation using BIN (Bank Identification Number) verification, Luhn algorithm checking, and real-time card type detection for secure transactions.
 
 ### ✨ **Fluid Cursor Animations**
-*📸 Screenshots: `screenshots/cursor-effects.png`*
 
 Interactive cursor effects and micro-animations enhancing user engagement with smooth transitions, hover effects, and visual feedback throughout the interface.
 
@@ -252,7 +261,7 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
    ```
 
 3. **Environment Configuration**
-   Create a `.env` (through `.env.example`) file in the root directory (fill up with all your personal data)
+   Create a `.env` (through `.env.example`) file in the root directory (fill up with your personal API Keys)
 
 4. **Database Setup**
    Set up MongoDB either locally or remotely, then set the `MONGO_DB_URI` in `.env`
@@ -378,7 +387,7 @@ Please follow existing code conventions and test your changes thoroughly.
 
 ## 📄 License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
