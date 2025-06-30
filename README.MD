@@ -1,7 +1,7 @@
 # 🌸 Aloura - Premium Fragrance E-Commerce Platform
 
 <div align="center">
-  <img src="public/img/logo.png" alt="Aloura Logo" width="200"/>
+  <img src="public/img/ALOURA.jpg" alt="Aloura Logo" width="200"/>
   
   [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
   [![Node.js](https://img.shields.io/badge/node.js-v16.0+-green.svg)](https://nodejs.org/)
@@ -71,8 +71,11 @@
 
 ## � Aloura Experience Showcase
 
-### 🏠 **Landing Page**
-*📸 Screenshots: `screenshots/hero-section.png` | 🎥 Video: `videos/homepage-demo.mp4`*
+### 🏠 **Hero Section & Landing Page**
+
+https://github.com/user-attachments/assets/82cab677-b8a6-4134-be40-4e8b15604956
+
+https://github.com/user-attachments/assets/a0b710da-1fca-4c9a-b3b2-279ece773438
 
 Immersive homepage experience featuring dynamic hero carousel, featured fragrances, customer testimonials, and newsletter subscription with automated welcome emails. Showcases fluid cursor animations and seamless navigation.
 
