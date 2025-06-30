@@ -69,7 +69,7 @@
 
 ---
 
-## � Aloura Experience Showcase
+## Aloura Experience Showcase
 
 ### 🏠 **Hero Section & Landing Page**
 
@@ -114,7 +114,7 @@ Curated fragrance collections with thematic organization, visual storytelling, a
 ---
 
 ### 🧠 **Fragrance Quiz**
-*📸 Screenshots:
+📸 Screenshots:
 
 ![Image](https://github.com/user-attachments/assets/b92a7f72-6eb8-4e8c-8b49-af4273303ef8)
 
@@ -130,7 +130,7 @@ Interactive questionnaire with a smart algorithm that analyzes preferences and s
 
 ---
 
-### � **Our Story Page**
+### **Our Story Page**
 
 https://github.com/user-attachments/assets/7a23bc34-026c-4068-ad06-ab3ff6f69bf8
 
@@ -138,7 +138,7 @@ Brand narrative showcase with visual storytelling, company values, and mission s
 
 ---
 
-### � **User Authentication Modals**
+### **User Authentication Modals**
 
 https://github.com/user-attachments/assets/a6cb2475-9cac-4523-b3ab-39e1858f6f4d
 
@@ -146,8 +146,8 @@ Comprehensive authentication system with login, signup, and password reset funct
 
 ---
 
-### �️ **Cart & Checkout System**
-*📸 Screenshot:
+### **Cart & Checkout System**
+📸 Screenshot:
 
 ![Image](https://github.com/user-attachments/assets/80c61a37-8f4f-46e7-b4f1-aca184b0ec9e)
 
@@ -159,7 +159,7 @@ Streamlined shopping cart with persistent storage and secure checkout process. F
 
 ---
 
-### � **User Account & Orders**
+### **User Account & Orders**
 
 ![Image](https://github.com/user-attachments/assets/a4fd6ddd-2250-4619-9f11-31ae5894291a)
 
@@ -178,7 +178,7 @@ Comprehensive admin control panel with analytics, product management, user admin
 ---
 
 ### ⭐ **User Reviews System**
-*📸 Screenshot:
+📸 Screenshot:
 
 ![Image](https://github.com/user-attachments/assets/3ae133a2-64db-439b-abe8-87b0f2640f74)
 
@@ -242,7 +242,7 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/mohamedelziat50/Aloura-MIU.git
+   git clone <repository_url>
    cd Aloura-MIU
    ```
 
@@ -252,76 +252,37 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
    ```
 
 3. **Environment Configuration**
-   Create a `.env` file in the root directory:
-   ```env
-   # Database Configuration
-   MONGO_URI=mongodb://localhost:27017/aloura
-   
-   # JWT Configuration
-   JWT_SECRET=your_super_secure_jwt_secret_key_here
-   JWT_EXPIRY=24h
-   
-   # Port Configuration
-   PORT=3000
-   
-   # Google OAuth
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   
-   # Email Service (Nodemailer)
-   EMAIL_USER=your_email@gmail.com
-   EMAIL_PASS=your_app_password
-   
-   # SMS Service (Twilio)
-   TWILIO_ACCOUNT_SID=your_twilio_account_sid
-   TWILIO_AUTH_TOKEN=your_twilio_auth_token
-   TWILIO_PHONE_NUMBER=your_twilio_phone_number
-   
-   # AI Integration
-   GENAI=your_google_generative_ai_api_key
-   ```
+   Create a `.env` (through `.env.example`) file in the root directory (fill up with all your personal data)
 
 4. **Database Setup**
-   ```bash
-   # Start MongoDB service
-   mongod
+   Set up MongoDB either locally or remotely, then set the `MONGO_DB_URI` in `.env`
    
    # The application will automatically create the database and collections
    ```
 
-5. **Development Mode**
+5. **Run The Application**
    ```bash
-   # Install nodemon globally (if not already installed)
-   npm install -g nodemon
-   
-   # Start the development server
-   npm run dev
+   nodemon index.js 
    ```
 
-6. **Production Mode**
-   ```bash
-   npm start
-   ```
-
-7. **Access the Application**
+6. **Access the Application**
    - Frontend: `http://localhost:3000`
    - Admin Panel: `http://localhost:3000/admin/{admin_user_id}`
 
 ### **Additional Setup Steps**
 
 - **Create Admin User**: Register a new user and manually change their role to "admin" in the database
-- **Upload Product Images**: Place product images in the `public/img/` directory
-- **Configure Email Templates**: Customize email templates in `utilities/emailtemplates.js`
 
 ---
 
 ## � Team Members
 
 **Aloura Development Team**
-- **Mohamed El-Ziat** - [@mohamedelziat50](https://github.com/mohamedelziat50)
-- **Team Member 2** - [@username](https://github.com/username)
-- **Team Member 3** - [@username](https://github.com/username)
-- **Team Member 4** - [@username](https://github.com/username)
+- **Mohamed Hesham** - [@mohamedelziat50](https://github.com/mohamedelziat50)
+- **Nabil Ramy** - [@NabilRamy17](https://github.com/NabilRamy17)
+- **Ramy Slait** - [@ramyslait](https://github.com/ramyslait)
+- **Antoni Mikhaiel** - [@Antoni-Mikhaiel](https://github.com/Antoni-Mikhaiel)
+- **Seif Makled** - [@Seifmakled](https://github.com/Seifmakled)
 
 *All team members contributed collaboratively to the development of this real-world startup e-commerce platform.*
 
@@ -426,7 +387,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
   <p>Built with ❤️ by the Aloura Development Team</p>
   <p>
     <a href="https://www.instagram.com/aloura.eg/">Instagram</a> •
-    <a href="mailto:contact@aloura.com">Email</a> •
+    <a href="mailto:alourabrand@gmail.com">Email</a> •
     <a href="https://github.com/mohamedelziat50/Aloura-MIU">GitHub</a>
   </p>
 </div>
