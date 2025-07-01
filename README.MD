@@ -284,7 +284,7 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
 
 ---
 
-## Team Members
+## 👥 Team Members
 
 **Aloura Development Team**
 - **Mohamed Hesham** - [@mohamedelziat50](https://github.com/mohamedelziat50)
