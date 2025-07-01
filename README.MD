@@ -265,9 +265,6 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
 
 4. **Database Setup**
    Set up MongoDB either locally or remotely, then set the `MONGO_DB_URI` in `.env`
-   
-   # The application will automatically create the database and collections
-   ```
 
 5. **Run The Application**
    ```bash
