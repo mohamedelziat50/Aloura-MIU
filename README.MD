@@ -1,4 +1,4 @@
-# 🌸 Aloura - Premium Fragrance E-Commerce Platform
+# 🌸 Aloura - Real-world Start-up Fragrance E-Commerce Platform
 
 <div align="center">
   <img src="public/img/logo.png" alt="Aloura Logo" width="200"/>
