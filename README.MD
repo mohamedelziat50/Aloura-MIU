@@ -16,8 +16,8 @@
 ## 📋 Table of Contents
 
 - [🌸 Aloura - Premium Fragrance E-Commerce Platform](#-aloura---premium-fragrance-e-commerce-platform)
-  - [📖 Project Overview](#-project-overview)
   - [📋 Table of Contents](#-table-of-contents)
+  - [📖 Project Overview](#-project-overview) 
   - [🛠️ Technology Stack](#️-technology-stack)
   - [🎨 Aloura Experience Showcase](#-aloura-experience-showcase)
   - [🚀 Advanced Features](#-advanced-features)
@@ -30,6 +30,8 @@
 ---
 
 ## 📖 Project Overview
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Aloura.live-%23c6538c?style=for-the-badge&logo=google-chrome&logoColor=white)](https://aloura.live)
 
 **Aloura** is a feature-rich fragrance e-commerce platform developed as part of a comprehensive Web Development course & for a real-world startup. This project demonstrates modern web development practices, creating a real-world experience for luxury fragrance retail.
 
@@ -69,7 +71,7 @@
 
 ---
 
-## Aloura Experience Showcase
+## 🎨 Aloura Experience Showcase
 
 ### 🏠 **Hero Section & Landing Page**
 
@@ -147,7 +149,7 @@ Comprehensive authentication system with login, signup, and password reset funct
 ---
 
 ### **Cart & Checkout System**
-📸 Screenshot:
+📸 Screenshots:
 
 ![Image](https://github.com/user-attachments/assets/80c61a37-8f4f-46e7-b4f1-aca184b0ec9e)
 
@@ -235,7 +237,15 @@ Advanced credit card validation using BIN (Bank Identification Number) verificat
 
 ### ✨ **Fluid Cursor Animations**
 
-Interactive cursor effects and micro-animations enhancing user engagement with smooth transitions, hover effects, and visual feedback throughout the interface.
+Interactive cursor effects and micro-animations enhance user engagement through smooth transitions, hover effects, and visual feedback throughout the interface.
+
+> ⚙️ *Note: Fluid cursor animations are conditionally enabled based on estimated device specifications:*
+> - *GPU availability (integrated or dedicated)*
+> - *CPU core count*
+> - *RAM capacity*
+>  
+> *These checks are **estimated** and may not always be accurate. Additionally, the effect is automatically disabled on **mobile devices** to ensure performance.*
+
 
 ---
 
@@ -285,7 +295,7 @@ Interactive cursor effects and micro-animations enhancing user engagement with s
 
 **Aloura Development Team**
 - **Mohamed Hesham** - [@mohamedelziat50](https://github.com/mohamedelziat50)
-- **Nabil Ramy** - [@NabilRamy17](https://github.com/NabilRamy17)
+- **Nabil Ramy** - [@nabilramyy](https://github.com/nabilramyy)
 - **Ramy Slait** - [@ramyslait](https://github.com/ramyslait)
 - **Antoni Mikhaiel** - [@Antoni-Mikhaiel](https://github.com/Antoni-Mikhaiel)
 - **Seif Makled** - [@Seifmakled](https://github.com/Seifmakled)
