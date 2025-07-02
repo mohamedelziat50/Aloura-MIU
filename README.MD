@@ -31,8 +31,7 @@
 
 ## 📖 Project Overview
 
-🌐 **Live Demo**  
-[Visit Aloura Now](https://aloura.live)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Aloura.live-%23c6538c?style=for-the-badge&logo=google-chrome&logoColor=white)](https://aloura.live)
 
 **Aloura** is a feature-rich fragrance e-commerce platform developed as part of a comprehensive Web Development course & for a real-world startup. This project demonstrates modern web development practices, creating a real-world experience for luxury fragrance retail.
 
