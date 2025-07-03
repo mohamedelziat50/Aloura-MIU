@@ -1,4 +1,4 @@
-# 🌸 Aloura - Real-world Fragrance E-Commerce Platform
+# 🌸 Aloura – A Full-Stack E-Commerce Platform for a Real-World Fragrance Startup
 
 <div align="center">
   <img src="public/img/logo.png" alt="Aloura Logo" width="200"/>
@@ -15,7 +15,7 @@
 
 ## 📋 Table of Contents
 
-- [🌸 Aloura - Premium Fragrance E-Commerce Platform](#-aloura---premium-fragrance-e-commerce-platform)
+- [🌸 Aloura – A Full-Stack E-Commerce Platform for a Real-World Fragrance Startup](#-aloura--a-full-stack-e-commerce-platform-for-a-real-world-fragrance-startup)
   - [📋 Table of Contents](#-table-of-contents)
   - [📖 Project Overview](#-project-overview) 
   - [🛠️ Technology Stack](#️-technology-stack)
