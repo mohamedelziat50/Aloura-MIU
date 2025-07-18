@@ -34,7 +34,7 @@
     "moment": "^2.30.1",
     "mongoose": "^8.16.1",
     "ms": "^2.1.3",
-    "multer": "^2.0.1",
+    "multer": "^2.0.2",
     "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.4",
     "passport": "^0.7.0",
