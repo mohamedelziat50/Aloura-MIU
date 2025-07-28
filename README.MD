@@ -22,7 +22,7 @@
   - [🎨 Aloura Experience Showcase](#-aloura-experience-showcase)
   - [🚀 Advanced Features](#-advanced-features)
   - [⚙️ Installation & Setup](#️-installation--setup)
-  - [ Team Members](#-team-members)
+  - [👥 Team Members](#-team-members)
   - [📁 Project Structure](#-project-structure)
   - [🤝 Contributing](#-contributing)
   - [📄 License](#-license)
@@ -227,7 +227,7 @@ Internationalization features supporting multiple languages with dynamic content
 
 Advanced newsletter subscription system with automated welcome sequences, segmentation, and unsubscribe management for marketing campaigns.
 
-### **SEO Discoverability**
+### **📈 SEO Discoverability**
 📸 Screenshot:
 
 ![SEO Discoverability](https://github.com/user-attachments/assets/afc62278-1f74-41f7-b8b2-5e6b2fe36fd1)
