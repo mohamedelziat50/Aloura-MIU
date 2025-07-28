@@ -232,7 +232,7 @@ Advanced newsletter subscription system with automated welcome sequences, segmen
 
 ![SEO Discoverability](https://github.com/user-attachments/assets/afc62278-1f74-41f7-b8b2-5e6b2fe36fd1)
 
-Aloura leverages advanced SEO strategies—structured metadata, keyword-rich URLs, sitemaps, and responsive design to achieve top Google rankings and maximize organic reach in Egypt and beyond.
+Aloura leverages advanced SEO strategies: structured metadata, keyword-rich URLs, sitemaps, and responsive design to achieve top Google rankings and maximize organic reach in Egypt and beyond.
 
 ### ☁️ **AWS Cloud Deployment**
 
@@ -246,7 +246,7 @@ Advanced credit card validation using BIN (Bank Identification Number) verificat
 
 Interactive cursor effects and micro-animations enhance user engagement through smooth transitions, hover effects, and visual feedback throughout the interface.
 
-> ⚙️ *Note: Fluid cursor animations are conditionally enabled based on estimated device specifications:*
+> ⚙️ Fluid cursor animations are conditionally enabled based on estimated device specifications:*
 > - *GPU availability (integrated or dedicated)*
 > - *CPU core count*
 > - *RAM capacity*
