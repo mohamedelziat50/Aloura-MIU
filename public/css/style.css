@@ -106,10 +106,10 @@ box-shadow: #000;
 .left-container p {
   position: relative;
   opacity: 0;
-  bottom: 20%;
+  bottom: 0%;
   transform: translateY(30px); /* Start below */
   clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Fully clipped at the bottom */
-  font-family: 'proxima-nova', sans-serif;
+  font-family: 'Urbanist', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16.5px;
@@ -182,7 +182,6 @@ box-shadow: #000;
   background: transparent;
   color: white;
   border: none;
-  text-decoration: underline;
   clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Fully clipped */
   opacity: 0;
   transform: translateY(30px); /* Start below */
@@ -191,9 +190,25 @@ box-shadow: #000;
     clip-path 0.5s ease-out,
     opacity 0.5s ease-out,
     transform 0.5s ease-out;
-
+    
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition: all 0.5s;
   visibility: hidden;
+}
+
+.explore-fragrances::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.5s ease;
+}
+
+.explore-fragrances:hover::after {
+  width: 20%;
 }
 
 .left-container .text-overlay .for-her{
@@ -1046,7 +1061,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
 }
 */
 
-.add-to-cart-btn {
+  .add-to-cart-btn {
   cursor: pointer;
   /* transition: background-color 0.3s, transform 0.2s; */
   margin-top: 35px; /* Space above the button */
@@ -1911,3 +1926,8 @@ top: 0;
   }
 }
 /* --- End Fragrance Modal Styles --- */
+
+.right-container p {
+  /* Right container's explore fragrance's paragraph is not equal to left fsr */
+  bottom: 8.5%; 
+}

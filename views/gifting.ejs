@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifting - Aloura</title>
+    <meta name="keywords" content="fragrance gifts, perfume gifts, luxury gifts, gift sets, special occasions, Aloura gifts">
+    <meta name="description" content="Give the perfect fragrance gift with Aloura's luxury perfume gift sets. Elegant packaging for every special occasion.">
+    <title>Gifts - Aloura</title>
 
     <!-- Tab Logo / 'Favicon' -->
     <link
       rel="icon"
       type="image/x-icon"
-      href="../img/favicons/rounded-background-favicon.ico"
+      href="/img/favicons/rounded-background-favicon.ico"
     />
 
     <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
@@ -33,7 +35,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="css/gifting.css">
+    <link rel="stylesheet" href="/css/gifting.css">
 
 
 
@@ -59,7 +61,7 @@
 
     <section id="gifting-hero">
         <div class="hero-image-container">
-            <img src="img/gifting-background.JPG" alt="Luxury gifts" class="hero-image">
+            <img src="/img/gifting-background.JPG" alt="Luxury gifts" class="hero-image" loading="lazy">
         </div>
         <div class="hero-content">
             <h1>Thoughtful Fragrance Gifting</h1>
@@ -78,7 +80,7 @@
             <!-- Gift Box 3 -->
             <div class="gift-item">
                 <div class="gift-badge">New</div>
-                <img src="/img/cards/gift-card.png"alt="Personalized Gift" class="gift-image">
+                <img src="/img/cards/gift-card.png"alt="Personalized Gift" class="gift-image" loading="lazy">
                 <h3>Personalized Perfume Gift</h3>
                 <p class="gift-description">One 30ml bottle with a card and custom message</p>
                 <button class="add-to-cart">Add to Gift Box</button>
@@ -114,13 +116,23 @@
       <!-- Step 1: Perfume Selection -->
       <div class="modal-step" id="step-perfume" style="display: block;">
         <h2>Select Your Perfume</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 1rem; font-size: 0.9rem;">
+          <i class="fas fa-info-circle"></i> All gift perfumes come in 30ml bottles
+        </p>
        <div class="scroll-container" style="width: 100%; overflow-x: auto;">
 
         <% fragrance.forEach(element => { %>
           <div class="perfume-option">
-                <img src="<%= element.image[0] %>" alt="<%= element.name %>">
-                <h3><%= element.name %></h3>
-                <p class="price"><%= element.sizeOptions[0].price %></p>
+                <img src="<%= element.image[0] %>" alt="<%= element.name %>" loading="lazy">
+                <h3 style="
+                    font-size: 1.5rem !important;
+                    word-wrap: break-word !important;
+                    word-break: break-word !important;
+                    hyphens: auto !important;
+                    max-width: 100% !important;         
+                ">
+                <%= element.name %></h3>
+                <p class="price"><%= element.sizeOptions.find(option => option.size === 30)?.price || element.sizeOptions[0].price %> EGP</p>
                 <button class="select-perfume">Select</button>
             </div>
         <% }) %>
@@ -138,56 +150,56 @@
         <h2>Select Your Gift Wrap</h2>
         <div class="scroll-container">
             <div class="wrap-option">
-                <img src="img/wraps/silk-wrapper.webp" alt="Silk Ribbon">
+                <img src="/img/wraps/silk-wrapper.webp" alt="Silk Ribbon" loading="lazy">
                 <h4>Silk Ribbon Wrap</h4>
                 <p>+100 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/gift-box.jpg" alt="Premium Box">
+                <img src="/img/wraps/gift-box.jpg" alt="Premium Box" loading="lazy">
                 <h4>Premium Gift Box</h4>
                 <p>+150 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/gift-wrap.jpeg" alt="Velvet Box">
+                <img src="/img/wraps/gift-wrap.jpeg" alt="Velvet Box" loading="lazy">
                 <h4>Velvet Box</h4>
                 <p>+200 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/leather-case.jpg" alt="Leather Case">
+                <img src="/img/wraps/leather-case.jpg" alt="Leather Case" loading="lazy">
                 <h4>Leather Case</h4>
                 <p>+250 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/gold-wrap.jpg" alt="Gold Foil">
+                <img src="/img/wraps/gold-wrap.jpg" alt="Gold Foil" loading="lazy">
                 <h4>Gold Foil Wrap</h4>
                 <p>+120 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/silver-wrap.jpg" alt="Silver Foil">
+                <img src="/img/wraps/silver-wrap.jpg" alt="Silver Foil" loading="lazy">
                 <h4>Silver Foil Wrap</h4>
                 <p>+120 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/floral-box.jpeg" alt="Floral Box">
+                <img src="/img/wraps/floral-box.jpeg" alt="Floral Box" loading="lazy">
                 <h4>Floral Pattern Box</h4>
                 <p>+180 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
          
             <div class="wrap-option">
-                <img src="img/wraps/luxury-box.jpg" alt="Luxury Bag">
+                <img src="/img/wraps/luxury-box.jpg" alt="Luxury Bag" loading="lazy">
                 <h4>Luxury Gift Bag</h4>
                 <p>+170 EGP</p>
                 <button class="select-wrap">Select</button>
             </div>
             <div class="wrap-option">
-                <img src="img/wraps/holiday-box.jpg" alt="Holiday Special">
+                <img src="/img/wraps/holiday-box.jpg" alt="Holiday Special" loading="lazy">
                 <h4>Holiday Special</h4>
                 <p>+220 EGP</p>
                 <button class="select-wrap">Select</button>
@@ -204,47 +216,47 @@
         <h2>Choose a Greeting Card</h2>
         <div class="scroll-container">
             <div class="card-option" data-card="spray-happiness">
-                <img src="img/cards/love-card.jpg" alt="Spray A Little Happiness">
+                <img src="/img/cards/love-card.jpg" alt="Spray A Little Happiness" loading="lazy">
                 <h4>Spray A Little Happiness</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="scent-with-love">
-                <img src="img/cards/gift-card1.png" alt="Scent With Love">
+                <img src="/img/cards/gift-card1.png" alt="Scent With Love" loading="lazy">
                 <h4>Scent With Love</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="christmas-special">
-                <img src="img/cards/christmas-card.webp" alt="Christmas Special">
+                <img src="/img/cards/christmas-card.webp" alt="Christmas Special" loading="lazy">
                 <h4>Christmas Special</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="birthday-wishes">
-                <img src="img/cards/birthday-card.webp" alt="Birthday Wishes">
+                <img src="/img/cards/birthday-card.webp" alt="Birthday Wishes" loading="lazy">
                 <h4>Birthday Wishes</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="anniversary">
-                <img src="img/cards/anniversary-card.webp" alt="Anniversary">
+                <img src="/img/cards/anniversary-card.webp" alt="Anniversary" loading="lazy">
                 <h4>Anniversary</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="thank-you">
-                <img src="img/cards/thank-you-card.jpg" alt="Thank You">
+                <img src="/img/cards/thank-you-card.jpg" alt="Thank You" loading="lazy">
                 <h4>Thank You</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="valentine-special">
-                <img src="img/cards/valentine-card.png" alt="Valentine Special">
+                <img src="/img/cards/valentine-card.png" alt="Valentine Special" loading="lazy">
                 <h4>Valentine Special</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="gold-luxury">
-                <img src="img/cards/luxury-card.avif" alt="Gold Luxury">
+                <img src="/img/cards/luxury-card.avif" alt="Gold Luxury" loading="lazy">
                 <h4>Gold Luxury</h4>
                 <button class="select-card">Select</button>
             </div>
             <div class="card-option" data-card="floral-design">
-                <img src="img/cards/floral-card.jpg" alt="Floral Design">
+                <img src="/img/cards/floral-card.jpg" alt="Floral Design" loading="lazy">
                 <h4>Floral Design</h4>
                 <button class="select-card">Select</button>
             </div>
@@ -274,7 +286,7 @@
     
     <div class="selected-card-preview">
         <h4>Selected Card:</h4>
-        <img id="selected-card-preview" src="" alt="Selected Card Preview">
+        <img id="selected-card-preview" src="" alt="Selected Card Preview" loading="lazy">
     </div>
     
     <div class="step-actions">
@@ -312,7 +324,7 @@
 
 
 
-<script type="module" src="js/gifting.js"></script>
+<script type="module" src="/js/gifting.js"></script>
 <!-- Toastify cssS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 

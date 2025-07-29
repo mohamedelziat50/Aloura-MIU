@@ -16,40 +16,26 @@ var country_list = [
 ];
 
 export const getIndex = async (req, res) => {
-  console.log("Entered getIndex controller");
   let reviews = [];
   let sliderFragrances = [];
 
-  // Fetch approved reviews
-  console.log("Reached Before try/catch of Reviews Model (reviews)");
   try {
-    console.log("Enter try/catch of Reviews Model");
     reviews = await ReviewModel.find({ status: true })
       .populate("user", "name profilePic")
       .populate("fragrance", "name")
       .limit(12)
       .sort({ createdAt: -1 });
-    console.log("Review Model Find passed succesfully");
   } catch (error) {
-    console.log("Error fetching approved reviews:", error);
     reviews = [];
   }
 
-  // Fetch slider fragrances
-  console.log("Reached Before try/catch of Fragrance Model (sliderFragrances)");
   try {
-    console.log("Enter try/catch of Fragrance Model");
     sliderFragrances = await FragranceModel.find({ previewLanding: true })
       .sort({ createdAt: -1 })
       .limit(10);
-    console.log("Found slider fragrances:", sliderFragrances.length); // debugging
   } catch (error) {
-    console.log("Error fetching slider fragrances:", error);
     sliderFragrances = [];
   }
-
-  console.log("reviews: ", reviews);
-  console.log("sliderFragrances: ", sliderFragrances);
 
   // Render the landing page with both datasets (empty if error)
   res.render("index", {
@@ -127,7 +113,16 @@ export const getFragrancesPage = async (req, res) => {
 export const getGiftingPage = async (req, res) => {
   const user = await UserModel.findById(req.user.id).populate("cart.fragrance");
   console.log(user);
-  await FragranceModel.find()
+  
+  // Filter fragrances that have 30ml size option with quantity > 0
+  await FragranceModel.find({
+    "sizeOptions": {
+      $elemMatch: {
+        "size": 30,
+        "quantity": { $gt: 0 }
+      }
+    }
+  })
     .then((fragrances) => {
       res.render("gifting", {
         fragrance: fragrances,

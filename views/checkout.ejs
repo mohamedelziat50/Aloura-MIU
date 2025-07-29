@@ -2,9 +2,9 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Aloura - Checkout</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+    <title>Checkout - Aloura</title>
+    <meta content="Complete your fragrance purchase securely at Aloura. Fast, safe checkout with multiple payment options." name="description" />
+    <meta content="checkout, fragrance purchase, secure payment, online shopping, Aloura checkout" name="keywords" />
     <meta content="noindex, nofollow" name="robots" />
 
     <link rel="stylesheet" href="/css/checkout.css" />
@@ -74,13 +74,13 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 
-    <script type="module" src="../js/checkout.js"></script>
+    <script type="module" src="/js/checkout.js"></script>
 
     <!-- Tab Logo / 'Favicon' -->
     <link
       rel="icon"
       type="image/x-icon"
-      href="./img/favicons/rounded-background-favicon.ico"
+      href="/img/favicons/rounded-background-favicon.ico"
     />
 
     <!-- Font Awesome (navbar, footer, modal, chatbot, cart all use it's icons SO MAKE SURE TO LINK IT) -->
@@ -405,17 +405,19 @@
                                 <div class="card-header-custom">
                                   <div class="card-logo">
                                     <img
-                                      src="../img/checkout-related/card-logo.png"
+                                      src="/img/checkout-related/card-logo.png"
                                       alt="Card Logo"
+                                      loading="lazy"
                                     />
                                     <h5 class="card-text-normal">
                                       Master Card
                                     </h5>
                                   </div>
                                   <img
-                                    src="../img/checkout-related/chip.png"
+                                    src="/img/checkout-related/chip.png"
                                     alt="Chip"
                                     class="card-chip"
+                                    loading="lazy"
                                   />
                                 </div>
                                 <div class="card-details">
@@ -476,15 +478,15 @@
                           alt="Product"
                           class="img-fluid"
                           src="<%= item.fragrance.image[0] %>"
+                          loading="lazy"
                         />
                       </div>
                       <div class="order-item-details">
                         <h4><%= item.fragrance.name %></h4>
-                        <p class="order-item-variant">Size: <%= item.size %></p>
-                        <p class="order-item-variant">Category: <%= item.category %></p>
+                        <p class="order-item-variant">Size: <%= item.size %> | Category: <%= item.category.charAt(0).toUpperCase() + item.category.slice(1) %></p>
                         <div class="order-item-price">
                           <span class="quantity"><%= item.quantity %> ×</span>
-                          <span class="price">EGP<%= item.price %></span>
+                          <span class="price">EGP <%= item.price %></span>
                           <% subtotal += item.price * item.quantity %>
                         </div>
                       </div>
@@ -513,20 +515,20 @@
                     <div class="order-subtotal d-flex justify-content-between">
                       <span>Subtotal</span>
                       <!-- Display in decimal format -->
-                      <span>EGP<%= subtotal.toFixed(2) %></span>
+                      <span>EGP <%= subtotal.toFixed(2) %></span>
                     </div>
                     <div class="order-shipping d-flex justify-content-between">
                       <span>Shipping</span>
-                      <span>EGP<%= shippingFee.toFixed(2) %></span>
+                      <span>EGP <%= shippingFee.toFixed(2) %></span>
                     </div>
                     <div class="order-tax d-flex justify-content-between">
                       <span>Tax</span>
-                      <span>EGP<%= tax.toFixed(2) %></span>
+                      <span>EGP <%= tax.toFixed(2) %></span>
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
                       <span
-                        >EGP<%= (subtotal + shippingFee + tax).toFixed(2) %></span
+                        >EGP <%= (subtotal + shippingFee + tax).toFixed(2) %></span
                       >
                     </div>
                     <div class="d-flex justify-content-end">

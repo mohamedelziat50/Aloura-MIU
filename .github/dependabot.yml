@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups: # Group Dependencies into 'all-dependencies' instead of an individual PR for each update
       all-dependencies: 
         patterns:

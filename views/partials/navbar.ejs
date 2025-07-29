@@ -1,5 +1,5 @@
 <!-- Navbar-specific CSS -->
-<link rel="stylesheet" href="./css/navBar.css" />
+<link rel="stylesheet" href="/css/navBar.css" />
 
 <!-- Translate related -->
 <script>
@@ -17,7 +17,7 @@
 ></script>
 
 <!-- Navbar Code -->
-<nav>
+<nav class="<%= user ? 'user-logged-in' : '' %>">
   <!-- Left side container with logo and translate -->
   <div class="left-container-nav">
     <div class="logo">
@@ -97,7 +97,7 @@
     <ul>
       <div class="mobile-logo">
         <a href="/">
-          <img src="./img/logo.png" alt="Logo" />
+          <img src="/img/logo.png" alt="Logo" />
         </a>
       </div>
       <li><a href="/all-fragrances">Fragrances</a></li>
@@ -107,7 +107,7 @@
       <li><a href="/our-story">Our Story</a></li>
 
       <% if (user != null && user.role =='admin') { %>
-        <li><a href="/admin/<%= user.id %>">Admin</a></li>
+      <li><a href="/admin/<%= user.id %>">Admin</a></li>
       <% } %>
     </ul>
   </div>
