@@ -371,7 +371,7 @@
                   data-description="<%= fragrance.tags || 'A captivating fragrance' %>"
                   data-rating="<%= fragrance.rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)"
                   data-size="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].size + 'ml' : 'Various sizes' %>"
-                  data-price="<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %> EGP"
+                  data-price="EGP<%= fragrance.sizeOptions.length > 0 ? fragrance.sizeOptions[0].price : '0' %>.00"
                   data-fragrance-id="<%= fragrance._id %>"
                 >
                   <div class="product-img">
@@ -391,7 +391,7 @@
                 data-description="New fragrances will be available soon"
                 data-rating="0"
                 data-size="Various sizes"
-                data-price="0.00 EGP"
+                data-price="EGP 0.00"
               >
                 <div class="product-img">
                   <img
@@ -418,6 +418,7 @@
             <%= sliderFragrances[0].description || 'A captivating fragrance' %>
           </p>
           <div class="product-rating">
+            <span class="rating-score"><%= sliderFragrances[0].rating || 0 %> (<%= Math.floor(Math.random() * 1000) + 100 %>)</span>
             <span class="stars">
               <% for (let i = 1; i <= 5; i++) { %>
                   <i class="fa-solid fa-star" style="color: gold;"></i>
@@ -441,13 +442,6 @@
           <h3 class="product-name">Coming Soon</h3>
           <p class="product-description">New fragrances will be available soon</p>
           <div class="product-rating">
-            <span class="stars">
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-            </span>
             <span class="rating-score">0</span>
           </div>
           <div class="product-info">
@@ -554,23 +548,25 @@
 
     <!-- Fragrance Details Modal (Carousel Pop-up) -->
     <div id="fragrance-modal" class="fragrance-modal-overlay" style="display:none;">
-      <div class="fragrance-modal-card">
+      <div class="fragrance-modal-card fragrance-modal-horizontal">
         <button class="fragrance-modal-close" aria-label="Close">&times;</button>
         <div class="fragrance-modal-img-wrap">
           <img id="fragrance-modal-img" src="<%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].image[0] : '' %>" alt="Fragrance Image" loading="lazy"/>
         </div>
         <div class="fragrance-modal-content">
-          <h3 id="fragrance-modal-name"><%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].name : '' %></h3>
-          <div class="fragrance-modal-notes">
-            <div><strong>Top Notes:</strong> <span id="fragrance-modal-top"></span></div>
-            <div><strong>Middle Notes:</strong> <span id="fragrance-modal-middle"></span></div>
-            <div><strong>Base Notes:</strong> <span id="fragrance-modal-base"></span></div>
+          <div class="fragrance-modal-header">
+            <h3 id="fragrance-modal-name"><%= sliderFragrances && sliderFragrances.length > 0 ? sliderFragrances[0].name : '' %></h3>
           </div>
           <div class="fragrance-modal-sizes" id="fragrance-modal-sizes">
             <!-- Size buttons will be injected here -->
           </div>
           <div class="fragrance-modal-price">
             <span id="fragrance-modal-price"></span>
+          </div>
+          <div class="fragrance-modal-notes">
+            <div><strong>Top Notes:</strong> <span id="fragrance-modal-top"></span></div>
+            <div><strong>Middle Notes:</strong> <span id="fragrance-modal-middle"></span></div>
+            <div><strong>Base Notes:</strong> <span id="fragrance-modal-base"></span></div>
           </div>
           <button id="fragrance-modal-add-to-cart" class="add-to-cart-btn" disabled>Add to Cart</button>
         </div>

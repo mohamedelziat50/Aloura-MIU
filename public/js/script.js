@@ -1457,8 +1457,15 @@ document.addEventListener("DOMContentLoaded", function () {
       modalImg.src = imgEl.src;
       // Fetch fragrance details from backend
       fetch(`/fragrance/details/${fragranceId}`)
-        .then(res => res.json())
+        .then(res => {
+          console.log('Response status:', res.status);
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then(data => {
+          console.log('Fetched fragrance data:', data);
           // Notes
           modalTop.textContent = data.notes?.top || "-";
           modalMiddle.textContent = data.notes?.middle || "-";
@@ -1484,7 +1491,7 @@ document.addEventListener("DOMContentLoaded", function () {
               // Deselect all
               modalSizes.querySelectorAll(".fragrance-size-btn").forEach(b => b.classList.remove("selected"));
               btn.classList.add("selected");
-              modalPrice.textContent = `${Number(btn.dataset.price).toFixed(2)} EGP`;
+              modalPrice.textContent = `EGP${Number(btn.dataset.price).toFixed(2)}`;
               addToCartBtn.disabled = false;
               addToCartBtn.dataset.size = btn.dataset.size;
               addToCartBtn.dataset.fragranceId = fragranceId;
@@ -1500,7 +1507,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           openModal();
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('Error fetching fragrance details:', error);
           modalTop.textContent = modalMiddle.textContent = modalBase.textContent = "Error loading details.";
           modalSizes.innerHTML = "";
           modalPrice.textContent = "Unavailable";

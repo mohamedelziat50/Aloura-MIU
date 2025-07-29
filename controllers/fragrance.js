@@ -273,3 +273,42 @@ export const getQuizRecommendation = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get fragrance details for modal (notes and sizes)
+export const getFragranceDetails = async (req, res) => {
+  try {
+    console.log(`[DEBUG] Fetching details for fragrance ID: ${req.params.id}`);
+    
+    const fragrance = await Fragrance.findById(req.params.id);
+    if (!fragrance) {
+      console.log(`[DEBUG] Fragrance not found for ID: ${req.params.id}`);
+      return res.status(404).json({ error: "Fragrance not found" });
+    }
+
+    console.log(`[DEBUG] Found fragrance: ${fragrance.name}`);
+    console.log(`[DEBUG] Top notes: ${fragrance.topNotes}`);
+    console.log(`[DEBUG] Middle notes: ${fragrance.middleNotes}`);
+    console.log(`[DEBUG] Base notes: ${fragrance.baseNotes}`);
+    console.log(`[DEBUG] Size options: ${JSON.stringify(fragrance.sizeOptions)}`);
+
+    // Format the response for the frontend
+    const response = {
+      notes: {
+        top: fragrance.topNotes ? fragrance.topNotes.join(", ") : "-",
+        middle: fragrance.middleNotes ? fragrance.middleNotes.join(", ") : "-",
+        base: fragrance.baseNotes ? fragrance.baseNotes.join(", ") : "-",
+      },
+      sizes: fragrance.sizeOptions.map(sizeOption => ({
+        size: sizeOption.size,
+        price: sizeOption.price,
+        inStock: sizeOption.quantity > 0
+      }))
+    };
+
+    console.log(`[DEBUG] Sending response: ${JSON.stringify(response)}`);
+    res.json(response);
+  } catch (err) {
+    console.error(`[ERROR] Error fetching fragrance details: ${err.message}`);
+    res.status(500).json({ error: err.message });
+  }
+};

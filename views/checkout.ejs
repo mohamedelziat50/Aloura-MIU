@@ -486,7 +486,7 @@
                         <p class="order-item-variant">Size: <%= item.size %> | Category: <%= item.category.charAt(0).toUpperCase() + item.category.slice(1) %></p>
                         <div class="order-item-price">
                           <span class="quantity"><%= item.quantity %> ×</span>
-                          <span class="price"><%= item.price %> EGP</span>
+                          <span class="price">EGP <%= item.price %></span>
                           <% subtotal += item.price * item.quantity %>
                         </div>
                       </div>
@@ -515,20 +515,20 @@
                     <div class="order-subtotal d-flex justify-content-between">
                       <span>Subtotal</span>
                       <!-- Display in decimal format -->
-                      <span><%= subtotal.toFixed(2) %> EGP</span>
+                      <span>EGP <%= subtotal.toFixed(2) %></span>
                     </div>
                     <div class="order-shipping d-flex justify-content-between">
                       <span>Shipping</span>
-                      <span><%= shippingFee.toFixed(2) %> EGP</span>
+                      <span>EGP <%= shippingFee.toFixed(2) %></span>
                     </div>
                     <div class="order-tax d-flex justify-content-between">
                       <span>Tax</span>
-                      <span><%= tax.toFixed(2) %> EGP</span>
+                      <span>EGP <%= tax.toFixed(2) %></span>
                     </div>
                     <div class="order-total d-flex justify-content-between">
                       <span>Total</span>
                       <span
-                        ><%= (subtotal + shippingFee + tax).toFixed(2) %> EGP</span
+                        >EGP <%= (subtotal + shippingFee + tax).toFixed(2) %></span
                       >
                     </div>
                     <div class="d-flex justify-content-end">

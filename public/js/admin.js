@@ -541,7 +541,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   : "pending"
               }">${order.status || "Pending"}</span></td>
               <td>${order.paid ? "Yes" : "No"}</td>
-              <td>${order.totalPrice} EGP</td>
+              <td>EGP${order.totalPrice}</td>
               <td>${(() => {
                 const categories =
                   order.items?.map((item) => item.category) || [];

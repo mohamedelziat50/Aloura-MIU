@@ -23,6 +23,9 @@ import {
   getUserOrders,
   getUserReviews,
 } from "../controllers/frontend.js"; // Import the getAdmin function
+
+// Import fragrance details controller
+import { getFragranceDetails } from "../controllers/fragrance.js";
 const router = express.Router();
 router.use(async (req, res, next) => {
   try {
@@ -49,6 +52,16 @@ router.get("/collections", getCollectionsPage);
 router.get("/fragrances-page/:id", getFragrancesPage);
 router.get("/gifting", auth(["user", "admin"]), getGiftingPage);
 router.get("/fragrance-quiz", auth(["user", "admin"]), getFragranceQuizPage);
+router.get("/fragrance/details/:id", getFragranceDetails);
+router.get("/debug/fragrances", async (req, res) => {
+  try {
+    const { default: Fragrance } = await import("../models/fragrance.js");
+    const fragrances = await Fragrance.find({}).select("name topNotes middleNotes baseNotes previewLanding sizeOptions");
+    res.json(fragrances);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 router.get("/our-story", getOurStoryPage);
 router.get("/nightlife-collection", getNightlifeCollectionPage);
 router.get("/account/:id", auth(["user", "admin"]), getaccount);

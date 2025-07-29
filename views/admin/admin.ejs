@@ -86,8 +86,7 @@
             <div class="card">
               <h3>Total Sales</h3>
               <p>
-                <!-- Calculate Only Delievered Orders -->
-                <%= orders.filter(order => order.status === 'Delivered').reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %> EGP
+                EGP <%= orders.reduce((sum, order) => sum + (order.totalPrice || 0), 0).toLocaleString() %>
               </p>
             </div>
             <div class="card">
@@ -431,7 +430,7 @@
                 <td><%= moment(order.createdAt).format('LLL') %></td>
                 <td><span class="status <%= order.status === 'Delivered' ? 'delivered' : order.status === 'Cancelled' ? 'cancelled' : 'pending' %>"><%= order.status %></span></td>
                 <td><%= (order.paid)? "Yes": "No" %></td>
-                <td><%= order.totalPrice %> EGP</td>
+                <td>EGP <%= order.totalPrice %></td>
                  <%
                   let type = "Unknown";
                   if (order.items && Array.isArray(order.items)) {
