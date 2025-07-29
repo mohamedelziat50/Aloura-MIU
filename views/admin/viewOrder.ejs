@@ -600,8 +600,8 @@
           <td><%= item.size || '-' %></td>
           <td><%= item.quantity %></td>
           <td><%= item.category === 'gift' ? 'Gift' : 'Regular' %></td>
-          <td>$<%= item.price || 'N/A' %></td>
-          <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+          <td>EGP<%= item.price || 'N/A' %></td>
+          <td>EGP<%= (item.price * item.quantity).toFixed(2) %></td>
 
           <% if (hasGift) { %>
             <% if (item.category === 'gift') { %>
@@ -626,19 +626,19 @@
   <div class="d-flex flex-column align-items-end">
     <div class="mb-1">
       <span class="text-muted">Subtotal:</span>
-      <span class="fw-semibold">$<%= order.subtotal || order.totalPrice %></span>
+      <span class="fw-semibold">EGP<%= order.subtotal || order.totalPrice %></span>
     </div>
     <div class="mb-1">
       <span class="text-muted">Shipping:</span>
-      <span class="fw-semibold">$<%= order.shipping || '0.00' %></span>
+      <span class="fw-semibold">EGP<%= order.shipping || '0.00' %></span>
     </div>
     <div class="mb-1">
       <span class="text-muted">Tax:</span>
-      <span class="fw-semibold">$<%= order.tax || '0.00' %></span>
+      <span class="fw-semibold">EGP<%= order.tax || '0.00' %></span>
     </div>
     <div class="mb-1 fs-5">
       <span class="fw-bold">Total:</span>
-      <span class="fw-bold text-success">$<%= order.totalPrice %></span>
+      <span class="fw-bold text-success">EGP<%= order.totalPrice %></span>
     </div>
     <% if(order.paid) { %>
       <span class="badge bg-success mt-2">Payment made</span>

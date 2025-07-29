@@ -60,7 +60,7 @@ export const handleMessage = async (req, res) => {
   // Format product info for the prompt
   const productInfo = products
     .map((p) => {
-      const sizeList = p.sizes.map((s) => `${s.size} – ${s.price}`).join(", ");
+      const sizeList = p.sizes.map((s) => `${s.size}ml – EGP${s.price}`).join(", ");
       return `- ${p.name} (${p.gender}): ${sizeList}`;
     })
     .join("\n");

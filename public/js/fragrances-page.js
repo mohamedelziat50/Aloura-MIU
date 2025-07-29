@@ -596,7 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selected = document.querySelector("input[name='size']:checked");
     if (selected) {
       const price = selected.getAttribute("data-price"); // ← this line
-      priceDisplay.textContent = `${price} LE`;
+      priceDisplay.textContent = `${price} EGP`;
     }
   }
 
