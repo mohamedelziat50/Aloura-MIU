@@ -76,6 +76,14 @@ const fragranceSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    transitionImage: {
+      type: String,
+      default: null,
+    },
+    inTransitionSlider: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

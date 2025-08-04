@@ -1949,6 +1949,37 @@ canvas {
   color: white;
 }
 
+/* Transition Status Label (top right) */
+.transition-status-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+.transition-status-label.in-transition {
+  color: white;
+}
+
+/* Gender-specific colors for transition labels */
+.transition-status-label.in-transition.for-him {
+  background-color: #2196F3; /* Blue for "For Him" */
+}
+
+.transition-status-label.in-transition.for-her {
+  background-color: #E91E63; /* Pink for "For Her" */
+}
+
+.transition-status-label.not-in-transition {
+  background-color: #9E9E9E;
+  color: white;
+}
+
 /* Slider Toggle Button */
 .product-btn.slider-toggle {
   font-size: 14px;
@@ -1971,6 +2002,49 @@ canvas {
 
 .product-btn.remove-slider:hover {
   background-color: #ff5252;
+}
+
+/* Transition Toggle Button */
+.product-btn.transition-toggle {
+  font-size: 14px;
+  padding: 8px 12px;
+  margin-top: 5px;
+}
+
+.product-btn.add-transition {
+  color: black;
+  background: transparent;
+  border: transparent;
+  transition: all 0.3s ease;
+}
+
+/* Gender-specific hover colors for add buttons */
+.product-btn.add-transition.for-him:hover {
+  background-color: #2196F3; /* Blue for "For Him" */
+  color: white;
+}
+
+.product-btn.add-transition.for-her:hover {
+  background-color: #E91E63; /* Pink for "For Her" */
+  color: white;
+}
+
+/* Fallback hover for generic add-transition buttons */
+.product-btn.add-transition:hover {
+  background-color: #2196F3;
+  color: white;
+}
+
+.product-btn.remove-transition {
+  background: transparent;
+  color: black;
+  border: 1px solid #FF0000;
+  transition: all 0.3s ease;
+}
+
+.product-btn.remove-transition:hover {
+  background-color: #FF0000;
+  color: white;
 }
 
 /* Make product card relative for absolute positioning of label */

@@ -638,6 +638,52 @@
             </div>
           </div>
 
+          <!-- Transition Image Upload Section -->
+          <div class="form-section">
+            <h5>Transition Image (Optional - For Landing Hero Slider)</h5>
+            <p class="text-muted mb-3">Upload a landscape-style image for the hero transition slider. This is optional during creation but required to add the fragrance to the "For Him" or "For Her" landing slider.</p>
+            <div class="image-section">
+              <div class="image-preview-container">
+                <p class="form-label">Transition Image</p>
+                <div
+                  class="image-preview-wrapper"
+                  onclick="document.getElementById('transitionImageInput').click()"
+                >
+                  <img
+                    id="transitionImage"
+                    src="/img/ALOURA.jpg"
+                    alt="Transition Image"
+                    class="image-preview"
+                  />
+                </div>
+                <div class="button-group">
+                  <input
+                    type="file"
+                    class="d-none"
+                    id="transitionImageInput"
+                    name="transitionImage"
+                    accept="image/*"
+                    onchange="previewTransitionImage(event)"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary ButtonDicoration"
+                    onclick="document.getElementById('transitionImageInput').click()"
+                  >
+                    Upload
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    onclick="removeTransitionImage()"
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="form-section-last">
             <div class="form-grid-last">
               <div class="mb-4">
@@ -694,8 +740,28 @@
         input.value = "";
       }
 
+      // ✅ Transition image preview & removal
+      function previewTransitionImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const preview = document.getElementById('transitionImage');
+          preview.src = reader.result;
+        };
+        if (file) reader.readAsDataURL(file);
+      }
+
+      function removeTransitionImage() {
+        const preview = document.getElementById('transitionImage');
+        const input = document.getElementById('transitionImageInput');
+        preview.src = "/img/ALOURA.jpg";
+        input.value = "";
+      }
+
       window.previewImage = previewImage;
       window.removeImage = removeImage;
+      window.previewTransitionImage = previewTransitionImage;
+      window.removeTransitionImage = removeTransitionImage;
 
       // ✅ Form logic
       const form = document.querySelector("form");

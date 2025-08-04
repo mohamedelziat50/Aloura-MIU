@@ -6,14 +6,22 @@ import {
   updateFragrance,
   deleteFragrance,
   getFragranceDetails,
+  getTransitionSliderFragrances,
 } from "../controllers/fragrance.js";
 
 const router = express.Router();
 
-router.post("/", upload.array("images", 3), createFragrance);
+// Upload configuration - supports both regular images and transition image
+const uploadFields = upload.fields([
+  { name: 'images', maxCount: 3 },
+  { name: 'transitionImage', maxCount: 1 }
+]);
+
+router.post("/", uploadFields, createFragrance);
 router.get("/details/:id", getFragranceDetails);
+router.get("/transition-slider/:gender", getTransitionSliderFragrances);
 router.get("/:id", getFragranceById);
-router.put("/:id", upload.array("images", 3), updateFragrance);
+router.put("/:id", uploadFields, updateFragrance);
 router.delete("/:id", deleteFragrance);
 
 export default router;

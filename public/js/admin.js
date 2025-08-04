@@ -1040,3 +1040,149 @@ window.toggleSliderStatus = async function (button) {
     button.disabled = false;
   }
 };
+
+// Toggle Transition Slider Status Function
+window.toggleTransitionStatus = async function (button) {
+  try {
+    const fragranceId = button.getAttribute("data-fragrance-id");
+    const currentStatus = button.getAttribute("data-current-status") === "true";
+    const gender = button.getAttribute("data-gender");
+    const hasTransitionImage = button.getAttribute("data-has-transition-image") === "true";
+    
+    // Check if transition image exists before adding to slider
+    if (!currentStatus && !hasTransitionImage) {
+      showFunToast(
+        "Please edit the fragrance and upload a transition image before adding it to the landing slider.",
+        "red"
+      );
+      return;
+    }
+    
+    const newStatus = !currentStatus;
+
+    // Show loading state
+    const originalText = button.textContent;
+    button.textContent = "Updating...";
+    button.disabled = true;
+
+    // Make API call to update database
+    const response = await fetch(`/api/fragrances/${fragranceId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        inTransitionSlider: newStatus,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      // Update button appearance and data
+      button.setAttribute("data-current-status", newStatus);
+      
+      if (newStatus) {
+        button.textContent = gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her';
+        button.className = "product-btn transition-toggle remove-transition";
+      } else {
+        button.textContent = gender === 'Male' ? 'Add To For Him' : 'Add To For Her';
+        const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
+        button.className = `product-btn transition-toggle add-transition ${genderClass}`;
+      }
+
+      // Update transition status label
+      const card = button.closest(".product-card");
+      const transitionLabel = card.querySelector(".transition-status-label");
+
+      if (transitionLabel) {
+        if (newStatus) {
+          transitionLabel.textContent = gender === 'Male' ? 'FOR HIM' : 'FOR HER';
+          const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
+          transitionLabel.className = `transition-status-label in-transition ${genderClass}`;
+        } else {
+          transitionLabel.textContent = "NOT IN LANDING";
+          transitionLabel.className = "transition-status-label not-in-transition";
+        }
+      }
+
+      // Update stats
+      const inTransitionCountElement = document.querySelector(
+        ".product-stats .stat-card:nth-child(3) p"
+      );
+      if (inTransitionCountElement) {
+        let currentCount = parseInt(inTransitionCountElement.textContent);
+        inTransitionCountElement.textContent = newStatus
+          ? currentCount + 1
+          : currentCount - 1;
+      }
+
+      // Show success message
+      showFunToast(
+        data.message || `Fragrance ${newStatus ? "added to" : "removed from"} transition slider!`,
+        "green"
+      );
+
+    } else {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error toggling transition status:", error);
+    button.textContent = originalText;
+    
+    showFunToast(
+      `Error updating transition slider status. Please try again.`,
+      "red"
+    );
+
+  } finally {
+    button.disabled = false;
+  }
+};
+
+// Function to update fragrance card UI when inTransitionSlider status changes
+window.updateFragranceTransitionUI = function(fragranceId, inTransitionSlider, gender) {
+  const fragranceCard = document.querySelector(`[data-fragrance-id="${fragranceId}"]`)?.closest('.product-card');
+  if (!fragranceCard) return;
+
+  // Update the transition status label
+  const transitionLabel = fragranceCard.querySelector('.transition-status-label');
+  if (transitionLabel) {
+    if (inTransitionSlider) {
+      transitionLabel.textContent = gender === 'Male' ? 'FOR HIM' : 'FOR HER';
+      const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
+      transitionLabel.className = `transition-status-label in-transition ${genderClass}`;
+    } else {
+      transitionLabel.textContent = 'NOT IN LANDING';
+      transitionLabel.className = 'transition-status-label not-in-transition';
+    }
+  }
+
+  // Update the button
+  const button = fragranceCard.querySelector('.transition-toggle');
+  if (button) {
+    button.setAttribute('data-current-status', inTransitionSlider);
+    
+    if (inTransitionSlider) {
+      button.textContent = gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her';
+      button.className = 'product-btn transition-toggle remove-transition';
+    } else {
+      button.textContent = gender === 'Male' ? 'Add To For Him' : 'Add To For Her';
+      const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
+      button.className = `product-btn transition-toggle add-transition ${genderClass}`;
+    }
+  }
+
+  // Update stats if needed
+  const inTransitionCountElement = document.querySelector(
+    ".product-stats .stat-card:nth-child(3) p"
+  );
+  if (inTransitionCountElement) {
+    let currentCount = parseInt(inTransitionCountElement.textContent);
+    inTransitionCountElement.textContent = inTransitionSlider
+      ? currentCount + 1
+      : currentCount - 1;
+  }
+
+  console.log(`Updated UI for fragrance ${fragranceId} - inTransitionSlider: ${inTransitionSlider}`);
+};

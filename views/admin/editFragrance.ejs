@@ -617,7 +617,51 @@
             </div>
           </div>
           
-          
+          <!-- Transition Image Upload Section -->
+          <div class="form-section">
+            <h5>Transition Image (Optional - For Landing Hero Slider)</h5>
+            <p class="text-muted mb-3">Upload a landscape-style image for the hero transition slider. This is required to add the fragrance to the "For Him" or "For Her" landing slider.</p>
+            <div class="image-section">
+              <div class="image-preview-container">
+                <p class="form-label">Transition Image</p>
+                <div
+                  class="image-preview-wrapper"
+                  onclick="document.getElementById('transitionImageInput').click()"
+                >
+                  <img
+                    id="transitionImage"
+                    src="<%= fragrance.transitionImage || '/img/ALOURA.jpg' %>"
+                    alt="Transition Image"
+                    class="image-preview"
+                  />
+                </div>
+                <div class="button-group">
+                  <input
+                    type="file"
+                    class="d-none"
+                    id="transitionImageInput"
+                    name="transitionImage"
+                    accept="image/*"
+                    onchange="previewTransitionImage(event)"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary ButtonDicoration"
+                    onclick="document.getElementById('transitionImageInput').click()"
+                  >
+                    Upload
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    onclick="removeTransitionImage()"
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="form-section-last">
             <div class="form-grid-last">
@@ -672,7 +716,52 @@
         };
         if (file) reader.readAsDataURL(file);
       }
+
+      // ✅ Transition image preview & removal
+      function previewTransitionImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const preview = document.getElementById('transitionImage');
+          preview.src = reader.result;
+        };
+        if (file) {
+          reader.readAsDataURL(file);
+          
+          // Clear the removal flag since we're uploading a new image
+          const removalField = document.getElementById('transitionImageRemoved');
+          if (removalField) {
+            removalField.value = 'false';
+          }
+        }
+      }
+
+      function removeTransitionImage() {
+        console.log('Removing transition image...');
+        const preview = document.getElementById('transitionImage');
+        const input = document.getElementById('transitionImageInput');
+        const oldSrc = preview.src;
+        preview.src = "/img/ALOURA.jpg";
+        input.value = "";
+        
+        console.log('Transition image changed from:', oldSrc, 'to:', preview.src);
+        
+        // Add a hidden field to indicate transition image removal
+        let removalField = document.getElementById('transitionImageRemoved');
+        if (!removalField) {
+          removalField = document.createElement('input');
+          removalField.type = 'hidden';
+          removalField.id = 'transitionImageRemoved';
+          removalField.name = 'transitionImageRemoved';
+          document.getElementById('fragranceForm').appendChild(removalField);
+        }
+        removalField.value = 'true';
+        console.log('Set transitionImageRemoved flag to true');
+      }
+
       window.previewImage = previewImage;
+      window.previewTransitionImage = previewTransitionImage;
+      window.removeTransitionImage = removeTransitionImage;
     
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("fragranceForm");
@@ -704,6 +793,7 @@
           image: document.getElementById("fragrancePicture").src, // Save the initial image URL in originalValues
           backgroundImage1: document.getElementById("backgroundPicture1").src, // Save the initial image URL in originalValues
           backgroundImage2: document.getElementById("backgroundPicture2").src, // Save the initial image URL in originalValues
+          transitionImage: document.getElementById("transitionImage").src, // Save the initial transition image URL
         };
     
         form.addEventListener("submit", async (e) => {
@@ -724,6 +814,7 @@
           const image = document.getElementById("fragrancePicture").src;
           const backgroundImage1 = document.getElementById("backgroundPicture1").src;
           const backgroundImage2 = document.getElementById("backgroundPicture2").src;
+          const transitionImage = document.getElementById("transitionImage").src;
           
     
           let hasChanged = false;
@@ -742,7 +833,8 @@
             originalValues.tags !== tags ||
             originalValues.image !== image ||
             originalValues.backgroundImage1 !== backgroundImage1 ||
-            originalValues.backgroundImage2 !== backgroundImage2
+            originalValues.backgroundImage2 !== backgroundImage2 ||
+            originalValues.transitionImage !== transitionImage
           ) {
             hasChanged = true;
           }
@@ -761,6 +853,9 @@
     
           // If no changes, show toast and stop submission
           if (!hasChanged) {
+            console.log('No changes detected. Original vs Current:');
+            console.log('Original transition image:', originalValues.transitionImage);
+            console.log('Current transition image:', transitionImage);
             showFunToast("ℹ️ No changes detected.", "red");
             return;
           }
@@ -852,7 +947,9 @@
             if (response.ok) {
               setTimeout(() => {
                 showFunToast(data.message || "✅ Fragrance updated successfully!", "green");
-                window.location.href = `/admin/${window.currentAdminId}`; // Redirect after successful update
+                // Add cache-busting parameter to ensure fresh data load
+                const timestamp = Date.now();
+                window.location.href = `/admin/${window.currentAdminId}?t=${timestamp}`;
               }, 900);
             } else {
               showFunToast(data.message || "❌ Error occurred while updating fragrance!", "red");
