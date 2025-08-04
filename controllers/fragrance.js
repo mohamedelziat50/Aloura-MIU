@@ -32,7 +32,10 @@ export const createFragrance = async (req, res) => {
     }
 
     // Build public image paths from Multer
-    const imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
+    const imagePaths = req.files.images ? req.files.images.map((file) => `/uploads/${file.filename}`) : [];
+    
+    // Handle transition image if uploaded
+    const transitionImagePath = req.files.transitionImage ? `/uploads/${req.files.transitionImage[0].filename}` : null;
 
     // Handle size options manually
     const selectedSizes = Array.isArray(sizes) ? sizes : [sizes];
@@ -74,6 +77,7 @@ export const createFragrance = async (req, res) => {
       baseNotes: baseNotes?.split(",").map((s) => s.trim()),
       tags: tags?.split(",").map((s) => s.trim()),
       releaseDate,
+      transitionImage: transitionImagePath,
     });
 
     res.status(201).json(newFragrance);
@@ -134,6 +138,22 @@ export const updateFragrance = async (req, res) => {
           _id: fragrance._id,
           name: fragrance.name,
           previewLanding: fragrance.previewLanding,
+        },
+      });
+    }
+
+    // If only updating inTransitionSlider (from admin toggle)
+    if (req.body.inTransitionSlider !== undefined && !name) {
+      fragrance.inTransitionSlider = req.body.inTransitionSlider;
+      await fragrance.save();
+      return res.json({
+        message: `Fragrance ${
+          req.body.inTransitionSlider ? "added to" : "removed from"
+        } transition slider successfully`,
+        fragrance: {
+          _id: fragrance._id,
+          name: fragrance.name,
+          inTransitionSlider: fragrance.inTransitionSlider,
         },
       });
     }
@@ -208,11 +228,36 @@ export const updateFragrance = async (req, res) => {
       fragrance.image = updatedImages;
     }
 
+    // Update transition image if provided
+    if (req.files && req.files.transitionImage) {
+      fragrance.transitionImage = `/uploads/${req.files.transitionImage[0].filename}`;
+    }
+    
+    // Handle transition image removal (when user clicks X button)
+    // Check if transitionImage was submitted as form data but no file was uploaded
+    if (req.body.transitionImageRemoved === 'true') {
+      console.log(`Removing transition image for fragrance ${fragrance.name} (${fragrance._id})`);
+      console.log(`Previous inTransitionSlider status: ${fragrance.inTransitionSlider}`);
+      fragrance.transitionImage = null;
+      // Also remove from transition slider since it requires a transition image
+      fragrance.inTransitionSlider = false;
+      console.log(`New inTransitionSlider status: ${fragrance.inTransitionSlider}`);
+    }
+
     // Save changes
     await fragrance.save();
+    
+    // Create appropriate success message
+    let successMessage = "✅ Fragrance updated successfully";
+    if (req.body.transitionImageRemoved === 'true') {
+      successMessage += " and removed from landing slider (transition image required)";
+    }
+    
     res.status(200).json({
-      message: "✅ Fragrance updated successfully",
+      message: successMessage,
       fragrance,
+      transitionImageRemoved: req.body.transitionImageRemoved === 'true',
+      inTransitionSlider: fragrance.inTransitionSlider,
     });
   } catch (error) {
     console.error("❌ Error updating fragrance:", error);
@@ -310,5 +355,50 @@ export const getFragranceDetails = async (req, res) => {
   } catch (err) {
     console.error(`[ERROR] Error fetching fragrance details: ${err.message}`);
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Get transition slider fragrances by gender
+export const getTransitionSliderFragrances = async (req, res) => {
+  try {
+    const { gender } = req.params;
+    
+    // Validate gender parameter
+    if (!['Male', 'Female'].includes(gender)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Invalid gender. Must be 'Male' or 'Female'." 
+      });
+    }
+
+    // Find fragrances that are in transition slider and have transition image
+    const fragrances = await Fragrance.find({
+      gender: gender,
+      inTransitionSlider: true,
+      transitionImage: { $ne: null }
+    }).select('name brand description topNotes middleNotes baseNotes transitionImage _id')
+      .sort({ createdAt: 1 }); // FIFO order
+
+    console.log(`Found ${fragrances.length} ${gender} fragrances for transition slider`);
+
+    res.json({
+      success: true,
+      fragrances: fragrances.map(fragrance => ({
+        _id: fragrance._id,
+        name: fragrance.name,
+        brand: fragrance.brand,
+        description: fragrance.description,
+        topNotes: fragrance.topNotes,
+        middleNotes: fragrance.middleNotes,
+        baseNotes: fragrance.baseNotes,
+        transitionImage: fragrance.transitionImage
+      }))
+    });
+  } catch (error) {
+    console.error("Error fetching transition slider fragrances:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Server error" 
+    });
   }
 };

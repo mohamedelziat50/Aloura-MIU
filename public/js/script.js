@@ -27,112 +27,77 @@ document.addEventListener("DOMContentLoaded", function () {
   const transitionContainer = document.querySelector(".transition-container");
   const transitionImage = document.querySelector("#transition-img");
 
-  const herFragrances = [
-    {
-      image:
-        "https://cdn.prod.website-files.com/64fff659cb19102a6a74dc5e/66b080f27a31f17abfadfaf5_GUCCI_FLORA_MAIN.webp",
-      name: "Flora Gorgeous",
-      parfum: "GUCCI",
-      description:
-        "A luminous and modern floral fragrance that captures the essence of optimism and beauty.",
-      notes: {
-        top: "Pear, Mandarin",
-        middle: "Gardenia, Jasmine",
-        base: "Patchouli, Musks",
-      },
-    },
-    {
-      image:
-        "https://www.perfumestars.com/wp-content/uploads/2024/07/burberry-goddess-intense-elevating-the-vanilla-experience-to-new-heights-2024-1024x559.jpg",
-      name: "Goddess Intense",
-      parfum: "BURBERRY",
-      description:
-        "An intoxicating vanilla-based fragrance that embodies modern femininity and power.",
-      notes: {
-        top: "Lavender",
-        middle: "Vanilla Absolute",
-        base: "Amber, Sandalwood",
-      },
-    },
-    {
-      image:
-        "https://ifragranceofficial.com/wp-content/uploads/2023/11/eilish-no-3.png",
-      name: "Eilish No.3",
-      parfum: "EILISH",
-      description:
-        "A sultry and sophisticated scent that combines warmth with ethereal freshness.",
-      notes: {
-        top: "Black Pepper",
-        middle: "Rose, Saffron",
-        base: "Vanilla, Musk",
-      },
-    },
-    {
-      image: "https://i.ytimg.com/vi/vdQsvlcy7hE/maxresdefault.jpg",
-      name: "Vanilla Sex",
-      parfum: "Tom Ford",
-      description:
-        "A delicate and feminine fragrance that embodies youthful elegance.",
-      notes: {
-        top: "Bitter Almond",
-        middle: "Vanilla, Floral Notes",
-        base: "Tonka Bean, Vanilla Absolute , Sandalwood",
-      },
-    },
-  ];
-  const himFragrances = [
-    {
-      image:
-        "https://m.media-amazon.com/images/I/71jzd3LtzPL._AC_UF1000,1000_QL80_.jpg",
-      name: "Aventus",
-      parfum: "Creed",
-      description:
-        "A luxurious leather fragrance that captures raw sensuality and sophistication.",
-      notes: {
-        top: "Cardamom",
-        middle: "Leather, Jasmine",
-        base: "Moss, Amber",
-      },
-    },
-    {
-      image:
-        "https://cdn.shopify.com/s/files/1/0524/6733/5333/files/Versace_Eros-5_480x480.jpg?v=1609687512",
-      name: "Eros",
-      parfum: "VERSACE",
-      description:
-        "A bold and passionate fragrance inspired by Greek mythology.",
-      notes: {
-        top: "Mint, Green Apple",
-        middle: "Tonka Bean",
-        base: "Vanilla, Vetiver",
-      },
-    },
-    {
-      image:
-        "https://www.perfumestars.com/wp-content/uploads/2025/03/fragrance-for-men-lattafa-perfumes-khamrah-dukhan-768x419.jpg",
-      name: "Khamrah",
-      parfum: "LATTAFA",
-      description:
-        "An intense and mysterious oriental fragrance with remarkable longevity.",
-      notes: {
-        top: "Saffron, Oud",
-        middle: "Rose, Amber",
-        base: "Musk, Vanilla",
-      },
-    },
-    {
-      image:
-        "https://www.yslbeauty.com/dw/image/v2/BDCR_PRD/on/demandware.static/-/Sites-NGYSL-ILM-Library/default/dw5b0e71d0/pdp/images/WW-51020YSL/ysl_dmi_fraw_libre_le-parfum-22_digital-life-still_packshot-on-black&white-marble_landscape.jpg?sw=1920&sh=1080&sm=cut&q=85",
-      name: "Y Le Parfum",
-      parfum: "YVES SAINT LAURENT",
-      description: "A sophisticated and intense fragrance for the modern man.",
-      notes: {
-        top: "Ginger",
-        middle: "Geranium, Lavender",
-        base: "Vanilla, Tonka Bean",
-      },
-    },
-  ];
+  // Dynamic fragrance arrays - will be populated from API
+  let herFragrances = [];
+  let himFragrances = [];
+
+  // Fetch transition slider fragrances for a specific gender
+  async function fetchTransitionFragrances(gender) {
+    try {
+      const genderParam = gender === 'her' ? 'Female' : 'Male';
+      console.log(`Fetching ${gender} fragrances from: /api/fragrances/transition-slider/${genderParam}`);
+      
+      const response = await fetch(`/api/fragrances/transition-slider/${genderParam}`);
+      console.log(`Response status: ${response.status}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log(`API response for ${gender}:`, data);
+      
+      if (data.success && data.fragrances) {
+        const mappedFragrances = data.fragrances.map(fragrance => ({
+          image: fragrance.transitionImage,
+          name: fragrance.name,
+          parfum: fragrance.brand || "", // Use brand from fragrance
+          description: fragrance.description,
+          notes: {
+            top: fragrance.topNotes ? fragrance.topNotes.join(", ") : "",
+            middle: fragrance.middleNotes ? fragrance.middleNotes.join(", ") : "",
+            base: fragrance.baseNotes ? fragrance.baseNotes.join(", ") : "",
+          },
+          _id: fragrance._id
+        }));
+        console.log(`Mapped ${gender} fragrances:`, mappedFragrances);
+        return mappedFragrances;
+      }
+      return [];
+    } catch (error) {
+      console.error(`Error fetching ${gender} fragrances:`, error);
+      return [];
+    }
+  }
+
+  // Initialize fragrance data
+  async function initializeFragranceData() {
+    console.log('Starting fragrance data initialization...');
+    
+    try {
+      herFragrances = await fetchTransitionFragrances('her');
+      himFragrances = await fetchTransitionFragrances('him');
+      
+      console.log(`Loaded ${herFragrances.length} "For Her" fragrances`);
+      console.log(`Loaded ${himFragrances.length} "For Him" fragrances`);
+      
+      // If no fragrances available, show warning in console
+      if (herFragrances.length === 0) {
+        console.warn('No "For Her" fragrances available in transition slider');
+      }
+      if (himFragrances.length === 0) {
+        console.warn('No "For Him" fragrances available in transition slider');
+      }
+      
+      console.log('Fragrance data initialization complete');
+    } catch (error) {
+      console.error('Error during fragrance data initialization:', error);
+    }
+  }
+
+  // Call initialization when page loads
+  initializeFragranceData();
+
   let currentImageIndex = 0;
   let currentGender = null;
 
@@ -202,11 +167,34 @@ document.addEventListener("DOMContentLoaded", function () {
         switchBtn.title = gender === "her" ? "Switch to Him" : "Switch to Her";
         switchBtn.classList.add("circular-gender-btn");
       }
+
+      // Update buy button functionality
+      const buyBtn = overlay.querySelector(".buy-button");
+      if (buyBtn && fragrance._id) {
+        // Remove previous event listeners by cloning
+        const buyBtnClone = buyBtn.cloneNode(true);
+        buyBtn.parentNode.replaceChild(buyBtnClone, buyBtn);
+        
+        buyBtnClone.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          // Redirect to individual fragrance page
+          window.location.href = `/fragrances-page/${fragrance._id}`;
+        });
+      }
     }
   }
 
   function handleGenderSelection(gender) {
     if (!genderContainer || !transitionContainer || !transitionImage) return;
+    
+    // Check if fragrances are available for the selected gender
+    const fragrances = gender === "her" ? herFragrances : himFragrances;
+    if (fragrances.length === 0) {
+      alert(`No fragrances available for "${gender === "her" ? "For Her" : "For Him"}" section. Please add fragrances to the transition slider in the admin panel.`);
+      return;
+    }
+    
     currentGender = gender;
     currentImageIndex = 0;
     updateFragranceDisplay(gender, currentImageIndex);
@@ -1331,6 +1319,83 @@ function initReviewCards() {
 
   // For Him & For Her button functionality
 
+  // Update hero section fragrance display
+  function updateHeroFragranceDisplay(gender) {
+    console.log(`Updating hero display for ${gender}`);
+    
+    const fragrances = gender === 'her' ? herFragrances : himFragrances;
+    
+    if (fragrances.length === 0) {
+      console.warn(`No fragrances available for ${gender}`);
+      // Set fallback content
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      const buyButton = document.getElementById('buyButton');
+      
+      if (heroTitle) heroTitle.textContent = 'Coming Soon';
+      if (heroSubtitle) heroSubtitle.textContent = `New fragrances for ${gender} will be available soon`;
+      if (buyButton) buyButton.style.display = 'none';
+      return;
+    }
+    
+    // Get the next fragrance (FIFO - first in the array)
+    const currentFragrance = fragrances[0];
+    console.log('Current fragrance:', currentFragrance);
+    
+    // Update UI elements
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+    const buyButton = document.getElementById('buyButton');
+    
+    if (heroTitle) {
+      heroTitle.textContent = currentFragrance.brand || 'Premium Fragrance';
+    }
+    
+    if (heroSubtitle) {
+      heroSubtitle.textContent = currentFragrance.name || 'Exclusive Collection';
+    }
+    
+    if (buyButton) {
+      buyButton.style.display = 'block'; // Show buy button
+      buyButton.onclick = () => {
+        window.location.href = `/fragrances-page/${currentFragrance._id}`;
+      };
+    }
+    
+    // Move the used fragrance to the end of the array (FIFO rotation)
+    if (gender === 'her') {
+      herFragrances.push(herFragrances.shift());
+    } else {
+      himFragrances.push(himFragrances.shift());
+    }
+    
+    console.log(`Hero display updated for ${gender}:`, {
+      brand: currentFragrance.brand,
+      name: currentFragrance.name,
+      id: currentFragrance._id
+    });
+  }
+
+  // Setup button listeners for For Her/For Him
+  function setupHeroButtonListeners() {
+    const forHerButton = document.querySelector('.for-her');
+    const forHimButton = document.querySelector('.for-him');
+    
+    if (forHerButton) {
+      forHerButton.addEventListener('click', () => {
+        updateHeroFragranceDisplay('her');
+      });
+    }
+    
+    if (forHimButton) {
+      forHimButton.addEventListener('click', () => {
+        updateHeroFragranceDisplay('him');
+      });
+    }
+    
+    console.log('Hero button listeners set up');
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     const forHerButton = document.querySelector(".for-her");
     const forHimButton = document.querySelector(".for-him");
@@ -1403,6 +1468,27 @@ function initReviewCards() {
     setTimeout(() => {
       if (fragranceQuiz) fragranceQuiz.classList.add("show");
     }, 2500);
+    
+    // Initialize dynamic fragrance data for hero section
+    console.log('DOM loaded, initializing hero section...');
+    
+    // Show loading state initially
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+    const buyButton = document.getElementById('buyButton');
+    
+    if (heroTitle) heroTitle.textContent = 'Loading...';
+    if (heroSubtitle) heroSubtitle.textContent = 'Preparing our finest fragrances for you...';
+    if (buyButton) buyButton.style.display = 'none'; // Hide buy button during loading
+    
+    // Initialize fragrance data
+    initializeFragranceData().then(() => {
+      // Set up button listeners after data is loaded
+      setupHeroButtonListeners();
+      console.log('Hero section initialization complete');
+    }).catch(error => {
+      console.error('Hero section initialization failed:', error);
+    });
   });
 }
 

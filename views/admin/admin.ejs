@@ -266,6 +266,10 @@
               <h3>In Landing Slider</h3>
               <p><%= fragrance.filter(f => f.previewLanding).length %></p>
             </div>
+            <div class="stat-card">
+              <h3>In Transition Slider</h3>
+              <p><%= fragrance.filter(f => f.inTransitionSlider).length %></p>
+            </div>
           </div>
           
           <div class="product-buttons">
@@ -280,10 +284,21 @@
           <% } else { %>
           <div class="product-grid">            <% fragrance.forEach((product) => { %>
             <div class="product-card">
-              <!-- Slider Status Label -->
+              <!-- Slider Status Label (top left) -->
               <div class="slider-status-label <%= product.previewLanding ? 'in-slider' : 'not-in-slider' %>">
                 <%= product.previewLanding ? 'IN SLIDER' : 'NOT IN SLIDER' %>
               </div>
+              
+              <!-- Transition Slider Status Label (top right) - Only for Male/Female -->
+              <% if (product.gender !== 'Unisex') { %>
+              <div class="transition-status-label <%= product.inTransitionSlider ? 'in-transition' : 'not-in-transition' %><% if (product.inTransitionSlider) { %> <%= product.gender === 'Male' ? 'for-him' : 'for-her' %><% } %>">
+                <% if (product.inTransitionSlider) { %>
+                  <%= product.gender === 'Male' ? 'FOR HIM' : 'FOR HER' %>
+                <% } else { %>
+                  NOT IN LANDING
+                <% } %>
+              </div>
+              <% } %>
               
               <div class="product-avatar">
                 <img src="<%= product.image[0] %>" alt="product Avatar" loading="lazy" />
@@ -345,6 +360,22 @@
                 >
                   <%= product.previewLanding ? 'Remove from Slider' : 'Add to Slider' %>
                 </button>
+                
+                <!-- Transition Slider Button - Only for Male/Female -->
+                <% if (product.gender !== 'Unisex') { %>
+                <button
+                  class="product-btn transition-toggle <%= product.inTransitionSlider ? 'remove-transition' : 'add-transition' %><% if (!product.inTransitionSlider) { %> <%= product.gender === 'Male' ? 'for-him' : 'for-her' %><% } %>"
+                  data-fragrance-id="<%= product._id %>"
+                  data-current-status="<%= product.inTransitionSlider %>"
+                  data-gender="<%= product.gender %>"
+                  data-has-transition-image="<%= product.transitionImage ? 'true' : 'false' %>"
+                  onclick="toggleTransitionStatus(this)"
+                >
+                  <%= product.inTransitionSlider ? 
+                    (product.gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her') : 
+                    (product.gender === 'Male' ? 'Add To For Him' : 'Add To For Her') %>
+                </button>
+                <% } %>
               </div>
               
             </div>
