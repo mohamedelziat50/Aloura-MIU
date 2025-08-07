@@ -1806,6 +1806,159 @@ top: 0;
   transform: translateY(-2px);
 }
 
+/* Mobile responsive styles for fragrance overlay */
+@media (max-width: 1024px) {
+  .fragrance-overlay {
+    padding: 1.5rem 1rem 1.8rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.75) 80%, transparent 100%);
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .fragrance-header {
+    margin-bottom: 0.3rem;
+  }
+
+  .fragrance-name {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .fragrance-type {
+    font-size: 0.8rem;
+    margin-top: 0.1rem;
+  }
+
+  .scroll-buttons {
+    gap: 0.3rem;
+  }
+
+  .scroll-btn, .switch-gender-btn, .rewind-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .divider {
+    margin: 0.6rem 0;
+  }
+
+  .fragrance-details {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .fragrance-description p {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    /* Limit description height and add scrolling if needed */
+    max-height: 3.9rem; /* About 3 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .fragrance-notes {
+    gap: 0.6rem;
+    order: 2;
+  }
+
+  .note-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .note-label {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .note-text {
+    font-size: 0.8rem;
+    flex: 1;
+    /* Limit note text length */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .buy-button {
+    order: 3;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .fragrance-overlay {
+    padding: 1.2rem 0.8rem 1.5rem 0.8rem;
+    max-height: 65vh;
+  }
+
+  .fragrance-name {
+    font-size: 1.4rem;
+  }
+
+  .fragrance-description p {
+    max-height: 2.6rem; /* About 2 lines */
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .note-label {
+    min-width: 70px;
+    font-size: 0.7rem;
+  }
+
+  .note-text {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fragrance-overlay {
+    padding: 1rem 0.6rem 1.2rem 0.6rem;
+    max-height: 60vh;
+  }
+
+  .fragrance-name {
+    font-size: 1.2rem;
+  }
+
+  .scroll-btn, .switch-gender-btn, .rewind-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .fragrance-description p {
+    max-height: 2.1rem; /* About 2 lines */
+    font-size: 0.8rem;
+  }
+
+  .note-label {
+    min-width: 60px;
+    font-size: 0.65rem;
+  }
+
+  .note-text {
+    font-size: 0.7rem;
+  }
+
+  .buy-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* Add new rules for transition state */
 .gender.transition-active {
   position: relative;
