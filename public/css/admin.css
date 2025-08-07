@@ -1377,7 +1377,6 @@ canvas {
 
 .product-actions {
   display: flex;
-  gap: 10px;
   justify-content: center;
   margin-top: 5px;
   align-items: center;
@@ -2009,6 +2008,13 @@ canvas {
   font-size: 14px;
   padding: 8px 12px;
   margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.product-btn.transition-toggle i {
+  font-size: 16px;
 }
 
 .product-btn.add-transition {
@@ -2038,7 +2044,6 @@ canvas {
 .product-btn.remove-transition {
   background: transparent;
   color: black;
-  border: 1px solid #FF0000;
   transition: all 0.3s ease;
 }
 

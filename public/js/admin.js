@@ -1083,10 +1083,10 @@ window.toggleTransitionStatus = async function (button) {
       button.setAttribute("data-current-status", newStatus);
       
       if (newStatus) {
-        button.textContent = gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her';
+        button.innerHTML = 'Remove <i class="fas ' + (gender === 'Male' ? 'fa-mars' : 'fa-venus') + '"></i>';
         button.className = "product-btn transition-toggle remove-transition";
       } else {
-        button.textContent = gender === 'Male' ? 'Add To For Him' : 'Add To For Her';
+        button.innerHTML = 'Add <i class="fas ' + (gender === 'Male' ? 'fa-mars' : 'fa-venus') + '"></i>';
         const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
         button.className = `product-btn transition-toggle add-transition ${genderClass}`;
       }
@@ -1164,10 +1164,10 @@ window.updateFragranceTransitionUI = function(fragranceId, inTransitionSlider, g
     button.setAttribute('data-current-status', inTransitionSlider);
     
     if (inTransitionSlider) {
-      button.textContent = gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her';
+      button.innerHTML = 'Remove <i class="fas ' + (gender === 'Male' ? 'fa-mars' : 'fa-venus') + '"></i>';
       button.className = 'product-btn transition-toggle remove-transition';
     } else {
-      button.textContent = gender === 'Male' ? 'Add To For Him' : 'Add To For Her';
+      button.innerHTML = 'Add <i class="fas ' + (gender === 'Male' ? 'fa-mars' : 'fa-venus') + '"></i>';
       const genderClass = gender === 'Male' ? 'for-him' : 'for-her';
       button.className = `product-btn transition-toggle add-transition ${genderClass}`;
     }
