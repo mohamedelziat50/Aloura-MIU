@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize product slider
   initProductSlider();
+  
+  // Set initial mode
+  document.body.dataset.lastSliderMode = window.innerWidth <= 768 ? 'mobile' : 'desktop';
+  
+  // Handle resize events to switch between mobile and desktop behavior
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Re-initialize slider when screen size changes significantly
+      const wasMobile = document.body.dataset.lastSliderMode === 'mobile';
+      const isMobile = window.innerWidth <= 768;
+      
+      if (wasMobile !== isMobile) {
+        // Screen size category changed, re-initialize
+        initProductSlider();
+        document.body.dataset.lastSliderMode = isMobile ? 'mobile' : 'desktop';
+      }
+    }, 250);
+  });
 
   // Initialize popup with 5 second delay
   initPopup();
@@ -622,6 +642,44 @@ function initGenderHoverEffects() {
  * Initializes the product slider with circular looping
  */
 
+/**
+ * Clean up previous slider initialization
+ */
+function cleanupSlider(slider, prevBtn, nextBtn) {
+  // Remove cloned cards (they have no dataset attributes from original cards)
+  const allCards = Array.from(slider.children);
+  allCards.forEach(card => {
+    if (!card.dataset.name) {
+      card.remove();
+    }
+  });
+  
+  // Reset slider position
+  slider.scrollLeft = 0;
+  
+  // Remove any existing event listeners by cloning buttons
+  if (prevBtn && prevBtn._sliderClickHandler) {
+    prevBtn.removeEventListener('click', prevBtn._sliderClickHandler);
+    prevBtn._sliderClickHandler = null;
+  }
+  if (nextBtn && nextBtn._sliderClickHandler) {
+    nextBtn.removeEventListener('click', nextBtn._sliderClickHandler);
+    nextBtn._sliderClickHandler = null;
+  }
+  
+  // Reset card styles
+  const originalCards = Array.from(slider.querySelectorAll('.product-card[data-name]'));
+  originalCards.forEach(card => {
+    card.classList.remove('active');
+    card.style.scrollSnapAlign = '';
+    card.style.cursor = '';
+    if (card._adjacentClickHandler) {
+      card.removeEventListener('click', card._adjacentClickHandler);
+      card._adjacentClickHandler = null;
+    }
+  });
+}
+
 function initProductSlider() {
   const slider = document.querySelector(".product-slider");
   const prevBtn = document.querySelector(".prev-btn");
@@ -632,10 +690,57 @@ function initProductSlider() {
   if (!slider || !prevBtn || !nextBtn || cards.length === 0 || !productDetails)
     return;
 
+  // Clean up any previous initialization
+  cleanupSlider(slider, prevBtn, nextBtn);
+
+  // Check if we're on mobile
+  const isMobile = window.innerWidth <= 768;
+  
   const visibleCards = 3;
   const cardMargin = 160;
   const cardCount = cards.length;
   const cardWidth = slider.offsetWidth / visibleCards - cardMargin * 2;
+
+  // Handle mobile vs desktop behavior
+  if (isMobile) {
+    // Mobile: Enable native horizontal scrolling
+    slider.style.overflowX = 'auto';
+    slider.style.scrollSnapType = 'x mandatory';
+    
+    // Add scroll snap to each card
+    cards.forEach(card => {
+      card.style.scrollSnapAlign = 'center';
+    });
+    
+    // Hide navigation buttons on mobile
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    
+    // Add touch event listeners for better mobile experience
+    addMobileTouchSupport(slider, cards, productDetails);
+    
+    // Center the first card on mobile
+    setTimeout(() => {
+      if (cards.length > 0) {
+        cards[0].scrollIntoView({
+          behavior: 'auto',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }, 100);
+    
+    return; // Exit early for mobile, no need for button navigation
+  }
+
+  // Desktop: Use button navigation with cloning
+  // Reset mobile styles
+  slider.style.overflowX = 'hidden';
+  slider.style.scrollSnapType = 'none';
+  
+  // Show navigation buttons on desktop
+  if (prevBtn) prevBtn.style.display = 'flex';
+  if (nextBtn) nextBtn.style.display = 'flex';
 
   // Duplicate first and last few cards for seamless looping
   const firstClones = cards
@@ -754,7 +859,7 @@ function initProductSlider() {
   }
 
   // Navigation Buttons
-  nextBtn.addEventListener("click", function () {
+  const nextHandler = function () {
     if (!slider.classList.contains("moving")) {
       slider.classList.add("moving");
       cardIndex++;
@@ -764,9 +869,9 @@ function initProductSlider() {
         slider.classList.remove("moving");
       }, 350);
     }
-  });
+  };
 
-  prevBtn.addEventListener("click", function () {
+  const prevHandler = function () {
     if (!slider.classList.contains("moving")) {
       slider.classList.add("moving");
       cardIndex--;
@@ -776,10 +881,157 @@ function initProductSlider() {
         slider.classList.remove("moving");
       }, 350);
     }
-  });
+  };
+  
+  // Store handlers for cleanup
+  nextBtn._sliderClickHandler = nextHandler;
+  prevBtn._sliderClickHandler = prevHandler;
+  
+  nextBtn.addEventListener("click", nextHandler);
+  prevBtn.addEventListener("click", prevHandler);
 
   window.addEventListener("resize", updateSlider);
   updateSlider(); // Initial render
+}
+
+/**
+ * Add mobile touch support for the carousel
+ */
+function addMobileTouchSupport(slider, cards, productDetails) {
+  let activeCardIndex = 0;
+  let isScrolling = false;
+  
+  // Function to update product details based on visible card
+  function updateMobileProductDetails() {
+    // Find the most centered card in viewport
+    const sliderRect = slider.getBoundingClientRect();
+    const sliderCenter = sliderRect.left + sliderRect.width / 2;
+    
+    let closestCard = null;
+    let closestDistance = Infinity;
+    let closestIndex = 0;
+    
+    cards.forEach((card, index) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.abs(cardCenter - sliderCenter);
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestCard = card;
+        closestIndex = index;
+      }
+    });
+    
+    if (closestCard && closestIndex !== activeCardIndex) {
+      activeCardIndex = closestIndex;
+      
+      // Update active states
+      cards.forEach(card => card.classList.remove('active'));
+      closestCard.classList.add('active');
+      
+      // Update product details
+      const name = closestCard.dataset.name;
+      const description = closestCard.dataset.description;
+      const rating = closestCard.dataset.rating;
+      const size = closestCard.dataset.size;
+      const price = closestCard.dataset.price;
+
+      if (productDetails.querySelector(".product-name")) {
+        productDetails.querySelector(".product-name").textContent = name;
+      }
+      if (productDetails.querySelector(".product-description")) {
+        productDetails.querySelector(".product-description").textContent = description;
+      }
+      if (productDetails.querySelector(".rating-score")) {
+        productDetails.querySelector(".rating-score").textContent = rating;
+      }
+      if (productDetails.querySelector(".product-size")) {
+        productDetails.querySelector(".product-size").textContent = size;
+      }
+      if (productDetails.querySelector(".product-price")) {
+        productDetails.querySelector(".product-price").textContent = price;
+      }
+    }
+  }
+  
+  // Enhanced scroll handler with snap-to-center behavior
+  let scrollTimeout;
+  let snapTimeout;
+  
+  function handleScroll() {
+    clearTimeout(scrollTimeout);
+    clearTimeout(snapTimeout);
+    
+    isScrolling = true;
+    
+    // Update product details during scroll
+    scrollTimeout = setTimeout(() => {
+      updateMobileProductDetails();
+      isScrolling = false;
+      
+      // After scroll ends, ensure proper centering
+      snapTimeout = setTimeout(() => {
+        ensureCenterSnap();
+      }, 100);
+    }, 100);
+  }
+  
+  // Function to ensure the closest card is perfectly centered
+  function ensureCenterSnap() {
+    const sliderRect = slider.getBoundingClientRect();
+    const sliderCenter = sliderRect.left + sliderRect.width / 2;
+    
+    let closestCard = null;
+    let closestDistance = Infinity;
+    
+    cards.forEach((card) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.abs(cardCenter - sliderCenter);
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestCard = card;
+      }
+    });
+    
+    if (closestCard && closestDistance > 5) { // Only snap if not already centered
+      closestCard.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+  }
+  
+  slider.addEventListener('scroll', handleScroll);
+  
+  // Handle touch end to ensure proper snapping
+  slider.addEventListener('touchend', () => {
+    setTimeout(() => {
+      if (!isScrolling) {
+        ensureCenterSnap();
+      }
+    }, 200);
+  });
+  
+  // Initial update
+  updateMobileProductDetails();
+  
+  // Add click handlers for cards to open fragrance modal
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const fragranceId = card.dataset.fragranceId;
+      if (fragranceId && window.openFragranceModal) {
+        window.openFragranceModal(fragranceId);
+      }
+    });
+    
+    // Make cards clickable
+    card.style.cursor = 'pointer';
+  });
 }
 
 /**

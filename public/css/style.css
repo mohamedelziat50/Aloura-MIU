@@ -122,10 +122,10 @@ box-shadow: #000;
 }
 
 .right-container p{
-  margin: 50px 15px 0px 30px;
+  margin: 8px 15px 0px 25px;
 }
 .left-container p{
-  margin: 50px 45px;
+  margin: 10px 45px;
 }
 
 .right-container p.show,
@@ -299,13 +299,13 @@ box-shadow: #000;
 .text-overlay-indulge {
   top: 17%;
   left: 10%;
-  font-size: 150px;
+  font-size: 100px;
 }
 
 .text-overlay-your {
   top: 45%;
-  left: 23%;
-  font-size: 150px;
+  left: 20%;
+  font-size: 100px;
   white-space: nowrap;
 }
 
@@ -421,7 +421,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   color: rgb(238, 236, 236);
   z-index: 10;
   pointer-events: none;
-  font-size: 17.5rem;
+  font-size: 15.8rem;
   transform: scale(1, 1.2); /* Stretch vertically */
   transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Initial full height */
@@ -434,7 +434,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   color: rgb(238, 236, 236);
   z-index: 10;
   pointer-events: none;
-  font-size: 17.5rem;
+  font-size: 15.7rem;
   white-space: nowrap;
   transform: scale(1, 1.2); /* Stretch vertically */
   transition: clip-path 0.7s, transform 1s, ease-in 1s, ease-out 0.7s; /* Add clip-path transition */
@@ -928,6 +928,43 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   display: none;
 }
 
+/* Mobile: Enable horizontal scrolling */
+@media (max-width: 768px) {
+  .product-slider {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 15px;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .product-card {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Ensure smooth scrolling on touch devices */
+  .product-slider {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Add padding to show partial cards on sides and enable centering */
+  .product-slider::before,
+  .product-slider::after {
+    content: '';
+    flex-shrink: 0;
+    width: calc(50vw - 40vw);
+  }
+}
+
 /* Individual product cards */
 .product-card {
   flex: 0 0 calc(33.333% - 320px);
@@ -1035,6 +1072,31 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   color: #444;
 }
 
+/* Hide navigation buttons on mobile */
+@media (max-width: 768px) {
+  .slider-nav-btn {
+    display: none !important;
+  }
+  
+  /* Hide product description text on mobile for cleaner layout */
+  .product-details .product-description {
+    display: none;
+  }
+  
+  /* Adjust spacing for product details on mobile */
+  .product-details {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px 20px;
+  }
+  
+  .product-details .product-name {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+}
+
 /*
 /* Media queries for responsiveness 
 @media (max-width: 768px) {
@@ -1088,7 +1150,7 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
 
 
 /* Tablet: Show 2 cards, reduce margin */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   .product-card {
     flex: 0 0 calc(50% - 40px);
     margin: 0 20px;
@@ -1098,47 +1160,116 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
     width: 160px;
     height: 280px;
   }
+  
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 /* Mobile: Show 1 card, reduce margin and image size */
 @media (max-width: 600px) {
   .product-card {
-    flex: 0 0 95vw;
-    margin: 0 2vw;
-    max-width: 98vw;
+    flex: 0 0 80vw;
+    margin: 0 5px;
+    max-width: 80vw;
+    min-width: 80vw;
+    transform: scale(0.95) !important; /* Override active scaling for better mobile fit */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  
+  .product-card.active {
+    transform: scale(1) !important; /* Slightly larger for active state on mobile */
+  }
+  
   .product-img {
-    width: 120px;
-    height: 180px;
+    width: 100%;
+    max-width: 140px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
   }
-  .slider-nav-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 1.2rem;
+  
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure full image is visible without cropping */
+    object-position: center;
+    max-width: 140px;
+    max-height: 200px;
   }
-  .prev-btn {
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 10px !important;
-    top: auto !important;
+  
+  /* Adjust carousel padding for better centering */
+  .product-slider::before,
+  .product-slider::after {
+    width: calc(10vw);
   }
-  .next-btn{
-    right: 2px !important;
-    bottom: 10px !important;
-    top: auto !important;
+  
+  /* Navigation buttons are hidden on mobile via the previous rule */
+}
+
+/* Large mobile/small tablet: 601px to 768px */
+@media (max-width: 768px) and (min-width: 601px) {
+  .product-card {
+    flex: 0 0 75vw;
+    margin: 0 8px;
+    max-width: 75vw;
+    min-width: 75vw;
+  }
+  
+  .product-img {
+    width: 100%;
+    max-width: 160px;
+    height: 240px;
+  }
+  
+  .product-img img {
+    max-width: 160px;
+    max-height: 240px;
+  }
+  
+  /* Adjust carousel padding */
+  .product-slider::before,
+  .product-slider::after {
+    width: calc(12.5vw);
   }
 }
 
 /* Extra small screens: further reduce image size */
 @media (max-width: 400px) {
   .product-card {
-    flex: 0 0 98vw;
-    margin: 0 1vw;
-    max-width: 99vw;
+    flex: 0 0 85vw;
+    margin: 0 5px;
+    max-width: 85vw;
+    min-width: 85vw;
   }
+  
   .product-img {
-    width: 90px;
-    height: 120px;
+    width: 100%;
+    max-width: 110px;
+    height: 160px;
+  }
+  
+  .product-img img {
+    max-width: 110px;
+    max-height: 160px;
+  }
+  
+  /* Adjust carousel padding for smaller screens */
+  .product-slider::before,
+  .product-slider::after {
+    width: calc(7.5vw);
+  }
+  
+  /* Ensure product details remain clean on small screens */
+  .product-details .product-name {
+    font-size: 1.1rem;
   }
 }
 
