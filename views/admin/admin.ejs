@@ -371,9 +371,8 @@
                   data-has-transition-image="<%= product.transitionImage ? 'true' : 'false' %>"
                   onclick="toggleTransitionStatus(this)"
                 >
-                  <%= product.inTransitionSlider ? 
-                    (product.gender === 'Male' ? 'Remove from For Him' : 'Remove from For Her') : 
-                    (product.gender === 'Male' ? 'Add To For Him' : 'Add To For Her') %>
+                  <%= product.inTransitionSlider ? 'Remove' : 'Add' %>
+                  <i class="fas <%= product.gender === 'Male' ? 'fa-mars' : 'fa-venus' %>"></i>
                 </button>
                 <% } %>
               </div>
