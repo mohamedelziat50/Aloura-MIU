@@ -321,6 +321,28 @@ document.addEventListener("DOMContentLoaded", function () {
     forHimButton.addEventListener("click", () => handleGenderSelection("him"));
   }
 
+  // Add event listeners for Explore Fragrances buttons
+  const exploreHerButton = document.querySelector(".explore-fragrances-her");
+  const exploreHimButton = document.querySelector(".explore-fragrances-him");
+  
+  if (exploreHerButton) {
+    exploreHerButton.addEventListener("click", () => handleGenderSelection("her"));
+  }
+  if (exploreHimButton) {
+    exploreHimButton.addEventListener("click", () => handleGenderSelection("him"));
+  }
+
+  // Add event listeners for mobile gender labels
+  const mobileHerLabel = document.querySelector(".female .mobile-gender-label");
+  const mobileHimLabel = document.querySelector(".male .mobile-gender-label");
+  
+  if (mobileHerLabel) {
+    mobileHerLabel.addEventListener("click", () => handleGenderSelection("her"));
+  }
+  if (mobileHimLabel) {
+    mobileHimLabel.addEventListener("click", () => handleGenderSelection("him"));
+  }
+
   // Responsive: clicking female/male image triggers gender selection on <=1024px
   if (window.innerWidth <= 1024) {
     const femaleImg = document.querySelector('.female img');

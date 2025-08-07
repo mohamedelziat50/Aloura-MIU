@@ -1418,6 +1418,11 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
 
 
 
+/* Mobile gender labels - hidden by default */
+.mobile-gender-label {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .gender {
     flex-direction: column;
@@ -1456,24 +1461,139 @@ object-fit: contain !important; /* Ensure the image fits within the viewport wit
   .text-overlay button {
     font-size: 2.2rem;
     padding: 10px 20px;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.6);
     border-radius: 8px;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
   }
 
-  .female .text-overlay button {
-    top: 100px;
+  .text-overlay button:hover {
+    background-color: rgba(0,0,0,0.8);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-2px);
   }
 
-  .male .text-overlay button{
-    left: 100px
+  /* Mobile gender labels */
+  .mobile-gender-label {
+    display: block;
+    position: absolute;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    letter-spacing: 2px;
+    z-index: 6;
+    cursor: pointer;
+    text-align: center;
+    background: transparent;
+    padding: 15px 25px;
+    border: none;
+    transition: all 0.3s ease;
   }
 
+  /* Position "For Her" in bottom-right */
+  .female .mobile-gender-label {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    transform: none;
+  }
+
+  /* Position "For Him" in bottom-left */
+  .male .mobile-gender-label {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    transform: none;
+  }
+
+  .mobile-gender-label:hover {
+    transform: scale(1.05);
+    text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+  }
+
+  .female .mobile-gender-label:hover {
+    color: rgba(236, 72, 153, 1);
+    text-shadow: 2px 2px 12px rgba(236, 72, 153, 0.6);
+  }
+
+  .male .mobile-gender-label:hover {
+    color: rgba(99, 102, 241, 1);
+    text-shadow: 2px 2px 12px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* Add a subtle pulse animation for mobile labels */
+@keyframes mobileLabelPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.mobile-gender-label {
+  animation: mobileLabelPulse 3s ease-in-out infinite;
+}
+
+/* Additional mobile responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .mobile-gender-label {
+    font-size: 3rem;
+    padding: 12px 20px;
+    letter-spacing: 1.5px;
+  }
+  
+  .female .mobile-gender-label {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .male .mobile-gender-label {
+    bottom: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-gender-label {
+    font-size: 2.5rem;
+    padding: 10px 18px;
+    letter-spacing: 1px;
+  }
+  
+  .female .mobile-gender-label {
+    bottom: 0.8rem;
+    right: 0.8rem;
+  }
+
+  .male .mobile-gender-label {
+    bottom: 0.8rem;
+    left: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .mobile-gender-label {
+    font-size: 2.2rem;
+    padding: 8px 15px;
+  }
+  
+  .female .mobile-gender-label {
+    bottom: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .male .mobile-gender-label {
+    bottom: 0.6rem;
+    left: 0.6rem;
+  }
+}
+
+@media (max-width: 1024px) {
   .female, .male {
     filter: brightness(1) !important; /* Disable dimming on click */
   }
 }
-
-
 
 
 /* FLUID */
